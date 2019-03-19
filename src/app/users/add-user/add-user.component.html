@@ -1,0 +1,89 @@
+<div class="container">
+  <h3 mat-dialog-title>Agregar Usuario</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input  placeholder="Documento" [(ngModel)]="data.documento" name="documento" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input  placeholder="Usuario" [(ngModel)]="data.usuari" name="usuario" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input  placeholder="Nombre" [(ngModel)]="data.nombre" name="nombre" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input  placeholder="Apellido" [(ngModel)]="data.apellido" name="apellido" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select placeholder="Sexo" [(ngModel)]="data.sexo" name="food" required>
+          <mat-option *ngFor="let food of sexos" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Especialidad" [(ngModel)]="data.especialidad" name="especialidad" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select placeholder="Departamento" [(ngModel)]="data.departamento" name="departamento" required>
+          <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id">
+            {{departamento.nombre}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!--Contains mat-hint for characters count and has maxLengt set-->
+    <!-- <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #inputstate class="form-control" placeholder="State" [(ngModel)]="data.state" name="state" maxlength="10" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+    </div> -->
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Email" [(ngModel)]="data.email" name="email">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Telefono" [(ngModel)]="data.telefono" name="telefono">
+      </mat-form-field>
+    </div>
+
+  </form>
+  <div mat-dialog-actions>
+    <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" class="btn bg-teal waves-effect" (click)="confirmAdd()">Guardar</button>
+    <button mat-button (click)="onNoClick()" class="btn bg-amber waves-effect" tabindex="-1">Cancel</button>
+  </div>
+</div>

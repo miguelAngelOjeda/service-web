@@ -1,0 +1,28 @@
+.ui.image {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+    background-color: transparent;
+}
+.ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg {
+    width: 300px;
+    height: auto;
+    font-size: 1rem;
+}
+.ui.image img, .ui.image svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.centered {
+    position: absolute;
+    top: 50%;
+    margin-top: -100px;
+    width: 90%;
+    left: 50%;
+    margin-left: -45%;
+}
+.items-centered {
+    text-align: center;
+}
