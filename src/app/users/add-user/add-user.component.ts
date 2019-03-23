@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
-import {User} from '../../models';
+import {User} from '../../core/models';
 
 @Component({
   selector: 'app-add-user',

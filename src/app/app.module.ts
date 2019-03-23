@@ -2,9 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { routing }        from './app-routing.module';
 
-//import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -19,13 +18,17 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AlertComponent } from './directives';
 import { AuthGuard } from './guards';
-import { ErrorInterceptor } from './helpers';
 import { UsersComponent } from './users';
-import { AlertService, AuthenticationService, UserService, ApiService, JwtService } from './services';
 import { HomeComponent } from './home';
 import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent } from './shared';
 import { HeaderComponent, SidenavListComponent } from './navigation';
 import { LoginComponent } from './login';
+import { CoreModule } from './core/core.module';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -40,32 +43,27 @@ import { LoginComponent } from './login';
     HomeComponent,
     ShowAuthedDirective
   ],
-  exports: [
-    ShowAuthedDirective
-  ],
+  // exports: [
+  //   ShowAuthedDirective
+  // ],
   imports: [
     BrowserModule,
-    //AppRoutingModule,
+    AppRoutingModule,
+    CoreModule,
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
     LayoutModule,
     MaterialModule,
     BrowserModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    routing
+    ReactiveFormsModule
   ],
   providers: [
-        AuthGuard,
-        AlertService,
-        AuthenticationService,
-        ApiService,
-        JwtService,
-        UserService
+        //AuthGuard
         //{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
         //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }

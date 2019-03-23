@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://172.16.1.51:9191/service-app'
+  api_url: 'http://localhost:8989/beta1',
+  whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };
 
 /*

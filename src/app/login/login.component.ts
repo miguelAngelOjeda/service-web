@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService, AuthenticationService, UserService } from '../services';
-import { Errors } from '../models';
+import { AlertService, UserService } from '../core/services';
+import { Errors } from '../core/models';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -48,7 +48,10 @@ export class LoginComponent implements OnInit {
       this.userService
       .attemptAuth(this.authType, credentials)
       .subscribe(
-        data => this.router.navigateByUrl('/'),
+        data => {
+          console.log(data);
+          this.router.navigateByUrl('service-web/home')
+        },
         err => {
           this.errors = err;
           this.isSubmitting = false;

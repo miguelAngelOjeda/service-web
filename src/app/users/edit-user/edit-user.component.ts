@@ -3,8 +3,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
 import { AppComponent } from '../../app.component';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot , ActivatedRoute} from '@angular/router';
-import { UserService} from '../../services';
-import {User} from '../../models';
+import { UserService} from '../../core/services';
+import {User} from '../../core/models';
 
 @Component({
   selector: 'app-edit-user',
