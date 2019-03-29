@@ -7,14 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatMenuModule} from '@angular/material/menu';
-import { MaterialModule } from './material/material.module';
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AlertComponent } from './directives';
 import { AuthGuard } from './guards';
@@ -24,7 +23,15 @@ import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent } from './sha
 import { HeaderComponent, SidenavListComponent } from './navigation';
 import { LoginComponent } from './login';
 import { CoreModule } from './core/core.module';
+import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
+import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
+import { ListEnterpriseComponent } from './enterprise/list-enterprise/list-enterprise.component';
+import { ActivateEnterpriseComponent } from './enterprise/activate-enterprise/activate-enterprise.component';
+import { AddEnterpriseComponent } from './enterprise/add-enterprise/add-enterprise.component';
+import { DeleteEnterpriseComponent } from './enterprise/delete-enterprise/delete-enterprise.component';
+import { EditEnterpriseComponent } from './enterprise/edit-enterprise/edit-enterprise.component';
+import { ViewEnterpriseComponent } from './enterprise/view-enterprise/view-enterprise.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -41,7 +48,13 @@ export function tokenGetter() {
     ListErrorsComponent,
     SidenavListComponent,
     HomeComponent,
-    ShowAuthedDirective
+    ShowAuthedDirective,
+    ListEnterpriseComponent,
+    ActivateEnterpriseComponent,
+    AddEnterpriseComponent,
+    DeleteEnterpriseComponent,
+    EditEnterpriseComponent,
+    ViewEnterpriseComponent
   ],
   // exports: [
   //   ShowAuthedDirective
@@ -50,11 +63,13 @@ export function tokenGetter() {
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    MaterialModule,
     FlexLayoutModule,
+    BrowserAnimationsModule,
+    EcoFabSpeedDialModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
     LayoutModule,
-    MaterialModule,
     BrowserModule,
     ReactiveFormsModule
   ],

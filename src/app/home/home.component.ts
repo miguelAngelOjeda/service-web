@@ -21,9 +21,7 @@ export class HomeComponent implements OnInit {
     }
 
     deleteUser(id: number) {
-        this.userService.delete(id).pipe(first()).subscribe(() => {
-            this.loadAllUsers()
-        });
+
     }
 
     public onToggleSidenav = () => {
@@ -31,9 +29,7 @@ export class HomeComponent implements OnInit {
     }
 
     private loadAllUsers() {
-      this.userService.get('/tokens_user').pipe(first()).subscribe(users => {
-          this.users = users;
-      });
+      
         // this.userService.getAll().pipe(first()).subscribe(users => {
         //     this.users = users;
         // });

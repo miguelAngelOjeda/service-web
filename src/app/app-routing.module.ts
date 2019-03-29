@@ -4,12 +4,21 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { UsersComponent } from './users';
+import { ListEnterpriseComponent, EditEnterpriseComponent, ViewEnterpriseComponent, AddEnterpriseComponent } from './enterprise';
 import { AuthGuard } from './guards';
 
 const appRoutes: Routes = [
     { path: 'service-web', component: HomeComponent },
     { path: 'service-web/home', component: HomeComponent },
     { path: 'service-web/login', component: LoginComponent},
+    { path: 'service-web/enterprise',
+      children: [
+		  { path: '', component: ListEnterpriseComponent },
+      { path: ':id', component: ViewEnterpriseComponent },
+      { path: 'add', component: AddEnterpriseComponent },
+    	{ path: ':id/edit', component: EditEnterpriseComponent }
+                ]
+    },
     { path: 'users', component: UsersComponent, outlet: 'home-content'},
     // otherwise redirect to home
     { path: '**', redirectTo: 'service-web' }

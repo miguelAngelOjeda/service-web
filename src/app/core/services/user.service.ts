@@ -5,8 +5,8 @@ import { map ,  distinctUntilChanged, catchError } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../models';
 import { Token } from '../models';
-import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -18,19 +18,30 @@ export class UserService {
     public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
     constructor (
-    private apiService: ApiService,
     private router: Router,
     private http: HttpClient,
+    private jwtHelper: JwtHelperService,
     private jwtService: JwtService
     ) {}
+
+    private formatErrors(error: any) {
+      return  throwError(error.error);
+    }
+
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
     populate() {
       // If JWT detected, attempt to get & store user's info
       if (this.jwtService.getToken()) {
+        this.validateTokensSession();
         this.get('/tokens_user')
         .subscribe(
-          data => this.setAuth(data.user, data.token),
+          data =>{
+            if(data.status == 200){
+              this.setAuth(data.model['usuario'], data.model['token'])
+            }
+
+          },
           err => {
             this.purgeAuth();
             this.router.navigateByUrl('service-web/login');
@@ -64,7 +75,7 @@ export class UserService {
     attemptAuth(type, credentials): Observable<User> {
       const route = (type === 'login') ? '/login' : '';
       console.log(credentials);
-      return this.apiService.post(route, credentials)
+      return this.post(route, credentials)
         .pipe(map(
         data => {
           this.setAuth(data.user, data.token);
@@ -74,38 +85,27 @@ export class UserService {
       ));
     }
 
-    private formatErrors(error: any) {
-      return  throwError(error.error);
+    validateTokensSession(){
+      console.log(this.jwtHelper.getTokenExpirationDate());
+      console.log(this.jwtHelper.isTokenExpired());
+      if(this.jwtHelper.isTokenExpired()){
+        //Retornar un mensaje de que su session expiro
+        this.purgeAuth();
+        this.router.navigateByUrl('service-web/login');
+      }
     }
 
     get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-
-      return this.http.get<any>('http://localhost:8989/beta1' + path);
-      // return this.http.get(`${environment.api_url}${path}`, { params })
-      //   .pipe(catchError(this.formatErrors));
+      this.validateTokensSession();
+      return this.http.get(`${environment.api_url}${path}`, { params })
+        .pipe(catchError(this.formatErrors));
     }
 
-    getCurrentUser(): User {
-      return this.currentUserSubject.value;
+    post(path: string, body: Object = {}): Observable<any> {
+      return this.http.post(
+        `${environment.api_url}${path}`,
+        JSON.stringify(body)
+      ).pipe(catchError(this.formatErrors));
     }
 
-    getAll() {
-        return this.http.get<User[]>(`/users`);
-    }
-
-    getById(id: number) {
-        return this.http.get(`/users/` + id);
-    }
-
-    register(user: User) {
-        return this.http.post(`/users/register`, user);
-    }
-
-    update(user: User) {
-        return this.http.put(`/users/` + user.id, user);
-    }
-
-    delete(id: number) {
-        return this.http.delete(`/users/` + id);
-    }
 }

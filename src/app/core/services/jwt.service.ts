@@ -23,9 +23,18 @@ export class JwtService {
     window.localStorage['jwtToken'] = token.access_token;
   }
 
+  setTokenUpdate(token: string) {
+    window.localStorage['jwtToken'] = token;
+  }
+
   destroyToken() {
     window.localStorage.removeItem('jwtToken');
     window.localStorage.removeItem('type_token');
   }
+
+  destroyTokenUpdate() {
+    window.localStorage.removeItem('jwtToken');
+  }
+  
 
 }
