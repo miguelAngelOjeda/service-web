@@ -5,7 +5,7 @@
     <a class="nav-link" mat-mini-fab color="primary" [routerLink]="['/service-web/enterprise/',model.id]">
       <mat-icon>reply</mat-icon>
     </a>
-    Editar Empresa
+    Agregar Empresa
   </mat-card-title>
   <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
 </mat-card-header>
@@ -23,7 +23,7 @@
     	</mat-form-field>
 
     	<mat-form-field   class="col-sm-12" appearance="legacy">
-    		<input matInput #input  placeholder="Ruc" [(ngModel)]="model.ruc" name="ruc" required disabled>
+    		<input matInput #input  placeholder="Ruc" [(ngModel)]="model.ruc" name="ruc" required>
     		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
     	</mat-form-field>
 

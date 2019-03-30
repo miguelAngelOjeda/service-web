@@ -55,7 +55,7 @@ export class ApiService {
     this.userService.validateTokensSession();
     return this.http.post(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      body
     ).pipe(catchError(this.formatErrors));
   }
 

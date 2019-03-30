@@ -53,7 +53,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
                               this.router.navigateByUrl('service-web/login');
                             }, 7000);
                           }else{
-                            this.snackBar.openSnackBar('Su session ha caducado','Close','red-snackbar');
+                            this.snackBar.openSnackBar(err.status + ' ' + err.message,'Close','red-snackbar');
                           }
                     } catch(e) {
                           this.snackBar.openSnackBar('Error no determinado','Close','red-snackbar');

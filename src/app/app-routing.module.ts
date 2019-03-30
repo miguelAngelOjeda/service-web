@@ -14,8 +14,8 @@ const appRoutes: Routes = [
     { path: 'service-web/enterprise',
       children: [
 		  { path: '', component: ListEnterpriseComponent },
-      { path: ':id', component: ViewEnterpriseComponent },
-      { path: 'add', component: AddEnterpriseComponent },
+      { path: 'new', component: AddEnterpriseComponent },
+      { path: ':id', component: ViewEnterpriseComponent },      
     	{ path: ':id/edit', component: EditEnterpriseComponent }
                 ]
     },
