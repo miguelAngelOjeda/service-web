@@ -10,7 +10,6 @@
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <!-- Show this for logged out users -->
       <ul fxLayout fxLayoutGap="15px" class="navigation-items" *appShowAuthed="false">
-
         <li class="nav-item">
           <a class="nav-link"
             routerLink="/service-web/login"
@@ -18,21 +17,12 @@
             Login
           </a>
         </li>
-
-        <!-- <li class="nav-item">
-          <a class="nav-link"
-            routerLink="/register"
-            routerLinkActive="active">
-            Sign up
-          </a>
-        </li> -->
-
       </ul>
       <!-- Show this for logged in users -->
       <ul fxLayout fxLayoutGap="15px" *appShowAuthed="true"
         class="nav navbar-nav pull-xs-right">
 
-        <li class="nav-item">
+        <li class="nav-item" *appCanAccess="['enterprise', 'addOpportunity']">
           <a class="nav-link"
             routerLink="/service-web/home"
             routerLinkActive="active"
@@ -41,7 +31,7 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" *appCanAccess="['enterprise', 'listEnterprise']">
           <a class="nav-link"
             routerLink="/service-web/enterprise"
             routerLinkActive="active">
@@ -49,7 +39,7 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" *appCanAccess="['enterprise', 'addOpportunity']">
           <a class="nav-link"
             routerLink="/service-web/sucursales"
             routerLinkActive="active">
@@ -57,7 +47,7 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" *appCanAccess="['enterprise', 'addOpportunity']">
           <a class="nav-link"
             routerLink="/service-web/usuarios"
             routerLinkActive="active">

@@ -8,7 +8,7 @@
             </h1>
           </div>
           <div class="col-md-3 col-lg-2">
-            <button routerLink="/service-web/enterprise/new" mat-raised-button color="accent">Agregar</button>
+            <button routerLink="/service-web/enterprise/new" mat-raised-button color="accent" *appCanAccess="['enterprise', 'addEnterprise']">Agregar</button>
           </div>
         </div>
   </div>
@@ -56,8 +56,8 @@
                   </eco-fab-speed-dial-trigger>
 
                   <eco-fab-speed-dial-actions>
-                      <button mat-mini-fab (click)="doAction('action2')" routerLink="/service-web/enterprise/{{element.id}}/edit"><mat-icon>edit</mat-icon></button>
-                      <button mat-mini-fab (click)="doAction('action3')" routerLink="/service-web/enterprise/{{element.id}}"><mat-icon>search</mat-icon></button>
+                      <button mat-mini-fab (click)="doAction('action2')" routerLink="/service-web/enterprise/{{element.id}}/edit" *appCanAccess="['enterprise', 'editEnterprise']"><mat-icon>edit</mat-icon></button>
+                      <button mat-mini-fab (click)="doAction('action3')" routerLink="/service-web/enterprise/{{element.id}}" *appCanAccess="['enterprise', 'viewEnterprise']"><mat-icon>search</mat-icon></button>
                   </eco-fab-speed-dial-actions>
               </eco-fab-speed-dial>
           </div>

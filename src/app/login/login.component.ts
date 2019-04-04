@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.router.navigateByUrl('service-web/home')
+          this.router.navigateByUrl('service-web/home')       
         },
         err => {
           this.errors = err;

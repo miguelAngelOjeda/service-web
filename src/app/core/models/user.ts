@@ -1,3 +1,4 @@
+import {Rol} from "../models";
 export class User {
     id: number;
     nombre: string;
@@ -9,4 +10,5 @@ export class User {
     usuario: string;
     email: string;
     activo: string;
+    authorities: Rol[];
 }

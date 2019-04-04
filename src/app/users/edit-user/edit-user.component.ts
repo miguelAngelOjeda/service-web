@@ -31,8 +31,6 @@ export class EditUserComponent implements OnInit {
   ngOnInit() {
     let id = this.route.snapshot.params['id'];
     console.log(id);
-    this.user = {id: 1, nombre: 'Miguel Angel', usuario: 'mojeda', email: 'lanymicole@gmail.com', apellido: 'Ojeda', sexo: 'Masculino',
-    especialidad: null, telefono: '0961338960', documento: '49928387', activo:'S'};
   }
 
   formControl = new FormControl('', [

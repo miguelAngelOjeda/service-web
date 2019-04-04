@@ -7,7 +7,6 @@ import { JwtModule, JwtInterceptor, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
 import {
   ApiService,
-  AuthGuard,
   JwtService,
   UserService
 } from './services';
@@ -33,7 +32,6 @@ export function tokenGetter() {
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     ApiService,
     MatSnackBarComponent,
-    AuthGuard,
     JwtService,
     UserService
   ],

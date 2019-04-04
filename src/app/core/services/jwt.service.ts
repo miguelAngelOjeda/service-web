@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Token } from '../models';
+import { Token, User } from '../models';
 
 
 @Injectable()
@@ -23,6 +23,14 @@ export class JwtService {
     window.localStorage['jwtToken'] = token.access_token;
   }
 
+  setUser(user: User) {
+    window.localStorage['user'] = JSON.stringify(user);
+  }
+
+  getUser(): User {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
   setTokenUpdate(token: string) {
     window.localStorage['jwtToken'] = token;
   }
@@ -35,6 +43,6 @@ export class JwtService {
   destroyTokenUpdate() {
     window.localStorage.removeItem('jwtToken');
   }
-  
+
 
 }

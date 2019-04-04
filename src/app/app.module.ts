@@ -16,10 +16,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AlertComponent } from './directives';
-import { AuthGuard } from './guards';
 import { UsersComponent } from './users';
 import { HomeComponent } from './home';
-import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent } from './shared';
+import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent} from './shared';
+import { CanAccessDirective } from './shared/can-access.directive';
 import { HeaderComponent, SidenavListComponent } from './navigation';
 import { LoginComponent } from './login';
 import { CoreModule } from './core/core.module';
@@ -48,6 +48,7 @@ export function tokenGetter() {
     ListErrorsComponent,
     SidenavListComponent,
     HomeComponent,
+    CanAccessDirective,
     ShowAuthedDirective,
     ListEnterpriseComponent,
     ActivateEnterpriseComponent,

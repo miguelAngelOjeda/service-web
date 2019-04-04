@@ -6,6 +6,7 @@ import { MatTabsModule, MatMenuModule , MatDialogModule, MatButtonModule, MatSid
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatAutocompleteModule,
     FormsModule,
     MatToolbarModule,
+    MatGridListModule,
     MatDatepickerModule,
     ReactiveFormsModule,
     MatButtonToggleModule,
@@ -46,6 +48,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
+    MatGridListModule,
     MatCardModule,
     MatButtonToggleModule,
     MatAutocompleteModule,
