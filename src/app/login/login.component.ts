@@ -44,13 +44,11 @@ export class LoginComponent implements OnInit {
       this.errors = {errors: {}};
 
       const credentials = this.authForm.value;
-      console.log(credentials);
       this.userService
       .attemptAuth(this.authType, credentials)
       .subscribe(
         data => {
-          console.log(data);
-          this.router.navigateByUrl('service-web/home')       
+          this.router.navigateByUrl('service-web/home')
         },
         err => {
           this.errors = err;

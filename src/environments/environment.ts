@@ -51,6 +51,11 @@ export const authorities = {
     	"listUser": {
     	  "permittedRoles": ["ROLE_USER.LIST"]
     	}
+    },
+    "message": {
+      "sendMessage": {
+    	   "permittedRoles": ["ROLE_MESSAGE.SEND"]
+    	 }
     }
   }
 };

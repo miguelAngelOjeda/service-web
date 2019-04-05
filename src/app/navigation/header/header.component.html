@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <div fxHide.gt-xs >
-      <button mat-icon-button (click)="onToggleSidenav()" *ngIf="appShowAuthed == true">
+      <button mat-icon-button (click)="onToggleSidenav()" *appShowAuthed="true">
           <mat-icon>menu</mat-icon>
       </button>
   </div>
@@ -33,45 +33,48 @@
 
         <li class="nav-item" *appCanAccess="['enterprise', 'listEnterprise']">
           <a class="nav-link"
-            routerLink="/service-web/enterprise"
-            routerLinkActive="active">
+            routerLink="/service-web/enterprise">
             <i class="ion-home"></i>&nbsp;Empresas
           </a>
         </li>
 
-        <li class="nav-item" *appCanAccess="['enterprise', 'addOpportunity']">
+        <li class="nav-item" *appCanAccess="['message', 'sendMessage']">
           <a class="nav-link"
-            routerLink="/service-web/sucursales"
+            routerLink="/service-web/enterprise"
             routerLinkActive="active">
+            <i class="ion-home"></i>&nbsp;Mensajes
+          </a>
+        </li>
+
+        <li class="nav-item" *appCanAccess="['subsidiary', 'listSubsidiary']">
+          <a class="nav-link"
+            routerLink="/service-web/subsidiary">
             Sucursales
           </a>
         </li>
 
         <li class="nav-item" *appCanAccess="['enterprise', 'addOpportunity']">
           <a class="nav-link"
-            routerLink="/service-web/usuarios"
-            routerLinkActive="active">
+            routerLink="/service-web/usuarios">
             Usuarios
           </a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link"
-            routerLink="/editor"
-            routerLinkActive="active">
+            routerLink="/editor">
             <i class="ion-compose"></i>&nbsp;New Article
           </a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link"
-            routerLink="/settings"
-            routerLinkActive="active">
+            routerLink="/settings">
             <i class="ion-gear-a"></i>&nbsp;Settings
           </a>
         </li>
 
-        <!-- <li class="nav-item">
+      <!-- <li class="nav-item">
           <a class="nav-link"
             [routerLink]="['/profile', currentUser.username]"
             routerLinkActive="active">

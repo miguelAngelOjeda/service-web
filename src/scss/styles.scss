@@ -1,0 +1,24 @@
+@import './variables';
+@import './mixins';
+@import './tables';
+@import './pagination';
+@import './buttons';
+@import './card';
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* for sidenav to take whole page */
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+.blue-snackbar {
+    background: #2196F3;
+}
+.green-snackbar {
+    background: #1DE9B6;
+}
+.red-snackbar {
+    background: #B00020;
+}

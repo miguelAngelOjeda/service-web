@@ -140,7 +140,13 @@ export class UserService implements CanActivate {
               }
           })
           .do(authorities => {
-            const rol = authorities.map(role => role.authority);
+            const rol = authorities.map(role => {
+              if( typeof role.authority === 'undefined' ){
+                return role.role;
+              }else{
+                return role.authority;
+              }
+            });
             this.userRoles = new Set(rol);
           })
           .map(roles => this.doCheckAuthorization(path));

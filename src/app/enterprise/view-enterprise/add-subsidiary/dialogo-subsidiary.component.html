@@ -1,0 +1,16 @@
+<div class="container">
+  <h3 mat-dialog-title>Agregar Rol</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input  placeholder="Nombre" [(ngModel)]="data.nombre" name="nombre" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div mat-dialog-actions>
+    <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" class="btn bg-teal waves-effect" (click)="confirmAdd()">Guardar</button>
+    <button mat-button (click)="onNoClick()" class="btn bg-amber waves-effect" tabindex="-1">Cancel</button>
+  </div>
+</div>

@@ -5,6 +5,8 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { UsersComponent } from './users';
 import { ListEnterpriseComponent, EditEnterpriseComponent, ViewEnterpriseComponent, AddEnterpriseComponent } from './enterprise';
+import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
+ViewSubsidiaryComponent } from './subsidiary';
 
 const appRoutes: Routes = [
     { path: 'service-web', component: HomeComponent },
@@ -27,6 +29,27 @@ const appRoutes: Routes = [
     	{ path: ':id/edit', component: EditEnterpriseComponent,
         data: {
           allowedRoles: ['enterprise', 'editEnterprise']
+        }
+      }
+                ]
+    },
+    { path: 'service-web/subsidiary',
+      children: [
+		  { path: '', component: ListSubsidiaryComponent,
+        canActivate: [UserService],
+        data: {roles: ['subsidiary', 'listSubsidiary']}
+      },
+      { path: 'new', component: AddSubsidiaryComponent,
+        canActivate: [UserService],
+        data: {roles: ['subsidiary', 'addSubsidiary']}
+      },
+      { path: ':id', component: ViewSubsidiaryComponent,
+        canActivate: [UserService],
+        data: {roles: ['subsidiary', 'viewSubsidiary']}
+      },
+    	{ path: ':id/edit', component: EditSubsidiaryComponent,
+        data: {
+          allowedRoles: ['subsidiary', 'editSubsidiary']
         }
       }
                 ]

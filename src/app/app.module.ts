@@ -26,12 +26,11 @@ import { CoreModule } from './core/core.module';
 import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
-import { ListEnterpriseComponent } from './enterprise/list-enterprise/list-enterprise.component';
-import { ActivateEnterpriseComponent } from './enterprise/activate-enterprise/activate-enterprise.component';
-import { AddEnterpriseComponent } from './enterprise/add-enterprise/add-enterprise.component';
-import { DeleteEnterpriseComponent } from './enterprise/delete-enterprise/delete-enterprise.component';
-import { EditEnterpriseComponent } from './enterprise/edit-enterprise/edit-enterprise.component';
-import { ViewEnterpriseComponent } from './enterprise/view-enterprise/view-enterprise.component';
+import { ListEnterpriseComponent, ActivateEnterpriseComponent, AddEnterpriseComponent, DeleteEnterpriseComponent,
+EditEnterpriseComponent, ViewEnterpriseComponent  } from './enterprise';
+import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
+ViewSubsidiaryComponent } from './subsidiary';
+
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -55,7 +54,13 @@ export function tokenGetter() {
     AddEnterpriseComponent,
     DeleteEnterpriseComponent,
     EditEnterpriseComponent,
-    ViewEnterpriseComponent
+    ViewEnterpriseComponent,
+    ActivateSubsidiaryComponent,
+    AddSubsidiaryComponent,
+    DeleteSubsidiaryComponent,
+    EditSubsidiaryComponent,
+    ListSubsidiaryComponent,
+    ViewSubsidiaryComponent
   ],
   // exports: [
   //   ShowAuthedDirective
