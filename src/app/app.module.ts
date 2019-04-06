@@ -28,6 +28,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ListEnterpriseComponent, ActivateEnterpriseComponent, AddEnterpriseComponent, DeleteEnterpriseComponent,
 EditEnterpriseComponent, ViewEnterpriseComponent  } from './enterprise';
+import { AddDialogoSubsidiaryComponent, ViewDialogoSubsidiaryComponent, EditDialogoSubsidiaryComponent } from './enterprise';
 import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
 ViewSubsidiaryComponent } from './subsidiary';
 
@@ -46,6 +47,9 @@ export function tokenGetter() {
     HeaderComponent,
     ListErrorsComponent,
     SidenavListComponent,
+    AddDialogoSubsidiaryComponent,
+    EditDialogoSubsidiaryComponent,
+    ViewDialogoSubsidiaryComponent,
     HomeComponent,
     CanAccessDirective,
     ShowAuthedDirective,
@@ -62,9 +66,16 @@ export function tokenGetter() {
     ListSubsidiaryComponent,
     ViewSubsidiaryComponent
   ],
-  // exports: [
-  //   ShowAuthedDirective
-  // ],
+  exports: [
+    AddDialogoSubsidiaryComponent,
+    EditDialogoSubsidiaryComponent,
+    ViewDialogoSubsidiaryComponent
+  ],
+  entryComponents: [
+    AddDialogoSubsidiaryComponent,
+    EditDialogoSubsidiaryComponent,
+    ViewDialogoSubsidiaryComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Enterprise, Subsidiary } from '../../core/models';
 import { ApiService } from '../../core/services';
 import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
+import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
+import { EditDialogoSubsidiaryComponent } from './edit-subsidiary';
+import { ViewDialogoSubsidiaryComponent } from './view-subsidiary';
 import { FormControl, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -34,6 +37,7 @@ export class ViewEnterpriseComponent implements OnInit {
   public animationMode = 'fling';
 
   data: Enterprise;
+  subsidiary: Subsidiary;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -43,13 +47,16 @@ export class ViewEnterpriseComponent implements OnInit {
     public dialog: MatDialog,
     private apiService: ApiService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.subsidiary = new Subsidiary();
+    this.apiService.get('/empresas/' + this.route.snapshot.params.id)
+    .subscribe(res => {
+       this.data = res.model as Enterprise;
+    });
+  }
 
   ngOnInit() {
-      this.apiService.get('/empresas/' + this.route.snapshot.params.id)
-      .subscribe(res => {
-         this.data = res.model as Enterprise;
-      });
+
       this.getListFk(null, this.route.snapshot.params.id);
   }
 
@@ -64,6 +71,32 @@ export class ViewEnterpriseComponent implements OnInit {
       this.length = res.records;
       this.dataSource.data = res.rows as Subsidiary[];
     })
+  }
+
+  addSubsidiary() {
+      const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent, {
+          data: this.subsidiary
+        });
+  }
+
+  editSubsidiary(id: number) {
+    this.apiService.get('/sucursales/' + id)
+    .subscribe(res => {
+       this.subsidiary = res.model as Subsidiary;
+       const dialogRef = this.dialog.open(EditDialogoSubsidiaryComponent, {
+           data: this.subsidiary
+         });
+    });
+  }
+
+  viewSubsidiary(id: number) {
+    this.apiService.get('/sucursales/' + id)
+    .subscribe(res => {
+       this.subsidiary = res.model as Subsidiary;
+       const dialogRef = this.dialog.open(ViewDialogoSubsidiaryComponent, {
+           data: this.subsidiary
+         });
+    });
   }
 
   getErrorMessage() {

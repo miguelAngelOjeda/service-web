@@ -29,7 +29,9 @@ export class ListEnterpriseComponent implements OnInit {
   public direction = 'right';
   public animationMode = 'fling';
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {
+
+   }
 
   ngOnInit() {
     this.getList(null);
