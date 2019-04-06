@@ -1,6 +1,7 @@
 <mat-card class="card">
 	<mat-tab-group>
 	  <mat-tab label="Empresa">
+			<br/>
 			<mat-card-header>
 				<mat-card-title>
 					<a class="nav-link" mat-mini-fab color="primary" routerLink="/service-web/enterprise">
@@ -66,8 +67,9 @@
 
 		 </mat-tab>
 	  <mat-tab label="Sucursales">
-			<mat-card class="card">
-					<mat-card-content>
+			<!-- <mat-card class="card">
+					<mat-card-content> -->
+					<br/>
 						<div class="row">
               <div class="col-md-9 col-lg-10">
                 <div class="form">
@@ -132,10 +134,10 @@
 						<mat-paginator [length]="length"
 													[pageSize]="pageSize"
 													[pageSizeOptions]="pageSizeOptions"
-													(page)="getList($event)">
+													(page)="getListFk($event,element.id)">
 						</mat-paginator>
-					</mat-card-content>
-			</mat-card>
+					<!-- </mat-card-content>
+			</mat-card> -->
 		</mat-tab>
 	</mat-tab-group>
 </mat-card>

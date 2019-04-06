@@ -3,10 +3,10 @@
 	<mat-card-content>
 	  <form  class="mat-dialog-content" (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
 	    <div class="form-container">
-         <mat-form-field   class="col-sm-12" appearance="legacy">
+         <!-- <mat-form-field   class="col-sm-12" appearance="legacy">
        		<input matInput #input  placeholder="Codigo" [(ngModel)]="model.codigoSucursal" name="codigoSucursal" required>
        		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-       	</mat-form-field>
+       	</mat-form-field> -->
         <mat-form-field   class="col-sm-12" appearance="legacy">
       		<input matInput #input  placeholder="Nombre" [(ngModel)]="model.nombre" name="nombre" required>
       		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>

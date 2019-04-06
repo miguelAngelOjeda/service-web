@@ -18,7 +18,6 @@ export class CanAccessDirective  implements OnInit, OnDestroy{
     }
 
     private applyPermission(): void {
-      console.log(this.appCanAccess);
       this.permission$ = this.userService
                           .checkAuthorization(this.appCanAccess)
         .subscribe(authorized => {

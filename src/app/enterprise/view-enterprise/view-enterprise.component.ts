@@ -56,10 +56,19 @@ export class ViewEnterpriseComponent implements OnInit {
   }
 
   ngOnInit() {
-
       this.getListFk(null, this.route.snapshot.params.id);
   }
 
+
+  public sortData(sort: Sort) {
+    let index = this.pageEvent == null ? 1 :  this.pageEvent.pageIndex + 1;
+    let rows = this.pageEvent == null ? 10 :  this.pageEvent.pageSize;
+    this.apiService.getPageList('/empresas/sucursales',false, sort.direction, sort.active, index, rows, false, this.route.snapshot.params.id)
+    .subscribe(res => {
+      this.length = res.records;
+      this.dataSource.data = res.rows as Subsidiary[];
+    })
+  }
 
   public getListFk(event?:PageEvent, idEmpresa?:string){
     let index = event == null ? 1 :  event.pageIndex + 1;
@@ -74,18 +83,32 @@ export class ViewEnterpriseComponent implements OnInit {
   }
 
   addSubsidiary() {
+      this.subsidiary = new Subsidiary();
+      this.subsidiary.empresa = new Enterprise();
+      this.subsidiary.empresa.id = this.route.snapshot.params.id;
+
       const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent, {
           data: this.subsidiary
         });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.getListFk(null, this.route.snapshot.params.id);
+      });
   }
 
   editSubsidiary(id: number) {
     this.apiService.get('/sucursales/' + id)
     .subscribe(res => {
        this.subsidiary = res.model as Subsidiary;
+
        const dialogRef = this.dialog.open(EditDialogoSubsidiaryComponent, {
            data: this.subsidiary
          });
+
+       dialogRef.afterClosed().subscribe(result => {
+           this.getListFk(null, this.route.snapshot.params.id);
+       });
+
     });
   }
 
