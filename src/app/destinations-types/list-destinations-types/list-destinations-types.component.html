@@ -2,10 +2,10 @@
 <div class="header">
   <div class="row">
     <div class="col-md-9 col-lg-10">
-      <h2>Tipos Referencias</h2>
+      <h2>Tipos Destinos</h2>
     </div>
     <div class="col-md-3 col-lg-2">
-      <button routerLink="/service-web/calculation-types/new" mat-raised-button color="accent" *appCanAccess="['reference-types', 'addReferenceTypes']">Agregar</button>
+      <button routerLink="/service-web/destinations-types/new" mat-raised-button color="accent" *appCanAccess="['destinations-types', 'addDestinationsTypes']">Agregar</button>
     </div>
   </div>
 </div>
@@ -30,11 +30,11 @@
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let element">
           <mat-menu #appMenu="matMenu">
-              <a mat-menu-item  class="nav-link" routerLink="/service-web/calculation-types/{{element.id}}/edit" *appCanAccess="['reference-types', 'editReferenceTypes']">Editar</a>
+              <a mat-menu-item  class="nav-link" routerLink="/service-web/destinations-types/{{element.id}}/edit" *appCanAccess="['destinations-types', 'editDestinationsTypes']">Editar</a>
               <a mat-menu-item class="nav-link" href="/product-types/{{element.id}}">Remover</a>
             </mat-menu>
             <mat-button-toggle-group class="btn-group-vertical">
-              <mat-button-toggle class="btn-default" routerLink="/service-web/calculation-types/{{element.id}}" *appCanAccess="['reference-types', 'viewReferenceTypes']">
+              <mat-button-toggle class="btn-default" routerLink="/service-web/destinations-types/{{element.id}}" *appCanAccess="['destinations-types', 'viewDestinationsTypes']">
                  Mostrar
               </mat-button-toggle>
 

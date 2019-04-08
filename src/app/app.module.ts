@@ -15,8 +15,6 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { AlertComponent } from './directives';
-import { UsersComponent } from './users';
 import { HomeComponent } from './home';
 import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent, SharedModule} from './shared';
 import { CanAccessDirective } from './shared/can-access.directive';
@@ -43,9 +41,7 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     LoginComponent,
-    UsersComponent,
     LayoutComponent,
-    AlertComponent,
     HeaderComponent,
     ListErrorsComponent,
     SidenavListComponent,

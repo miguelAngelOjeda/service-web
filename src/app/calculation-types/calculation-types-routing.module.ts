@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: '',
     children: [
     { path: '', component: ListCalculationTypesComponent,
-      canActivate: [UserService],
-      data: {roles: ['calculation-types', 'listCalculationTypes']}
+       canActivate: [UserService],
+       data: {roles: ['calculation-types', 'listCalculationTypes']}
     },
     { path: 'new', component: AddCalculationTypesComponent,
       canActivate: [UserService],

@@ -46,7 +46,7 @@ export class ListDestinationsTypesComponent implements OnInit {
   public sortData(sort: Sort) {
     let index = this.pageEvent == null ? 1 :  this.pageEvent.pageIndex + 1;
     let rows = this.pageEvent == null ? 10 :  this.pageEvent.pageSize;
-    this.apiService.getPageList('/tipos-calculos',false,sort.direction,sort.active,index,rows)
+    this.apiService.getPageList('/tipos-destinos',false,sort.direction,sort.active,index,rows)
     .subscribe(res => {
       this.length = res.records;
       this.dataSource.data = res.rows as DestinationsTypes[];

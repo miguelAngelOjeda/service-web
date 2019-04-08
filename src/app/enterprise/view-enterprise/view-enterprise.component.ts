@@ -30,12 +30,6 @@ export class ViewEnterpriseComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  private _fixed = false;
-  public open = false;
-  public spin = false;
-  public direction = 'right';
-  public animationMode = 'fling';
-
   data: Enterprise;
   subsidiary: Subsidiary;
   formControl = new FormControl('', [
@@ -48,6 +42,7 @@ export class ViewEnterpriseComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {
+    this.data = new Enterprise();
     this.subsidiary = new Subsidiary();
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
@@ -63,7 +58,7 @@ export class ViewEnterpriseComponent implements OnInit {
   public sortData(sort: Sort) {
     let index = this.pageEvent == null ? 1 :  this.pageEvent.pageIndex + 1;
     let rows = this.pageEvent == null ? 10 :  this.pageEvent.pageSize;
-    this.apiService.getPageList('/empresas/sucursales',false, sort.direction, sort.active, index, rows, false, this.route.snapshot.params.id)
+    this.apiService.getPageList('/sucursales/'+this.route.snapshot.params.id+'/empresa',false, sort.direction, sort.active, index, rows, false)
     .subscribe(res => {
       this.length = res.records;
       this.dataSource.data = res.rows as Subsidiary[];
@@ -73,9 +68,9 @@ export class ViewEnterpriseComponent implements OnInit {
   public getListFk(event?:PageEvent, idEmpresa?:string){
     let index = event == null ? 1 :  event.pageIndex + 1;
     let rows = event == null ? 10 :  event.pageSize;
-    let sidx = this.sort.direction == null ? 'desc' :  this.sort.direction;
-    let sort = this.sort.active == null ? 'id' :  this.sort.active;
-    this.apiService.getPageList('/empresas/sucursales',false, sidx, sort, index, rows, false, idEmpresa)
+    // let sidx = this.sort.direction == null ? 'desc' :  this.sort.direction;
+    // let sort = this.sort.active == null ? 'id' :  this.sort.active;
+    this.apiService.getPageList('/sucursales/'+this.route.snapshot.params.id+'/empresa',false, 'desc', 'id', index, rows, false)
     .subscribe(res => {
       this.length = res.records;
       this.dataSource.data = res.rows as Subsidiary[];

@@ -1,6 +1,6 @@
 export class DestinationsTypes {
     id: number;
-    codigo: string;
+    codigo: string = ' ';
     nombre: string;
     descripcion: string;
 }

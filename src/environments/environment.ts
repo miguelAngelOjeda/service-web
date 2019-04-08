@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:8989/beta1',
+  api_url: 'http://localhost:8585/beta1',
   whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };
 
@@ -66,17 +66,17 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_REFERENCETYPES.LIST"]
     	}
     },
-    "calculations-types": {
-      "addCalculationsTypes": {
+    "calculation-types": {
+      "addCalculationTypes": {
     	   "permittedRoles": ["ROLE_CALCULATIONSTYPES.ADD"]
     	 },
-    	"editCalculationsTypes": {
+    	"editCalculationTypes": {
     	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.EDIT"]
     	},
-    	"viewCalculationsTypes": {
+    	"viewCalculationTypes": {
     	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.VIEW"]
     	},
-    	"listCalculationsTypes": {
+    	"listCalculationTypes": {
     	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.LIST"]
     	}
     },

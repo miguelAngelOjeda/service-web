@@ -3,7 +3,6 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { UserService } from './core/services';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
-import { UsersComponent } from './users';
 import { ListEnterpriseComponent, EditEnterpriseComponent, ViewEnterpriseComponent, AddEnterpriseComponent } from './enterprise';
 import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
 ViewSubsidiaryComponent } from './subsidiary';
@@ -62,7 +61,15 @@ const appRoutes: Routes = [
     path: 'service-web/reference-types',
     loadChildren: './reference-types/reference-types.module#ReferenceTypesModule'
     },
-    { path: 'users', component: UsersComponent, outlet: 'home-content'},
+    {
+    path: 'service-web/destinations-types',
+    loadChildren: './destinations-types/destinations-types.module#DestinationsTypesModule'
+    },
+    {
+    path: 'service-web/calculation-types',
+    loadChildren: './calculation-types/calculation-types.module#CalculationTypesModule'
+    },
+    //{ path: 'users', component: UsersComponent, outlet: 'home-content'},
     // otherwise redirect to home
     { path: '**', redirectTo: 'service-web' }
 ];

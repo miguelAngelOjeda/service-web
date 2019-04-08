@@ -4,7 +4,7 @@
 	  <form  class="mat-dialog-content" (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
 	    <div class="form-container">
          <mat-form-field   class="col-sm-12" appearance="legacy">
-       		<input matInput #input  placeholder="Codigo" [(ngModel)]="model.codigoSucursal" name="codigoSucursal" required>
+       		<input matInput #input  placeholder="Codigo" [(ngModel)]="model.codigoSucursal" name="codigoSucursal" required disabled>
        		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
        	</mat-form-field>
         <mat-form-field   class="col-sm-12" appearance="legacy">
