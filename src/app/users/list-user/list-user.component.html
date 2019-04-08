@@ -1,0 +1,82 @@
+<mat-card class="card">
+<div class="header">
+  <div class="row">
+    <div class="col-md-9 col-lg-10">
+      <h2>Usuarios</h2>
+    </div>
+    <div class="col-md-3 col-lg-2">
+      <button routerLink="/service-web/subsidiary/new" mat-raised-button color="accent" *appCanAccess="['subsidiary', 'addSubsidiary']">Agregar</button>
+    </div>
+  </div>
+</div>
+<mat-card-content>
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Buscar">
+    </mat-form-field>
+  </div>
+  <table mat-table #table [dataSource]="dataSource" class="scroll table table-bordered table-striped table-hover js-basic-example dataTable" matSort>
+      <ng-container matColumnDef="documento">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </th>
+        <td mat-cell *matCellDef="let element"> {{element.documento}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="alias">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> USUARIO </th>
+        <td mat-cell *matCellDef="let element"> {{element.alias}} </td>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="primerNombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> PRIMER NOMBRE </th>
+        <td mat-cell *matCellDef="let element"> {{element.persona.primerNombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="segundoNombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> SEGUNDO NOMBRE </th>
+        <td mat-cell *matCellDef="let element"> {{element.persona.segundoNombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="primerApellido">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>PRIMER APELLIDO </th>
+        <td mat-cell *matCellDef="let element"> {{element.persona.primerApellido}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> EMAIL </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef> TELEFONO </th>
+        <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="opciones">
+          <th mat-header-cell *matHeaderCellDef>  </th>
+          <td mat-cell *matCellDef="let element">
+          <mat-menu #appMenu="matMenu">
+              <a mat-menu-item  class="nav-link" routerLink="/service-web/subsidiary/{{element.id}}/edit" *appCanAccess="['subsidiary', 'editSubsidiary']">Editar</a>
+              <a mat-menu-item class="nav-link" href="/product-types/{{element.id}}">Remover</a>
+            </mat-menu>
+            <mat-button-toggle-group class="btn-group-vertical">
+              <mat-button-toggle class="btn-default" routerLink="/service-web/subsidiary/{{element.id}}" *appCanAccess="['subsidiary', 'viewSubsidiary']">
+                 Mostrar
+              </mat-button-toggle>
+
+              <mat-button-toggle [matMenuTriggerFor]="appMenu">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="getList($event)">
+  </mat-paginator>
+</mat-card-content>
+</mat-card>

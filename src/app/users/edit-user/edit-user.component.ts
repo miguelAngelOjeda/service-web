@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
-import { AppComponent } from '../../app.component';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot , ActivatedRoute} from '@angular/router';
 import { UserService} from '../../core/services';
 import {User} from '../../core/models';
@@ -13,7 +12,6 @@ import {User} from '../../core/models';
 })
 export class EditUserComponent implements OnInit {
   user: User;
-
   sexos = [
     {value: 'MASCULINO', viewValue: 'Masculino'},
     {value: 'FEMENINO', viewValue: 'Femenino'}
@@ -24,7 +22,7 @@ export class EditUserComponent implements OnInit {
     {id: 2, nombre: 'ARCHIVO'}
   ];
 
-  constructor(private appComponent: AppComponent,
+  constructor(
     private userService: UserService, router: Router, private route: ActivatedRoute) {
   }
 
