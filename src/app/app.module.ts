@@ -18,7 +18,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { AlertComponent } from './directives';
 import { UsersComponent } from './users';
 import { HomeComponent } from './home';
-import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent} from './shared';
+import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent, SharedModule} from './shared';
 import { CanAccessDirective } from './shared/can-access.directive';
 import { HeaderComponent, SidenavListComponent } from './navigation';
 import { LoginComponent } from './login';
@@ -29,8 +29,10 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ListEnterpriseComponent, ActivateEnterpriseComponent, AddEnterpriseComponent, DeleteEnterpriseComponent,
 EditEnterpriseComponent, ViewEnterpriseComponent  } from './enterprise';
 import { AddDialogoSubsidiaryComponent, ViewDialogoSubsidiaryComponent, EditDialogoSubsidiaryComponent } from './enterprise';
-import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
-ViewSubsidiaryComponent } from './subsidiary';
+// import { AddReferenceTypesComponent, EditReferenceTypesComponent, ViewReferenceTypesComponent,
+// ListReferenceTypesComponent } from './reference-types/add-reference-types/add-reference-types.component';
+// import { ListLinkTypesComponent, AddLinkTypesComponent, EditLinkTypesComponent,
+// ViewLinkTypesComponent } from './link-types/list-link-types/list-link-types.component';
 
 
 export function tokenGetter() {
@@ -51,20 +53,10 @@ export function tokenGetter() {
     EditDialogoSubsidiaryComponent,
     ViewDialogoSubsidiaryComponent,
     HomeComponent,
-    CanAccessDirective,
-    ShowAuthedDirective,
-    ListEnterpriseComponent,
-    ActivateEnterpriseComponent,
-    AddEnterpriseComponent,
-    DeleteEnterpriseComponent,
-    EditEnterpriseComponent,
-    ViewEnterpriseComponent,
-    ActivateSubsidiaryComponent,
-    AddSubsidiaryComponent,
-    DeleteSubsidiaryComponent,
-    EditSubsidiaryComponent,
-    ListSubsidiaryComponent,
-    ViewSubsidiaryComponent
+    ListEnterpriseComponent,ActivateEnterpriseComponent,AddEnterpriseComponent,DeleteEnterpriseComponent,
+    EditEnterpriseComponent,ViewEnterpriseComponent,
+    // AddReferenceTypesComponent,EditReferenceTypesComponent,ViewReferenceTypesComponent,ListReferenceTypesComponent,
+    // ListLinkTypesComponent,AddLinkTypesComponent,EditLinkTypesComponent,ViewLinkTypesComponent
   ],
   exports: [
     AddDialogoSubsidiaryComponent,
@@ -80,6 +72,7 @@ export function tokenGetter() {
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    SharedModule,
     MaterialModule,
     FlexLayoutModule,
     BrowserAnimationsModule,

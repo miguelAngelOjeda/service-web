@@ -1,7 +1,7 @@
 import {Enterprise} from "../models";
 export class Subsidiary {
     id: number;
-    codigoSucursal: string;
+    codigoSucursal: string = ' ';
     nombre: string;
     descripcion: string;
     direccion: string;

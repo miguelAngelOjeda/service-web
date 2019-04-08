@@ -24,12 +24,6 @@ export class ListSubsidiaryComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  private _fixed = false;
-  public open = false;
-  public spin = false;
-  public direction = 'right';
-  public animationMode = 'fling';
-
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
@@ -47,16 +41,17 @@ export class ListSubsidiaryComponent implements OnInit {
       this.length = res.records;
       this.dataSource.data = res.rows as Subsidiary[];
     })
-  }  
-
-  public stopPropagation(event: Event): void {
-      // Prevent the click to propagate to document and trigger
-      // the FAB to be closed automatically right before we toggle it ourselves
-      event.stopPropagation();
   }
 
-  public doAction(event: any) {
-      console.log(event);
+  public sortData(sort: Sort) {
+    let index = this.pageEvent == null ? 1 :  this.pageEvent.pageIndex + 1;
+    let rows = this.pageEvent == null ? 10 :  this.pageEvent.pageSize;
+    this.apiService.getPageList('/sucursales',false,sort.direction,sort.active,index,rows)
+    .subscribe(res => {
+      this.length = res.records;
+      this.dataSource.data = res.rows as Subsidiary[];
+    })
   }
+
 
 }

@@ -4,3 +4,7 @@ export * from './errors';
 export * from './enterprise';
 export * from './rol';
 export * from './subsidiary';
+export * from './referenceTypes';
+export * from './calculationTypes';
+export * from './outlayTypes';
+export * from './destinationsTypes';

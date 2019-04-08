@@ -69,10 +69,29 @@
 
         <li class="nav-item">
           <a class="nav-link"
-            routerLink="/settings">
+             [matMenuTriggerFor]="menu">
             <i class="ion-gear-a"></i>&nbsp;Settings
           </a>
+          <mat-menu #menu="matMenu">
+           <button mat-menu-item routerLink="/service-web/reference-types">
+             <mat-icon>dialpad</mat-icon>
+             <span>Tipos Referencias</span>
+           </button>
+           <button mat-menu-item routerLink="/service-web/calculations-types">
+             <mat-icon>dialpad</mat-icon>
+             <span>Tipos Calculos</span>
+           </button>
+           <button mat-menu-item routerLink="/service-web/destinations-types">
+             <mat-icon>dialpad</mat-icon>
+             <span>Tipos Destinos</span>
+           </button>
+           <button mat-menu-item routerLink="/service-web/usuarios">
+             <mat-icon>notifications_off</mat-icon>
+             <span>Tipos Vinculos</span>
+           </button>
+          </mat-menu>
         </li>
+
 
       <!-- <li class="nav-item">
           <a class="nav-link"

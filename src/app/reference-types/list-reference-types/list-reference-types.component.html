@@ -1,0 +1,52 @@
+<mat-card class="card">
+<div class="header">
+  <div class="row">
+    <div class="col-md-9 col-lg-10">
+      <h2>Tipos Referencias</h2>
+    </div>
+    <div class="col-md-3 col-lg-2">
+      <button routerLink="/service-web/reference-types/new" mat-raised-button color="accent" *appCanAccess="['reference-types', 'addReferenceTypes']">Agregar</button>
+    </div>
+  </div>
+</div>
+<mat-card-content>
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Buscar">
+    </mat-form-field>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="scroll table table-bordered table-striped table-hover js-basic-example dataTable" matSort (matSortChange)="sortData($event)" matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Referencia </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="opciones">
+          <th mat-header-cell *matHeaderCellDef>  </th>
+          <td mat-cell *matCellDef="let element">
+          <mat-menu #appMenu="matMenu">
+              <a mat-menu-item  class="nav-link" routerLink="/service-web/reference-types/{{element.id}}/edit" *appCanAccess="['reference-types', 'editReferenceTypes']">Editar</a>
+              <a mat-menu-item class="nav-link" href="/product-types/{{element.id}}">Remover</a>
+            </mat-menu>
+            <mat-button-toggle-group class="btn-group-vertical">
+              <mat-button-toggle class="btn-default" routerLink="/service-web/reference-types/{{element.id}}" *appCanAccess="['reference-types', 'viewReferenceTypes']">
+                 Mostrar
+              </mat-button-toggle>
+
+              <mat-button-toggle [matMenuTriggerFor]="appMenu">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="getList($event)">
+  </mat-paginator>
+</mat-card-content>
+</mat-card>

@@ -70,19 +70,20 @@
 			<!-- <mat-card class="card">
 					<mat-card-content> -->
 					<br/>
-						<div class="row">
-              <div class="col-md-9 col-lg-10">
-                <div class="form">
+						<div mat-row>
+              <div class="col-lg-10">
+                <div class="form" *ngIf="dataSource.length > 0">
     							<mat-form-field floatPlaceholder="never" color="accent">
     								<input matInput #filter placeholder="Buscar">
     							</mat-form-field>
     						</div>
               </div>
-              <div class="col-md-3 col-lg-2">
+              <div class="col-lg-2">
                 <button (click)="addSubsidiary()" mat-raised-button color="accent" *appCanAccess="['subsidiary', 'addSubsidiary']">Agregar</button>
               </div>
             </div>
-						<table mat-table [dataSource]="dataSource" class="scroll table table-bordered table-striped table-hover js-basic-example dataTable" matSort (matSortChange)="sortData($event)" matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
+						<table mat-table [dataSource]="dataSource" class="scroll table table-bordered table-striped table-hover js-basic-example dataTable"
+						   matSort (matSortChange)="sortData($event)" matSortActive="nombre" matSortDirection="asc" matSortDisableClear *ngIf="dataSource.length > 0">
 							<ng-container matColumnDef="codigoSucursal">
 								<th mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </th>
 								<td mat-cell *matCellDef="let element"> {{element.codigoSucursal}} </td>
@@ -134,7 +135,8 @@
 						<mat-paginator [length]="length"
 													[pageSize]="pageSize"
 													[pageSizeOptions]="pageSizeOptions"
-													(page)="getListFk($event,element.id)">
+													(page)="getListFk($event,element.id)"
+													*ngIf="dataSource.length > pageSize">
 						</mat-paginator>
 					<!-- </mat-card-content>
 			</mat-card> -->

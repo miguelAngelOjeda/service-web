@@ -52,6 +52,48 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_USER.LIST"]
     	}
     },
+    "reference-types": {
+      "addReferenceTypes": {
+    	   "permittedRoles": ["ROLE_REFERENCETYPES.ADD"]
+    	 },
+    	"editReferenceTypes": {
+    	  "permittedRoles": ["ROLE_REFERENCETYPES.EDIT"]
+    	},
+    	"viewReferenceTypes": {
+    	  "permittedRoles": ["ROLE_REFERENCETYPES.VIEW"]
+    	},
+    	"listReferenceTypes": {
+    	  "permittedRoles": ["ROLE_REFERENCETYPES.LIST"]
+    	}
+    },
+    "calculations-types": {
+      "addCalculationsTypes": {
+    	   "permittedRoles": ["ROLE_CALCULATIONSTYPES.ADD"]
+    	 },
+    	"editCalculationsTypes": {
+    	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.EDIT"]
+    	},
+    	"viewCalculationsTypes": {
+    	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.VIEW"]
+    	},
+    	"listCalculationsTypes": {
+    	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.LIST"]
+    	}
+    },
+    "destinations-types": {
+      "addDestinationsTypes": {
+    	   "permittedRoles": ["ROLE_DESTINATIONSTYPES.ADD"]
+    	 },
+    	"editDestinationsTypes": {
+    	  "permittedRoles": ["ROLE_DESTINATIONSTYPES.EDIT"]
+    	},
+    	"viewDestinationsTypes": {
+    	  "permittedRoles": ["ROLE_DESTINATIONSTYPES.VIEW"]
+    	},
+    	"listDestinationsTypes": {
+    	  "permittedRoles": ["ROLE_DESTINATIONSTYPES.LIST"]
+    	}
+    },
     "message": {
       "sendMessage": {
     	   "permittedRoles": ["ROLE_MESSAGE.SEND"]

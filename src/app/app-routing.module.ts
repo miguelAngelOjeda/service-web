@@ -33,26 +33,34 @@ const appRoutes: Routes = [
       }
                 ]
     },
-    { path: 'service-web/subsidiary',
-      children: [
-		  { path: '', component: ListSubsidiaryComponent,
-        canActivate: [UserService],
-        data: {roles: ['subsidiary', 'listSubsidiary']}
-      },
-      { path: 'new', component: AddSubsidiaryComponent,
-        canActivate: [UserService],
-        data: {roles: ['subsidiary', 'addSubsidiary']}
-      },
-      { path: ':id', component: ViewSubsidiaryComponent,
-        canActivate: [UserService],
-        data: {roles: ['subsidiary', 'viewSubsidiary']}
-      },
-    	{ path: ':id/edit', component: EditSubsidiaryComponent,
-        data: {
-          allowedRoles: ['subsidiary', 'editSubsidiary']
-        }
-      }
-                ]
+    // { path: 'service-web/subsidiary',
+    //   children: [
+		//   { path: '', component: ListSubsidiaryComponent,
+    //     canActivate: [UserService],
+    //     data: {roles: ['subsidiary', 'listSubsidiary']}
+    //   },
+    //   { path: 'new', component: AddSubsidiaryComponent,
+    //     canActivate: [UserService],
+    //     data: {roles: ['subsidiary', 'addSubsidiary']}
+    //   },
+    //   { path: ':id', component: ViewSubsidiaryComponent,
+    //     canActivate: [UserService],
+    //     data: {roles: ['subsidiary', 'viewSubsidiary']}
+    //   },
+    // 	{ path: ':id/edit', component: EditSubsidiaryComponent,
+    //     data: {
+    //       allowedRoles: ['subsidiary', 'editSubsidiary']
+    //     }
+    //   }
+    //             ]
+    // },
+    {
+    path: 'service-web/subsidiary',
+    loadChildren: './subsidiary/subsidiary.module#SubsidiaryModule'
+    },
+    {
+    path: 'service-web/reference-types',
+    loadChildren: './reference-types/reference-types.module#ReferenceTypesModule'
     },
     { path: 'users', component: UsersComponent, outlet: 'home-content'},
     // otherwise redirect to home
