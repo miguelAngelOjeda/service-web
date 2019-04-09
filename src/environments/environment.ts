@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:8585/beta1',
+  api_url: 'http://mail.creditoguarani.com.py:4443/beta1',
   whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };
 
@@ -54,44 +54,44 @@ export const authorities = {
     },
     "reference-types": {
       "addReferenceTypes": {
-    	   "permittedRoles": ["ROLE_REFERENCETYPES.ADD"]
+    	   "permittedRoles": ["ROLE_REFERENCE_TYPES.ADD"]
     	 },
     	"editReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCETYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.EDIT"]
     	},
     	"viewReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCETYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.VIEW"]
     	},
     	"listReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCETYPES.LIST"]
+    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST"]
     	}
     },
     "calculation-types": {
       "addCalculationTypes": {
-    	   "permittedRoles": ["ROLE_CALCULATIONSTYPES.ADD"]
+    	   "permittedRoles": ["ROLE_CALCULATIONS_TYPES.ADD"]
     	 },
     	"editCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.EDIT"]
     	},
     	"viewCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.VIEW"]
     	},
     	"listCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONSTYPES.LIST"]
+    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.LIST"]
     	}
     },
     "destinations-types": {
       "addDestinationsTypes": {
-    	   "permittedRoles": ["ROLE_DESTINATIONSTYPES.ADD"]
+    	   "permittedRoles": ["ROLE_DESTINATIONS_TYPES.ADD"]
     	 },
     	"editDestinationsTypes": {
-    	  "permittedRoles": ["ROLE_DESTINATIONSTYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_DESTINATIONS_TYPES.EDIT"]
     	},
     	"viewDestinationsTypes": {
-    	  "permittedRoles": ["ROLE_DESTINATIONSTYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_DESTINATIONS_TYPES.VIEW"]
     	},
     	"listDestinationsTypes": {
-    	  "permittedRoles": ["ROLE_DESTINATIONSTYPES.LIST"]
+    	  "permittedRoles": ["ROLE_DESTINATIONS_TYPES.LIST"]
     	}
     },
     "message": {

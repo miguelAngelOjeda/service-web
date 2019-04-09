@@ -46,8 +46,10 @@
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let element">
              <mat-menu #appMenu="matMenu">
-                  <button  mat-menu-item   routerLink="/service-web/enterprise/{{element.id}}/edit" *appCanAccess="['enterprise', 'editEnterprise']">Editar</button>
-                  <button  mat-menu-item   routerLink="/product-types/{{element.id}}">Remover</button>
+                  <button  mat-menu-item   routerLink="/service-web/enterprise/{{element.id}}/edit" *appCanAccess="['enterprise', 'editEnterprise']">
+                    <i class="fa fa-edit"></i>&nbsp;Editar</button>
+                  <button  mat-menu-item   routerLink="/product-types/{{element.id}}">
+                    <i class="fa fa-trash-o"></i>&nbsp;Remover</button>
              </mat-menu>
              <mat-button-toggle-group class="btn-group-vertical">
                   <mat-button-toggle class="btn-default" routerLink="/service-web/enterprise/{{element.id}}" *appCanAccess="['enterprise', 'viewEnterprise']">

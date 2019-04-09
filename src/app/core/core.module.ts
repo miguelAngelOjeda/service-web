@@ -21,7 +21,7 @@ export function tokenGetter() {
      JwtModule.forRoot({
        config: {
          tokenGetter: tokenGetter,
-         whitelistedDomains: ['desarrollo13.coomecipar.coop.py', 'desarrollo13.coomecipar.coop.py:8989', 'localhost', 'localhost:8989'],
+         whitelistedDomains: ['mail.creditoguarani.com.py', 'mail.creditoguarani.com.py:4443', 'localhost', 'localhost:8989'],
          //blacklistedRoutes: ['example.com/examplebadroute/']
          authScheme: 'X-Token '
        }

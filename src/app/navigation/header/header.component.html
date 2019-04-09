@@ -34,7 +34,7 @@
         <li class="nav-item" *appCanAccess="['enterprise', 'listEnterprise']">
           <a class="nav-link"
             routerLink="/service-web/enterprise">
-            <i class="ion-home"></i>&nbsp;Empresas
+            <i class="fa fa-institution"></i>&nbsp;Empresas
           </a>
         </li>
 
@@ -49,7 +49,7 @@
         <li class="nav-item" *appCanAccess="['subsidiary', 'listSubsidiary']">
           <a class="nav-link"
             routerLink="/service-web/subsidiary">
-            Sucursales
+            <i class="fa fa-industry"></i>&nbsp;Sucursales
           </a>
         </li>
 
@@ -63,30 +63,31 @@
         <li class="nav-item">
           <a class="nav-link"
             routerLink="/editor">
-            <i class="ion-compose"></i>&nbsp;New Article
+            <i class="fa fa-twitter"></i>&nbsp;New Article
           </a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link"
              [matMenuTriggerFor]="menu">
-            <i class="ion-gear-a"></i>&nbsp;Settings
+            <i class="fa fa-cogs"></i>&nbsp;Settings
           </a>
           <mat-menu #menu="matMenu">
            <button mat-menu-item routerLink="/service-web/reference-types">
-             <mat-icon>dialpad</mat-icon>
+
+             <mat-icon class="fa fa-asterisk"></mat-icon>
              <span>Tipos Referencias</span>
            </button>
            <button mat-menu-item routerLink="/service-web/calculation-types">
-             <mat-icon>dialpad</mat-icon>
+             <mat-icon class="fa fa-asterisk"></mat-icon>
              <span>Tipos Calculos</span>
            </button>
            <button mat-menu-item routerLink="/service-web/destinations-types">
-             <mat-icon>dialpad</mat-icon>
+             <mat-icon class="fa fa-asterisk"></mat-icon>
              <span>Tipos Destinos</span>
            </button>
            <button mat-menu-item routerLink="/service-web/usuarios">
-             <mat-icon>notifications_off</mat-icon>
+             <mat-icon class="fa fa-asterisk"></mat-icon>
              <span>Tipos Vinculos</span>
            </button>
           </mat-menu>

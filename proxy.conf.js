@@ -1,7 +1,7 @@
 
 const PROXY_CONFIG = {
     "/beta1": {
-        "target": "http://localhost:8989",
+        "target": "http://mail.creditoguarani.com.py:4443",
         "secure": false,
         // "bypass": function (req, res, proxyOptions) {
         //     if (req.headers.accept.indexOf("html") !== -1) {
