@@ -77,6 +77,10 @@ const appRoutes: Routes = [
     path: 'service-web/egress-types',
     loadChildren: './egress-types/egress-types.module#EgressTypesModule'
     },
+    {
+    path: 'service-web/ingress-types',
+    loadChildren: './ingress-types/ingress-types.module#IngressTypesModule'
+    },
     //{ path: 'users', component: UsersComponent, outlet: 'home-content'},
     // otherwise redirect to home
     { path: '**', redirectTo: 'service-web' }

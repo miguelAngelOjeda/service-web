@@ -122,6 +122,20 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_EGRESS_TYPES.LIST"]
     	}
     },
+    "ingress-types": {
+      "addIngressTypes": {
+    	   "permittedRoles": ["ROLE_INGRESS_TYPES.ADD"]
+    	 },
+    	"editIngressTypes": {
+    	  "permittedRoles": ["ROLE_INGRESS_TYPES.EDIT"]
+    	},
+    	"viewIngressTypes": {
+    	  "permittedRoles": ["ROLE_INGRESS_TYPES.VIEW"]
+    	},
+    	"listIngressTypes": {
+    	  "permittedRoles": ["ROLE_INGRESS_TYPES.LIST"]
+    	}
+    },
     "message": {
       "sendMessage": {
     	   "permittedRoles": ["ROLE_MESSAGE.SEND"]

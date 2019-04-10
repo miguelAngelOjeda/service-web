@@ -10,10 +10,10 @@
     <div class="header">
       <div class="row">
         <div class="col-md-9 col-lg-10">
-          <h2>Tipos Calculos</h2>
+          <h2>Tipos Ingresos</h2>
         </div>
         <div class="col-md-3 col-lg-2">
-          <button routerLink="/service-web/calculation-types/new" mat-raised-button color="accent" *appCanAccess="['reference-types', 'addReferenceTypes']">Agregar</button>
+          <button routerLink="/service-web/ingress-types/new" mat-raised-button color="accent" *appCanAccess="['ingress-types', 'addIngressTypes']">Agregar</button>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
           </ng-container>
 
           <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Calculo </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Egreso </th>
             <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
           </ng-container>
 
@@ -38,13 +38,13 @@
               <th mat-header-cell *matHeaderCellDef>  </th>
               <td mat-cell *matCellDef="let element">
               <mat-menu #appMenu="matMenu">
-                  <a mat-menu-item  class="nav-link" routerLink="/service-web/calculation-types/{{element.id}}/edit" *appCanAccess="['reference-types', 'editReferenceTypes']">
+                  <a mat-menu-item  class="nav-link" routerLink="/service-web/ingress-types/{{element.id}}/edit" *appCanAccess="['ingress-types', 'editIngressTypes']">
                     <i class="fa fa-edit"></i>&nbsp;Editar</a>
-                  <a mat-menu-item class="nav-link" href="/product-types/{{element.id}}">
+                  <a mat-menu-item class="nav-link" href="/ingress-types/{{element.id}}">
                     <i class="fa fa-trash-o"></i>&nbsp;Remover</a>
                 </mat-menu>
                 <mat-button-toggle-group class="btn-group-vertical">
-                  <mat-button-toggle class="btn-default" routerLink="/service-web/calculation-types/{{element.id}}" *appCanAccess="['reference-types', 'viewReferenceTypes']">
+                  <mat-button-toggle class="btn-default" routerLink="/service-web/ingress-types/{{element.id}}" *appCanAccess="['ingress-types', 'viewIngressTypes']">
                      Mostrar
                   </mat-button-toggle>
 

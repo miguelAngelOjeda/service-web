@@ -9,3 +9,4 @@ export * from './calculationTypes';
 export * from './outlayTypes';
 export * from './destinationsTypes';
 export * from './egressTypes';
+export * from './ingressTypes';
