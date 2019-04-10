@@ -136,6 +136,20 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_INGRESS_TYPES.LIST"]
     	}
     },
+    "relations-types": {
+      "addRelationsTypes": {
+    	   "permittedRoles": ["ROLE_RELATIONS_TYPES.ADD"]
+    	 },
+    	"editRelationsTypes": {
+    	  "permittedRoles": ["ROLE_RELATIONS_TYPES.EDIT"]
+    	},
+    	"viewRelationsTypes": {
+    	  "permittedRoles": ["ROLE_RELATIONS_TYPES.VIEW"]
+    	},
+    	"listRelationsTypes": {
+    	  "permittedRoles": ["ROLE_RELATIONS_TYPES.LIST"]
+    	}
+    },
     "message": {
       "sendMessage": {
     	   "permittedRoles": ["ROLE_MESSAGE.SEND"]

@@ -32,27 +32,6 @@ const appRoutes: Routes = [
       }
                 ]
     },
-    // { path: 'service-web/subsidiary',
-    //   children: [
-		//   { path: '', component: ListSubsidiaryComponent,
-    //     canActivate: [UserService],
-    //     data: {roles: ['subsidiary', 'listSubsidiary']}
-    //   },
-    //   { path: 'new', component: AddSubsidiaryComponent,
-    //     canActivate: [UserService],
-    //     data: {roles: ['subsidiary', 'addSubsidiary']}
-    //   },
-    //   { path: ':id', component: ViewSubsidiaryComponent,
-    //     canActivate: [UserService],
-    //     data: {roles: ['subsidiary', 'viewSubsidiary']}
-    //   },
-    // 	{ path: ':id/edit', component: EditSubsidiaryComponent,
-    //     data: {
-    //       allowedRoles: ['subsidiary', 'editSubsidiary']
-    //     }
-    //   }
-    //             ]
-    // },
     {
     path: 'service-web/subsidiary',
     loadChildren: './subsidiary/subsidiary.module#SubsidiaryModule'
@@ -80,6 +59,10 @@ const appRoutes: Routes = [
     {
     path: 'service-web/ingress-types',
     loadChildren: './ingress-types/ingress-types.module#IngressTypesModule'
+    },
+    {
+    path: 'service-web/relations-types',
+    loadChildren: './relations-types/relations-types.module#RelationsTypesModule'
     },
     //{ path: 'users', component: UsersComponent, outlet: 'home-content'},
     // otherwise redirect to home

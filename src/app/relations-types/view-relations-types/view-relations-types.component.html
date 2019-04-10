@@ -2,10 +2,10 @@
 <mat-card-header>
 
   <mat-card-title>
-    <a class="nav-link" mat-mini-fab color="primary" routerLink="/service-web/destinations-types">
+    <a class="nav-link" mat-mini-fab color="primary" routerLink="/service-web/relations-types">
       <mat-icon>reply</mat-icon>
     </a>
-    Visiualizar Tipo Destino
+    Visualizar Tipo Vinculo
   </mat-card-title>
   <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
 </mat-card-header>
@@ -16,7 +16,7 @@
     		<input matInput #input  placeholder="Codigo" [(ngModel)]="model.codigo" name="codigo" required disabled>
     	</mat-form-field>
     	<mat-form-field   class="col-sm-12" appearance="legacy">
-    		<input matInput #input  placeholder="Tipo Referencia" [(ngModel)]="model.nombre" name="nombre" required disabled>
+    		<input matInput #input  placeholder="Tipo Vinculo" [(ngModel)]="model.nombre" name="nombre" required disabled>
     	</mat-form-field>
     </div>
   </form>
