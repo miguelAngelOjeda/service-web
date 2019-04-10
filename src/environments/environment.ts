@@ -150,6 +150,20 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_RELATIONS_TYPES.LIST"]
     	}
     },
+    "payments-types": {
+      "addPaymentsTypes": {
+    	   "permittedRoles": ["ROLE_PAYMENTS_TYPES.ADD"]
+    	 },
+    	"editPaymentsTypes": {
+    	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.EDIT"]
+    	},
+    	"viewPaymentsTypes": {
+    	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.VIEW"]
+    	},
+    	"listPaymentsTypes": {
+    	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.LIST"]
+    	}
+    },
     "message": {
       "sendMessage": {
     	   "permittedRoles": ["ROLE_MESSAGE.SEND"]

@@ -1,4 +1,4 @@
-export class DestinationsTypes {
+export class DestinationsTypes{
     id: number;
     codigo: string = ' ';
     nombre: string;

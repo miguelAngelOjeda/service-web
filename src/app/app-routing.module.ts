@@ -64,6 +64,10 @@ const appRoutes: Routes = [
     path: 'service-web/relations-types',
     loadChildren: './relations-types/relations-types.module#RelationsTypesModule'
     },
+    {
+    path: 'service-web/payments-types',
+    loadChildren: './payments-types/payments-types.module#PaymentsTypesModule'
+    },
     //{ path: 'users', component: UsersComponent, outlet: 'home-content'},
     // otherwise redirect to home
     { path: '**', redirectTo: 'service-web' }
