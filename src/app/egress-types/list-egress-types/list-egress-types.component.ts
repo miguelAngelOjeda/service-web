@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { OutlaysTypes } from '../../core/models';
+import { EgressTypes } from '../../core/models';
 import { ApiService } from '../../core/services';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort } from '@angular/material';
 
 @Component({
-  selector: 'app-list-outlays-types',
-  templateUrl: './list-outlays-types.component.html',
-  styleUrls: ['./list-outlays-types.component.scss']
+  selector: 'app-list-egress-types',
+  templateUrl: './list-egress-types.component.html',
+  styleUrls: ['./list-egress-types.component.scss']
 })
-export class ListOutlaysTypesComponent implements OnInit {
+export class ListEgressTypesComponent implements OnInit {
 
   public displayedColumns = ['codigo','nombre','opciones'];
 
@@ -18,7 +18,7 @@ export class ListOutlaysTypesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
 
-  public dataSource = new MatTableDataSource<OutlaysTypes>();
+  public dataSource = new MatTableDataSource<EgressTypes>();
   // MatPaginator Inputs
   length = 0;
   pageSize = 10;
@@ -38,7 +38,7 @@ export class ListOutlaysTypesComponent implements OnInit {
           startWith({}),
           switchMap(() => {
             this.isLoadingResults = true;
-            return this.apiService.getPageList('/tipos-desembolsos',false,this.sort.direction,this.sort.active,
+            return this.apiService.getPageList('/tipos-egresos',false,this.sort.direction,this.sort.active,
             this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {
@@ -47,7 +47,7 @@ export class ListOutlaysTypesComponent implements OnInit {
             this.isRateLimitReached = false;
             this.length = data.records;
 
-            return data.rows as OutlaysTypes[];;
+            return data.rows as EgressTypes[];;
           }),
           catchError(() => {
             this.isLoadingResults = false;
@@ -57,4 +57,5 @@ export class ListOutlaysTypesComponent implements OnInit {
           })
         ).subscribe(data => this.dataSource.data = data);
   }
+
 }

@@ -94,6 +94,34 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_DESTINATIONS_TYPES.LIST"]
     	}
     },
+    "outlays-types": {
+      "addOutlaysTypes": {
+    	   "permittedRoles": ["ROLE_OUTLAYS_TYPES.ADD"]
+    	 },
+    	"editOutlaysTypes": {
+    	  "permittedRoles": ["ROLE_OUTLAYS_TYPES.EDIT"]
+    	},
+    	"viewOutlaysTypes": {
+    	  "permittedRoles": ["ROLE_OUTLAYS_TYPES.VIEW"]
+    	},
+    	"listOutlaysTypes": {
+    	  "permittedRoles": ["ROLE_OUTLAYS_TYPES.LIST"]
+    	}
+    },
+    "egress-types": {
+      "addEgressTypes": {
+    	   "permittedRoles": ["ROLE_EGRESS_TYPES.ADD"]
+    	 },
+    	"editEgressTypes": {
+    	  "permittedRoles": ["ROLE_EGRESS_TYPES.EDIT"]
+    	},
+    	"viewEgressTypes": {
+    	  "permittedRoles": ["ROLE_EGRESS_TYPES.VIEW"]
+    	},
+    	"listEgressTypes": {
+    	  "permittedRoles": ["ROLE_EGRESS_TYPES.LIST"]
+    	}
+    },
     "message": {
       "sendMessage": {
     	   "permittedRoles": ["ROLE_MESSAGE.SEND"]

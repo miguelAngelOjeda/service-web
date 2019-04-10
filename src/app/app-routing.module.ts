@@ -69,6 +69,14 @@ const appRoutes: Routes = [
     path: 'service-web/calculation-types',
     loadChildren: './calculation-types/calculation-types.module#CalculationTypesModule'
     },
+    {
+    path: 'service-web/outlays-types',
+    loadChildren: './outlays-types/outlays-types.module#OutlaysTypesModule'
+    },
+    {
+    path: 'service-web/egress-types',
+    loadChildren: './egress-types/egress-types.module#EgressTypesModule'
+    },
     //{ path: 'users', component: UsersComponent, outlet: 'home-content'},
     // otherwise redirect to home
     { path: '**', redirectTo: 'service-web' }

@@ -8,3 +8,4 @@ export * from './referenceTypes';
 export * from './calculationTypes';
 export * from './outlayTypes';
 export * from './destinationsTypes';
+export * from './egressTypes';
