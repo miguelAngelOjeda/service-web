@@ -1,24 +1,24 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Subsidiary } from '../../core/models';
+import { OutlaysTypes } from '../../core/models';
 import { ApiService } from '../../core/services';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort } from '@angular/material';
 
 @Component({
-  selector: 'app-list-subsidiary',
-  templateUrl: './list-subsidiary.component.html',
-  styleUrls: ['./list-subsidiary.component.css']
+  selector: 'app-list-outlays-types',
+  templateUrl: './list-outlays-types.component.html',
+  styleUrls: ['./list-outlays-types.component.scss']
 })
-export class ListSubsidiaryComponent implements OnInit {
+export class ListOutlaysTypesComponent implements OnInit {
 
-  public displayedColumns = ['codigoSucursal', 'nombre', 'direccion', 'telefono', 'email','opciones'];
+  public displayedColumns = ['codigo','nombre','opciones'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
 
-  public dataSource = new MatTableDataSource<Subsidiary>();
+  public dataSource = new MatTableDataSource<OutlaysTypes>();
   // MatPaginator Inputs
   length = 0;
   pageSize = 10;
@@ -38,7 +38,7 @@ export class ListSubsidiaryComponent implements OnInit {
           startWith({}),
           switchMap(() => {
             this.isLoadingResults = true;
-            return this.apiService.getPageList('/sucursales',false,this.sort.direction,this.sort.active,
+            return this.apiService.getPageList('/tipos-desembolsos',false,this.sort.direction,this.sort.active,
             this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {
@@ -47,7 +47,7 @@ export class ListSubsidiaryComponent implements OnInit {
             this.isRateLimitReached = false;
             this.length = data.records;
 
-            return data.rows as Subsidiary[];;
+            return data.rows as DestinationsTypes[];;
           }),
           catchError(() => {
             this.isLoadingResults = false;
@@ -57,5 +57,4 @@ export class ListSubsidiaryComponent implements OnInit {
           })
         ).subscribe(data => this.dataSource.data = data);
   }
-
 }

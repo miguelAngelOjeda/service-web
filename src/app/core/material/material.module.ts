@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule, MatMenuModule , MatDialogModule, MatButtonModule, MatSidenavModule, MatIconModule,
+import { MatTabsModule, MatMenuModule , MatDialogModule, MatButtonModule, MatSidenavModule, MatIconModule,MatProgressSpinnerModule,
  MatInputModule, MatPaginatorModule, MatSortModule,MatAutocompleteSelectedEvent, MatChipInputEvent,MatSnackBarModule,
  MatTableModule, MatToolbarModule, MatSelectModule, MatListModule, MatDividerModule, MatNativeDateModule, MatCardModule} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox'
@@ -23,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatSelectModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatSnackBarModule,
     MatAutocompleteModule,
@@ -46,6 +47,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     MatGridListModule,

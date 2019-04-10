@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Enterprise } from '../../core/models';
 import { ApiService } from '../../core/services';
+import {merge, Observable, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort } from '@angular/material';
 
 @Component({
@@ -23,36 +25,35 @@ export class ListEnterpriseComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  constructor(private apiService: ApiService) {
+  isLoadingResults = true;
+  isRateLimitReached = false;
 
-   }
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.getList(null);
-    this.dataSource.sort = this.sort;
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+        .pipe(
+          startWith({}),
+          switchMap(() => {
+            this.isLoadingResults = true;
+            return this.apiService.getPageList('/empresas',false,this.sort.direction,this.sort.active,
+            this.paginator.pageIndex,this.paginator.pageSize);
+          }),
+          map(data => {
+            // Flip flag to show that loading has finished.
+            this.isLoadingResults = false;
+            this.isRateLimitReached = false;
+            this.length = data.records;
+
+            return data.rows as Enterprise[];;
+          }),
+          catchError(() => {
+            this.isLoadingResults = false;
+            // Catch if reached its rate limit. Return empty data.
+            this.isRateLimitReached = true;
+            return observableOf([]);
+          })
+        ).subscribe(data => this.dataSource.data = data);
   }
-
-  public getList(event?:PageEvent){
-    let index = event == null ? 1 :  event.pageIndex + 1;
-    let rows = event == null ? 10 :  event.pageSize;
-    let sidx = this.sort.direction == null ? 'desc' :  this.sort.direction;
-    let sort = this.sort.active == null ? 'id' :  this.sort.active;
-    this.apiService.getPageList('/empresas',false,sidx,sort,index,rows)
-    .subscribe(res => {
-      this.length = res.records;
-      this.dataSource.data = res.rows as Enterprise[];
-    })
-  }
-
-  public sortData(sort: Sort) {
-    let index = this.pageEvent == null ? 1 :  this.pageEvent.pageIndex + 1;
-    let rows = this.pageEvent == null ? 10 :  this.pageEvent.pageSize;
-    this.apiService.getPageList('/empresas',false,sort.direction,sort.active,index,rows)
-    .subscribe(res => {
-      this.length = res.records;
-      this.dataSource.data = res.rows as Enterprise[];
-    })
-  }
-
-
 }
