@@ -22,8 +22,6 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     let res: any;
     return next.handle(request).pipe(
             tap(evt => {
-              console.log(evt);
-              console.log(request);
                 if (evt instanceof HttpResponse) {
                     const keys = evt.headers.keys();
 
@@ -34,18 +32,17 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
                     if(evt.body != null
                       && evt.body.status != 200){
-                      this.snackBar.openSnackBar(evt.body.message,'Close','red-snackbar');
+                      this.snackBar.openSnackBar(evt.body.message,'Close','alert-danger');
                     }else if(request.method != 'GET'){
-                      this.snackBar.openSnackBar(evt.body.message,'Close','green-snackbar');
+                      this.snackBar.openSnackBar(evt.body.message,'Close','alert-success');
                     }
                 }
             }),
             catchError((err: any) => {
                 if(err instanceof HttpErrorResponse) {
                     try {
-                          console.log(err);
                           if(err.status == 401){
-                            this.snackBar.openSnackBar('Su session ha caducado','Close','red-snackbar');
+                            this.snackBar.openSnackBar(err.error.message,'Close','alert-danger');
                           }else if(err.status == 0){
                             this.snackBar.openSnackBar('Error al conectar con el servidor, si el problema persiste contactar con el administrador.','Close','red-snackbar');
                             this.jwtService.destroyToken();
@@ -53,10 +50,10 @@ export class HttpTokenInterceptor implements HttpInterceptor {
                               this.router.navigateByUrl('service-web/login');
                             }, 7000);
                           }else{
-                            this.snackBar.openSnackBar(err.status + ' ' + err.message,'Close','red-snackbar');
+                            this.snackBar.openSnackBar(err.status + ' ' + err.message,'Close','alert-danger');
                           }
                     } catch(e) {
-                          this.snackBar.openSnackBar('Error no determinado','Close','red-snackbar');
+                          this.snackBar.openSnackBar('Error no determinado','Close','alert-danger');
                     }
                     //log error
                 }
