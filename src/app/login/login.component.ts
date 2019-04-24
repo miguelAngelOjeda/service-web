@@ -6,6 +6,8 @@ import { first } from 'rxjs/operators';
 import { AlertService, UserService } from '../core/services';
 import { Errors } from '../core/models';
 
+import { BlankLayoutCardComponent } from '../components/blank-layout-card';
+
 @Component({
   templateUrl: 'login.component.html',
   styleUrls: ['./login.component.css']})

@@ -24,10 +24,12 @@
               "src/manifest.json"
             ],
             "styles": [
-              "./node_modules/bootstrap/dist/css/bootstrap.css",
-              "src/scss/styles.scss"
+              "src/theme/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/material-design-lite/material.js",
+              "node_modules/getmdl-select/getmdl-select.min.js"
+            ]
           },
           "configurations": {
             "production": {
