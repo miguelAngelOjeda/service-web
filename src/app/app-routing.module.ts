@@ -8,7 +8,7 @@ import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryC
 ViewSubsidiaryComponent } from './app-component/subsidiary';
 import { FullComponent } from './navigation/full.component';
 
-const appRoutes: Routes = [    
+const appRoutes: Routes = [
     { path: 'service-web/login', component: LoginComponent},
     {
       path: '',
@@ -16,6 +16,10 @@ const appRoutes: Routes = [
       children: [
         { path: 'service-web', component: HomeComponent },
         { path: 'service-web/home', component: HomeComponent },
+        {
+        path: 'service-web/enterprise',
+        loadChildren: './app-component/enterprise/enterprise.module#EnterpriseModule'
+        },
         {
         path: 'service-web/subsidiary',
         loadChildren: './app-component/subsidiary/subsidiary.module#SubsidiaryModule'

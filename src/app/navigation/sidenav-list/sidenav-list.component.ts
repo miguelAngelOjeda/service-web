@@ -1,20 +1,38 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  OnDestroy,
+  ViewChild,
+  HostListener,
+  Directive,
+  AfterViewInit
+} from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { MenuItems } from '../../shared/menu-items/menu-items';
 
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './sidenav-list.component.html',
   styleUrls: ['./sidenav-list.component.css']
 })
-export class SidenavListComponent implements OnInit {
-  @Output() sidenavClose = new EventEmitter();
+export class SidenavListComponent implements OnDestroy {
+  mobileQuery: MediaQueryList;
 
-  constructor() { }
+  private _mobileQueryListener: () => void;
 
-  ngOnInit() {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    public menuItems: MenuItems
+  ) {
+    this.mobileQuery = media.matchMedia('(min-width: 768px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  public onSidenavClose = () => {
-    this.sidenavClose.emit();
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
 }
