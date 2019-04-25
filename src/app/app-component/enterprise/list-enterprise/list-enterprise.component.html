@@ -1,12 +1,14 @@
   <mat-card>
     <mat-card-content>
-    <mat-card-title>Empresas</mat-card-title>
+    <mat-card-title>Empresas
+      <button routerLink="/service-web/enterprise/new" mat-button style="float: right" *appCanAccess="['enterprise', 'addEnterprise']">Agregar</button>
+    </mat-card-title>
+    
     <mat-card-subtitle> </mat-card-subtitle>
-    <button routerLink="/service-web/enterprise/new" mat-raised-button color="accent" *appCanAccess="['enterprise', 'addEnterprise']">Agregar</button>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <input matInput #filter placeholder="Buscar.....">
         </mat-form-field>
-        <table mat-table [dataSource]="dataSource" class="scroll table table-bordered table-striped table-hover js-basic-example dataTable" matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
+        <table mat-table [dataSource]="dataSource" class="scroll table table-striped table-hover js-basic-example dataTable" matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
           <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
             <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
