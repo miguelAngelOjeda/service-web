@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
   <div fxHide.gt-xs >
       <button mat-icon-button (click)="onToggleSidenav()" *appShowAuthed="true">
           <mat-icon>menu</mat-icon>
@@ -8,7 +8,7 @@
       <a *ngIf="appShowAuthed == true" routerLink="/home">Home</a>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-    <!-- Show this for logged out users -->
+
       <ul fxLayout fxLayoutGap="15px" class="navigation-items" *appShowAuthed="false">
         <li class="nav-item">
           <a class="nav-link"
@@ -18,7 +18,7 @@
           </a>
         </li>
       </ul>
-      <!-- Show this for logged in users -->
+
       <ul fxLayout fxLayoutGap="15px" *appShowAuthed="true"
         class="nav navbar-nav pull-xs-right">
 
@@ -108,17 +108,18 @@
           </mat-menu>
         </li>
 
-
-      <!-- <li class="nav-item">
-          <a class="nav-link"
-            [routerLink]="['/profile', currentUser.username]"
-            routerLinkActive="active">
-            <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
-            {{ currentUser.username }}
-          </a>
-        </li> -->
-
       </ul>
 
   </div>
-</mat-toolbar>
+</mat-toolbar> -->
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5"> <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"> </button>
+<mat-menu #profile="matMenu" class="mymegamenu">
+    <button mat-menu-item>
+        <mat-icon>settings</mat-icon> Settings </button>
+    <button mat-menu-item>
+        <mat-icon>account_box</mat-icon> Profile </button>
+    <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon> Disable notifications </button>
+    <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon> Sign Out </button>
+</mat-menu>

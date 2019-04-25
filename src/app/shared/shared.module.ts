@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-
+import { MenuItems } from './menu-items/menu-items';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { CanAccessDirective } from './can-access.directive';
+import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 
 @NgModule({
   imports: [
@@ -18,7 +19,10 @@ import { CanAccessDirective } from './can-access.directive';
   ],
   declarations: [
     ShowAuthedDirective,
-    CanAccessDirective
+    CanAccessDirective,
+    AccordionAnchorDirective,
+    AccordionLinkDirective,
+    AccordionDirective
   ],
   exports: [
     CommonModule,
@@ -27,7 +31,11 @@ import { CanAccessDirective } from './can-access.directive';
     HttpClientModule,
     RouterModule,
     CanAccessDirective,
-    ShowAuthedDirective
-  ]
+    ShowAuthedDirective,
+    AccordionAnchorDirective,
+    AccordionLinkDirective,
+    AccordionDirective
+  ],
+  providers: [ MenuItems ]
 })
 export class SharedModule {}

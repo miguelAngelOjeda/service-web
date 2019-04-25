@@ -5,9 +5,9 @@
       <div class="col-md-6 offset-md-3 col-xs-12 items-centered">
         <!-- <h1 class="text-xs-center">{{ title }}</h1> -->
         <h2 class="ui blue image imageLogin medium">
-            <img src="assets/images/logo.png" class="image" align="right">
+
         </h2>
-        <app-list-errors [errors]="errors"></app-list-errors>
+        
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">

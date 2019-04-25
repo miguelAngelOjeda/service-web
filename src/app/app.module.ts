@@ -15,8 +15,9 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { HomeComponent } from './home';
-import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent, SharedModule} from './shared';
+import { HomeComponent } from './app-component/home';
+import { FullComponent } from './navigation/full.component';
+import { LayoutComponent, ShowAuthedDirective, SharedModule} from './shared';
 import { CanAccessDirective } from './shared/can-access.directive';
 import { HeaderComponent, SidenavListComponent } from './navigation';
 import { LoginComponent } from './login';
@@ -24,9 +25,7 @@ import { CoreModule } from './core/core.module';
 import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
-import { ListEnterpriseComponent, ActivateEnterpriseComponent, AddEnterpriseComponent, DeleteEnterpriseComponent,
-EditEnterpriseComponent, ViewEnterpriseComponent  } from './enterprise';
-import { AddDialogoSubsidiaryComponent, ViewDialogoSubsidiaryComponent, EditDialogoSubsidiaryComponent } from './enterprise';
+import { SpinnerComponent } from './shared/spinner.component';
 // import { AddReferenceTypesComponent, EditReferenceTypesComponent, ViewReferenceTypesComponent,
 // ListReferenceTypesComponent } from './reference-types/add-reference-types/add-reference-types.component';
 // import { ListLinkTypesComponent, AddLinkTypesComponent, EditLinkTypesComponent,
@@ -42,27 +41,13 @@ export function tokenGetter() {
     AppComponent,
     LoginComponent,
     LayoutComponent,
+    FullComponent,
     HeaderComponent,
-    ListErrorsComponent,
-    SidenavListComponent,
-    AddDialogoSubsidiaryComponent,
-    EditDialogoSubsidiaryComponent,
-    ViewDialogoSubsidiaryComponent,
+    SpinnerComponent,
     HomeComponent,
-    ListEnterpriseComponent,ActivateEnterpriseComponent,AddEnterpriseComponent,DeleteEnterpriseComponent,
-    EditEnterpriseComponent,ViewEnterpriseComponent,
+    SidenavListComponent
     // AddReferenceTypesComponent,EditReferenceTypesComponent,ViewReferenceTypesComponent,ListReferenceTypesComponent,
     // ListLinkTypesComponent,AddLinkTypesComponent,EditLinkTypesComponent,ViewLinkTypesComponent
-  ],
-  exports: [
-    AddDialogoSubsidiaryComponent,
-    EditDialogoSubsidiaryComponent,
-    ViewDialogoSubsidiaryComponent
-  ],
-  entryComponents: [
-    AddDialogoSubsidiaryComponent,
-    EditDialogoSubsidiaryComponent,
-    ViewDialogoSubsidiaryComponent
   ],
   imports: [
     BrowserModule,

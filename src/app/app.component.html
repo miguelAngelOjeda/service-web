@@ -1,17 +1,4 @@
-<!-- main app container -->
-<app-layout>
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav role="navigation">
-      <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
-      <main>
-        <router-outlet>
-          
-
-        </router-outlet>
-      </main>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</app-layout>
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<router-outlet><app-spinner></app-spinner></router-outlet>

@@ -1,0 +1,47 @@
+@import './variables';
+@import './mixins';
+@import './tables';
+@import './pagination';
+@import './buttons';
+@import './card';
+@import './modals';
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+
+/* for sidenav to take whole page */
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+.blue-snackbar {
+    background: #2196F3;
+}
+.green-snackbar {
+    background: #1DE9B6;
+}
+.red-snackbar {
+    background: #B00020;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rate-limit-reached {
+  color: #980000;
+  max-width: 360px;
+  text-align: center;
+}
