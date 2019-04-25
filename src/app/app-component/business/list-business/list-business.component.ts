@@ -1,23 +1,23 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Enterprise } from '../../../core/models';
+import { Business } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort } from '@angular/material';
 
 @Component({
-  selector: 'app-list-enterprise',
-  templateUrl: './list-enterprise.component.html',
-  styleUrls: ['./list-enterprise.component.css']
+  selector: 'app-list-business',
+  templateUrl: './list-business.component.html',
+  styleUrls: ['./list-business.component.css']
 })
-export class ListEnterpriseComponent implements OnInit {
+export class ListBusinessComponent implements OnInit {
   public displayedColumns = ['nombre', 'ruc', 'direccion', 'telefono', 'email','opciones'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
 
-  public dataSource = new MatTableDataSource<Enterprise>();
+  public dataSource = new MatTableDataSource<Business>();
   // MatPaginator Inputs
   length = 0;
   pageSize = 10;
@@ -46,7 +46,7 @@ export class ListEnterpriseComponent implements OnInit {
             this.isRateLimitReached = false;
             this.length = data.records;
 
-            return data.rows as Enterprise[];;
+            return data.rows as Business[];;
           }),
           catchError(() => {
             this.isLoadingResults = false;

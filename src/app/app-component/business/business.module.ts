@@ -1,10 +1,10 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AddEnterpriseComponent , EditEnterpriseComponent, ListEnterpriseComponent,
-ViewEnterpriseComponent } from '../enterprise';
+import { AddBusinessComponent , EditBusinessComponent, ListBusinessComponent,
+ViewBusinessComponent } from '../business';
 import { CoreModule } from '../../core/core.module';
 import { MaterialModule } from '../../core/material/material.module';
-import { EnterpriseRoutingModule } from './enterprise-routing.module';
+import { BusinessRoutingModule } from './business-routing.module';
 import { environment } from '../../../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,7 +24,7 @@ import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared'
 @NgModule({
   imports: [
     //CoreModule,
-    EnterpriseRoutingModule,
+    BusinessRoutingModule,
     MaterialModule,
     //BrowserModule,
     FlexLayoutModule,
@@ -37,10 +37,10 @@ import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared'
     ReactiveFormsModule
   ],
   declarations: [
-    AddEnterpriseComponent,
-    EditEnterpriseComponent,
-    ListEnterpriseComponent,
-    ViewEnterpriseComponent
+    AddBusinessComponent,
+    EditBusinessComponent,
+    ListBusinessComponent,
+    ViewBusinessComponent
     //CanAccessDirective,
     //ShowAuthedDirective
   ],
@@ -48,4 +48,4 @@ import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared'
 
   ]
 })
-export class EnterpriseModule {}
+export class BusinessModule {}

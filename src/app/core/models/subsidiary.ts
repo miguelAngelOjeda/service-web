@@ -1,4 +1,4 @@
-import {Enterprise} from "../models";
+import {Business} from "../models";
 export class Subsidiary {
     id: number;
     codigoSucursal: string = ' ';
@@ -11,5 +11,5 @@ export class Subsidiary {
     email: string;
     observacion: string;
     activo: string;
-    empresa: Enterprise;
+    empresa: Business;
 }

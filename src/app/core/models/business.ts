@@ -1,4 +1,4 @@
-export class Enterprise {
+export class Business {
     id: number;
     nombre: string;
     nombreFantasia: string;

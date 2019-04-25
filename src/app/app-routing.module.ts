@@ -3,7 +3,6 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { UserService } from './core/services';
 import { HomeComponent } from './app-component/home';
 import { LoginComponent } from './login';
-import { ListEnterpriseComponent, EditEnterpriseComponent, ViewEnterpriseComponent, AddEnterpriseComponent } from './app-component/enterprise';
 import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
 ViewSubsidiaryComponent } from './app-component/subsidiary';
 import { FullComponent } from './navigation/full.component';
@@ -17,8 +16,8 @@ const appRoutes: Routes = [
         { path: 'service-web', component: HomeComponent },
         { path: 'service-web/home', component: HomeComponent },
         {
-        path: 'service-web/enterprise',
-        loadChildren: './app-component/enterprise/enterprise.module#EnterpriseModule'
+        path: 'service-web/business',
+        loadChildren: './app-component/business/business.module#BusinessModule'
         },
         {
         path: 'service-web/subsidiary',

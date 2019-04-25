@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Enterprise } from '../../../core/models/enterprise';
+import { Business } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 
 @Component({
-  selector: 'app-add-enterprise',
-  templateUrl: './add-enterprise.component.html',
-  styleUrls: ['./add-enterprise.component.css']
+  selector: 'app-add-business',
+  templateUrl: './add-business.component.html',
+  styleUrls: ['./add-business.component.css']
 })
-export class AddEnterpriseComponent implements OnInit {
-  private model: Enterprise;
+export class AddBusinessComponent implements OnInit {
+  private model: Business;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -19,7 +19,7 @@ export class AddEnterpriseComponent implements OnInit {
   constructor(
     private apiService: ApiService
   ) {
-    this.model = new Enterprise();
+    this.model = new Business();
    }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class AddEnterpriseComponent implements OnInit {
   submit(form) {
     this.apiService.post('/empresas', this.model)
     .subscribe(res => {
-        this.model = res.model as Enterprise;
+        this.model = res.model as Business;
         //this.snackBarService.openSnackBar('res');
 
     });

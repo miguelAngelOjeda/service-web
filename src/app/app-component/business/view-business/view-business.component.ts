@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Enterprise, Subsidiary } from '../../../core/models';
+import { Business, Subsidiary } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
 import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
@@ -11,11 +11,11 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'app-view-enterprise',
-  templateUrl: './view-enterprise.component.html',
-  styleUrls: ['./view-enterprise.component.css']
+  selector: 'app-view-business',
+  templateUrl: './view-business.component.html',
+  styleUrls: ['./view-business.component.css']
 })
-export class ViewEnterpriseComponent implements OnInit {
+export class ViewBusinessComponent implements OnInit {
   public displayedColumns = ['codigoSucursal', 'nombre', 'direccion', 'telefono', 'email','opciones'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,7 +30,7 @@ export class ViewEnterpriseComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  data: Enterprise;
+  data: Business;
   subsidiary: Subsidiary;
   formControl = new FormControl('', [
     Validators.required
@@ -42,11 +42,11 @@ export class ViewEnterpriseComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {
-    this.data = new Enterprise();
+    this.data = new Business();
     this.subsidiary = new Subsidiary();
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
-       this.data = res.model as Enterprise;
+       this.data = res.model as Business;
     });
   }
 
@@ -79,7 +79,7 @@ export class ViewEnterpriseComponent implements OnInit {
 
   addSubsidiary() {
       this.subsidiary = new Subsidiary();
-      this.subsidiary.empresa = new Enterprise();
+      this.subsidiary.empresa = new Business();
       this.subsidiary.empresa.id = this.route.snapshot.params.id;
 
       const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent, {

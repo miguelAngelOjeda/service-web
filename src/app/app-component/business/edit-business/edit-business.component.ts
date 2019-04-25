@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Enterprise } from '../../../core/models/enterprise';
+import { Business } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
-  selector: 'app-edit-enterprise',
-  templateUrl: './edit-enterprise.component.html',
-  styleUrls: ['./edit-enterprise.component.css']
+  selector: 'app-edit-business',
+  templateUrl: './edit-business.component.html',
+  styleUrls: ['./edit-business.component.css']
 })
-export class EditEnterpriseComponent implements OnInit {
-  private model: Enterprise;
+export class EditBusinessComponent implements OnInit {
+  private model: Business;
 
   formControl = new FormControl('', [
     Validators.required
@@ -22,13 +22,13 @@ export class EditEnterpriseComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {
-    this.model = new Enterprise();
+    this.model = new Business();
    }
 
   ngOnInit() {
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
-       this.model = res.model as Enterprise;
+       this.model = res.model as Business;
     });
 
   }

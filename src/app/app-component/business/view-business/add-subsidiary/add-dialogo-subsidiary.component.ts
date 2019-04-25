@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Enterprise, Subsidiary } from '../../../../core/models';
+import { Subsidiary } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
-import { ViewEnterpriseComponent } from '../../view-enterprise/view-enterprise.component';
 import { FormControl, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
