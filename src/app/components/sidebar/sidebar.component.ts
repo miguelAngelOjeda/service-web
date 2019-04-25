@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { SidebarComponent as BaseSidebarComponent } from 'theme/components/sidebar';
+import { SidebarComponent as BaseSidebarComponent } from '../../../theme/components/sidebar';
 
 @Component({
   selector: 'app-sidebar',

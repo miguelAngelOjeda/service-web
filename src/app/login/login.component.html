@@ -38,31 +38,42 @@
   <div class="mdl-card__supporting-text color--dark-gray">
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
-        <span class="mdl-card__title-text text-color--smooth-gray"><img src="assets/images/logo.png" class="image" align="right"></span>
+        <!-- <span class="mdl-card__title-text text-color--smooth-gray"><img src="assets/images/logo.png" class="image" align="right"></span> -->
       </div>
       <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
         <span class="blank-layout-card-name text-color--white">Sign in</span>
         <span class="blank-layout-card-secondary-text text-color--smoke">Enter fields to sign in to DARKBOARD</span>
       </div>
       <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-          <input class="mdl-textfield__input" type="text" id="e-mail">
-          <label class="mdl-textfield__label" for="e-mail">Email</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-          <input class="mdl-textfield__input" type="text" id="password">
-          <label class="mdl-textfield__label" for="password">Password</label>
-        </div>
+        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+          <fieldset [disabled]="isSubmitting">
+            <fieldset class="form-group mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+              <input
+                formControlName="username"
+                placeholder="Username"
+                class="mdl-textfield__input"
+                type="text"/>
+            </fieldset>
+            <fieldset class="form-group mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+              <input
+                formControlName="password"
+                placeholder="Password"
+                class="mdl-textfield__input"
+                type="password" />
+            </fieldset>
+            <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone submit-cell">
+              <div class="mdl-layout-spacer"></div>
+
+                <button class="mdl-button mdl-js-button mdl-button--raised color--light-blue" [disabled]="!authForm.valid" type="submit">
+                  {{ title }}
+                </button>
+
+            </div>
+          </fieldset>
+        </form>
         <a routerLink="/pages/forgot-password" class="blank-layout-card-link">Forgot password?</a>
       </div>
-      <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone submit-cell">
-        <div class="mdl-layout-spacer"></div>
-        <a routerLink="/app/dashboard">
-          <button class="mdl-button mdl-js-button mdl-button--raised color--light-blue" [disabled]="!authForm.valid">
-            {{ title }}
-          </button>
-        </a>
-      </div>
+
     </div>
   </div>
 </div>

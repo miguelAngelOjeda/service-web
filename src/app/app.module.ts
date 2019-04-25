@@ -20,6 +20,7 @@ import { LayoutComponent, ShowAuthedDirective, ListErrorsComponent, SharedModule
 import { CanAccessDirective } from './shared/can-access.directive';
 import { HeaderComponent, SidenavListComponent } from './navigation';
 import { LoginComponent } from './login';
+import { PageTopComponent } from '../theme/components/page-top';
 import { CoreModule } from './core/core.module';
 import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -43,6 +44,7 @@ export function tokenGetter() {
     LoginComponent,
     LayoutComponent,
     HeaderComponent,
+    PageTopComponent,
     ListErrorsComponent,
     SidenavListComponent,
     AddDialogoSubsidiaryComponent,

@@ -1,6 +1,6 @@
 import { Component, HostBinding } from '@angular/core';
 
-import { UpgradableComponent } from 'theme/components/upgradable';
+import { UpgradableComponent } from '../../../theme/components/upgradable';
 
 @Component({
   template: '',

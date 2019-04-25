@@ -5,6 +5,6 @@ import { AfterViewInit, Component } from '@angular/core';
 })
 export abstract class UpgradableComponent implements AfterViewInit {
   public ngAfterViewInit() {
-    componentHandler.upgradeDom();
+    //componentHandler.upgradeDom();
   }
 }

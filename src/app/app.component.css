@@ -3,11 +3,11 @@ mat-sidenav-container, mat-sidenav-content, mat-sidenav {
 }
 
 mat-sidenav {
-    width: 250px;
+    width: 600px;
 }
 
 main {
-    padding: 10px;
+    padding: 50%;
 }
 
 .error-messages {
