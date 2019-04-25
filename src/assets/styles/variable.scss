@@ -5,6 +5,11 @@ Email: niravjoshi87@gmail.com
 File: scss
 */
 // Variables
+@import "variables/colors";
+@import "variables/bootstrap-material-design-base";
+@import "variables/spacing";
+@import "variables/tables";
+@import "variables/type";
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
 
 $bodyfont: 'Poppins', sans-serif;
