@@ -1,4 +1,5 @@
-<div class="auth-page centered" *appShowAuthed="false">
+<div class="auth-page" *appShowAuthed="false">
+  <div class="centered">
   <div class="container page">
     <div class="row">
 
@@ -7,30 +8,32 @@
         <h2 class="ui blue image imageLogin medium">
 
         </h2>
-        
+        <mat-card>
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">
               <input
                 formControlName="username"
-                placeholder="Username"
+                placeholder="usuario"
                 class="form-control form-control-lg"
                 type="text"/>
             </fieldset>
             <fieldset class="form-group">
               <input
                 formControlName="password"
-                placeholder="Password"
+                placeholder="contraseña"
                 class="form-control form-control-lg"
                 type="password" />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid"  type="submit">
+            <button class="" mat-button [disabled]="!authForm.valid"  type="submit">
               {{ title }}
             </button>
           </fieldset>
         </form>
+      </mat-card>
       </div>
 
     </div>
+  </div>
   </div>
 </div>
