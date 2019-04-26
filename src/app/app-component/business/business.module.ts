@@ -20,6 +20,7 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { CanAccessDirective } from '../../shared/can-access.directive';
 import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   imports: [
@@ -31,6 +32,9 @@ import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared'
     SharedModule,
     //BrowserAnimationsModule,
     EcoFabSpeedDialModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LayoutModule,
     //BrowserModule,

@@ -26,10 +26,7 @@ import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { SpinnerComponent } from './shared/spinner.component';
-// import { AddReferenceTypesComponent, EditReferenceTypesComponent, ViewReferenceTypesComponent,
-// ListReferenceTypesComponent } from './reference-types/add-reference-types/add-reference-types.component';
-// import { ListLinkTypesComponent, AddLinkTypesComponent, EditLinkTypesComponent,
-// ViewLinkTypesComponent } from './link-types/list-link-types/list-link-types.component';
+import * as $ from 'jquery';
 
 
 export function tokenGetter() {
@@ -58,7 +55,7 @@ export function tokenGetter() {
     FlexLayoutModule,
     BrowserAnimationsModule,
     EcoFabSpeedDialModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),    
     BrowserAnimationsModule,
     LayoutModule,
     BrowserModule,

@@ -10,5 +10,7 @@ export class Business {
     telefonoMovil: string;
     email: string;
     observacion: string;
+    latitud: number = -25.289020;
+    longitud: number = -57.619963;
     activo: string;
 }
