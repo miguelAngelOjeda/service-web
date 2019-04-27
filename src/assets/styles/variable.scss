@@ -12,7 +12,7 @@ File: scss
 @import "variables/type";
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
 
-$dropify-font-path: "fonts";
+
 
 
 $bodyfont: 'Poppins', sans-serif;
@@ -42,7 +42,7 @@ $custom-typography: mat-typography-config(
 @include angular-material-theme($theme);
 
 // Dark Theme
-
+$dropify-font-path: "icons/fonts-dropify";
 /*Theme Colors*/
 
 $topbar: #2196f3;
