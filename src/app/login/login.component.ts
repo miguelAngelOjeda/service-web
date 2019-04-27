@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       this.errors = {errors: {}};
 
       this.userService
-      .attemptAuth(this.authType, JSON.stringify(this.model))
+      .attemptAuth(this.authType, this.model)
       .subscribe(
         data => {
           this.router.navigateByUrl('service-web/home')
