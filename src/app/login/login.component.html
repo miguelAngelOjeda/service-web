@@ -1,7 +1,46 @@
 <div class="auth-page" *appShowAuthed="false">
-  <div class="centered">
   <div class="container page">
-    <div class="row">
+    <div  class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
+      <div class="login-register-box">
+        <mat-card  class="mat-card">
+          <mat-card-content  class="mat-card-content">
+            <form #formControl="ngForm" (ngSubmit)="formControl.form.valid && submitForm(ngForm)" class="ng-pristine ng-invalid ng-touched">
+
+                  <div  class="text-center">
+                    <img alt="homepage" src="assets/images/logo-icon.png">
+                    <h4 class="m-t-0">Login to App</h4>
+                  </div>
+                  <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+                    <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+                      <mat-form-field class="ng-pristine ng-invalid ng-touched">
+                        <input matInput #input  placeholder="Usuario"  name="username" [(ngModel)]="model.username" required>
+                    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+                    <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+                      <mat-form-field class="ng-pristine ng-invalid ng-touched">
+                        <input matInput #input  placeholder="Password"  name="password" [(ngModel)]="model.password" required>
+                    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+                    <button class="btn-block btn-lg m-t-20 m-b-20 mat-raised-button mat-primary" color="primary" mat-raised-button="" type="submit">
+                      <span class="mat-button-wrapper">{{ title }}</span>
+                      <div class="mat-button-ripple mat-ripple" matripple="">
+                      </div>
+                      <div class="mat-button-focus-overlay">
+                      </div>
+                    </button>
+                  </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <!-- <div class="row">
 
       <div class="col-md-6 offset-md-3 col-xs-12 items-centered">
 
@@ -35,7 +74,6 @@
       </mat-card>
       </div>
 
-    </div>
-  </div>
+    </div> -->
   </div>
 </div>

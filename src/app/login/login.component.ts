@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Login } from '../core/models';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService } from '../core/services';
@@ -10,24 +11,23 @@ import { Errors } from '../core/models';
   templateUrl: 'login.component.html',
   styleUrls: ['./login.component.css']})
 export class LoginComponent implements OnInit {
+    private model: Login;
     authType: String = '';
     title: String = '';
     errors: Errors = {errors: {}};
     isSubmitting = false;
-    authForm: FormGroup;
+
+    formControl = new FormControl('', [
+      Validators.required
+    // Validators.email,
+    ]);
 
     constructor(
       private route: ActivatedRoute,
       private router: Router,
-      private userService: UserService,
-      private fb: FormBuilder) {
-
-          // use FormBuilder to create a form group
-          this.authForm = this.fb.group({
-            'username': ['', Validators.required],
-            'password': ['', Validators.required]
-          });
-        }
+      private userService: UserService) {
+        this.model = new Login();
+    }
 
     ngOnInit() {
       this.route.url.subscribe(data => {
@@ -43,9 +43,8 @@ export class LoginComponent implements OnInit {
       this.isSubmitting = true;
       this.errors = {errors: {}};
 
-      const credentials = this.authForm.value;
       this.userService
-      .attemptAuth(this.authType, credentials)
+      .attemptAuth(this.authType, JSON.stringify(this.model))
       .subscribe(
         data => {
           this.router.navigateByUrl('service-web/home')
@@ -55,6 +54,12 @@ export class LoginComponent implements OnInit {
           this.isSubmitting = false;
         }
       );
+    }
+
+    getErrorMessage() {
+      return this.formControl.hasError('required') ? 'Campo requerido' :
+        this.formControl.hasError('email') ? 'Not a valid email' :
+          '';
     }
 
 }

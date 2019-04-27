@@ -3,6 +3,7 @@ export * from './token';
 export * from './errors';
 export * from './business';
 export * from './rol';
+export * from './login';
 export * from './subsidiary';
 export * from './referenceTypes';
 export * from './calculationTypes';

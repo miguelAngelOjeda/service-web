@@ -22,6 +22,8 @@ File: scss
 // Import Bootstrap source files (Required file)
 @import "bootstrap/bootstrap";
 
+//icons
+@import "css/icons/material-design-iconic-font/css/materialdesignicons.min.css";
 
 @import 'spinner';
 @import 'app';
