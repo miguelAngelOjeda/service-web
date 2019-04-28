@@ -7,19 +7,20 @@
           Empresas
         </div>
         <div class="col-md-6">
-          <a class="nav-link" mat-mini-fab  class="m-t-10 float-right" routerLink="/service-web/business/new">
-            <mat-icon>add</mat-icon>
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/business/new">
+            Agregar
           </a>
         </div>
       </div>
     </mat-card-title>
     <mat-card-subtitle> </mat-card-subtitle>
-        <div class="col-sm-4 offset-sm-8 col-xs-12">
-          <mat-form-field class="form-group-lg">
-            <input matInput #filter placeholder="Buscar....." class="form-control-success">
-          </mat-form-field>
-        </div>
-        <table mat-table [dataSource]="dataSource" class="table table-bordered table-striped table-hover js-basic-example dataTable" matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
+      <p>
+        <mat-form-field appearance="fill">
+          <input matInput #filter placeholder="Buscar....." class="form-control-success">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </p>
+        <table mat-table [dataSource]="dataSource" class="table table-striped table-hover js-basic-example dataTable" matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
           <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
             <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
@@ -49,21 +50,9 @@
             <ng-container matColumnDef="opciones">
                 <th mat-header-cell *matHeaderCellDef>  </th>
                 <td mat-cell *matCellDef="let element">
-                   <mat-menu #appMenu="matMenu">
-                        <button  mat-menu-item   routerLink="/service-web/business/{{element.id}}/edit" *appCanAccess="['enterprise', 'editEnterprise']">
-                          <i class="fa fa-edit"></i>&nbsp;Editar</button>
-                        <button  mat-menu-item   routerLink="/product-types/{{element.id}}">
-                          <i class="fa fa-trash-o"></i>&nbsp;Remover</button>
-                   </mat-menu>
-                   <mat-button-toggle-group class="btn-group-vertical">
-                        <mat-button-toggle class="btn-default" routerLink="/service-web/business/{{element.id}}" *appCanAccess="['enterprise', 'viewEnterprise']">
-                          Mostrar
-                        </mat-button-toggle>
-
-                        <mat-button-toggle [matMenuTriggerFor]="appMenu">
-                          <mat-icon>arrow_drop_down</mat-icon>
-                        </mat-button-toggle>
-                   </mat-button-toggle-group>
+                  <button mat-icon-button routerLink="/service-web/business/{{element.id}}" *appCanAccess="['enterprise', 'viewEnterprise']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/business/{{element.id}}/edit" *appCanAccess="['enterprise', 'editEnterprise']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button routerLink="/product-types/{{element.id}}"> <mat-icon>delete</mat-icon></button>
                 </td>
             </ng-container>
 

@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         // Get the last piece of the URL (it's either 'login' or 'register')
         this.authType = 'login';
         // Set a title for the page accordingly
-        this.title = 'Login';
+        this.title = 'Acceder';
       });
 
     }

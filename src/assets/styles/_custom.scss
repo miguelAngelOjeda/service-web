@@ -1,0 +1,19 @@
+// Estilos personalizados 
+
+.breadcrumb2 {
+	text-transform: uppercase !important;
+	font-size: 1.3rem;
+	padding-left: 1rem;
+	.previous {
+		font-size: 1.14rem;
+		border-bottom: 2px dotted rgba($megna,0.5) !important;	
+		color: rgba(0,0,0,0.5) !important;
+		margin-right: 15px;
+		&:hover {
+			color: $megna !important;
+		}
+	}
+	.current {
+		color: #555 !important;
+	}
+}
