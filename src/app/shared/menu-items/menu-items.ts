@@ -8,21 +8,22 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  { state: 'business', name: 'Empresas', type: 'link', icon: 'av_timer' },
-  { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'crop_7_5' },
+  { state: 'business', name: 'Empresas', type: 'link', icon: 'av_timer' , entity:'enterprise', role:'listEnterprise'},
+  { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'crop_7_5', entity:'subsidiary', role:'listSubsidiary' },
   {
     state: 'users',
     type: 'link',
     name: 'Usuarios',
-    icon: 'vertical_align_center'
+    icon: 'vertical_align_center', entity:'', role:''
   },
-  { state: 'chips', type: 'link', name: 'Clientes', icon: 'vignette' },
-  { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' },
+  { state: 'chips', type: 'link', name: 'Clientes', icon: 'vignette' , entity:'', role:''},
+  { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' , entity:'', role:''},
   {
     state: 'progress-snipper',
     type: 'link',
     name: 'Servicios',
-    icon: 'border_horizontal'
+    icon: 'border_horizontal',
+    entity:'', role:''
   }
 ];
 

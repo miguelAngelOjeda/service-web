@@ -38,6 +38,7 @@ export class JwtService {
   destroyToken() {
     window.localStorage.removeItem('jwtToken');
     window.localStorage.removeItem('type_token');
+    window.localStorage.removeItem('user');
   }
 
   destroyTokenUpdate() {

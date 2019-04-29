@@ -93,7 +93,7 @@ export class UserService implements CanActivate {
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
     }
-
+    
     attemptAuth(type, credentials): Observable<User> {
       const route = (type === 'login') ? '/login' : '';
       console.log(credentials);
@@ -111,7 +111,6 @@ export class UserService implements CanActivate {
       if (!this.isAuthenticatedSubject.asObservable()) {
         this.populate();
       }
-      console.log('this.currentUserSubject.asObservable()',this.currentUserSubject.asObservable());
       return this.currentUserSubject.asObservable();
     }
 

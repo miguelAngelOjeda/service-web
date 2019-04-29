@@ -8,7 +8,7 @@
     <!-- ============================================================== -->
     <!-- Profile - style you can find in header.scss -->
     <!-- ============================================================== -->
-    <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> Markarn Doe <i class="ti-angle-down font-12 m-l-5"></i></a></div>
+    <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{currentUser.username}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
         <button mat-menu-item>
             <mat-icon>settings</mat-icon> Settings </button>
@@ -23,13 +23,14 @@
 </div>
 <mat-nav-list appAccordion>
     <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
-        <a class="" appAccordionToggle [routerLink]="['/service-web/', menuitem.state]" *ngIf="menuitem.type === 'link'">
-            <mat-icon>{{ menuitem.icon }}</mat-icon>
-            <span>{{ menuitem.name }}</span>
-            <span fxFlex></span>
-            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
-        </a>
-
+        <ng-container *appCanAccess="[menuitem.entity, menuitem.role]">
+          <a class="" appAccordionToggle [routerLink]="['/service-web/', menuitem.state]" *ngIf="menuitem.type === 'link'">
+              <mat-icon>{{ menuitem.icon }}</mat-icon>
+              <span>{{ menuitem.name }}</span>
+              <span fxFlex></span>
+              <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+          </a>
+        </ng-container>
 
     </mat-list-item>
 
