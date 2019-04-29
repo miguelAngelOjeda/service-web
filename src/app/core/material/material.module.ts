@@ -10,6 +10,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
+    MatStepperModule,
     MatInputModule,
     MatChipsModule,
     MatTableModule,
@@ -43,6 +45,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatMenuModule,
     MatListModule,
     MatSortModule,
+    MatStepperModule,
     MatChipsModule,
     MatButtonModule,
     MatCheckboxModule,
