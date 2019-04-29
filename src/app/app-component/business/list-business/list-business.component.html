@@ -13,52 +13,52 @@
         </div>
       </div>
     </mat-card-title>
-    <mat-card-subtitle> </mat-card-subtitle>
-      <p>
+    <!-- <mat-card-subtitle> </mat-card-subtitle> -->
+      <!-- <p> -->
         <mat-form-field appearance="fill">
           <input matInput #filter placeholder="Buscar....." class="form-control-success">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
-      </p>
-        <table mat-table [dataSource]="dataSource" class="table table-striped table-hover js-basic-example dataTable" matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
+      <!-- </p> -->
+        <mat-table [dataSource]="dataSource" class="mat-table"
+         matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
           <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
-            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="ruc">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> RUC </th>
-            <td mat-cell *matCellDef="let element"> {{element.ruc}} </td>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.ruc}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="direccion">
-            <th mat-header-cell *matHeaderCellDef> DIRECCION </th>
-            <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+            <mat-header-cell *matHeaderCellDef> DIRECCION </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element"> {{element.direccion}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="telefono">
-            <th mat-header-cell *matHeaderCellDef> TELEFONO </th>
-            <td mat-cell *matCellDef="let element">{{element.telefono}}</td>
+            <mat-header-cell *matHeaderCellDef> TELEFONO </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.telefono}}</mat-cell>
           </ng-container>
 
-
           <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef> EMAIL </th>
-              <td mat-cell *matCellDef="let element">{{element.email}}</td>
-            </ng-container>
+              <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+          </ng-container>
 
-            <ng-container matColumnDef="opciones">
-                <th mat-header-cell *matHeaderCellDef>  </th>
-                <td mat-cell *matCellDef="let element">
+          <ng-container matColumnDef="opciones">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let element">
                   <button mat-icon-button routerLink="/service-web/business/{{element.id}}" *appCanAccess="['enterprise', 'viewEnterprise']"><mat-icon>visibility</mat-icon></button>
                   <button mat-icon-button routerLink="/service-web/business/{{element.id}}/edit" *appCanAccess="['enterprise', 'editEnterprise']"> <mat-icon>edit</mat-icon></button>
                   <button mat-icon-button routerLink="/product-types/{{element.id}}"> <mat-icon>delete</mat-icon></button>
-                </td>
+                </mat-cell>
             </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+          <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
 
         <mat-paginator [length]="length"
                       [pageSize]="pageSize"

@@ -28,7 +28,10 @@ export class ListBusinessComponent implements OnInit {
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+    this.length = 0;
+    this.pageSize = 10;
+  }
 
   ngOnInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
