@@ -15,29 +15,33 @@
 <mat-card-content>
   <form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-12">
           <div class="row">
-             <div class="col-md-4">
+             <div class="col-md-3">
                 <input type="file" id="input-file-now" class="dropify">
              </div>
-             <div class="col-md-8">
-               <div class="row">
-                 <mat-form-field   class="col-sm-12" appearance="legacy">
-               		<input matInput #input  placeholder="Nombre Fantasia" [(ngModel)]="model.nombreFantasia" name="nombreFantasia" required>
-               		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-               	</mat-form-field>
-                <mat-form-field   class="col-sm-12" appearance="legacy">
-              		<input matInput #input  placeholder="Nombre" [(ngModel)]="model.nombre" name="nombre" required>
-              		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              	</mat-form-field>
-                <mat-form-field   class="col-sm-12" appearance="legacy">
-              		<input matInput #input  placeholder="Ruc" [(ngModel)]="model.ruc" name="ruc" required>
-              		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              	</mat-form-field>
-              </div>
+             <div class="col-md-9">
+               <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
+                 <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
+                 (dragEnd)="markerDragEnd($event)"></agm-marker>
+               </agm-map>
              </div>
           </div>
           <div class="row">
+
+              <mat-form-field   class="col-sm-12" appearance="legacy">
+               <input matInput #input  placeholder="Nombre Fantasia" [(ngModel)]="model.nombreFantasia" name="nombreFantasia" required>
+               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+             </mat-form-field>
+             <mat-form-field   class="col-sm-12" appearance="legacy">
+               <input matInput #input  placeholder="Nombre" [(ngModel)]="model.nombre" name="nombre" required>
+               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+             </mat-form-field>
+             <mat-form-field   class="col-sm-12" appearance="legacy">
+               <input matInput #input  placeholder="Ruc" [(ngModel)]="model.ruc" name="ruc" required>
+               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+             </mat-form-field>
+
             	<mat-form-field   class="col-sm-12" appearance="legacy">
             		<input matInput #input  placeholder="Descripcion" [(ngModel)]="model.descripcion" name="descripcion">
             		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
@@ -72,12 +76,6 @@
             	</mat-form-field>
 
           </div>
-        </div>
-        <div class="col-md-5">
-          <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
-            <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
-            (dragEnd)="markerDragEnd($event)"></agm-marker>
-          </agm-map>
         </div>
       </div>
       <mat-card-actions>
