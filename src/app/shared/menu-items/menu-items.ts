@@ -8,7 +8,8 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  { state: 'business', name: 'Empresas', type: 'link', icon: 'av_timer' , entity:'enterprise', role:'listEnterprise'},
+  { state: '', name: '', type: 'link', icon: 'crop_7_5' , entity:'enterprise', role:'listEnterpriseP'},
+  { state: 'business', name: 'Empresas', type: 'link', icon: 'crop_7_5' , entity:'enterprise', role:'listEnterprise'},
   { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'crop_7_5', entity:'subsidiary', role:'listSubsidiary' },
   {
     state: 'users',

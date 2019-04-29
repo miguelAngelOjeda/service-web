@@ -2,7 +2,10 @@
 <mat-card-header>
 
   <mat-card-title>
-    <a class="nav-link" mat-mini-fab color="primary" [routerLink]="['/service-web/business/',model.id]">
+    <a *ngIf="model.id != null" class="nav-link" mat-mini-fab color="primary" [routerLink]="['/service-web/business/',model.id]">
+      <mat-icon>reply</mat-icon>
+    </a>
+    <a *ngIf="model.id == null" class="nav-link" mat-mini-fab color="primary" routerLink="/service-web/business">
       <mat-icon>reply</mat-icon>
     </a>
     Agregar Empresa
@@ -67,17 +70,19 @@
             		<input matInput #input  placeholder="Observacion" [(ngModel)]="model.observacion" name="observacion">
             		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             	</mat-form-field>
-              <mat-card-actions>
-                <button mat-button [type]="submit"  mat-raised-button >Guardar</button>
-              </mat-card-actions>
+
           </div>
         </div>
         <div class="col-md-5">
-          <agm-map class="gmap" [latitude]="model.latitud" [zoom]="zoom" [longitude]="model.longitud" [mapTypeControl]="true">
-            <agm-marker  [latitude]="model.latitud" [longitude]="model.longitud" (markerClick)="clickedMarker(m)" [markerDraggable]="true"></agm-marker>
+          <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
+            <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
+            (dragEnd)="markerDragEnd($event)"></agm-marker>
           </agm-map>
         </div>
       </div>
+      <mat-card-actions>
+        <button mat-button [type]="submit"  mat-raised-button>Guardar</button>
+      </mat-card-actions>
   </form>
 </mat-card-content>
 </mat-card>

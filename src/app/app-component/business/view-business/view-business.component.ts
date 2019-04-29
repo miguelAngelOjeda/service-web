@@ -6,9 +6,13 @@ import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
 import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
 import { EditDialogoSubsidiaryComponent } from './edit-subsidiary';
 import { ViewDialogoSubsidiaryComponent } from './view-subsidiary';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { FormControl, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import * as $ from 'jquery';
+import 'dropify';
+declare var google: any;
 
 @Component({
   selector: 'app-view-business',
@@ -16,6 +20,12 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
   styleUrls: ['./view-business.component.css']
 })
 export class ViewBusinessComponent implements OnInit {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  address: string;
+  private geoCoder;
+
   public displayedColumns = ['codigoSucursal', 'nombre', 'direccion', 'telefono', 'email','opciones'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -47,10 +57,23 @@ export class ViewBusinessComponent implements OnInit {
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.data = res.model as Business;
+       this.setCurrentLocation();
     });
   }
 
   ngOnInit() {
+      (<any>$('.dropify') ).dropify({
+          tpl: {
+              wrap:            '<div class="dropify-wrapper"></div>',
+              loader:          '<div class="dropify-loader"></div>',
+              message:         '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
+              preview:         '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+              filename:        '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
+              clearButton:     '<button type="button" class="dropify-clear">{{ remove }}</button>',
+              errorLine:       '<p class="dropify-error">{{ error }}</p>',
+              errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+          }
+      });
       this.getListFk(null, this.route.snapshot.params.id);
   }
 
@@ -115,6 +138,18 @@ export class ViewBusinessComponent implements OnInit {
            data: this.subsidiary
          });
     });
+  }
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = this.data.latitud == null ? position.coords.latitude : this.data.latitud;
+        this.longitude = this.data.longitud == null ? position.coords.longitude : this.data.longitud;
+        this.zoom = 15;
+        //this.getAddress(this.latitude, this.longitude);
+      });
+    }
   }
 
   getErrorMessage() {

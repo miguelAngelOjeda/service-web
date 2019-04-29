@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, Injectable } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Business } from '../../../core/models';
 import { ApiService } from '../../../core/services';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import * as $ from 'jquery';
 import 'dropify';
+declare var google: any;
 
 @Component({
   selector: 'app-add-business',
@@ -13,20 +15,56 @@ import 'dropify';
 })
 export class AddBusinessComponent implements OnInit {
   private model: Business;
-  texto : string = 'Wenceslau Braz - Cuidado com as cargas';
-  zoom: number = 15;
+  title: string = 'AGM project';
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  address: string;
+  private geoCoder;
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
   ]);
 
   constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
     private apiService: ApiService
   ) {
     this.model = new Business();
    }
 
   ngOnInit() {
+    //load Places Autocomplete
+    this.setCurrentLocation();
+    // this.mapsAPILoader.load().then(() => {
+    //   this.setCurrentLocation();
+    //   this.geoCoder = new google.maps.Geocoder;
+    //
+    //   let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    //     types: ["address"]
+    //   });
+    //   autocomplete.addListener("place_changed", () => {
+    //     this.ngZone.run(() => {
+    //       //get the place result
+    //       let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    //
+    //       //verify result
+    //       if (place.geometry === undefined || place.geometry === null) {
+    //         return;
+    //       }
+    //
+    //       //set latitude, longitude and zoom
+    //       this.latitude = place.geometry.location.lat();
+    //       this.longitude = place.geometry.location.lng();
+    //       this.zoom = 12;
+    //     });
+    //   });
+    // });
     (<any>$('.dropify') ).dropify({
         tpl: {
             wrap:            '<div class="dropify-wrapper"></div>',
@@ -41,23 +79,62 @@ export class AddBusinessComponent implements OnInit {
     });
   }
 
-  clickedMarker(label: string) {
-    console.log(label);
-  }
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
-  }
-
   submit(form) {
+    console.log((<any>$('#input-file-now') ));
+    console.log(this.model);
+    this.model.latitud = this.latitude;
+    this.model.longitud = this.longitude;
     this.apiService.post('/empresas', this.model)
     .subscribe(res => {
         this.model = res.model as Business;
         //this.snackBarService.openSnackBar('res');
 
     });
+  }
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+        //this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  }
+
+
+  markerDragEnd($event: MouseEvent) {
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+
+    //this.getAddress(this.latitude, this.longitude);
+  }
+
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
+  }
+
+
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? 'Campo requerido' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
   }
 
 }
