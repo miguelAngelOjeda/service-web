@@ -1,6 +1,6 @@
 <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/business"> Empresas </a> &gt; <span class="current">{{data.nombreFantasia}}</span></h2>
 <mat-card class="card">
-	<mat-horizontal-stepper #stepper>
+	<mat-horizontal-stepper [linear]="true" #stepper>
   <mat-step >
 		<ng-template matStepLabel>Datos de la Empresa</ng-template>
 		<form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
@@ -100,7 +100,7 @@
 	      </div>
 	  </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
+  <mat-step [stepControl]="secondFormGroup" >
 		<ng-template matStepLabel>Sucursales</ng-template>
 		<div class="row">
 			<div class="col-md-12">
@@ -114,7 +114,7 @@
 		      *ngFor="let subsidiary of subsidiarys"
 		      [colspan]="4"
 		      [rowspan]="5">
-					<form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
+					<form  [formGroup]="secondFormGroup">
 							<div class="row">
 				        <div class="col-md-12">
 				          <div class="row">
@@ -127,58 +127,49 @@
 				          </div>
 				          <div class="row">
 				            <div class="col-md-4">
-				              <mat-form-field   class="col-sm-12" appearance="legacy">
-				                <input matInput #input  placeholder="Codigo" [(ngModel)]="subsidiary.codigoSucursal" name="codigoSucursal" disabled>
-				                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-				              </mat-form-field>
+					              <mat-form-field   class="col-sm-12" appearance="legacy">
+													<input matInput placeholder="Codigo" [(ngModel)]="subsidiary.codigoSucursal" formControlName="codigoSucursal" required disabled>
+					              </mat-form-field>
 				            </div>
 				            <div class="col-md-4">
 				              <mat-form-field   class="col-sm-12" appearance="legacy">
-				               <input matInput #input  placeholder="Nombre" [(ngModel)]="subsidiary.nombre" name="nombre" required>
-				               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+												<input matInput placeholder="Nombre" [(ngModel)]="subsidiary.nombre" formControlName="nombre" required>
 				             </mat-form-field>
 				            </div>
 
 				            <div class="col-md-4">
 				            	<mat-form-field   class="col-sm-12" appearance="legacy">
-				            		<input matInput #input  placeholder="Descripcion" [(ngModel)]="subsidiary.descripcion" name="descripcion" required>
-				            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+													<input matInput placeholder="Descripcion" [(ngModel)]="subsidiary.descripcion" formControlName="descripcion" required>
 				            	</mat-form-field>
 				            </div>
 				            <div class="col-md-4">
 				            	<mat-form-field   class="col-sm-12" appearance="legacy">
-				            		<input matInput #input  placeholder="Direccion" [(ngModel)]="subsidiary.direccion" name="direccion" required>
-				            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+				            		<input matInput  placeholder="Direccion" [(ngModel)]="subsidiary.direccion"   formControlName="direccion"  required>
 				            	</mat-form-field>
 				            </div>
 				            <div class="col-md-4">
 				              <mat-form-field   class="col-sm-12" appearance="legacy">
-				                <input matInput #input  placeholder="Telefono" [(ngModel)]="subsidiary.telefono" name="telefono" required>
-				                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+				                <input matInput  placeholder="Telefono" [(ngModel)]="subsidiary.telefono" formControlName="telefono"  required>
 				              </mat-form-field>
 				            </div>
 				            <div class="col-md-4">
 				            	<mat-form-field   class="col-sm-12" appearance="legacy">
-				            		<input matInput #input  placeholder="Celular" [(ngModel)]="subsidiary.telefonoMovil" name="telefonoMovil">
-				            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+				            		<input matInput placeholder="Celular" [(ngModel)]="subsidiary.telefonoMovil" name="telefonoMovil" formControlName="telefonoMovil">
 				            	</mat-form-field>
 				            </div>
 				            <div class="col-md-6">
 				            	<mat-form-field   class="col-sm-12" appearance="legacy">
-				            		<input matInput #input  placeholder="Email" [(ngModel)]="subsidiary.email" name="email">
-				            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+				            		<input matInput  placeholder="Email" [(ngModel)]="subsidiary.email" name="email" formControlName="email">
 				            	</mat-form-field>
 				            </div>
 				            <div class="col-md-6">
 				            	<mat-form-field   class="col-sm-12" appearance="legacy">
-				            		<input matInput #input  placeholder="Fax" [(ngModel)]="subsidiary.fax" name="fax">
-				            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+				            		<input matInput   placeholder="Fax" [(ngModel)]="subsidiary.fax" name="fax" formControlName="fax">
 				            	</mat-form-field>
 				            </div>
 				            <div class="col-md-12">
 				            	<mat-form-field   class="col-sm-12" appearance="legacy">
-				            		<input matInput #input  placeholder="Observacion" [(ngModel)]="subsidiary.observacion" name="observacion">
-				            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+				            		<input matInput  placeholder="Observacion"  name="observacion" formControlName="observacion">
 				            	</mat-form-field>
 				            </div>
 				          </div>

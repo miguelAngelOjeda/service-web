@@ -7,7 +7,7 @@ import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
 import { EditDialogoSubsidiaryComponent } from './edit-subsidiary';
 import { ViewDialogoSubsidiaryComponent } from './view-subsidiary';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { FormControl, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as $ from 'jquery';
@@ -35,6 +35,8 @@ export class ViewBusinessComponent implements OnInit {
   address: string;
   private geoCoder;
 
+  secondFormGroup: FormGroup;
+
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -43,13 +45,25 @@ export class ViewBusinessComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _formBuilder: FormBuilder
   ) {
     this.data = new Business();
     this.subsidiary = new Subsidiary();
   }
 
   ngOnInit() {
+    this.secondFormGroup = this._formBuilder.group({
+      codigoSucursal: ['', Validators.required],
+      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      direccion: ['', Validators.required],
+      telefono: ['', Validators.required],
+      telefonoMovil: [''],
+      email: [''],
+      observacion: [''],
+      fax: [''],
+    });
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.data = res.model as Business;
@@ -73,9 +87,16 @@ export class ViewBusinessComponent implements OnInit {
 
   }
 
+  submit(form) {
+    console.log('holaaaaaaaaaaaaaaaaaa');
+  }
+
   addSubsidiary() {
-      let subsidiaryObj = new Subsidiary();
-      this.subsidiarys.push(subsidiaryObj);
+    const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent, {
+        data: this.subsidiary
+      });
+      //let subsidiaryObj = new Subsidiary();
+      //this.subsidiarys.push(subsidiaryObj);
   }
 
   editSubsidiary(id: number) {
