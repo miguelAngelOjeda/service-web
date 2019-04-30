@@ -5,6 +5,7 @@ import { ApiService } from '../../../../core/services';
 import { FormControl, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 declare var google: any;
 
 @Component({
@@ -44,12 +45,18 @@ export class EditDialogoSubsidiaryComponent {
         this.latitude = this.data.latitud == null ? position.coords.latitude : this.data.latitud;
         this.longitude = this.data.longitud == null ? position.coords.longitude : this.data.longitud;
         this.zoom = 15;
-        //this.getAddress(this.latitude, this.longitude);
       });
     }
   }
 
+  markerDragEnd($event: MouseEvent) {
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+  }
+
   submit(form) {
+    this.model.latitud = this.latitude;
+    this.model.longitud = this.longitude;
     this.apiService.put('/sucursales/' + this.model.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');
