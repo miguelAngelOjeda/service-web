@@ -13,6 +13,12 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
 import * as $ from 'jquery';
 import 'dropify';
 declare var google: any;
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
 
 @Component({
   selector: 'app-view-business',
@@ -20,28 +26,15 @@ declare var google: any;
   styleUrls: ['./view-business.component.css']
 })
 export class ViewBusinessComponent implements OnInit {
+  subsidiarys: Array<Subsidiary> = [];
+  data: Business;
+  subsidiary: Subsidiary;
   latitude: number;
   longitude: number;
   zoom: number;
   address: string;
   private geoCoder;
 
-  public displayedColumns = ['codigoSucursal', 'nombre', 'direccion', 'telefono', 'email','opciones'];
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('filter') filter: ElementRef;
-
-  public dataSource = new MatTableDataSource<Subsidiary>();
-  // MatPaginator Inputs
-  length = 0;
-  pageSize = 10;
-  pageSizeOptions: number[] = [10, 25, 100];
-  // MatPaginator Output
-  pageEvent: PageEvent;
-
-  data: Business;
-  subsidiary: Subsidiary;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -54,52 +47,35 @@ export class ViewBusinessComponent implements OnInit {
   ) {
     this.data = new Business();
     this.subsidiary = new Subsidiary();
+  }
+
+  ngOnInit() {
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.data = res.model as Business;
        this.setCurrentLocation();
     });
-  }
-
-  ngOnInit() {
-      //this.getListFk(null, this.route.snapshot.params.id);
-  }
-
-
-  public sortData(sort: Sort) {
-    let index = this.pageEvent == null ? 1 :  this.pageEvent.pageIndex + 1;
-    let rows = this.pageEvent == null ? 10 :  this.pageEvent.pageSize;
-    this.apiService.getPageList('/sucursales/'+this.route.snapshot.params.id+'/empresa',false, sort.direction, sort.active, index, rows, false)
+    this.apiService.getPageList('/empresas/'+this.route.snapshot.params.id+'/sucursales',false, 'desc', 'id', 1, 10, true)
     .subscribe(res => {
-      this.length = res.records;
-      this.dataSource.data = res.rows as Subsidiary[];
+        if(res.records > 0){
+          res.rows.forEach(obj=> {
+            this.subsidiarys.push(obj);
+         });
+        }
     })
   }
+
 
   public getListFk(event?:PageEvent, idEmpresa?:string){
-    let index = event == null ? 1 :  event.pageIndex + 1;
-    let rows = event == null ? 10 :  event.pageSize;
-    // let sidx = this.sort.direction == null ? 'desc' :  this.sort.direction;
-    // let sort = this.sort.active == null ? 'id' :  this.sort.active;
-    this.apiService.getPageList('/sucursales/'+this.route.snapshot.params.id+'/empresa',false, 'desc', 'id', index, rows, false)
-    .subscribe(res => {
-      this.length = res.records;
-      this.dataSource.data = res.rows as Subsidiary[];
-    })
+    // let index = event == null ? 1 :  event.pageIndex + 1;
+    // let rows = event == null ? 10 :  event.pageSize;
+    //
+
   }
 
   addSubsidiary() {
-      this.subsidiary = new Subsidiary();
-      this.subsidiary.empresa = new Business();
-      this.subsidiary.empresa.id = this.route.snapshot.params.id;
-
-      const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent, {
-          data: this.subsidiary
-        });
-
-      dialogRef.afterClosed().subscribe(result => {
-        this.getListFk(null, this.route.snapshot.params.id);
-      });
+      let subsidiaryObj = new Subsidiary();
+      this.subsidiarys.push(subsidiaryObj);
   }
 
   editSubsidiary(id: number) {
