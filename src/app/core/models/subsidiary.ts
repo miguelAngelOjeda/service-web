@@ -10,6 +10,8 @@ export class Subsidiary {
     telefonoMovil: string;
     email: string;
     observacion: string;
+    latitud: number;
+    longitud: number;
     activo: string;
     empresa: Business;
 }

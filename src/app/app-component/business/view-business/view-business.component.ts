@@ -33,6 +33,7 @@ export class ViewBusinessComponent implements OnInit {
   longitude: number;
   zoom: number;
   address: string;
+  color: string = '#f6f6f9';
   private geoCoder;
 
   secondFormGroup: FormGroup;
@@ -53,17 +54,6 @@ export class ViewBusinessComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.secondFormGroup = this._formBuilder.group({
-      codigoSucursal: ['', Validators.required],
-      nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      direccion: ['', Validators.required],
-      telefono: ['', Validators.required],
-      telefonoMovil: [''],
-      email: [''],
-      observacion: [''],
-      fax: [''],
-    });
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.data = res.model as Business;
@@ -92,11 +82,11 @@ export class ViewBusinessComponent implements OnInit {
   }
 
   addSubsidiary() {
+    this.subsidiary = new Subsidiary;
+    this.subsidiary.empresa = this.data;
     const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent, {
         data: this.subsidiary
       });
-      //let subsidiaryObj = new Subsidiary();
-      //this.subsidiarys.push(subsidiaryObj);
   }
 
   editSubsidiary(id: number) {

@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AddBusinessComponent , EditBusinessComponent, ListBusinessComponent,
-ViewBusinessComponent } from '../business';
+ViewBusinessComponent, AddDialogoSubsidiaryComponent, EditDialogoSubsidiaryComponent } from '../business';
 import { CoreModule } from '../../core/core.module';
 import { MaterialModule } from '../../core/material/material.module';
 import { BusinessRoutingModule } from './business-routing.module';
@@ -29,7 +29,7 @@ import { AgmCoreModule } from '@agm/core';
     MaterialModule,
     //BrowserModule,
     FlexLayoutModule,
-    SharedModule,
+    SharedModule,    
     //BrowserAnimationsModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({
@@ -40,7 +40,17 @@ import { AgmCoreModule } from '@agm/core';
     //BrowserModule,
     ReactiveFormsModule
   ],
+  exports: [
+    AddDialogoSubsidiaryComponent,
+    EditDialogoSubsidiaryComponent
+  ],
+  entryComponents: [
+    AddDialogoSubsidiaryComponent,
+    EditDialogoSubsidiaryComponent
+  ],
   declarations: [
+    EditDialogoSubsidiaryComponent,
+    AddDialogoSubsidiaryComponent,
     AddBusinessComponent,
     EditBusinessComponent,
     ListBusinessComponent,
