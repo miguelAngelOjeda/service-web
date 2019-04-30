@@ -116,6 +116,10 @@
 		      [rowspan]="5">
 					<mat-card>
 						 <mat-card-content>
+							 <mat-card-title  class="mat-card-title">
+								 <h4 _ngcontent-c42="" class="m-0">{{subsidiary.nombre}}</h4>
+							 </mat-card-title>
+							 <mat-card-subtitle class="mat-card-subtitle">{{subsidiary.codigoSucursal}}</mat-card-subtitle>
 								<a  class="mat-dialog-content"  (click)="editSubsidiary(subsidiary.id)">
 										<div class="row">
 											<div class="col-md-12">
@@ -128,19 +132,6 @@
 													 </div>
 												</div>
 												<div class="row">
-													<div class="col-md-6">
-														<mat-form-field   class="col-sm-12" appearance="legacy">
-															<input matInput #input  placeholder="Codigo" [(ngModel)]="subsidiary.codigoSucursal" name="codigoSucursal" disabled>
-															<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-														</mat-form-field>
-													</div>
-													<div class="col-md-6">
-														<mat-form-field   class="col-sm-12" appearance="legacy">
-										      		<input matInput #input  placeholder="Nombre" [(ngModel)]="subsidiary.nombre" name="nombre" disabled>
-										      		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-										      	</mat-form-field>
-													</div>
-
 													<div class="col-md-6">
 														<mat-form-field   class="col-sm-12" appearance="legacy">
 											    		<input matInput #input  placeholder="Descripcion" [(ngModel)]="subsidiary.descripcion" name="descripcion" disabled>
