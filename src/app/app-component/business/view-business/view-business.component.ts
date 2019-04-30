@@ -59,6 +59,11 @@ export class ViewBusinessComponent implements OnInit {
        this.data = res.model as Business;
        this.setCurrentLocation();
     });
+    this.getListSubsidiary();
+  }
+
+
+  public getListSubsidiary(){
     this.apiService.getPageList('/empresas/'+this.route.snapshot.params.id+'/sucursales',false, 'desc', 'id', 1, 10, true)
     .subscribe(res => {
         if(res.records > 0){
@@ -69,23 +74,15 @@ export class ViewBusinessComponent implements OnInit {
     })
   }
 
-
-  public getListFk(event?:PageEvent, idEmpresa?:string){
-    // let index = event == null ? 1 :  event.pageIndex + 1;
-    // let rows = event == null ? 10 :  event.pageSize;
-    //
-
-  }
-
-  submit(form) {
-    console.log('holaaaaaaaaaaaaaaaaaa');
-  }
-
   addSubsidiary() {
     this.subsidiary = new Subsidiary;
     this.subsidiary.empresa = this.data;
     const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent, {
         data: this.subsidiary
+      });
+      dialogRef.afterClosed().subscribe(result => {
+          this.subsidiarys = [];
+          this.getListSubsidiary();
       });
   }
 
@@ -99,7 +96,8 @@ export class ViewBusinessComponent implements OnInit {
          });
 
        dialogRef.afterClosed().subscribe(result => {
-           this.getListFk(null, this.route.snapshot.params.id);
+           this.subsidiarys = [];
+           this.getListSubsidiary();
        });
 
     });

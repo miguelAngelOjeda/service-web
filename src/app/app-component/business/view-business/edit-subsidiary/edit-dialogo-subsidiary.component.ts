@@ -5,6 +5,7 @@ import { ApiService } from '../../../../core/services';
 import { FormControl, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+declare var google: any;
 
 @Component({
   selector: 'app-edit-dialogo-subsidiary',
@@ -13,9 +14,13 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
 })
 export class EditDialogoSubsidiaryComponent {
   model: Subsidiary;
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  address: string;
+  private geoCoder;
   formControl = new FormControl('', [
     Validators.required
-  // Validators.email,
   ]);
 
   constructor(
@@ -23,12 +28,25 @@ export class EditDialogoSubsidiaryComponent {
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: Subsidiary) {
               this.model = data;
+              this.setCurrentLocation();
   }
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Campo requerido' :
       this.formControl.hasError('email') ? 'Not a valid email' :
         '';
+  }
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = this.data.latitud == null ? position.coords.latitude : this.data.latitud;
+        this.longitude = this.data.longitud == null ? position.coords.longitude : this.data.longitud;
+        this.zoom = 15;
+        //this.getAddress(this.latitude, this.longitude);
+      });
+    }
   }
 
   submit(form) {
