@@ -3,93 +3,73 @@
 	<mat-horizontal-stepper [linear]="false" #stepper>
 		<mat-step>
 			<ng-template matStepLabel>Datos de la Empresa</ng-template>
-			<form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="row p-b-20">
-							<div class="col-md-3">
-								<div class="dropify-wrapper">
-									<div class="dropify-previewr">
-										<div _ngcontent-c29="" class="pro-img">
-											<span class="dropify-render">
-												<img _ngcontent-c29="" alt="user" src="assets/images/users/4.jpg" width="60%">
-											</span>
+			<mat-card style="width: 100%;">
+				<mat-card-content>
+					<mat-card-title  class="mat-card-title">
+						<h4  class="m-0">{{data.nombre}}</h4>
+					</mat-card-title>
+					<mat-card-subtitle class="mat-card-subtitle">{{data.nombreFantasia}}</mat-card-subtitle>
+						<form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row p-b-20">
+										<div class="col-md-3">
+											<div class="dropify-wrapper">
+												<div class="dropify-previewr">
+													<div _ngcontent-c29="" class="pro-img">
+														<span class="dropify-render">
+															<img _ngcontent-c29="" alt="user" src="assets/images/users/4.jpg" width="60%">
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-9">
+											<agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
+												<agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="false"
+												(dragEnd)="markerDragEnd($event)"></agm-marker>
+											</agm-map>
+										</div>
+									</div>
+									<div class="row p-t-20">
+										<div class="col-md-6">
+											<mat-list>
+												<mat-list-item>
+													<p><mat-icon class="gray-text">account_balance</mat-icon>{{data.ruc}}</p>
+												</mat-list-item>
+												<mat-list-item>
+													<p><mat-icon class="gray-text">store</mat-icon>{{data.descripcion}}</p>
+												</mat-list-item>
+												<mat-list-item>
+													<p><mat-icon class="gray-text">directions</mat-icon>{{data.direccion}}</p>
+												</mat-list-item>
+												<mat-list-item>
+													<p><mat-icon class="gray-text">phone</mat-icon>{{data.telefono}}</p>
+												</mat-list-item>
+											</mat-list>
+										</div>
+										<div class="col-md-6">
+											<mat-list>
+												<mat-list-item>
+													<p><mat-icon class="gray-text">phone_android</mat-icon>{{data.telefonoMovil}}</p>
+												</mat-list-item>
+												<mat-list-item>
+													<p><mat-icon class="gray-text">alternate_email</mat-icon>{{data.email}}</p>
+												</mat-list-item>
+												<mat-list-item>
+													<p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{data.fax}}</p>
+												</mat-list-item>
+												<mat-list-item>
+													<p><mat-icon class="gray-text">speaker_notes</mat-icon>{{data.observacion}}</p>
+												</mat-list-item>
+											</mat-list>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-9">
-								<agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
-									<agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
-									(dragEnd)="markerDragEnd($event)"></agm-marker>
-								</agm-map>
-							</div>
-						</div>
-						<div class="row p-t-20">
-							<div class="col-md-4">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Ruc" [(ngModel)]="data.ruc" name="ruc" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Nombre Fantasia" [(ngModel)]="data.nombreFantasia" name="nombreFantasia" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Nombre" [(ngModel)]="data.nombre" name="nombre" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-6">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Descripcion" [(ngModel)]="data.descripcion" name="descripcion" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-6">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Direccion" [(ngModel)]="data.direccion" name="direccion" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Telefono" [(ngModel)]="data.telefono" name="telefono" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Celular" [(ngModel)]="data.telefonoMovil" name="telefonoMovil" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Email" [(ngModel)]="data.email" name="email" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-12">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Fax" [(ngModel)]="data.fax" name="fax" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-12">
-								<mat-form-field   class="col-sm-12" appearance="legacy">
-									<input matInput #input  placeholder="Observacion" [(ngModel)]="data.observacion" name="observacion" disabled>
-									<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-								</mat-form-field>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
+						</form>
+					</mat-card-content>
+				</mat-card>
 		</mat-step>
 		<mat-step>
 			<ng-template matStepLabel>Sucursales</ng-template>
@@ -99,9 +79,9 @@
 						Agregar Sucursal
 					</a>
 				</div>
-			</div>	
-			<mat-grid-list cols="2" rowHeight="110px">
-				<mat-grid-tile *ngFor="let subsidiary of subsidiarys" [colspan]="1" [rowspan]="6">
+			</div>
+			<div class="row">
+				<div class="col-md-6" *ngFor="let subsidiary of subsidiarys">
 					<mat-card style="width: 100%;">
 						<mat-card-content>
 							<mat-card-title  class="mat-card-title">
@@ -111,39 +91,55 @@
 							<a  class="mat-dialog-content"  (click)="editSubsidiary(subsidiary.id)">
 								<div class="row">
 									<div class="col-md-12">
-										<agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
-											<agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="false"
+										<agm-map class="gmap" [latitude]="subsidiary.latitud == null ? latitude : subsidiary.latitud" [zoom]="zoom" [longitude]="subsidiary.longitud == null ? longitude : subsidiary.longitud" [mapTypeControl]="true">
+											<agm-marker  [latitude]="subsidiary.latitud == null ? latitude : subsidiary.latitud" [longitude]="subsidiary.longitud == null ? longitude : subsidiary.longitud" (markerClick)="clickedMarker(m)" [markerDraggable]="false"
 											(dragEnd)="markerDragEnd($event)"></agm-marker>
 										</agm-map>
-										<mat-list>
-											<mat-list-item>
+										<div class="row">
+											<div class="col-md-6">
 												<p><mat-icon class="gray-text">store</mat-icon>{{subsidiary.descripcion}}</p>
-											</mat-list-item>
-											<mat-list-item>
+											</div>
+											<div class="col-md-6">
 												<p><mat-icon class="gray-text">directions</mat-icon>{{subsidiary.direccion}}</p>
-											</mat-list-item>
-											<mat-list-item>
+											</div>
+											<div class="col-md-6">
 												<p><mat-icon class="gray-text">phone</mat-icon>{{subsidiary.telefono}}</p>
-											</mat-list-item>
-											<mat-list-item>
+											</div>
+											<div class="col-md-6">
 												<p><mat-icon class="gray-text">phone_android</mat-icon>{{subsidiary.telefonoMovil}}</p>
-											</mat-list-item>
-											<mat-list-item>
+											</div>
+											<div class="col-md-6">
 												<p><mat-icon class="gray-text">alternate_email</mat-icon>{{subsidiary.email}}</p>
-											</mat-list-item>
-											<mat-list-item>
+											</div>
+											<div class="col-md-6">
 												<p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{subsidiary.fax}}</p>
-											</mat-list-item>
-											<mat-list-item>
+											</div>
+											<div class="col-md-6">
 												<p><mat-icon class="gray-text">speaker_notes</mat-icon>{{subsidiary.observacion}}</p>
-											</mat-list-item>
-										</mat-list>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<p><mat-icon class="gray-text">account_balance</mat-icon>Departamentos</p>
+											</div>
+										</div>
+										<div  *ngFor="let departments of subsidiary.departamentos">
+											<code _ngcontent-c71="" class="row bg-light">
+													<div class="col-md-6">
+														<p><mat-icon class="gray-text">subdirectory_arrow_right</mat-icon>{{departments.alias}}</p>
+													</div>
+													<div class="col-md-6">
+														<p><mat-icon class="gray-text">location_city</mat-icon>{{departments.nombreArea}}</p>
+													</div>
+											</code>
+											<p></p>
+										</div>
 									</div>
 								</div>
 							</a>
 						</mat-card-content>
 					</mat-card>
-				</mat-grid-tile>
-			</mat-grid-list>
+				</div>
+			</div>
 		</mat-step>
 	</mat-horizontal-stepper>

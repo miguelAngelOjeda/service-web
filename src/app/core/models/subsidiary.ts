@@ -1,4 +1,4 @@
-import {Business} from "../models";
+import {Business, Departments} from "../models";
 export class Subsidiary {
     id: number;
     codigoSucursal: string = ' ';
@@ -13,5 +13,6 @@ export class Subsidiary {
     latitud: number;
     longitud: number;
     activo: string;
+    departamentos: Array<Departments> = [];
     empresa: Business;
 }

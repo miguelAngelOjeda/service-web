@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subsidiary } from '../../../../core/models';
+import { Subsidiary, Departments } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
 import { FormControl, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
@@ -14,6 +14,7 @@ declare var google: any;
   styleUrls: ['./add-dialogo-subsidiary.component.css']
 })
 export class AddDialogoSubsidiaryComponent {
+  areas: Array<Departments> = [];
   latitude: number;
   longitude: number;
   zoom: number;
@@ -21,12 +22,13 @@ export class AddDialogoSubsidiaryComponent {
   private geoCoder;
 
   model: Subsidiary;
+  area: Departments;
   formControl = new FormControl('', [
     Validators.required
   ]);
 
   constructor(
-            //private viewEnterpriseComponent: ViewEnterpriseComponent,
+            private route: ActivatedRoute,
             public dialogRef: MatDialogRef<AddDialogoSubsidiaryComponent>,
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: Subsidiary) {
@@ -37,7 +39,8 @@ export class AddDialogoSubsidiaryComponent {
   submit(form) {
     this.model.latitud = this.latitude;
     this.model.longitud = this.longitude;
-    this.apiService.post('/sucursales', this.model)
+    console.log(this.model);
+    this.apiService.post('/empresas/'+ this.model.empresa.id +'/sucursales', this.model)
     .subscribe(res => {
         this.model = res.model as Subsidiary;
     });
@@ -52,6 +55,18 @@ export class AddDialogoSubsidiaryComponent {
         this.zoom = 15;
       });
     }
+  }
+
+  getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  addDepartment() {
+    this.model.departamentos.push(new Departments);
+  }
+
+  deleteDepartment(area){
+    this.model.departamentos.splice(this.areas.indexOf(area), 1);
   }
 
   markerDragEnd($event: MouseEvent) {

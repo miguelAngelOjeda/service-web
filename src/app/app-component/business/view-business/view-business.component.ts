@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Business, Subsidiary } from '../../../core/models';
+import { Business, Subsidiary, Departments } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
 import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
@@ -70,8 +70,10 @@ export class ViewBusinessComponent implements OnInit {
           res.rows.forEach(obj=> {
             this.subsidiarys.push(obj);
          });
+         console.log(this.subsidiarys);
         }
-    })
+    });
+
   }
 
   addSubsidiary() {
