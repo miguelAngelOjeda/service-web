@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router';
 import { Business, Subsidiary, Departments } from '../../../core/models';
 import { ApiService } from '../../../core/services';
+import { DialogComponent } from '../../../shared';
 import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
 import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
 import { EditDialogoSubsidiaryComponent } from './edit-subsidiary';
@@ -9,7 +10,7 @@ import { ViewDialogoSubsidiaryComponent } from './view-subsidiary';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
-   Sort, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+   Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import * as $ from 'jquery';
 import 'dropify';
 declare var google: any;
@@ -64,13 +65,14 @@ export class ViewBusinessComponent implements OnInit {
 
 
   public getListSubsidiary(){
+    this.subsidiarys = [];
     this.apiService.getPageList('/empresas/'+this.route.snapshot.params.id+'/sucursales',false, 'desc', 'id', 1, 10, true)
     .subscribe(res => {
         if(res.records > 0){
-          res.rows.forEach(obj=> {
-            this.subsidiarys.push(obj);
-         });
-         console.log(this.subsidiarys);
+          this.subsidiarys = res.rows;
+         //  res.rows.forEach(obj=> {
+         //    this.subsidiarys.push(obj);
+         // });
         }
     });
 
@@ -83,7 +85,6 @@ export class ViewBusinessComponent implements OnInit {
         data: this.subsidiary
       });
       dialogRef.afterClosed().subscribe(result => {
-          this.subsidiarys = [];
           this.getListSubsidiary();
       });
   }
@@ -92,13 +93,11 @@ export class ViewBusinessComponent implements OnInit {
     this.apiService.get('/sucursales/' + id)
     .subscribe(res => {
        this.subsidiary = res.model as Subsidiary;
-
        const dialogRef = this.dialog.open(EditDialogoSubsidiaryComponent, {
            data: this.subsidiary
          });
 
        dialogRef.afterClosed().subscribe(result => {
-           this.subsidiarys = [];
            this.getListSubsidiary();
        });
 
@@ -112,6 +111,20 @@ export class ViewBusinessComponent implements OnInit {
        const dialogRef = this.dialog.open(ViewDialogoSubsidiaryComponent, {
            data: this.subsidiary
          });
+    });
+  }
+
+  deleteSubsidiary(data: Subsidiary) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = "eliminar  la Sucursal " +data.nombre;
+    let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.apiService.delete('/sucursales/' + data.id)
+        .subscribe(res => {
+          this.getListSubsidiary();
+        });
+      }
     });
   }
 

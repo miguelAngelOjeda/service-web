@@ -95,7 +95,7 @@
 									<a mat-icon-button class="m-t-10 float-right"  *appCanAccess="['enterprise', 'editEnterprise']"  (click)="editSubsidiary(subsidiary.id)">
 										 <mat-icon>edit</mat-icon>
 									</a>
-									<a mat-icon-button class="m-t-10 float-right" mattooltip="Eliminar" mattooltipclass="example-tooltip-red"  style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"  routerlink="/service-web/business/new">
+									<a mat-icon-button class="m-t-10 float-right" mattooltip="Eliminar" mattooltipclass="example-tooltip-red" (click)="deleteSubsidiary(subsidiary)">
 										<mat-icon>delete</mat-icon>
 									</a>
 								</div>

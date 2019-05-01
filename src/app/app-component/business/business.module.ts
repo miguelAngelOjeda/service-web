@@ -19,6 +19,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { CanAccessDirective } from '../../shared/can-access.directive';
+import { DialogComponent } from '../../shared';
 import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared';
 import { AgmCoreModule } from '@agm/core';
 
@@ -29,7 +30,7 @@ import { AgmCoreModule } from '@agm/core';
     MaterialModule,
     //BrowserModule,
     FlexLayoutModule,
-    SharedModule,    
+    SharedModule,
     //BrowserAnimationsModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({
@@ -46,7 +47,8 @@ import { AgmCoreModule } from '@agm/core';
   ],
   entryComponents: [
     AddDialogoSubsidiaryComponent,
-    EditDialogoSubsidiaryComponent
+    EditDialogoSubsidiaryComponent,
+    DialogComponent
   ],
   declarations: [
     EditDialogoSubsidiaryComponent,
@@ -54,6 +56,7 @@ import { AgmCoreModule } from '@agm/core';
     AddBusinessComponent,
     EditBusinessComponent,
     ListBusinessComponent,
+    DialogComponent,
     ViewBusinessComponent
     //CanAccessDirective,
     //ShowAuthedDirective
