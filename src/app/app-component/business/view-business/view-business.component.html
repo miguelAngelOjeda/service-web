@@ -84,11 +84,23 @@
 				<div class="col-md-6" *ngFor="let subsidiary of subsidiarys">
 					<mat-card style="width: 100%;">
 						<mat-card-content>
-							<mat-card-title  class="mat-card-title">
-								<h4 _ngcontent-c42="" class="m-0">{{subsidiary.nombre}}</h4>
-							</mat-card-title>
-							<mat-card-subtitle class="mat-card-subtitle">{{subsidiary.codigoSucursal}}</mat-card-subtitle>
-							<a  class="mat-dialog-content"  (click)="editSubsidiary(subsidiary.id)">
+							<div class="row">
+								<div class="col-md-6">
+									<mat-card-title  class="mat-card-title">
+										<h4 _ngcontent-c42="" class="m-0">{{subsidiary.nombre}}</h4>
+									</mat-card-title>
+									<mat-card-subtitle class="mat-card-subtitle">{{subsidiary.codigoSucursal}}</mat-card-subtitle>
+								</div>
+								<div class="col-md-6">
+									<a mat-icon-button class="m-t-10 float-right"  *appCanAccess="['enterprise', 'editEnterprise']"  (click)="editSubsidiary(subsidiary.id)">
+										 <mat-icon>edit</mat-icon>
+									</a>
+									<a mat-icon-button class="m-t-10 float-right" mattooltip="Eliminar" mattooltipclass="example-tooltip-red"  style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"  routerlink="/service-web/business/new">
+										<mat-icon>delete</mat-icon>
+									</a>
+								</div>
+							</div>
+							<a  class="mat-dialog-content">
 								<div class="row">
 									<div class="col-md-12">
 										<agm-map class="gmap" [latitude]="subsidiary.latitud == null ? latitude : subsidiary.latitud" [zoom]="zoom" [longitude]="subsidiary.longitud == null ? longitude : subsidiary.longitud" [mapTypeControl]="true">
