@@ -12,7 +12,7 @@
 						<form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="row p-b-20">
+									<div class="row">
 										<div class="col-md-3">
 											<div class="dropify-wrapper">
 												<div class="dropify-previewr">
@@ -31,7 +31,7 @@
 											</agm-map>
 										</div>
 									</div>
-									<div class="row p-t-20">
+									<div class="row">
 										<div class="col-md-6">
 											<mat-list>
 												<mat-list-item>
@@ -81,17 +81,17 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6" *ngFor="let subsidiary of subsidiarys">
+				<div class="col-md-12" *ngFor="let subsidiary of subsidiarys">
 					<mat-card style="width: 100%;">
 						<mat-card-content>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-9">
 									<mat-card-title  class="mat-card-title">
 										<h4 _ngcontent-c42="" class="m-0">{{subsidiary.nombre}}</h4>
 									</mat-card-title>
 									<mat-card-subtitle class="mat-card-subtitle">{{subsidiary.codigoSucursal}}</mat-card-subtitle>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-3">
 									<a mat-icon-button class="m-t-10 float-right"  *appCanAccess="['enterprise', 'editEnterprise']"  (click)="editSubsidiary(subsidiary.id)">
 										 <mat-icon>edit</mat-icon>
 									</a>
@@ -108,44 +108,40 @@
 											(dragEnd)="markerDragEnd($event)"></agm-marker>
 										</agm-map>
 										<div class="row">
-											<div class="col-md-6">
+											<div class="col-md-6" *ngIf="subsidiary.descripcion">
 												<p><mat-icon class="gray-text">store</mat-icon>{{subsidiary.descripcion}}</p>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6" *ngIf="subsidiary.direccion">
 												<p><mat-icon class="gray-text">directions</mat-icon>{{subsidiary.direccion}}</p>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6" *ngIf="subsidiary.telefono">
 												<p><mat-icon class="gray-text">phone</mat-icon>{{subsidiary.telefono}}</p>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6" *ngIf="subsidiary.telefonoMovil">
 												<p><mat-icon class="gray-text">phone_android</mat-icon>{{subsidiary.telefonoMovil}}</p>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6" *ngIf="subsidiary.email">
 												<p><mat-icon class="gray-text">alternate_email</mat-icon>{{subsidiary.email}}</p>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6" *ngIf="subsidiary.fax">
 												<p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{subsidiary.fax}}</p>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6" *ngIf="subsidiary.observacion">
 												<p><mat-icon class="gray-text">speaker_notes</mat-icon>{{subsidiary.observacion}}</p>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-12">
-												<p><mat-icon class="gray-text">account_balance</mat-icon>Departamentos</p>
+												<mat-list>
+													<mat-divider></mat-divider>
+  													<h3 mat-subheader>Departamentos</h3>
+													<mat-list-item *ngFor="let departments of subsidiary.departamentos">
+														<p><span class="label label-primary">{{departments.alias}}</span> {{departments.nombreArea}}</p>
+													</mat-list-item>
+												</mat-list>
 											</div>
 										</div>
-										<div  *ngFor="let departments of subsidiary.departamentos">
-											<code _ngcontent-c71="" class="row bg-light">
-													<div class="col-md-6">
-														<p><mat-icon class="gray-text">subdirectory_arrow_right</mat-icon>{{departments.alias}}</p>
-													</div>
-													<div class="col-md-6">
-														<p><mat-icon class="gray-text">location_city</mat-icon>{{departments.nombreArea}}</p>
-													</div>
-											</code>
-											<p></p>
-										</div>
+										
 									</div>
 								</div>
 							</a>
