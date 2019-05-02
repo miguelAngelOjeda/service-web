@@ -79,6 +79,7 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
   }
 
   deleteDepartment(data: Departments){
+    console.log(data);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = "eliminar  la Sucursal " +data.nombreArea;
     let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
@@ -86,7 +87,7 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
       if(result){
         this.apiService.delete('/departamentos_sucursal/' + data.id)
         .subscribe(res => {
-          
+
         });
       }
     })
