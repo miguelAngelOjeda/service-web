@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Business, Subsidiary, Departments } from '../../../core/models';
+import { Business, Subsidiary, Departments, Message } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import { DialogComponent } from '../../../shared';
 import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
@@ -81,24 +81,37 @@ export class ViewBusinessComponent implements OnInit {
   addSubsidiary() {
     this.subsidiary = new Subsidiary;
     this.subsidiary.empresa = this.data;
-    const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent, {
-        data: this.subsidiary
-      });
-      dialogRef.afterClosed().subscribe(result => {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = this.subsidiary;
+    //dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(AddDialogoSubsidiaryComponent,dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
           this.getListSubsidiary();
-      });
+        }
+    });
   }
 
   editSubsidiary(id: number) {
     this.apiService.get('/sucursales/' + id)
     .subscribe(res => {
        this.subsidiary = res.model as Subsidiary;
-       const dialogRef = this.dialog.open(EditDialogoSubsidiaryComponent, {
-           data: this.subsidiary
-         });
+
+       const dialogConfig = new MatDialogConfig();
+       dialogConfig.data = this.subsidiary;
+       //dialogConfig.disableClose = true;
+       dialogConfig.autoFocus = true;
+
+       const dialogRef = this.dialog.open(EditDialogoSubsidiaryComponent, dialogConfig);
 
        dialogRef.afterClosed().subscribe(result => {
-           this.getListSubsidiary();
+          if(result){
+            this.getListSubsidiary();
+          }
        });
 
     });
@@ -115,8 +128,16 @@ export class ViewBusinessComponent implements OnInit {
   }
 
   deleteSubsidiary(data: Subsidiary) {
+    const message = new Message;
+    message.titulo = "Eliminar Registro"
+    message.texto = "Esta seguro que desea eliminar el registro " + data.nombre;
+
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = "eliminar  la Sucursal " +data.nombre;
+    dialogConfig.data = message;
+    dialogConfig.maxWidth  = '280px';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
     let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result){

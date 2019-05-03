@@ -52,7 +52,7 @@
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button routerLink="/service-web/business/{{element.id}}" *appCanAccess="['enterprise', 'viewEnterprise']"><mat-icon>visibility</mat-icon></button>
                   <button mat-icon-button routerLink="/service-web/business/{{element.id}}/edit" *appCanAccess="['enterprise', 'editEnterprise']"> <mat-icon>edit</mat-icon></button>
-                  <button mat-icon-button routerLink="/product-types/{{element.id}}"> <mat-icon>delete</mat-icon></button>
+                  <button mat-icon-button (click)="delete(element)"> <mat-icon>delete</mat-icon></button>
                 </mat-cell>
             </ng-container>
 

@@ -1,6 +1,7 @@
-import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subsidiary, Departments } from '../../../../core/models';
+import { ValidationService } from '../../../../core/services/validation.service';
+import { Subsidiary, Departments, Message } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
 import { DialogComponent } from '../../../../shared';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
@@ -15,18 +16,15 @@ declare var google: any;
   styleUrls: ['./edit-dialogo-subsidiary.component.css']
 })
 export class EditDialogoSubsidiaryComponent implements OnInit{
+  formControl = new FormControl('', [Validators.required]);
   subsidiaryForm: FormGroup;
   model: Subsidiary;
   department: Departments;
-  listDepartments: Array<Departments> = [];
   latitude: number;
   longitude: number;
   zoom: number;
   address: string;
   private geoCoder;
-  formControl = new FormControl('', [
-    Validators.required
-  ]);
 
   constructor(
             public dialog: MatDialog,
@@ -41,18 +39,12 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
   ngOnInit() {
     this.subsidiaryForm = this.formBuilder.group({
       id: [''],
-      codigoSucursal: [''],
+      codigoSucursal: [{value: null, disabled: true}],
       descripcion: [''],
       telefonoMovil: [''],
       fax: [''],
       observacion: [''],
       activo: [''],
-      fechaCreacion: [''],
-      idUsuarioCreacion: [''],
-      fechaModificacion: [''],
-      idUsuarioModificacion: [''],
-      fechaEliminacion: [''],
-      idUsuarioEliminacion: [''],
       latitud: [''],
       longitud: [''],
       empresa: [''],
@@ -60,37 +52,56 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
       direccion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      departamentos: this.formBuilder.array([ this.addSkillFormGroup()])
+      departamentos: this.formBuilder.array([this.addSkillFormGroup()])
     });
     this.addSkillDinamicClick();
     this.onsetValueClick(this.model);
   }
 
   onSubmit() {
-    console.log(this.subsidiaryForm.value);
     this.model = this.subsidiaryForm.value;
     this.model.latitud = this.latitude;
     this.model.longitud = this.longitude;
     this.apiService.put('/sucursales/' + this.model.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');
-
+        if(res.status === 200){
+          this.dialogRef.close(true);
+        }
     });
   }
 
-  deleteDepartment(data: Departments){
-    console.log(data);
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = "eliminar  la Sucursal " +data.nombreArea;
-    let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.apiService.delete('/departamentos_sucursal/' + data.id)
-        .subscribe(res => {
+  get departments(): FormArray {
+    return (<FormArray>this.subsidiaryForm.get('departamentos'));
+  }
 
-        });
-      }
-    })
+  delete(data: Departments){
+    if(data.id){
+
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro " + data.nombreArea;
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+      dialogConfig.maxWidth = "280px";
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+
+      let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/departamentos_sucursal/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(image => image.id === data.id))
+              }
+          });
+        }
+      })
+    }else{
+      (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(image => image === data))
+    }
   }
 
   addSkillDinamicClick(): void {
@@ -122,19 +133,6 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
         descripcionArea: '',
         activo: ''
       });
-    }else{
-      this.listDepartments = [];
-      model.departamentos.forEach(obj=> {
-        this.department = new Departments;
-        this.department.id = obj.id;
-        this.department.alias = obj.alias;
-        this.department.nombreArea = obj.nombreArea;
-        this.department.descripcionArea = obj.descripcionArea;
-        this.department.activo = obj.activo;
-        this.listDepartments.push(this.department);
-      });
-      model.departamentos = [];
-      model.departamentos = this.listDepartments;
     }
     this.subsidiaryForm.setValue(model);
   }
@@ -150,15 +148,16 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
     }
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
-  }
 
   markerDragEnd($event: MouseEvent) {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
+  }
+
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? 'Campo requerido' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
   }
 
 }

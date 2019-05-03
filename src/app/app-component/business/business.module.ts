@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AddBusinessComponent , EditBusinessComponent, ListBusinessComponent,
 ViewBusinessComponent, AddDialogoSubsidiaryComponent, EditDialogoSubsidiaryComponent } from '../business';
-import { CoreModule } from '../../core/core.module';
 import { MaterialModule } from '../../core/material/material.module';
 import { BusinessRoutingModule } from './business-routing.module';
 import { environment } from '../../../environments/environment';
@@ -22,7 +21,8 @@ import { CanAccessDirective } from '../../shared/can-access.directive';
 import { DialogComponent } from '../../shared';
 import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared';
 import { AgmCoreModule } from '@agm/core';
-
+import { ControlMessagesComponent } from '../../shared/control-messages.component';
+import { ValidationService } from '../../core/services';
 @NgModule({
   imports: [
     //CoreModule,
@@ -51,6 +51,7 @@ import { AgmCoreModule } from '@agm/core';
     DialogComponent
   ],
   declarations: [
+    ControlMessagesComponent,
     EditDialogoSubsidiaryComponent,
     AddDialogoSubsidiaryComponent,
     AddBusinessComponent,
@@ -62,7 +63,7 @@ import { AgmCoreModule } from '@agm/core';
     //ShowAuthedDirective
   ],
   providers: [
-
+    ValidationService
   ]
 })
 export class BusinessModule {}

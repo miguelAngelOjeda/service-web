@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from "@angular/material";
+import { Message } from "../../core";
 import { MatDialogRef, MatDialog, MatDialogConfig } from "@angular/material";
 
 @Component({
@@ -12,8 +13,10 @@ export class DialogComponent {
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: Message
+  ) {
+    console.log(data);
+  }
 
   ngOnInit() {
   }

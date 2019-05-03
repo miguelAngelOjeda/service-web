@@ -14,3 +14,4 @@ export * from './ingressTypes';
 export * from './relationsTypes';
 export * from './paymentsTypes';
 export * from './departments';
+export * from './message';

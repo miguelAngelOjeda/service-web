@@ -3,7 +3,7 @@
 		<mat-card-title  class="mat-card-title">
 			<h4 _ngcontent-c42="" class="m-0">Agregar Sucursal</h4>
 		</mat-card-title>
-			<form  class="mat-dialog-content" (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
+			<form  class="mat-dialog-content" [formGroup]="subsidiaryForm" (ngSubmit)="subsidiaryForm.valid && onSubmit()">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="row">
@@ -17,94 +17,100 @@
 							<div class="row">
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-										<input matInput #input  placeholder="Codigo" [(ngModel)]="model.codigoSucursal" name="codigoSucursal" disabled>
-										<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+										<input matInput #input  placeholder="Codigo"  formControlName="codigoSucursal" name="codigoSucursal" disabled>
 									</mat-form-field>
 								</div>
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-					      		<input matInput #input  placeholder="Nombre" [(ngModel)]="model.nombre" name="nombre" required>
-					      		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-					      	</mat-form-field>
+										<input matInput #input  placeholder="Nombre"  name="nombre" formControlName="nombre" required>
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
 								</div>
 
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-						    		<input matInput #input  placeholder="Descripcion" [(ngModel)]="model.descripcion" name="descripcion">
-						    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-						    	</mat-form-field>
+										<input matInput #input  placeholder="Descripcion"  formControlName="descripcion" name="descripcion">
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
 								</div>
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-						    		<input matInput #input  placeholder="Direccion" [(ngModel)]="model.direccion" name="direccion" required>
-						    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-						    	</mat-form-field>
+										<input matInput #input  placeholder="Direccion"  name="direccion" formControlName="direccion" required>
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
 								</div>
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-						    		<input matInput #input  placeholder="Telefono" [(ngModel)]="model.telefono" name="telefono" required>
-						    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-						    	</mat-form-field>
+										<input matInput #input  placeholder="Telefono"  name="telefono" formControlName="telefono" required>
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
 								</div>
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-						    		<input matInput #input  placeholder="Celular" [(ngModel)]="model.telefonoMovil" name="telefonoMovil">
-						    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-						    	</mat-form-field>
+										<input matInput #input  placeholder="Celular"  formControlName="telefonoMovil" name="telefonoMovil">
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
 								</div>
 								<div class="col-md-6">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-						    		<input matInput #input  placeholder="Email" [(ngModel)]="model.email" name="email" required>
-						    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-						    	</mat-form-field>
+										<input matInput #input  placeholder="Email"  name="email" formControlName="email" required>
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
 								</div>
 								<div class="col-md-6">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-						    		<input matInput #input  placeholder="Fax" [(ngModel)]="model.fax" name="fax">
-						    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-						    	</mat-form-field>
+										<input matInput #input  placeholder="Fax"  formControlName="fax" name="fax">
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
 								</div>
 								<div class="col-md-12">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
-						    		<input matInput #input  placeholder="Observacion" [(ngModel)]="model.observacion" name="observacion">
-						    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-						    	</mat-form-field>
+										<input matInput #input  placeholder="Observacion"  formControlName="observacion" name="observacion">
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-										<a mat-stroked-button class="nav-link" class="m-t-10 float-right" (click)="addDepartment()">
-											Agregar Area
-										</a>
-										<h3 mat-subheader>Departamentos</h3>
-									  <div *ngFor="let area of model.departamentos">
-											<div class="row">
-												<div class="col-md-3">
+								<div class="col-md-12"   style="background-color: #e9f3fc">
+					            <div class="form-group">
+					                <div class="col-md-offset-2 col-md-4">
+					                  <button type="button" class="btn btn-primary" (click)="addSkillButtonClick()">
+					                      Agregar Departamentos
+					                  </button>
+					                </div>
+					              </div>
+					        <div formArrayName="departamentos"  *ngFor="let departamentos of subsidiaryForm.get('departamentos').controls; let i = index" class="form-group">
+					            <div [formGroupName]="i">
+					           <div class="form-group" class="row cols-md-12">
+					              <div class="col-sm-3">
 													<mat-form-field   class="col-sm-12" appearance="legacy">
-										    		<input matInput #input  placeholder="Alias" [(ngModel)]="area.alias" name="alias" required>
-										    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-										    	</mat-form-field>
-												</div>
+														<input matInput #input  placeholder="Alias"  formControlName="alias" name="alias" required>
+														<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+													</mat-form-field>
+					              </div>
+					              <div class="col-sm-4">
+													<mat-form-field   class="col-sm-12" appearance="legacy">
+														<input matInput #input  placeholder="Nombre"  formControlName="nombreArea" name="nombreArea" required>
+														<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+													</mat-form-field>
+					              </div>
 												<div class="col-md-4">
 													<mat-form-field   class="col-sm-12" appearance="legacy">
-										    		<input matInput #input  placeholder="Nombre" [(ngModel)]="area.nombreArea" name="nombreArea" required>
-										    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-										    	</mat-form-field>
+														<input matInput #input  placeholder="Descripcion"  name="descripcionArea">
+														<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+													</mat-form-field>
 												</div>
-												<div class="col-md-4">
-													<mat-form-field   class="col-sm-12" appearance="legacy">
-										    		<input matInput #input  placeholder="Descripcion" [(ngModel)]="area.descripcionArea" name="descripcionArea">
-										    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-										    	</mat-form-field>
+												<div class="col-md-1">
+													<a mat-icon-button (click)="delete(departamentos.value)"> <mat-icon>delete</mat-icon></a>
 												</div>
-														<a mat-icon-button (click)="deleteDepartment(area)"> <mat-icon>delete</mat-icon></a>
-											</div>
-									 </div>
-								</div>
+					           </div>
+					        </div>
+					        </div>
+					      </div>
 							</div>
-							<button mat-button [type]="submit"  mat-raised-button>Guardar</button>
 						</div>
 					</div>
+					<br>
+					<button mat-button [type]="submit"  mat-raised-button>Guardar</button>
+
 			</form>
 		</mat-card-content>
-	</mat-card>
+</mat-card>

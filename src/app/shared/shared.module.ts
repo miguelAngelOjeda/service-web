@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
 import { MenuItems } from './menu-items/menu-items';
+import { BrowserModule } from '@angular/platform-browser';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
@@ -36,6 +36,6 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
     AccordionLinkDirective,
     AccordionDirective
   ],
-  providers: [ MenuItems ]
+  providers: [ MenuItems]
 })
 export class SharedModule {}

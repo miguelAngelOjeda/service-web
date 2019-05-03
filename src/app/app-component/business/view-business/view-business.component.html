@@ -34,32 +34,32 @@
 									<div class="row">
 										<div class="col-md-6">
 											<mat-list>
-												<mat-list-item>
+												<mat-list-item *ngIf="data.ruc">
 													<p><mat-icon class="gray-text">account_balance</mat-icon>{{data.ruc}}</p>
 												</mat-list-item>
-												<mat-list-item>
+												<mat-list-item *ngIf="data.descripcion">
 													<p><mat-icon class="gray-text">store</mat-icon>{{data.descripcion}}</p>
 												</mat-list-item>
-												<mat-list-item>
+												<mat-list-item *ngIf="data.direccion">
 													<p><mat-icon class="gray-text">directions</mat-icon>{{data.direccion}}</p>
 												</mat-list-item>
-												<mat-list-item>
+												<mat-list-item *ngIf="data.telefono">
 													<p><mat-icon class="gray-text">phone</mat-icon>{{data.telefono}}</p>
 												</mat-list-item>
 											</mat-list>
 										</div>
 										<div class="col-md-6">
 											<mat-list>
-												<mat-list-item>
+												<mat-list-item *ngIf="data.telefonoMovil">
 													<p><mat-icon class="gray-text">phone_android</mat-icon>{{data.telefonoMovil}}</p>
 												</mat-list-item>
-												<mat-list-item>
+												<mat-list-item *ngIf="data.email">
 													<p><mat-icon class="gray-text">alternate_email</mat-icon>{{data.email}}</p>
 												</mat-list-item>
-												<mat-list-item>
+												<mat-list-item *ngIf="data.fax">
 													<p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{data.fax}}</p>
 												</mat-list-item>
-												<mat-list-item>
+												<mat-list-item *ngIf="data.observacion">
 													<p><mat-icon class="gray-text">speaker_notes</mat-icon>{{data.observacion}}</p>
 												</mat-list-item>
 											</mat-list>
@@ -141,7 +141,7 @@
 												</mat-list>
 											</div>
 										</div>
-										
+
 									</div>
 								</div>
 							</a>

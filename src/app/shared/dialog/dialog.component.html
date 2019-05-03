@@ -1,7 +1,6 @@
-<h2 mat-dialog-title>Atencion !!!!</h2>
+<h2 mat-dialog-title>{{data.titulo}}</h2>
 <mat-dialog-content>
-<p>  Esta seguro que desea  </p>  
-<p> {{data}} </p>
+<p> {{data.texto}} </p>
 </mat-dialog-content>
 <mat-dialog-actions>
     <button  color="primary" mat-raised-button [mat-dialog-close]="true">Aceptar</button>
