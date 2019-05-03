@@ -38,7 +38,7 @@ export class ListRelationsTypesComponent implements OnInit {
           startWith({}),
           switchMap(() => {
             this.isLoadingResults = true;
-            return this.apiService.getPageList('/tipos-vinculos',false,this.sort.direction,this.sort.active,
+            return this.apiService.getPageList('/tipos-vinculos',false,"",this.sort.direction,this.sort.active,
             this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {

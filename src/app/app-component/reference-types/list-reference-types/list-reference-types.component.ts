@@ -38,7 +38,7 @@ export class ListReferenceTypesComponent implements OnInit {
           startWith({}),
           switchMap(() => {
             this.isLoadingResults = true;
-            return this.apiService.getPageList('/tipos-referencias',false,this.sort.direction,this.sort.active,
+            return this.apiService.getPageList('/tipos-referencias',false,"",this.sort.direction,this.sort.active,
             this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {

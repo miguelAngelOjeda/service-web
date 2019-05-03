@@ -38,7 +38,7 @@ export class ListPaymentsTypesComponent implements OnInit {
           startWith({}),
           switchMap(() => {
             this.isLoadingResults = true;
-            return this.apiService.getPageList('/tipos-pagos',false,this.sort.direction,this.sort.active,
+            return this.apiService.getPageList('/tipos-pagos',false,"",this.sort.direction,this.sort.active,
             this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {

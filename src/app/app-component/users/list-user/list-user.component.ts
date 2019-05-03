@@ -39,7 +39,7 @@ export class ListUserComponent implements OnInit {
       let rows = event == null ? 10 :  event.pageSize;
       let sidx = this.sort.direction == null ? 'desc' :  this.sort.direction;
       let sort = this.sort.active == null ? 'id' :  this.sort.active;
-      this.apiService.getPageList('/usuarios',false,sidx,sort,index,rows)
+      this.apiService.getPageList('/usuarios',false,"",sidx,sort,index,rows)
       .subscribe(res => {
         this.length = res.records;
         this.dataSource.data = res.rows as User[];
@@ -49,7 +49,7 @@ export class ListUserComponent implements OnInit {
     public sortData(sort: Sort) {
       let index = this.pageEvent == null ? 1 :  this.pageEvent.pageIndex + 1;
       let rows = this.pageEvent == null ? 10 :  this.pageEvent.pageSize;
-      this.apiService.getPageList('/usuarios',false,sort.direction,sort.active,index,rows)
+      this.apiService.getPageList('/usuarios',false,"",sort.direction,sort.active,index,rows)
       .subscribe(res => {
         this.length = res.records;
         this.dataSource.data = res.rows as User[];

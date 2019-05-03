@@ -21,7 +21,8 @@ export class ApiService {
     return  throwError(error.error);
   }
 
-  getPageList(path: string, _search: boolean = false, sort: string = 'desc', sidx: string = 'id', page: number = 1, rows: number = 10, all: boolean = false, fkEntity: string = null): Observable<any> {
+  getPageList(path: string, _search: boolean = false, filters: string = null, sort: string = 'desc', sidx: string = 'id',
+   page: number = 1, rows: number = 10, all: boolean = false): Observable<any> {
       this.userService.validateTokensSession();
       let params = new HttpParams({
         fromObject : {
@@ -31,7 +32,7 @@ export class ApiService {
           'sidx' : sidx,
           'sord' : sort,
           'all' : all.toString(),
-          'fk' : fkEntity
+          'filters' : filters
         }
       });
     return this.http.get(`${environment.api_url}${path}`, { params })

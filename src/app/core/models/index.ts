@@ -15,3 +15,5 @@ export * from './relationsTypes';
 export * from './paymentsTypes';
 export * from './departments';
 export * from './message';
+export * from './rules';
+export * from './filter';
