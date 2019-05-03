@@ -1,19 +1,29 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort} from '@angular/material';
-import { User} from '../../../core/models';
+import { User, Filter, Rules } from '../../../core/models';
 import { ApiService } from '../../../core/services';
+import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-user',
   templateUrl: './list-user.component.html',
   styleUrls: ['./list-user.component.scss']
 })
-export class ListUserComponent implements OnInit {
+export class ListUserComponent implements AfterViewInit {
+    public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
+    displayedColumns = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido' , 'email', 'telefono', 'opciones'];
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
-    @ViewChild('filter') filter: ElementRef;
+    @ViewChild('filter') filterInput: ElementRef;
 
     public dataSource = new MatTableDataSource<User>();
+
+    //Filter
+    isfilter = false;
+    filter = new Filter;
+    rules: Array<Rules> = [];
     // MatPaginator Inputs
     length = 0;
     pageSize = 10;
@@ -21,39 +31,52 @@ export class ListUserComponent implements OnInit {
     // MatPaginator Output
     pageEvent: PageEvent;
 
-    displayedColumns = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido' , 'email', 'telefono', 'opciones'];
+    isLoadingResults = true;
+    isRateLimitReached = false;
 
     constructor(
       private apiService: ApiService) {
 
     }
 
-    ngOnInit() {
-      this.getList(null);
-      this.dataSource.sort = this.sort;
-    }
+    ngAfterViewInit() {
+      this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+      merge(this.sort.sortChange, this.paginator.page, fromEvent(this.filterInput.nativeElement, 'keyup'))
+          .pipe(
+            startWith({}),
+            switchMap(() => {
+              this.isfilter = false;
+              if(this.filterInput.nativeElement.textLength > 3){
+                this.isfilter = true;
+                for (let i = 0; i < this.rulesColumns.length; i++)
+                {
+                  this.rules.push({
+                          field: this.rulesColumns[i],
+                          op: "cn",
+                          data: this.filterInput.nativeElement.value
+                      });
+                }
+                this.filter.groupOp = 'OR';
+                this.filter.rules = this.rules;
+              }
+              return this.apiService.getPageList('/usuarios',this.isfilter,JSON.stringify(this.filter),this.sort.direction,this.sort.active,
+              this.paginator.pageIndex,this.paginator.pageSize);
+            }),
+            map(data => {
+              // Flip flag to show that loading has finished.
+              this.isLoadingResults = false;
+              this.isRateLimitReached = false;
+              this.length = data.records;
 
-
-    public getList(event?:PageEvent){
-      let index = event == null ? 1 :  event.pageIndex + 1;
-      let rows = event == null ? 10 :  event.pageSize;
-      let sidx = this.sort.direction == null ? 'desc' :  this.sort.direction;
-      let sort = this.sort.active == null ? 'id' :  this.sort.active;
-      this.apiService.getPageList('/usuarios',false,"",sidx,sort,index,rows)
-      .subscribe(res => {
-        this.length = res.records;
-        this.dataSource.data = res.rows as User[];
-      })
-    }
-
-    public sortData(sort: Sort) {
-      let index = this.pageEvent == null ? 1 :  this.pageEvent.pageIndex + 1;
-      let rows = this.pageEvent == null ? 10 :  this.pageEvent.pageSize;
-      this.apiService.getPageList('/usuarios',false,"",sort.direction,sort.active,index,rows)
-      .subscribe(res => {
-        this.length = res.records;
-        this.dataSource.data = res.rows as User[];
-      })
+              return data.rows as User[];;
+            }),
+            catchError(() => {
+              this.isLoadingResults = false;
+              // Catch if reached its rate limit. Return empty data.
+              this.isRateLimitReached = true;
+              return observableOf([]);
+            })
+          ).subscribe(data => this.dataSource.data = data);
     }
 
 }

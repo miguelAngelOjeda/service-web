@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Subsidiary } from '../../../core/models';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Subsidiary, Filter, Rules  } from '../../../core/models';
 import { ApiService } from '../../../core/services';
-import {merge, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort } from '@angular/material';
 
 @Component({
@@ -10,15 +10,20 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   templateUrl: './list-subsidiary.component.html',
   styleUrls: ['./list-subsidiary.component.css']
 })
-export class ListSubsidiaryComponent implements OnInit {
-
+export class ListSubsidiaryComponent implements AfterViewInit {
+  public rulesColumns  = ['codigoSucursal', 'nombre'];
   public displayedColumns = ['codigoSucursal', 'nombre', 'direccion', 'telefono', 'email','opciones'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('filter') filter: ElementRef;
+  @ViewChild('filter') filterInput: ElementRef;
 
   public dataSource = new MatTableDataSource<Subsidiary>();
+
+  //Filter
+  isfilter = false;
+  filter = new Filter;
+  rules: Array<Rules> = [];
   // MatPaginator Inputs
   length = 0;
   pageSize = 10;
@@ -31,14 +36,27 @@ export class ListSubsidiaryComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort.sortChange, this.paginator.page, fromEvent(this.filterInput.nativeElement, 'keyup'))
         .pipe(
           startWith({}),
           switchMap(() => {
-            this.isLoadingResults = true;
-            return this.apiService.getPageList('/sucursales',false,"",this.sort.direction,this.sort.active,
+            this.isfilter = false;
+            if(this.filterInput.nativeElement.textLength > 3){
+              this.isfilter = true;
+              for (let i = 0; i < this.rulesColumns.length; i++)
+              {
+                this.rules.push({
+                        field: this.rulesColumns[i],
+                        op: "cn",
+                        data: this.filterInput.nativeElement.value
+                    });
+              }
+              this.filter.groupOp = 'OR';
+              this.filter.rules = this.rules;
+            }
+            return this.apiService.getPageList('/sucursales',this.isfilter,JSON.stringify(this.filter),this.sort.direction,this.sort.active,
             this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {
