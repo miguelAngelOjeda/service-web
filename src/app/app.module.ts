@@ -25,7 +25,7 @@ import { CoreModule } from './core/core.module';
 import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
-import { SpinnerComponent } from './shared/spinner.component';
+import { SpinnerComponent } from './shared/spinner';
 import * as $ from 'jquery';
 
 

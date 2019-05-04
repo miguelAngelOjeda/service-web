@@ -24,7 +24,6 @@ export class HttpTokenInterceptor implements HttpInterceptor {
             tap(evt => {
                 if (evt instanceof HttpResponse) {
                     const keys = evt.headers.keys();
-
                     if(evt.headers.get('Update-Token') != null){
                        //jwtService.destroyTokenUpdate();
                        this.jwtService.setTokenUpdate(evt.headers.get('Update-Token'));
@@ -46,9 +45,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
                           }else if(err.status == 0){
                             this.snackBar.openSnackBar('Error al conectar con el servidor, si el problema persiste contactar con el administrador.','Close','red-snackbar');
                             this.jwtService.destroyToken();
-                            setTimeout(() => {
+                            //setTimeout(() => {
                               this.router.navigateByUrl('service-web/login');
-                            }, 7000);
+                            //}, 7000);
                           }else{
                             this.snackBar.openSnackBar(err.status + ' ' + err.message,'Close','alert-danger');
                           }

@@ -31,6 +31,7 @@ import { ValidationService } from '../../core/services';
     //BrowserModule,
     FlexLayoutModule,
     SharedModule,
+
     //BrowserAnimationsModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({

@@ -31,7 +31,22 @@
               <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
           </a>
         </ng-container>
-
+        <div class="saperator text-muted ng-star-inserted" *ngIf="menuitem.type === 'title'">
+          <span>{{ menuitem.name }}</span>
+        </div>
+        <a  appAccordionToggle class="ng-star-inserted" href="javascript:;" style="flex-direction: row; box-sizing: border-box; display: flex;" *ngIf="menuitem.type === 'box'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name }}</span>
+            <span fxflex="" style="flex: 1 1 0%; box-sizing: border-box;"></span><!---->
+            <mat-icon class="dd-icon" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
+        </a>
+        <mat-nav-list class="sub-item mat-nav-list mat-list-base ng-star-inserted"  role="navigation" *ngIf="menuitem.type === 'box'">
+          <mat-list-item class="mat-list-item ng-star-inserted" routerlinkactive="selected" *ngFor="let sub of menuitem.subMenu">
+            <ng-container *appCanAccess="[sub.entity, sub.role]">
+              <a class="relative ng-star-inserted" routerlinkactive="selected" [routerLink]="['/service-web/', sub.state]">{{ sub.name }}</a>
+            </ng-container>
+          </mat-list-item>
+        </mat-nav-list>
     </mat-list-item>
 
 </mat-nav-list>

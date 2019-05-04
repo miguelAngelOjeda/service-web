@@ -45,7 +45,8 @@ export class ListBusinessComponent implements AfterViewInit {
           startWith({}),
           switchMap(() => {
             this.isfilter = false;
-            if(this.filterInput.nativeElement.textLength > 3){
+            console.log(this.filterInput);
+            if(this.filterInput.nativeElement.value.length > 3){
               this.isfilter = true;
               for (let i = 0; i < this.rulesColumns.length; i++)
               {
@@ -63,7 +64,7 @@ export class ListBusinessComponent implements AfterViewInit {
           }),
           map(data => {
             // Flip flag to show that loading has finished.
-            this.isLoadingResults = false;
+            this.isLoadingResults = true;
             this.isRateLimitReached = false;
             this.length = data.records;
 

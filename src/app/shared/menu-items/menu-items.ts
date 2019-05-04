@@ -8,7 +8,7 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  { state: '', name: '', type: 'link', icon: 'crop_7_5' , entity:'enterprise', role:'listEnterpriseP'},
+  { state: '', name: 'Personal', type: 'title-', icon: 'crop_7_5' , entity:'enterprise', role:'listEnterpriseP'},
   { state: 'business', name: 'Empresas', type: 'link', icon: 'crop_7_5' , entity:'enterprise', role:'listEnterprise'},
   { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'crop_7_5', entity:'subsidiary', role:'listSubsidiary' },
   {
@@ -25,6 +25,24 @@ const MENUITEMS = [
     name: 'Servicios',
     icon: 'border_horizontal',
     entity:'', role:''
+  },
+  {
+    state: 'progress-snipper',
+    type: 'box',
+    name: 'Servicios',
+    icon: 'border_horizontal',
+    entity:'',
+    role:'',
+    subMenu:[
+      {state: 'payments-types', name: 'Tipos Pagos', icon: 'border_horizontal', entity:'payments-types', role:'listPaymentsTypes'},
+      {state: 'reference-types', name: 'Tipos Referencias', icon: 'border_horizontal', entity:'reference-types',  role:'listReferenceTypes'},
+      {state: 'calculation-types', name: 'Tipos Calculos', icon: 'border_horizontal', entity:'calculation-types', role:'listCalculationTypes'},
+      {state: 'destinations-types', name: 'Tipos Destinos', icon: 'border_horizontal', entity:'destinations-types',role:'listDestinationsTypes'},
+      {state: 'outlays-types', name: 'Tipos Desembolsos', icon: 'border_horizontal', entity:'outlays-types', role:'listOutlaysTypes'},
+      {state: 'ingress-types', name: 'Tipos Ingresos', icon: 'border_horizontal', entity:'ingress-types', role:'listIngressTypes'},
+      {state: 'egress-types', name: 'Tipos Egresos', icon: 'border_horizontal', entity:'egress-types', role:'listEgressTypes'},
+      {state: 'relations-types', name: 'Tipos Vinculos', icon: 'border_horizontal', entity:'relations-types', role:'listRelationsTypes'}
+    ]
   }
 ];
 
