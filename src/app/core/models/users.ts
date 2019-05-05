@@ -1,4 +1,4 @@
-import {Rol, People, Subsidiary, Business} from "../models";
+import {Rol, People, Subsidiary, Business} from "./index";
 export class Users {
     id: number;
     alias: string;
