@@ -15,15 +15,14 @@ export class ViewUsersComponent implements OnInit {
     private route: ActivatedRoute
   ) {
       this.model = new Users;
-      this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
-      .subscribe(res => {
-         this.model = res.model;
-         console.log(this.model );
-      });
    }
 
    ngOnInit() {
-
+     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
+     .subscribe(res => {
+        this.model = res.model;
+        console.log(this.model );
+     });
    }
 
 }

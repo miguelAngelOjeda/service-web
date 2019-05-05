@@ -9,14 +9,10 @@ export interface Menu {
 
 const MENUITEMS = [
   { state: '', name: 'Personal', type: 'title-', icon: 'crop_7_5' , entity:'enterprise', role:'listEnterpriseP'},
-  { state: 'business', name: 'Empresas', type: 'link', icon: 'crop_7_5' , entity:'enterprise', role:'listEnterprise'},
-  { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'crop_7_5', entity:'subsidiary', role:'listSubsidiary' },
-  {
-    state: 'users',
-    type: 'link',
-    name: 'Usuarios',
-    icon: 'vertical_align_center', entity:'', role:''
-  },
+  { state: 'business', name: 'Empresas', type: 'link', icon: 'business' , entity:'enterprise', role:'listEnterprise'},
+  { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'account_balance', entity:'subsidiary', role:'listSubsidiary' },
+  { state: 'users', type: 'link', name: 'Usuarios', icon: 'group', entity:'subsidiary', role:'listSubsidiary' },
+  { state: 'customers', type: 'link', name: 'Clientes', icon: 'account_box', entity:'subsidiary', role:'listSubsidiary' },
   { state: 'chips', type: 'link', name: 'Clientes', icon: 'vignette' , entity:'', role:''},
   { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' , entity:'', role:''},
   {
