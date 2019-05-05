@@ -35,7 +35,7 @@ export class ListUsersComponent implements AfterViewInit {
     isRateLimitReached = false;
 
     constructor(
-      private apiService: ApiService) {s}
+      private apiService: ApiService) {}
 
     ngAfterViewInit() {
       this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);

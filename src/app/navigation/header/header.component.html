@@ -115,6 +115,6 @@
 <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5"> <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"> </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
     <button mat-menu-item> <mat-icon>settings</mat-icon> Configuraciones </button>
-    <button mat-menu-item routerLink="/service-web/users/{{currentUser.id}}"> <mat-icon>account_box</mat-icon> Mi Perfil </button>
+    <button mat-menu-item routerLink="/service-web/profile/{{currentUser.id}}"> <mat-icon>account_box</mat-icon> Mi Perfil </button>
     <button mat-menu-item (click)="logout()"> <mat-icon>exit_to_app</mat-icon> Salir </button>
 </mat-menu>

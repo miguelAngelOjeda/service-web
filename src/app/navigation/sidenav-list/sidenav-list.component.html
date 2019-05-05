@@ -12,7 +12,7 @@
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
         <button mat-menu-item>
             <mat-icon>settings</mat-icon> Configuraciones </button>
-        <button mat-menu-item routerLink="/service-web/users/{{currentUser.id}}">
+        <button mat-menu-item routerLink="/service-web/profile/{{currentUser.id}}">
             <mat-icon>account_box</mat-icon> Mi Perfil </button>
         <button mat-menu-item (click)="logout()">
             <mat-icon>exit_to_app</mat-icon> Salir </button>
