@@ -4,11 +4,11 @@ import { Users, People, Rol, Subsidiary, Business } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 
 @Component({
-  selector: 'app-view-profile',
-  templateUrl: './view-profile.component.html',
-  styleUrls: ['./view-profile.component.css']
+  selector: 'app-password-profile',
+  templateUrl: './password-profile.component.html',
+  styleUrls: ['./password-profile.component.css']
 })
-export class ViewProfileComponent implements OnInit {
+export class PasswordProfileComponent implements OnInit {
   private model: Users;
   constructor(
     private apiService: ApiService,

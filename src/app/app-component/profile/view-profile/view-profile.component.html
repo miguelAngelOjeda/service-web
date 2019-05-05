@@ -21,7 +21,7 @@
                    <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.email}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.email">
-                   <p><mat-icon class="gray-text">vpn_key</mat-icon><a routerLink="/service-web/business"> Cambiar Contraseña </a></p>
+                   <p><mat-icon class="gray-text">vpn_key</mat-icon><a routerLink="/service-web/profile/{{model.id}}/password"> Cambiar Contraseña </a></p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.telefono">
                    <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoParticular}}</p>

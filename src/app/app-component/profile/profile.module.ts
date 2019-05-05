@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ViewProfileComponent } from '../profile';
+import { ViewProfileComponent, PasswordProfileComponent } from '../profile';
 import { SharedModule} from '../../shared';
 import { MaterialModule } from '../../core/material/material.module';
 import { ProfileRoutingModule } from './profile-routing.module';
@@ -24,7 +24,8 @@ import { ReactiveFormsModule }    from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [
-    ViewProfileComponent
+    ViewProfileComponent,
+    PasswordProfileComponent
   ],
   providers: [
 
