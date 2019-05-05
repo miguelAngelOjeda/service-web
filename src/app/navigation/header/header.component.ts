@@ -10,11 +10,16 @@ import { Router} from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter();
+  public currentUser;
 
   constructor(
     private router: Router,
     private userService: UserService
-  ) { }
+  ) {
+      this.userService.getUser().subscribe((data) => {
+          this.currentUser = data;
+      });
+   }
 
   ngOnInit() {
   }

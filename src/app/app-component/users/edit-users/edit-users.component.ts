@@ -3,15 +3,15 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot , ActivatedRoute} from '@angular/router';
 import { UserService} from '../../../core/services';
-import {User} from '../../../core/models';
+import { Users } from '../../../core/models';
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.scss']
+  selector: 'app-edit-users',
+  templateUrl: './edit-users.component.html',
+  styleUrls: ['./edit-users.component.scss']
 })
-export class EditUserComponent implements OnInit {
-  user: User;
+export class EditUsersComponent implements OnInit {
+  user: Users;
   sexos = [
     {value: 'MASCULINO', viewValue: 'Masculino'},
     {value: 'FEMENINO', viewValue: 'Femenino'}

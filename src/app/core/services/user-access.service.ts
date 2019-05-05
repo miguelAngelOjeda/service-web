@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import { map ,  distinctUntilChanged, catchError } from 'rxjs/operators';
 import { Router, ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { User } from '../models';
+import { UserSession } from '../models';
 import { Token } from '../models';
 import { JwtService } from './jwt.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -17,7 +17,7 @@ export class UserService implements CanActivate {
     private readonly WORKFLOW_EVENTS = authorities['role'];
     private userRoles: Set<string>;
 
-    public currentUserSubject = new BehaviorSubject<User>({} as User);
+    public currentUserSubject = new BehaviorSubject<UserSession>({} as UserSession);
     public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
     private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
@@ -59,7 +59,7 @@ export class UserService implements CanActivate {
         .subscribe(
           data =>{
             if(data.status == 200){
-              this.setAuth(data.model['usuario'] as User, data.model['token'])
+              this.setAuth(data.model['usuario'] as UserSession, data.model['token'])
             }
 
           },
@@ -75,7 +75,7 @@ export class UserService implements CanActivate {
       }
     }
 
-    setAuth(user: User, tokens: Token) {
+    setAuth(user: UserSession, tokens: Token) {
       // Save JWT, User sent from server in localstorage
       this.jwtService.setToken(tokens);
       this.jwtService.setUser(user);
@@ -89,24 +89,24 @@ export class UserService implements CanActivate {
       // Remove JWT from localstorage
       this.jwtService.destroyToken();
       // Set current user to an empty object
-      this.currentUserSubject.next({} as User);
+      this.currentUserSubject.next({} as UserSession);
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
     }
-    
-    attemptAuth(type, credentials): Observable<User> {
+
+    attemptAuth(type, credentials): Observable<UserSession> {
       const route = (type === 'login') ? '/login' : '';
       console.log(credentials);
       return this.post(route, credentials)
         .pipe(map(
         data => {
-          this.setAuth(data.model['usuario'] as User, data.model['token']);
+          this.setAuth(data.model['usuario'] as UserSession, data.model['token']);
           return data;
         }
       ));
     }
 
-    public getUser(): Observable<User> {
+    public getUser(): Observable<UserSession> {
       console.log('this.isAuthenticatedSubject.asObservable()',this.isAuthenticatedSubject.asObservable());
       if (!this.isAuthenticatedSubject.asObservable()) {
         this.populate();

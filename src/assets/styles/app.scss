@@ -58,6 +58,16 @@ a.link{
   max-width: 100%;
   height: auto;
 }
+.little-profile .pro-img, .little-profile .pro-img:first-child {
+    margin-top: -110px;
+    margin-bottom: 20px;
+}
+.little-profile .pro-img img, .little-profile .pro-img:first-child img {
+    width: 128px;
+    height: 128px;
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+    border-radius: 100%;
+}
 .img-rounded{
     border-radius: $radius;
 }

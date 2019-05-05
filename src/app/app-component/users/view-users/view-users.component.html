@@ -1,0 +1,68 @@
+<div  class="row">
+  <div  class="col-md-4">
+    <mat-card class="oh text-center little-profile mat-card">
+       <img _ngcontent-c12="" alt="Photo of a Shiba Inu" class="mat-card-image" mat-card-image="" src="assets/images/background/user-info.jpg"/>
+  	   <mat-card-content>
+         <div  class="pro-img"><img _ngcontent-c12="" alt="user" src="assets/images/users/4.jpg" width="100"></div>
+         <h3  class="m-b-0">{{(model.persona.primerNombre == null ? '' : model.persona.primerNombre) + ' ' + (model.persona.segundoNombre == null ? '' : model.persona.segundoNombre)}}</h3>
+         <h4  class="m-b-0">{{(model.persona.primerApellido == null ? '' : model.persona.primerApellido) + ' ' + (model.persona.segundoApellido == null ? '' : model.persona.segundoApellido)}}</h4>
+         <h6  class="m-t-0 ">{{model.rol.nombre}}</h6>
+         <form>
+           <div class="row">
+             <div class="col-md-12">
+               <mat-list>
+                 <mat-list-item *ngIf="model.persona.documento">
+                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.documento}}</p>
+                 </mat-list-item>
+                 <mat-list-item *ngIf="model.persona.ruc">
+                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.ruc}}</p>
+                 </mat-list-item>
+                 <mat-list-item *ngIf="model.persona.email">
+                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.email}}</p>
+                 </mat-list-item>
+                 <mat-list-item *ngIf="model.persona.telefono">
+                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoParticular}}</p>
+                 </mat-list-item>
+                 <mat-list-item *ngIf="model.persona.telefono">
+                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoSecundario}}</p>
+                 </mat-list-item>
+               </mat-list>
+             </div>
+           </div>
+         </form>
+       </mat-card-content>
+    </mat-card>
+  </div>
+  <div  class="col-md-8">
+    <mat-card class="oh text-center little-profile mat-card">
+  	   <mat-card-content>
+         <h3  class="m-b-0">{{model.sucursal.empresa.nombre}}</h3>
+         <h5  class="m-b-0">{{model.sucursal.empresa.nombreFantasia}}</h5>
+         <form>
+           <div class="row">
+             <h3 mat-subheader>Sucursal</h3>
+             <div class="col-md-12">
+               <mat-list>
+                 <mat-list-item *ngIf="model.persona.documento">
+                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.documento}}</p>
+                 </mat-list-item>
+                 <mat-list-item *ngIf="model.persona.ruc">
+                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.ruc}}</p>
+                 </mat-list-item>
+                 <mat-list-item *ngIf="model.persona.email">
+                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.email}}</p>
+                 </mat-list-item>
+                 <mat-list-item *ngIf="model.persona.telefono">
+                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoParticular}}</p>
+                 </mat-list-item>
+                 <mat-list-item *ngIf="model.persona.telefono">
+                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoSecundario}}</p>
+                 </mat-list-item>
+               </mat-list>
+             </div>
+           </div>
+         </form>
+       </mat-card-content>
+    </mat-card>
+  </div>
+</div>

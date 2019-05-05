@@ -1,16 +1,16 @@
 import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort} from '@angular/material';
-import { User, Filter, Rules } from '../../../core/models';
+import { Users, Filter, Rules } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-list-user',
-  templateUrl: './list-user.component.html',
-  styleUrls: ['./list-user.component.scss']
+  selector: 'app-list-users',
+  templateUrl: './list-users.component.html',
+  styleUrls: ['./list-users.component.scss']
 })
-export class ListUserComponent implements AfterViewInit {
+export class ListUsersComponent implements AfterViewInit {
     public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
     displayedColumns = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido' , 'email', 'telefono', 'opciones'];
 
@@ -18,7 +18,7 @@ export class ListUserComponent implements AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild('filter') filterInput: ElementRef;
 
-    public dataSource = new MatTableDataSource<User>();
+    public dataSource = new MatTableDataSource<Users>();
 
     //Filter
     isfilter = false;
@@ -68,7 +68,7 @@ export class ListUserComponent implements AfterViewInit {
               this.isRateLimitReached = false;
               this.length = data.records;
 
-              return data.rows as User[];;
+              return data.rows as Users[];;
             }),
             catchError(() => {
               this.isLoadingResults = false;

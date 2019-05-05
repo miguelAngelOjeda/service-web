@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
-import {User} from '../../../core/models';
+import {Users} from '../../../core/models';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss']
+  selector: 'app-add-users',
+  templateUrl: './add-users.component.html',
+  styleUrls: ['./add-users.component.scss']
 })
-export class AddUserComponent implements OnInit {
+export class AddUsersComponent implements OnInit {
 
     selectedValue: string;
 
@@ -22,8 +22,7 @@ export class AddUserComponent implements OnInit {
       {id: 2, nombre: 'ARCHIVO'}
     ];
 
-    constructor(public dialogRef: MatDialogRef<AddUserComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: User) { }
+    constructor() { }
 
     ngOnInit() {
     }
@@ -41,10 +40,6 @@ export class AddUserComponent implements OnInit {
 
     submit() {
     // emppty stuff
-    }
-
-    onNoClick(): void {
-      this.dialogRef.close();
     }
 
   }

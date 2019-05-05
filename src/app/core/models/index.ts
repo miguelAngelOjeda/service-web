@@ -1,4 +1,6 @@
-export * from './user';
+export * from './userSession';
+export * from './users';
+export * from './people';
 export * from './token';
 export * from './errors';
 export * from './business';

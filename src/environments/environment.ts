@@ -38,17 +38,17 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_SUBSIDIARY.LIST"]
     	}
     },
-    "user": {
-      "addUser": {
+    "users": {
+      "addUsers": {
     	   "permittedRoles": ["ROLE_USER.ADD"]
     	 },
-    	"editUser": {
+    	"editUsers": {
     	  "permittedRoles": ["ROLE_USER.EDIT"]
     	},
-    	"viewUser": {
+    	"viewUsers": {
     	  "permittedRoles": ["ROLE_USER.VIEW"]
     	},
-    	"listUser": {
+    	"listUsers": {
     	  "permittedRoles": ["ROLE_USER.LIST"]
     	}
     },

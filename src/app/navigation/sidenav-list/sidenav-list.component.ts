@@ -11,6 +11,7 @@ import {
 import { UserService } from '../../core/services';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../../shared/menu-items/menu-items';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -25,6 +26,7 @@ export class SidenavListComponent implements OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    private router: Router,
     private userService: UserService,
     public menuItems: MenuItems
   ) {
@@ -38,6 +40,11 @@ export class SidenavListComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  logout() {
+    this.userService.purgeAuth();
+    this.router.navigateByUrl('service-web/login');
   }
 
 }

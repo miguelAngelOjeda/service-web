@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from '../../core/models';
+import { UserSession } from '../../core/models';
 import { UserService } from '../../core/services';
 
 @Component({templateUrl: 'home.component.html'})
 export class HomeComponent implements OnInit {
-    currentUser: User;
-    users: User[] = [];
+    currentUser: UserSession;
+    users: UserSession[] = [];
 
     @Output()
     public sidenavToggle = new EventEmitter();

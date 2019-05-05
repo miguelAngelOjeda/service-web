@@ -24,6 +24,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/subsidiary/subsidiary.module#SubsidiaryModule'
         },
         {
+        path: 'service-web/users',
+        loadChildren: './app-component/users/users.module#UsersModule'
+        },
+        {
         path: 'service-web/reference-types',
         loadChildren: './app-component/reference-types/reference-types.module#ReferenceTypesModule'
         },
