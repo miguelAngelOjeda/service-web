@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Users, People, Rol, Subsidiary, Business } from '../../../core/models';
 import { ApiService } from '../../../core/services';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig  } from '@angular/material';
 
 @Component({
   selector: 'app-password-profile',
@@ -19,16 +20,14 @@ export class PasswordProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private route: ActivatedRoute
+    public dialogRef: MatDialogRef<PasswordProfileComponent>,
+    private route: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) public data: Users
   ) {
-      this.model = new Users;
+      this.model = data;
    }
 
    ngOnInit() {
-     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
-     .subscribe(res => {
-        this.model = res.model;
-     });
      this.passwordForm = this.formBuilder.group({
        contraseña: ['', [Validators.required]],
        nueva_contraseña: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Users, People, Rol, Subsidiary, Business } from '../../../core/models';
 import { ApiService } from '../../../core/services';
+import { PasswordProfileComponent } from '../password-profile';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-view-profile',
@@ -11,6 +13,7 @@ import { ApiService } from '../../../core/services';
 export class ViewProfileComponent implements OnInit {
   private model: Users;
   constructor(
+    public dialog: MatDialog,
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {
@@ -25,4 +28,18 @@ export class ViewProfileComponent implements OnInit {
      });
    }
 
+   changePassword() {
+     const dialogConfig = new MatDialogConfig();
+     dialogConfig.data = this.model;
+     dialogConfig.maxWidth = "450px";
+     dialogConfig.autoFocus = true;
+
+     const dialogRef = this.dialog.open(PasswordProfileComponent,dialogConfig);
+
+     dialogRef.afterClosed().subscribe(result => {
+         if(result){
+
+         }
+     });
+   }
 }
