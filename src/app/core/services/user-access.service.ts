@@ -96,7 +96,6 @@ export class UserService implements CanActivate {
 
     attemptAuth(type, credentials): Observable<UserSession> {
       const route = (type === 'login') ? '/login' : '';
-      console.log(credentials);
       return this.post(route, credentials)
         .pipe(map(
         data => {

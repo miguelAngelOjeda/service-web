@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     title: String = '';
     errors: Errors = {errors: {}};
     isSubmitting = false;
+    errorMsg: String = '';
 
     formControl = new FormControl('', [
       Validators.required
@@ -51,6 +52,8 @@ export class LoginComponent implements OnInit {
         },
         err => {
           this.errors = err;
+          console.log(err);
+          this.errorMsg = err;
           this.isSubmitting = false;
         }
       );

@@ -10,6 +10,7 @@
                     <img alt="homepage" src="assets/images/coomecipar.png" style="height: 40px; opacity: 0.5;">
                   </div>
                   <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+                    <mat-card color="danger" *ngIf="errorMsg">{{errorMsg}}</mat-card>
                     <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
                       <mat-form-field class="ng-pristine ng-invalid ng-touched">
                         <input matInput #input  placeholder="Usuario"  name="username" [(ngModel)]="model.username" required>
