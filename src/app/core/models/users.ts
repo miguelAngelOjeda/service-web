@@ -5,11 +5,12 @@ export class Users {
     persona: People;
     rol: Rol;
     sucursal: Subsidiary;
+    empresa: Business;
 
     constructor() {
       this.persona = new People;
       this.rol = new Rol;
       this.sucursal = new Subsidiary;
-      this.sucursal.empresa = new Business;
+      this.empresa = new Business;
     }
 }

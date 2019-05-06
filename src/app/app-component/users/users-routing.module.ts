@@ -14,13 +14,15 @@ const routes: Routes = [
     },
     { path: 'new', component: AddUsersComponent,
       canActivate: [UserService],
-      data: {roles: ['users', 'addUser']}
+      data: {roles: ['users', 'addUsers']}
     },
-    { path: ':id', component: ViewUsersComponent
+    { path: ':id', component: ViewUsersComponent,
+      canActivate: [UserService],
+      data: {roles: ['users', 'viewUsers']}
     },
     { path: ':id/edit', component: EditUsersComponent,
       data: {
-        allowedRoles: ['users', 'editUser']
+        allowedRoles: ['users', 'editUsers']
       }
     }
               ]

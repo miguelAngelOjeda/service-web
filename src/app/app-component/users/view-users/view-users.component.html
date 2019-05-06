@@ -1,3 +1,4 @@
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/users"> Usuarios </a> &gt; <span class="current">Visualizar</span></h2>
 <div  class="row">
   <div  class="col-md-4">
     <mat-card class="oh text-center little-profile mat-card">
@@ -40,42 +41,42 @@
     <mat-card class="oh text-center little-profile mat-card">
        <mat-card-header  class="bg-success text-white">
          <mat-card-title  class="mat-card-title">
-           <h4  class="m-0">{{'Empresa ' + model.sucursal.empresa.nombre}}</h4>
+           <h4  class="m-0">{{'Empresa ' + model.empresa.nombre}}</h4>
          </mat-card-title>
-         <mat-card-subtitle>{{'Alias ' + model.sucursal.empresa.nombreFantasia}}</mat-card-subtitle>
+         <mat-card-subtitle>{{'Alias ' + model.empresa.nombreFantasia}}</mat-card-subtitle>
        </mat-card-header>
   	   <mat-card-content>
          <form>
            <div class="row">
              <div class="col-md-6">
                <mat-list>
-                 <mat-list-item *ngIf="model.sucursal.empresa.ruc">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.sucursal.empresa.ruc}}</p>
+                 <mat-list-item *ngIf="model.empresa.ruc">
+                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.empresa.ruc}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.sucursal.empresa.descripcion">
-                   <p><mat-icon class="gray-text">store</mat-icon>{{model.sucursal.empresa.descripcion}}</p>
+                 <mat-list-item *ngIf="model.empresa.descripcion">
+                   <p><mat-icon class="gray-text">store</mat-icon>{{model.empresa.descripcion}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.sucursal.empresa.direccion">
-                   <p><mat-icon class="gray-text">directions</mat-icon>{{model.sucursal.empresa.direccion}}</p>
+                 <mat-list-item *ngIf="model.empresa.direccion">
+                   <p><mat-icon class="gray-text">directions</mat-icon>{{model.empresa.direccion}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.sucursal.empresa.telefono">
-                   <p><mat-icon class="gray-text">phone</mat-icon>{{model.sucursal.empresa.telefono}}</p>
+                 <mat-list-item *ngIf="model.empresa.telefono">
+                   <p><mat-icon class="gray-text">phone</mat-icon>{{model.empresa.telefono}}</p>
                  </mat-list-item>
                </mat-list>
              </div>
              <div class="col-md-6">
                <mat-list>
-                 <mat-list-item *ngIf="model.sucursal.empresa.telefonoMovil">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.sucursal.empresa.telefonoMovil}}</p>
+                 <mat-list-item *ngIf="model.empresa.telefonoMovil">
+                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.empresa.telefonoMovil}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.sucursal.empresa.email">
-                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.sucursal.empresa.email}}</p>
+                 <mat-list-item *ngIf="model.empresa.email">
+                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.empresa.email}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.sucursal.empresa.fax">
-                   <p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{model.sucursal.empresa.fax}}</p>
+                 <mat-list-item *ngIf="model.empresa.fax">
+                   <p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{model.empresa.fax}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.sucursal.empresa.observacion">
-                   <p><mat-icon class="gray-text">speaker_notes</mat-icon>{{model.sucursal.empresa.observacion}}</p>
+                 <mat-list-item *ngIf="model.empresa.observacion">
+                   <p><mat-icon class="gray-text">speaker_notes</mat-icon>{{model.empresa.observacion}}</p>
                  </mat-list-item>
                </mat-list>
              </div>

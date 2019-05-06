@@ -12,13 +12,13 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 })
 export class ListUsersComponent implements AfterViewInit {
     public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
-    displayedColumns = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido' , 'email', 'telefono', 'opciones'];
+    displayedColumns = ['alias','persona.documento', 'persona.ruc', 'primerNombre', 'segundoNombre', 'primerApellido' , 'email', 'opciones'];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild('filter') filterInput: ElementRef;
 
-    public dataSource = new MatTableDataSource<Users>();
+    public dataSource = new MatTableDataSource<any>();
 
     //Filter
     isfilter = false;

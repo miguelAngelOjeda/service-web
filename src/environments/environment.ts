@@ -40,16 +40,19 @@ export const authorities = {
     },
     "users": {
       "addUsers": {
-    	   "permittedRoles": ["ROLE_USER.ADD"]
+    	   "permittedRoles": ["ROLE_USERS.ADD"]
     	 },
     	"editUsers": {
-    	  "permittedRoles": ["ROLE_USER.EDIT"]
+    	  "permittedRoles": ["ROLE_USERS.EDIT"]
     	},
     	"viewUsers": {
-    	  "permittedRoles": ["ROLE_USER.VIEW"]
+    	  "permittedRoles": ["ROLE_USERS.VIEW"]
     	},
     	"listUsers": {
-    	  "permittedRoles": ["ROLE_USER.LIST"]
+    	  "permittedRoles": ["ROLE_USERS.LIST"]
+    	},
+    	"deleteUsers": {
+    	  "permittedRoles": ["ROLE_DELETE.LIST"]
     	}
     },
     "reference-types": {
