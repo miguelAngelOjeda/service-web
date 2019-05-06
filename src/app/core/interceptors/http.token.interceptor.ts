@@ -40,15 +40,13 @@ export class HttpTokenInterceptor implements HttpInterceptor {
             catchError((err: any) => {
                 if(err instanceof HttpErrorResponse) {
                     try {
-                          if(err.status == 401){
-                            this.snackBar.openSnackBar(err.error.message,'Close','alert-danger');
-                          }else if(err.status == 0){
+                          if(err.status == 0){
                             this.snackBar.openSnackBar('Error al conectar con el servidor, si el problema persiste contactar con el administrador.','Close','red-snackbar');
                             this.jwtService.destroyToken();
                             //setTimeout(() => {
                               this.router.navigateByUrl('service-web/login');
                             //}, 7000);
-                          }else{
+                          }else if(err.status != 401){
                             this.snackBar.openSnackBar(err.status + ' ' + err.message,'Close','alert-danger');
                           }
                     } catch(e) {
@@ -56,7 +54,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
                     }
                     //log error
                 }
-                return of(err);
+                return throwError(err);
             }));
   }
 
