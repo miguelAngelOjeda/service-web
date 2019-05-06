@@ -10,13 +10,13 @@ File: scss
 @import "variables/spacing";
 @import "variables/tables";
 @import "variables/type";
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700');
 
 
 
 
-$bodyfont: 'Poppins', sans-serif;
-$headingfont: 'Poppins', sans-serif;
+$bodyfont: 'Roboto', sans-serif;
+$headingfont: 'Roboto', sans-serif;
 
 @import '~@angular/material/theming';
 
@@ -32,7 +32,7 @@ $foreground: map-get($theme, foreground);
 @include mat-core();
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Poppins, sans-serif'
+  $font-family: 'Roboto, sans-serif'
 );
 
 // Override the typography in the core CSS.

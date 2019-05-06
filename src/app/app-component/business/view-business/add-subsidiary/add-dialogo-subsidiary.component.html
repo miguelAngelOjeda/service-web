@@ -69,10 +69,11 @@
 										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
 									</mat-form-field>
 								</div>
-								<div class="col-md-12"   style="background-color: #e9f3fc">
+								<mat-divider></mat-divider>
+								<div class="col-md-12">
 					            <div class="form-group">
 					                <div class="col-md-offset-2 col-md-4">
-					                  <button type="button" class="btn btn-primary" (click)="addSkillButtonClick()">
+					                  <button mat-button color="secondary" (click)="addSkillButtonClick()">
 					                      Agregar Departamentos
 					                  </button>
 					                </div>
@@ -109,7 +110,7 @@
 						</div>
 					</div>
 					<br>
-					<button mat-button [type]="submit"  mat-raised-button>Guardar</button>
+					<button mat-button [type]="submit"  color="primary">Guardar</button>
 
 			</form>
 		</mat-card-content>
