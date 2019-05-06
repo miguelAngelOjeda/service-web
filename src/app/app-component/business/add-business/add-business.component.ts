@@ -22,8 +22,8 @@ export class AddBusinessComponent implements OnInit {
   address: string;
   private geoCoder;
 
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
+  @ViewChild('search') searchElementRef: ElementRef;
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   formControl = new FormControl('', [
     Validators.required
@@ -80,8 +80,6 @@ export class AddBusinessComponent implements OnInit {
   }
 
   submit(form) {
-    console.log((<any>$('#input-file-now') ));
-    console.log(this.model);
     this.model.latitud = this.latitude;
     this.model.longitud = this.longitude;
     this.apiService.post('/empresas', this.model)
@@ -90,6 +88,21 @@ export class AddBusinessComponent implements OnInit {
         //this.snackBarService.openSnackBar('res');
 
     });
+  }
+
+  onFileChange(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.model.avatar ={
+          filename: file.name,
+          filetype: file.type,
+          value: reader.result.toString().split(',')[1]
+        };
+      };
+    }
   }
 
   // Get Current Location Coordinates

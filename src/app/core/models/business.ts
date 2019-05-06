@@ -14,4 +14,5 @@ export class Business {
     longitud: number;
     image: string;
     activo: string;
+    avatar: string|any;
 }
