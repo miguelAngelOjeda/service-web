@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Users, People, Rol, Subsidiary, Business } from '../../../core/models';
+import { Users, People} from '../../../core/models';
 import { ApiService } from '../../../core/services';
 
 @Component({
@@ -9,13 +9,11 @@ import { ApiService } from '../../../core/services';
   styleUrls: ['./view-users.component.css']
 })
 export class ViewUsersComponent implements OnInit {
-  private model: Users;
+  private model = new Users;
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute
-  ) {
-      this.model = new Users;
-   }
+  ) {}
 
    ngOnInit() {
      this.apiService.get('/usuarios/' + this.route.snapshot.params.id)

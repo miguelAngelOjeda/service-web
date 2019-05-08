@@ -1,0 +1,52 @@
+<div>
+  <mat-card>
+    <mat-card-content>
+    <mat-card-title>
+
+      <div class="row">
+        <div class="col-md-6">
+          Roles
+        </div>
+        <div class="col-md-6">
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/role/new" *appCanAccess="['role', 'addRole']">
+            Agregar
+          </a>
+        </div>
+      </div>
+    </mat-card-title>
+    <!-- <mat-card-subtitle> </mat-card-subtitle> -->
+      <!-- <p> -->
+        <mat-form-field appearance="fill">
+          <input matInput #filter placeholder="Buscar....." class="form-control-success">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      <!-- </p> -->
+        <mat-table [dataSource]="dataSource" class="mat-table"
+         matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
+
+          <ng-container matColumnDef="nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ROLE </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="opciones">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <button mat-icon-button routerLink="/service-web/role/{{element.id}}" *appCanAccess="['role', 'viewRole']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/role/{{element.id}}/edit" *appCanAccess="['role', 'editRole']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button (click)="delete(element)" *appCanAccess="['role', 'deleteRole']"> <mat-icon>delete</mat-icon></button>
+                </mat-cell>
+            </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [length]="length"
+                      [showFirstLastButtons]="true"
+                      [pageSize]="pageSize"
+                      [pageSizeOptions]="pageSizeOptions">
+        </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

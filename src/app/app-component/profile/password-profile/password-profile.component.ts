@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Users, People, Rol, Subsidiary, Business } from '../../../core/models';
+import { Users } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig  } from '@angular/material';
 
@@ -12,7 +12,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig  } from '@angular/materi
 })
 export class PasswordProfileComponent implements OnInit {
   passwordForm: FormGroup;
-  private model: Users;
+  private model = new Users;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -23,9 +23,7 @@ export class PasswordProfileComponent implements OnInit {
     public dialogRef: MatDialogRef<PasswordProfileComponent>,
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: Users
-  ) {
-      this.model = data;
-   }
+  ) {}
 
    ngOnInit() {
      this.passwordForm = this.formBuilder.group({

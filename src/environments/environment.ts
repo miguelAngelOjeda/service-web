@@ -57,6 +57,23 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_DELETE.LIST"]
     	}
     },
+    "role": {
+      "addRole": {
+    	   "permittedRoles": ["ROLE_ROLE.ADD"]
+    	 },
+    	"editRole": {
+    	  "permittedRoles": ["ROLE_ROLE.EDIT"]
+    	},
+    	"viewRole": {
+    	  "permittedRoles": ["ROLE_ROLE.VIEW"]
+    	},
+    	"listRole": {
+    	  "permittedRoles": ["ROLE_ROLE.LIST"]
+    	},
+    	"deleteRole": {
+    	  "permittedRoles": ["ROLE_ROLE.DELETE"]
+    	}
+    },
     "reference-types": {
       "addReferenceTypes": {
     	   "permittedRoles": ["ROLE_REFERENCE_TYPES.ADD"]

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Users, People, Rol, Subsidiary, Business } from '../../../core/models';
+import { Users } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import { PasswordProfileComponent } from '../password-profile';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
@@ -11,20 +11,17 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
   styleUrls: ['./view-profile.component.css']
 })
 export class ViewProfileComponent implements OnInit {
-  private model: Users;
+  private model = new Users;
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
     private route: ActivatedRoute
-  ) {
-      this.model = new Users;
-   }
+  ) {}
 
    ngOnInit() {
      this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
      .subscribe(res => {
         this.model = res.model;
-        console.log(this.model );
      });
    }
 

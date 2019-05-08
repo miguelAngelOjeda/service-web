@@ -1,4 +1,4 @@
-import {Rol} from "../models";
+import {Authorities} from "../models";
 export class UserSession {
     id: number;
     idEmpresa: number;
@@ -8,5 +8,5 @@ export class UserSession {
     username: string;
     email: string;
     rol: string;
-    authorities: Rol[];
+    authorities: Authorities[];
 }

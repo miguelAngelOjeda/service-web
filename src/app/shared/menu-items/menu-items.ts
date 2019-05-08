@@ -39,6 +39,17 @@ const MENUITEMS = [
       {state: 'egress-types', name: 'Tipos Egresos', icon: 'border_horizontal', entity:'egress-types', role:'listEgressTypes'},
       {state: 'relations-types', name: 'Tipos Vinculos', icon: 'border_horizontal', entity:'relations-types', role:'listRelationsTypes'}
     ]
+  },
+  {
+    state: 'progress-snipper',
+    type: 'box',
+    name: 'Configuraciones',
+    icon: 'border_horizontal',
+    entity:'',
+    role:'',
+    subMenu:[
+      {state: 'role', name: 'Roles', icon: 'border_horizontal', entity:'role', role:'listRole'}
+    ]
   }
 ];
 

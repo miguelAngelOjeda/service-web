@@ -61,6 +61,21 @@ export class EditBusinessComponent implements OnInit {
     });
   }
 
+  onFileChange(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.model.avatar ={
+          filename: file.name,
+          filetype: file.type,
+          value: reader.result.toString().split(',')[1]
+        };
+      };
+    }
+  }
+
   // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {

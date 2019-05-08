@@ -1,15 +1,15 @@
-import {Rol, People, Subsidiary, Business} from "./index";
+import {Role, People, Subsidiary, Business} from "./index";
 export class Users {
     id: number;
     alias: string;
     persona: People;
-    rol: Rol;
+    rol: Role;
     sucursal: Subsidiary;
     empresa: Business;
 
     constructor() {
       this.persona = new People;
-      this.rol = new Rol;
+      this.rol = new Role;
       this.sucursal = new Subsidiary;
       this.empresa = new Business;
     }
