@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone, Injectable } from '@a
 import {FormControl, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Business } from '../../../core/models';
-import { ApiService } from '../../../core/services';
+import { ApiService, UserService } from '../../../core/services';
 import {MatSnackBar} from '@angular/material';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { environment } from '../../../../environments/environment';
 import * as $ from 'jquery';
 import 'dropify';
 declare var google: any;
@@ -15,62 +16,48 @@ declare var google: any;
   styleUrls: ['./edit-business.component.css']
 })
 export class EditBusinessComponent implements OnInit {
-  private model: Business;
-  title: string = 'AGM project';
+  urlImage = environment.api_image_url;
+  private model = new Business;
+  public currentUser;
+  private geoCoder;
   latitude: number;
   longitude: number;
   zoom: number;
   address: string;
-  private geoCoder;
+  imageUrl: string;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
+  formControl = new FormControl('', [Validators.required]);
+
   constructor(
     private snackBar: MatSnackBar,
     private apiService: ApiService,
+    private userService: UserService,
     private route: ActivatedRoute
-  ) {
-    this.model = new Business();
-   }
+  ) {}
 
   ngOnInit() {
+    //Obtener datos del usuario
+    this.userService.getUser().subscribe((data) => {
+        this.currentUser = data;
+    });
+
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.model = res.model as Business;
+       (<any>$('.dropify-render img') ).attr('src',this.urlImage + this.currentUser.idEmpresa + '/Empresas/' + this.model.id);
        this.setCurrentLocation();
     });
-    (<any>$('.dropify') ).dropify({
-        tpl: {
-            wrap:            '<div class="dropify-wrapper"></div>',
-            loader:          '<div class="dropify-loader"></div>',
-            message:         '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
-            preview:         '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
-            filename:        '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
-            clearButton:     '<button type="button" class="dropify-clear">{{ remove }}</button>',
-            errorLine:       '<p class="dropify-error">{{ error }}</p>',
-            errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
-        }
-    });
-  }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+    this.onInitDropify();
   }
 
   submit(form) {
-    this.model.latitud = this.latitude;
-    this.model.longitud = this.longitude;
     this.apiService.put('/empresas/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');
-
     });
   }
 
@@ -90,8 +77,25 @@ export class EditBusinessComponent implements OnInit {
   markerDragEnd($event: MouseEvent) {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
-
+    this.model.latitud = this.latitude;
+    this.model.longitud = this.longitude;
     //this.getAddress(this.latitude, this.longitude);
   }
 
+  onInitDropify() {
+    (<any>$('.dropify') ).dropify({
+        messages: {
+                default: 'Arrastre un archivo o haga clic aquí',
+                replace: 'Arrastre un archivo o haga clic en reemplazar',
+                remove: 'Eliminar',
+                error: 'Lo sentimos, el archivo demasiado grande'
+        }
+    });
+  }
+
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? 'Campo requerido' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
 }

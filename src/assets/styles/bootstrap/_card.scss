@@ -42,6 +42,12 @@
   margin-bottom: $card-spacer-y;
 }
 
+.card .card-subtitle {
+    font-weight: 300;
+    margin-bottom: 15px;
+    color: #99abb4;
+}
+
 .card-subtitle {
   margin-top: -($card-spacer-y / 2);
   margin-bottom: 0;

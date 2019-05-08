@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Business, Subsidiary, Departments, Message } from '../../../core/models';
-import { ApiService } from '../../../core/services';
+import { ApiService, UserService } from '../../../core/services';
 import { DialogComponent } from '../../../shared';
 import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
 import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
@@ -9,6 +9,7 @@ import { EditDialogoSubsidiaryComponent } from './edit-subsidiary';
 import { ViewDialogoSubsidiaryComponent } from './view-subsidiary';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import * as $ from 'jquery';
@@ -27,34 +28,35 @@ export interface Tile {
   styleUrls: ['./view-business.component.css']
 })
 export class ViewBusinessComponent implements OnInit {
+  urlImage = environment.api_image_url;
   subsidiarys: Array<Subsidiary> = [];
-  data: Business;
-  subsidiary: Subsidiary;
+  data = new Business();
+  subsidiary = new Subsidiary();
   latitude: number;
   longitude: number;
   zoom: number;
   address: string;
   color: string = '#f6f6f9';
   private geoCoder;
+  public currentUser;
 
   secondFormGroup: FormGroup;
 
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
+  formControl = new FormControl('', [Validators.required]);
 
   constructor(
     public dialog: MatDialog,
+    private userService: UserService,
     private apiService: ApiService,
     private route: ActivatedRoute,
     private _formBuilder: FormBuilder
-  ) {
-    this.data = new Business();
-    this.subsidiary = new Subsidiary();
-  }
+  ) {}
 
   ngOnInit() {
+    this.userService.getUser().subscribe((data) => {
+        this.currentUser = data;
+    });
+    console.log(this.currentUser);
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.data = res.model as Business;

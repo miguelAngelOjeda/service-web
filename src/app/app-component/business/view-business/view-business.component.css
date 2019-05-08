@@ -17,3 +17,9 @@
   vertical-align: text-bottom;
   margin-right: 5px;
 }
+.img-responsive{
+    height: 240px;
+}
+.center {
+    text-align: center !important;
+}

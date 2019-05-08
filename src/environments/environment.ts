@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  //api_url: 'http://localhost:8989/beta1',
+  api_image_url: 'http://mail.creditoguarani.com.py:4443/beta1/image/',
   api_url: 'http://mail.creditoguarani.com.py:4443/beta1',
   whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };

@@ -14,8 +14,7 @@ declare var google: any;
   styleUrls: ['./add-business.component.css']
 })
 export class AddBusinessComponent implements OnInit {
-  private model: Business;
-  title: string = 'AGM project';
+  private model = new Business();
   latitude: number;
   longitude: number;
   zoom: number;
@@ -25,22 +24,18 @@ export class AddBusinessComponent implements OnInit {
   @ViewChild('search') searchElementRef: ElementRef;
   @ViewChild('fileInput') fileInput: ElementRef;
 
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
+  formControl = new FormControl('', [Validators.required]);
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private apiService: ApiService
-  ) {
-    this.model = new Business();
-   }
+  ) {}
 
   ngOnInit() {
     //load Places Autocomplete
     this.setCurrentLocation();
+    this.onInitDropify();
     // this.mapsAPILoader.load().then(() => {
     //   this.setCurrentLocation();
     //   this.geoCoder = new google.maps.Geocoder;
@@ -65,23 +60,9 @@ export class AddBusinessComponent implements OnInit {
     //     });
     //   });
     // });
-    (<any>$('.dropify') ).dropify({
-        tpl: {
-            wrap:            '<div class="dropify-wrapper"></div>',
-            loader:          '<div class="dropify-loader"></div>',
-            message:         '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
-            preview:         '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
-            filename:        '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
-            clearButton:     '<button type="button" class="dropify-clear">{{ remove }}</button>',
-            errorLine:       '<p class="dropify-error">{{ error }}</p>',
-            errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
-        }
-    });
   }
 
   submit(form) {
-    this.model.latitud = this.latitude;
-    this.model.longitud = this.longitude;
     this.apiService.post('/empresas', this.model)
     .subscribe(res => {
         this.model = res.model as Business;
@@ -121,6 +102,8 @@ export class AddBusinessComponent implements OnInit {
   markerDragEnd($event: MouseEvent) {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
+    this.model.latitud = this.latitude;
+    this.model.longitud = this.longitude;
 
     //this.getAddress(this.latitude, this.longitude);
   }
@@ -148,6 +131,17 @@ export class AddBusinessComponent implements OnInit {
     return this.formControl.hasError('required') ? 'Campo requerido' :
       this.formControl.hasError('email') ? 'Not a valid email' :
         '';
+  }
+
+  onInitDropify() {
+    (<any>$('.dropify') ).dropify({
+        messages: {
+                default: 'Arrastre un archivo o haga clic aquí',
+                replace: 'Arrastre un archivo o haga clic en reemplazar',
+                remove: 'Eliminar',
+                error: 'Lo sentimos, el archivo demasiado grande'
+        }
+    });
   }
 
 }
