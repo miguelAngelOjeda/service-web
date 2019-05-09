@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from '../../core/services';
-import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
+import { AddSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
 ViewSubsidiaryComponent } from '../subsidiary';
 
 

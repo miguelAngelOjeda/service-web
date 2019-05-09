@@ -1,9 +1,10 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Subsidiary, Filter, Rules  } from '../../../core/models';
+import { Subsidiary, Message, Filter, Rules  } from '../../../core/models';
 import { ApiService } from '../../../core/services';
+import { DeleteDialogComponent } from '../../../shared';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
-import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-list-subsidiary',
@@ -34,7 +35,10 @@ export class ListSubsidiaryComponent implements AfterViewInit {
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    public dialog: MatDialog,
+    private apiService: ApiService
+  ) { }
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -43,7 +47,7 @@ export class ListSubsidiaryComponent implements AfterViewInit {
           startWith({}),
           switchMap(() => {
             this.isfilter = false;
-            if(this.filterInput.nativeElement.textLength > 3){
+            if(this.filterInput.nativeElement.value.length > 3){
               this.isfilter = true;
               for (let i = 0; i < this.rulesColumns.length; i++)
               {
@@ -74,6 +78,29 @@ export class ListSubsidiaryComponent implements AfterViewInit {
             return observableOf([]);
           })
         ).subscribe(data => this.dataSource.data = data);
+  }
+
+  delete(data: Subsidiary){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro " + data.nombre;
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/sucursales/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                this.paginator._changePageSize(this.paginator.pageSize);
+              }
+          });
+        }
+      })
+    }
   }
 
 }

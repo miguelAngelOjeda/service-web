@@ -3,8 +3,6 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { UserService } from './core/services';
 import { HomeComponent } from './app-component/home';
 import { LoginComponent } from './login';
-import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
-ViewSubsidiaryComponent } from './app-component/subsidiary';
 import { FullComponent } from './navigation/full.component';
 
 const appRoutes: Routes = [

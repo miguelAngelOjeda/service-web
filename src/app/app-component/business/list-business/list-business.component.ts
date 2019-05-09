@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, EventEmitter  } from '@angular/core';
 import { Business, Message, Filter, Rules } from '../../../core/models';
 import { ApiService } from '../../../core/services';
-import { DialogComponent } from '../../../shared';
+import { DeleteDialogComponent } from '../../../shared';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort, MatDialogConfig } from '@angular/material';
@@ -87,11 +87,8 @@ export class ListBusinessComponent implements AfterViewInit {
 
       const dialogConfig = new MatDialogConfig();
       dialogConfig.data = message;
-      dialogConfig.maxWidth = "280px";
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
 
-      let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
           this.apiService.delete('/empresas/' + data.id)

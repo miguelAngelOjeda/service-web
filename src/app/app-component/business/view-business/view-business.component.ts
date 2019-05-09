@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router';
 import { Business, Subsidiary, Departments, Message } from '../../../core/models';
 import { ApiService, UserService } from '../../../core/services';
-import { DialogComponent } from '../../../shared';
+import { DeleteDialogComponent } from '../../../shared';
 import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
 import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
 import { EditDialogoSubsidiaryComponent } from './edit-subsidiary';
@@ -15,12 +15,6 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
 import * as $ from 'jquery';
 import 'dropify';
 declare var google: any;
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
 
 @Component({
   selector: 'app-view-business',
@@ -35,8 +29,6 @@ export class ViewBusinessComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom: number;
-  address: string;
-  color: string = '#f6f6f9';
   private geoCoder;
   public currentUser;
 
@@ -136,11 +128,8 @@ export class ViewBusinessComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = message;
-    dialogConfig.maxWidth  = '280px';
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
 
-    let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+    let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         this.apiService.delete('/sucursales/' + data.id)

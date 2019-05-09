@@ -13,7 +13,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
-import { DialogComponent } from '../../shared';
+import { DeleteDialogComponent } from '../../shared';
 import { CanAccessDirective } from '../../shared/can-access.directive';
 import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared';
 
@@ -35,7 +35,7 @@ import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared'
     ViewRoleComponent
   ],
   exports: [
-    DialogComponent
+    DeleteDialogComponent
   ],
   providers: [
 

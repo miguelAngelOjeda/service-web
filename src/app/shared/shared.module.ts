@@ -7,7 +7,7 @@ import { MaterialModule } from '../core/material/material.module';
 import { MenuItems } from './menu-items/menu-items';
 import { BrowserModule } from '@angular/platform-browser';
 import { ShowAuthedDirective } from './show-authed.directive';
-import { DialogComponent } from './dialog';
+import { DeleteDialogComponent } from './dialog';
 import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 
@@ -25,7 +25,7 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
     CanAccessDirective,
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    DialogComponent,
+    DeleteDialogComponent,
     AccordionDirective
   ],
   exports: [
@@ -39,10 +39,10 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,
-    DialogComponent
+    DeleteDialogComponent
   ],
   entryComponents: [
-    DialogComponent
+    DeleteDialogComponent
   ],
   providers: [ MenuItems]
 })

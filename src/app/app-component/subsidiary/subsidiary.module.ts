@@ -1,50 +1,37 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ActivateSubsidiaryComponent, AddSubsidiaryComponent , DeleteSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
+import { AddSubsidiaryComponent, EditSubsidiaryComponent, ListSubsidiaryComponent,
 ViewSubsidiaryComponent } from '../subsidiary';
-import { CoreModule } from '../../core/core.module';
 import { MaterialModule } from '../../core/material/material.module';
 import { SubsidiaryRoutingModule } from './subsidiary-routing.module';
 import { environment } from '../../../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
-import { BrowserModule } from '@angular/platform-browser';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatCheckboxModule} from '@angular/material/checkbox'
-import {MatChipsModule} from '@angular/material/chips';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FlexLayoutModule} from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
-import { CanAccessDirective } from '../../shared/can-access.directive';
+import { AgmCoreModule } from '@agm/core';
 import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared';
 
 @NgModule({
   imports: [
-    //CoreModule,
     SubsidiaryRoutingModule,
     MaterialModule,
-    //BrowserModule,
     FlexLayoutModule,
     SharedModule,
-    //BrowserAnimationsModule,
     EcoFabSpeedDialModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LayoutModule,
-    //BrowserModule,
     ReactiveFormsModule
   ],
   declarations: [
-    ActivateSubsidiaryComponent,
     AddSubsidiaryComponent,
-    DeleteSubsidiaryComponent,
     EditSubsidiaryComponent,
     ListSubsidiaryComponent,
     ViewSubsidiaryComponent
-    //CanAccessDirective,
-    //ShowAuthedDirective
   ],
   providers: [
 

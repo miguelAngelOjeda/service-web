@@ -13,7 +13,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { CanAccessDirective } from '../../shared/can-access.directive';
-import { DialogComponent } from '../../shared';
+import { DeleteDialogComponent } from '../../shared/dialog';
 import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared';
 import { AgmCoreModule } from '@agm/core';
 import { ControlMessagesComponent } from '../../shared/control-messages.component';
@@ -35,7 +35,7 @@ import { ValidationService } from '../../core/services';
   exports: [
     AddDialogoSubsidiaryComponent,
     EditDialogoSubsidiaryComponent,
-    DialogComponent
+    DeleteDialogComponent
   ],
   entryComponents: [
     AddDialogoSubsidiaryComponent,

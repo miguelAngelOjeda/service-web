@@ -16,7 +16,6 @@ declare var google: any;
 export class AddDialogoSubsidiaryComponent implements OnInit{
   formControl = new FormControl('', [Validators.required]);
   subsidiaryForm: FormGroup;
-  areas: Array<Departments> = [];
   latitude: number;
   longitude: number;
   zoom: number;

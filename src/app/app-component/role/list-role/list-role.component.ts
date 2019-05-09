@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Role, Filter, Rules, Message  } from '../../../core/models';
-import { DialogComponent } from '../../../shared';
+import { DeleteDialogComponent } from '../../../shared';
 import { ApiService } from '../../../core/services';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
@@ -89,11 +89,8 @@ export class ListRoleComponent implements AfterViewInit {
 
       const dialogConfig = new MatDialogConfig();
       dialogConfig.data = message;
-      dialogConfig.maxWidth = "280px";
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
 
-      let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
           this.apiService.delete('/roles/' + data.id)

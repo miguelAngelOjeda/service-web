@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ValidationService } from '../../../../core/services/validation.service';
 import { Subsidiary, Departments, Message } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
-import { DialogComponent } from '../../../../shared';
+import { DeleteDialogComponent } from '../../../../shared';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
@@ -84,11 +84,8 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
 
       const dialogConfig = new MatDialogConfig();
       dialogConfig.data = message;
-      dialogConfig.maxWidth = "280px";
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
 
-      let dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
           this.apiService.delete('/departamentos_sucursal/' + data.id)
