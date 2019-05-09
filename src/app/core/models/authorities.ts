@@ -1,5 +1,8 @@
 export class Authorities {
-    role: string|any;
-    grupo: string|any;
-    authority: string|any;
+    id: string|any = null;
+    role: string|any = '';
+    descripcion: string|any = null;
+    nombre: string|any = null;
+    grupo: string|any = '';
+    authority: string|any = ' ';
 }
