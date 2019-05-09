@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Role } from '../../../core/models';
+import { Role, Authorities } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 
 @Component({
@@ -10,8 +10,8 @@ import { ApiService } from '../../../core/services';
   styleUrls: ['./edit-role.component.scss']
 })
 export class EditRoleComponent implements OnInit {
-
   private model = new Role;
+  private authorities: Array<Authorities> = [];
 
   formControl = new FormControl('', [Validators.required]);
 
@@ -21,10 +21,26 @@ export class EditRoleComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.apiService.get('/roles/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.model = res.model as Role;
     });
+
+    this.apiService.getPageList('/roles/group',false)
+    .subscribe(res => {
+        this.authorities = res.rows;
+        this.authorities.forEach(item => {
+           item.authority.forEach(auth=> {
+             this.model.authorities.forEach(authModel=> {
+               if(auth.id === authModel.id){
+                 auth.checked = true;
+               }
+             });
+           });
+        });
+    });
+
 
   }
 
@@ -35,6 +51,14 @@ export class EditRoleComponent implements OnInit {
   }
 
   submit(form) {
+    this.model.authorities = [];
+    this.authorities.forEach(item => {
+       item.authority.forEach(auth=> {
+         if(auth.checked){
+           this.model.authorities.push(auth);
+         }
+       });
+    });
     this.apiService.put('/roles/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');

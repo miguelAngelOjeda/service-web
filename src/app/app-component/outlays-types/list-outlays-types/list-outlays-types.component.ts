@@ -43,7 +43,7 @@ export class ListOutlaysTypesComponent implements AfterViewInit {
           startWith({}),
           switchMap(() => {
             this.isfilter = false;
-            if(this.filterInput.nativeElement.textLength > 3){
+            if(this.filterInput.nativeElement.value.length  > 3){
               this.isfilter = true;
               for (let i = 0; i < this.rulesColumns.length; i++)
               {

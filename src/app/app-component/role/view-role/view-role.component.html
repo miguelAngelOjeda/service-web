@@ -1,24 +1,40 @@
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/role"> Roles </a> &gt; <span class="current">Visualizar Rol</span></h2>
 <mat-card class="form-card">
-<mat-card-header>
-
-  <mat-card-title>
-    <a class="nav-link" mat-mini-fab color="primary" routerLink="/service-web/payments-types">
-      <mat-icon>reply</mat-icon>
-    </a>
-    Visiualizar Tipo Pago
-  </mat-card-title>
-  <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
-</mat-card-header>
 <mat-card-content>
-  <form  #formControl="ngForm">
-    <div class="form-container">
-      <mat-form-field   class="col-sm-12" appearance="legacy">
-    		<input matInput #input  placeholder="Codigo" [(ngModel)]="model.codigo" name="codigo" required disabled>
-    	</mat-form-field>
-    	<mat-form-field   class="col-sm-12" appearance="legacy">
-    		<input matInput #input  placeholder="Tipo Referencia" [(ngModel)]="model.nombre" name="nombre" required disabled>
-    	</mat-form-field>
+  <form  class="mat-dialog-content" (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm" >
+    <div class="row">
+      <div class="col-md-4">
+      	<mat-form-field   class="col-sm-12" appearance="legacy">
+      		<input matInput #input  placeholder="Nombre Rol" [(ngModel)]="model.nombre" name="nombre" required>
+      	</mat-form-field>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-3" *ngFor="let authority of model.authorities">
+        <mat-card>
+          <mat-card-header class="bg-inverse text-white">
+            <mat-card-title>
+              <h6 class="m-0">{{ authority.grupo }}</h6>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+            <mat-list-item  *ngFor="let role of authority.authority">
+              <mat-checkbox [(ngModel)]="role.checked" color="primary" name="{{role.nombre}}">{{role.descripcion}}</mat-checkbox>
+            </mat-list-item>
+            </mat-list>
+            <!-- <mat-selection-list #list  (selectionChange)="onNgModelChange($event, list.selectedOptions.selected)">
+              <mat-list-option *ngFor="let per of authority.authority" [value] ="per">
+                {{per.descripcion}}
+              </mat-list-option>
+            </mat-selection-list> -->
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <mat-card-actions>
+      <button mat-button [type]="submit"  mat-raised-button >Guardar</button>
+    </mat-card-actions>
   </form>
 </mat-card-content>
 </mat-card>

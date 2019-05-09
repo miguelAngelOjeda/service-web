@@ -5,4 +5,5 @@ export class Authorities {
     nombre: string|any = null;
     grupo: string|any = '';
     authority: string|any = ' ';
+    checked: any = false; 
 }

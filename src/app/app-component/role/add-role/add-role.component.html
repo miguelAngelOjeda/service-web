@@ -1,27 +1,27 @@
 <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/role"> Roles </a> &gt; <span class="current">Agregar Rol</span></h2>
 <mat-card class="form-card">
 <mat-card-content>
-  <form  class="mat-dialog-content" (ngSubmit)="formControl.form.valid && submit(ngForm)" [formGroup]="authoritiesForm" >
+  <form  class="mat-dialog-content" (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm" >
     <div class="row">
       <div class="col-md-4">
       	<mat-form-field   class="col-sm-12" appearance="legacy">
-      		<input matInput #input  placeholder="Nombre Rol" formControlName="nombre" [(ngModel)]="model.nombre" name="nombre" required>
+      		<input matInput #input  placeholder="Nombre Rol" [(ngModel)]="model.nombre" name="nombre" required>
       		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       	</mat-form-field>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3" *ngFor="let authority of authoritiesForm.controls['authorities'].controls; let x = index">
+      <div class="col-md-3" *ngFor="let authority of authorities">
         <mat-card>
           <mat-card-header class="bg-inverse text-white">
             <mat-card-title>
-              <h6 class="m-0">{{ authority.value.grupo }}</h6>
+              <h6 class="m-0">{{ authority.grupo }}</h6>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <mat-list>
-            <mat-list-item formArrayName="authorities" *ngFor="let genre of authority.value.authority; let i = index">
-              <mat-checkbox [formControlName]="i">{{genre.descripcion}}</mat-checkbox>
+            <mat-list-item  *ngFor="let role of authority.authority">
+              <mat-checkbox [(ngModel)]="role.checked" color="primary" name="{{role.nombre}}">{{role.descripcion}}</mat-checkbox>
             </mat-list-item>
             </mat-list>
             <!-- <mat-selection-list #list  (selectionChange)="onNgModelChange($event, list.selectedOptions.selected)">
@@ -32,7 +32,6 @@
           </mat-card-content>
         </mat-card>
       </div>
-
     </div>
     <mat-card-actions>
       <button mat-button [type]="submit"  mat-raised-button >Guardar</button>
