@@ -1,19 +1,13 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  min-width: 450px;
-}
-
-.container > * {
-  width: 100%;
-}
-
-.form {
-  display: flex;
-  padding-top: 6px;
-}
-
-.mat-form-field {
-  font-size: 16px;
-  flex-grow: 1;
+.mat-button{
+  min-width: 100%;
+  color: #fff;
+  background-color: #74c7a4;
+  border-top-left-radius: 4.8px;
+  font-family: roboto-light, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 20px;
+  font-weight: 400;
+  text-decoration-color: rgb(255, 255, 255);
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-transform: none;
 }

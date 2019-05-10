@@ -39,11 +39,6 @@
             <mat-cell *matCellDef="let element"> {{element.persona.documento}} </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="persona.ruc">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.persona.ruc}} </mat-cell>
-          </ng-container>
-
           <ng-container matColumnDef="primerNombre">
             <mat-header-cell *matHeaderCellDef mat-sort-header> PRIMER NOMBRE </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.persona.primerNombre}} </mat-cell>
