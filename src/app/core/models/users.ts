@@ -2,7 +2,7 @@ import {Role, People, Subsidiary, Business} from "./index";
 export class Users {
     id: number;
     alias: string;
-    password: string;
+    claveAcceso: string;
     persona: People;
     rol: Role;
     sucursal: Subsidiary;

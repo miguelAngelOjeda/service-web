@@ -15,6 +15,7 @@ declare var google: any;
 })
 export class AddBusinessComponent implements OnInit {
   private model = new Business();
+  url: string;
   latitude: number;
   longitude: number;
   zoom: number;
@@ -30,7 +31,13 @@ export class AddBusinessComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private apiService: ApiService
-  ) {}
+  ) {
+    this.model.avatar = {
+      filename: null,
+      filetype: null,
+      value: null
+    };
+  }
 
   ngOnInit() {
     //load Places Autocomplete
@@ -71,15 +78,17 @@ export class AddBusinessComponent implements OnInit {
     });
   }
 
-  onFileChange(event) {
+  showpreview(event) {
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
+        this.url = reader.result;
         this.model.avatar ={
           filename: file.name,
           filetype: file.type,
+          url: reader.result,
           value: reader.result.toString().split(',')[1]
         };
       };

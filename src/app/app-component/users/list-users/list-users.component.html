@@ -28,40 +28,39 @@
         </mat-form-field>
       <!-- </p> -->
         <mat-table [dataSource]="dataSource" class="mat-table"
-         matSort  matSortActive="alias" matSortDirection="asc" matSortDisableClear>
+         matSort  matSortActive="alias" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+
          <ng-container matColumnDef="alias">
            <mat-header-cell *matHeaderCellDef mat-sort-header> ALIAS </mat-header-cell>
-           <mat-cell *matCellDef="let element"> {{element.alias}} </mat-cell>
+           <mat-cell *matCellDef="let element">
+             <span class="mobile-label">Alias:</span>
+              {{element.alias}}
+            </mat-cell>
          </ng-container>
 
           <ng-container matColumnDef="persona.documento">
             <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.persona.documento}} </mat-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Documento:</span>
+              {{element.persona.documento}}
+            </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="primerNombre">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> PRIMER NOMBRE </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.persona.primerNombre}} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="segundoNombre">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> SEGUNDO NOMBRE </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.persona.segundoNombre}} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="primerApellido">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> PRIMER APELLIDO </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.persona.primerApellido}} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="segundoApellido">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> SEGUNDO APELLIDO </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.persona.segundoApellido}} </mat-cell>
+          <ng-container matColumnDef="persona.primerNombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Nombre:</span>
+              {{(element.persona.primerNombre == null ? '' : element.persona.primerNombre) +' ' +(element.persona.segundoNombre == null ? '' : element.persona.segundoNombre)
+            +', ' +(element.persona.segundoApellido == null ? '' : element.persona.segundoApellido)}}
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="email">
               <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.persona.email}}</mat-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="mobile-label">Email:</span>
+                {{element.persona.email}}
+              </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="opciones">

@@ -1,4 +1,4 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/users"> Usuarios </a> &gt; <span class="current">Agregar Usuario</span></h2>
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/users"> Usuarios </a> &gt; <span class="current">Agregar</span></h2>
 <mat-card class="form-card">
 <mat-card-content>
   <form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
@@ -138,8 +138,8 @@
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Rol</mat-label>
                  <mat-select  [(ngModel)]="model.rol.id" name="rol.id" required>
-                   <mat-option selected value="FISICA">Fisica</mat-option>
-                   <mat-option value="JURIDICA">Juridica</mat-option>
+                   <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
+                   <mat-option *ngFor="let rol of rules" [value]="rol.id">{{rol.nombre}}</mat-option>
                  </mat-select>
               </mat-form-field>
             </div>
@@ -147,6 +147,7 @@
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Sucursal</mat-label>
                  <mat-select  [(ngModel)]="model.sucursal.id" name="sucursal.id" required>
+                   <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
                    <mat-option selected value="FISICA">Fisica</mat-option>
                    <mat-option value="JURIDICA">Juridica</mat-option>
                  </mat-select>

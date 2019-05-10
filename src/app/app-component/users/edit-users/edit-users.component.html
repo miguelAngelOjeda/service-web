@@ -1,12 +1,12 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/users"> Usuarios </a> &gt; <span class="current">Editar Usuario</span></h2>
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/users"> Usuarios </a> &gt; <span class="current">Editar</span></h2>
 <mat-card class="form-card">
 <mat-card-content>
   <form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
       <div class="row">
         <div class="col-md-12">
           <div class="row">
-             <div class="col-md-3">
-                <input type="file" id="input-file-now" class="dropify" data-height="120px" accept=".png, .jpg, .jpeg"  name="profile" class="dropify" (change)="onFileChange($event)" #fileInput>
+             <div class="col-md-3 center">
+                <input type="file" id="input-file-now" class="dropify" data-width="120px" data-height="120px" accept=".png, .jpg, .jpeg"  name="profile" class="dropify" (change)="onFileChange($event)" #fileInput>
              </div>
              <div class="col-md-9">
                <div class="row">
@@ -48,7 +48,7 @@
                    </div>
                    <div class="col-md-4">
                      <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input [type]="hide ? 'password' : 'text'"  placeholder="Contraseña" [(ngModel)]="model.password" name="password" required>
+                       <input matInput #input [type]="hide ? 'password' : 'text'"  placeholder="Contraseña" [(ngModel)]="model.claveAcceso" name="claveAcceso" required>
                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                      </mat-form-field>
@@ -92,9 +92,11 @@
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Estado Civil</mat-label>
                  <mat-select  [(ngModel)]="model.persona.estadoCivil" name="estadoCivil" required>
-                   <mat-option  value="SOLTERO">Soltero</mat-option>
-                   <mat-option value="CASADO">Casado</mat-option>
-                   <mat-option value="VIUDO">Viudo</mat-option>
+                   <mat-option  value="SOLTERO/A">Soltero/a</mat-option>
+                   <mat-option value="CASADO/A">Casado/a</mat-option>
+                   <mat-option value="DIVORCIADO/A">Divorciado/a</mat-option>
+                   <mat-option value="UNION LIBRE">Union Libre</mat-option>
+                   <mat-option value="VIUDO/A">Viudo/a</mat-option>
                  </mat-select>
               </mat-form-field>
             </div>
@@ -137,18 +139,30 @@
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Rol</mat-label>
-                 <mat-select  [(ngModel)]="model.rol.id" name="rol.id" required>
-                   <mat-option selected value="FISICA">Fisica</mat-option>
-                   <mat-option value="JURIDICA">Juridica</mat-option>
+                 <mat-select [(ngModel)]="model.rol.id"  name="rol.id" placeholder="Rol"  required>
+                    <mat-form-field appearance="legacy">
+                        <input matInput #filterInputRole placeholder="Buscar.....">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                   <mat-option [value]="model.rol.id">{{model.rol.nombre}}</mat-option>
+                   <div *ngFor="let rol of role">
+                     <mat-option  [value]="rol.id" *ngIf="model.rol.id != rol.id">{{rol.nombre}}</mat-option>
+                   </div>
                  </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Sucursal</mat-label>
-                 <mat-select  [(ngModel)]="model.sucursal.id" name="sucursal.id" required>
-                   <mat-option selected value="FISICA">Fisica</mat-option>
-                   <mat-option value="JURIDICA">Juridica</mat-option>
+                 <mat-select [(ngModel)]="model.sucursal.id"  name="sucursal.id" placeholder="Rol"  required>
+                    <mat-form-field appearance="legacy">
+                        <input matInput #filterInputSubsidiary placeholder="Buscar.....">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                   <mat-option [value]="model.sucursal.id">{{model.sucursal.nombre}}</mat-option>
+                   <div *ngFor="let suc of subsidiary">
+                     <mat-option  [value]="suc.id" *ngIf="model.sucursal.id != suc.id">{{suc.nombre}}</mat-option>
+                   </div>
                  </mat-select>
               </mat-form-field>
             </div>
@@ -156,7 +170,9 @@
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Departamento</mat-label>
                  <mat-select   required>
-                   <mat-option selected value="FISICA">Fisica</mat-option>
+                   <ngx-mat-select-search
+                                          [placeholderLabel]="'Buscar...'"
+                                          [noEntriesFoundLabel]="'no se encontraron registros'"></ngx-mat-select-search>
                    <mat-option value="JURIDICA">Juridica</mat-option>
                  </mat-select>
               </mat-form-field>

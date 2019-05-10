@@ -22,16 +22,22 @@
         </mat-form-field>
       <!-- </p> -->
         <mat-table [dataSource]="dataSource" class="mat-table"
-         matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
+         matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
 
          <ng-container matColumnDef="codigo">
            <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
-           <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+           <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Codigo:</span>
+              {{element.codigo}}
+           </mat-cell>
          </ng-container>
 
           <ng-container matColumnDef="nombre">
             <mat-header-cell *matHeaderCellDef mat-sort-header> FORMA PAGO </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+            <mat-cell *matCellDef="let element">
+               <span class="mobile-label">Forma Pago:</span>
+               {{element.nombre}}
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="opciones">

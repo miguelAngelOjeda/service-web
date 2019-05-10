@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { Component, OnInit, Inject, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef, MatSelect} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot , ActivatedRoute} from '@angular/router';
 import { UserService} from '../../../core/services';
 import { ApiService } from '../../../core/services';
-import { Users } from '../../../core/models';
+import { Users, Role, Rules, Filter, Subsidiary } from '../../../core/models';
+import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
 import * as $ from 'jquery';
 import 'dropify';
 
@@ -13,8 +15,22 @@ import 'dropify';
   templateUrl: './edit-users.component.html',
   styleUrls: ['./edit-users.component.scss']
 })
-export class EditUsersComponent implements OnInit {
+export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
   private model = new Users();
+  //Filter
+
+  isfilter = false;
+  filter = new Filter;
+  rules: Array<Rules> = [];
+  /** list of rules */
+  protected role: Array<Role> = [];
+  @ViewChild('filterInputRole') filterInputRole: ElementRef;Subsidiary
+  /** list of subsidiary */
+  protected subsidiary: Array<Subsidiary> = [];
+  @ViewChild('filterInputSubsidiary') filterInputSubsidiary: ElementRef;
+  /** Subject that emits when the component has been destroyed. */
+  protected _onDestroy = new Subject<void>();
+
   formControl = new FormControl('', [Validators.required]);
   constructor(
     private apiService: ApiService,
@@ -24,12 +40,25 @@ export class EditUsersComponent implements OnInit {
 
   ngOnInit() {
     this.onInitDropify();
-
+    this.filterRules();
+    this.filterSubsidiary();
     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.model = res.model as Users;
     });
 
+  }
+
+  ngAfterViewInit() {
+  }
+
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
+
+  submit() {
+    console.log(this.model);
   }
 
   onInitDropify() {
@@ -44,15 +73,79 @@ export class EditUsersComponent implements OnInit {
   }
 
 
+
+  protected filterRules() {
+    let rulesColumns  = ['nombre'];
+    merge(fromEvent(this.filterInputRole.nativeElement, 'keyup'))
+        .pipe(
+          startWith({}),
+          switchMap(() => {
+            this.isfilter = false;
+            if(this.filterInputRole.nativeElement.value.length  > 3){
+              this.isfilter = true;
+              for (let i = 0; i < rulesColumns.length; i++)
+              {
+                this.rules.push({
+                        field: rulesColumns[i],
+                        op: "cn",
+                        data: this.filterInputRole.nativeElement.value
+                    });
+              }
+              this.filter.groupOp = 'OR';
+              this.filter.rules = this.rules;
+            }
+            return this.apiService.getPageList('/roles',this.isfilter,JSON.stringify(this.filter), 'desc', 'id',
+            0,10);
+          }),
+          map(data => {
+            return data.rows as Role[];;
+          }),
+          catchError(() => {
+            return observableOf([]);
+          })
+        ).subscribe(data => this.role = data);
+  }
+
+  protected filterSubsidiary() {
+    let rulesColumns  = ['codigoSucursal', 'nombre'];
+    merge(fromEvent(this.filterInputSubsidiary.nativeElement, 'keyup'))
+        .pipe(
+          startWith({}),
+          switchMap(() => {
+            this.isfilter = false;
+            if(this.filterInputSubsidiary.nativeElement.value.length  > 3){
+              this.isfilter = true;
+              for (let i = 0; i < rulesColumns.length; i++)
+              {
+                this.rules.push({
+                        field: rulesColumns[i],
+                        op: "cn",
+                        data: this.filterInputSubsidiary.nativeElement.value
+                    });
+              }
+              this.filter.groupOp = 'OR';
+              this.filter.rules = this.rules;
+            }
+            return this.apiService.getPageList('/sucursales',this.isfilter,JSON.stringify(this.filter), 'desc', 'id',
+            0,10);
+          }),
+          map(data => {
+            return data.rows as Subsidiary[];;
+          }),
+          catchError(() => {
+            return observableOf([]);
+          })
+        ).subscribe(data => this.subsidiary = data);
+  }
+
+
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Campo requerido' :
       this.formControl.hasError('email') ? 'Not a valid email' :
         '';
   }
 
-  submit() {
-    console.log(this.model);
-  }
+
 
 
 

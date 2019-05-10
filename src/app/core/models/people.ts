@@ -6,7 +6,7 @@ export class People {
     segundoApellido: string;
     documento: string;
     ruc: string;
-    fechaNacimiento: string;
+    fechaNacimiento: Moment;
     tipoPersona: string;
     sexo: string;
     numeroHijos: number;

@@ -11,3 +11,40 @@
   text-decoration-style: solid;
   text-transform: none;
 }
+.profile-picture{
+    border: 1px solid #CCC;
+    background-color: #FFF;
+    padding: 4px;
+    display: inline-block;
+    max-width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.15);
+}
+
+img.editable-click{
+    border: 1px dotted #BBB;
+}
+
+.editable-click{
+    border-bottom: 1px dashed #BBB;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+#imgAvatar[class$="img-avatar"]{
+    margin-bottom: 14px;
+    width: 100%;
+
+    border: 1px dotted #BBB;
+}
+#imgAvatar[class$="img-avatar"]+input {
+    height: 88%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    opacity: 0;
+}

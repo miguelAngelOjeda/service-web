@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {FormControl, Validators} from '@angular/forms';
-import {Users} from '../../../core/models';
+import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { FormControl, Validators} from '@angular/forms';
+import { Users, Rules} from '../../../core/models';
 import * as $ from 'jquery';
 import 'dropify';
 
@@ -13,6 +13,7 @@ import 'dropify';
 export class AddUsersComponent implements OnInit {
     hide = true;
     private model = new Users();
+    private rules: Array<Rules> = [];
     formControl = new FormControl('', [Validators.required]);
 
     constructor() { }

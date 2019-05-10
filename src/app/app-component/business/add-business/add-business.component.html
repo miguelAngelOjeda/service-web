@@ -18,8 +18,14 @@
         <div class="col-md-12">
           <div class="row">
              <div class="col-md-3">
-                <input type="file" id="input-file-now" class="dropify" data-height="235px" accept=".png, .jpg, .jpeg"  name="profile" class="dropify" (change)="onFileChange($event)" #fileInput>
+                <input type="file" id="input-file-now" class="dropify"  accept=".png, .jpg, .jpeg"  name="profile" class="dropify" (change)="onFileChange($event)" #fileInput>
              </div>
+             <!-- <div class="col-md-3 text-center">
+               <span class="profile-picture">
+                 <img id="imgAvatar"  [src]="this.model.avatar.url == null ? 'assets/images/background/enterprice.jpg' : this.model.avatar.url"   alt="Avatar" class="img-avatar">
+                 <input type="file" class="img-avatar editable-click"  name="fileAvatar" accept="image/x-png,image/png,image/jpeg,image/jpg,image/bmp" (change)="showpreview($event)">
+               </span>
+             </div> -->
              <div class="col-md-9">
                <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
                  <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
