@@ -2,8 +2,7 @@ import { Component, OnInit, Inject, AfterViewInit, OnDestroy, ViewChild, Element
 import {MAT_DIALOG_DATA, MatDialogRef, MatSelect} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot , ActivatedRoute} from '@angular/router';
-import { UserService} from '../../../core/services';
-import { ApiService } from '../../../core/services';
+import { UserService, ApiService} from '../../../core/services';
 import { Users, Role, Rules, Filter, Subsidiary } from '../../../core/models';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
@@ -17,8 +16,8 @@ import 'dropify';
 })
 export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
   private model = new Users();
+  hide = true;
   //Filter
-
   isfilter = false;
   filter = new Filter;
   rules: Array<Rules> = [];
@@ -32,6 +31,7 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
   protected _onDestroy = new Subject<void>();
 
   formControl = new FormControl('', [Validators.required]);
+
   constructor(
     private apiService: ApiService,
     private userService: UserService,

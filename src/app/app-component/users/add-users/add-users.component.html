@@ -65,7 +65,7 @@
             </div>
             <div class="col-md-3">
               <mat-form-field   class="col-sm-12" appearance="legacy">
-                <input matInput #input  placeholder="Segundo Nombre" [(ngModel)]="model.persona.segundoNombre" name="segundoNombre" required>
+                <input matInput #input  placeholder="Segundo Nombre" [(ngModel)]="model.persona.segundoNombre" name="segundoNombre">
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="col-md-3">
               <mat-form-field   class="col-sm-12" appearance="legacy">
-                <input matInput #input  placeholder="Segundo Apellido" [(ngModel)]="model.persona.segundoApellido" name="segundoApellido" required>
+                <input matInput #input  placeholder="Segundo Apellido" [(ngModel)]="model.persona.segundoApellido" name="segundoApellido">
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
@@ -91,7 +91,7 @@
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Estado Civil</mat-label>
-                 <mat-select #input [(ngModel)]="model.persona.estadoCivil" name="estadoCivil" required>
+                 <mat-select [(ngModel)]="model.persona.estadoCivil" name="estadoCivil" required>
                    <mat-option  value="SOLTERO">Soltero</mat-option>
                    <mat-option value="CASADO">Casado</mat-option>
                    <mat-option value="VIUDO">Viudo</mat-option>
@@ -137,26 +137,31 @@
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Rol</mat-label>
-                 <mat-select  [(ngModel)]="model.rol.id" name="rol.id" required>
-                   <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
-                   <mat-option *ngFor="let rol of rules" [value]="rol.id">{{rol.nombre}}</mat-option>
+                 <mat-select [(ngModel)]="model.rol.id"  name="rol.id" placeholder="Rol"  required>
+                    <mat-form-field appearance="legacy">
+                        <input matInput #filterInputRole placeholder="Buscar.....">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    <mat-option *ngFor="let rol of role"  [value]="rol.id">{{rol.nombre}}</mat-option>
                  </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Sucursal</mat-label>
-                 <mat-select  [(ngModel)]="model.sucursal.id" name="sucursal.id" required>
-                   <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
-                   <mat-option selected value="FISICA">Fisica</mat-option>
-                   <mat-option value="JURIDICA">Juridica</mat-option>
+                 <mat-select (selectionChange)="selectionChangeSubs($event.value)" [(ngModel)]="model.persona.sucursal.id"  name="sucursal.id" placeholder="Sucursal"  required>
+                    <mat-form-field appearance="legacy">
+                        <input matInput #filterInputSubsidiary placeholder="Buscar.....">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                    <mat-option *ngFor="let suc of subsidiary"  [value]="suc.id" >{{suc.nombre}}</mat-option>
                  </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Departamento</mat-label>
-                 <mat-select   required>
+                 <mat-select [disabled]="disableSelectDepartment.value"  required>
                    <mat-option selected value="FISICA">Fisica</mat-option>
                    <mat-option value="JURIDICA">Juridica</mat-option>
                  </mat-select>
