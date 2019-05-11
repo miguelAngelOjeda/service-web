@@ -1,3 +1,4 @@
+import {Subsidiary} from "../models";
 export class People {
     id: number;
     primerNombre: string;
@@ -6,7 +7,7 @@ export class People {
     segundoApellido: string;
     documento: string;
     ruc: string;
-    fechaNacimiento: Moment;
+    fechaNacimiento: string;
     tipoPersona: string;
     sexo: string;
     numeroHijos: number;
@@ -21,5 +22,7 @@ export class People {
     observacion: string;
     latitud: number;
     longitud: number;
+    sucursal: Subsidiary = new Subsidiary;
     activo: string;
+    avatar: string|any;
 }

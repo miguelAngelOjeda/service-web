@@ -154,14 +154,14 @@
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Sucursal</mat-label>
-                 <mat-select [(ngModel)]="model.sucursal.id"  name="sucursal.id" placeholder="Rol"  required>
+                 <mat-select [(ngModel)]="model.persona.sucursal.id"  name="sucursal.id" placeholder="Sucursal"  required>
                     <mat-form-field appearance="legacy">
                         <input matInput #filterInputSubsidiary placeholder="Buscar.....">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
-                   <mat-option [value]="model.sucursal.id">{{model.sucursal.nombre}}</mat-option>
+                   <mat-option [value]="model.persona.sucursal.id">{{model.persona.sucursal.nombre}}</mat-option>
                    <div *ngFor="let suc of subsidiary">
-                     <mat-option  [value]="suc.id" *ngIf="model.sucursal.id != suc.id">{{suc.nombre}}</mat-option>
+                     <mat-option  [value]="suc.id" *ngIf="model.persona.sucursal.id != suc.id">{{suc.nombre}}</mat-option>
                    </div>
                  </mat-select>
               </mat-form-field>

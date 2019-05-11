@@ -14,8 +14,5 @@ export class Subsidiary {
     longitud: number = null;
     activo: string = null;
     departamentos: Array<Departments> = [];
-    empresa: Business;
-    constructor() {
-      this.empresa = new Business;
-    }
+    empresa: Business = new Business;
 }

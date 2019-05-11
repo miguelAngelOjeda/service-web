@@ -84,7 +84,6 @@ export class AddBusinessComponent implements OnInit {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.url = reader.result;
         this.model.avatar ={
           filename: file.name,
           filetype: file.type,

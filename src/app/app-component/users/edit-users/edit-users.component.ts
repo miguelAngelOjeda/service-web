@@ -61,6 +61,22 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
     console.log(this.model);
   }
 
+  showpreview(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.model.persona.avatar ={
+          filename: file.name,
+          filetype: file.type,
+          url: reader.result,
+          value: reader.result.toString().split(',')[1]
+        };
+      };
+    }
+  }
+
   onInitDropify() {
     (<any>$('.dropify') ).dropify({
         messages: {
