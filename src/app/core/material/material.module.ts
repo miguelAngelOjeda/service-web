@@ -4,7 +4,6 @@ import { MatTabsModule, MatMenuModule , MatDialogModule, MatButtonModule, MatSid
  MatInputModule, MatPaginatorModule, MatSortModule,MatAutocompleteSelectedEvent, MatChipInputEvent,MatSnackBarModule,
  MatTableModule, MatToolbarModule, MatSelectModule, MatListModule, MatDividerModule, MatNativeDateModule, MatCardModule} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox'
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -20,7 +19,6 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
-    NgxMatSelectSearchModule,
     MatStepperModule,
     MatInputModule,
     MatDatepickerModule,
@@ -51,7 +49,6 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatListModule,
     MatSortModule,
     MatStepperModule,
-    NgxMatSelectSearchModule,
     MatChipsModule,
     MatButtonModule,
     MatCheckboxModule,
