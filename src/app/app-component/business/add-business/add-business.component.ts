@@ -22,9 +22,6 @@ export class AddBusinessComponent implements OnInit {
   address: string;
   private geoCoder;
 
-  @ViewChild('search') searchElementRef: ElementRef;
-  @ViewChild('fileInput') fileInput: ElementRef;
-
   formControl = new FormControl('', [Validators.required]);
 
   constructor(

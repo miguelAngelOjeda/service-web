@@ -16,7 +16,6 @@ declare var google: any;
   styleUrls: ['./edit-business.component.css']
 })
 export class EditBusinessComponent implements OnInit {
-  urlImage = environment.api_image_url;
   private model = new Business;
   public currentUser;
   private geoCoder;
@@ -24,7 +23,6 @@ export class EditBusinessComponent implements OnInit {
   longitude: number;
   zoom: number;
   address: string;
-  imageUrl: string;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -43,14 +41,12 @@ export class EditBusinessComponent implements OnInit {
     this.userService.getUser().subscribe((data) => {
         this.currentUser = data;
     });
-
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.model = res.model as Business;
-       (<any>$('.dropify-render img') ).attr('src',this.urlImage + this.currentUser.idEmpresa + '/Empresas/' + this.model.id);
        this.setCurrentLocation();
+       this.resetDropify();
     });
-
     this.onInitDropify();
   }
 
@@ -106,6 +102,17 @@ export class EditBusinessComponent implements OnInit {
                 error: 'Lo sentimos, el archivo demasiado grande'
         }
     });
+  }
+
+  resetDropify() {
+    if(this.model.imagePath != null){
+      let drEvent = (<any>$('.dropify') ).data('dropify');
+      drEvent.resetPreview();
+      drEvent.clearElement();
+      drEvent.settings.defaultFile = environment.api_url +"/DisplayImage?url=" + this.model.imagePath;
+      drEvent.destroy();
+      drEvent.init();
+    }
   }
 
   getErrorMessage() {

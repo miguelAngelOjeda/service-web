@@ -22,7 +22,7 @@ declare var google: any;
   styleUrls: ['./view-business.component.css']
 })
 export class ViewBusinessComponent implements OnInit {
-  urlImage = environment.api_image_url;
+  urlImage = environment.api_url;
   subsidiarys: Array<Subsidiary> = [];
   data = new Business();
   subsidiary = new Subsidiary();

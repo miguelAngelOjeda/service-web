@@ -12,6 +12,19 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatStepperModule} from '@angular/material/stepper';
 
+//create our cost var with the information about the format that we want
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
+
 @NgModule({
   imports: [
     MatMenuModule,
@@ -74,9 +87,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatSidenavModule
   ],
   providers: [
-        //AuthGuard
-        //{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
-        //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+
   ],
   declarations: []
 })

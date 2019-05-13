@@ -7,7 +7,7 @@ export class People {
     segundoApellido: string;
     documento: string;
     ruc: string;
-    fechaNacimiento: string;
+    fechaNacimiento: any;
     tipoPersona: string;
     sexo: string;
     numeroHijos: number;
@@ -24,5 +24,6 @@ export class People {
     longitud: number;
     sucursal: Subsidiary = new Subsidiary;
     activo: string;
+    imagePath: string;
     avatar: string|any;
 }

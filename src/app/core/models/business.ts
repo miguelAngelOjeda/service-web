@@ -12,7 +12,7 @@ export class Business {
     observacion: string;
     latitud: number;
     longitud: number;
-    image: string;
+    imagePath: string;
     activo: string;
     avatar: string|any;
 }

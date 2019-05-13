@@ -6,6 +6,7 @@ import { UserService, ApiService} from '../../../core/services';
 import { Users, Role, Rules, Filter, Subsidiary } from '../../../core/models';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 import * as $ from 'jquery';
 import 'dropify';
 
@@ -23,12 +24,10 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
   rules: Array<Rules> = [];
   /** list of rules */
   protected role: Array<Role> = [];
-  @ViewChild('filterInputRole') filterInputRole: ElementRef;Subsidiary
+  @ViewChild('filterInputRole') filterInputRole: ElementRef;
   /** list of subsidiary */
   protected subsidiary: Array<Subsidiary> = [];
   @ViewChild('filterInputSubsidiary') filterInputSubsidiary: ElementRef;
-  /** Subject that emits when the component has been destroyed. */
-  protected _onDestroy = new Subject<void>();
 
   formControl = new FormControl('', [Validators.required]);
 
@@ -45,6 +44,7 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.model = res.model as Users;
+       this.model.persona.fechaNacimiento =  new Date(this.model.persona.fechaNacimiento);
     });
 
   }
@@ -53,8 +53,6 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
   }
 
   ngOnDestroy() {
-    this._onDestroy.next();
-    this._onDestroy.complete();
   }
 
   submit() {
@@ -70,7 +68,6 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
         this.model.persona.avatar ={
           filename: file.name,
           filetype: file.type,
-          url: reader.result,
           value: reader.result.toString().split(',')[1]
         };
       };
@@ -88,7 +85,16 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
     });
   }
 
-
+  resetDropify() {
+    if(this.model.persona.imagePath != null){
+      let drEvent = (<any>$('.dropify') ).data('dropify');
+      drEvent.resetPreview();
+      drEvent.clearElement();
+      drEvent.settings.defaultFile = environment.api_url +"/DisplayImage?url=" + this.model.persona.imagePath;
+      drEvent.destroy();
+      drEvent.init();
+    }
+  }
 
   protected filterRules() {
     let rulesColumns  = ['nombre'];

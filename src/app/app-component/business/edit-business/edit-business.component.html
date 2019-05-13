@@ -17,10 +17,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="row">
-             <div class="col-md-3">
-                <input type="file" id="input-file-now" accept='image/*'  data-height="235px" (change)="onFileChange($event)" class="dropify" data-default-file="assets/images/background/enterprice.jpg">
+             <div class="col-md-2">
+                <input type="file" id="input-file-now" accept='image/*'  data-height="235px" (change)="onFileChange($event)" class="dropify">
              </div>
-             <div class="col-md-9">
+             <div class="col-md-10">
                <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
                  <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
                  (dragEnd)="markerDragEnd($event)"></agm-marker>
@@ -28,33 +28,27 @@
              </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <mat-form-field   class="col-sm-12" appearance="legacy">
                 <input matInput #input  placeholder="Ruc" [(ngModel)]="model.ruc" name="ruc" required>
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <mat-form-field   class="col-sm-12" appearance="legacy">
                <input matInput #input  placeholder="Nombre Fantasia" [(ngModel)]="model.nombreFantasia" name="nombreFantasia" required>
                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
              </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
              <mat-form-field   class="col-sm-12" appearance="legacy">
                <input matInput #input  placeholder="Nombre" [(ngModel)]="model.nombre" name="nombre" required>
                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
              </mat-form-field>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
             	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Descripcion" [(ngModel)]="model.descripcion" name="descripcion">
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-6">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Direccion" [(ngModel)]="model.direccion" name="direccion" required>
+            		<input matInput #input  placeholder="Email" [(ngModel)]="model.email" name="email" required>
             		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             	</mat-form-field>
             </div>
@@ -72,11 +66,17 @@
             </div>
             <div class="col-md-4">
             	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Email" [(ngModel)]="model.email" name="email" required>
+            		<input matInput #input  placeholder="Direccion" [(ngModel)]="model.direccion" name="direccion" required>
             		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             	</mat-form-field>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
+            	<mat-form-field   class="col-sm-12" appearance="legacy">
+            		<input matInput #input  placeholder="Descripcion" [(ngModel)]="model.descripcion" name="descripcion">
+            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            	</mat-form-field>
+            </div>            
+            <div class="col-md-6">
             	<mat-form-field   class="col-sm-12" appearance="legacy">
             		<input matInput #input  placeholder="Fax" [(ngModel)]="model.fax" name="fax">
             		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
