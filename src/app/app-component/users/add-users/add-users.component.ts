@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef  } from '@angular/core
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormControl, Validators} from '@angular/forms';
 import { UserService, ApiService} from '../../../core/services';
-import { Users, Role, Rules, Filter, Subsidiary } from '../../../core/models';
+import { Users, Role, Rules, Filter, Subsidiary, Departments } from '../../../core/models';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
 import * as $ from 'jquery';
@@ -23,10 +23,11 @@ export class AddUsersComponent implements OnInit {
     rules: Array<Rules> = [];
     /** list of rules */
     protected role: Array<Role> = [];
-    @ViewChild('filterInputRole') filterInputRole: ElementRef;Subsidiary
+    @ViewChild('filterInputRole') filterInputRole: ElementRef;
     /** list of subsidiary */
     protected subsidiary: Array<Subsidiary> = [];
     @ViewChild('filterInputSubsidiary') filterInputSubsidiary: ElementRef;
+    protected departments: Array<Departments> = [];
 
     formControl = new FormControl('', [Validators.required]);
 
@@ -40,6 +41,13 @@ export class AddUsersComponent implements OnInit {
       this.filterSubsidiary();
     }
 
+    submit() {
+      this.apiService.post('/usuarios/', this.model)
+      .subscribe(res => {
+
+      });
+    }
+
 
     onInitDropify() {
       (<any>$('.dropify') ).dropify({
@@ -50,10 +58,6 @@ export class AddUsersComponent implements OnInit {
                   error: 'Lo sentimos, el archivo demasiado grande'
           }
       });
-    }
-
-    protected selectionChangeSubs($event) {
-      console.log($event);
     }
 
     protected filterRules() {
@@ -118,6 +122,16 @@ export class AddUsersComponent implements OnInit {
               return observableOf([]);
             })
           ).subscribe(data => this.subsidiary = data);
+    }
+
+    protected filterDepartments() {
+      if(this.model.persona.sucursal.id != null){
+        this.apiService.getPageList('/sucursales/' + this.model.persona.sucursal.id +'/departamentos',false,null, 'desc', 'id',
+        0,10)
+        .subscribe(res => {
+           this.departments = res.rows as Departments[];
+        });
+      }
     }
 
     showpreview(event) {

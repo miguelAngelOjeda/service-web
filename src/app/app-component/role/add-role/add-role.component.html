@@ -10,6 +10,8 @@
       	</mat-form-field>
       </div>
     </div>
+    <br>
+    <h3 class="m-t-0 font-light">Permisos</h3>
     <div class="row">
       <div class="col-md-3" *ngFor="let authority of authorities">
         <mat-card>
@@ -24,11 +26,6 @@
               <mat-checkbox [(ngModel)]="role.checked" color="primary" name="{{role.nombre}}">{{role.descripcion}}</mat-checkbox>
             </mat-list-item>
             </mat-list>
-            <!-- <mat-selection-list #list  (selectionChange)="onNgModelChange($event, list.selectedOptions.selected)">
-              <mat-list-option *ngFor="let per of authority.authority" [value] ="per">
-                {{per.descripcion}}
-              </mat-list-option>
-            </mat-selection-list> -->
           </mat-card-content>
         </mat-card>
       </div>

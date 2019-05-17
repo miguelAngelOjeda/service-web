@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Role } from '../../../core/models';
+import { Role, Authorities } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import {FormControl, Validators} from '@angular/forms';
 
@@ -10,10 +10,8 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./view-role.component.scss']
 })
 export class ViewRoleComponent implements OnInit {
-
-
     private model = new Role;
-
+    private authorities: Array<Authorities> = [];
     constructor(
       private apiService: ApiService,
       private route: ActivatedRoute
@@ -24,6 +22,20 @@ export class ViewRoleComponent implements OnInit {
       .subscribe(res => {
          this.model = res.model as Role;
       });
+      this.apiService.getPageList('/roles/group',false)
+      .subscribe(res => {
+          this.authorities = res.rows;
+          this.authorities.forEach(item => {
+            item.authority = [];
+             this.model.authorities.forEach(authModel=> {
+               if(item.grupo === authModel.grupo){
+                 item.authority.push(authModel);
+               }
+             });
+
+          });
+      });
+
 
     }
 

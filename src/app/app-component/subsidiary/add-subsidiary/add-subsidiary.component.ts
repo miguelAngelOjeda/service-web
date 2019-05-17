@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subsidiary, Departments  } from '../../../core/models';
+import { Subsidiary, Departments, Business  } from '../../../core/models';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services';
@@ -39,7 +39,7 @@ export class AddSubsidiaryComponent implements OnInit {
   }
 
   delete(data: Departments){
-      (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(image => image === data))
+      (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(dep => dep === data))
   }
 
   get departments(): FormArray {
@@ -57,7 +57,7 @@ export class AddSubsidiaryComponent implements OnInit {
       activo: [''],
       latitud: [''],
       longitud: [''],
-      empresa: [''],
+      empresa: [{value: {'nombre':' ', 'ruc':' ', 'direccion':' '}, disabled: false}],
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       direccion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       telefono: ['', [Validators.required]],

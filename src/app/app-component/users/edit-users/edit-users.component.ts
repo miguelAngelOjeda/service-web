@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatSelect} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot , ActivatedRoute} from '@angular/router';
 import { UserService, ApiService} from '../../../core/services';
-import { Users, Role, Rules, Filter, Subsidiary } from '../../../core/models';
+import { Users, Role, Rules, Filter, Subsidiary, Departments } from '../../../core/models';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
@@ -28,6 +28,7 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
   /** list of subsidiary */
   protected subsidiary: Array<Subsidiary> = [];
   @ViewChild('filterInputSubsidiary') filterInputSubsidiary: ElementRef;
+  protected departments: Array<Departments> = [];
 
   formControl = new FormControl('', [Validators.required]);
 
@@ -45,6 +46,7 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
     .subscribe(res => {
        this.model = res.model as Users;
        this.model.persona.fechaNacimiento =  new Date(this.model.persona.fechaNacimiento);
+       this.filterDepartments();
     });
 
   }
@@ -56,10 +58,13 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
   }
 
   submit() {
-    console.log(this.model);
+    this.apiService.put('/usuarios/' + this.route.snapshot.params.id, this.model)
+    .subscribe(res => {
+
+    });
   }
 
-  showpreview(event) {
+  onFileChange(event) {
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
@@ -128,6 +133,16 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
         ).subscribe(data => this.role = data);
   }
 
+  protected filterDepartments() {
+    if(this.model.persona.sucursal.id != null){
+      this.apiService.getPageList('/sucursales/' + this.model.persona.sucursal.id +'/departamentos',false,null, 'desc', 'id',
+      0,10)
+      .subscribe(res => {
+         this.departments = res.rows as Departments[];
+      });
+    }
+  }
+
   protected filterSubsidiary() {
     let rulesColumns  = ['codigoSucursal', 'nombre'];
     merge(fromEvent(this.filterInputSubsidiary.nativeElement, 'keyup'))
@@ -152,12 +167,16 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
             0,10);
           }),
           map(data => {
-            return data.rows as Subsidiary[];;
+            return data.rows as Subsidiary[];
           }),
           catchError(() => {
             return observableOf([]);
           })
         ).subscribe(data => this.subsidiary = data);
+  }
+
+  compareObjects(o1: any, o2: any): boolean {
+    return  o1.id === Number(o2.id);
   }
 
 

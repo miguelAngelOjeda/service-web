@@ -1,10 +1,7 @@
-.form-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-container > * {
-  width: 100%;
+.gray-text {
+  color: #777;
+  vertical-align: text-bottom;
+  margin-right: 5px;
 }
 
 .mat-button{
@@ -19,18 +16,4 @@
   text-decoration-line: none;
   text-decoration-style: solid;
   text-transform: none;
-}
-
-.image-box, .example-large-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 16px;
-  padding: 16px;
-  border-radius: 8px;
-}
-
-.image-box {
-  height: 90%;
-  width: 100%;
 }

@@ -104,6 +104,16 @@
                </mat-list>
              </div>
            </div>
+           <div class="row">
+             <h3 class="m-0">Departamento</h3>
+             <div class="col-md-12">
+               <mat-list>
+                 <mat-list-item *ngFor="let departments of model.departamentos">
+                   <p><span class="label label-primary">{{departments.alias}}</span> {{departments.nombreArea}}</p>
+                 </mat-list-item>
+               </mat-list>
+             </div>
+           </div>
          </form>
        </mat-card-content>
     </mat-card>

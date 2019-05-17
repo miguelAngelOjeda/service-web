@@ -40,8 +40,6 @@ export class EditRoleComponent implements OnInit {
            });
         });
     });
-
-
   }
 
   getErrorMessage() {
@@ -61,7 +59,6 @@ export class EditRoleComponent implements OnInit {
     });
     this.apiService.put('/roles/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
-        //this.snackBarService.openSnackBar('res');
     });
   }
 

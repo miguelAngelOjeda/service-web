@@ -5,15 +5,15 @@
       <div class="row">
         <div class="col-md-12">
           <div class="row">
-             <div class="col-md-3">
+             <div class="col-md-2">
                 <input type="file" id="input-file-now" class="dropify" data-height="120px" accept=".png, .jpg, .jpeg"  name="profile" class="dropify" (change)="onFileChange($event)" #fileInput>
              </div>
-             <div class="col-md-9">
+             <div class="col-md-10">
                <div class="row">
                    <div class="col-md-4">
                      <mat-form-field class="col-sm-12" appearance="legacy">
                         <mat-label>Tipo Persona</mat-label>
-                        <mat-select  required>
+                        <mat-select [(ngModel)]="model.persona.tipoPersona" name="tipoPersona" required>
                           <mat-option selected="true" value="FISICA">Fisica</mat-option>
                           <mat-option value="JURIDICA">Juridica</mat-option>
                         </mat-select>
@@ -22,7 +22,7 @@
                    <div class="col-md-4">
                      <mat-form-field class="col-sm-12" appearance="legacy">
                         <mat-label>Sexo</mat-label>
-                        <mat-select   required>
+                        <mat-select [(ngModel)]="model.persona.sexo" name="sexo"  required>
                           <mat-option  value="MASCULINO">Masculino</mat-option>
                           <mat-option value="FEMENINO">Femenino</mat-option>
                         </mat-select>
@@ -34,23 +34,29 @@
                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                      </mat-form-field>
                    </div>
-                   <div class="col-md-4">
+                   <div class="col-md-3">
                      <mat-form-field   class="col-sm-12" appearance="legacy">
                        <input matInput #input  placeholder="Ruc" [(ngModel)]="model.persona.ruc" name="ruc">
                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                      </mat-form-field>
                    </div>
-                   <div class="col-md-4">
+                   <div class="col-md-3">
                      <mat-form-field   class="col-sm-12" appearance="legacy">
                        <input matInput #input  placeholder="Alias" [(ngModel)]="model.alias" name="alias" required>
                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                      </mat-form-field>
                    </div>
-                   <div class="col-md-4">
+                   <div class="col-md-3">
                      <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input [type]="hide ? 'password' : 'text'"  placeholder="Contraseña" [(ngModel)]="model.password" name="password" required>
+                       <input matInput #input [type]="hide ? 'password' : 'text'"  placeholder="Contraseña" [(ngModel)]="model.claveAcceso" name="claveAcceso" required>
                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                     </mat-form-field>
+                   </div>
+                   <div class="col-md-3">
+                     <mat-form-field   class="col-sm-12" appearance="legacy">
+                        <input matInput #input type="number" min="0"  placeholder="Expiración Sesion" [(ngModel)]="model.expirationTimeTokens" name="expirationTimeTokens" required>
+                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                      </mat-form-field>
                    </div>
                </div>
@@ -149,21 +155,20 @@
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Sucursal</mat-label>
-                 <mat-select (selectionChange)="selectionChangeSubs($event.value)" [(ngModel)]="model.persona.sucursal.id"  name="sucursal.id" placeholder="Sucursal"  required>
+                 <mat-select [(ngModel)]="model.persona.sucursal" (ngModelChange)="filterDepartments()"  name="sucursal" placeholder="Sucursal" (change)="filterDepartments()" required>
                     <mat-form-field appearance="legacy">
                         <input matInput #filterInputSubsidiary placeholder="Buscar.....">
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
-                    <mat-option *ngFor="let suc of subsidiary"  [value]="suc.id" >{{suc.nombre}}</mat-option>
+                     <mat-option *ngFor="let suc of subsidiary" [value]="suc">{{suc.nombre}}</mat-option>
                  </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field class="col-sm-12" appearance="legacy">
                  <mat-label>Departamento</mat-label>
-                 <mat-select [disabled]="disableSelectDepartment.value" multiple required>
-                   <mat-option selected value="FISICA">Fisica</mat-option>
-                   <mat-option value="JURIDICA">Juridica</mat-option>
+                 <mat-select  [(ngModel)]="model.departamentos" name="departamentos" multiple required>
+                   <mat-option *ngFor="let dep of departments" [value]="dep">{{dep.nombreArea}}</mat-option>
                  </mat-select>
               </mat-form-field>
             </div>

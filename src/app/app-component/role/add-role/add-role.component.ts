@@ -10,10 +10,8 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./add-role.component.scss']
 })
 export class AddRoleComponent implements OnInit {
-
   private model = new Role;
   private authorities: Array<Authorities> = [];
-
   formControl = new FormControl('', [Validators.required]);
 
   constructor(
@@ -24,7 +22,6 @@ export class AddRoleComponent implements OnInit {
     this.apiService.getPageList('/roles/group',false)
     .subscribe(res => {
         this.authorities = res.rows;
-        //this.snackBarService.openSnackBar('res');
 
     });
   }
@@ -39,13 +36,10 @@ export class AddRoleComponent implements OnInit {
          }
        });
     });
-    
+
     this.apiService.post('/roles', this.model)
     .subscribe(res => {
         this.model = res.model as Role;
-        //this.snackBarService.openSnackBar('res');
-        //this.snackBarService.openSnackBar('res');
-
     });
   }
 
