@@ -13,7 +13,7 @@ export class JwtService {
   hide() {
     setInterval(() => {
       this.isLoading.next(false);
-    },6000)      
+    },3000)      
   }
 
   getTypeToken(): string {

@@ -69,9 +69,9 @@ export class AddBusinessComponent implements OnInit {
   submit(form) {
     this.apiService.post('/empresas', this.model)
     .subscribe(res => {
+      if(res.status == 200){
         this.model = res.model as Business;
-        //this.snackBarService.openSnackBar('res');
-
+      }
     });
   }
 

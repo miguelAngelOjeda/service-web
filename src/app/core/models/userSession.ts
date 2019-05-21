@@ -6,6 +6,7 @@ export class UserSession {
     nombre: string;
     apellido: string;
     username: string;
+    imagePath: string;
     email: string;
     rol: string;
     authorities: Authorities[];

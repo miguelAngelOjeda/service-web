@@ -4,6 +4,7 @@ import { Users } from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import { PasswordProfileComponent } from '../password-profile';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-view-profile',
@@ -12,6 +13,8 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 })
 export class ViewProfileComponent implements OnInit {
   private model = new Users;
+  urlImage = environment.api_url;
+  
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
