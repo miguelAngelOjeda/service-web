@@ -57,8 +57,8 @@ export class ListUsersComponent implements AfterViewInit {
                 this.filter.groupOp = 'OR';
                 this.filter.rules = this.rules;
               }
-              return this.apiService.getPageList('/usuarios',this.isfilter,JSON.stringify(this.filter),this.sort.direction,this.sort.active,
-              this.paginator.pageIndex,this.paginator.pageSize);
+              return this.apiService.getPageList('/usuarios',this.isfilter,JSON.stringify(this.filter), this.rulesColumns,
+              this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
             }),
             map(data => {
               // Flip flag to show that loading has finished.

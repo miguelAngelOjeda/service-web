@@ -9,9 +9,11 @@ export class JwtService {
   show() {
       this.isLoading.next(true);
   }
-  
+
   hide() {
+    setInterval(() => {
       this.isLoading.next(false);
+    },6000)      
   }
 
   getTypeToken(): string {

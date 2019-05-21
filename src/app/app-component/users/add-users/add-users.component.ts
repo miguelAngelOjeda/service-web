@@ -19,8 +19,6 @@ export class AddUsersComponent implements OnInit {
     hide = true;
     //Filter
     isfilter = false;
-    filter = new Filter;
-    rules: Array<Rules> = [];
     /** list of rules */
     protected role: Array<Role> = [];
     @ViewChild('filterInputRole') filterInputRole: ElementRef;
@@ -69,18 +67,8 @@ export class AddUsersComponent implements OnInit {
               this.isfilter = false;
               if(this.filterInputRole.nativeElement.value.length  > 3){
                 this.isfilter = true;
-                for (let i = 0; i < rulesColumns.length; i++)
-                {
-                  this.rules.push({
-                          field: rulesColumns[i],
-                          op: "cn",
-                          data: this.filterInputRole.nativeElement.value
-                      });
-                }
-                this.filter.groupOp = 'OR';
-                this.filter.rules = this.rules;
               }
-              return this.apiService.getPageList('/roles',this.isfilter,JSON.stringify(this.filter), 'desc', 'id',
+              return this.apiService.getPageList('/roles',this.isfilter,this.filterInputRole.nativeElement.value, rulesColumns, 'desc', 'id',
               0,10);
             }),
             map(data => {
@@ -101,18 +89,8 @@ export class AddUsersComponent implements OnInit {
               this.isfilter = false;
               if(this.filterInputSubsidiary.nativeElement.value.length  > 3){
                 this.isfilter = true;
-                for (let i = 0; i < rulesColumns.length; i++)
-                {
-                  this.rules.push({
-                          field: rulesColumns[i],
-                          op: "cn",
-                          data: this.filterInputSubsidiary.nativeElement.value
-                      });
-                }
-                this.filter.groupOp = 'OR';
-                this.filter.rules = this.rules;
               }
-              return this.apiService.getPageList('/sucursales',this.isfilter,JSON.stringify(this.filter), 'desc', 'id',
+              return this.apiService.getPageList('/sucursales',this.isfilter,this.filterInputSubsidiary.nativeElement.value, rulesColumns, 'desc', 'id',
               0,10);
             }),
             map(data => {
@@ -126,7 +104,7 @@ export class AddUsersComponent implements OnInit {
 
     protected filterDepartments() {
       if(this.model.persona.sucursal.id != null){
-        this.apiService.getPageList('/sucursales/' + this.model.persona.sucursal.id +'/departamentos',false,null, 'desc', 'id',
+        this.apiService.getPageList('/sucursales/' + this.model.persona.sucursal.id +'/departamentos',false,null,null, 'desc', 'id',
         0,10)
         .subscribe(res => {
            this.departments = res.rows as Departments[];

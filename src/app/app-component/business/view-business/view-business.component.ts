@@ -60,7 +60,7 @@ export class ViewBusinessComponent implements OnInit {
 
   public getListSubsidiary(){
     this.subsidiarys = [];
-    this.apiService.getPageList('/empresas/'+this.route.snapshot.params.id+'/sucursales',false,"", 'desc', 'id', 1, 10, true)
+    this.apiService.getPageList('/empresas/'+this.route.snapshot.params.id+'/sucursales',false,"", null, 'desc', 'id', 1, 10, true)
     .subscribe(res => {
         if(res.records > 0){
           this.subsidiarys = res.rows;

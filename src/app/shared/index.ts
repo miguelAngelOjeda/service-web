@@ -1,4 +1,3 @@
-export * from './layout';
 export * from './dialog';
 export * from './loader';
 export * from './show-authed.directive';

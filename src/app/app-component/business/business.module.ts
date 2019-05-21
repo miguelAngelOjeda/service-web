@@ -14,7 +14,7 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { CanAccessDirective } from '../../shared/can-access.directive';
 import { DeleteDialogComponent } from '../../shared/dialog';
-import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared';
+import { ShowAuthedDirective, SharedModule} from '../../shared';
 import { AgmCoreModule } from '@agm/core';
 import { ControlMessagesComponent } from '../../shared/control-messages.component';
 import { ValidationService } from '../../core/services';

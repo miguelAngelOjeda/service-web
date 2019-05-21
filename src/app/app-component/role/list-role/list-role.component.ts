@@ -23,17 +23,12 @@ export class ListRoleComponent implements AfterViewInit {
 
   //Filter
   isfilter = false;
-  filter = new Filter;
-  rules: Array<Rules> = [];
   // MatPaginator Inputs
   length = 0;
   pageSize = 10;
   pageSizeOptions: number[] = [10, 25, 100];
   // MatPaginator Output
   pageEvent: PageEvent;
-
-  isLoadingResults = true;
-  isRateLimitReached = false;
 
   constructor(
     public dialog: MatDialog,
@@ -49,32 +44,17 @@ export class ListRoleComponent implements AfterViewInit {
             this.isfilter = false;
             if(this.filterInput.nativeElement.value.length  > 3){
               this.isfilter = true;
-              for (let i = 0; i < this.rulesColumns.length; i++)
-              {
-                this.rules.push({
-                        field: this.rulesColumns[i],
-                        op: "cn",
-                        data: this.filterInput.nativeElement.value
-                    });
-              }
-              this.filter.groupOp = 'OR';
-              this.filter.rules = this.rules;
             }
-            return this.apiService.getPageList('/roles',this.isfilter,JSON.stringify(this.filter),this.sort.direction,this.sort.active,
-            this.paginator.pageIndex,this.paginator.pageSize);
+            return this.apiService.getPageList('/roles',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
+            this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {
             // Flip flag to show that loading has finished.
-            this.isLoadingResults = false;
-            this.isRateLimitReached = false;
             this.length = data.records;
 
             return data.rows as Role[];;
           }),
           catchError(() => {
-            this.isLoadingResults = false;
-            // Catch if reached its rate limit. Return empty data.
-            this.isRateLimitReached = true;
             return observableOf([]);
           })
         ).subscribe(data => this.dataSource.data = data);

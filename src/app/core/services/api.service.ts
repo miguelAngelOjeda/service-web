@@ -5,11 +5,14 @@ import { Observable } from 'rxjs';
 
 import { JwtService } from './jwt.service';
 import { UserService } from './user-access.service';
+import { Rules, Filter } from '../models';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
+  filter = new Filter;
+  rules: Array<Rules> = [];
 
   constructor(
     private http: HttpClient,
@@ -21,9 +24,21 @@ export class ApiService {
     return  throwError(error.error);
   }
 
-  getPageList(path: string, _search: boolean = false, filters: string = null, sort: string = 'desc', sidx: string = 'id',
+  getPageList(path: string, _search: boolean = false, filters: string = null, rulesColumns: any = null, sort: string = 'desc', sidx: string = 'id',
    page: number = 1, rows: number = 10, all: boolean = false): Observable<any> {
       this.userService.validateTokensSession();
+      if(_search){
+        for (let i = 0; i < rulesColumns.length; i++)
+        {
+          this.rules.push({
+                  field: rulesColumns[i],
+                  op: "cn",
+                  data: filters
+              });
+        }
+        this.filter.groupOp = 'OR';
+        this.filter.rules = this.rules;
+      }
       let params = new HttpParams({
         fromObject : {
           '_search' : _search.toString(),
@@ -32,7 +47,7 @@ export class ApiService {
           'sidx' : sidx,
           'sord' : sort,
           'all' : all.toString(),
-          'filters' : filters
+          'filters' : JSON.stringify(this.filter)
         }
       });
     return this.http.get(`${environment.api_url}${path}`, { params })

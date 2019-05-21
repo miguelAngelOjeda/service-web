@@ -19,7 +19,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { CanAccessDirective } from '../../shared/can-access.directive';
-import { LayoutComponent, ShowAuthedDirective, SharedModule} from '../../shared';
+import { SharedModule} from '../../shared';
 
 @NgModule({
   imports: [
