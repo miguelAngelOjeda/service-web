@@ -3,4 +3,5 @@ export class DestinationsTypes{
     codigo: string = ' ';
     nombre: string;
     descripcion: string;
+    activo: string;
 }

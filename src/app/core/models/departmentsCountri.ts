@@ -1,6 +1,5 @@
-export class EgressTypes {
+export class DepartmentsCountri {
     id: number;
     nombre: string;
-    codigo: string = ' ';
     activo: string;
 }

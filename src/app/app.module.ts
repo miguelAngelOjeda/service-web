@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { HomeComponent } from './app-component/home';
 import { FullComponent } from './navigation/full.component';
-import { LayoutComponent, ShowAuthedDirective, SharedModule} from './shared';
+import { LayoutComponent, ShowAuthedDirective, SharedModule, LoaderComponent} from './shared';
 import { CanAccessDirective } from './shared/can-access.directive';
 import { HeaderComponent, SidenavListComponent } from './navigation';
 import { LoginComponent } from './login';
@@ -37,6 +37,7 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     LoginComponent,
+    LoaderComponent,
     LayoutComponent,
     FullComponent,
     HeaderComponent,

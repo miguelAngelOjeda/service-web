@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Token, UserSession } from '../models';
-
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class JwtService {
+  isLoading = new Subject<boolean>();
 
+  show() {
+      this.isLoading.next(true);
+  }
+  
+  hide() {
+      this.isLoading.next(false);
+  }
 
   getTypeToken(): string {
     return localStorage.getItem('type_token');

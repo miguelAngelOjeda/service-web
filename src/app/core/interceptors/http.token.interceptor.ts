@@ -7,6 +7,7 @@ import { Token } from '../models';
 import { JwtService } from '../services';
 import 'rxjs/add/observable/fromPromise';
 import { throwError } from 'rxjs';
+import { finalize } from "rxjs/operators";
 import { MatSnackBarComponent } from '../mat-snack-bar/mat-snack-bar.component';
 
 @Injectable()
@@ -20,6 +21,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let res: any;
+    this.jwtService.show();
     return next.handle(request).pipe(
             tap(evt => {
                 if (evt instanceof HttpResponse) {
@@ -55,7 +57,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
                     //log error
                 }
                 return throwError(err);
-            }));
+            }),
+            finalize(() => this.jwtService.hide())
+          );
   }
 
 

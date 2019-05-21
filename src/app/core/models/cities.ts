@@ -1,6 +1,5 @@
-export class EgressTypes {
+export class Cities {
     id: number;
     nombre: string;
-    codigo: string = ' ';
     activo: string;
 }
