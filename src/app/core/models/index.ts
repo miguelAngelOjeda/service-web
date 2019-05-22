@@ -20,3 +20,7 @@ export * from './departments';
 export * from './message';
 export * from './rules';
 export * from './filter';
+export * from './nationalities';
+export * from './countries';
+export * from './departmentsCountri';
+export * from './cities';

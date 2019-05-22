@@ -24,6 +24,11 @@ export class People {
     longitud: number;
     sucursal: Subsidiary = new Subsidiary;
     activo: string;
+    nacionalidad: any;
+    pais: any;
+    departamento: any;
+    ciudad: any;
+    barrio: any;
     imagePath: string;
     avatar: string|any;
 }

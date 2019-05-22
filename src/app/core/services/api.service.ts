@@ -27,6 +27,7 @@ export class ApiService {
   getPageList(path: string, _search: boolean = false, filters: string = null, rulesColumns: any = null, sort: string = 'desc', sidx: string = 'id',
    page: number = 1, rows: number = 10, all: boolean = false): Observable<any> {
       this.userService.validateTokensSession();
+      this.rules = [];
       if(_search){
         for (let i = 0; i < rulesColumns.length; i++)
         {
