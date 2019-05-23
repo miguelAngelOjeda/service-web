@@ -1,0 +1,101 @@
+<div>
+  <!-- <div class="loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+    <div class="rate-limit-reached" *ngIf="isRateLimitReached">
+      GitHub's API rate limit has been reached. It will be reset in one minute.
+    </div>
+  </div> -->
+  <mat-card>
+    <mat-card-content>
+    <mat-card-title>
+
+      <div class="row">
+        <div class="col-md-6">
+          Personas
+        </div>
+        <div class="col-md-6">
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/people/new">
+            Agregar
+          </a>
+        </div>
+      </div>
+    </mat-card-title>
+    <!-- <mat-card-subtitle> </mat-card-subtitle> -->
+      <!-- <p> -->
+        <mat-form-field appearance="fill">
+          <input matInput #filter placeholder="Buscar....." class="form-control-success">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      <!-- </p> -->
+        <mat-table [dataSource]="dataSource" class="mat-table"
+         matSort  matSortActive="documento" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+
+          <ng-container matColumnDef="documento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Documento:</span>
+              {{element.documento}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="primerNombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> PRIMER NOMBRE </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Primer Nombre:</span>
+              {{(element.primerNombre == null ? '' : element.primerNombre)}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="segundoNombre">primerApellido
+            <mat-header-cell *matHeaderCellDef mat-sort-header> SEGUNDO NOMBRE </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Segundo Nombre:</span>
+              {{(element.segundoNombre == null ? '' : element.segundoNombre)}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="primerApellido">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> PRIMER APELLIDO </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Primer Apellido:</span>
+              {{(element.primerApellido == null ? '' : element.primerApellido)}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+              <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="mobile-label">Email:</span>
+                {{element.email}}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="idUsuario">
+              <mat-header-cell *matHeaderCellDef> USUARIO </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="mobile-label">Usuario:</span>
+                {{element.idUsuario}}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="opciones">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <button mat-icon-button routerLink="/service-web/people/{{element.id}}" *appCanAccess="['people', 'viewPeople']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/people/{{element.id}}/edit" *appCanAccess="['people', 'editPeople']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button (click)="delete(element)"> <mat-icon>delete</mat-icon></button>
+                </mat-cell>
+            </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [length]="length"
+                      [showFirstLastButtons]="true"
+                      [pageSize]="pageSize"
+                      [pageSizeOptions]="pageSizeOptions">
+        </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

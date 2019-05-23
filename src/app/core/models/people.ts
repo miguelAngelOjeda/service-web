@@ -29,6 +29,8 @@ export class People {
     departamento: any;
     ciudad: any;
     barrio: any;
+    conyuge: any;
+    idUsuario: any;
     imagePath: string;
     avatar: string|any;
 }

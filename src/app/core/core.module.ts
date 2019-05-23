@@ -8,7 +8,8 @@ import { MatSnackBarComponent } from './mat-snack-bar/mat-snack-bar.component';
 import {
   ApiService,
   JwtService,
-  UserService
+  UserService,
+  FormsService
 } from './services';
 
 export function tokenGetter() {
@@ -33,6 +34,7 @@ export function tokenGetter() {
     ApiService,
     MatSnackBarComponent,
     JwtService,
+    FormsService,
     UserService
   ],
   declarations: [MatSnackBarComponent]
