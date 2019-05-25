@@ -1,12 +1,10 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild, Input  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subsidiary, Departments } from '../../../../core/models';
+import { Subsidiary, Departments, Location } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig  } from '@angular/material';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
-declare var google: any;
 
 @Component({
   selector: 'app-add-dialogo-subsidiary',
@@ -16,12 +14,6 @@ declare var google: any;
 export class AddDialogoSubsidiaryComponent implements OnInit{
   formControl = new FormControl('', [Validators.required]);
   subsidiaryForm: FormGroup;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  address: string;
-  private geoCoder;
-
   model: Subsidiary;
   area: Departments;
 
@@ -32,8 +24,6 @@ export class AddDialogoSubsidiaryComponent implements OnInit{
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: Subsidiary) {
               this.model = data;
-              this.setCurrentLocation();
-              console.log(this.model);
   }
 
   ngOnInit() {
@@ -49,7 +39,7 @@ export class AddDialogoSubsidiaryComponent implements OnInit{
       longitud: [''],
       empresa: [''],
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      direccion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      direccion: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required]],
       departamentos: this.formBuilder.array([this.addSkillFormGroup()])
@@ -59,8 +49,6 @@ export class AddDialogoSubsidiaryComponent implements OnInit{
 
   onSubmit() {
     this.model = this.subsidiaryForm.value;
-    this.model.latitud = this.latitude;
-    this.model.longitud = this.longitude;
     this.apiService.post('/empresas/'+ this.model.empresa.id +'/sucursales', this.model)
     .subscribe(res => {
         if(res.status === 200){
@@ -107,19 +95,10 @@ export class AddDialogoSubsidiaryComponent implements OnInit{
 
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = this.data.latitud == null ? position.coords.latitude : this.data.latitud;
-        this.longitude = this.data.longitud == null ? position.coords.longitude : this.data.longitud;
-        this.zoom = 15;
-      });
-    }
-  }
-
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
+  getAddress(location: Location): void {
+    this.subsidiaryForm.controls['latitud'].setValue(location.lat);
+    this.subsidiaryForm.controls['longitud'].setValue(location.lng);
+    this.subsidiaryForm.controls['direccion'].setValue(location.address);
   }
 
   getErrorMessage() {

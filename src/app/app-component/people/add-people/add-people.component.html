@@ -145,10 +145,7 @@
                     <br>
                   </div>
                   <div class="col-md-12">
-                    <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
-                      <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
-                      (dragEnd)="markerDragEnd($event)"></agm-marker>
-                    </agm-map>
+                    <app-map (valueLocationChange)="getAddress($event)"></app-map>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="col-sm-12" appearance="legacy">

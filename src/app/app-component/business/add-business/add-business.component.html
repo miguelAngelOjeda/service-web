@@ -27,10 +27,11 @@
                </span>
              </div> -->
              <div class="col-md-10">
-               <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
+               <app-map (valueLocationChange)="getAddress($event)"></app-map>
+               <!-- <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
                  <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
                  (dragEnd)="markerDragEnd($event)"></agm-marker>
-               </agm-map>
+               </agm-map> -->
              </div>
           </div>
           <div class="row">
@@ -58,19 +59,19 @@
             		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             	</mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <mat-form-field   class="col-sm-12" appearance="legacy">
                 <input matInput #input  placeholder="Telefono" [(ngModel)]="model.telefono" name="telefono" required>
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
             	<mat-form-field   class="col-sm-12" appearance="legacy">
             		<input matInput #input  placeholder="Celular" [(ngModel)]="model.telefonoMovil" name="telefonoMovil">
             		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             	</mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
             	<mat-form-field   class="col-sm-12" appearance="legacy">
             		<input matInput #input  placeholder="Direccion" [(ngModel)]="model.direccion" name="direccion" required>
             		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>

@@ -6,10 +6,7 @@
 						<div class="col-md-12">
 							<div class="row">
 								 <div class="col-md-12">
-									 <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
-										 <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
-										 (dragEnd)="markerDragEnd($event)"></agm-marker>
-									 </agm-map>
+									 <app-map (valueLocationChange)="getAddress($event)"></app-map>
 								 </div>
 							</div>
 							<div class="row">
@@ -43,19 +40,7 @@
                     </mat-error>
 									</mat-form-field>
 								</div>
-								<div class="col-md-4">
-									<mat-form-field   class="col-sm-12" appearance="legacy">
-										<input matInput #input  placeholder="Direccion"  name="direccion" formControlName="direccion">
-                    <mat-error *ngIf="((subsidiaryForm.get('direccion').touched ||
-                    subsidiaryForm.get('direccion').dirty) &&
-                    subsidiaryForm.get('direccion').errors)">
-                      <span *ngIf="subsidiaryForm.get('direccion').errors.required">
-                       Campo requerido
-                      </span>
-                    </mat-error>
-									</mat-form-field>
-								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Telefono"  name="telefono" formControlName="telefono">
                     <mat-error *ngIf="((subsidiaryForm.get('telefono').touched ||
@@ -67,13 +52,25 @@
                     </mat-error>
 									</mat-form-field>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Celular"  formControlName="telefonoMovil" name="telefonoMovil">
                     <mat-error *ngIf="((subsidiaryForm.get('telefonoMovil').touched ||
                     subsidiaryForm.get('telefonoMovil').dirty) &&
                     subsidiaryForm.get('telefonoMovil').errors)">
                       <span *ngIf="subsidiaryForm.get('telefonoMovil').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-md-6">
+									<mat-form-field   class="col-sm-12" appearance="legacy">
+										<input matInput #input  placeholder="Direccion"  name="direccion" formControlName="direccion">
+                    <mat-error *ngIf="((subsidiaryForm.get('direccion').touched ||
+                    subsidiaryForm.get('direccion').dirty) &&
+                    subsidiaryForm.get('direccion').errors)">
+                      <span *ngIf="subsidiaryForm.get('direccion').errors.required">
                        Campo requerido
                       </span>
                     </mat-error>
@@ -156,7 +153,6 @@
 					</div>
 					<br>
 					<button mat-button [type]="submit"  mat-raised-button>Guardar</button>
-
 			</form>
 		</mat-card-content>
 </mat-card>

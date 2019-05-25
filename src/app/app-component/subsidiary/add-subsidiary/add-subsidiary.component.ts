@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subsidiary, Departments, Business  } from '../../../core/models';
+import { Subsidiary, Departments, Business, Location } from '../../../core/models';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services';
@@ -14,9 +14,6 @@ declare var google: any;
 export class AddSubsidiaryComponent implements OnInit {
   private model = new Subsidiary();
   subsidiaryForm: FormGroup;
-  latitude: number;
-  longitude: number;
-  zoom: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,14 +22,10 @@ export class AddSubsidiaryComponent implements OnInit {
 
   ngOnInit() {
     this.initFormBuilder();
-    this.setCurrentLocation();
   }
 
   onSubmit() {
-    this.model = this.subsidiaryForm.value;
-    this.model.latitud = this.latitude;
-    this.model.longitud = this.longitude;
-    this.apiService.post('/sucursales', this.model)
+    this.apiService.post('/sucursales', this.subsidiaryForm.value)
     .subscribe(res => {
 
     });
@@ -59,7 +52,7 @@ export class AddSubsidiaryComponent implements OnInit {
       longitud: [''],
       empresa: [{value: {'nombre':' ', 'ruc':' ', 'direccion':' '}, disabled: false}],
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      direccion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      direccion: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required]],
       departamentos: this.formBuilder.array([this.addFormGroup()])
@@ -100,19 +93,10 @@ export class AddSubsidiaryComponent implements OnInit {
   }
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = this.model.latitud == null ? position.coords.latitude : this.model.latitud;
-        this.longitude = this.model.longitud == null ? position.coords.longitude : this.model.longitud;
-        this.zoom = 15;
-        //this.getAddress(this.latitude, this.longitude);
-      });
-    }
+  getAddress(location: Location): void {
+    this.subsidiaryForm.controls['latitud'].setValue(location.lat);
+    this.subsidiaryForm.controls['longitud'].setValue(location.lng);
+    this.subsidiaryForm.controls['direccion'].setValue(location.address);
   }
 
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-  }
 }

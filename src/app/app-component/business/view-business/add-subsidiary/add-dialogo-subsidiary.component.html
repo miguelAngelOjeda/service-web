@@ -8,10 +8,7 @@
 						<div class="col-md-12">
 							<div class="row">
 								 <div class="col-md-12">
-									 <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
-										 <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
-										 (dragEnd)="markerDragEnd($event)"></agm-marker>
-									 </agm-map>
+									 <app-map (valueLocationChange)="getAddress($event)"></app-map>
 								 </div>
 							</div>
 							<div class="row">
@@ -33,21 +30,21 @@
 										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
 									</mat-form-field>
 								</div>
-								<div class="col-md-4">
-									<mat-form-field   class="col-sm-12" appearance="legacy">
-										<input matInput #input  placeholder="Direccion"  name="direccion" formControlName="direccion" required>
-										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
-									</mat-form-field>
-								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Telefono"  name="telefono" formControlName="telefono" required>
 										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
 									</mat-form-field>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Celular"  formControlName="telefonoMovil" name="telefonoMovil">
+										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-md-6">
+									<mat-form-field   class="col-sm-12" appearance="legacy">
+										<input matInput #input  placeholder="Direccion"  name="direccion" formControlName="direccion" required>
 										<mat-error *ngIf="subsidiaryForm.invalid">{{getErrorMessage()}}</mat-error>
 									</mat-form-field>
 								</div>

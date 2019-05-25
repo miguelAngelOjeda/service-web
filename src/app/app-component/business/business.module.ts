@@ -15,9 +15,11 @@ import { ReactiveFormsModule }    from '@angular/forms';
 import { CanAccessDirective } from '../../shared/can-access.directive';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { ShowAuthedDirective, SharedModule} from '../../shared';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { ControlMessagesComponent } from '../../shared/control-messages.component';
 import { ValidationService } from '../../core/services';
+import { MapComponent } from '../../shared/map';
+
 @NgModule({
   imports: [
     BusinessRoutingModule,
@@ -35,6 +37,7 @@ import { ValidationService } from '../../core/services';
   exports: [
     AddDialogoSubsidiaryComponent,
     EditDialogoSubsidiaryComponent,
+    MapComponent,
     DeleteDialogComponent
   ],
   entryComponents: [

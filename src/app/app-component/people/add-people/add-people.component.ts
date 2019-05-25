@@ -3,11 +3,9 @@ import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 import { People, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
-   Subsidiary, Departments, Nationalities } from '../../../core/models';
+   Subsidiary, Departments, Nationalities, Location } from '../../../core/models';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
-declare var google: any;
 import * as $ from 'jquery';
 import 'dropify';
 
@@ -21,11 +19,6 @@ export class AddPeopleComponent implements OnInit {
     private model = new People();
     disableSelectDepartment = new FormControl(true);
     protected countries: Array<Countries> = [];
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    address: string;
-    private geoCoder;
     isSeparacionBienes = true;
     hide = true;
     //Filter
@@ -44,7 +37,6 @@ export class AddPeopleComponent implements OnInit {
     formControl = new FormControl('', [Validators.required]);
 
     constructor(
-      private mapsAPILoader: MapsAPILoader,
       private formBuilder: FormBuilder,
       private ngZone: NgZone,
       private apiService: ApiService,
@@ -54,7 +46,6 @@ export class AddPeopleComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.setCurrentLocation();
       this.onInitDropify();
       this.filterCountries();
       //this.filterNationalities();
@@ -204,22 +195,10 @@ export class AddPeopleComponent implements OnInit {
     }
 
     // Get Current Location Coordinates
-    private setCurrentLocation() {
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.latitude = position.coords.latitude;
-          this.longitude = position.coords.longitude;
-          this.zoom = 15;
-          //this.getAddress(this.latitude, this.longitude);
-        });
-      }
-    }
-
-    markerDragEnd($event: MouseEvent) {
-      this.latitude = $event.coords.lat;
-      this.longitude = $event.coords.lng;
-
-      //this.getAddress(this.latitude, this.longitude);
+    getAddress(location: Location): void {
+      this.myForm.controls['latitud'].setValue(location.lat);
+      this.myForm.controls['longitud'].setValue(location.lng);
+      this.myForm.controls['direccionParticular'].setValue(location.address);
     }
 
 

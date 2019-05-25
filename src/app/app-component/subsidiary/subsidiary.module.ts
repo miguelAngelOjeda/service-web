@@ -11,7 +11,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { MapComponent } from '../../shared/map';
 import { SharedModule} from '../../shared';
+import { DeleteDialogComponent } from '../../shared/dialog';
 
 @NgModule({
   imports: [
@@ -26,6 +28,10 @@ import { SharedModule} from '../../shared';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LayoutModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    MapComponent,
+    DeleteDialogComponent
   ],
   declarations: [
     AddSubsidiaryComponent,

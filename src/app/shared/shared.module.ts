@@ -6,10 +6,12 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../core/material/material.module';
 import { MenuItems } from './menu-items/menu-items';
 import { BrowserModule } from '@angular/platform-browser';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { DeleteDialogComponent } from './dialog';
 import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
+import { MapComponent } from '../shared/map';
 
 @NgModule({
   imports: [
@@ -17,6 +19,9 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
+    }),
     HttpClientModule,
     RouterModule
   ],
@@ -26,6 +31,7 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
     AccordionAnchorDirective,
     AccordionLinkDirective,
     DeleteDialogComponent,
+    MapComponent,
     AccordionDirective
   ],
   exports: [
@@ -39,11 +45,15 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,
+    MapComponent,
     DeleteDialogComponent
   ],
   entryComponents: [
     DeleteDialogComponent
   ],
-  providers: [ MenuItems]
+  providers: [
+    GoogleMapsAPIWrapper,
+    MenuItems
+  ]
 })
 export class SharedModule {}
