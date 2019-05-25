@@ -3,6 +3,7 @@ export class Location {
   lat: number = null;
   lng: number = null;
   viewport?: Object = false;
+  isView: boolean = true;
   zoom: number;
   address_level_1?:string;
   address_level_2?: string;

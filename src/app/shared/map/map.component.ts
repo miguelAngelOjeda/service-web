@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, EventEmitter, Output, Input} from '@angular/core';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services';
 import { Location } from '../../core/models';
@@ -16,6 +16,7 @@ export class MapComponent implements OnInit {
   public location:Location = {
     lat: 51.678418,
     lng: 7.809007,
+    isView: true,
     marker: {
       lat: 51.678418,
       lng: 7.809007,
@@ -43,17 +44,32 @@ export class MapComponent implements OnInit {
     this.setCurrentLocation();
   }
 
+  @Input()
+  set latitude(latitude: any) {
+    this.location.lat = latitude;
+    this.location.marker.lat = latitude;
+    this.location.isView = false;
+  }
+
+  @Input()
+  set longitude(longitude: any) {
+    this.location.lng = longitude;
+    this.location.marker.lng = longitude;
+    this.location.isView = false;
+  }
+
   // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.location.lat = position.coords.latitude;
-        this.location.lng = position.coords.longitude;
-        this.location.marker.lat = position.coords.latitude;
-        this.location.marker.lng = position.coords.longitude;
+        if(this.location.isView){
+          this.location.lat = position.coords.latitude;
+          this.location.lng = position.coords.longitude;
+          this.location.marker.lat = position.coords.latitude;
+          this.location.marker.lng = position.coords.longitude;
+        }
         this.location.marker.draggable = true;
         this.location.zoom = 15;
-        //this.getAddress(this.latitude, this.longitude);
       });
     }
   }

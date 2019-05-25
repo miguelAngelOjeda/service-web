@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ValidationService } from '../../../../core/services/validation.service';
-import { Subsidiary, Departments, Message } from '../../../../core/models';
+import { Subsidiary, Departments, Message, Location } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
 import { DeleteDialogComponent } from '../../../../shared';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
@@ -20,10 +20,6 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
   subsidiaryForm: FormGroup;
   model: Subsidiary;
   department: Departments;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  address: string;
   private geoCoder;
 
   constructor(
@@ -33,7 +29,6 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: Subsidiary) {
               this.model = data;
-              this.setCurrentLocation();
   }
 
   ngOnInit() {
@@ -45,8 +40,8 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
       fax: [''],
       observacion: [''],
       activo: [''],
-      latitud: [''],
-      longitud: [''],
+      latitud: null,
+      longitud: null,
       empresa: [''],
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       direccion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
@@ -59,10 +54,7 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
   }
 
   onSubmit() {
-    this.model = this.subsidiaryForm.value;
-    this.model.latitud = this.latitude;
-    this.model.longitud = this.longitude;
-    this.apiService.put('/sucursales/' + this.model.id, this.model)
+    this.apiService.put('/sucursales/' + this.model.id, this.subsidiaryForm.value)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');
         if(res.status === 200){
@@ -135,20 +127,10 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
   }
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = this.data.latitud == null ? position.coords.latitude : this.data.latitud;
-        this.longitude = this.data.longitud == null ? position.coords.longitude : this.data.longitud;
-        this.zoom = 15;
-      });
-    }
-  }
-
-
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
+  getAddress(location: Location): void {
+    this.subsidiaryForm.controls['latitud'].setValue(location.lat);
+    this.subsidiaryForm.controls['longitud'].setValue(location.lng);
+    this.subsidiaryForm.controls['direccion'].setValue(location.address);
   }
 
   getErrorMessage() {

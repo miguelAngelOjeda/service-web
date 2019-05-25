@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, Injectable } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Business } from '../../../core/models';
+import { Business, Location } from '../../../core/models';
 import { ApiService, UserService } from '../../../core/services';
 import {MatSnackBar} from '@angular/material';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
@@ -44,7 +44,6 @@ export class EditBusinessComponent implements OnInit {
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.model = res.model as Business;
-       this.setCurrentLocation();
        this.resetDropify();
     });
     this.onInitDropify();
@@ -73,24 +72,10 @@ export class EditBusinessComponent implements OnInit {
   }
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = this.model.latitud == null ? position.coords.latitude : this.model.latitud;
-        this.longitude = this.model.longitud == null ? position.coords.longitude : this.model.longitud;
-        this.zoom = 15;
-        //this.getAddress(this.latitude, this.longitude);
-      });
-    }
-  }
-
-
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.model.latitud = this.latitude;
-    this.model.longitud = this.longitude;
-    //this.getAddress(this.latitude, this.longitude);
+  getAddress(location: Location): void {
+    this.model.latitud = location.lat;
+    this.model.longitud = location.lng;
+    this.model.direccion = location.address;
   }
 
   onInitDropify() {
