@@ -6,8 +6,6 @@ import { Users, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
    Subsidiary, Departments, Nationalities } from '../../../core/models';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
-import * as $ from 'jquery';
-import 'dropify';
 
 @Component({
   selector: 'app-add-users',
@@ -47,7 +45,6 @@ export class AddUsersComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-      this.onInitDropify();
       this.filterRules();
       this.filterCountries();
       this.filterSubsidiary();
@@ -64,16 +61,22 @@ export class AddUsersComponent implements OnInit {
       });
     }
 
-
-    onInitDropify() {
-      (<any>$('.dropify') ).dropify({
-          messages: {
-                  default: 'Arrastre un archivo o haga clic aquí',
-                  replace: 'Arrastre un archivo o haga clic en reemplazar',
-                  remove: 'Eliminar',
-                  error: 'Lo sentimos, el archivo demasiado grande'
-          }
+    peopleCi() {
+      this.apiService.get('/personas/documento/' + this.model.persona.documento)
+      .subscribe(res => {
+        if(res.status == 200){
+          this.model.persona = res.model
+          this.model.persona.fechaNacimiento =  new Date(res.model.fechaNacimiento);
+          this.filterDepartments();
+          this.filterDepartmentsCountri();
+          this.filterCities();
+        }
       });
+    }
+
+
+    getAvatar(avatar: any): void {
+      this.model.persona.avatar = avatar;
     }
 
     protected filterRules() {
@@ -197,7 +200,7 @@ export class AddUsersComponent implements OnInit {
     }
 
     protected filterCities() {
-      let rulesColumns  = ['nombre'];      
+      let rulesColumns  = ['nombre'];
         merge(fromEvent(this.filterInputCities.nativeElement, 'keyup'))
             .pipe(
               startWith({}),
@@ -216,6 +219,14 @@ export class AddUsersComponent implements OnInit {
                 return observableOf([]);
               })
             ).subscribe(data => this.cities = data);
+    }
+
+    compareObjects(o1: any, o2: any): boolean {
+      if(!o1
+            || !o2){
+        return false;
+      }
+      return  o1.id === Number(o2.id);
     }
 
     getErrorMessage() {

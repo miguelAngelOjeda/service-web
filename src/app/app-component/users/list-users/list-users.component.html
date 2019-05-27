@@ -51,7 +51,7 @@
             <mat-cell *matCellDef="let element">
               <span class="mobile-label">Nombre:</span>
               {{(element.persona.primerNombre == null ? '' : element.persona.primerNombre) +' ' +(element.persona.segundoNombre == null ? '' : element.persona.segundoNombre)
-            +', ' +(element.persona.segundoApellido == null ? '' : element.persona.segundoApellido)}}
+            +', ' +(element.persona.primerApellido == null ? '' : element.persona.primerApellido) + ' ' +(element.persona.segundoApellido == null ? '' : element.persona.segundoApellido)}}
             </mat-cell>
           </ng-container>
 
@@ -60,6 +60,14 @@
               <mat-cell *matCellDef="let element">
                 <span class="mobile-label">Email:</span>
                 {{element.persona.email}}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="persona.sucursal.nombre">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> SUCURSAL </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="mobile-label">Sucursal:</span>
+                {{element.persona.sucursal.nombre}}
               </mat-cell>
           </ng-container>
 

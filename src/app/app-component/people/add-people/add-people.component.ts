@@ -46,30 +46,17 @@ export class AddPeopleComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.onInitDropify();
+      //this.initFormBuilder();
       this.filterCountries();
-      //this.filterNationalities();
-      //this.filterDepartmentsCountri();
-      //this.filterCities();
+      this.filterNationalities();
+      this.filterDepartmentsCountri();
+      this.filterCities();
     }
 
-    submit() {
-      this.apiService.post('/usuarios/', this.model)
-      .subscribe(res => {
+    onSubmit() {
+      console.log(this.model);
+      console.log(this.myForm.value);
 
-      });
-    }
-
-
-    onInitDropify() {
-      (<any>$('·dropify-init')).dropify({
-          messages: {
-                  default: 'Arrastre un archivo o haga clic aquí',
-                  replace: 'Arrastre un archivo o haga clic en reemplazar',
-                  remove: 'Eliminar',
-                  error: 'Lo sentimos, el archivo demasiado grande'
-          }
-      });
     }
 
     protected initFormBuilder() {
@@ -105,6 +92,17 @@ export class AddPeopleComponent implements OnInit {
         barrio: '',
         conyuge: this.formsService.peopleForms()
       })
+    }
+
+    addFormGroup(): FormGroup {
+      return this.formBuilder.group({
+        id: [''],
+        nombreContacto: ['', Validators.required],
+        telefonoCelular : ['', Validators.required],
+        telefono: [''],
+        telefonoCelular : ['', Validators.required],
+        activo: ['']
+      });
     }
 
     protected filterNationalities() {
@@ -199,6 +197,10 @@ export class AddPeopleComponent implements OnInit {
       this.myForm.controls['latitud'].setValue(location.lat);
       this.myForm.controls['longitud'].setValue(location.lng);
       this.myForm.controls['direccionParticular'].setValue(location.address);
+    }
+
+    getAvatar(avatar: any): void {
+      this.model.avatar = avatar;
     }
 
 

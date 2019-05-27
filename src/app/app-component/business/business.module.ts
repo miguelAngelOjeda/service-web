@@ -19,6 +19,7 @@ import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { ControlMessagesComponent } from '../../shared/control-messages.component';
 import { ValidationService } from '../../core/services';
 import { MapComponent } from '../../shared/map';
+import { DropifyImageComponent } from '../../shared/dropify-image';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { MapComponent } from '../../shared/map';
     AddDialogoSubsidiaryComponent,
     EditDialogoSubsidiaryComponent,
     MapComponent,
+    DropifyImageComponent,
     DeleteDialogComponent
   ],
   entryComponents: [

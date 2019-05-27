@@ -5,10 +5,6 @@ import { Business, Location } from '../../../core/models';
 import { ApiService, UserService } from '../../../core/services';
 import {MatSnackBar} from '@angular/material';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { environment } from '../../../../environments/environment';
-import * as $ from 'jquery';
-import 'dropify';
-declare var google: any;
 
 @Component({
   selector: 'app-edit-business',
@@ -16,13 +12,9 @@ declare var google: any;
   styleUrls: ['./edit-business.component.css']
 })
 export class EditBusinessComponent implements OnInit {
+  accept = 'png jpg jpeg';
   private model = new Business;
   public currentUser;
-  private geoCoder;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  address: string;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -44,9 +36,7 @@ export class EditBusinessComponent implements OnInit {
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
        this.model = res.model as Business;
-       this.resetDropify();
     });
-    this.onInitDropify();
   }
 
   submit(form) {
@@ -56,21 +46,6 @@ export class EditBusinessComponent implements OnInit {
     });
   }
 
-  onFileChange(event) {
-    let reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.model.avatar ={
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result.toString().split(',')[1]
-        };
-      };
-    }
-  }
-
   // Get Current Location Coordinates
   getAddress(location: Location): void {
     this.model.latitud = location.lat;
@@ -78,26 +53,8 @@ export class EditBusinessComponent implements OnInit {
     this.model.direccion = location.address;
   }
 
-  onInitDropify() {
-    (<any>$('.dropify') ).dropify({
-        messages: {
-                default: 'Arrastre un archivo o haga clic aquí',
-                replace: 'Arrastre un archivo o haga clic en reemplazar',
-                remove: 'Eliminar',
-                error: 'Lo sentimos, el archivo demasiado grande'
-        }
-    });
-  }
-
-  resetDropify() {
-    if(this.model.imagePath != null){
-      let drEvent = (<any>$('.dropify') ).data('dropify');
-      drEvent.resetPreview();
-      drEvent.clearElement();
-      drEvent.settings.defaultFile = environment.api_url +"/DisplayImage?url=" + this.model.imagePath;
-      drEvent.destroy();
-      drEvent.init();
-    }
+  getAvatar(avatar: any): void {
+    this.model.avatar = avatar;
   }
 
   getErrorMessage() {

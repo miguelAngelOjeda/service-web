@@ -12,6 +12,7 @@ import { DeleteDialogComponent } from './dialog';
 import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 import { MapComponent } from '../shared/map';
+import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { MapComponent } from '../shared/map';
     AccordionLinkDirective,
     DeleteDialogComponent,
     MapComponent,
+    DropifyImageComponent,
     AccordionDirective
   ],
   exports: [
@@ -46,6 +48,7 @@ import { MapComponent } from '../shared/map';
     AccordionLinkDirective,
     AccordionDirective,
     MapComponent,
+    DropifyImageComponent,
     DeleteDialogComponent
   ],
   entryComponents: [

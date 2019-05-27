@@ -12,7 +12,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 })
 export class ListUsersComponent implements AfterViewInit {
     public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
-    displayedColumns = ['alias','persona.documento', 'persona.primerNombre' , 'email', 'opciones'];
+    displayedColumns = ['alias','persona.documento', 'persona.primerNombre' , 'email', 'persona.sucursal.nombre', 'opciones'];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;

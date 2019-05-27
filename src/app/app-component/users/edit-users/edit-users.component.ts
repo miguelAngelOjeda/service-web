@@ -7,9 +7,6 @@ import { Users, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
    Subsidiary, Departments, Nationalities } from '../../../core/models';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
-import * as $ from 'jquery';
-import 'dropify';
 
 @Component({
   selector: 'app-edit-users',
@@ -50,18 +47,18 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
   ) {
     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
     .subscribe(res => {
-       this.model = res.model as Users;
-       this.model.persona.fechaNacimiento =  new Date(this.model.persona.fechaNacimiento);
-       this.filterDepartments();
-       this.filterDepartmentsCountri();
-       this.filterCities();
-       this.resetDropify();
+      if(res.status == 200){
+         this.model = res.model as Users;
+         this.model.persona.fechaNacimiento =  new Date(this.model.persona.fechaNacimiento);
+         this.filterDepartments();
+         this.filterDepartmentsCountri();
+         this.filterCities();
+      }
     });
   }
 
   ngOnInit() {
     this.filterNationalities();
-    this.onInitDropify();
     this.filterRules();
     this.filterSubsidiary();
     this.filterCountries();
@@ -80,42 +77,20 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
     });
   }
 
-  onFileChange(event) {
-    let reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.model.persona.avatar ={
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result.toString().split(',')[1]
-        };
-      };
-    }
-  }
-
-  onInitDropify() {
-    (<any>$('.dropify') ).dropify({
-        messages: {
-                default: 'Arrastre un archivo o haga clic aquí',
-                replace: 'Arrastre un archivo o haga clic en reemplazar',
-                remove: 'Eliminar',
-                error: 'Lo sentimos, el archivo demasiado grande'
-        }
+  peopleCi() {
+    this.apiService.get('/personas/documento/' + this.model.persona.documento)
+    .subscribe(res => {
+      if(res.status == 200){
+        this.model.persona = res.model
+        this.model.persona.fechaNacimiento =  new Date(res.model.fechaNacimiento);
+      }
     });
   }
 
-  resetDropify() {
-    if(this.model.persona.imagePath != null){
-      let drEvent = (<any>$('.dropify') ).data('dropify');
-      drEvent.resetPreview();
-      drEvent.clearElement();
-      drEvent.settings.defaultFile = environment.api_url +"/DisplayImage?url=" + this.model.persona.imagePath;
-      drEvent.destroy();
-      drEvent.init();
-    }
+  getAvatar(avatar: any): void {
+    this.model.persona.avatar = avatar;
   }
+
 
   protected filterRules() {
     let rulesColumns  = ['nombre'];

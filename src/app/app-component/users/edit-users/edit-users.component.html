@@ -6,10 +6,36 @@
         <div class="col-md-12">
           <div class="row">
              <div class="col-md-2 center">
-                <input type="file" id="input-file-now" class="dropify" data-width="120px"  accept=".png, .jpg, .jpeg"  name="profile" class="dropify" (change)="onFileChange($event)" #fileInput>
+                <app-dropify-image [pathImage]="model.persona.imagePath" [accept]="accept" (valueAvatar)="getAvatar($event)"></app-dropify-image>
              </div>
              <div class="col-md-10">
                <div class="row">
+                   <div class="col-md-3">
+                     <mat-form-field   class="col-sm-12" appearance="legacy">
+                       <input matInput #input  placeholder="Documento" [(ngModel)]="model.persona.documento" name="documento" required>
+                       <mat-icon matSuffix (click)="model.persona.documento && peopleCi()">search</mat-icon>
+                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                     </mat-form-field>
+                   </div>
+                   <div class="col-md-3">
+                     <mat-form-field   class="col-sm-12" appearance="legacy">
+                       <input matInput #input (click)="!model.persona.id && model.persona.documento && peopleCi()"  placeholder="Ruc" [(ngModel)]="model.persona.ruc" name="ruc">
+                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                     </mat-form-field>
+                   </div>
+                   <div class="col-md-3">
+                     <mat-form-field   class="col-sm-12" appearance="legacy">
+                       <input matInput #input (click)="!model.persona.id && model.persona.documento && peopleCi()"  placeholder="Alias" [(ngModel)]="model.alias" name="alias" required>
+                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                     </mat-form-field>
+                   </div>
+                   <div class="col-md-3">
+                     <mat-form-field   class="col-sm-12" appearance="legacy">
+                       <input matInput #input [type]="hide ? 'password' : 'text'"  placeholder="Contraseña" [(ngModel)]="model.claveAcceso" name="claveAcceso" required>
+                       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                     </mat-form-field>
+                   </div>
                    <div class="col-md-3">
                      <mat-form-field class="col-sm-12" appearance="legacy">
                         <mat-label>Tipo Persona</mat-label>
@@ -38,31 +64,6 @@
                            </mat-form-field>
                             <mat-option *ngFor="let nac of nationalities"  [value]="nac">{{nac.nombre}}</mat-option>
                         </mat-select>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input  placeholder="Documento" [(ngModel)]="model.persona.documento" name="documento" required>
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input  placeholder="Ruc" [(ngModel)]="model.persona.ruc" name="ruc">
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input  placeholder="Alias" [(ngModel)]="model.alias" name="alias" required>
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input [type]="hide ? 'password' : 'text'"  placeholder="Contraseña" [(ngModel)]="model.claveAcceso" name="claveAcceso" required>
-                       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                      </mat-form-field>
                    </div>
                    <div class="col-md-3">

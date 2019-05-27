@@ -11,7 +11,8 @@ import { FlexLayoutModule} from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
-
+import { DropifyImageComponent } from '../../shared/dropify-image';
+import { DeleteDialogComponent } from '../../shared/dialog';
 
 @NgModule({
   imports: [
@@ -27,6 +28,10 @@ import { ReactiveFormsModule }    from '@angular/forms';
     LayoutModule,
     //BrowserModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    DropifyImageComponent,
+    DeleteDialogComponent
   ],
   declarations: [
     AddUsersComponent,

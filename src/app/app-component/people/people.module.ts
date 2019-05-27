@@ -14,6 +14,7 @@ import { ReactiveFormsModule }    from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from '../../shared/map';
 import { DeleteDialogComponent } from '../../shared/dialog';
+import { DropifyImageComponent } from '../../shared/dropify-image';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { DeleteDialogComponent } from '../../shared/dialog';
   ],
   exports: [
     MapComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    DropifyImageComponent
   ],
   declarations: [
     AddPeopleComponent,
