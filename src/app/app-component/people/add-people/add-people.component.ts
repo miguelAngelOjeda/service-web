@@ -46,7 +46,7 @@ export class AddPeopleComponent implements OnInit {
     }
 
     ngOnInit() {
-      //this.initFormBuilder();
+      this.initFormBuilder();
       this.filterCountries();
       this.filterNationalities();
       this.filterDepartmentsCountri();
@@ -90,7 +90,7 @@ export class AddPeopleComponent implements OnInit {
         departamento: [null, [Validators.required]],
         ciudad: [null, [Validators.required]],
         barrio: '',
-        conyuge: this.formsService.peopleForms()
+        conyuge: null
       })
     }
 
@@ -100,7 +100,6 @@ export class AddPeopleComponent implements OnInit {
         nombreContacto: ['', Validators.required],
         telefonoCelular : ['', Validators.required],
         telefono: [''],
-        telefonoCelular : ['', Validators.required],
         activo: ['']
       });
     }
@@ -143,6 +142,7 @@ export class AddPeopleComponent implements OnInit {
     }
 
     protected filterDepartmentsCountri() {
+      console.log(this.myForm.get('pais').value)
       let rulesColumns  = ['nombre'];
         merge(fromEvent(this.filterInputDepartmentsCountri.nativeElement, 'keyup'))
             .pipe(
@@ -152,7 +152,7 @@ export class AddPeopleComponent implements OnInit {
                 if(this.filterInputDepartmentsCountri.nativeElement.value.length  > 3){
                   this.isfilter = true;
                 }
-                return this.apiService.getPageList('/departamentos/'+ this.model.pais.id + '/pais',this.isfilter,this.filterInputDepartmentsCountri.nativeElement.value, rulesColumns, 'desc', 'nombre',
+                return this.apiService.getPageList('/departamentos/'+ this.myForm.get('pais').value.id + '/pais',this.isfilter,this.filterInputDepartmentsCountri.nativeElement.value, rulesColumns, 'desc', 'nombre',
                 0,50);
               }),
               map(data => {
@@ -174,7 +174,7 @@ export class AddPeopleComponent implements OnInit {
                 if(this.filterInputCities.nativeElement.value.length  > 3){
                   this.isfilter = true;
                 }
-                return this.apiService.getPageList('/ciudades/'+ this.model.departamento.id + '/departamento',this.isfilter,this.filterInputCities.nativeElement.value, rulesColumns, 'desc', 'nombre',
+                return this.apiService.getPageList('/ciudades/'+ this.myForm.get('departamento').value.id + '/departamento',this.isfilter,this.filterInputCities.nativeElement.value, rulesColumns, 'desc', 'nombre',
                 0,50);
               }),
               map(data => {
