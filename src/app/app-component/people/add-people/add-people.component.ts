@@ -70,7 +70,7 @@ export class AddPeopleComponent implements OnInit {
         numeroHijos: '',
         numeroDependientes: '',
         estadoCivil: [null, [Validators.required]],
-        separacionBienes: [null, [Validators.required]],
+        separacionBienes: [false, [Validators.required]],
         email: [null, [Validators.required]],
         telefonoParticular: [null, [Validators.required]],
         telefonoSecundario: null,
@@ -86,11 +86,13 @@ export class AddPeopleComponent implements OnInit {
         departamento: [null, [Validators.required]],
         ciudad: [null, [Validators.required]],
         barrio: '',
-        conyuge: null
-      })
+        conyuge: this.peopleForms(),
+        referencias: this.formBuilder.array([this.addReferenciasFormGroup()])
+      });
+      //this.myForm.get('conyuge').disable();
     }
 
-    addFormGroup(): FormGroup {
+    addReferenciasFormGroup(): FormGroup {
       return this.formBuilder.group({
         id: [''],
         nombreContacto: ['', Validators.required],
@@ -98,6 +100,15 @@ export class AddPeopleComponent implements OnInit {
         telefono: [''],
         activo: ['']
       });
+    }
+
+    addButtonReferencias(): void {
+      (<FormArray>this.myForm.get('referencias')).push(this.addReferenciasFormGroup());
+    }
+
+    deleteReferencias(data: any){
+        console.log((<FormArray>this.myForm.get('referencias')));
+        (<FormArray>this.myForm.get('referencias')).removeAt(this.myForm.get('referencias').value.findIndex(dep => dep === data))
     }
 
 
@@ -146,6 +157,12 @@ export class AddPeopleComponent implements OnInit {
             ).subscribe(data => this.cities = data);
     }
 
+    onClickSepaBienes($event){
+      this.myForm.addControl('conyuge', this.peopleForms());
+      console.log(this.myForm.get('separacionBienes').value);
+      console.log(this.myForm.get('conyuge'));
+    }
+
     getErrorMessage() {
       return this.formControl.hasError('required') ? 'Campo requerido' :
         this.formControl.hasError('email') ? 'Not a valid email' :
@@ -169,6 +186,37 @@ export class AddPeopleComponent implements OnInit {
 
     getPais(pais: any): void {
       console.log(pais);
+    }
+
+    peopleForms(): FormGroup{
+      return this.formBuilder.group({
+        id: null ,
+        primerNombre: [null, [Validators.required]],
+        segundoNombre: '',
+        primerApellido: [null, [Validators.required]],
+        segundoApellido: '',
+        documento: [null, [Validators.required]],
+        ruc: '',
+        fechaNacimiento: [null, [Validators.required]],
+        tipoPersona: [null, [Validators.required]],
+        sexo: [null, [Validators.required]],
+        numeroHijos: '',
+        numeroDependientes: '',
+        estadoCivil: [null, [Validators.required]],
+        separacionBienes: [null, [Validators.required]],
+        email: [null, [Validators.required]],
+        telefonoParticular: [null, [Validators.required]],
+        telefonoSecundario: null,
+        direccionParticular: [null, [Validators.required]],
+        direccionDetallada: '',
+        observacion: '',
+        activo: '',
+        nacionalidad: [null, [Validators.required]],
+        pais: [null, [Validators.required]],
+        departamento: [null, [Validators.required]],
+        ciudad: [null, [Validators.required]],
+        barrio: ''
+      });
     }
 
 

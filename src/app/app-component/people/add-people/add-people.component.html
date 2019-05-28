@@ -26,13 +26,25 @@
                            <div class="col-md-3">
                              <mat-form-field   class="col-sm-12" appearance="legacy">
                                <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" required>
-                               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                               <mat-error *ngIf="((myForm.get('documento').touched ||
+                               myForm.get('documento').dirty) &&
+                               myForm.get('documento').errors)">
+                                 <span *ngIf="myForm.get('documento').errors.required">
+                                  Campo requerido
+                                 </span>
+                               </mat-error>
                              </mat-form-field>
                            </div>
                            <div class="col-md-3">
                              <mat-form-field   class="col-sm-12" appearance="legacy">
                                <input matInput #input  placeholder="Ruc" formControlName="ruc" name="ruc">
-                               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                               <mat-error *ngIf="((myForm.get('ruc').touched ||
+                               myForm.get('ruc').dirty) &&
+                               myForm.get('ruc').errors)">
+                                 <span *ngIf="myForm.get('ruc').errors.required">
+                                  Campo requerido
+                                 </span>
+                               </mat-error>
                              </mat-form-field>
                            </div>
                            <div class="col-md-3">
@@ -40,6 +52,13 @@
                               <input matInput #input [matDatepicker]="picker" formControlName="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha Nacimiento" required>
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                               <mat-datepicker #picker></mat-datepicker>
+                              <mat-error *ngIf="((myForm.get('fechaNacimiento').touched ||
+                              myForm.get('fechaNacimiento').dirty) &&
+                              myForm.get('fechaNacimiento').errors)">
+                                <span *ngIf="myForm.get('fechaNacimiento').errors.required">
+                                 Campo requerido
+                                </span>
+                              </mat-error>
                              </mat-form-field>
                            </div>
                            <div class="col-md-3">
@@ -49,6 +68,13 @@
                                   <mat-option  value="MASCULINO">Masculino</mat-option>
                                   <mat-option value="FEMENINO">Femenino</mat-option>
                                 </mat-select>
+                                <mat-error *ngIf="((myForm.get('sexo').touched ||
+                                myForm.get('sexo').dirty) &&
+                                myForm.get('sexo').errors)">
+                                  <span *ngIf="myForm.get('sexo').errors.required">
+                                   Campo requerido
+                                  </span>
+                                </mat-error>
                              </mat-form-field>
                            </div>
                            <div class="col-md-3">
@@ -59,11 +85,18 @@
                                   <mat-option (click)="isSeparacionBienes = false" value="CASADO/A">Casado/a</mat-option>
                                   <mat-option (click)="isSeparacionBienes = true" value="VIUDO/A">Viudo/a</mat-option>
                                 </mat-select>
+                                <mat-error *ngIf="((myForm.get('estadoCivil').touched ||
+                                myForm.get('estadoCivil').dirty) &&
+                                myForm.get('estadoCivil').errors)">
+                                  <span *ngIf="myForm.get('estadoCivil').errors.required">
+                                   Campo requerido
+                                  </span>
+                                </mat-error>
                              </mat-form-field>
                            </div>
                            <div class="col-md-3">
                              <section class="example-section">
-                                  <mat-checkbox (click)="onClick($event)"  [disabled]="isSeparacionBienes" class="example-margin" formControlName="separacionBienes" name="separacionBienes" required>Separacion Bienes</mat-checkbox>
+                                  <mat-checkbox (click)="onClickSepaBienes($event)"  [disabled]="isSeparacionBienes" class="example-margin" formControlName="separacionBienes" name="separacionBienes" required>Separacion Bienes</mat-checkbox>
                              </section>
                            </div>
                            <div class="col-md-3">
@@ -85,61 +118,121 @@
                     <div class="col-md-3">
                       <mat-form-field   class="col-sm-12" appearance="legacy">
                         <input matInput #input  placeholder="Primer Nombre" formControlName="primerNombre" name="primerNombre" required>
-                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="((myForm.get('primerNombre').touched ||
+                        myForm.get('primerNombre').dirty) &&
+                        myForm.get('primerNombre').errors)">
+                          <span *ngIf="myForm.get('primerNombre').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field   class="col-sm-12" appearance="legacy">
                         <input matInput #input  placeholder="Segundo Nombre" formControlName="segundoNombre" name="segundoNombre">
-                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="((myForm.get('segundoNombre').touched ||
+                        myForm.get('segundoNombre').dirty) &&
+                        myForm.get('segundoNombre').errors)">
+                          <span *ngIf="myForm.get('segundoNombre').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field   class="col-sm-12" appearance="legacy">
                         <input matInput #input  placeholder="Primer Apellido" formControlName="primerApellido" name="primerApellido" required>
-                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="((myForm.get('primerApellido').touched ||
+                        myForm.get('primerApellido').dirty) &&
+                        myForm.get('primerApellido').errors)">
+                          <span *ngIf="myForm.get('primerApellido').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field   class="col-sm-12" appearance="legacy">
                         <input matInput #input  placeholder="Segundo Apellido" formControlName="segundoApellido" name="segundoApellido">
-                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="((myForm.get('segundoApellido').touched ||
+                        myForm.get('segundoApellido').dirty) &&
+                        myForm.get('segundoApellido').errors)">
+                          <span *ngIf="myForm.get('segundoApellido').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field   class="col-sm-12" appearance="legacy">
                        <input matInput #input  placeholder="Email" formControlName="email" name="email" required>
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                       <mat-error *ngIf="((myForm.get('email').touched ||
+                       myForm.get('email').dirty) &&
+                       myForm.get('email').errors)">
+                         <span *ngIf="myForm.get('email').errors.required">
+                          Campo requerido
+                         </span>
+                       </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                     	<mat-form-field   class="col-sm-12" appearance="legacy">
                     		<input matInput #input  placeholder="Telefono Particular" formControlName="telefonoParticular" name="telefonoParticular" required>
-                    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="((myForm.get('telefonoParticular').touched ||
+                        myForm.get('telefonoParticular').dirty) &&
+                        myForm.get('telefonoParticular').errors)">
+                          <span *ngIf="myForm.get('telefonoParticular').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
                     	</mat-form-field>
                     </div>
                     <div class="col-md-4">
                     	<mat-form-field   class="col-sm-12" appearance="legacy">
                     		<input matInput #input  placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="telefonoSecundario">
-                    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="((myForm.get('telefonoSecundario').touched ||
+                        myForm.get('telefonoSecundario').dirty) &&
+                        myForm.get('telefonoSecundario').errors)">
+                          <span *ngIf="myForm.get('telefonoSecundario').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
                     	</mat-form-field>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field   class="col-sm-12" appearance="legacy">
                          <input matInput #input type="number" min="0"  placeholder="Numero Hijos" formControlName="numeroHijos" name="numeroHijos">
-                         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                         <mat-error *ngIf="((myForm.get('numeroHijos').touched ||
+                         myForm.get('numeroHijos').dirty) &&
+                         myForm.get('numeroHijos').errors)">
+                           <span *ngIf="myForm.get('numeroHijos').errors.required">
+                            Campo requerido
+                           </span>
+                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field   class="col-sm-12" appearance="legacy">
                          <input matInput #input type="number" min="0"  placeholder="Numero Dependientes" formControlName="numeroDependientes" name="numeroDependientes">
-                         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                         <mat-error *ngIf="((myForm.get('numeroDependientes').touched ||
+                         myForm.get('numeroDependientes').dirty) &&
+                         myForm.get('numeroDependientes').errors)">
+                           <span *ngIf="myForm.get('numeroDependientes').errors.required">
+                            Campo requerido
+                           </span>
+                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                     	<mat-form-field   class="col-sm-12" appearance="legacy">
                     		<input matInput #input  placeholder="Observacion" formControlName="observacion" name="observacion">
-                    		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="((myForm.get('observacion').touched ||
+                        myForm.get('observacion').dirty) &&
+                        myForm.get('observacion').errors)">
+                          <span *ngIf="myForm.get('observacion').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
                     	</mat-form-field>
                     </div>
                     <div class="col-md-12">
@@ -210,20 +303,60 @@
                         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                       </mat-form-field>
                     </div>
+
                     <div class="col-md-12">
-                      <h4  class="m-0"><mat-icon class="gray-text">contacts</mat-icon>Referencias</h4>
-                      <br>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4  class="m-0"><mat-icon class="gray-text">contacts</mat-icon>Referencias</h4>
+                          <br>
+                        </div>
+                        <div class="col-md-6">
+                          <!-- <a mat-stroked-button  class="nav-link m-t-10 float-right" routerLink="/service-web/people/new">
+                            Agregar
+                          </a> -->
+                          <a mat-mini-fab (click)="addButtonReferencias()" class="nav-link m-t-10 float-right" color="primary"><mat-icon>add_circle_outline</mat-icon></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div formArrayName="referencias"  *ngFor="let referencias of myForm.get('referencias').controls; let i = index" class="form-group col-md-12">
+                      <div [formGroupName]="i">
+                        <div class="form-group" class="row">
+                           <div class="col-sm-3">
+                             <mat-form-field   class="col-sm-12" appearance="legacy">
+                               <input matInput #input  placeholder="Nombre"  formControlName="nombreContacto" name="nombreContacto" required>
+
+                             </mat-form-field>
+                           </div>
+                           <div class="col-sm-4">
+                             <mat-form-field   class="col-sm-12" appearance="legacy">
+                               <input matInput #input  placeholder="Celular"  formControlName="telefonoCelular" name="telefonoCelular" required>
+
+                             </mat-form-field>
+                           </div>
+                           <div class="col-md-4">
+                             <mat-form-field   class="col-sm-12" appearance="legacy">
+                               <input matInput #input  placeholder="Telefono" formControlName="telefono"  name="telefono">
+
+                             </mat-form-field>
+                           </div>
+                           <div class="col-md-1">
+                             <section class="example-section">
+                                  <a mat-icon-button (click)="deleteReferencias(referencias.value)"> <mat-icon>delete</mat-icon></a>
+                             </section>
+                           </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <br>
-                  <div class="row" *ngIf="model.separacionBienes" >
+                  <div formGroupName="conyuge" class="row" *ngIf="myForm.get('separacionBienes').value" >
                     <h4  class="m-0"><mat-icon class="gray-text">assignment_ind</mat-icon>Datos del Conyuge</h4>
                     <div class="col-md-12" style="background-color: #f8f8f9">
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="col-sm-12" appearance="legacy">
                              <mat-label>Sexo</mat-label>
-                             <mat-select [(ngModel)]="model.conyuge.sexo" name="conyuge.sexo"  required>
+                             <mat-select formControlName="sexo" name="conyuge.sexo"  required>
                                <mat-option  value="MASCULINO">Masculino</mat-option>
                                <mat-option value="FEMENINO">Femenino</mat-option>
                              </mat-select>
@@ -231,19 +364,19 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                            <input matInput #input  placeholder="Documento" [(ngModel)]="model.conyuge.documento" name="conyuge.documento" required>
+                            <input matInput #input  placeholder="Documento" formControlName="documento" name="conyuge.documento" required>
                             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                            <input matInput #input  placeholder="Ruc" [(ngModel)]="model.conyuge.ruc" name="conyuge.ruc">
+                            <input matInput #input  placeholder="Ruc" formControlName="ruc" name="conyuge.ruc">
                             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="col-sm-12" appearance="legacy">
-                           <input matInput #input [matDatepicker]="pickerTo" [(ngModel)]="model.conyuge.fechaNacimiento" name="conyuge.fechaNacimiento" placeholder="Fecha Nacimiento" required>
+                           <input matInput #input [matDatepicker]="pickerTo" formControlName="fechaNacimiento" name="conyuge.fechaNacimiento" placeholder="Fecha Nacimiento" required>
                            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                            <mat-datepicker #picker></mat-datepicker>
                           </mat-form-field>
@@ -253,61 +386,61 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                            <input matInput #input  placeholder="Primer Nombre" [(ngModel)]="model.conyuge.primerNombre" name="conyuge.primerNombre" required>
+                            <input matInput #input  placeholder="Primer Nombre" formControlName="primerNombre" name="conyuge.primerNombre" required>
                             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                            <input matInput #input  placeholder="Segundo Nombre" [(ngModel)]="model.conyuge.segundoNombre" name="conyuge.segundoNombre">
+                            <input matInput #input  placeholder="Segundo Nombre" formControlName="segundoNombre" name="conyuge.segundoNombre">
                             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                            <input matInput #input  placeholder="Primer Apellido" [(ngModel)]="model.conyuge.primerApellido" name="conyuge.primerApellido" required>
+                            <input matInput #input  placeholder="Primer Apellido" formControlName="primerApellido" name="conyuge.primerApellido" required>
                             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                            <input matInput #input  placeholder="Segundo Apellido" [(ngModel)]="model.conyuge.segundoApellido" name="conyuge.segundoApellido">
+                            <input matInput #input  placeholder="Segundo Apellido" formControlName="segundoApellido" name="conyuge.segundoApellido">
                             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                           <input matInput #input  placeholder="Email" [(ngModel)]="model.conyuge.email" name="conyuge.email" required>
+                           <input matInput #input  placeholder="Email" formControlName="email" name="conyuge.email" required>
                            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                         	<mat-form-field   class="col-sm-12" appearance="legacy">
-                        		<input matInput #input  placeholder="Telefono Particular" [(ngModel)]="model.conyuge.telefonoParticular" name="conyuge.telefonoParticular" required>
+                        		<input matInput #input  placeholder="Telefono Particular" formControlName="telefonoParticular" name="conyuge.telefonoParticular" required>
                         		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                         	</mat-form-field>
                         </div>
                         <div class="col-md-3">
                         	<mat-form-field   class="col-sm-12" appearance="legacy">
-                        		<input matInput #input  placeholder="Telefono Secundario" [(ngModel)]="model.conyuge.telefonoSecundario" name="conyuge.telefonoParticular">
+                        		<input matInput #input  placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="conyuge.telefonoSecundario">
                         		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                         	</mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                             <input matInput #input type="number" min="0"  placeholder="Numero Hijos" [(ngModel)]="model.conyuge.numeroHijos" name="conyuge.numeroHijos">
+                             <input matInput #input type="number" min="0"  placeholder="Numero Hijos" formControlName="numeroHijos" name="conyuge.numeroHijos">
                              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                             <input matInput #input type="number" min="0"  placeholder="Numero Dependientes" [(ngModel)]="model.conyuge.numeroDependientes" name="numeroDependientes">
+                             <input matInput #input type="number" min="0"  placeholder="Numero Dependientes" formControlName="numeroDependientes" name="numeroDependientes">
                              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
                         	<mat-form-field   class="col-sm-12" appearance="legacy">
-                        		<input matInput #input  placeholder="Observacion" [(ngModel)]="model.conyuge.observacion" name="observacion">
+                        		<input matInput #input  placeholder="Observacion" formControlName="observacion" name="observacion">
                         		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                         	</mat-form-field>
                         </div>
@@ -320,7 +453,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="col-sm-12" appearance="legacy">
                              <mat-label>Departamento</mat-label>
-                             <mat-select [(ngModel)]="model.conyuge.departamento" (ngModelChange)="filterCities()"  name="conyuge.departamento" placeholder="Departamento"  required>
+                             <mat-select formControlName="departamento" (ngModelChange)="filterCities()"  name="conyuge.departamento" placeholder="Departamento"  required>
                                 <mat-form-field appearance="legacy">
                                     <input matInput placeholder="Buscar.....">
                                     <mat-icon matSuffix>search</mat-icon>
@@ -332,7 +465,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="col-sm-12" appearance="legacy">
                              <mat-label>Ciudad</mat-label>
-                             <mat-select [(ngModel)]="model.conyuge.ciudad"  name="conyuge.ciudad" placeholder="Ciudad"  required>
+                             <mat-select formControlName="ciudad"  name="conyuge.ciudad" placeholder="Ciudad"  required>
                                 <mat-form-field appearance="legacy">
                                     <input matInput  placeholder="Buscar.....">
                                     <mat-icon matSuffix>search</mat-icon>
@@ -344,7 +477,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="col-sm-12" appearance="legacy">
                              <mat-label>Barrio</mat-label>
-                             <mat-select [(ngModel)]="model.conyuge.barrio"  name="conyuge.barrio" placeholder="Barrio"  required>
+                             <mat-select formControlName="barrio"  name="conyuge.barrio" placeholder="Barrio"  required>
                                 <mat-form-field appearance="legacy">
                                     <input matInput  placeholder="Buscar.....">
                                     <mat-icon matSuffix>search</mat-icon>
@@ -355,13 +488,13 @@
                         </div>
                         <div class="col-md-6">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                            <input matInput #input  placeholder="Direccion" [(ngModel)]="model.conyuge.direccionParticular" name="conyuge.direccionParticular" required>
+                            <input matInput #input  placeholder="Direccion" formControlName="direccionParticular" name="conyuge.direccionParticular" required>
                             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-6">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
-                            <input matInput #input  placeholder="Direccion Detallada" [(ngModel)]="model.conyuge.direccionDetallada" name="conyuge.direccionDetallada">
+                            <input matInput #input  placeholder="Direccion Detallada" formControlName="direccionDetallada" name="conyuge.direccionDetallada">
                             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                           </mat-form-field>
                         </div>
