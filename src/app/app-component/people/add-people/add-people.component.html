@@ -63,20 +63,20 @@
                            </div>
                            <div class="col-md-3">
                              <section class="example-section">
-                                  <mat-checkbox  [disabled]="isSeparacionBienes" class="example-margin" formControlName="separacionBienes" name="separacionBienes" required>Separacion Bienes</mat-checkbox>
+                                  <mat-checkbox (click)="onClick($event)"  [disabled]="isSeparacionBienes" class="example-margin" formControlName="separacionBienes" name="separacionBienes" required>Separacion Bienes</mat-checkbox>
                              </section>
                            </div>
                            <div class="col-md-3">
-                             <mat-form-field class="col-sm-12" appearance="legacy">
-                                <mat-label>Nacionalidad</mat-label>
-                                <mat-select formControlName="nacionalidad" name="nacionalidad" placeholder="Nacionalidad"  required>
+
+                                <app-select-filter (value)="getNacionalidad($event)" placeholder="Nacionalidad" urlFilter="nacionalidades" [columnsFilter]="['codigo', 'nombre']"></app-select-filter>
+                                <!-- <mat-select formControlName="nacionalidad" name="nacionalidad" placeholder="Nacionalidad"  required>
                                    <mat-form-field appearance="legacy">
                                        <input matInput #filterInputNationaliti placeholder="Buscar.....">
                                        <mat-icon matSuffix>search</mat-icon>
                                    </mat-form-field>
                                     <mat-option *ngFor="let nac of nationalities"  [value]="nac">{{nac.nombre}}</mat-option>
-                                </mat-select>
-                             </mat-form-field>
+                                </mat-select> -->
+
                            </div>
                        </div>
                      </div>
@@ -150,7 +150,8 @@
                       <app-map (valueLocationChange)="getAddress($event)"></app-map>
                     </div>
                     <div class="col-md-3">
-                      <mat-form-field class="col-sm-12" appearance="legacy">
+                      <app-select-filter (value)="getPais($event)" placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
+                      <!-- <mat-form-field class="col-sm-12" appearance="legacy">
                          <mat-label>Pais</mat-label>
                          <mat-select (openedChange)="myInput.focus()" formControlName="pais" (ngModelChange)="filterDepartmentsCountri()"  name="pais" placeholder="Pais"  required>
                               <mat-form-field appearance="legacy">
@@ -159,7 +160,7 @@
                               </mat-form-field>
                              <mat-option *ngFor="let coun of countries"  [value]="coun">{{coun.nombre}}</mat-option>
                          </mat-select>
-                      </mat-form-field>
+                      </mat-form-field> -->
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="col-sm-12" appearance="legacy">
@@ -248,16 +249,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                          <mat-form-field class="col-sm-12" appearance="legacy">
-                             <mat-label>Nacionalidad</mat-label>
-                             <mat-select [(ngModel)]="model.conyuge.nacionalidad" name="nacionalidad" placeholder="conyuge.Nacionalidad"  required>
-                                <mat-form-field appearance="legacy">
-                                    <input matInput placeholder="Buscar.....">
-                                    <mat-icon matSuffix>search</mat-icon>
-                                </mat-form-field>
-                                 <mat-option *ngFor="let nac of nationalities"  [value]="nac">{{nac.nombre}}</mat-option>
-                             </mat-select>
-                          </mat-form-field>
+                          <app-select-filter (value)="getNacionalidad($event)" placeholder="Nacionalidad" urlFilter="nacionalidades" [columnsFilter]="['codigo', 'nombre']"></app-select-filter>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field   class="col-sm-12" appearance="legacy">
@@ -323,16 +315,7 @@
                           <h4  class="m-0"><mat-icon class="gray-text">directions</mat-icon>Direccion</h4>
                         </div>
                         <div class="col-md-3">
-                          <mat-form-field class="col-sm-12" appearance="legacy">
-                             <mat-label>Pais</mat-label>
-                             <mat-select (openedChange)="myInput.focus()" [(ngModel)]="model.conyuge.pais" (ngModelChange)="filterDepartmentsCountri()"  name="conyuge.pais" placeholder="Pais"  required>
-                                <mat-form-field appearance="legacy">
-                                    <input matInput #myInput (keyup)="filterCountries($event.target.value)" focused="'true'" autocomplete="off" placeholder="Buscar.....">
-                                    <mat-icon matSuffix>search</mat-icon>
-                                </mat-form-field>
-                                 <mat-option *ngFor="let coun of countries"  [value]="coun">{{coun.nombre}}</mat-option>
-                             </mat-select>
-                          </mat-form-field>
+                          <app-select-filter (value)="getPais($event)" placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="col-sm-12" appearance="legacy">

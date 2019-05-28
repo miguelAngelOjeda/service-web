@@ -37,6 +37,7 @@ export class ApiService {
                   data: filters
               });
         }
+        console.log(this.rules);
         this.filter.groupOp = 'OR';
         this.filter.rules = this.rules;
       }

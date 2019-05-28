@@ -23,9 +23,7 @@ export class AddPeopleComponent implements OnInit {
     hide = true;
     //Filter
     isfilter = false;
-    /** list of Nationalities */
-    protected nationalities: Array<Nationalities> = [];
-    @ViewChild('filterInputNationaliti') filterInputNationaliti: ElementRef;
+
     /** list of DepartmentsCountri */
     protected departmentsCountri: Array<DepartmentsCountri> = [];
     @ViewChild('filterInputDepartmentsCountri') filterInputDepartmentsCountri: ElementRef;
@@ -47,8 +45,6 @@ export class AddPeopleComponent implements OnInit {
 
     ngOnInit() {
       this.initFormBuilder();
-      this.filterCountries();
-      this.filterNationalities();
       this.filterDepartmentsCountri();
       this.filterCities();
     }
@@ -104,42 +100,6 @@ export class AddPeopleComponent implements OnInit {
       });
     }
 
-    protected filterNationalities() {
-      let rulesColumns  = ['codigo', 'nombre'];
-      merge(fromEvent(this.filterInputNationaliti.nativeElement, 'keyup'))
-          .pipe(
-            startWith({}),
-            switchMap(() => {
-              this.isfilter = false;
-              if(this.filterInputNationaliti.nativeElement.value.length  > 3){
-                this.isfilter = true;
-              }
-              return this.apiService.getPageList('/nacionalidades',this.isfilter,this.filterInputNationaliti.nativeElement.value, rulesColumns, 'desc', 'nombre',
-              0,50);
-            }),
-            map(data => {
-              return data.rows as Nationalities[];
-            }),
-            catchError(() => {
-              return observableOf([]);
-            })
-          ).subscribe(data => this.nationalities = data);
-    }
-
-    protected filterCountries(value : any = '') {
-      console.log(value);
-      let rulesColumns  = ['nombre'];
-      this.isfilter = false;
-      if(value.length  > 3){
-        this.isfilter = true;
-      }
-      this.apiService.getPageList('/paises',this.isfilter,value, rulesColumns, 'desc', 'nombre',0,50)
-      .subscribe(res => {
-          if(res.records > 0){
-            this.countries = res.rows as Countries[];
-          }
-      });
-    }
 
     protected filterDepartmentsCountri() {
       console.log(this.myForm.get('pais').value)
@@ -201,6 +161,14 @@ export class AddPeopleComponent implements OnInit {
 
     getAvatar(avatar: any): void {
       this.model.avatar = avatar;
+    }
+
+    getNacionalidad(nac: any): void {
+      console.log(nac);
+    }
+
+    getPais(pais: any): void {
+      console.log(pais);
     }
 
 

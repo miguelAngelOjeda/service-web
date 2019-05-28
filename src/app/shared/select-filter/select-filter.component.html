@@ -1,0 +1,22 @@
+<!-- <form>
+<mat-form-field class="col-sm-12" appearance="legacy">
+  <mat-select  placeholder="{{placeholder}}" required>
+     <mat-form-field appearance="legacy">
+         <input  matInput #filterInputModel placeholder="Buscar.....">
+         <mat-icon matSuffix>search</mat-icon>
+     </mat-form-field>
+      <mat-option *ngFor="let model of models"  [value]="model">{{model.nombre}}</mat-option>
+  </mat-select>
+</mat-form-field>
+</form> -->
+<form>
+  <mat-form-field class="col-sm-12" appearance="legacy">
+    <input type="text" matInput #filterInputModel placeholder="{{placeholder}}"  [formControl]="modelControl" required [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)='setValue($event.option.value)' [displayWith]="displayFn.bind(this)">
+      <mat-option *ngFor="let option of models" [value]="option">
+        {{option.nombre}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="modelControl.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+</form>

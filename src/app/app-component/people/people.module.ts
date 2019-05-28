@@ -15,6 +15,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from '../../shared/map';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { DropifyImageComponent } from '../../shared/dropify-image';
+import { SelectFilterComponent } from '../../shared/select-filter';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { DropifyImageComponent } from '../../shared/dropify-image';
   exports: [
     MapComponent,
     DeleteDialogComponent,
-    DropifyImageComponent
+    DropifyImageComponent,
+    SelectFilterComponent
   ],
   declarations: [
     AddPeopleComponent,
