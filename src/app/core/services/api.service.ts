@@ -24,8 +24,9 @@ export class ApiService {
     return  throwError(error.error);
   }
 
-  getPageList(path: string, _search: boolean = false, filters: string = null, rulesColumns: any = null, sort: string = 'desc', sidx: string = 'id',
-   page: number = 1, rows: number = 10, all: boolean = false): Observable<any> {
+  getPageList(path: string, _search: boolean = false, filters: string = null,
+     rulesColumns: any = null, sort: string = 'desc', sidx: string = 'id',
+   page: number = 1, rows: number = 10, all: boolean = false, fkModel: string = null): Observable<any> {
       this.userService.validateTokensSession();
       this.rules = [];
       if(_search){
@@ -37,7 +38,6 @@ export class ApiService {
                   data: filters
               });
         }
-        console.log(this.rules);
         this.filter.groupOp = 'OR';
         this.filter.rules = this.rules;
       }
@@ -49,6 +49,7 @@ export class ApiService {
           'sidx' : sidx,
           'sord' : sort,
           'all' : all.toString(),
+          'fkModel' : fkModel,
           'filters' : JSON.stringify(this.filter)
         }
       });

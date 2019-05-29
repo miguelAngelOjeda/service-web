@@ -22,13 +22,26 @@ export function RequireMatch(control: AbstractControl) {
 export class SelectFilterComponent implements OnInit {
   modelControl = new FormControl('', [Validators.required, RequireMatch]);
   @Output() value = new EventEmitter<any>();
-
   protected models: Array<any> = [];
+  protected idModel: any;
   @ViewChild('filterInputModel') filterInputModel: ElementRef;
+  @Input() set disabled (condition : boolean){
+    if(condition){
+      this.modelControl.disable();
+    }
+  }
   @Input() model;
   @Input() placeholder;
   @Input() urlFilter;
   @Input() columnsFilter: any[];
+  @Input()
+  set fkFilterModel(model: any) {
+    if(model){
+      this.idModel = model.id;
+      this.modelControl.enable();
+      this.filter();
+    }
+  }
   //Filter
   isfilter = false;
   view = 'nombre';
@@ -41,21 +54,35 @@ export class SelectFilterComponent implements OnInit {
     this.filter();
   }
 
+  onChanges(): void {
+    this.modelControl.valueChanges.subscribe(val => {
+
+    });
+  }
 
   protected filter() {
     merge(fromEvent(this.filterInputModel.nativeElement, 'keyup'))
         .pipe(
           startWith({}),
           switchMap(() => {
-            this.isfilter = false;
-            if(this.filterInputModel.nativeElement.value.length  > 0){
-              this.isfilter = true;
+            if(this.modelControl.status !== 'DISABLED'){
+              this.isfilter = false;
+              console.log('holaaaaaaaaaa');
+              if(this.filterInputModel.nativeElement.value.length  > 0){
+                this.isfilter = true;
+              }
+              return this.apiService.getPageList('/' + this.urlFilter,this.isfilter,this.filterInputModel.nativeElement.value,
+               this.columnsFilter, 'desc', 'nombre',0,50, false,this.idModel);
+            }else{
+              return null;
             }
-            return this.apiService.getPageList('/' + this.urlFilter,this.isfilter,this.filterInputModel.nativeElement.value, this.columnsFilter, 'desc', 'nombre',
-            0,50);
           }),
           map(data => {
-            return data.rows as any [];
+            if(data && data.status == 200){
+              return data.rows as any [];
+            }else{
+              return [];
+            }
           }),
           catchError(() => {
             return observableOf([]);

@@ -27,3 +27,4 @@ export * from './departmentsCountri';
 export * from './cities';
 export * from './marker';
 export * from './location';
+export * from './estate';

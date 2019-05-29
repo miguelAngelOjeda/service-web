@@ -45,8 +45,6 @@ export class AddPeopleComponent implements OnInit {
 
     ngOnInit() {
       this.initFormBuilder();
-      this.filterDepartmentsCountri();
-      this.filterCities();
     }
 
     onSubmit() {
@@ -58,6 +56,7 @@ export class AddPeopleComponent implements OnInit {
     protected initFormBuilder() {
       this.myForm = this.formBuilder.group({
         id: null ,
+        avatar: null ,
         primerNombre: [null, [Validators.required]],
         segundoNombre: '',
         primerApellido: [null, [Validators.required]],
@@ -80,16 +79,56 @@ export class AddPeopleComponent implements OnInit {
         latitud: '',
         longitud: '',
         sucursal: '',
-        activo: '',
+        activo: 'S',
         nacionalidad: [null, [Validators.required]],
         pais: [null, [Validators.required]],
         departamento: [null, [Validators.required]],
         ciudad: [null, [Validators.required]],
         barrio: '',
         conyuge: this.peopleForms(),
-        referencias: this.formBuilder.array([this.addReferenciasFormGroup()])
+        referencias: this.formBuilder.array([this.addReferenciasFormGroup()]),
+        bienesInmuebles: this.formBuilder.array([this.addBienesInmueblesFormGroup()]),
+        bienesVehiculo: this.formBuilder.array([this.addBienesVehiculoFormGroup()])
       });
-      //this.myForm.get('conyuge').disable();
+    }
+
+    //bienes Inmueble
+    addBienesInmueblesFormGroup(): FormGroup {
+      return this.formBuilder.group({
+        id: [''],
+        direccion: ['', Validators.required],
+        pais: [null, [Validators.required]],
+        departamento: [null, [Validators.required]],
+        ciudad: [null, [Validators.required]],
+        barrio: '',
+        edificado: '',
+        numeroFinca: '',
+        numeroMatricula: '',
+        cuentaCatastral: '',
+        escriturado: '',
+        valorActual: [null, [Validators.required]],
+        hipotecado: '',
+        lugarHipoteca: '',
+        fechaHipoteca: '',
+        saldo: '',
+        cuotaMensual: '',
+        tipoBien: 'INMUEBLE',
+        activo: ['S']
+      });
+    }
+
+    //bienes Vehiculo
+    addBienesVehiculoFormGroup(): FormGroup {
+      return this.formBuilder.group({
+        id: [''],
+        marca: ['', Validators.required],
+        modeloAnio: [null, [Validators.required]],
+        valorActual: [null, [Validators.required]],
+        cuotaMensual: '',
+        saldo: '',
+        tipoBien: 'VEHICULO',
+        activo: ['S']
+      });
     }
 
     addReferenciasFormGroup(): FormGroup {
@@ -98,7 +137,8 @@ export class AddPeopleComponent implements OnInit {
         nombreContacto: ['', Validators.required],
         telefonoCelular : ['', Validators.required],
         telefono: [''],
-        activo: ['']
+        tipoReferencia : ['', Validators.required],
+        activo: ['S']
       });
     }
 
@@ -107,54 +147,7 @@ export class AddPeopleComponent implements OnInit {
     }
 
     deleteReferencias(data: any){
-        console.log((<FormArray>this.myForm.get('referencias')));
         (<FormArray>this.myForm.get('referencias')).removeAt(this.myForm.get('referencias').value.findIndex(dep => dep === data))
-    }
-
-
-    protected filterDepartmentsCountri() {
-      console.log(this.myForm.get('pais').value)
-      let rulesColumns  = ['nombre'];
-        merge(fromEvent(this.filterInputDepartmentsCountri.nativeElement, 'keyup'))
-            .pipe(
-              startWith({}),
-              switchMap(() => {
-                this.isfilter = false;
-                if(this.filterInputDepartmentsCountri.nativeElement.value.length  > 3){
-                  this.isfilter = true;
-                }
-                return this.apiService.getPageList('/departamentos/'+ this.myForm.get('pais').value.id + '/pais',this.isfilter,this.filterInputDepartmentsCountri.nativeElement.value, rulesColumns, 'desc', 'nombre',
-                0,50);
-              }),
-              map(data => {
-                return data.rows as DepartmentsCountri[];
-              }),
-              catchError(() => {
-                return observableOf([]);
-              })
-            ).subscribe(data => this.departmentsCountri = data);
-    }
-
-    protected filterCities() {
-      let rulesColumns  = ['nombre'];
-        merge(fromEvent(this.filterInputCities.nativeElement, 'keyup'))
-            .pipe(
-              startWith({}),
-              switchMap(() => {
-                this.isfilter = false;
-                if(this.filterInputCities.nativeElement.value.length  > 3){
-                  this.isfilter = true;
-                }
-                return this.apiService.getPageList('/ciudades/'+ this.myForm.get('departamento').value.id + '/departamento',this.isfilter,this.filterInputCities.nativeElement.value, rulesColumns, 'desc', 'nombre',
-                0,50);
-              }),
-              map(data => {
-                return data.rows as Cities[];
-              }),
-              catchError(() => {
-                return observableOf([]);
-              })
-            ).subscribe(data => this.cities = data);
     }
 
     onClickSepaBienes($event){
@@ -177,15 +170,11 @@ export class AddPeopleComponent implements OnInit {
     }
 
     getAvatar(avatar: any): void {
-      this.model.avatar = avatar;
+      this.myForm.controls['avatar'].setValue(avatar);
     }
 
-    getNacionalidad(nac: any): void {
-      console.log(nac);
-    }
-
-    getPais(pais: any): void {
-      console.log(pais);
+    getValue(data: any, form : FormControl): void {
+      form.setValue(data);
     }
 
     peopleForms(): FormGroup{
