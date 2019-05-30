@@ -16,13 +16,17 @@ import { MapComponent } from '../../shared/map';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { DropifyImageComponent } from '../../shared/dropify-image';
 import { SelectFilterComponent } from '../../shared/select-filter';
+import { ReferenceComponent, EstateComponent,
+   VehicleComponent, IngressComponent, EgressComponent } from '../core';
+import { CoreAppModule } from '../core';
 
 @NgModule({
   imports: [
     PeopleRoutingModule,
     MaterialModule,
-    FlexLayoutModule,
     SharedModule,
+    FlexLayoutModule,
+    CoreAppModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
@@ -34,6 +38,11 @@ import { SelectFilterComponent } from '../../shared/select-filter';
   exports: [
     MapComponent,
     DeleteDialogComponent,
+    ReferenceComponent,
+    EstateComponent,
+    VehicleComponent,
+    IngressComponent,
+    EgressComponent,
     DropifyImageComponent,
     SelectFilterComponent
   ],

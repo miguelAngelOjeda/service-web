@@ -1,13 +1,15 @@
 import { Component, OnInit, Inject, ViewChild, NgZone, ElementRef  } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 import { People, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
    Subsidiary, Departments, Nationalities, Location } from '../../../core/models';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
+import {ErrorStateMatcher} from '@angular/material/core';
 import * as $ from 'jquery';
 import 'dropify';
+
 
 @Component({
   selector: 'app-add-people',
@@ -16,8 +18,9 @@ import 'dropify';
 })
 export class AddPeopleComponent implements OnInit {
     myForm: FormGroup;
+    validateForm = true;
     private model = new People();
-    disableSelectDepartment = new FormControl(true);
+    //disableSelectDepartment = new FormControl(true);
     protected countries: Array<Countries> = [];
     isSeparacionBienes = true;
     hide = true;
@@ -48,8 +51,8 @@ export class AddPeopleComponent implements OnInit {
     }
 
     onSubmit() {
-      console.log(this.model);
       console.log(this.myForm.value);
+      console.log(this.myForm);
 
     }
 
@@ -69,7 +72,7 @@ export class AddPeopleComponent implements OnInit {
         numeroHijos: '',
         numeroDependientes: '',
         estadoCivil: [null, [Validators.required]],
-        separacionBienes: [false, [Validators.required]],
+        separacionBienes: '',
         email: [null, [Validators.required]],
         telefonoParticular: [null, [Validators.required]],
         telefonoSecundario: null,
@@ -85,67 +88,11 @@ export class AddPeopleComponent implements OnInit {
         departamento: [null, [Validators.required]],
         ciudad: [null, [Validators.required]],
         barrio: '',
-        conyuge: this.peopleForms(),
-        referencias: this.formBuilder.array([this.addReferenciasFormGroup()]),
-        bienesInmuebles: this.formBuilder.array([this.addBienesInmueblesFormGroup()]),
-        bienesVehiculo: this.formBuilder.array([this.addBienesVehiculoFormGroup()])
+        conyuge: ""
       });
     }
 
-    //bienes Inmueble
-    addBienesInmueblesFormGroup(): FormGroup {
-      return this.formBuilder.group({
-        id: [''],
-        direccion: ['', Validators.required],
-        pais: [null, [Validators.required]],
-        departamento: [null, [Validators.required]],
-        ciudad: [null, [Validators.required]],
-        barrio: '',
-        edificado: '',
-        numeroFinca: '',
-        numeroMatricula: '',
-        cuentaCatastral: '',
-        escriturado: '',
-        valorActual: [null, [Validators.required]],
-        hipotecado: '',
-        lugarHipoteca: '',
-        fechaHipoteca: '',
-        saldo: '',
-        cuotaMensual: '',
-        tipoBien: 'INMUEBLE',
-        activo: ['S']
-      });
-    }
 
-    addButtonBienesInmuebles(): void {
-      (<FormArray>this.myForm.get('bienesInmuebles')).push(this.addBienesInmueblesFormGroup());
-    }
-
-    deleteBienesInmuebles(data: any){
-        (<FormArray>this.myForm.get('bienesInmuebles')).removeAt(this.myForm.get('bienesInmuebles').value.findIndex(dep => dep === data))
-    }
-
-    //bienes Vehiculo
-    addBienesVehiculoFormGroup(): FormGroup {
-      return this.formBuilder.group({
-        id: [''],
-        marca: ['', Validators.required],
-        modeloAnio: [null, [Validators.required]],
-        valorActual: [null, [Validators.required]],
-        cuotaMensual: '',
-        saldo: '',
-        tipoBien: 'VEHICULO',
-        activo: ['S']
-      });
-    }
-
-    addButtonBienesVehiculo(): void {
-      (<FormArray>this.myForm.get('bienesVehiculo')).push(this.addBienesVehiculoFormGroup());
-    }
-
-    deleteBienesVehiculo(data: any){
-        (<FormArray>this.myForm.get('bienesVehiculo')).removeAt(this.myForm.get('bienesVehiculo').value.findIndex(dep => dep === data))
-    }
 
     //Referencias
     addReferenciasFormGroup(): FormGroup {

@@ -26,6 +26,7 @@ import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { SpinnerComponent } from './shared/spinner';
+import { CoreAppModule } from './app-component/core';
 import * as $ from 'jquery';
 
 
@@ -51,6 +52,7 @@ export function tokenGetter() {
     AppRoutingModule,
     CoreModule,
     SharedModule,
+    CoreAppModule,
     MaterialModule,
     FlexLayoutModule,
     BrowserAnimationsModule,

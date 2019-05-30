@@ -1,0 +1,56 @@
+<ng-container>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6">
+          <h4  class="m-0"><mat-icon class="gray-text">contacts</mat-icon>Referencias</h4>
+          <br>
+        </div>
+        <div class="col-md-6">
+          <a mat-mini-fab (click)="addButton()" class="nav-link m-t-10 float-right" color="primary"><mat-icon>add_circle_outline</mat-icon></a>
+        </div>
+      </div>
+    </div>
+    <div formArrayName="referencias"  class="col-md-12">
+      <div [formGroupName]="i" *ngFor="let referencias of referenceForm.get('referencias').controls; let i = index" >
+        <blockquote>
+          <div class="row">
+             <div class="col-sm-3">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Nombre"  formControlName="nombreContacto"  name="nombreContacto" required>
+                 <mat-error *ngIf="(referencias.get('nombreContacto').errors)">
+                   <span *ngIf="referencias.get('nombreContacto').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-sm-3">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Celular"  formControlName="telefonoCelular" name="telefonoCelular" required>
+                 <mat-error *ngIf="(referencias.get('telefonoCelular').errors)">
+                   <span *ngIf="referencias.get('telefonoCelular').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-md-2">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Telefono" formControlName="telefono"  name="telefono">
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+                 <app-select-filter (value)="getValue($event,referencias.controls['tipoReferencia'])" placeholder="Tipo Referencia" urlFilter="tipos-referencias" [columnsFilter]="['nombre']"></app-select-filter>
+             </div>
+             <div class="col-md-1">
+               <section class="example-section">
+                    <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete</mat-icon></a>
+               </section>
+             </div>
+          </div>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</ng-container>
