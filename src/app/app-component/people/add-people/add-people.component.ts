@@ -117,6 +117,14 @@ export class AddPeopleComponent implements OnInit {
       });
     }
 
+    addButtonBienesInmuebles(): void {
+      (<FormArray>this.myForm.get('bienesInmuebles')).push(this.addBienesInmueblesFormGroup());
+    }
+
+    deleteBienesInmuebles(data: any){
+        (<FormArray>this.myForm.get('bienesInmuebles')).removeAt(this.myForm.get('bienesInmuebles').value.findIndex(dep => dep === data))
+    }
+
     //bienes Vehiculo
     addBienesVehiculoFormGroup(): FormGroup {
       return this.formBuilder.group({
@@ -131,6 +139,15 @@ export class AddPeopleComponent implements OnInit {
       });
     }
 
+    addButtonBienesVehiculo(): void {
+      (<FormArray>this.myForm.get('bienesVehiculo')).push(this.addBienesVehiculoFormGroup());
+    }
+
+    deleteBienesVehiculo(data: any){
+        (<FormArray>this.myForm.get('bienesVehiculo')).removeAt(this.myForm.get('bienesVehiculo').value.findIndex(dep => dep === data))
+    }
+
+    //Referencias
     addReferenciasFormGroup(): FormGroup {
       return this.formBuilder.group({
         id: [''],

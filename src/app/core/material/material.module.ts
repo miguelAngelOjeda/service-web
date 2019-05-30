@@ -4,6 +4,7 @@ import { MatTabsModule, MatMenuModule , MatDialogModule, MatButtonModule, MatSid
  MatInputModule, MatPaginatorModule, MatSortModule,MatAutocompleteSelectedEvent, MatChipInputEvent,MatSnackBarModule,
  MatTableModule, MatToolbarModule, MatSelectModule, MatListModule, MatDividerModule, MatNativeDateModule, MatCardModule} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox'
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -33,6 +34,7 @@ export const MY_FORMATS = {
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
+    MatTooltipModule,
     MatStepperModule,
     MatInputModule,
     MatRadioModule,
@@ -66,6 +68,7 @@ export const MY_FORMATS = {
     MatStepperModule,
     MatChipsModule,
     MatRadioModule,
+    MatTooltipModule,
     MatButtonModule,
     MatCheckboxModule,
     MatSnackBarModule,
