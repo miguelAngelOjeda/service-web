@@ -1,240 +1,84 @@
-import { Component, OnInit, Inject, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatSelect} from '@angular/material';
-import {FormControl, Validators} from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot , ActivatedRoute} from '@angular/router';
+import { Component, OnInit, Inject, ViewChild, ElementRef  } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { FormControl, Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { UserService, ApiService} from '../../../core/services';
+import { ActivatedRoute } from '@angular/router';
 import { Users, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
    Subsidiary, Departments, Nationalities } from '../../../core/models';
-import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-users',
   templateUrl: './edit-users.component.html',
   styleUrls: ['./edit-users.component.scss']
 })
-export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
-  private model = new Users();
-  hide = true;
-  //Filter
-  isfilter = false;
-  /** list of rules */
-  protected role: Array<Role> = [];
-  @ViewChild('filterInputRole') filterInputRole: ElementRef;
-  /** list of Nationalities */
-  protected nationalities: Array<Nationalities> = [];
-  @ViewChild('filterInputNationaliti') filterInputNationaliti: ElementRef;
-  /** list of Countries */
-  protected countries: Array<Countries> = [];
-  @ViewChild('filterInputCountries') filterInputCountries: ElementRef;
-  /** list of DepartmentsCountri */
-  protected departmentsCountri: Array<DepartmentsCountri> = [];
-  @ViewChild('filterInputDepartmentsCountri') filterInputDepartmentsCountri: ElementRef;
-  /** list of DepartmentsCountri */
-  protected cities: Array<Cities> = [];
-  @ViewChild('filterInputCities') filterInputCities: ElementRef;
-  /** list of subsidiary */
-  protected subsidiary: Array<Subsidiary> = [];
-  @ViewChild('filterInputSubsidiary') filterInputSubsidiary: ElementRef;
+export class EditUsersComponent implements OnInit {
+  myForm: FormGroup;
   protected departments: Array<Departments> = [];
 
-  formControl = new FormControl('', [Validators.required]);
-
   constructor(
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private userService: UserService,
-    private route: ActivatedRoute
-  ) {
+  ) { }
+
+  ngOnInit() {
+    this.initFormBuilder();
+    this.myForm.get('sucursal').valueChanges.subscribe(
+      uname => {
+        this.filterDepartments();
+      }
+    );
     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
-         this.model = res.model as Users;
-         this.model.persona.fechaNacimiento =  new Date(this.model.persona.fechaNacimiento);
-         this.filterDepartments();
-         this.filterDepartmentsCountri();
-         this.filterCities();
+        res.model.persona.avatar = null;
+        res.model.persona.conyuge = null;
+        res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
+        (<FormGroup>this.myForm).setValue(res.model);
       }
     });
-  }
-
-  ngOnInit() {
-    this.filterNationalities();
-    this.filterRules();
-    this.filterSubsidiary();
-    this.filterCountries();
-  }
-
-  ngAfterViewInit() {
-  }
-
-  ngOnDestroy() {
   }
 
   submit() {
-    this.apiService.put('/usuarios/' + this.route.snapshot.params.id, this.model)
+    this.apiService.put('/usuarios/' + this.route.snapshot.params.id, this.myForm.value)
     .subscribe(res => {
 
     });
   }
 
-  peopleCi() {
-    this.apiService.get('/personas/documento/' + this.model.persona.documento)
-    .subscribe(res => {
-      if(res.status == 200){
-        this.model.persona = res.model
-        this.model.persona.fechaNacimiento =  new Date(res.model.fechaNacimiento);
-      }
+
+
+  protected initFormBuilder() {
+    this.myForm = this.formBuilder.group({
+      id: null ,
+      alias: [null, [Validators.required]],
+      expirationTimeTokens: [5, [Validators.required]],
+      claveAcceso: [null, [Validators.required]],
+      rol: [null, [Validators.required]],
+      departamentos: [null, [Validators.required]],
+      sucursal: ['', [Validators.required]],
+      activo: 'S'
     });
   }
 
-  getAvatar(avatar: any): void {
-    this.model.persona.avatar = avatar;
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
   }
 
 
-  protected filterRules() {
-    let rulesColumns  = ['nombre'];
-    merge(fromEvent(this.filterInputRole.nativeElement, 'keyup'))
-        .pipe(
-          startWith({}),
-          switchMap(() => {
-            this.isfilter = false;
-            if(this.filterInputRole.nativeElement.value.length  > 3){
-              this.isfilter = true;
-            }
-            return this.apiService.getPageList('/roles',this.isfilter,this.filterInputRole.nativeElement.value, rulesColumns, 'desc', 'id',
-            0,50);
-          }),
-          map(data => {
-            return data.rows as Role[];;
-          }),
-          catchError(() => {
-            return observableOf([]);
-          })
-        ).subscribe(data => this.role = data);
-  }
 
   protected filterDepartments() {
-    if(this.model.persona.sucursal.id != null){
-      this.apiService.getPageList('/sucursales/' + this.model.persona.sucursal.id +'/departamentos',false,null, null, 'desc', 'id',
-      0,50)
+    if(this.myForm.get('sucursal').value.id != null){
+      this.apiService.getPageList('/sucursales/' + this.myForm.get('sucursal').value.id +'/departamentos',false,null,null, 'desc', 'id',
+      0,10)
       .subscribe(res => {
-         this.departments = res.rows as Departments[];
+        if(res.status == 200){
+          this.departments = res.rows as Departments[];
+        }
       });
     }
   }
 
-  protected filterSubsidiary() {
-    let rulesColumns  = ['codigoSucursal', 'nombre'];
-    merge(fromEvent(this.filterInputSubsidiary.nativeElement, 'keyup'))
-        .pipe(
-          startWith({}),
-          switchMap(() => {
-            this.isfilter = false;
-            if(this.filterInputSubsidiary.nativeElement.value.length  > 3){
-              this.isfilter = true;
-            }
-            return this.apiService.getPageList('/sucursales',this.isfilter,this.filterInputSubsidiary.nativeElement.value, rulesColumns, 'desc', 'id',
-            0,50);
-          }),
-          map(data => {
-            return data.rows as Subsidiary[];
-          }),
-          catchError(() => {
-            return observableOf([]);
-          })
-        ).subscribe(data => this.subsidiary = data);
-  }
-
-  protected filterNationalities() {
-    let rulesColumns  = ['codigo', 'nombre'];
-    merge(fromEvent(this.filterInputNationaliti.nativeElement, 'keyup'))
-        .pipe(
-          startWith({}),
-          switchMap(() => {
-            this.isfilter = false;
-            if(this.filterInputNationaliti.nativeElement.value.length  > 3){
-              this.isfilter = true;
-            }
-            return this.apiService.getPageList('/nacionalidades',this.isfilter,this.filterInputNationaliti.nativeElement.value, rulesColumns, 'desc', 'nombre',
-            0,50);
-          }),
-          map(data => {
-            return data.rows as Nationalities[];
-          }),
-          catchError(() => {
-            return observableOf([]);
-          })
-        ).subscribe(data => this.nationalities = data);
-  }
-
-  protected filterCountries() {
-    let rulesColumns  = ['nombre'];
-    merge(fromEvent(this.filterInputCountries.nativeElement, 'keyup'))
-        .pipe(
-          startWith({}),
-          switchMap(() => {
-            this.isfilter = false;
-            if(this.filterInputCountries.nativeElement.value.length  > 3){
-              this.isfilter = true;
-            }
-            return this.apiService.getPageList('/paises',this.isfilter,this.filterInputCountries.nativeElement.value, rulesColumns, 'desc', 'nombre',
-            0,50);
-          }),
-          map(data => {
-            return data.rows as Countries[];
-          }),
-          catchError(() => {
-            return observableOf([]);
-          })
-        ).subscribe(data => this.countries = data);
-  }
-
-  protected filterDepartmentsCountri() {
-    let rulesColumns  = ['nombre'];
-      merge(fromEvent(this.filterInputDepartmentsCountri.nativeElement, 'keyup'))
-          .pipe(
-            startWith({}),
-            switchMap(() => {
-              this.isfilter = false;
-              if(this.filterInputDepartmentsCountri.nativeElement.value.length  > 3){
-                this.isfilter = true;
-              }
-              return this.apiService.getPageList('/departamentos/'+ this.model.persona.pais.id + '/pais',this.isfilter,this.filterInputDepartmentsCountri.nativeElement.value, rulesColumns, 'desc', 'nombre',
-              0,50);
-            }),
-            map(data => {
-              return data.rows as DepartmentsCountri[];
-            }),
-            catchError(() => {
-              return observableOf([]);
-            })
-          ).subscribe(data => this.departmentsCountri = data);
-  }
-
-  protected filterCities() {
-    let rulesColumns  = ['nombre'];
-    if(this.model.persona.departamento.id != null){
-      merge(fromEvent(this.filterInputCities.nativeElement, 'keyup'))
-          .pipe(
-            startWith({}),
-            switchMap(() => {
-              this.isfilter = false;
-              if(this.filterInputCities.nativeElement.value.length  > 3){
-                this.isfilter = true;
-              }
-              return this.apiService.getPageList('/ciudades/'+ this.model.persona.departamento.id + '/departamento',this.isfilter,this.filterInputCities.nativeElement.value, rulesColumns, 'desc', 'nombre',
-              0,50);
-            }),
-            map(data => {
-              return data.rows as Cities[];
-            }),
-            catchError(() => {
-              return observableOf([]);
-            })
-          ).subscribe(data => this.cities = data);
-    }
-  }
 
   compareObjects(o1: any, o2: any): boolean {
     if(!o1
@@ -243,16 +87,6 @@ export class EditUsersComponent implements OnInit, AfterViewInit, OnDestroy  {
     }
     return  o1.id === Number(o2.id);
   }
-
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
-  }
-
-
-
 
 
 }

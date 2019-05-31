@@ -46,16 +46,20 @@ export class MapComponent implements OnInit {
 
   @Input()
   set latitude(latitude: any) {
-    this.location.lat = latitude;
-    this.location.marker.lat = latitude;
-    this.location.isView = false;
+    if(latitude){
+      this.location.lat = latitude;
+      this.location.marker.lat = latitude;
+      this.location.isView = false;
+    }
   }
 
   @Input()
   set longitude(longitude: any) {
-    this.location.lng = longitude;
-    this.location.marker.lng = longitude;
-    this.location.isView = false;
+    if(longitude){
+      this.location.lng = longitude;
+      this.location.marker.lng = longitude;
+      this.location.isView = false;
+    }
   }
 
   // Get Current Location Coordinates

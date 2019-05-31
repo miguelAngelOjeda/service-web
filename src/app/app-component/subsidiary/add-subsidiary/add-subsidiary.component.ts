@@ -22,6 +22,7 @@ export class AddSubsidiaryComponent implements OnInit {
 
   ngOnInit() {
     this.initFormBuilder();
+    console.log(this.subsidiaryForm.get('ciudad'));
   }
 
   onSubmit() {
@@ -41,20 +42,24 @@ export class AddSubsidiaryComponent implements OnInit {
 
   initFormBuilder() {
     this.subsidiaryForm = this.formBuilder.group({
-      id: [''],
+      id: null,
       codigoSucursal: [{value: null, disabled: true}],
-      descripcion: [''],
-      telefonoMovil: [''],
-      fax: [''],
-      observacion: [''],
-      activo: [''],
-      latitud: [''],
-      longitud: [''],
+      descripcion: null,
+      telefonoMovil: null,
+      fax: null,
+      observacion: null,
+      activo: null,
+      latitud: null,
+      longitud: null,
       empresa: [{value: {'nombre':' ', 'ruc':' ', 'direccion':' '}, disabled: false}],
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       direccion: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      pais: [null, [Validators.required]],
+      departamento: [null, [Validators.required]],
+      ciudad: [null, [Validators.required]],
+      barrio: null,
       departamentos: this.formBuilder.array([this.addFormGroup()])
     });
   }
@@ -97,6 +102,10 @@ export class AddSubsidiaryComponent implements OnInit {
     this.subsidiaryForm.controls['latitud'].setValue(location.lat);
     this.subsidiaryForm.controls['longitud'].setValue(location.lng);
     this.subsidiaryForm.controls['direccion'].setValue(location.address);
+  }
+
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
   }
 
 }

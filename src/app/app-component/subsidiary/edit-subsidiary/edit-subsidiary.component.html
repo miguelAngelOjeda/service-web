@@ -4,12 +4,13 @@
 			<form  [formGroup]="subsidiaryForm" (ngSubmit)="subsidiaryForm.valid && onSubmit()">
 					<div class="row">
 						<div class="col-md-12">
+							<div class="col-md-12">
+				         <h4  class="m-0"><mat-icon class="gray-text">store_mall_directory</mat-icon>Datos Sucursal</h4>
+								 <br>
+							</div>
 							<div class="row">
 								 <div class="col-md-12">
-									 <agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
-										 <agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="true"
-										 (dragEnd)="markerDragEnd($event)"></agm-marker>
-									 </agm-map>
+									 <app-map [latitude]="subsidiaryForm.get('latitud').value" [longitude]="subsidiaryForm.get('longitud').value" (valueLocationChange)="getAddress($event)"></app-map>
 								 </div>
 							</div>
 							<div class="row">
@@ -43,6 +44,30 @@
                     </mat-error>
 									</mat-form-field>
 								</div>
+
+								<div class="col-md-3">
+					        <app-select-filter  (value)="getValue($event, subsidiaryForm.get('pais'))" [modelValue]="subsidiaryForm.get('pais').value"
+					         placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
+					      </div>
+
+					      <div class="col-md-3">
+					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('departamento'))"
+					         [disabled]="true" placeholder="Departamento" [modelValue]="subsidiaryForm.get('departamento').value"
+					         urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('pais').value"></app-select-filter>
+					      </div>
+
+					      <div class="col-md-3">
+					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('ciudad'))" [disabled]="true" placeholder="Ciudad"
+					        [modelValue]="subsidiaryForm.get('ciudad').value"
+					         urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('departamento').value"></app-select-filter>
+					      </div>
+
+								<div class="col-md-3">
+					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('barrio'))" [required]="false" [disabled]="true"  placeholder="Barrio"
+					        [modelValue]="subsidiaryForm.get('barrio').value"
+					         urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('ciudad').value"></app-select-filter>
+					      </div>
+
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Direccion"  name="direccion" formControlName="direccion">

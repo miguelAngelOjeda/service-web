@@ -42,6 +42,22 @@ export class SelectFilterComponent implements OnInit {
       this.filter();
     }
   }
+
+  @Input()
+  set required(model: any) {
+    if(!model){
+      this.modelControl.setValidators([]); // or clearValidators()
+      this.modelControl.updateValueAndValidity();
+    }
+  }
+
+  @Input()
+  set modelValue(model: any) {
+    if(model){
+      this.modelControl.setValue(model);
+    }
+  }
+
   //Filter
   isfilter = false;
   view = 'nombre';
@@ -67,7 +83,6 @@ export class SelectFilterComponent implements OnInit {
           switchMap(() => {
             if(this.modelControl.status !== 'DISABLED'){
               this.isfilter = false;
-              console.log('holaaaaaaaaaa');
               if(this.filterInputModel.nativeElement.value.length  > 0){
                 this.isfilter = true;
               }

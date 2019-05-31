@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, ElementRef } from '@ang
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlContainer, FormGroupDirective} from '@angular/forms';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { DeleteDialogComponent } from '../../../shared';
-import { Estate, Message } from '../../../core/models';
+import { Estate, Message, Location } from '../../../core/models';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 
 @Component({
@@ -12,6 +12,7 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
 export class PeopleComponent implements OnInit {
+  isSeparacionBienes = true;
   peopleForm: FormGroup;
   form: FormGroup;
   @Input() urlFilter;
@@ -38,34 +39,35 @@ export class PeopleComponent implements OnInit {
       id: null ,
       avatar: null ,
       primerNombre: [null, [Validators.required]],
-      segundoNombre: '',
+      segundoNombre: null,
       primerApellido: [null, [Validators.required]],
-      segundoApellido: '',
+      segundoApellido: null,
       documento: [null, [Validators.required]],
-      ruc: '',
+      ruc: null,
       fechaNacimiento: [null, [Validators.required]],
       tipoPersona: [null, [Validators.required]],
       sexo: [null, [Validators.required]],
-      numeroHijos: '',
-      numeroDependientes: '',
+      numeroHijos: null,
+      numeroDependientes: null,
       estadoCivil: [null, [Validators.required]],
-      separacionBienes: '',
+      separacionBienes: null,
       email: [null, [Validators.required]],
+      profesion: [null, [Validators.required]],
       telefonoParticular: [null, [Validators.required]],
       telefonoSecundario: null,
       direccionParticular: [null, [Validators.required]],
-      direccionDetallada: '',
-      observacion: '',
+      direccionDetallada: null,
+      observacion: null,
       latitud: '',
       longitud: '',
-      sucursal: '',
       activo: 'S',
+      imagePath: null,
       nacionalidad: [null, [Validators.required]],
       pais: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       ciudad: [null, [Validators.required]],
-      barrio: '',
-      conyuge: ""
+      barrio: null,
+      conyuge: null
     }));
     console.log(this.peopleForm.get('persona'));
   }
@@ -76,39 +78,57 @@ export class PeopleComponent implements OnInit {
       id: null ,
       avatar: null ,
       primerNombre: [null, [Validators.required]],
-      segundoNombre: '',
+      segundoNombre: null,
       primerApellido: [null, [Validators.required]],
-      segundoApellido: '',
+      segundoApellido: null,
       documento: [null, [Validators.required]],
-      ruc: '',
+      ruc: null,
       fechaNacimiento: [null, [Validators.required]],
       tipoPersona: [null, [Validators.required]],
       sexo: [null, [Validators.required]],
-      numeroHijos: '',
-      numeroDependientes: '',
+      numeroHijos: null,
+      numeroDependientes: null,
       estadoCivil: [null, [Validators.required]],
-      separacionBienes: '',
+      separacionBienes: null,
       email: [null, [Validators.required]],
       telefonoParticular: [null, [Validators.required]],
       telefonoSecundario: null,
       direccionParticular: [null, [Validators.required]],
       direccionDetallada: '',
       observacion: '',
-      latitud: '',
-      longitud: '',
-      sucursal: '',
+      latitud: null,
+      longitud: null,
       activo: 'S',
       nacionalidad: [null, [Validators.required]],
       pais: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       ciudad: [null, [Validators.required]],
-      barrio: '',
-      conyuge: ""
+      barrio: null,
+      conyuge: null
+    });
+  }
+
+  peopleCi() {
+    this.apiService.get('/personas/documento/' + (<FormGroup>this.peopleForm.get('persona')).controls.documento.value)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.model.avatar = '';
+        res.model.conyuge = '';
+        res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
+        (<FormGroup>this.peopleForm.get('persona')).setValue(res.model);
+      }
     });
   }
 
   getValue(data: any, form : FormControl): void {
     form.setValue(data);
+  }
+
+  // Get Current Location Coordinates
+  getAddress(location: Location): void {
+    (<FormGroup>this.peopleForm.get('persona')).controls['latitud'].setValue(location.lat);
+    (<FormGroup>this.peopleForm.get('persona')).controls['longitud'].setValue(location.lng);
+    (<FormGroup>this.peopleForm.get('persona')).controls['direccionParticular'].setValue(location.address);
   }
 
 

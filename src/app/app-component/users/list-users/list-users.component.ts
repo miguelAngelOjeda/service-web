@@ -12,7 +12,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 })
 export class ListUsersComponent implements AfterViewInit {
     public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
-    displayedColumns = ['alias','persona.documento', 'persona.primerNombre' , 'email', 'persona.sucursal.nombre', 'opciones'];
+    displayedColumns = ['alias','persona.documento', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -31,9 +31,6 @@ export class ListUsersComponent implements AfterViewInit {
     // MatPaginator Output
     pageEvent: PageEvent;
 
-    isLoadingResults = true;
-    isRateLimitReached = false;
-
     constructor(
       private apiService: ApiService) {}
 
@@ -44,34 +41,18 @@ export class ListUsersComponent implements AfterViewInit {
             startWith({}),
             switchMap(() => {
               this.isfilter = false;
-              if(this.filterInput.nativeElement.textLength > 3){
+              if(this.filterInput.nativeElement.value.length > 3){
                 this.isfilter = true;
-                for (let i = 0; i < this.rulesColumns.length; i++)
-                {
-                  this.rules.push({
-                          field: this.rulesColumns[i],
-                          op: "cn",
-                          data: this.filterInput.nativeElement.value
-                      });
-                }
-                this.filter.groupOp = 'OR';
-                this.filter.rules = this.rules;
               }
-              return this.apiService.getPageList('/usuarios',this.isfilter,JSON.stringify(this.filter), this.rulesColumns,
+              return this.apiService.getPageList('/usuarios',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
               this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
             }),
             map(data => {
               // Flip flag to show that loading has finished.
-              this.isLoadingResults = false;
-              this.isRateLimitReached = false;
               this.length = data.records;
-
               return data.rows as Users[];;
             }),
             catchError(() => {
-              this.isLoadingResults = false;
-              // Catch if reached its rate limit. Return empty data.
-              this.isRateLimitReached = true;
               return observableOf([]);
             })
           ).subscribe(data => this.dataSource.data = data);

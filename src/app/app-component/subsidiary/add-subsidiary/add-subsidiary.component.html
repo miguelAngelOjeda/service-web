@@ -4,6 +4,10 @@
 			<form  [formGroup]="subsidiaryForm" (ngSubmit)="subsidiaryForm.valid && onSubmit()">
 					<div class="row">
 						<div class="col-md-12">
+							<div class="col-md-12">
+				         <h4  class="m-0"><mat-icon class="gray-text">store_mall_directory</mat-icon>Datos Sucursal</h4>
+								 <br>
+							</div>
 							<div class="row">
 								 <div class="col-md-12">
 									 <app-map (valueLocationChange)="getAddress($event)"></app-map>
@@ -18,9 +22,7 @@
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Nombre"  name="nombre" formControlName="nombre">
-                    <mat-error *ngIf="((subsidiaryForm.get('nombre').touched ||
-                    subsidiaryForm.get('nombre').dirty) &&
-                    subsidiaryForm.get('nombre').errors)">
+                    <mat-error *ngIf="(subsidiaryForm.get('nombre').errors)">
                       <span *ngIf="subsidiaryForm.get('nombre').errors.required">
                        Campo requerido
                       </span>
@@ -31,21 +33,41 @@
 								<div class="col-md-4">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Descripcion"  formControlName="descripcion" name="descripcion">
-                    <mat-error *ngIf="((subsidiaryForm.get('descripcion').touched ||
-                    subsidiaryForm.get('descripcion').dirty) &&
-                    subsidiaryForm.get('descripcion').errors)">
+                    <mat-error *ngIf="(subsidiaryForm.get('descripcion').errors)">
                       <span *ngIf="subsidiaryForm.get('descripcion').errors.required">
                        Campo requerido
                       </span>
                     </mat-error>
 									</mat-form-field>
 								</div>
+
+								<div class="col-md-3">
+					        <app-select-filter  (value)="getValue($event, subsidiaryForm.get('pais'))" [modelValue]="subsidiaryForm.get('pais').value"
+					         placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
+					      </div>
+
+					      <div class="col-md-3">
+					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('departamento'))"
+					         [disabled]="true" placeholder="Departamento" [modelValue]="subsidiaryForm.get('departamento').value"
+					         urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('pais').value"></app-select-filter>
+					      </div>
+
+					      <div class="col-md-3">
+					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('ciudad'))" [disabled]="true" placeholder="Ciudad"
+					        [modelValue]="subsidiaryForm.get('ciudad').value"
+					         urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('departamento').value"></app-select-filter>
+					      </div>
+
+								<div class="col-md-3">
+					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('barrio'))" [required]="false" [disabled]="true"  placeholder="Barrio"
+					        [modelValue]="subsidiaryForm.get('barrio').value"
+					         urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('ciudad').value"></app-select-filter>
+					      </div>
+
 								<div class="col-md-3">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Telefono"  name="telefono" formControlName="telefono">
-                    <mat-error *ngIf="((subsidiaryForm.get('telefono').touched ||
-                    subsidiaryForm.get('telefono').dirty) &&
-                    subsidiaryForm.get('telefono').errors)">
+                    <mat-error *ngIf="(subsidiaryForm.get('telefono').errors)">
                       <span *ngIf="subsidiaryForm.get('telefono').errors.required">
                        Campo requerido
                       </span>
@@ -55,9 +77,7 @@
 								<div class="col-md-3">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Celular"  formControlName="telefonoMovil" name="telefonoMovil">
-                    <mat-error *ngIf="((subsidiaryForm.get('telefonoMovil').touched ||
-                    subsidiaryForm.get('telefonoMovil').dirty) &&
-                    subsidiaryForm.get('telefonoMovil').errors)">
+                    <mat-error *ngIf="(subsidiaryForm.get('telefonoMovil').errors)">
                       <span *ngIf="subsidiaryForm.get('telefonoMovil').errors.required">
                        Campo requerido
                       </span>
@@ -67,9 +87,7 @@
 								<div class="col-md-6">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Direccion"  name="direccion" formControlName="direccion">
-                    <mat-error *ngIf="((subsidiaryForm.get('direccion').touched ||
-                    subsidiaryForm.get('direccion').dirty) &&
-                    subsidiaryForm.get('direccion').errors)">
+                    <mat-error *ngIf="(subsidiaryForm.get('direccion').errors)">
                       <span *ngIf="subsidiaryForm.get('direccion').errors.required">
                        Campo requerido
                       </span>
@@ -79,9 +97,7 @@
 								<div class="col-md-6">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Email"  name="email" formControlName="email">
-                    <mat-error *ngIf="((subsidiaryForm.get('email').touched ||
-                    subsidiaryForm.get('email').dirty) &&
-                    subsidiaryForm.get('email').errors)">
+                    <mat-error *ngIf="(subsidiaryForm.get('email').errors)">
                       <span *ngIf="subsidiaryForm.get('email').errors.required">
                        Campo requerido
                       </span>
@@ -91,9 +107,7 @@
 								<div class="col-md-6">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Fax"  formControlName="fax" name="fax">
-                    <mat-error *ngIf="((subsidiaryForm.get('fax').touched ||
-                    subsidiaryForm.get('fax').dirty) &&
-                    subsidiaryForm.get('fax').errors)">
+                    <mat-error *ngIf="(subsidiaryForm.get('fax').errors)">
                       <span *ngIf="subsidiaryForm.get('fax').errors.required">
                        Campo requerido
                       </span>
@@ -103,9 +117,7 @@
 								<div class="col-md-12">
 									<mat-form-field   class="col-sm-12" appearance="legacy">
 										<input matInput #input  placeholder="Observacion"  formControlName="observacion" name="observacion">
-                    <mat-error *ngIf="((subsidiaryForm.get('observacion').touched ||
-                    subsidiaryForm.get('observacion').dirty) &&
-                    subsidiaryForm.get('observacion').errors)">
+                    <mat-error *ngIf="(subsidiaryForm.get('observacion').errors)">
                       <span *ngIf="subsidiaryForm.get('observacion').errors.required">
                        Campo requerido
                       </span>
@@ -113,13 +125,13 @@
 									</mat-form-field>
 								</div>
 								<div class="col-md-12"   style="background-color: #e9f3fc">
-					            <div class="form-group">
-					                <div class="col-md-offset-2 col-md-4">
-					                  <button type="button" class="btn btn-primary" (click)="addButtonClick()">
-					                      Agregar Departamentos
-					                  </button>
-					                </div>
-					              </div>
+		            <div class="form-group">
+		                <div class="col-md-offset-2 col-md-4">
+		                  <button type="button" class="btn btn-primary" (click)="addButtonClick()">
+		                      Agregar Departamentos
+		                  </button>
+		                </div>
+		              </div>
 					        <div formArrayName="departamentos"  *ngFor="let departamentos of subsidiaryForm.get('departamentos').controls; let i = index" class="form-group">
 					               <div [formGroupName]="i">
         					           <div class="form-group" class="row cols-md-12">

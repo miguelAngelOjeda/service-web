@@ -13,24 +13,26 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { DropifyImageComponent } from '../../shared/dropify-image';
 import { DeleteDialogComponent } from '../../shared/dialog';
+import { PeopleComponent } from '../core';
+import { SelectFilterComponent } from '../../shared/select-filter';
+import { CoreAppModule } from '../core';
 
 @NgModule({
   imports: [
-    //CoreModule,
     UsersRoutingModule,
     MaterialModule,
-    //BrowserModule,
+    CoreAppModule,
     FlexLayoutModule,
     SharedModule,
-    //BrowserAnimationsModule,
     EcoFabSpeedDialModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LayoutModule,
-    //BrowserModule,
     ReactiveFormsModule
   ],
   exports: [
     DropifyImageComponent,
+    SelectFilterComponent,
+    PeopleComponent,
     DeleteDialogComponent
   ],
   declarations: [

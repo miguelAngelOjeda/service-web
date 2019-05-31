@@ -80,20 +80,24 @@ export class EditSubsidiaryComponent implements OnInit {
 
   initFormBuilder() {
     this.subsidiaryForm = this.formBuilder.group({
-      id: [''],
+      id: [null],
       codigoSucursal: [{value: null, disabled: true}],
-      descripcion: [''],
-      telefonoMovil: [''],
-      fax: [''],
-      observacion: [''],
-      activo: [''],
-      latitud: [''],
-      longitud: [''],
-      empresa: [''],
-      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      direccion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      telefono: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      descripcion: [null],
+      telefonoMovil: [null],
+      fax: [null],
+      observacion: [null],
+      activo: [null],
+      latitud: [null],
+      longitud: [null],
+      empresa: [null],
+      nombre: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      direccion: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      telefono: [null, [Validators.required]],
+      email: [null, [Validators.required]],
+      pais: [null, [Validators.required]],
+      departamento: [null, [Validators.required]],
+      ciudad: [null, [Validators.required]],
+      barrio: null,
       departamentos: this.formBuilder.array([this.addFormGroup()])
     });
   }

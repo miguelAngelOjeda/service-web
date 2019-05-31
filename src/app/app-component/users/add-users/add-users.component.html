@@ -1,245 +1,60 @@
 <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/users"> Usuarios </a> &gt; <span class="current">Agregar</span></h2>
 <mat-card class="form-card">
 <mat-card-content>
-  <form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
+  <form   (ngSubmit)="myForm.valid && submit(ngForm)" [formGroup]="myForm">
       <div class="row">
         <div class="col-md-12">
-          <div class="row">
-             <div class="col-md-2">
-                <app-dropify-image [pathImage]="model.persona.imagePath" [accept]="accept" (valueAvatar)="getAvatar($event)"></app-dropify-image>
-             </div>
-             <div class="col-md-10">
-               <div class="row">
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input  placeholder="Documento" [(ngModel)]="model.persona.documento" name="documento" required>
-                       <mat-icon matSuffix (click)="model.persona.documento && peopleCi()">search</mat-icon>
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input (click)="!model.persona.id && model.persona.documento && peopleCi()" placeholder="Ruc" [(ngModel)]="model.persona.ruc" name="ruc">
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input  placeholder="Alias" [(ngModel)]="model.alias" name="alias" required>
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                       <input matInput #input [type]="hide ? 'password' : 'text'"  placeholder="Contraseña" [(ngModel)]="model.claveAcceso" name="claveAcceso" required>
-                       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field class="col-sm-12" appearance="legacy">
-                        <mat-label>Tipo Persona</mat-label>
-                        <mat-select [(ngModel)]="model.persona.tipoPersona" name="tipoPersona" required>
-                          <mat-option selected="true" value="FISICA">Fisica</mat-option>
-                          <mat-option value="JURIDICA">Juridica</mat-option>
-                        </mat-select>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field class="col-sm-12" appearance="legacy">
-                        <mat-label>Sexo</mat-label>
-                        <mat-select [(ngModel)]="model.persona.sexo" name="sexo"  required>
-                          <mat-option  value="MASCULINO">Masculino</mat-option>
-                          <mat-option value="FEMENINO">Femenino</mat-option>
-                        </mat-select>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field class="col-sm-12" appearance="legacy">
-                        <mat-label>Nacionalidad</mat-label>
-                        <mat-select [compareWith]="compareObjects" [(ngModel)]="model.persona.nacionalidad" name="nacionalidad" placeholder="Nacionalidad"  required>
-                           <mat-form-field appearance="legacy">
-                               <input matInput #filterInputNationaliti placeholder="Buscar.....">
-                               <mat-icon matSuffix>search</mat-icon>
-                           </mat-form-field>
-                            <mat-option *ngFor="let nac of nationalities"  [value]="nac">{{nac.nombre}}</mat-option>
-                        </mat-select>
-                     </mat-form-field>
-                   </div>
-                   <div class="col-md-3">
-                     <mat-form-field   class="col-sm-12" appearance="legacy">
-                        <input matInput #input type="number" min="0"  placeholder="Expiración Sesion" [(ngModel)]="model.expirationTimeTokens" name="expirationTimeTokens" required>
-                        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                     </mat-form-field>
-                   </div>
-               </div>
-             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <mat-form-field   class="col-sm-12" appearance="legacy">
-                <input matInput #input  placeholder="Primer Nombre" [(ngModel)]="model.persona.primerNombre" name="primerNombre" required>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field   class="col-sm-12" appearance="legacy">
-                <input matInput #input  placeholder="Segundo Nombre" [(ngModel)]="model.persona.segundoNombre" name="segundoNombre">
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field   class="col-sm-12" appearance="legacy">
-                <input matInput #input  placeholder="Primer Apellido" [(ngModel)]="model.persona.primerApellido" name="primerApellido" required>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field   class="col-sm-12" appearance="legacy">
-                <input matInput #input  placeholder="Segundo Apellido" [(ngModel)]="model.persona.segundoApellido" name="segundoApellido">
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-               <input matInput #input [matDatepicker]="picker" [(ngModel)]="model.persona.fechaNacimiento" name="fechaNacimiento" placeholder="Fecha Nacimiento" required>
-               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-               <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-                 <mat-label>Estado Civil</mat-label>
-                 <mat-select [(ngModel)]="model.persona.estadoCivil" name="estadoCivil" required>
-                   <mat-option  value="SOLTERO">Soltero</mat-option>
-                   <mat-option value="CASADO">Casado</mat-option>
-                   <mat-option value="VIUDO">Viudo</mat-option>
-                 </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field   class="col-sm-12" appearance="legacy">
-               <input matInput #input  placeholder="Email" [(ngModel)]="model.persona.email" name="email" required>
-               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Telefono Particular" [(ngModel)]="model.persona.telefonoParticular" name="telefonoParticular" required>
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-4">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Telefono Secundario" [(ngModel)]="model.persona.telefonoSecundario" name="telefonoParticular">
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field   class="col-sm-12" appearance="legacy">
-                 <input matInput #input type="number" min="0"  placeholder="Numero Hijos" [(ngModel)]="model.persona.numeroHijos" name="numeroHijos">
-                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-                 <mat-label>Pais</mat-label>
-                 <mat-select [compareWith]="compareObjects" [(ngModel)]="model.persona.pais" (ngModelChange)="filterDepartmentsCountri()"  name="pais" placeholder="Pais"  required>
-                    <mat-form-field appearance="legacy">
-                        <input matInput #filterInputCountries placeholder="Buscar.....">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                     <mat-option *ngFor="let coun of countries"  [value]="coun">{{coun.nombre}}</mat-option>
-                 </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-                 <mat-label>Departamento</mat-label>
-                 <mat-select [compareWith]="compareObjects" [(ngModel)]="model.persona.departamento" (ngModelChange)="filterCities()"  name="departamento" placeholder="Departamento"  required>
-                    <mat-form-field appearance="legacy">
-                        <input matInput #filterInputDepartmentsCountri placeholder="Buscar.....">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                     <mat-option *ngFor="let depart of departmentsCountri"  [value]="depart">{{depart.nombre}}</mat-option>
-                 </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-                 <mat-label>Ciudad</mat-label>
-                 <mat-select [compareWith]="compareObjects" [(ngModel)]="model.persona.ciudad"  name="ciudad" placeholder="Ciudad"  required>
-                    <mat-form-field appearance="legacy">
-                        <input matInput #filterInputCities placeholder="Buscar.....">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                     <mat-option *ngFor="let citi of cities"  [value]="citi">{{citi.nombre}}</mat-option>
-                 </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-                 <mat-label>Barrio</mat-label>
-                 <mat-select [compareWith]="compareObjects" [(ngModel)]="model.persona.barrio"  name="barrio" placeholder="Barrio"  required>
-                    <mat-form-field appearance="legacy">
-                        <input matInput #filterInputCities placeholder="Buscar.....">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                     <mat-option *ngFor="let citi of cities"  [value]="citi">{{citi.nombre}}</mat-option>
-                 </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-6">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Direccion" [(ngModel)]="model.persona.direccionParticular" name="direccionParticular" required>
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-6">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Direccion Detallada" [(ngModel)]="model.persona.direccionDetallada" name="direccionDetallada">
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-                 <mat-label>Rol</mat-label>
-                 <mat-select [(ngModel)]="model.rol.id"  name="rol.id" placeholder="Rol"  required>
-                    <mat-form-field appearance="legacy">
-                        <input matInput #filterInputRole placeholder="Buscar.....">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                    <mat-option *ngFor="let rol of role"  [value]="rol.id">{{rol.nombre}}</mat-option>
-                 </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-                 <mat-label>Sucursal</mat-label>
-                 <mat-select [(ngModel)]="model.persona.sucursal" (ngModelChange)="filterDepartments()"  name="sucursal" placeholder="Sucursal" (change)="filterDepartments()" required>
-                    <mat-form-field appearance="legacy">
-                        <input matInput #filterInputSubsidiary placeholder="Buscar.....">
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                     <mat-option *ngFor="let suc of subsidiary" [value]="suc">{{suc.nombre}}</mat-option>
-                 </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field class="col-sm-12" appearance="legacy">
-                 <mat-label>Departamento</mat-label>
-                 <mat-select  [(ngModel)]="model.departamentos" name="departamentos" multiple required>
-                   <mat-option *ngFor="let dep of departments" [value]="dep">{{dep.nombreArea}}</mat-option>
-                 </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-12">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Observacion" [(ngModel)]="model.observacion" name="observacion">
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-          </div>
+          <app-people></app-people>
+        </div>
+        <div class="col-md-12">
+          <h4  class="m-0"><mat-icon class="gray-text">perm_data_setting</mat-icon>Datos Sistema</h4>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field   class="col-sm-12" appearance="legacy">
+            <input matInput #input  formControlName="alias" placeholder="Alias"  name="alias" required>
+            <mat-error *ngIf="(myForm.get('alias').errors)">
+              <span *ngIf="myForm.get('alias').errors.required">
+               Campo requerido
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field   class="col-sm-12" appearance="legacy">
+            <input matInput #input [type]="hide ? 'password' : 'text'" formControlName="claveAcceso" placeholder="Contraseña" name="claveAcceso" required>
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="(myForm.get('claveAcceso').errors)">
+              <span *ngIf="myForm.get('claveAcceso').errors.required">
+               Campo requerido
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field   class="col-sm-12" appearance="legacy">
+             <input matInput #input type="number" min="0"  placeholder="Expiración Sesion" formControlName="expirationTimeTokens" name="expirationTimeTokens" required>
+             <mat-error *ngIf="(myForm.get('expirationTimeTokens').errors)">
+               <span *ngIf="myForm.get('expirationTimeTokens').errors.required">
+                Campo requerido
+               </span>
+             </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+             <app-select-filter (value)="getValue($event, myForm.get('rol'))" [modelValue]="myForm.get('rol').value"
+              placeholder="Rol" urlFilter="roles" [columnsFilter]="['nombre']"></app-select-filter>
+        </div>
+        <div class="col-md-3">
+             <app-select-filter (value)="getValue($event, myForm.get('sucursal'))" [modelValue]="myForm.get('sucursal').value"
+              placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="col-sm-12" appearance="legacy">
+             <mat-label>Departamento</mat-label>
+             <mat-select [compareWith]="compareObjects" formControlName="departamentos" name="departamentos" multiple required>
+               <mat-option *ngFor="let dep of departments" [value]="dep">{{dep.nombreArea}}</mat-option>
+             </mat-select>
+          </mat-form-field>
         </div>
       </div>
       <mat-card-actions>

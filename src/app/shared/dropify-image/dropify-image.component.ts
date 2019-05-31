@@ -62,7 +62,7 @@ export class DropifyImageComponent implements OnInit {
 
   @Input()
   set pathImage(pathImage: any) {
-    if(pathImage != null){
+    if(pathImage){
       let drEvent = (<any>$('.dropify') ).data('dropify');
       drEvent.resetPreview();
       drEvent.clearElement();
@@ -76,9 +76,8 @@ export class DropifyImageComponent implements OnInit {
   onFileDelete(event) {
     if(event === 'button'){
       this.avatar = new Avatar;
-      console.log(event);
       this.valueAvatar.emit(this.avatar);
-    }    
+    }
   }
 
   onFileChange(event) {
