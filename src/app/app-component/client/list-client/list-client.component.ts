@@ -6,11 +6,11 @@ import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-list-people',
-  templateUrl: './list-people.component.html',
-  styleUrls: ['./list-people.component.scss']
+  selector: 'app-list-client',
+  templateUrl: './list-client.component.html',
+  styleUrls: ['./list-client.component.scss']
 })
-export class ListPeopleComponent implements AfterViewInit {
+export class ListClientComponent implements AfterViewInit {
     public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
     displayedColumns = ['documento', 'primerNombre', 'segundoNombre', 'primerApellido' , 'email', 'idUsuario', 'opciones'];
 

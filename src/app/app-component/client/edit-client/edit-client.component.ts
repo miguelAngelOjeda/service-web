@@ -12,11 +12,11 @@ import * as $ from 'jquery';
 import 'dropify';
 
 @Component({
-  selector: 'app-edit-people',
-  templateUrl: './edit-people.component.html',
-  styleUrls: ['./edit-people.component.scss']
+  selector: 'app-edit-client',
+  templateUrl: './edit-client.component.html',
+  styleUrls: ['./edit-client.component.scss']
 })
-export class EditPeopleComponent implements OnInit, AfterViewInit, OnDestroy  {
+export class EditClientComponent implements OnInit, AfterViewInit, OnDestroy  {
   private model = new Users();
   hide = true;
   //Filter

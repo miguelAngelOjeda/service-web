@@ -5,11 +5,11 @@ import { ApiService } from '../../../core/services';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-view-people',
-  templateUrl: './view-people.component.html',
-  styleUrls: ['./view-people.component.css']
+  selector: 'app-view-client',
+  templateUrl: './view-client.component.html',
+  styleUrls: ['./view-client.component.css']
 })
-export class ViewPeopleComponent implements OnInit {
+export class ViewClientComponent implements OnInit {
   private model = new Users;
   urlImage = environment.api_url;
 

@@ -1,26 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from '../../core/services';
-import { AddPeopleComponent , EditPeopleComponent, ListPeopleComponent,
-ViewPeopleComponent } from '../people';
+import { AddClientComponent , EditClientComponent, ListClientComponent,
+ViewClientComponent } from '../client';
 
 
 const routes: Routes = [
   { path: '',
     children: [
-    { path: '', component: ListPeopleComponent,
+    { path: '', component: ListClientComponent,
       canActivate: [UserService],
       data: {roles: ['people', 'listPeople']}
     },
-    { path: 'new', component: AddPeopleComponent,
+    { path: 'new', component: AddClientComponent,
       canActivate: [UserService],
       data: {roles: ['people', 'addPeople']}
     },
-    { path: ':id', component: ViewPeopleComponent,
+    { path: ':id', component: ViewClientComponent,
       canActivate: [UserService],
       data: {roles: ['people', 'viewPeople']}
     },
-    { path: ':id/edit', component: EditPeopleComponent,
+    { path: ':id/edit', component: EditClientComponent,
       data: {
         allowedRoles: ['people', 'editPeople']
       }
@@ -33,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PeopleRoutingModule {}
+export class ClientRoutingModule {}

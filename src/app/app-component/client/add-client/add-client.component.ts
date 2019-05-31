@@ -12,11 +12,11 @@ import 'dropify';
 
 
 @Component({
-  selector: 'app-add-people',
-  templateUrl: './add-people.component.html',
-  styleUrls: ['./add-people.component.scss']
+  selector: 'app-add-client',
+  templateUrl: './add-client.component.html',
+  styleUrls: ['./add-client.component.scss']
 })
-export class AddPeopleComponent implements OnInit {
+export class AddClientComponent implements OnInit {
     myForm: FormGroup;
     validateForm = true;
     private model = new People();
@@ -59,36 +59,7 @@ export class AddPeopleComponent implements OnInit {
     protected initFormBuilder() {
       this.myForm = this.formBuilder.group({
         id: null ,
-        avatar: null ,
-        primerNombre: [null, [Validators.required]],
-        segundoNombre: '',
-        primerApellido: [null, [Validators.required]],
-        segundoApellido: '',
-        documento: [null, [Validators.required]],
-        ruc: '',
-        fechaNacimiento: [null, [Validators.required]],
-        tipoPersona: [null, [Validators.required]],
-        sexo: [null, [Validators.required]],
-        numeroHijos: '',
-        numeroDependientes: '',
-        estadoCivil: [null, [Validators.required]],
-        separacionBienes: '',
-        email: [null, [Validators.required]],
-        telefonoParticular: [null, [Validators.required]],
-        telefonoSecundario: null,
-        direccionParticular: [null, [Validators.required]],
-        direccionDetallada: '',
-        observacion: '',
-        latitud: '',
-        longitud: '',
-        sucursal: '',
-        activo: 'S',
-        nacionalidad: [null, [Validators.required]],
-        pais: [null, [Validators.required]],
-        departamento: [null, [Validators.required]],
-        ciudad: [null, [Validators.required]],
-        barrio: '',
-        conyuge: ""
+        activo: 'S'
       });
     }
 

@@ -1,10 +1,10 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AddPeopleComponent , EditPeopleComponent, ListPeopleComponent,
-ViewPeopleComponent } from '../people';
+import { AddClientComponent , EditClientComponent, ListClientComponent,
+ViewClientComponent } from '../client';
 import { SharedModule} from '../../shared';
 import { MaterialModule } from '../../core/material/material.module';
-import { PeopleRoutingModule } from './people-routing.module';
+import { ClientRoutingModule } from './client-routing.module';
 import { environment } from '../../../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule} from '@angular/flex-layout';
@@ -17,12 +17,12 @@ import { DeleteDialogComponent } from '../../shared/dialog';
 import { DropifyImageComponent } from '../../shared/dropify-image';
 import { SelectFilterComponent } from '../../shared/select-filter';
 import { ReferenceComponent, EstateComponent,
-   VehicleComponent, IngressComponent, EgressComponent } from '../core';
+   VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../core';
 import { CoreAppModule } from '../core';
 
 @NgModule({
   imports: [
-    PeopleRoutingModule,
+    ClientRoutingModule,
     MaterialModule,
     SharedModule,
     FlexLayoutModule,
@@ -43,17 +43,18 @@ import { CoreAppModule } from '../core';
     VehicleComponent,
     IngressComponent,
     EgressComponent,
+    PeopleComponent,
     DropifyImageComponent,
     SelectFilterComponent
   ],
   declarations: [
-    AddPeopleComponent,
-    EditPeopleComponent,
-    ListPeopleComponent,
-    ViewPeopleComponent
+    AddClientComponent,
+    EditClientComponent,
+    ListClientComponent,
+    ViewClientComponent
     //ShowAuthedDirective
   ],
   providers: [
   ]
 })
-export class PeopleModule {}
+export class ClientModule {}

@@ -26,7 +26,7 @@ const MENUITEMS = [
       {state: 'creditos', name: 'Solicitudes Creditos', icon: 'border_horizontal', entity:'creditos', role:'listPaymentsTypes'},
       {state: 'tarjetas', name: 'Solicitudes Tarjetas', icon: 'border_horizontal', entity:'tarjetas',  role:'listReferenceTypes'},
       {state: 'analisis', name: 'Analisis Solicitudes', icon: 'border_horizontal', entity:'reference-types',  role:'listReferenceTypes'},
-      { state: 'people', type: 'link', name: 'Personas', icon: 'group', entity:'people', role:'listPeople' }
+      { state: 'client', type: 'link', name: 'Clientes', icon: 'group', entity:'people', role:'listPeople' }
     ]
   },
   {

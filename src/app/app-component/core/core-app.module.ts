@@ -14,6 +14,7 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { IngressComponent } from './ingress';
 import { EgressComponent } from './egress';
+import { PeopleComponent } from './people';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { EgressComponent } from './egress';
     EstateComponent,
     VehicleComponent,
     IngressComponent,
+    PeopleComponent,
     EgressComponent
   ],
   exports: [
@@ -38,6 +40,7 @@ import { EgressComponent } from './egress';
     VehicleComponent,
     ReferenceComponent,
     IngressComponent,
+    PeopleComponent,
     EgressComponent
   ]
 })

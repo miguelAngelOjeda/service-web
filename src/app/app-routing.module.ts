@@ -26,8 +26,8 @@ const appRoutes: Routes = [
         loadChildren: './app-component/users/users.module#UsersModule'
         },
         {
-        path: 'service-web/people',
-        loadChildren: './app-component/people/people.module#PeopleModule'
+        path: 'service-web/client',
+        loadChildren: './app-component/client/client.module#ClientModule'
         },
         {
         path: 'service-web/role',

@@ -14,7 +14,7 @@
           Personas
         </div>
         <div class="col-md-6">
-          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/people/new">
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/client/new">
             Agregar
           </a>
         </div>
@@ -81,8 +81,8 @@
           <ng-container matColumnDef="opciones">
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <button mat-icon-button routerLink="/service-web/people/{{element.id}}" *appCanAccess="['people', 'viewPeople']"><mat-icon>visibility</mat-icon></button>
-                  <button mat-icon-button routerLink="/service-web/people/{{element.id}}/edit" *appCanAccess="['people', 'editPeople']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/client/{{element.id}}" *appCanAccess="['people', 'viewPeople']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/client/{{element.id}}/edit" *appCanAccess="['people', 'editPeople']"> <mat-icon>edit</mat-icon></button>
                   <button mat-icon-button (click)="delete(element)"> <mat-icon>delete</mat-icon></button>
                 </mat-cell>
             </ng-container>
