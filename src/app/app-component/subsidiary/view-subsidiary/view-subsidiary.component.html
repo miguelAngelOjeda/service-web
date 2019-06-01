@@ -17,20 +17,32 @@
             (dragEnd)="markerDragEnd($event)"></agm-marker>
           </agm-map>
           <div class="row">
-            <div class="col-md-6" *ngIf="model.descripcion">
-              <p><mat-icon class="gray-text">store</mat-icon>{{model.descripcion}}</p>
+            <div class="col-md-6" *ngIf="model.pais">
+              <p><mat-icon class="gray-text">public</mat-icon>{{model.pais.nombre}}</p>
             </div>
             <div class="col-md-6" *ngIf="model.direccion">
               <p><mat-icon class="gray-text">directions</mat-icon>{{model.direccion}}</p>
             </div>
+            <div class="col-md-6" *ngIf="model.departamento">
+              <p><mat-icon class="gray-text">location_on</mat-icon>{{model.departamento.nombre}}</p>
+            </div>
             <div class="col-md-6" *ngIf="model.telefono">
               <p><mat-icon class="gray-text">phone</mat-icon>{{model.telefono}}</p>
             </div>
-            <div class="col-md-6" *ngIf="model.telefonoMovil">
-              <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.telefonoMovil}}</p>
+            <div class="col-md-6" *ngIf="model.ciudad">
+              <p><mat-icon class="gray-text">person_pin_circle</mat-icon>{{model.ciudad.nombre}}</p>
             </div>
             <div class="col-md-6" *ngIf="model.email">
               <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.email}}</p>
+            </div>
+            <div class="col-md-6" *ngIf="model.barrio">
+              <p><mat-icon class="gray-text">location_on</mat-icon>{{model.barrio.nombre}}</p>
+            </div>
+            <div class="col-md-6" *ngIf="model.descripcion">
+              <p><mat-icon class="gray-text">store</mat-icon>{{model.descripcion}}</p>
+            </div>
+            <div class="col-md-6" *ngIf="model.telefonoMovil">
+              <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.telefonoMovil}}</p>
             </div>
             <div class="col-md-6" *ngIf="model.fax">
               <p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{model.fax}}</p>

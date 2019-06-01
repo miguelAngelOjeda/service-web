@@ -20,6 +20,8 @@ import { ControlMessagesComponent } from '../../shared/control-messages.componen
 import { ValidationService } from '../../core/services';
 import { MapComponent } from '../../shared/map';
 import { DropifyImageComponent } from '../../shared/dropify-image';
+import { DepartmentComponent } from '../core';
+import { CoreAppModule } from '../core';
 
 @NgModule({
   imports: [
@@ -27,6 +29,7 @@ import { DropifyImageComponent } from '../../shared/dropify-image';
     MaterialModule,
     FlexLayoutModule,
     SharedModule,
+    CoreAppModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
@@ -40,6 +43,7 @@ import { DropifyImageComponent } from '../../shared/dropify-image';
     EditDialogoSubsidiaryComponent,
     MapComponent,
     DropifyImageComponent,
+    DepartmentComponent,
     DeleteDialogComponent
   ],
   entryComponents: [

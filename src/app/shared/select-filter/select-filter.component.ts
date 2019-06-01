@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, Input, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, ElementRef, AfterViewInit  } from '@angular/core';
 import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
+import {catchError, map, startWith, switchMap, filter, take, takeUntil, delay} from 'rxjs/operators';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { ApiService, FormsService} from '../../core/services';
 import { Rules, Filter } from '../../core/models';
@@ -19,7 +19,7 @@ export function RequireMatch(control: AbstractControl) {
   templateUrl: './select-filter.component.html',
   styleUrls: ['./select-filter.component.scss']
 })
-export class SelectFilterComponent implements OnInit {
+export class SelectFilterComponent implements AfterViewInit, OnInit {
   modelControl = new FormControl('', [Validators.required, RequireMatch]);
   @Output() value = new EventEmitter<any>();
   protected models: Array<any> = [];
@@ -67,7 +67,11 @@ export class SelectFilterComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.filter();
+
+  }
+
+  ngAfterViewInit() {
+      this.filter();
   }
 
   onChanges(): void {
@@ -77,32 +81,36 @@ export class SelectFilterComponent implements OnInit {
   }
 
   protected filter() {
-    merge(fromEvent(this.filterInputModel.nativeElement, 'keyup'))
-        .pipe(
-          startWith({}),
-          switchMap(() => {
-            if(this.modelControl.status !== 'DISABLED'){
-              this.isfilter = false;
-              if(this.filterInputModel.nativeElement.value.length  > 0){
-                this.isfilter = true;
+    setTimeout(() => {
+      merge(fromEvent(this.filterInputModel.nativeElement, 'keyup'))
+          .pipe(
+            startWith({}),
+            //delay(0),
+            switchMap(() => {
+              if(this.modelControl.status !== 'DISABLED'){
+                this.isfilter = false;
+                if(this.filterInputModel.nativeElement.value.length  > 0){
+                  this.isfilter = true;
+                }
+                return this.apiService.getPageList('/' + this.urlFilter,this.isfilter,this.filterInputModel.nativeElement.value,
+                 this.columnsFilter, 'desc', 'nombre',0,50, false,this.idModel);
+              }else{
+                return null;
               }
-              return this.apiService.getPageList('/' + this.urlFilter,this.isfilter,this.filterInputModel.nativeElement.value,
-               this.columnsFilter, 'desc', 'nombre',0,50, false,this.idModel);
-            }else{
-              return null;
-            }
-          }),
-          map(data => {
-            if(data && data.status == 200){
-              return data.rows as any [];
-            }else{
-              return [];
-            }
-          }),
-          catchError(() => {
-            return observableOf([]);
-          })
-        ).subscribe(data => this.models = data);
+            }),
+            map(data => {
+              if(data && data.status == 200){
+                return data.rows as any [];
+              }else{
+                return [];
+              }
+            }),
+            catchError(() => {
+              return observableOf([]);
+            })
+          ).subscribe(data => this.models = data);
+    });
+
   }
 
   displayFn(data?: any): string | undefined {

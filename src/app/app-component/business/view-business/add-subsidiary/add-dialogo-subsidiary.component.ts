@@ -12,10 +12,8 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
   styleUrls: ['./add-dialogo-subsidiary.component.css']
 })
 export class AddDialogoSubsidiaryComponent implements OnInit{
-  formControl = new FormControl('', [Validators.required]);
   subsidiaryForm: FormGroup;
   model: Subsidiary;
-  area: Departments;
 
   constructor(
             private route: ActivatedRoute,
@@ -27,29 +25,12 @@ export class AddDialogoSubsidiaryComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.subsidiaryForm = this.formBuilder.group({
-      id: [''],
-      codigoSucursal: [{value: null, disabled: true}],
-      descripcion: [''],
-      telefonoMovil: [''],
-      fax: [''],
-      observacion: [''],
-      activo: [''],
-      latitud: [''],
-      longitud: [''],
-      empresa: [''],
-      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      direccion: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      departamentos: this.formBuilder.array([this.addSkillFormGroup()])
-    });
-    this.onsetValue(this.model);
+    this.initFormBuilder();
+    this.subsidiaryForm.controls['empresa'].setValue(this.model.empresa);
   }
 
   onSubmit() {
-    this.model = this.subsidiaryForm.value;
-    this.apiService.post('/empresas/'+ this.model.empresa.id +'/sucursales', this.model)
+    this.apiService.post('/empresas/'+ this.model.empresa.id +'/sucursales', this.subsidiaryForm.value)
     .subscribe(res => {
         if(res.status === 200){
           this.model = res.model as Subsidiary;
@@ -58,41 +39,28 @@ export class AddDialogoSubsidiaryComponent implements OnInit{
     });
   }
 
-  private addSkillFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      id: [''],
-      alias: ['', Validators.required],
-      nombreArea : ['', Validators.required],
-      descripcionArea: [''],
-      activo: ['']
+  initFormBuilder() {
+    this.subsidiaryForm = this.formBuilder.group({
+      id: null,
+      codigoSucursal: [{value: null, disabled: true}],
+      descripcion: null,
+      telefonoMovil: null,
+      fax: null,
+      observacion: null,
+      activo: null,
+      latitud: null,
+      longitud: null,
+      empresa: [{value: {'nombre':' ', 'ruc':' ', 'direccion':' '}, disabled: false}],
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      direccion: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      pais: [null, [Validators.required]],
+      departamento: [null, [Validators.required]],
+      ciudad: [null, [Validators.required]],
+      barrio: null
     });
   }
-
-  addSkillButtonClick(): void {
-    (<FormArray>this.subsidiaryForm.get('departamentos')).push(this.addSkillFormGroup());
-  }
-
-  onsetValue(model : Subsidiary): void {
-    if(model.departamentos.length == 0){
-      model.departamentos.push({
-        id: null,
-        alias: '',
-        nombreArea : '',
-        descripcionArea: '',
-        activo: ''
-      });
-    }
-    this.subsidiaryForm.setValue(model);
-  }
-
-  get departments(): FormArray {
-    return (<FormArray>this.subsidiaryForm.get('departamentos'));
-  }
-
-  delete(data: Departments){
-      (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(image => image === data))
-  }
-
 
   // Get Current Location Coordinates
   getAddress(location: Location): void {
@@ -101,10 +69,8 @@ export class AddDialogoSubsidiaryComponent implements OnInit{
     this.subsidiaryForm.controls['direccion'].setValue(location.address);
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
   }
 
 }

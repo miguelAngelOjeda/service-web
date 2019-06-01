@@ -104,20 +104,32 @@
 											(dragEnd)="markerDragEnd($event)"></agm-marker>
 										</agm-map>
 										<div class="row">
-											<div class="col-md-6" *ngIf="subsidiary.descripcion">
-												<p><mat-icon class="gray-text">store</mat-icon>{{subsidiary.descripcion}}</p>
+											<div class="col-md-6" *ngIf="subsidiary.pais">
+												<p><mat-icon class="gray-text">public</mat-icon>{{subsidiary.pais.nombre}}</p>
 											</div>
 											<div class="col-md-6" *ngIf="subsidiary.direccion">
 												<p><mat-icon class="gray-text">directions</mat-icon>{{subsidiary.direccion}}</p>
 											</div>
+											<div class="col-md-6" *ngIf="subsidiary.departamento">
+												<p><mat-icon class="gray-text">location_on</mat-icon>{{subsidiary.departamento.nombre}}</p>
+											</div>
 											<div class="col-md-6" *ngIf="subsidiary.telefono">
 												<p><mat-icon class="gray-text">phone</mat-icon>{{subsidiary.telefono}}</p>
 											</div>
-											<div class="col-md-6" *ngIf="subsidiary.telefonoMovil">
-												<p><mat-icon class="gray-text">phone_android</mat-icon>{{subsidiary.telefonoMovil}}</p>
+											<div class="col-md-6" *ngIf="subsidiary.ciudad">
+												<p><mat-icon class="gray-text">person_pin_circle</mat-icon>{{subsidiary.ciudad.nombre}}</p>
 											</div>
 											<div class="col-md-6" *ngIf="subsidiary.email">
 												<p><mat-icon class="gray-text">alternate_email</mat-icon>{{subsidiary.email}}</p>
+											</div>
+											<div class="col-md-6" *ngIf="subsidiary.barrio">
+												<p><mat-icon class="gray-text">location_on</mat-icon>{{subsidiary.barrio.nombre}}</p>
+											</div>
+											<div class="col-md-6" *ngIf="subsidiary.descripcion">
+												<p><mat-icon class="gray-text">store</mat-icon>{{subsidiary.descripcion}}</p>
+											</div>
+											<div class="col-md-6" *ngIf="subsidiary.telefonoMovil">
+												<p><mat-icon class="gray-text">phone_android</mat-icon>{{subsidiary.telefonoMovil}}</p>
 											</div>
 											<div class="col-md-6" *ngIf="subsidiary.fax">
 												<p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{subsidiary.fax}}</p>

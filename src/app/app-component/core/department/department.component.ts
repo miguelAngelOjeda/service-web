@@ -31,16 +31,6 @@ export class DepartmentComponent implements OnInit {
   ngOnInit() {
     this.departmentForm = this.parentF.form;
     this.departmentForm.addControl('departamentos', this.formBuilder.array([]));
-    this.departmentForm.get('departamentos').valueChanges.subscribe(
-      uname => {
-        uname.forEach(childObj=> {
-            console.log(childObj);
-         });
-
-
-      }
-    );
-
     this.addButton();
   }
 

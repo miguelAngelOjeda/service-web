@@ -32,25 +32,28 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.subsidiaryForm = this.formBuilder.group({
-      id: [''],
-      codigoSucursal: [{value: null, disabled: true}],
-      descripcion: [''],
-      telefonoMovil: [''],
-      fax: [''],
-      observacion: [''],
-      activo: [''],
-      latitud: null,
-      longitud: null,
-      empresa: [''],
-      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      direccion: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      telefono: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      departamentos: this.formBuilder.array([this.addSkillFormGroup()])
-    });
-    this.addSkillDinamicClick();
-    this.onsetValueClick(this.model);
+    this.initFormBuilder();
+    setTimeout(() => {
+      this.apiService.get('/sucursales/' + this.model.id)
+      .subscribe(res => {
+        if(res.status == 200){
+          const departments = this.subsidiaryForm.get('departamentos') as FormArray;
+
+          if(res.model.departamentos.length == 0){
+            this.subsidiaryForm.patchValue(res.model);
+          }else{
+            // empty form array
+            while (departments.length) {
+              departments.removeAt(0);
+            }
+            // use patchValue instead of setValue
+            this.subsidiaryForm.patchValue(res.model);
+            // add form array values in a loop
+            res.model.departamentos.forEach(staff => departments.push(this.formBuilder.group(staff)));
+          }
+        }
+      });
+    });    
   }
 
   onSubmit() {
@@ -63,67 +66,27 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
     });
   }
 
-  get departments(): FormArray {
-    return (<FormArray>this.subsidiaryForm.get('departamentos'));
-  }
-
-  delete(data: Departments){
-    if(data.id){
-
-      const message = new Message;
-      message.titulo = "Eliminar Registro"
-      message.texto = "Esta seguro que desea eliminar el registro " + data.nombreArea;
-
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = message;
-
-      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          this.apiService.delete('/departamentos_sucursal/' + data.id)
-          .subscribe(res => {
-              if(res.status == 200){
-                (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(image => image.id === data.id))
-              }
-          });
-        }
-      })
-    }else{
-      (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(image => image === data))
-    }
-  }
-
-  addSkillDinamicClick(): void {
-    for (let i = 0; i < this.model.departamentos.length - 1; i++) {
-      this.addSkillButtonClick();
-    }
-  }
-
-  addSkillButtonClick(): void {
-    (<FormArray>this.subsidiaryForm.get('departamentos')).push(this.addSkillFormGroup());
-  }
-
-  addSkillFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      id: [''],
-      alias: ['', Validators.required],
-      nombreArea : ['', Validators.required],
-      descripcionArea: [''],
-      activo: ['']
+  initFormBuilder() {
+    this.subsidiaryForm = this.formBuilder.group({
+      id: [null],
+      codigoSucursal: [{value: null, disabled: true}],
+      descripcion: [null],
+      telefonoMovil: [null],
+      fax: [null],
+      observacion: [null],
+      activo: [null],
+      latitud: [null],
+      longitud: [null],
+      empresa: [null],
+      nombre: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      direccion: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      telefono: [null, [Validators.required]],
+      email: [null, [Validators.required]],
+      pais: [null, [Validators.required]],
+      departamento: [null, [Validators.required]],
+      ciudad: [null, [Validators.required]],
+      barrio: null
     });
-  }
-
-  onsetValueClick(model : Subsidiary): void {
-    if(model.departamentos.length == 0){
-      model.departamentos.push({
-        id: null,
-        alias: '',
-        nombreArea : '',
-        descripcionArea: '',
-        activo: ''
-      });
-    }
-    this.subsidiaryForm.setValue(model);
   }
 
   // Get Current Location Coordinates
@@ -133,10 +96,8 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
     this.subsidiaryForm.controls['direccion'].setValue(location.address);
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
   }
 
 }
