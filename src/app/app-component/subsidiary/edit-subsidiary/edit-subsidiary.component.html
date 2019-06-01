@@ -5,7 +5,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="col-md-12">
-				         <h4  class="m-0"><mat-icon class="gray-text">store_mall_directory</mat-icon>Datos Sucursal</h4>
+				         <h4  class="m-0"><mat-icon class="gray-text">business</mat-icon>Datos Sucursal</h4>
 								 <br>
 							</div>
 							<div class="row">
@@ -140,41 +140,8 @@
                     </mat-error>
 									</mat-form-field>
 								</div>
-								<div class="col-md-12"   style="background-color: #e9f3fc">
-					            <div class="form-group">
-					                <div class="col-md-offset-2 col-md-4">
-					                  <button type="button" class="btn btn-primary" (click)="addButtonClick()">
-					                      Agregar Departamentos
-					                  </button>
-					                </div>
-					              </div>
-					        <div formArrayName="departamentos"  *ngFor="let departamentos of subsidiaryForm.get('departamentos').controls; let i = index" class="form-group">
-					               <div [formGroupName]="i">
-        					           <div class="form-group" class="row cols-md-12">
-        					              <div class="col-sm-3">
-        													<mat-form-field   class="col-sm-12" appearance="legacy">
-        														<input matInput #input  placeholder="Alias"  formControlName="alias" name="alias" required>
-
-        													</mat-form-field>
-        					              </div>
-        					              <div class="col-sm-4">
-        													<mat-form-field   class="col-sm-12" appearance="legacy">
-        														<input matInput #input  placeholder="Nombre"  formControlName="nombreArea" name="nombreArea" required>
-
-        													</mat-form-field>
-        					              </div>
-        												<div class="col-md-4">
-        													<mat-form-field   class="col-sm-12" appearance="legacy">
-        														<input matInput #input  placeholder="Descripcion"  name="descripcionArea">
-
-        													</mat-form-field>
-        												</div>
-        												<div class="col-md-1">
-        													<a mat-icon-button (click)="delete(departamentos.value)"> <mat-icon>delete</mat-icon></a>
-        												</div>
-        					           </div>
-					              </div>
-					        </div>
+								<div class="col-md-12">
+									<app-department></app-department>
 					      </div>
 							</div>
 						</div>

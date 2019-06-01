@@ -2,17 +2,17 @@ import { Component, OnInit, EventEmitter, Output, Input, ElementRef } from '@ang
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlContainer, FormGroupDirective} from '@angular/forms';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { DeleteDialogComponent } from '../../../shared';
-import { Reference, Message } from '../../../core/models';
+import { Estate, Message } from '../../../core/models';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 
 @Component({
-  selector: 'app-reference',
-  templateUrl: './reference.component.html',
-  styleUrls: ['./reference.component.scss'],
+  selector: 'app-department',
+  templateUrl: './department.component.html',
+  styleUrls: ['./department.component.scss'],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
-export class ReferenceComponent implements OnInit {
-  referenceForm: FormGroup;
+export class DepartmentComponent implements OnInit {
+  departmentForm: FormGroup;
   @Input() urlFilter;
   @Input()
   set fkFilterModel(model: any) {
@@ -29,28 +29,37 @@ export class ReferenceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.referenceForm = this.parentF.form;
-    this.referenceForm.addControl('referencias', this.formBuilder.array([]));
+    this.departmentForm = this.parentF.form;
+    this.departmentForm.addControl('departamentos', this.formBuilder.array([]));
+    this.departmentForm.get('departamentos').valueChanges.subscribe(
+      uname => {
+        uname.forEach(childObj=> {
+            console.log(childObj);
+         });
+
+
+      }
+    );
+
     this.addButton();
   }
 
-  //Referencias
+  //bienes Vehiculo
   addFormGroup(): FormGroup {
     return this.formBuilder.group({
-      id: [''],
-      nombreContacto: ['', Validators.required],
-      telefonoCelular : ['', Validators.required],
-      telefono: [''],
-      tipoReferencia : ['', Validators.required],
+      id: null,
+      alias: ['', Validators.required],
+      nombreArea : ['', Validators.required],
+      descripcionArea: null,
       activo: ['S']
     });
   }
 
   addButton(): void {
-    (<FormArray>this.referenceForm.get('referencias')).push(this.addFormGroup());
+    (<FormArray>this.departmentForm.get('departamentos')).push(this.addFormGroup());
   }
 
-  delete(data: Reference){
+  delete(data: any){
     if(data.id){
 
       const message = new Message;
@@ -63,21 +72,17 @@ export class ReferenceComponent implements OnInit {
       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
-          this.apiService.delete('/referencias/' + data.id)
+          this.apiService.delete('/departamentos_sucursal/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.referenceForm.get('referencias')).removeAt((<FormArray>this.referenceForm.get('referencias')).value.findIndex(dep => dep === data))
+                (<FormArray>this.departmentForm.get('departamentos')).removeAt((<FormArray>this.departmentForm.get('departamentos')).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.referenceForm.get('referencias')).removeAt((<FormArray>this.referenceForm.get('referencias')).value.findIndex(dep => dep === data))
+      (<FormArray>this.departmentForm.get('departamentos')).removeAt((<FormArray>this.departmentForm.get('departamentos')).value.findIndex(dep => dep === data))
     }
-  }
-
-  getValue(data: any, form : FormControl): void {
-    form.setValue(data);
   }
 
 }

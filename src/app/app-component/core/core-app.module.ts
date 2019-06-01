@@ -15,6 +15,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { IngressComponent } from './ingress';
 import { EgressComponent } from './egress';
 import { PeopleComponent } from './people';
+import { DepartmentComponent } from './department';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { PeopleComponent } from './people';
     VehicleComponent,
     IngressComponent,
     PeopleComponent,
+    DepartmentComponent,
     EgressComponent
   ],
   exports: [
@@ -41,6 +43,7 @@ import { PeopleComponent } from './people';
     ReferenceComponent,
     IngressComponent,
     PeopleComponent,
+    DepartmentComponent,
     EgressComponent
   ]
 })

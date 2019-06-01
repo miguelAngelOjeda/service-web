@@ -14,11 +14,14 @@ import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from '../../shared/map';
 import { SharedModule} from '../../shared';
 import { DeleteDialogComponent } from '../../shared/dialog';
+import { CoreAppModule } from '../core';
+import { DepartmentComponent } from '../core';
 
 @NgModule({
   imports: [
     SubsidiaryRoutingModule,
     MaterialModule,
+    CoreAppModule,
     FlexLayoutModule,
     SharedModule,
     EcoFabSpeedDialModule,
@@ -31,6 +34,7 @@ import { DeleteDialogComponent } from '../../shared/dialog';
   ],
   exports: [
     MapComponent,
+    DepartmentComponent,
     DeleteDialogComponent
   ],
   declarations: [

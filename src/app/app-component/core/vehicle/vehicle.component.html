@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12">
         <h4  class="m-0"><mat-icon class="gray-text">local_taxi</mat-icon>Vehiculos
-          <a mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>add_circle_outline</mat-icon></a>
+          <a mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
         </h4>
     </div>
     <div formArrayName="bienesVehiculo"  *ngFor="let bienesVehiculo of vehicleForm.get('bienesVehiculo').controls; let i = index" class="col-md-12">
@@ -51,7 +51,7 @@
              </div>
              <div class="col-md-1">
                <section class="example-section">
-                    <a mat-icon-button  color="warn" (click)="delete(bienesVehiculo.value)"> <mat-icon>delete</mat-icon></a>
+                    <a mat-icon-button  color="warn" (click)="delete(bienesVehiculo.value)"> <mat-icon>delete_forever</mat-icon></a>
                </section>
              </div>
           </div>

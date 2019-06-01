@@ -69,7 +69,6 @@ export class PeopleComponent implements OnInit {
       barrio: null,
       conyuge: null
     }));
-    console.log(this.peopleForm.get('persona'));
   }
 
   //Egresos

@@ -65,7 +65,7 @@ export class VehicleComponent implements OnInit {
       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
-          this.apiService.delete('/' + this.urlFilter +'/' + data.id)
+          this.apiService.delete('/bienes/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
                 (<FormArray>this.vehicleForm.get('bienesVehiculo')).removeAt((<FormArray>this.vehicleForm.get('bienesVehiculo')).value.findIndex(dep => dep === data))

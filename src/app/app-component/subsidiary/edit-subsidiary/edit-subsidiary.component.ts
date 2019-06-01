@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subsidiary, Departments, Message  } from '../../../core/models';
+import { Subsidiary, Departments, Message, Location } from '../../../core/models';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services';
 import { DeleteDialogComponent } from '../../../shared';
@@ -31,11 +31,23 @@ export class EditSubsidiaryComponent implements OnInit {
     this.initFormBuilder();
     this.apiService.get('/sucursales/' + this.route.snapshot.params.id)
     .subscribe(res => {
-       this.model = res.model as Subsidiary;
-       this.addDinamicClick();
-       this.onsetValueClick(this.model);
+      if(res.status == 200){
+        const departments = this.subsidiaryForm.get('departamentos') as FormArray;
+
+        if(res.model.departamentos.length == 0){
+          this.subsidiaryForm.patchValue(res.model);
+        }else{
+          // empty form array
+          while (departments.length) {
+            departments.removeAt(0);
+          }
+          // use patchValue instead of setValue
+          this.subsidiaryForm.patchValue(res.model);
+          // add form array values in a loop
+          res.model.departamentos.forEach(staff => departments.push(this.formBuilder.group(staff)));
+        }
+      }
     });
-    this.setCurrentLocation();
   }
 
   onSubmit() {
@@ -48,35 +60,7 @@ export class EditSubsidiaryComponent implements OnInit {
     });
   }
 
-  delete(data: Departments){
-    if(data.id){
 
-      const message = new Message;
-      message.titulo = "Eliminar Registro"
-      message.texto = "Esta seguro que desea eliminar el registro " + data.nombreArea;
-
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = message;
-
-      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          this.apiService.delete('/departamentos_sucursal/' + data.id)
-          .subscribe(res => {
-              if(res.status == 200){
-                (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(image => image.id === data.id))
-              }
-          });
-        }
-      })
-    }else{
-      (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(image => image === data))
-    }
-  }
-
-  get departments(): FormArray {
-    return (<FormArray>this.subsidiaryForm.get('departamentos'));
-  }
 
   initFormBuilder() {
     this.subsidiaryForm = this.formBuilder.group({
@@ -97,30 +81,10 @@ export class EditSubsidiaryComponent implements OnInit {
       pais: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       ciudad: [null, [Validators.required]],
-      barrio: null,
-      departamentos: this.formBuilder.array([this.addFormGroup()])
+      barrio: null
     });
   }
 
-  addFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      id: [''],
-      alias: ['', Validators.required],
-      nombreArea : ['', Validators.required],
-      descripcionArea: [''],
-      activo: ['']
-    });
-  }
-
-  addDinamicClick(): void {
-    for (let i = 0; i < this.model.departamentos.length - 1; i++) {
-      this.addButtonClick();
-    }
-  }
-
-  addButtonClick(): void {
-    (<FormArray>this.subsidiaryForm.get('departamentos')).push(this.addFormGroup());
-  }
 
   onsetValueClick(model : Subsidiary): void {
     if(model.departamentos.length == 0){
@@ -136,19 +100,14 @@ export class EditSubsidiaryComponent implements OnInit {
   }
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = this.model.latitud == null ? position.coords.latitude : this.model.latitud;
-        this.longitude = this.model.longitud == null ? position.coords.longitude : this.model.longitud;
-        this.zoom = 15;
-        //this.getAddress(this.latitude, this.longitude);
-      });
-    }
+  getAddress(location: Location): void {
+    this.subsidiaryForm.controls['latitud'].setValue(location.lat);
+    this.subsidiaryForm.controls['longitud'].setValue(location.lng);
+    this.subsidiaryForm.controls['direccion'].setValue(location.address);
   }
 
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
   }
+
 }

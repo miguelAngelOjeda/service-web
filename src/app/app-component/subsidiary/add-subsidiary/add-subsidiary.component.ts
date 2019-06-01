@@ -22,7 +22,6 @@ export class AddSubsidiaryComponent implements OnInit {
 
   ngOnInit() {
     this.initFormBuilder();
-    console.log(this.subsidiaryForm.get('ciudad'));
   }
 
   onSubmit() {
@@ -30,14 +29,6 @@ export class AddSubsidiaryComponent implements OnInit {
     .subscribe(res => {
 
     });
-  }
-
-  delete(data: Departments){
-      (<FormArray>this.subsidiaryForm.get('departamentos')).removeAt(this.departments.value.findIndex(dep => dep === data))
-  }
-
-  get departments(): FormArray {
-    return (<FormArray>this.subsidiaryForm.get('departamentos'));
   }
 
   initFormBuilder() {
@@ -59,42 +50,8 @@ export class AddSubsidiaryComponent implements OnInit {
       pais: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       ciudad: [null, [Validators.required]],
-      barrio: null,
-      departamentos: this.formBuilder.array([this.addFormGroup()])
+      barrio: null
     });
-  }
-
-  addFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      id: [''],
-      alias: ['', Validators.required],
-      nombreArea : ['', Validators.required],
-      descripcionArea: [''],
-      activo: ['']
-    });
-  }
-
-  addDinamicClick(): void {
-    for (let i = 0; i < this.model.departamentos.length - 1; i++) {
-      this.addButtonClick();
-    }
-  }
-
-  addButtonClick(): void {
-    (<FormArray>this.subsidiaryForm.get('departamentos')).push(this.addFormGroup());
-  }
-
-  onsetValueClick(model : Subsidiary): void {
-    if(model.departamentos.length == 0){
-      model.departamentos.push({
-        id: null,
-        alias: '',
-        nombreArea : '',
-        descripcionArea: '',
-        activo: ''
-      });
-    }
-    this.subsidiaryForm.setValue(model);
   }
 
   // Get Current Location Coordinates
