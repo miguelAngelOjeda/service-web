@@ -14,11 +14,7 @@ declare var google: any;
   styleUrls: ['./edit-subsidiary.component.css']
 })
 export class EditSubsidiaryComponent implements OnInit {
-  private model = new Subsidiary;
   subsidiaryForm: FormGroup;
-  latitude: number;
-  longitude: number;
-  zoom: number;
 
   constructor(
     public dialog: MatDialog,
@@ -51,10 +47,7 @@ export class EditSubsidiaryComponent implements OnInit {
   }
 
   onSubmit() {
-    this.model = this.subsidiaryForm.value;
-    this.model.latitud = this.latitude;
-    this.model.longitud = this.longitude;
-    this.apiService.put('/sucursales/' + this.route.snapshot.params.id, this.model)
+    this.apiService.put('/sucursales/' + this.route.snapshot.params.id, this.subsidiaryForm.value)
     .subscribe(res => {
 
     });
@@ -83,20 +76,6 @@ export class EditSubsidiaryComponent implements OnInit {
       ciudad: [null, [Validators.required]],
       barrio: null
     });
-  }
-
-
-  onsetValueClick(model : Subsidiary): void {
-    if(model.departamentos.length == 0){
-      model.departamentos.push({
-        id: null,
-        alias: '',
-        nombreArea : '',
-        descripcionArea: '',
-        activo: ''
-      });
-    }
-    this.subsidiaryForm.setValue(model);
   }
 
   // Get Current Location Coordinates
