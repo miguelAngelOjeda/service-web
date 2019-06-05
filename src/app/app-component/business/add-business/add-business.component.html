@@ -1,90 +1,110 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/business"> Empresas </a> &gt; <span class="current">Agregar Empresa</span></h2>
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/business"> Empresas </a> &gt; <span class="current">Agregar</span></h2>
 <mat-card class="form-card">
-<!-- <mat-card-header>
-
-  <mat-card-title>
-    <a *ngIf="model.id != null" class="nav-link" mat-mini-fab color="primary" [routerLink]="['/service-web/business/',model.id]">
-      <mat-icon>reply</mat-icon>
-    </a>
-    <a *ngIf="model.id == null" class="nav-link" mat-mini-fab color="primary" routerLink="/service-web/business">
-      <mat-icon>reply</mat-icon>
-    </a>
-    Agregar Empresa
-  </mat-card-title>
-</mat-card-header> -->
 <mat-card-content>
-  <form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
+  <form   [formGroup]="businessForm" (ngSubmit)="businessForm.valid && onSubmit()">
       <div class="row">
         <div class="col-md-12">
+          <div class="col-md-12">
+             <h4  class="m-0"><mat-icon class="gray-text">business</mat-icon>Datos Empresa</h4>
+             <br>
+          </div>
           <div class="row">
              <div class="col-md-2">
-               <app-dropify-image [pathImage]="model.imagePath" [accept]="accept" (valueAvatar)="getAvatar($event)"></app-dropify-image>
+               <app-dropify-image [pathImage]="businessForm.get('departamento').value" [accept]="accept" (valueAvatar)="getValue($event,businessForm.get('avatar'))"></app-dropify-image>
              </div>
              <div class="col-md-10">
-               <app-map (valueLocationChange)="getAddress($event)"></app-map>
+               <div class="row">
+                 <div class="col-md-3">
+                   <mat-form-field   class="col-sm-12" appearance="legacy">
+                     <input matInput #input  placeholder="Ruc" formControlName="ruc" name="ruc" required>
+
+                   </mat-form-field>
+                 </div>
+                 <div class="col-md-3">
+                   <mat-form-field   class="col-sm-12" appearance="legacy">
+                    <input matInput #input  placeholder="Nombre Fantasia" formControlName="nombreFantasia" name="nombreFantasia" required>
+
+                  </mat-form-field>
+                 </div>
+                 <div class="col-md-3">
+                  <mat-form-field   class="col-sm-12" appearance="legacy">
+                    <input matInput #input  placeholder="Nombre" formControlName="nombre" name="nombre" required>
+
+                  </mat-form-field>
+                 </div>
+                 <div class="col-md-3">
+                 	<mat-form-field   class="col-sm-12" appearance="legacy">
+                 		<input matInput #input  placeholder="Email" formControlName="email" name="email" required>
+
+                 	</mat-form-field>
+                 </div>
+                 <div class="col-md-3">
+                   <mat-form-field   class="col-sm-12" appearance="legacy">
+                     <input matInput #input  placeholder="Telefono" formControlName="telefono" name="telefono" required>
+
+                   </mat-form-field>
+                 </div>
+                 <div class="col-md-3">
+                 	<mat-form-field   class="col-sm-12" appearance="legacy">
+                 		<input matInput #input  placeholder="Celular" formControlName="telefonoMovil" name="telefonoMovil">
+
+                 	</mat-form-field>
+                 </div>
+                 <div class="col-md-6">
+                 	<mat-form-field   class="col-sm-12" appearance="legacy">
+                 		<input matInput #input  placeholder="Descripcion" formControlName="descripcion" name="descripcion">
+
+                 	</mat-form-field>
+                 </div>
+               </div>
              </div>
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
+            	<mat-form-field   class="col-sm-12" appearance="legacy">
+            		<input matInput #input  placeholder="Fax" formControlName="fax" name="fax">
+
+            	</mat-form-field>
+            </div>
+            <div class="col-md-8">
+            	<mat-form-field   class="col-sm-12" appearance="legacy">
+            		<input matInput #input  placeholder="Observacion" formControlName="observacion" name="observacion">
+
+            	</mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+             <div class="col-md-12">
+               <app-map (valueLocationChange)="getAddress($event)"></app-map>
+             </div>
+             <div class="col-md-3">
+               <app-select-filter  (value)="getValue($event, businessForm.get('pais'))" [modelValue]="businessForm.get('pais').value"
+                placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
+             </div>
+
+             <div class="col-md-3">
+               <app-select-filter (value)="getValue($event, businessForm.get('departamento'))"
+                [disabled]="true" placeholder="Departamento" [modelValue]="businessForm.get('departamento').value"
+                urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="businessForm.get('pais').value"></app-select-filter>
+             </div>
+
+             <div class="col-md-3">
+               <app-select-filter (value)="getValue($event, businessForm.get('ciudad'))" [disabled]="true" placeholder="Ciudad"
+               [modelValue]="businessForm.get('ciudad').value"
+                urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="businessForm.get('departamento').value"></app-select-filter>
+             </div>
+
+             <div class="col-md-3">
+               <app-select-filter (value)="getValue($event, businessForm.get('barrio'))" [required]="false" [disabled]="true"  placeholder="Barrio"
+               [modelValue]="businessForm.get('barrio').value"
+                urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="businessForm.get('ciudad').value"></app-select-filter>
+             </div>
+
+             <div class="col-md-12">
               <mat-form-field   class="col-sm-12" appearance="legacy">
-                <input matInput #input  placeholder="Ruc" [(ngModel)]="model.ruc" name="ruc" required>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                <input matInput #input  placeholder="Direccion" formControlName="direccion" name="direccion" required>
               </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field   class="col-sm-12" appearance="legacy">
-               <input matInput #input  placeholder="Nombre Fantasia" [(ngModel)]="model.nombreFantasia" name="nombreFantasia" required>
-               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-             </mat-form-field>
-            </div>
-            <div class="col-md-3">
-             <mat-form-field   class="col-sm-12" appearance="legacy">
-               <input matInput #input  placeholder="Nombre" [(ngModel)]="model.nombre" name="nombre" required>
-               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-             </mat-form-field>
-            </div>
-            <div class="col-md-3">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Email" [(ngModel)]="model.email" name="email" required>
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field   class="col-sm-12" appearance="legacy">
-                <input matInput #input  placeholder="Telefono" [(ngModel)]="model.telefono" name="telefono" required>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Celular" [(ngModel)]="model.telefonoMovil" name="telefonoMovil">
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-6">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Direccion" [(ngModel)]="model.direccion" name="direccion" required>
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-6">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Descripcion" [(ngModel)]="model.descripcion" name="descripcion">
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-6">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Fax" [(ngModel)]="model.fax" name="fax">
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
-            <div class="col-md-12">
-            	<mat-form-field   class="col-sm-12" appearance="legacy">
-            		<input matInput #input  placeholder="Observacion" [(ngModel)]="model.observacion" name="observacion">
-            		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            	</mat-form-field>
-            </div>
+             </div>
           </div>
         </div>
       </div>
