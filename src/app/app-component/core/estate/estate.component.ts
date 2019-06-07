@@ -13,7 +13,7 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class EstateComponent implements OnInit {
   estateForm: FormGroup;
-  @Input() urlFilter;
+  @Input() minRow;
   @Input()
   set fkFilterModel(model: any) {
     if(model){
@@ -86,6 +86,12 @@ export class EstateComponent implements OnInit {
       })
     }else{
       (<FormArray>this.estateForm.get('bienesInmuebles')).removeAt((<FormArray>this.estateForm.get('bienesInmuebles')).value.findIndex(dep => dep === data))
+    }
+
+    if(this.minRow > 0){
+      if((<FormArray>this.estateForm.get('bienesInmuebles')).controls.length < this.minRow){
+        this.addButton();
+      }
     }
   }
 

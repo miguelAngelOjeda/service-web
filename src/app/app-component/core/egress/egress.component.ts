@@ -13,7 +13,7 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class EgressComponent implements OnInit {
   egressForm: FormGroup;
-  @Input() urlFilter;
+  @Input() minRow;
   @Input()
   set fkFilterModel(model: any) {
     if(model){
@@ -38,7 +38,7 @@ export class EgressComponent implements OnInit {
   addFormGroup(): FormGroup {
     return this.formBuilder.group({
       id: [''],
-      monto: [null, [Validators.required]],
+      monto: [0, [Validators.required, Validators.minLength(5)]],
       tipoIngresosEgresos: [null, [Validators.required]],
       activo: ['S']
     });
@@ -71,6 +71,12 @@ export class EgressComponent implements OnInit {
       })
     }else{
       (<FormArray>this.egressForm.get('egresos')).removeAt((<FormArray>this.egressForm.get('egresos')).value.findIndex(dep => dep === data))
+    }
+
+    if(this.minRow > 0){
+      if((<FormArray>this.egressForm.get('egresos')).controls.length < this.minRow){
+        this.addButton();
+      }
     }
   }
 

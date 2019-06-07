@@ -75,12 +75,6 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
       this.filter();
   }
 
-  onChanges(): void {
-    this.modelControl.valueChanges.subscribe(val => {
-
-    });
-  }
-
   protected filter() {
     setTimeout(() => {
       merge(fromEvent(this.filterInputModel.nativeElement, 'keyup'))

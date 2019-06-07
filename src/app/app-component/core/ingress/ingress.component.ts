@@ -13,7 +13,7 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class IngressComponent implements OnInit {
   ingressForm: FormGroup;
-  @Input() urlFilter;
+  @Input() minRow;
   @Input()
   set fkFilterModel(model: any) {
     if(model){
@@ -38,7 +38,7 @@ export class IngressComponent implements OnInit {
   addFormGroup(): FormGroup {
     return this.formBuilder.group({
       id: [''],
-      monto: [null, [Validators.required]],
+      monto: [0, [Validators.required, Validators.minLength(5)]],
       tipoIngresosEgresos: [null, [Validators.required]],
       activo: ['S']
     });
@@ -71,6 +71,12 @@ export class IngressComponent implements OnInit {
       })
     }else{
       (<FormArray>this.ingressForm.get('ingresos')).removeAt((<FormArray>this.ingressForm.get('ingresos')).value.findIndex(dep => dep === data))
+    }
+
+    if(this.minRow > 0){
+      if((<FormArray>this.ingressForm.get('ingresos')).controls.length < this.minRow){
+        this.addButton();
+      }
     }
   }
 

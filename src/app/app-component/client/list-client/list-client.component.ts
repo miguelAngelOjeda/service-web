@@ -11,8 +11,9 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
   styleUrls: ['./list-client.component.scss']
 })
 export class ListClientComponent implements AfterViewInit {
-    public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
-    displayedColumns = ['documento', 'primerNombre', 'segundoNombre', 'primerApellido' , 'email', 'idUsuario', 'opciones'];
+  public rulesColumns  = ['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
+  displayedColumns = ['persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'persona.email', 'sucursal.nombre', 'opciones'];
+
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -39,10 +40,10 @@ export class ListClientComponent implements AfterViewInit {
             startWith({}),
             switchMap(() => {
               this.isfilter = false;
-              if(this.filterInput.nativeElement.textLength > 3){
+              if(this.filterInput.nativeElement.textLength > 1){
                 this.isfilter = true;
               }
-              return this.apiService.getPageList('/personas',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
+              return this.apiService.getPageList('/clientes',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
               this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
             }),
             map(data => {

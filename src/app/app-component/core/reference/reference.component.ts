@@ -13,7 +13,7 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class ReferenceComponent implements OnInit {
   referenceForm: FormGroup;
-  @Input() urlFilter;
+  @Input() minRow;
   @Input()
   set fkFilterModel(model: any) {
     if(model){
@@ -73,6 +73,12 @@ export class ReferenceComponent implements OnInit {
       })
     }else{
       (<FormArray>this.referenceForm.get('referencias')).removeAt((<FormArray>this.referenceForm.get('referencias')).value.findIndex(dep => dep === data))
+    }
+
+    if(this.minRow > 0){
+      if((<FormArray>this.referenceForm.get('referencias')).controls.length < this.minRow){
+        this.addButton();
+      }
     }
   }
 

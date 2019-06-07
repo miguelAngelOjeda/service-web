@@ -10,7 +10,7 @@
           <div class="row">
              <div class="col-sm-5">
                <mat-form-field   class="col-sm-12" appearance="legacy">
-                 <input matInput #input  placeholder="Monto"  formControlName="monto"  name="monto" required>
+                 <input matInput #input type="number" min="0"  placeholder="Monto"  formControlName="monto"  name="monto" required>
                  <mat-error *ngIf="(egresos.get('monto').errors)">
                    <span *ngIf="egresos.get('monto').errors.required">
                     Campo requerido
@@ -19,7 +19,7 @@
                </mat-form-field>
              </div>
              <div class="col-md-5">
-                 <app-select-filter (value)="getValue($event,egresos.controls['tipoReferencia'])" placeholder="Tipo Egreso" urlFilter="tipos-referencias" [columnsFilter]="['nombre','codigo']"></app-select-filter>
+                 <app-select-filter (value)="getValue($event,egresos.controls['tipoIngresosEgresos'])" placeholder="Tipo Egreso" urlFilter="tipos-egresos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
              </div>
              <div class="col-md-2">
                <section class="example-section">

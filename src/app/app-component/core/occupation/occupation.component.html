@@ -1,0 +1,114 @@
+<ng-container>
+  <div class="row">
+    <div class="col-md-12">
+        <h4  class="m-0"><mat-icon class="gray-text">account_balance</mat-icon>Datos Laborales
+          <a  mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
+        </h4>
+    </div>
+    <div formArrayName="ocupaciones"  *ngFor="let ocupaciones of occupationForm.get('ocupaciones').controls; let i = index" class="col-md-12">
+      <blockquote>
+        <div [formGroupName]="i">
+          <div class="row">
+             <div class="col-sm-3">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Empresa"  formControlName="empresa" name="empresa" required>
+                 <mat-error *ngIf="(ocupaciones.get('empresa').errors)">
+                   <span *ngIf="ocupaciones.get('empresa').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-sm-3">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Cargo"  formControlName="cargo" name="cargo" required>
+                 <mat-error *ngIf="(ocupaciones.get('cargo').errors)">
+                   <span *ngIf="ocupaciones.get('cargo').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <app-select-filter (value)="getValue($event, ocupaciones.controls['tipoOcupacion'])" placeholder="Ocupacion" urlFilter="tipos-ocupacion"
+               [columnsFilter]="['nombre']"></app-select-filter>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field class="col-sm-12" appearance="legacy">
+                  <mat-label>Tipo Trabajo</mat-label>
+                  <mat-select formControlName="tipoTrabajo" name="tipoTrabajo" required>
+                    <mat-option value="OCACIONAL">Ocacional</mat-option>
+                    <mat-option value="ASALARIADO">Asalariado</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="(ocupaciones.get('tipoTrabajo').errors)">
+                    <span *ngIf="ocupaciones.get('tipoTrabajo').errors.required">
+                     Campo requerido
+                    </span>
+                  </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-sm-3">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input type="number" min="0"  placeholder="Ingreso Mensual"  formControlName="ingresosMensuales" name="ingresosMensuales" required>
+                 <mat-error *ngIf="(ocupaciones.get('ingresosMensuales').errors)">
+                   <span *ngIf="ocupaciones.get('ingresosMensuales').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field class="col-sm-12" appearance="legacy">
+                <input matInput #input [matDatepicker]="picker" formControlName="fechaIngreso" name="fechaIngreso" placeholder="Fecha Ingreso" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="(ocupaciones.get('fechaIngreso').errors)">
+                  <span *ngIf="ocupaciones.get('fechaIngreso').errors.required">
+                   Campo requerido
+                  </span>
+                </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field class="col-sm-12" appearance="legacy">
+                <input matInput #input [matDatepicker]="pickerSa" formControlName="fechaSalida" name="fechaSalida" placeholder="Fecha Salida">
+                <mat-datepicker-toggle matSuffix [for]="pickerSa"></mat-datepicker-toggle>
+                <mat-datepicker #pickerSa></mat-datepicker>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Telefono" formControlName="telefonoPrincipal"  name="telefonoPrincipal" required>
+                 <mat-error *ngIf="(ocupaciones.get('telefonoPrincipal').errors)">
+                   <span *ngIf="ocupaciones.get('telefonoPrincipal').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Telefono Secundario" formControlName="telefonoSecundario"  name="telefonoSecundario">
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Interno" formControlName="interno"  name="interno">
+               </mat-form-field>
+             </div>
+             <div class="col-md-5">
+               <mat-form-field   class="col-sm-12" appearance="legacy">
+                 <input matInput #input  placeholder="Direccion" formControlName="direccion"  name="direccion">
+               </mat-form-field>
+             </div>
+             <div class="col-md-1">
+               <section class="example-section">
+                    <a mat-icon-button color="warn" (click)="delete(ocupaciones.value)"> <mat-icon>delete_forever</mat-icon></a>
+               </section>
+             </div>
+          </div>
+        </div>
+      </blockquote>
+    </div>
+  </div>
+</ng-container>

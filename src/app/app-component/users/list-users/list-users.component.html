@@ -38,11 +38,27 @@
             </mat-cell>
          </ng-container>
 
+         <ng-container matColumnDef="persona.tipoPersona">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO PERSONA </mat-header-cell>
+           <mat-cell *matCellDef="let element">
+             <span class="mobile-label">Tipo Persona:</span>
+             {{element.persona.tipoPersona}}
+           </mat-cell>
+         </ng-container>
+
           <ng-container matColumnDef="persona.documento">
             <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </mat-header-cell>
             <mat-cell *matCellDef="let element">
               <span class="mobile-label">Documento:</span>
               {{element.persona.documento}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="persona.ruc">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Ruc:</span>
+              {{element.persona.ruc}}
             </mat-cell>
           </ng-container>
 

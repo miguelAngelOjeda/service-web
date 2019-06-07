@@ -9,7 +9,10 @@
                       <app-people></app-people>
                     </div>
                     <div class="col-md-12">
-                      <app-reference></app-reference>
+                      <app-reference [minRow]="1"></app-reference>
+                    </div>
+                    <div class="col-md-12">
+                      <app-occupation [minRow]="1"></app-occupation>
                     </div>
                     <div class="col-md-12">
                       <app-estate></app-estate>
@@ -20,10 +23,10 @@
                     <div class="col-md-12">
                       <div class="row">
                         <div class="col-md-6">
-                          <app-ingress></app-ingress>
+                          <app-ingress [minRow]="1"></app-ingress>
                         </div>
                         <div class="col-md-6">
-                          <app-egress></app-egress>
+                          <app-egress [minRow]="1"></app-egress>
                         </div>
                       </div>
                     </div>

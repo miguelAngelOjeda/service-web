@@ -16,7 +16,7 @@ import { MapComponent } from '../../shared/map';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { DropifyImageComponent } from '../../shared/dropify-image';
 import { SelectFilterComponent } from '../../shared/select-filter';
-import { ReferenceComponent, EstateComponent,
+import { ReferenceComponent, EstateComponent,OccupationComponent,
    VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../core';
 import { CoreAppModule } from '../core';
 
@@ -45,6 +45,7 @@ import { CoreAppModule } from '../core';
     EgressComponent,
     PeopleComponent,
     DropifyImageComponent,
+    OccupationComponent,
     SelectFilterComponent
   ],
   declarations: [

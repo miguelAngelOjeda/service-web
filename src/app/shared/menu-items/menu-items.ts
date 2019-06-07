@@ -12,6 +12,7 @@ const MENUITEMS = [
   { state: 'business', name: 'Empresas', type: 'link', icon: 'business' , entity:'enterprise', role:'listEnterprise'},
   { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'account_balance', entity:'subsidiary', role:'listSubsidiary' },
   { state: 'users', type: 'link', name: 'Usuarios', icon: 'group', entity:'subsidiary', role:'listSubsidiary' },
+  { state: 'client', type: 'link', name: 'Clientes', icon: 'group', entity:'people', role:'listPeople' },
   { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' , entity:'', role:''},
   {
     state: 'progress-snipper',
@@ -24,7 +25,6 @@ const MENUITEMS = [
       {state: 'creditos', name: 'Solicitudes Creditos', icon: 'border_horizontal', entity:'creditos', role:'listPaymentsTypes'},
       {state: 'tarjetas', name: 'Solicitudes Tarjetas', icon: 'border_horizontal', entity:'tarjetas',  role:'listReferenceTypes'},
       {state: 'analisis', name: 'Analisis Solicitudes', icon: 'border_horizontal', entity:'reference-types',  role:'listReferenceTypes'},
-      { state: 'client', type: 'link', name: 'Clientes', icon: 'group', entity:'people', role:'listPeople' }
     ]
   },
   {

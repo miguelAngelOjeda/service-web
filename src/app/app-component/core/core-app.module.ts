@@ -16,6 +16,7 @@ import { IngressComponent } from './ingress';
 import { EgressComponent } from './egress';
 import { PeopleComponent } from './people';
 import { DepartmentComponent } from './department';
+import { OccupationComponent } from './occupation';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { DepartmentComponent } from './department';
     IngressComponent,
     PeopleComponent,
     DepartmentComponent,
-    EgressComponent
+    EgressComponent,
+    OccupationComponent
   ],
   exports: [
     DeleteDialogComponent,
@@ -44,7 +46,8 @@ import { DepartmentComponent } from './department';
     IngressComponent,
     PeopleComponent,
     DepartmentComponent,
-    EgressComponent
+    EgressComponent,
+    OccupationComponent
   ]
 })
 export class CoreAppModule {}

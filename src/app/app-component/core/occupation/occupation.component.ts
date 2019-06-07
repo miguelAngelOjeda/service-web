@@ -6,13 +6,13 @@ import { Estate, Message } from '../../../core/models';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 
 @Component({
-  selector: 'app-vehicle',
-  templateUrl: './vehicle.component.html',
-  styleUrls: ['./vehicle.component.scss'],
+  selector: 'app-occupation',
+  templateUrl: './occupation.component.html',
+  styleUrls: ['./occupation.component.scss'],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
-export class VehicleComponent implements OnInit {
-  vehicleForm: FormGroup;
+export class OccupationComponent implements OnInit {
+  occupationForm: FormGroup;
   @Input() minRow;
   @Input()
   set fkFilterModel(model: any) {
@@ -29,32 +29,36 @@ export class VehicleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.vehicleForm = this.parentF.form;
-    this.vehicleForm.addControl('bienesVehiculo', this.formBuilder.array([]));
+    this.occupationForm = this.parentF.form;
+    this.occupationForm.addControl('ocupaciones', this.formBuilder.array([]));
     this.addButton();
   }
 
-  //bienes Vehiculo
+  //bienes Inmueble
   addFormGroup(): FormGroup {
     return this.formBuilder.group({
-      id: [''],
-      marca: ['', Validators.required],
-      modeloAnio: [null, [Validators.required]],
-      valorActual: [null, [Validators.required]],
-      cuotaMensual: '',
-      saldo: '',
-      tipoBien: 'VEHICULO',
+      id: [null],
+      cargo: [null, Validators.required],
+      empresa: [null, Validators.required],
+      tipoTrabajo: [null, [Validators.required]],
+      direccion: [null, [Validators.required]],
+      telefonoPrincipal: [null, [Validators.required]],
+      telefonoSecundario: null,
+      fechaIngreso: [null, [Validators.required]],
+      fechaSalida: null,
+      interno: null,
+      ingresosMensuales: 0,
+      tipoOcupacion: [null, [Validators.required]],
       activo: ['S']
     });
   }
 
   addButton(): void {
-    (<FormArray>this.vehicleForm.get('bienesVehiculo')).push(this.addFormGroup());
+    (<FormArray>this.occupationForm.get('ocupaciones')).push(this.addFormGroup());
   }
 
   delete(data: any){
     if(data.id){
-
       const message = new Message;
       message.titulo = "Eliminar Registro"
       message.texto = "Esta seguro que desea eliminar el registro ";
@@ -68,20 +72,24 @@ export class VehicleComponent implements OnInit {
           this.apiService.delete('/bienes/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.vehicleForm.get('bienesVehiculo')).removeAt((<FormArray>this.vehicleForm.get('bienesVehiculo')).value.findIndex(dep => dep === data))
+                (<FormArray>this.occupationForm.get('ocupaciones')).removeAt((<FormArray>this.occupationForm.get('ocupaciones')).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.vehicleForm.get('bienesVehiculo')).removeAt((<FormArray>this.vehicleForm.get('bienesVehiculo')).value.findIndex(dep => dep === data))
+      (<FormArray>this.occupationForm.get('ocupaciones')).removeAt((<FormArray>this.occupationForm.get('ocupaciones')).value.findIndex(dep => dep === data))
     }
 
     if(this.minRow > 0){
-      if((<FormArray>this.vehicleForm.get('bienesVehiculo')).controls.length < this.minRow){
+      if((<FormArray>this.occupationForm.get('ocupaciones')).controls.length < this.minRow){
         this.addButton();
       }
     }
+  }
+
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
   }
 
 }
