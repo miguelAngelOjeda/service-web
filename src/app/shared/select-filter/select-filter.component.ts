@@ -38,6 +38,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
   set fkFilterModel(model: any) {
     if(model){
       this.idModel = model.id;
+      this.modelControl.setValue(null);
       this.modelControl.enable();
       this.filter();
     }

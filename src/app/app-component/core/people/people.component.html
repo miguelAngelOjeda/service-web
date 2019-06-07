@@ -220,16 +220,9 @@
          urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('departamento').value"></app-select-filter>
       </div>
       <div class="col-md-3">
-        <mat-form-field class="col-sm-12" appearance="legacy">
-           <mat-label>Barrio</mat-label>
-           <mat-select formControlName="barrio"  name="barrio" placeholder="Barrio">
-              <mat-form-field appearance="legacy">
-                  <input matInput #filterInputCities placeholder="Buscar.....">
-                  <mat-icon matSuffix>search</mat-icon>
-              </mat-form-field>
-               <mat-option *ngFor="let citi of cities"  [value]="citi">{{citi.nombre}}</mat-option>
-           </mat-select>
-        </mat-form-field>
+        <app-select-filter (value)="getValue($event, peopleForm.controls['persona'].get('barrio'))" [disabled]="true" placeholder="Barrio"
+        [modelValue]="peopleForm.controls['persona'].controls.barrio.value"
+         urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('ciudad').value"></app-select-filter>
       </div>
       <div class="col-md-6">
         <mat-form-field   class="col-sm-12" appearance="legacy">

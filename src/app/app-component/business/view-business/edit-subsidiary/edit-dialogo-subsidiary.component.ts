@@ -53,7 +53,7 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
           }
         }
       });
-    });    
+    });
   }
 
   onSubmit() {
@@ -78,8 +78,8 @@ export class EditDialogoSubsidiaryComponent implements OnInit{
       latitud: [null],
       longitud: [null],
       empresa: [null],
-      nombre: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      direccion: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      nombre: [null, [Validators.required, Validators.minLength(2)]],
+      direccion: [null, [Validators.required, Validators.minLength(2)]],
       telefono: [null, [Validators.required]],
       email: [null, [Validators.required]],
       pais: [null, [Validators.required]],

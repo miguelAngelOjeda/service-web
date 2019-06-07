@@ -51,7 +51,7 @@ export class AddDialogoSubsidiaryComponent implements OnInit{
       latitud: null,
       longitud: null,
       empresa: [{value: {'nombre':' ', 'ruc':' ', 'direccion':' '}, disabled: false}],
-      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
       direccion: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required]],
