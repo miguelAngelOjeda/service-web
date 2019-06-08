@@ -9,7 +9,7 @@
       <div [formGroupName]="i" *ngFor="let ingresos of ingressForm.get('ingresos').controls; let i = index" >
           <div class="row">
              <div class="col-sm-5">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input type="number" min="0"  placeholder="Monto"  formControlName="monto"  name="monto" required>
                  <mat-error *ngIf="(ingresos.get('monto').errors)">
                    <span *ngIf="ingresos.get('monto').errors.required">

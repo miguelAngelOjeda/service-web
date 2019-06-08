@@ -80,4 +80,8 @@ export class EgressComponent implements OnInit {
     }
   }
 
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
+  }
+
 }

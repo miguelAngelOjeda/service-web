@@ -10,7 +10,7 @@
         <div [formGroupName]="i">
           <div class="row">
              <div class="col-sm-3">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Alias"  formControlName="alias" name="alias" required>
                  <mat-error *ngIf="(departamentos.get('alias').errors)">
                    <span *ngIf="departamentos.get('alias').errors.required">
@@ -20,7 +20,7 @@
                </mat-form-field>
              </div>
              <div class="col-sm-4">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Nombre"  formControlName="nombreArea" name="nombreArea" required>
                  <mat-error *ngIf="(departamentos.get('nombreArea').errors)">
                    <span *ngIf="departamentos.get('nombreArea').errors.required">
@@ -30,7 +30,7 @@
                </mat-form-field>
              </div>
              <div class="col-md-4">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Descripcion"  name="descripcionArea">
 
                </mat-form-field>

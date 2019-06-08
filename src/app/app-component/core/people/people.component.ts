@@ -111,8 +111,8 @@ export class PeopleComponent implements OnInit {
     this.apiService.get('/personas/documento/' + (<FormGroup>this.peopleForm.get('persona')).controls.documento.value)
     .subscribe(res => {
       if(res.status == 200){
-        res.model.avatar = '';
-        res.model.conyuge = '';
+        res.model.avatar = null;
+        res.model.conyuge = null;
         res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
         (<FormGroup>this.peopleForm.get('persona')).setValue(res.model);
       }

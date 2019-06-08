@@ -10,7 +10,7 @@
     <div class="col-md-10">
      <div class="row">
          <div class="col-md-3">
-           <mat-form-field class="col-sm-12" appearance="legacy">
+           <mat-form-field  appearance="legacy">
               <mat-label>Tipo Persona</mat-label>
               <mat-select formControlName="tipoPersona" name="tipoPersona" required>
                 <mat-option selected="true" value="FISICA">Fisica</mat-option>
@@ -24,7 +24,7 @@
            </mat-form-field>
          </div>
          <div class="col-md-3">
-           <mat-form-field   class="col-sm-12" appearance="legacy">
+           <mat-form-field    appearance="legacy">
              <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" required>
              <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('documento').valid && peopleCi()">search</mat-icon>
              <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
@@ -35,12 +35,12 @@
            </mat-form-field>
          </div>
          <div class="col-md-3">
-           <mat-form-field   class="col-sm-12" appearance="legacy">
+           <mat-form-field    appearance="legacy">
              <input matInput #input  placeholder="Ruc" formControlName="ruc" name="ruc">
            </mat-form-field>
          </div>
          <div class="col-md-3">
-           <mat-form-field class="col-sm-12" appearance="legacy">
+           <mat-form-field  appearance="legacy">
             <input matInput #input [matDatepicker]="picker" formControlName="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha Nacimiento" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -52,7 +52,7 @@
            </mat-form-field>
          </div>
          <div class="col-md-3">
-           <mat-form-field class="col-sm-12" appearance="legacy">
+           <mat-form-field  appearance="legacy">
               <mat-label>Sexo</mat-label>
               <mat-select formControlName="sexo" name="sexo"  required>
                 <mat-option  value="MASCULINO">Masculino</mat-option>
@@ -66,7 +66,7 @@
            </mat-form-field>
          </div>
          <div class="col-md-3">
-           <mat-form-field class="col-sm-12" appearance="legacy">
+           <mat-form-field  appearance="legacy">
               <mat-label>Estado Civil</mat-label>
               <mat-select formControlName="estadoCivil" name="estadoCivil" required>
                 <mat-option (click)="isSeparacionBienes = true" value="CONCUBINADO/A">Concubinado/a</mat-option>
@@ -95,7 +95,7 @@
     </div>
     <div class="row">
       <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Primer Nombre" formControlName="primerNombre" name="primerNombre" required>
           <mat-error *ngIf="(peopleForm.controls['persona'].get('primerNombre').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('primerNombre').errors.required">
@@ -105,7 +105,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Segundo Nombre" formControlName="segundoNombre" name="segundoNombre">
           <mat-error *ngIf="(peopleForm.controls['persona'].get('segundoNombre').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('segundoNombre').errors.required">
@@ -115,7 +115,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Primer Apellido" formControlName="primerApellido" name="primerApellido" required>
           <mat-error *ngIf="(peopleForm.controls['persona'].get('primerApellido').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('primerApellido').errors.required">
@@ -125,7 +125,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Segundo Apellido" formControlName="segundoApellido" name="segundoApellido">
           <mat-error *ngIf="(peopleForm.controls['persona'].get('segundoApellido').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('segundoApellido').errors.required">
@@ -139,7 +139,7 @@
          placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
       </div>
       <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
          <input matInput #input  placeholder="Email" formControlName="email" name="email" required>
          <mat-error *ngIf="(peopleForm.controls['persona'].get('email').errors)">
            <span *ngIf="peopleForm.controls['persona'].get('email').errors.required">
@@ -149,7 +149,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Telefono Particular" formControlName="telefonoParticular" name="telefonoParticular" required>
           <mat-error *ngIf="(peopleForm.controls['persona'].get('telefonoParticular').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('telefonoParticular').errors.required">
@@ -159,7 +159,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="telefonoSecundario">
           <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
@@ -168,8 +168,8 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+      <div class="col-md-2">
+        <mat-form-field    appearance="legacy">
            <input matInput #input type="number" min="0"  placeholder="Numero Hijos" formControlName="numeroHijos" name="numeroHijos">
            <mat-error *ngIf="(peopleForm.controls['persona'].get('numeroHijos').errors)">
              <span *ngIf="peopleForm.controls['persona'].get('numeroHijos').errors.required">
@@ -178,8 +178,8 @@
            </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-md-3">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+      <div class="col-md-2">
+        <mat-form-field    appearance="legacy">
            <input matInput #input type="number" min="0"  placeholder="Numero Dependientes" formControlName="numeroDependientes" name="numeroDependientes">
            <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
              <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
@@ -188,8 +188,8 @@
            </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-md-6">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+      <div class="col-md-8">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Observacion" formControlName="observacion" name="observacion">
           <mat-error *ngIf="(peopleForm.controls['persona'].get('observacion').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('observacion').errors.required">
@@ -225,7 +225,7 @@
          urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('ciudad').value"></app-select-filter>
       </div>
       <div class="col-md-6">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Direccion" formControlName="direccionParticular" name="direccionParticular" required>
           <mat-error *ngIf="(peopleForm.controls['persona'].get('direccionParticular').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('direccionParticular').errors.required">
@@ -235,7 +235,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-6">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
+        <mat-form-field    appearance="legacy">
           <input matInput #input  placeholder="Direccion Detallada" formControlName="direccionDetallada" name="direccionDetallada">
           <!-- <mat-error *ngIf="(peopleForm.get('direccionDetallada').errors)">
             <span *ngIf="peopleForm.get('direccionDetallada').errors.required">

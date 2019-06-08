@@ -10,7 +10,7 @@
         <div [formGroupName]="i">
           <div class="row">
              <div class="col-sm-3">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Direccion"  formControlName="direccion" name="direccion" required>
                  <mat-error *ngIf="(bienesInmuebles.get('direccion').errors)">
                    <span *ngIf="bienesInmuebles.get('direccion').errors.required">
@@ -41,17 +41,17 @@
                </section>
              </div>
              <div class="col-md-2">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Nº de Finca" formControlName="numeroFinca"  name="numeroFinca">
                </mat-form-field>
              </div>
              <div class="col-md-3">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Nº de Matricula" formControlName="numeroMatricula"  name="numeroMatricula">
                </mat-form-field>
              </div>
              <div class="col-md-3">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Cuenta Catastral" formControlName="cuentaCatastral"  name="cuentaCatastral">
                </mat-form-field>
              </div>
@@ -61,19 +61,19 @@
                </section>
              </div>
              <div class="col-md-3">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Lugar Hipoteca" formControlName="lugarHipoteca"  name="lugarHipoteca">
                </mat-form-field>
              </div>
              <div class="col-md-3">
-               <mat-form-field class="col-sm-12" appearance="legacy">
+               <mat-form-field  appearance="legacy">
                 <input matInput #input [matDatepicker]="pickerTo" formControlName="fechaHipoteca" name="fechaHipoteca" placeholder="Fecha Hipoteca">
                 <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                </mat-form-field>
              </div>
              <div class="col-md-3">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Valor Actual" formControlName="valorActual"  name="valorActual" required>
                  <mat-error *ngIf="(bienesInmuebles.get('valorActual').errors)">
                    <span *ngIf="bienesInmuebles.get('valorActual').errors.required">
@@ -83,12 +83,12 @@
                </mat-form-field>
              </div>
              <div class="col-md-3">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Saldo a Pagar" formControlName="saldo"  name="saldo">
                </mat-form-field>
              </div>
              <div class="col-md-3">
-               <mat-form-field   class="col-sm-12" appearance="legacy">
+               <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Cuota Mensual" formControlName="cuotaMensual"  name="cuotaMensual">
                </mat-form-field>
              </div>

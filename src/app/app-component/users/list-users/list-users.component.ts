@@ -11,7 +11,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
   styleUrls: ['./list-users.component.scss']
 })
 export class ListUsersComponent implements AfterViewInit {
-    public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
+    public rulesColumns  = ['persona.documento', 'alias', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
     displayedColumns = ['alias', 'persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,6 +49,7 @@ export class ListUsersComponent implements AfterViewInit {
             }),
             map(data => {
               // Flip flag to show that loading has finished.
+              console.log(data.rows);
               this.length = data.records;
               return data.rows as Users[];;
             }),

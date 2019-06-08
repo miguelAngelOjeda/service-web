@@ -132,7 +132,7 @@ export class UserService implements CanActivate {
         return this.getUser()
           .map(currentUser => {
               if(currentUser && (Object.keys(currentUser).length === 0)){
-                return (this.jwtService.getUser() == null ? null : this.jwtService.getUser().authorities);
+                return this.jwtService.getUser().authorities;
               }else{
                  return currentUser.authorities;
               }

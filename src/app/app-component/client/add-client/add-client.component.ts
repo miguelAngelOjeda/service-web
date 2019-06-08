@@ -37,7 +37,10 @@ export class AddClientComponent implements OnInit {
     onSubmit() {
       console.log(this.myForm.value);
       console.log(this.myForm);
+      this.apiService.post('/clientes', this.myForm.value)
+      .subscribe(res => {
 
+      });
     }
 
     protected initFormBuilder() {
