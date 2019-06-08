@@ -28,6 +28,8 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
   @Input() set disabled (condition : boolean){
     if(condition){
       this.modelControl.disable();
+    }else{
+      this.modelControl.enable();
     }
   }
   @Input() model;

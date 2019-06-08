@@ -12,7 +12,7 @@ const MENUITEMS = [
   { state: 'business', name: 'Empresas', type: 'link', icon: 'business' , entity:'enterprise', role:'listEnterprise'},
   { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'account_balance', entity:'subsidiary', role:'listSubsidiary' },
   { state: 'users', type: 'link', name: 'Usuarios', icon: 'group', entity:'subsidiary', role:'listSubsidiary' },
-  { state: 'client', type: 'link', name: 'Clientes', icon: 'group', entity:'people', role:'listPeople' },
+  { state: 'client', type: 'link', name: 'Clientes', icon: 'assignment_ind', entity:'people', role:'listPeople' },
   { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' , entity:'', role:''},
   {
     state: 'progress-snipper',

@@ -36,7 +36,13 @@ export class AddClientComponent implements OnInit {
 
     onSubmit() {
       console.log(this.myForm.value);
-      console.log(this.myForm);
+      if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
+        this.myForm.value.persona.documento = ' ';
+        this.myForm.value.persona.fechaNacimiento = new Date();
+        this.myForm.value.persona.primerApellido = ' ';
+        this.myForm.value.persona.sexo = 'N';
+      }
+
       this.apiService.post('/clientes', this.myForm.value)
       .subscribe(res => {
 

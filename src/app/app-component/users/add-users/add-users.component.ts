@@ -29,6 +29,15 @@ export class AddUsersComponent implements OnInit {
     }
 
     submit() {
+
+      if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
+        this.myForm.value.persona.documento = ' ';
+        this.myForm.value.persona.fechaNacimiento = new Date();
+        this.myForm.value.persona.primerApellido = ' ';
+        this.myForm.value.persona.sexo = 'N';
+        this.myForm.value.persona.estadoCivil = 'N';
+      }
+
       this.apiService.post('/usuarios/', this.myForm.value)
       .subscribe(res => {
 

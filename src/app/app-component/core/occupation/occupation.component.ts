@@ -32,6 +32,7 @@ export class OccupationComponent implements OnInit {
     this.occupationForm = this.parentF.form;
     this.occupationForm.addControl('ocupaciones', this.formBuilder.array([]));
     this.addButton();
+    this.onChanges();
   }
 
   //bienes Inmueble
@@ -50,6 +51,19 @@ export class OccupationComponent implements OnInit {
       ingresosMensuales: 0,
       tipoOcupacion: [null, [Validators.required]],
       activo: ['S']
+    });
+  }
+
+  onChanges(){
+    (<FormGroup>this.occupationForm.get('persona')).controls['tipoPersona'].valueChanges
+    .subscribe(tipoPersona => {
+        if(tipoPersona != 'FISICA'){
+          this.occupationForm.removeControl('ocupaciones');
+          this.occupationForm.updateValueAndValidity();
+        }else{
+          this.occupationForm.addControl('ocupaciones', this.formBuilder.array([]));
+          this.addButton();
+        }
     });
   }
 

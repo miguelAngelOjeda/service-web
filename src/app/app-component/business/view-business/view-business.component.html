@@ -88,11 +88,12 @@
 									<mat-card-subtitle class="mat-card-subtitle">{{subsidiary.codigoSucursal}}</mat-card-subtitle>
 								</div>
 								<div class="col-md-3">
-									<a mat-icon-button class="m-t-10 float-right"  *appCanAccess="['enterprise', 'editEnterprise']"  (click)="editSubsidiary(subsidiary.id)">
-										 <mat-icon>edit</mat-icon>
+									<a mat-icon-button color="primary" class="m-t-10 float-right"  *appCanAccess="['enterprise', 'editEnterprise']"  (click)="editSubsidiary(subsidiary.id)">
+										 <mat-icon class="glyphicon glyphicon-ok icon-success">edit</mat-icon>
 									</a>
-									<a mat-icon-button class="m-t-10 float-right" mattooltip="Eliminar" mattooltipclass="example-tooltip-red" (click)="deleteSubsidiary(subsidiary)">
-										<mat-icon>delete</mat-icon>
+
+									<a mat-icon-button color="warn" class="m-t-10 float-right" mattooltip="Eliminar" mattooltipclass="example-tooltip-red" (click)="deleteSubsidiary(subsidiary)">
+										<mat-icon>delete_forever</mat-icon>
 									</a>
 								</div>
 							</div>

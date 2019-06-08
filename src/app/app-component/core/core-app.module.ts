@@ -17,6 +17,7 @@ import { EgressComponent } from './egress';
 import { PeopleComponent } from './people';
 import { DepartmentComponent } from './department';
 import { OccupationComponent } from './occupation';
+import { SpouseComponent } from './spouse';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { OccupationComponent } from './occupation';
     PeopleComponent,
     DepartmentComponent,
     EgressComponent,
+    SpouseComponent,
     OccupationComponent
   ],
   exports: [
@@ -47,6 +49,7 @@ import { OccupationComponent } from './occupation';
     PeopleComponent,
     DepartmentComponent,
     EgressComponent,
+    SpouseComponent,
     OccupationComponent
   ]
 })

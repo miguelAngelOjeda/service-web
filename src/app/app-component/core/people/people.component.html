@@ -37,6 +37,12 @@
          <div class="col-md-3">
            <mat-form-field    appearance="legacy">
              <input matInput #input  placeholder="Ruc" formControlName="ruc" name="ruc">
+             <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
+             <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
+               <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                Campo requerido
+               </span>
+             </mat-error>
            </mat-form-field>
          </div>
          <div class="col-md-3">
@@ -88,7 +94,8 @@
            </section>
          </div>
          <div class="col-md-3">
-              <app-select-filter (value)="getValue($event, peopleForm.controls['persona'].controls.nacionalidad)" [modelValue]="peopleForm.controls['persona'].controls.nacionalidad.value"
+              <app-select-filter (value)="getValue($event, peopleForm.controls['persona'].controls.nacionalidad)"
+               [modelValue]="peopleForm.controls['persona'].controls.nacionalidad.value"
                placeholder="Nacionalidad" urlFilter="nacionalidades" [columnsFilter]="['codigo', 'nombre']"></app-select-filter>
          </div>
      </div>
@@ -96,7 +103,7 @@
     <div class="row">
       <div class="col-md-3">
         <mat-form-field    appearance="legacy">
-          <input matInput #input  placeholder="Primer Nombre" formControlName="primerNombre" name="primerNombre" required>
+          <input matInput #input [placeholder]="isDisabled == true ? 'Alias': 'Primer Nombre'" formControlName="primerNombre" name="primerNombre" required>
           <mat-error *ngIf="(peopleForm.controls['persona'].get('primerNombre').errors)">
             <span *ngIf="peopleForm.controls['persona'].get('primerNombre').errors.required">
              Campo requerido
@@ -135,7 +142,8 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <app-select-filter  (value)="getValue($event, peopleForm.controls['persona'].get('profesion'))" [modelValue]="peopleForm.controls['persona'].controls.profesion.value"
+        <app-select-filter  (value)="getValue($event, peopleForm.controls['persona'].get('profesion'))"
+         [modelValue]="peopleForm.controls['persona'].controls.profesion.value" [disabled]="isDisabled"
          placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
       </div>
       <div class="col-md-3">
@@ -243,6 +251,9 @@
             </span>
           </mat-error> -->
         </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <app-spouse></app-spouse>
       </div>
     </div>
   </div>
