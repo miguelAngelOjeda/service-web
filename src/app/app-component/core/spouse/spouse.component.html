@@ -1,0 +1,203 @@
+<blockquote *ngIf="spouseForm.controls['persona'].get('separacionBienes').value == true">
+  <div class="row" formGroupName="conyuge">
+    <div class="col-md-12">
+      <h4  class="m-0">Datos Conyuge</h4>
+    </div>
+     <div class="col-md-3">
+       <mat-form-field    appearance="legacy">
+         <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" required>
+         <mat-icon matSuffix (click)="spouseForm.controls['conyuge'].get('documento').valid && peopleCi()">search</mat-icon>
+         <mat-error *ngIf="(spouseForm.controls['conyuge'].get('documento').errors)">
+           <span *ngIf="spouseForm.controls['conyuge'].get('documento').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field    appearance="legacy">
+         <input matInput #input  placeholder="Ruc" formControlName="ruc" name="ruc">
+         <mat-icon matSuffix (click)="spouseForm.controls['conyuge'].get('ruc').valid && peopleRuc()">search</mat-icon>
+         <mat-error *ngIf="(spouseForm.controls['conyuge'].get('ruc').errors)">
+           <span *ngIf="spouseForm.controls['conyuge'].get('ruc').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+        <input matInput #input [matDatepicker]="picker" formControlName="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha Nacimiento" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="(spouseForm.controls['conyuge'].get('fechaNacimiento').errors)">
+          <span *ngIf="spouseForm.controls['conyuge'].get('fechaNacimiento').errors.required">
+           Campo requerido
+          </span>
+        </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+          <mat-label>Sexo</mat-label>
+          <mat-select formControlName="sexo" name="sexo"  required>
+            <mat-option  value="MASCULINO">Masculino</mat-option>
+            <mat-option value="FEMENINO">Femenino</mat-option>
+          </mat-select>
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('sexo').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('sexo').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+          <app-select-filter (value)="getValue($event, spouseForm.controls['conyuge'].controls.nacionalidad)"
+           [modelValue]="spouseForm.controls['conyuge'].controls.nacionalidad.value"
+           placeholder="Nacionalidad" urlFilter="nacionalidades" [columnsFilter]="['codigo', 'nombre']"></app-select-filter>
+     </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input [placeholder]="isDisabled == true ? 'Alias': 'Primer Nombre'" formControlName="primerNombre" name="primerNombre" required>
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('primerNombre').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('primerNombre').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Segundo Nombre" formControlName="segundoNombre" name="segundoNombre">
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('segundoNombre').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('segundoNombre').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Primer Apellido" formControlName="primerApellido" name="primerApellido" required>
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('primerApellido').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('primerApellido').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Segundo Apellido" formControlName="segundoApellido" name="segundoApellido">
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('segundoApellido').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('segundoApellido').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter  (value)="getValue($event, spouseForm.controls['conyuge'].get('profesion'))"
+         [modelValue]="spouseForm.controls['conyuge'].controls.profesion.value" [disabled]="isDisabled"
+         placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field    appearance="legacy">
+         <input matInput #input  placeholder="Email" formControlName="email" name="email" required>
+         <mat-error *ngIf="(spouseForm.controls['conyuge'].get('email').errors)">
+           <span *ngIf="spouseForm.controls['conyuge'].get('email').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Telefono Particular" formControlName="telefonoParticular" name="telefonoParticular" required>
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('telefonoParticular').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('telefonoParticular').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="telefonoSecundario">
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('documento').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('documento').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+           <input matInput #input type="number" min="0"  placeholder="Numero Hijos" formControlName="numeroHijos" name="numeroHijos">
+           <mat-error *ngIf="(spouseForm.controls['conyuge'].get('numeroHijos').errors)">
+             <span *ngIf="spouseForm.controls['conyuge'].get('numeroHijos').errors.required">
+              Campo requerido
+             </span>
+           </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+           <input matInput #input type="number" min="0"  placeholder="Numero Dependientes" formControlName="numeroDependientes" name="numeroDependientes">
+           <mat-error *ngIf="(spouseForm.controls['conyuge'].get('documento').errors)">
+             <span *ngIf="spouseForm.controls['conyuge'].get('documento').errors.required">
+              Campo requerido
+             </span>
+           </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Observacion" formControlName="observacion" name="observacion">
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('observacion').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('observacion').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <h4  class="m-0">Direccion</h4>
+        <br>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter  (value)="getValue($event, spouseForm.controls['conyuge'].get('pais'))" [modelValue]="spouseForm.controls['persona'].controls.pais.value"
+         placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter (value)="getValue($event, spouseForm.controls['conyuge'].get('departamento'))"
+         [disabled]="true" placeholder="Departamento" [modelValue]="spouseForm.controls['conyuge'].controls.departamento.value"
+         urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="spouseForm.controls['conyuge'].get('pais').value"></app-select-filter>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter (value)="getValue($event, spouseForm.controls['conyuge'].get('ciudad'))" [disabled]="true" placeholder="Ciudad"
+        [modelValue]="spouseForm.controls['conyuge'].controls.ciudad.value"
+         urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="spouseForm.controls['conyuge'].get('departamento').value"></app-select-filter>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter (value)="getValue($event, spouseForm.controls['conyuge'].get('barrio'))" [disabled]="true" placeholder="Barrio"
+        [modelValue]="spouseForm.controls['conyuge'].controls.barrio.value"
+         urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="spouseForm.controls['conyuge'].get('ciudad').value"></app-select-filter>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Direccion" formControlName="direccionParticular" name="direccionParticular" required>
+          <mat-error *ngIf="(spouseForm.controls['conyuge'].get('direccionParticular').errors)">
+            <span *ngIf="spouseForm.controls['conyuge'].get('direccionParticular').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Direccion Detallada" formControlName="direccionDetallada" name="direccionDetallada">
+        </mat-form-field>
+      </div>
+  </div>
+</blockquote>
