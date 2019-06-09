@@ -53,4 +53,4 @@ import { SpouseComponent } from './spouse';
     OccupationComponent
   ]
 })
-export class CoreAppModule {}
+export class SharedAppModule {}

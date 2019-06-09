@@ -26,13 +26,9 @@ import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { SpinnerComponent } from './shared/spinner';
-import { CoreAppModule } from './app-component/core';
+import { SharedAppModule } from './app-component/shared';
 import * as $ from 'jquery';
 
-
-export function tokenGetter() {
-  return localStorage.getItem('access_token');
-}
 
 @NgModule({
   declarations: [
@@ -44,15 +40,13 @@ export function tokenGetter() {
     SpinnerComponent,
     HomeComponent,
     SidenavListComponent
-    // AddReferenceTypesComponent,EditReferenceTypesComponent,ViewReferenceTypesComponent,ListReferenceTypesComponent,
-    // ListLinkTypesComponent,AddLinkTypesComponent,EditLinkTypesComponent,ViewLinkTypesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    CoreAppModule,
+    SharedAppModule,
     MaterialModule,
     FlexLayoutModule,
     BrowserAnimationsModule,

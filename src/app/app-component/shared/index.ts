@@ -6,4 +6,4 @@ export * from './ingress';
 export * from './people';
 export * from './department';
 export * from './occupation';
-export * from './core-app.module';
+export * from './shared-app.module';
