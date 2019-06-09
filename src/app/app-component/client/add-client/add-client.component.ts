@@ -4,8 +4,6 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, Fo
 import { UserService, ApiService, FormsService} from '../../../core/services';
 import { People, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
    Subsidiary, Departments, Nationalities, Location } from '../../../core/models';
-import {merge, fromEvent,ReplaySubject, Subject, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap, filter, take, takeUntil} from 'rxjs/operators';
 import {ErrorStateMatcher} from '@angular/material/core';
 
 
@@ -17,18 +15,12 @@ import {ErrorStateMatcher} from '@angular/material/core';
 export class AddClientComponent implements OnInit {
     myForm: FormGroup;
     validateForm = true;
-    private model = new People();
     isSeparacionBienes = true;
-    hide = true;
-    //Filter
-    isfilter = false;
 
     constructor(
       private formBuilder: FormBuilder,
       private apiService: ApiService
-    ) {
-      this.model.conyuge = new People;
-    }
+    ) {}
 
     ngOnInit() {
       this.initFormBuilder();

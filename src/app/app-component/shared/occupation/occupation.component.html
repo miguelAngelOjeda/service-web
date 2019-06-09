@@ -1,4 +1,4 @@
-<ng-container *ngIf="occupationForm.controls['persona'].get('tipoPersona').value == 'FISICA'">
+<ng-container>
   <div class="row">
     <div class="col-md-12">
         <h4  class="m-0"><mat-icon class="gray-text">account_balance</mat-icon>Datos Laborales
@@ -12,11 +12,11 @@
              <div class="col-sm-3">
                <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Empresa"  formControlName="empresa" name="empresa" required>
-                 <mat-error *ngIf="(ocupaciones.get('empresa').errors)">
+                 <!-- <mat-error *ngIf="(ocupaciones.get('empresa').errors)">
                    <span *ngIf="ocupaciones.get('empresa').errors.required">
                     Campo requerido
                    </span>
-                 </mat-error>
+                 </mat-error> -->
                </mat-form-field>
              </div>
              <div class="col-sm-3">

@@ -61,7 +61,9 @@ export class OccupationComponent implements OnInit {
           this.occupationForm.removeControl('ocupaciones');
           this.occupationForm.updateValueAndValidity();
         }else{
+          console.log(this.occupationForm);
           this.occupationForm.addControl('ocupaciones', this.formBuilder.array([]));
+          console.log(this.occupationForm);
           this.addButton();
         }
     });
