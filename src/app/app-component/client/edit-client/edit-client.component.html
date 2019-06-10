@@ -1,7 +1,7 @@
 <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Clientes </a> &gt; <span class="current">Agregar</span></h2>
 <mat-card class="form-card">
   <mat-card-content>
-        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
             <div class="row">
               <div class="col-md-12">
                 <div class="row">
@@ -30,7 +30,7 @@
                       </div>
                     </div>
                   </div>
-                </div>        
+                </div>
               </div>
             </div>
             <mat-card-actions>
