@@ -27,7 +27,7 @@ export class EditBusinessComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         res.model.avatar = null;
-        (<FormGroup>this.businessForm).setValue(res.model);
+        (<FormGroup>this.businessForm).patchValue(res.model);
       }
     });
   }

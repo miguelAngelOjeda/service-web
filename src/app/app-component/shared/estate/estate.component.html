@@ -5,7 +5,7 @@
           <a  mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
         </h4>
     </div>
-    <div formArrayName="bienesInmuebles"  *ngFor="let bienesInmuebles of estateForm.get('bienesInmuebles').controls; let i = index" class="col-md-12">
+    <div [formArrayName]="formArrayName"  *ngFor="let bienesInmuebles of estateForm.get(formArrayName).controls; let i = index" class="col-md-12">
       <blockquote>
         <div [formGroupName]="i">
           <div class="row">

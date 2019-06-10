@@ -13,6 +13,7 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class EstateComponent implements OnInit {
   estateForm: FormGroup;
+  formArrayName = 'bienesInmuebles';
   @Input() minRow;
   @Input()
   set fkFilterModel(model: any) {
@@ -30,8 +31,9 @@ export class EstateComponent implements OnInit {
 
   ngOnInit() {
     this.estateForm = this.parentF.form;
-    this.estateForm.addControl('bienesInmuebles', this.formBuilder.array([]));
+    this.estateForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
+    this.onChangesPeopleId();
   }
 
   //bienes Inmueble
@@ -60,7 +62,26 @@ export class EstateComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.estateForm.get('bienesInmuebles')).push(this.addFormGroup());
+    (<FormArray>this.estateForm.get(this.formArrayName)).push(this.addFormGroup());
+  }
+
+  onChangesPeopleId(){
+    (<FormGroup>this.estateForm.get('persona')).controls['id'].valueChanges
+    .subscribe(id => {
+      this.apiService.getPageList('/inmuebles',false,null,null, 'desc', 'id',0,50, false,id)
+      .subscribe(res => {
+        if(res.status == 200){
+          if(res.rows != null
+              && res.rows.length > 0){
+                const formArray = (<FormArray>this.estateForm.get(this.formArrayName));
+                while (formArray.length) {
+                  formArray.removeAt(0);
+                }
+                res.rows.forEach(staff => formArray.push(this.formBuilder.group(staff)));
+          }
+        }
+      });
+    });
   }
 
   delete(data: any){
@@ -76,20 +97,20 @@ export class EstateComponent implements OnInit {
       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
-          this.apiService.delete('/bienes/' + data.id)
+          this.apiService.delete('/inmuebles/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.estateForm.get('bienesInmuebles')).removeAt((<FormArray>this.estateForm.get('bienesInmuebles')).value.findIndex(dep => dep === data))
+                (<FormArray>this.estateForm.get(this.formArrayName)).removeAt((<FormArray>this.estateForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.estateForm.get('bienesInmuebles')).removeAt((<FormArray>this.estateForm.get('bienesInmuebles')).value.findIndex(dep => dep === data))
+      (<FormArray>this.estateForm.get(this.formArrayName)).removeAt((<FormArray>this.estateForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
     }
 
     if(this.minRow > 0){
-      if((<FormArray>this.estateForm.get('bienesInmuebles')).controls.length < this.minRow){
+      if((<FormArray>this.estateForm.get(this.formArrayName)).controls.length < this.minRow){
         this.addButton();
       }
     }

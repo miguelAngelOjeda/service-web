@@ -5,8 +5,8 @@
           <a mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
         </h4>
     </div>
-    <div formArrayName="referencias"  class="col-md-12">
-      <div [formGroupName]="i" *ngFor="let referencias of referenceForm.get('referencias').controls; let i = index" >
+    <div [formArrayName]="formArrayName"  class="col-md-12">
+      <div [formGroupName]="i" *ngFor="let referencias of referenceForm.get(formArrayName).controls; let i = index" >
         <blockquote>
           <div class="row">
              <div class="col-sm-3">
@@ -35,7 +35,9 @@
                </mat-form-field>
              </div>
              <div class="col-md-3">
-                 <app-select-filter (value)="getValue($event,referencias.controls['tipoReferencia'])" placeholder="Tipo Referencia" urlFilter="tipos-referencias" [columnsFilter]="['nombre']"></app-select-filter>
+                 <app-select-filter (value)="getValue($event,referencias.controls['tipoReferencia'])"
+                 [modelValue]="referencias.controls.tipoReferencia.value"
+                 placeholder="Tipo Referencia" urlFilter="tipos-referencias" [columnsFilter]="['nombre']"></app-select-filter>
              </div>
              <div class="col-md-1">
                <section class="example-section">

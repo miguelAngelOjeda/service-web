@@ -5,18 +5,18 @@
           <a  mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
         </h4>
     </div>
-    <div formArrayName="ocupaciones"  *ngFor="let ocupaciones of occupationForm.get('ocupaciones').controls; let i = index" class="col-md-12">
+    <div [formArrayName]="formArrayName" class="col-md-12">
       <blockquote>
-        <div [formGroupName]="i">
+        <div [formGroupName]="i" *ngFor="let ocupaciones of occupationForm.get(formArrayName).controls; let i = index">
           <div class="row">
              <div class="col-sm-3">
                <mat-form-field    appearance="legacy">
                  <input matInput #input  placeholder="Empresa"  formControlName="empresa" name="empresa" required>
-                 <!-- <mat-error *ngIf="(ocupaciones.get('empresa').errors)">
+                 <mat-error *ngIf="(ocupaciones.get('empresa').errors)">
                    <span *ngIf="ocupaciones.get('empresa').errors.required">
                     Campo requerido
                    </span>
-                 </mat-error> -->
+                 </mat-error>
                </mat-form-field>
              </div>
              <div class="col-sm-3">
@@ -30,7 +30,9 @@
                </mat-form-field>
              </div>
              <div class="col-md-3">
-               <app-select-filter (value)="getValue($event, ocupaciones.controls['tipoOcupacion'])" placeholder="Ocupacion" urlFilter="tipos-ocupacion"
+               <app-select-filter (value)="getValue($event, ocupaciones.controls['tipoOcupacion'])"
+               [modelValue]="ocupaciones.controls.tipoOcupacion.value"
+               placeholder="Ocupacion" urlFilter="tipos-ocupacion"
                [columnsFilter]="['nombre']"></app-select-filter>
              </div>
              <div class="col-md-3">

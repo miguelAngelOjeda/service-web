@@ -31,10 +31,8 @@ export class EditUsersComponent implements OnInit {
     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
-        res.model.persona.avatar = null;
-        res.model.persona.conyuge = null;
         res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
-        (<FormGroup>this.myForm).setValue(res.model);
+        (<FormGroup>this.myForm).patchValue(res.model);
       }
     });
   }

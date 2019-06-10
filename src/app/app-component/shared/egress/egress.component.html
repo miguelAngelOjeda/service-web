@@ -5,8 +5,8 @@
           <a mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
         </h4>
     </div>
-    <div formArrayName="egresos"  class="col-md-12">
-      <div [formGroupName]="i" *ngFor="let egresos of egressForm.get('egresos').controls; let i = index" >
+    <div [formArrayName]="formArrayName"  class="col-md-12">
+      <div [formGroupName]="i" *ngFor="let egresos of egressForm.get(formArrayName).controls; let i = index" >
           <div class="row">
              <div class="col-sm-5">
                <mat-form-field    appearance="legacy">
@@ -19,7 +19,9 @@
                </mat-form-field>
              </div>
              <div class="col-md-5">
-                 <app-select-filter (value)="getValue($event,egresos.controls['tipoIngresosEgresos'])" placeholder="Tipo Egreso" urlFilter="tipos-egresos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
+                 <app-select-filter (value)="getValue($event,egresos.controls['tipoIngresosEgresos'])"
+                 [modelValue]="egresos.controls.tipoIngresosEgresos.value"
+                 placeholder="Tipo Egreso" urlFilter="tipos-egresos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
              </div>
              <div class="col-md-2">
                <section class="example-section">
