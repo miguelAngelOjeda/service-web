@@ -42,8 +42,7 @@ export class EditClientComponent implements OnInit{
     .subscribe(res => {
       if(res.status == 200){
         res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
-        this.myForm.updateValue(res.model);
-        //this.myForm.patchValue(res.model);
+        this.myForm.patchValue(res.model);
       }
     });
 
