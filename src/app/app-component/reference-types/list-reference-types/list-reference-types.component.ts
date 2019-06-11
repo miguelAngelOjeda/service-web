@@ -11,14 +11,14 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-reference-types.component.scss']
 })
 export class ListReferenceTypesComponent implements AfterViewInit {
+  public isMobile: Boolean;
   public rulesColumns  = ['nombre'];
   public displayedColumns = ['nombre','opciones'];
+  public dataSource = new MatTableDataSource<ReferenceTypes>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filterInput: ElementRef;
-
-  public dataSource = new MatTableDataSource<ReferenceTypes>();
 
   //Filter
   isfilter = false;

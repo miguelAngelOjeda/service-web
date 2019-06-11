@@ -11,15 +11,16 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-destinations-types.component.scss']
 })
 export class ListDestinationsTypesComponent implements AfterViewInit {
-  isMobile = false;
+  public isMobile: Boolean;
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','opciones'];
-
+  public dataSource = new MatTableDataSource<DestinationsTypes>();
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filterInput: ElementRef;
 
-  public dataSource = new MatTableDataSource<DestinationsTypes>();
+
 
   //Filter
   isfilter = false;

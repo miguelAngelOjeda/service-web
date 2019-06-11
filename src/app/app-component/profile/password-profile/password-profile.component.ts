@@ -14,10 +14,7 @@ export class PasswordProfileComponent implements OnInit {
   passwordForm: FormGroup;
   hide = true;
   public model = new Users;
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
+
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -28,14 +25,19 @@ export class PasswordProfileComponent implements OnInit {
 
    ngOnInit() {
      this.passwordForm = this.formBuilder.group({
-       contraseña: ['', [Validators.required]],
-       nueva_contraseña: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-       confirmar_contraseña: ['', [Validators.required]]
+       claveAcceso: ['', [Validators.required]],
+       nuevaClaveAcceso: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+       confirmarClaveAcceso: ['', [Validators.required]]
      });
    }
 
    onSubmit() {
+     this.apiService.put('/usuarios/password/' + this.route.snapshot.params.id, this.passwordForm.value)
+     .subscribe(res => {
+       if(res.status == 200){
 
+       }
+     });
    }
 
 

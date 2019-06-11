@@ -12,14 +12,14 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort, 
   styleUrls: ['./list-role.component.scss']
 })
 export class ListRoleComponent implements AfterViewInit {
+  public isMobile: Boolean;
   public rulesColumns  = ['nombre'];
   public displayedColumns = ['nombre','opciones'];
+  public dataSource = new MatTableDataSource<Role>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filterInput: ElementRef;
-
-  public dataSource = new MatTableDataSource<Role>();
 
   //Filter
   isfilter = false;

@@ -11,14 +11,14 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-relations-types.component.scss']
 })
 export class ListRelationsTypesComponent implements AfterViewInit {
+  public isMobile: Boolean;
   public rulesColumns  = ['nombre'];
   public displayedColumns = ['nombre','opciones'];
+  public dataSource = new MatTableDataSource<RelationsTypes>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filterInput: ElementRef;
-
-  public dataSource = new MatTableDataSource<RelationsTypes>();
 
   //Filter
   isfilter = false;

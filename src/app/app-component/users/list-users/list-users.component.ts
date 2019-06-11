@@ -11,20 +11,17 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
   styleUrls: ['./list-users.component.scss']
 })
 export class ListUsersComponent implements AfterViewInit {
-    isMobile = false;
+    public isMobile: Boolean;
     public rulesColumns  = ['persona.documento', 'alias', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
-    displayedColumns = ['alias', 'persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
+    public displayedColumns = ['alias', 'persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
+    public dataSource = new MatTableDataSource<any>();
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild('filter') filterInput: ElementRef;
 
-    public dataSource = new MatTableDataSource<any>();
-
     //Filter
     isfilter = false;
-    filter = new Filter;
-    rules: Array<Rules> = [];
     // MatPaginator Inputs
     length = 0;
     pageSize = 10;

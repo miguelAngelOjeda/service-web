@@ -12,15 +12,14 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort, 
   styleUrls: ['./list-subsidiary.component.css']
 })
 export class ListSubsidiaryComponent implements AfterViewInit {
-  isMobile = false;
+  public isMobile: Boolean;
   public rulesColumns  = ['codigoSucursal', 'nombre'];
   public displayedColumns = ['codigoSucursal', 'nombre', 'direccion', 'telefono', 'email','opciones'];
+  public dataSource = new MatTableDataSource<Subsidiary>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filterInput: ElementRef;
-
-  public dataSource = new MatTableDataSource<Subsidiary>();
 
   //Filter
   isfilter = false;

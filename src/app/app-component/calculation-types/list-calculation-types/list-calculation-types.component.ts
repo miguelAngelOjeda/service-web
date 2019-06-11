@@ -11,7 +11,7 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-calculation-types.component.scss']
 })
 export class ListCalculationTypesComponent implements AfterViewInit {
-  isMobile = false;
+  public isMobile: Boolean;
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','opciones'];
 

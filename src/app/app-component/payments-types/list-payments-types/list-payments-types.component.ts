@@ -11,15 +11,14 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-payments-types.component.scss']
 })
 export class ListPaymentsTypesComponent implements AfterViewInit {
-  isMobile = false;
+  public isMobile: Boolean;
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','opciones'];
+  public dataSource = new MatTableDataSource<PaymentsTypes>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filterInput: ElementRef;
-
-  public dataSource = new MatTableDataSource<PaymentsTypes>();
 
   //Filter
   isfilter = false;
