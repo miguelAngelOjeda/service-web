@@ -38,6 +38,7 @@ export class EditClientComponent implements OnInit{
       this.myForm.value.persona.primerApellido = ' ';
       this.myForm.value.persona.sexo = 'N';
     }
+    console.log(this.myForm);
     this.apiService.put('/clientes/' + this.route.snapshot.params.id, this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){

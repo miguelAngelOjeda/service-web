@@ -20,24 +20,31 @@
                </mat-form-field>
              </div>
              <div class="col-md-3">
-               <app-select-filter (value)="getValue($event, bienesInmuebles.controls['pais'])" placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
+               <app-select-filter (value)="getValue($event, bienesInmuebles.controls['pais'])"
+               [modelValue]="bienesInmuebles.controls.pais.value"
+               placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
              </div>
              <div class="col-md-3">
-               <app-select-filter (value)="getValue($event, bienesInmuebles.controls['departamento'])" [disabled]="true" placeholder="Departamento"
-                urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="bienesInmuebles.controls['pais'].value"></app-select-filter>
+               <app-select-filter (value)="getValue($event, bienesInmuebles.controls['departamento'])" [disabled]="true"
+               placeholder="Departamento"
+                urlFilter="departamentos" [columnsFilter]="['nombre']"
+                [modelValue]="bienesInmuebles.controls.departamento.value"
+                [fkFilterModel]="bienesInmuebles.controls['pais'].value"></app-select-filter>
              </div>
              <div class="col-md-3">
                <app-select-filter (value)="getValue($event, bienesInmuebles.controls['ciudad'])" [disabled]="true" placeholder="Ciudad"
-                urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="bienesInmuebles.controls['departamento'].value"></app-select-filter>
+                urlFilter="ciudades" [columnsFilter]="['nombre']"
+                [modelValue]="bienesInmuebles.controls.ciudad.value"
+                [fkFilterModel]="bienesInmuebles.controls['departamento'].value"></app-select-filter>
              </div>
              <div class="col-md-2">
                <section class="example-section">
-                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="edificado" name="edificado" required>Edificado</mat-checkbox>
+                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="edificado" name="edificado">Edificado</mat-checkbox>
                </section>
              </div>
              <div class="col-md-2">
                <section class="example-section">
-                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="escriturado" name="escriturado" required>Escriturado</mat-checkbox>
+                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="escriturado" name="escriturado">Escriturado</mat-checkbox>
                </section>
              </div>
              <div class="col-md-2">
