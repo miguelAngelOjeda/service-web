@@ -11,6 +11,7 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-egress-types.component.scss']
 })
 export class ListEgressTypesComponent implements AfterViewInit {
+  isMobile = false;
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','opciones'];
 

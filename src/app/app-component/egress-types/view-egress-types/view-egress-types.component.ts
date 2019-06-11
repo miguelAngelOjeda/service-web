@@ -12,7 +12,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class ViewEgressTypesComponent implements OnInit {
 
 
-    private model: EgressTypes;
+    public model: EgressTypes;
 
     formControl = new FormControl('', [
       Validators.required

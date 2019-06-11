@@ -11,6 +11,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
   styleUrls: ['./list-client.component.scss']
 })
 export class ListClientComponent implements AfterViewInit {
+  isMobile = false;
   public rulesColumns  = ['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
   displayedColumns = ['persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'persona.email', 'sucursal.nombre', 'opciones'];
 

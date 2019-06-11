@@ -11,6 +11,7 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-outlays-types.component.scss']
 })
 export class ListOutlaysTypesComponent implements AfterViewInit {
+  isMobile = false;
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','opciones'];
 

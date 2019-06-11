@@ -12,11 +12,12 @@ const MENUITEMS = [
   { state: 'business', name: 'Empresas', type: 'link', icon: 'business' , entity:'enterprise', role:'listEnterprise'},
   { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'account_balance', entity:'subsidiary', role:'listSubsidiary' },
   { state: 'users', type: 'link', name: 'Usuarios', icon: 'group', entity:'subsidiary', role:'listSubsidiary' },
-  { state: 'client', type: 'link', name: 'Clientes', icon: 'assignment_ind', entity:'people', role:'listPeople' },
+  { state: 'client', type: 'link', name: 'Clientes', icon: 'assignment_ind', entity:'client', role:'listClient' },
   { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' , entity:'', role:''},
   {
     state: 'progress-snipper',
     type: 'box',
+    view: false,
     name: 'Solicitudes',
     icon: 'border_horizontal',
     entity:'',
@@ -50,8 +51,8 @@ const MENUITEMS = [
     type: 'box',
     name: 'Configuraciones',
     icon: 'border_horizontal',
-    entity:'',
-    role:'',
+    entity:'role',
+    role:['listRole'],
     subMenu:[
       {state: 'role', name: 'Roles', icon: 'border_horizontal', entity:'role', role:'listRole'}
     ]

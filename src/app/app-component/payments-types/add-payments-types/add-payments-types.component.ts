@@ -11,7 +11,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AddPaymentsTypesComponent implements OnInit {
 
-  private model: PaymentsTypes;
+  public model: PaymentsTypes;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -32,7 +32,7 @@ export class AddPaymentsTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.post('/tipos-pagos', this.model)
     .subscribe(res => {
         this.model = res.model as PaymentsTypes;

@@ -12,7 +12,7 @@ declare var google: any;
   styleUrls: ['./add-subsidiary.component.css']
 })
 export class AddSubsidiaryComponent implements OnInit {
-  private model = new Subsidiary();
+  public model = new Subsidiary();
   subsidiaryForm: FormGroup;
 
   constructor(

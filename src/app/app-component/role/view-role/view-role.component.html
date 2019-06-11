@@ -1,31 +1,38 @@
 <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/role"> Roles </a> &gt; <span class="current">Visualizar</span></h2>
 <mat-card class="form-card">
-<mat-card-content>
+<mat-card-content *ngIf="model.id">
   <form  class="mat-dialog-content">
+    <div class="col-md-12">
+      <h4  class="m-0"><mat-icon class="gray-text">perm_data_setting</mat-icon>Rol</h4>
+      <br>
+    </div>
     <div class="row">
       <div class="col-md-4">
         <p><mat-icon class="gray-text">lock_outline</mat-icon>{{model.nombre}}</p>
       </div>
     </div>
     <br>
-    <h3 class="m-t-0 font-light">Permisos</h3>
+    <div class="col-md-12">
+      <h4  class="m-0"><mat-icon class="gray-text">assignment</mat-icon>Permisos</h4>
+      <br>
+    </div>
     <div class="row">
-      <div class="col-md-3" *ngFor="let authority of authorities">
+      <div *ngFor="let authority of authorities">
         <div *ngIf="authority.authority.length > 0">
-          <mat-card>
-            <mat-card-header class="bg-inverse text-white">
-              <mat-card-title>
-                <h6 class="m-0">{{ authority.grupo }}</h6>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-list>
-              <mat-list-item  *ngFor="let role of authority.authority">
-                <p><mat-icon class="gray-text">check</mat-icon>{{role.descripcion}}</p>
-              </mat-list-item>
-              </mat-list>
-            </mat-card-content>
-          </mat-card>
+            <mat-card>
+              <mat-card-header class="bg-inverse text-white">
+                <mat-card-title>
+                  <h6 class="m-0">{{ authority.grupo }}</h6>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-list>
+                <mat-list-item  *ngFor="let role of authority.authority">
+                  <p><mat-icon class="gray-text">check</mat-icon>{{role.descripcion}}</p>
+                </mat-list-item>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class ViewReferenceTypesComponent implements OnInit {
 
 
-    private model: ReferenceTypes;
+    public model: ReferenceTypes;
 
     formControl = new FormControl('', [
       Validators.required

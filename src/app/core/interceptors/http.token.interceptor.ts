@@ -44,9 +44,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
                     try {
                           if(err.status == 0){
                             this.snackBar.openSnackBar('Error al conectar con el servidor, si el problema persiste contactar con el administrador.','Close','red-snackbar');
-                            this.jwtService.destroyToken();
+                            //this.jwtService.destroyToken();
                             //setTimeout(() => {
-                              this.router.navigateByUrl('service-web/login');
+                              //this.router.navigateByUrl('service-web/login');
                             //}, 7000);
                           }else if(err.status != 401){
                             this.snackBar.openSnackBar(err.status + ' ' + err.message,'Close','alert-danger');

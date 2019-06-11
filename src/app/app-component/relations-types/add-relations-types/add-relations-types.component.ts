@@ -11,7 +11,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AddRelationsTypesComponent implements OnInit {
 
-  private model: RelationsTypes;
+  public model: RelationsTypes;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -32,7 +32,7 @@ export class AddRelationsTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.post('/tipos-vinculos', this.model)
     .subscribe(res => {
         this.model = res.model as RelationsTypes;

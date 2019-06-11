@@ -11,7 +11,7 @@ import { ApiService } from '../../../core/services';
 })
 export class EditOutlaysTypesComponent implements OnInit {
 
-  private model: OutlaysTypes;
+  public model: OutlaysTypes;
 
   formControl = new FormControl('', [
     Validators.required
@@ -38,7 +38,7 @@ export class EditOutlaysTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.put('/tipos-desembolsos/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');

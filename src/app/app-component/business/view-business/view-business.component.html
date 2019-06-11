@@ -9,7 +9,7 @@
 						<h4  class="m-0">{{data.nombre}}</h4>
 					</mat-card-title>
 					<mat-card-subtitle class="mat-card-subtitle">{{data.nombreFantasia}}</mat-card-subtitle>
-						<form   (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
+						<form>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="row">
@@ -20,10 +20,7 @@
 											</div>
 										</div>
 										<div class="col-md-10">
-											<agm-map class="gmap" [latitude]="latitude" [zoom]="zoom" [longitude]="longitude" [mapTypeControl]="true">
-												<agm-marker  [latitude]="latitude" [longitude]="longitude" (markerClick)="clickedMarker(m)" [markerDraggable]="false"
-												(dragEnd)="markerDragEnd($event)"></agm-marker>
-											</agm-map>
+											<app-map [latitude]="data.latitud == null ? latitude : data.latitud" [longitude]="data.longitud == null ? longitude : data.longitud"></app-map>
 										</div>
 									</div>
 									<div class="row">
@@ -100,10 +97,7 @@
 							<a>
 								<div class="row">
 									<div class="col-md-12">
-										<agm-map class="gmap" [latitude]="subsidiary.latitud == null ? latitude : subsidiary.latitud" [zoom]="zoom" [longitude]="subsidiary.longitud == null ? longitude : subsidiary.longitud" [mapTypeControl]="true">
-											<agm-marker  [latitude]="subsidiary.latitud == null ? latitude : subsidiary.latitud" [longitude]="subsidiary.longitud == null ? longitude : subsidiary.longitud" (markerClick)="clickedMarker(m)" [markerDraggable]="false"
-											(dragEnd)="markerDragEnd($event)"></agm-marker>
-										</agm-map>
+										<app-map [latitude]="subsidiary.latitud == null ? latitude : subsidiary.latitud" [longitude]="subsidiary.longitud == null ? longitude : subsidiary.longitud"></app-map>
 										<div class="row">
 											<div class="col-md-6" *ngIf="subsidiary.pais">
 												<p><mat-icon class="gray-text">public</mat-icon>{{subsidiary.pais.nombre}}</p>

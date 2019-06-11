@@ -11,7 +11,7 @@ import { ApiService } from '../../../core/services';
 })
 export class EditCalculationTypesComponent implements OnInit {
 
-  private model: CalculationTypes;
+  public model: CalculationTypes;
 
   formControl = new FormControl('', [
     Validators.required
@@ -38,7 +38,7 @@ export class EditCalculationTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.put('/tipos-calculos/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');

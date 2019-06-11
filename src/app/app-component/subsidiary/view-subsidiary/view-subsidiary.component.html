@@ -12,10 +12,7 @@
     <a>
       <div class="row">
         <div class="col-md-12">
-          <agm-map class="gmap" [latitude]="model.latitud == null ? latitude : model.latitud" [zoom]="zoom" [longitude]="model.longitud == null ? longitude : model.longitud" [mapTypeControl]="true">
-            <agm-marker  [latitude]="model.latitud == null ? latitude : model.latitud" [longitude]="model.longitud == null ? longitude : model.longitud" (markerClick)="clickedMarker(m)" [markerDraggable]="false"
-            (dragEnd)="markerDragEnd($event)"></agm-marker>
-          </agm-map>
+          <app-map [latitude]="model.latitud == null ? latitude : model.latitud" [longitude]="model.longitud == null ? longitude : model.longitud"></app-map>
           <div class="row">
             <div class="col-md-6" *ngIf="model.pais">
               <p><mat-icon class="gray-text">public</mat-icon>{{model.pais.nombre +' - '+model.departamento.nombre}}</p>
@@ -31,7 +28,7 @@
             </div>
             <div class="col-md-6" *ngIf="model.email">
               <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.email}}</p>
-            </div>                        
+            </div>
             <div class="col-md-6" *ngIf="model.barrio">
               <p><mat-icon class="gray-text">location_on</mat-icon>{{model.barrio.nombre}}</p>
             </div>

@@ -66,6 +66,7 @@ export class MapComponent implements OnInit {
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
         if(this.location.isView){
           this.location.lat = position.coords.latitude;
           this.location.lng = position.coords.longitude;
@@ -129,6 +130,8 @@ export class MapComponent implements OnInit {
   markerDragEnd(m: any, $event: any) {
    this.location.marker.lat = m.coords.lat;
    this.location.marker.lng = m.coords.lng;
+   this.location.lat = m.coords.lat;
+   this.location.lng = m.coords.lng;
    this.findAddressByCoordinates();
   }
 

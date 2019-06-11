@@ -10,8 +10,8 @@ import { ApiService } from '../../../core/services';
   styleUrls: ['./edit-role.component.scss']
 })
 export class EditRoleComponent implements OnInit {
-  private model = new Role;
-  private authorities: Array<Authorities> = [];
+  public model = new Role;
+  public authorities: Array<Authorities> = [];
 
   formControl = new FormControl('', [Validators.required]);
 

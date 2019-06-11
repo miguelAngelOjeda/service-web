@@ -11,7 +11,7 @@ import { ApiService } from '../../../core/services';
 })
 export class EditReferenceTypesComponent implements OnInit {
 
-  private model: ReferenceTypes;
+  public model: ReferenceTypes;
 
   formControl = new FormControl('', [
     Validators.required
@@ -38,7 +38,7 @@ export class EditReferenceTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.put('/tipos-referencias/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');

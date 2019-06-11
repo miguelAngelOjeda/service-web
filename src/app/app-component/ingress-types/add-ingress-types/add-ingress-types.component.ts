@@ -11,7 +11,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AddIngressTypesComponent implements OnInit {
 
-  private model: IngressTypes;
+  public model: IngressTypes;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -32,7 +32,7 @@ export class AddIngressTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.post('/tipos-ingresos', this.model)
     .subscribe(res => {
         this.model = res.model as IngressTypes;

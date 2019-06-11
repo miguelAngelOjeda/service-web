@@ -6,7 +6,7 @@
         </h4>
     </div>
     <div [formArrayName]="formArrayName"  class="col-md-12">
-      <div [formGroupName]="i" *ngFor="let egresos of egressForm.get(formArrayName).controls; let i = index" >
+      <div [formGroupName]="i" *ngFor="let egresos of egressForm.get(formArrayName)['controls']; let i = index" >
           <div class="row">
              <div class="col-sm-5">
                <mat-form-field    appearance="legacy">

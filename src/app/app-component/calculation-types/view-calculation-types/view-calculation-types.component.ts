@@ -12,7 +12,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class ViewCalculationTypesComponent implements OnInit {
 
 
-    private model: CalculationTypes;
+    public model: CalculationTypes;
 
     formControl = new FormControl('', [
       Validators.required

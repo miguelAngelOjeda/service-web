@@ -1,4 +1,3 @@
-import {Subsidiary} from "../models";
 export class People {
     id: number;
     primerNombre: string;
@@ -22,7 +21,7 @@ export class People {
     observacion: string;
     latitud: number;
     longitud: number;
-    sucursal: Subsidiary = new Subsidiary;
+
     activo: string;
     nacionalidad: any;
     pais: any;

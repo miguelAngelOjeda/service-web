@@ -10,7 +10,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./view-client.component.css']
 })
 export class ViewClientComponent implements OnInit {
-  private model = new Users;
+  public model = new Users;
   urlImage = environment.api_url;
 
   constructor(

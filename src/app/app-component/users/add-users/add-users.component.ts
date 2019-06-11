@@ -12,7 +12,8 @@ import { Users, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
 })
 export class AddUsersComponent implements OnInit {
     myForm: FormGroup;
-    protected departments: Array<Departments> = [];
+    hide = true;
+    public departments: Array<Departments> = [];
 
     constructor(
       private formBuilder: FormBuilder,

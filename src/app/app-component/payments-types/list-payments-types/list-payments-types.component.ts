@@ -11,6 +11,7 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-payments-types.component.scss']
 })
 export class ListPaymentsTypesComponent implements AfterViewInit {
+  isMobile = false;
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','opciones'];
 

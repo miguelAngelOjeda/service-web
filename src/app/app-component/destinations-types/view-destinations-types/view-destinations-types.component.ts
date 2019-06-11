@@ -12,7 +12,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class ViewDestinationsTypesComponent implements OnInit {
 
 
-    private model: DestinationsTypes;
+    public model: DestinationsTypes;
 
     constructor(
       private apiService: ApiService,

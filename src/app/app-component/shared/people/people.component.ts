@@ -161,8 +161,8 @@ export class PeopleComponent implements OnInit{
     this.rucValue.emit((<FormGroup>this.peopleForm.get('persona')).controls.documento.value);
   }
 
-  getValue(data: any, form : FormControl): void {
-    form.setValue(data);
+  getValue(data: any, form : any): void {
+    (<FormControl>this.peopleForm.controls['persona'].get(form)).setValue(data);
   }
 
   // Get Current Location Coordinates

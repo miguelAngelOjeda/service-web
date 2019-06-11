@@ -11,7 +11,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AddDestinationsTypesComponent implements OnInit {
 
-  private model: DestinationsTypes;
+  public model: DestinationsTypes;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -32,7 +32,7 @@ export class AddDestinationsTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.post('/tipos-destinos', this.model)
     .subscribe(res => {
         this.model = res.model as DestinationsTypes;

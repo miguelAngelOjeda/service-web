@@ -11,7 +11,7 @@ import { ApiService } from '../../../core/services';
 })
 export class EditDestinationsTypesComponent implements OnInit {
 
-  private model: DestinationsTypes;
+  public model: DestinationsTypes;
 
   formControl = new FormControl('', [
     Validators.required
@@ -38,7 +38,7 @@ export class EditDestinationsTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.put('/tipos-destinos/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');

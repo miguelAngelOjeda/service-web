@@ -11,7 +11,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AddOutlaysTypesComponent implements OnInit {
 
-  private model: OutlaysTypes;
+  public model: OutlaysTypes;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -32,7 +32,7 @@ export class AddOutlaysTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.post('/tipos-desembolsos', this.model)
     .subscribe(res => {
         this.model = res.model as OutlaysTypes;

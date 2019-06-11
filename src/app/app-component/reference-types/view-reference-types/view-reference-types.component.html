@@ -10,7 +10,7 @@
   <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
 </mat-card-header>
 <mat-card-content>
-  <form  class="mat-dialog-content" (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm">
+  <form>
     <div class="form-container">
     	<mat-form-field   class="col-sm-12" appearance="legacy">
     		<input matInput #input  placeholder="Tipo Referencia" [(ngModel)]="model.nombre" name="nombre" required disabled>

@@ -66,12 +66,13 @@ export class EditBusinessComponent implements OnInit {
 
   // Get Current Location Coordinates
   getAddress(location: Location): void {
+    console.log(location);
     this.businessForm.controls['latitud'].setValue(location.lat);
     this.businessForm.controls['longitud'].setValue(location.lng);
     this.businessForm.controls['direccion'].setValue(location.address);
   }
 
-  getValue(data: any, form : FormControl): void {
-    form.setValue(data);
+  getValue(data: any, form : any): void {
+    (<FormControl>this.businessForm.get(form)).setValue(data);
   }
 }

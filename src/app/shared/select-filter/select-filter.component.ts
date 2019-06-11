@@ -22,8 +22,8 @@ export function RequireMatch(control: AbstractControl) {
 export class SelectFilterComponent implements AfterViewInit, OnInit {
   modelControl = new FormControl('', [Validators.required, RequireMatch]);
   @Output() value = new EventEmitter<any>();
-  protected models: Array<any> = [];
-  protected idModel: any;
+  public models: Array<any> = [];
+  public idModel: any;
   @ViewChild('filterInputModel') filterInputModel: ElementRef;
   @Input() set disabled (condition : boolean){
     if(condition){

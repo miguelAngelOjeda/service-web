@@ -11,7 +11,7 @@ import { ApiService } from '../../../core/services';
 })
 export class EditIngressTypesComponent implements OnInit {
 
-  private model: IngressTypes;
+  public model: IngressTypes;
 
   formControl = new FormControl('', [
     Validators.required
@@ -38,7 +38,7 @@ export class EditIngressTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.put('/tipos-ingresos/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');

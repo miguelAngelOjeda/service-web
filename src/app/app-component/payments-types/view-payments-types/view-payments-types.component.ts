@@ -12,7 +12,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class ViewPaymentsTypesComponent implements OnInit {
 
 
-    private model: PaymentsTypes;
+    public model: PaymentsTypes;
 
     constructor(
       private apiService: ApiService,

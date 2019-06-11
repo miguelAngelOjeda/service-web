@@ -11,7 +11,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AddReferenceTypesComponent implements OnInit {
 
-  private model: ReferenceTypes;
+  public model: ReferenceTypes;
   formControl = new FormControl('', [
     Validators.required
   // Validators.email,
@@ -32,7 +32,7 @@ export class AddReferenceTypesComponent implements OnInit {
         '';
   }
 
-  submit(form) {
+  submit() {
     this.apiService.post('/tipos-referencias', this.model)
     .subscribe(res => {
         this.model = res.model as ReferenceTypes;

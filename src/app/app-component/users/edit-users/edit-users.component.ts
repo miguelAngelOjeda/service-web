@@ -13,7 +13,8 @@ import { Users, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
 })
 export class EditUsersComponent implements OnInit {
   myForm: FormGroup;
-  protected departments: Array<Departments> = [];
+  hide = true;
+  public departments: Array<Departments> = [];
 
   constructor(
     private route: ActivatedRoute,

@@ -12,7 +12,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class ViewOutlaysTypesComponent implements OnInit {
 
 
-    private model: OutlaysTypes;
+    public model: OutlaysTypes;
 
     formControl = new FormControl('', [
       Validators.required

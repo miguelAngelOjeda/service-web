@@ -11,6 +11,7 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
   styleUrls: ['./list-destinations-types.component.scss']
 })
 export class ListDestinationsTypesComponent implements AfterViewInit {
+  isMobile = false;
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','opciones'];
 

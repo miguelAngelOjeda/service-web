@@ -57,21 +57,21 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_DELETE.LIST"]
     	}
     },
-    "people": {
-      "addPeople": {
-    	   "permittedRoles": ["ROLE_PEOPLE.ADD"]
+    "client": {
+      "addClient": {
+    	   "permittedRoles": ["ROLE_CLIENT.ADD"]
     	 },
-    	"editPeople": {
-    	  "permittedRoles": ["ROLE_PEOPLE.EDIT"]
+    	"editClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.EDIT"]
     	},
-    	"viewPeople": {
-    	  "permittedRoles": ["ROLE_PEOPLE.VIEW"]
+    	"viewClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.VIEW"]
     	},
-    	"listPeople": {
-    	  "permittedRoles": ["ROLE_PEOPLE.LIST"]
+    	"listClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.LIST"]
     	},
-    	"deletePeople": {
-    	  "permittedRoles": ["ROLE_PEOPLE.LIST"]
+    	"deleteClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.DELETE"]
     	}
     },
     "role": {
