@@ -77,8 +77,8 @@ export class AddSubsidiaryComponent implements OnInit {
     this.subsidiaryForm.controls['direccion'].setValue(location.address);
   }
 
-  getValue(data: any, form : FormControl): void {
-    form.setValue(data);
+  getValue(data: any, form : any): void {
+    (<FormControl>this.subsidiaryForm.get(form)).setValue(data);
   }
 
 }

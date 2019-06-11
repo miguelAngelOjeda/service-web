@@ -42,24 +42,24 @@
 								</div>
 
 								<div class="col-md-3">
-					        <app-select-filter  (value)="getValue($event, subsidiaryForm.get('pais'))" [modelValue]="subsidiaryForm.get('pais').value"
+					        <app-select-filter  (value)="getValue($event, 'pais')" [modelValue]="subsidiaryForm.get('pais').value"
 					         placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
 					      </div>
 
 					      <div class="col-md-3">
-					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('departamento'))"
+					        <app-select-filter (value)="getValue($event, 'departamento')"
 					         [disabled]="true" placeholder="Departamento" [modelValue]="subsidiaryForm.get('departamento').value"
 					         urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('pais').value"></app-select-filter>
 					      </div>
 
 					      <div class="col-md-3">
-					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('ciudad'))" [disabled]="true" placeholder="Ciudad"
+					        <app-select-filter (value)="getValue($event, 'ciudad')" [disabled]="true" placeholder="Ciudad"
 					        [modelValue]="subsidiaryForm.get('ciudad').value"
 					         urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('departamento').value"></app-select-filter>
 					      </div>
 
 								<div class="col-md-3">
-					        <app-select-filter (value)="getValue($event, subsidiaryForm.get('barrio'))" [required]="false" [disabled]="true"  placeholder="Barrio"
+					        <app-select-filter (value)="getValue($event, 'barrio')" [required]="false" [disabled]="true"  placeholder="Barrio"
 					        [modelValue]="subsidiaryForm.get('barrio').value"
 					         urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="subsidiaryForm.get('ciudad').value"></app-select-filter>
 					      </div>
