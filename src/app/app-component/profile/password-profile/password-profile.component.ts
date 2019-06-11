@@ -21,7 +21,9 @@ export class PasswordProfileComponent implements OnInit {
     public dialogRef: MatDialogRef<PasswordProfileComponent>,
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: Users
-  ) {}
+  ) {
+    this.model = data;
+  }
 
    ngOnInit() {
      this.passwordForm = this.formBuilder.group({
@@ -32,7 +34,8 @@ export class PasswordProfileComponent implements OnInit {
    }
 
    onSubmit() {
-     this.apiService.put('/usuarios/password/' + this.route.snapshot.params.id, this.passwordForm.value)
+
+     this.apiService.put('/usuarios/password/' + this.model.id, this.passwordForm.value)
      .subscribe(res => {
        if(res.status == 200){
 
