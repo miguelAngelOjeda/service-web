@@ -41,11 +41,11 @@
           </mat-form-field>
         </div>
         <div class="col-md-3">
-             <app-select-filter (value)="getValue($event, myForm.get('rol'))" [modelValue]="myForm.get('rol').value"
+             <app-select-filter (value)="getValue($event, 'rol')" [modelValue]="myForm.get('rol').value"
               placeholder="Rol" urlFilter="roles" [columnsFilter]="['nombre']"></app-select-filter>
         </div>
         <div class="col-md-3">
-             <app-select-filter (value)="getValue($event, myForm.get('sucursal'))" [modelValue]="myForm.get('sucursal').value"
+             <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="myForm.get('sucursal').value"
               placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
         </div>
         <div class="col-md-4">

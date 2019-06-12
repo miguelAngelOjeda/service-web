@@ -60,11 +60,9 @@ export class EditUsersComponent implements OnInit {
     });
   }
 
-  getValue(data: any, form : FormControl): void {
-    form.setValue(data);
+  getValue(data: any, form : any): void {
+    (<FormControl>this.myForm.get(form)).setValue(data);
   }
-
-
 
   protected filterDepartments() {
     if(this.myForm.get('sucursal').value.id != null){
