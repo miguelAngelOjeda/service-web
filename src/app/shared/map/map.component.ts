@@ -14,12 +14,12 @@ export class MapComponent implements OnInit {
   geocoder:any;
   @Output() valueLocationChange = new EventEmitter<Location>();
   public location:Location = {
-    lat: 51.678418,
-    lng: 7.809007,
+    lat: -25.2877748,
+    lng: -57.6215744,
     isView: true,
     marker: {
-      lat: 51.678418,
-      lng: 7.809007,
+      lat: -25.2877748,
+      lng: -57.6215744,
       draggable: true
     },
     zoom: 5

@@ -14,7 +14,7 @@
           Usuarios
         </div>
         <div class="col-md-6">
-          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/users/new">
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/users/new" *appCanAccess="['users', 'addUsers']">
             Agregar
           </a>
         </div>

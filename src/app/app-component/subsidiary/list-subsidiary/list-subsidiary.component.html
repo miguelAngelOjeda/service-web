@@ -27,6 +27,7 @@
          <ng-container matColumnDef="codigoSucursal">
            <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
            <mat-cell *matCellDef="let element">
+             <span class="mobile-label">Codigo:</span>
               {{element.codigoSucursal}}
            </mat-cell>
          </ng-container>
@@ -34,6 +35,7 @@
           <ng-container matColumnDef="nombre">
             <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
             <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Nombre:</span>
                {{element.nombre}}
              </mat-cell>
           </ng-container>
@@ -41,6 +43,7 @@
           <ng-container matColumnDef="direccion">
             <mat-header-cell *matHeaderCellDef> DIRECCION </mat-header-cell>
             <mat-cell mat-cell *matCellDef="let element">
+              <span class="mobile-label">Direccion:</span>
                {{element.direccion}}
              </mat-cell>
           </ng-container>
@@ -48,6 +51,7 @@
           <ng-container matColumnDef="telefono">
             <mat-header-cell *matHeaderCellDef> TELEFONO </mat-header-cell>
             <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Telefono:</span>
               {{element.telefono}}
             </mat-cell>
           </ng-container>
@@ -55,6 +59,7 @@
           <ng-container matColumnDef="email">
               <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
               <mat-cell *matCellDef="let element">
+                <span class="mobile-label">Email:</span>
                 {{element.email}}
               </mat-cell>
           </ng-container>

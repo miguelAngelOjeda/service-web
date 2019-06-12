@@ -12,7 +12,9 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig  } from '@angular/materi
 })
 export class PasswordProfileComponent implements OnInit {
   passwordForm: FormGroup;
-  hide = true;
+  public isViewClave: Boolean = true;
+  public isViewNewClave: Boolean = true;
+  public isViewNewConf: Boolean = true;
   public model = new Users;
 
   constructor(

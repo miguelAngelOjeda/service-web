@@ -31,7 +31,7 @@ export class ViewProfileComponent implements OnInit {
    changePassword() {
      const dialogConfig = new MatDialogConfig();
      dialogConfig.data = this.model;
-     dialogConfig.maxWidth = "450px";
+     dialogConfig.maxWidth = "400px";
      dialogConfig.autoFocus = true;
 
      const dialogRef = this.dialog.open(PasswordProfileComponent,dialogConfig);

@@ -14,12 +14,14 @@ import { ReactiveFormsModule }    from '@angular/forms';
 import { DropifyImageComponent } from '../../shared/dropify-image';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { PeopleComponent } from '../shared';
-import { SelectFilterComponent } from '../../shared/select-filter';
+import { ProfileModule } from '../profile/profile.module';
 import { SharedAppModule } from '../shared';
+import { SelectFilterComponent } from '../../shared/select-filter';
 
 @NgModule({
   imports: [
     UsersRoutingModule,
+    ProfileModule,
     MaterialModule,
     SharedAppModule,
     FlexLayoutModule,
@@ -34,6 +36,9 @@ import { SharedAppModule } from '../shared';
     SelectFilterComponent,
     PeopleComponent,
     DeleteDialogComponent
+  ],
+  entryComponents: [
+
   ],
   declarations: [
     AddUsersComponent,

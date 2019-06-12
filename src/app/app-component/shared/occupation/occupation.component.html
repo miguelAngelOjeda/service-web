@@ -101,6 +101,11 @@
                <div class="col-md-5">
                  <mat-form-field    appearance="legacy">
                    <input matInput #input  placeholder="Direccion" formControlName="direccion"  name="direccion">
+                   <mat-error *ngIf="(ocupaciones.get('direccion').errors)">
+                     <span *ngIf="ocupaciones.get('direccion').errors.required">
+                      Campo requerido
+                     </span>
+                   </mat-error>
                  </mat-form-field>
                </div>
                <div class="col-md-1">

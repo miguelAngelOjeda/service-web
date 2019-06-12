@@ -27,7 +27,6 @@ export class AddClientComponent implements OnInit {
     }
 
     onSubmit() {
-      console.log(this.myForm.value);
       if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
         this.myForm.value.persona.documento = ' ';
         this.myForm.value.persona.fechaNacimiento = new Date();

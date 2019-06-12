@@ -16,16 +16,16 @@
              <div class="col-md-12">
                <mat-list>
                  <mat-list-item *ngIf="model.persona.documento">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.documento}}</p>
+                   <p><mat-icon class="gray-text">credit_card</mat-icon>{{model.persona.documento}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.ruc">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.ruc}}</p>
+                   <p><mat-icon class="gray-text">featured_play_list</mat-icon>{{model.persona.ruc}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.email">
                    <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.email}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.email">
-                   <p><mat-icon class="gray-text">vpn_key</mat-icon><a routerLink="/service-web/business"> Cambiar Contraseña </a></p>
+                 <mat-list-item *ngIf="model.persona">
+                   <p><mat-icon class="gray-text">vpn_key</mat-icon><a (click)="changePassword()"> <span _ngcontent-c24="" class="label label-light-info">Cambiar Contraseña</span> </a></p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.telefono">
                    <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoParticular}}</p>

@@ -94,7 +94,7 @@
            </section>
          </div>
          <div class="col-md-3">
-              <app-select-filter (value)="getValue($event, peopleForm.controls['persona']['controls'].nacionalidad)"
+              <app-select-filter (value)="getValue($event, 'nacionalidad')"
                [modelValue]="peopleForm.controls['persona']['controls'].nacionalidad.value"
                placeholder="Nacionalidad" urlFilter="nacionalidades" [columnsFilter]="['codigo', 'nombre']"></app-select-filter>
          </div>
@@ -142,7 +142,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <app-select-filter  (value)="getValue($event, peopleForm.controls['persona'].get('profesion'))"
+        <app-select-filter  (value)="getValue($event, 'profesion')"
          [modelValue]="peopleForm.controls['persona']['controls'].profesion.value" [disabled]="isDisabled"
          placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
       </div>
@@ -214,21 +214,21 @@
         <app-map [latitude]="peopleForm.controls['persona'].get('latitud').value" [longitude]="peopleForm.controls['persona'].get('longitud').value" (valueLocationChange)="getAddress($event)"></app-map>
       </div>
       <div class="col-md-3">
-        <app-select-filter  (value)="getValue($event, peopleForm.controls['persona'].get('pais'))" [modelValue]="peopleForm.controls['persona']['controls'].pais.value"
+        <app-select-filter  (value)="getValue($event, 'pais')" [modelValue]="peopleForm.controls['persona']['controls'].pais.value"
          placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
       </div>
       <div class="col-md-3">
-        <app-select-filter (value)="getValue($event, peopleForm.controls['persona'].get('departamento'))"
+        <app-select-filter (value)="getValue($event, 'departamento')"
          [disabled]="true" placeholder="Departamento" [modelValue]="peopleForm.controls['persona']['controls'].departamento.value"
          urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('pais').value"></app-select-filter>
       </div>
       <div class="col-md-3">
-        <app-select-filter (value)="getValue($event, peopleForm.controls['persona'].get('ciudad'))" [disabled]="true" placeholder="Ciudad"
+        <app-select-filter (value)="getValue($event, 'ciudad')" [disabled]="true" placeholder="Ciudad"
         [modelValue]="peopleForm.controls['persona']['controls'].ciudad.value"
          urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('departamento').value"></app-select-filter>
       </div>
       <div class="col-md-3">
-        <app-select-filter (value)="getValue($event, peopleForm.controls['persona'].get('barrio'))" [disabled]="true" placeholder="Barrio"
+        <app-select-filter (value)="getValue($event, 'barrio')" [disabled]="true" placeholder="Barrio"
         [modelValue]="peopleForm.controls['persona']['controls'].barrio.value"
          urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('ciudad').value"></app-select-filter>
       </div>
