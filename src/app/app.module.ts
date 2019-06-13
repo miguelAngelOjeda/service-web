@@ -30,6 +30,7 @@ import { SharedAppModule } from './app-component/shared';
 import * as $ from 'jquery';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
