@@ -39,7 +39,7 @@ export class ListClientComponent implements AfterViewInit {
           startWith({}),
           switchMap(() => {
             this.isfilter = false;
-            if(this.filterInput.nativeElement.textLength > 1){
+            if(this.filterInput.nativeElement.value > 1){
               this.isfilter = true;
             }
             return this.apiService.getPageList('/clientes',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,

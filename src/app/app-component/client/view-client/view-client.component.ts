@@ -34,6 +34,7 @@ export class ViewClientComponent implements OnInit {
   protected initFormBuilder() {
     this.myForm = this.formBuilder.group({
       id: null ,
+      sucursal: null ,
       activo: 'S'
     });
   }

@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  api_image_url: 'http://mail.creditoguarani.com.py:4443/beta1/image/',
-  api_url: 'http://mail.creditoguarani.com.py:4443/beta1',
+  api_image_url: 'https://mail.creditoguarani.com.py:8443/beta1/image/',
+  api_url: 'https://mail.creditoguarani.com.py:8443/beta1',
   whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };
 
@@ -84,6 +84,23 @@ export const authorities = {
     	},
     	"deleteRole": {
     	  "permittedRoles": ["ROLE_ROLE.DELETE"]
+    	}
+    },
+    "credits": {
+      "addCredits": {
+    	   "permittedRoles": ["ROLE_SOLICITUDE.ADD"]
+    	 },
+    	"editCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.EDIT"]
+    	},
+    	"viewCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.VIEW"]
+    	},
+    	"listCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST"]
+    	},
+    	"deleteCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}
     },
     "reference-types": {

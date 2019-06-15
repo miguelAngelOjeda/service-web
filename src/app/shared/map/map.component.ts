@@ -40,8 +40,12 @@ export class MapComponent implements OnInit {
  }
 
   ngOnInit() {
-    this.location.marker.draggable = true;
     this.setCurrentLocation();
+  }
+
+  @Input()
+  set markerDraggable(markerDraggable: any) {
+    this.location.marker.draggable = markerDraggable;
   }
 
   @Input()
@@ -73,7 +77,6 @@ export class MapComponent implements OnInit {
           this.location.marker.lat = position.coords.latitude;
           this.location.marker.lng = position.coords.longitude;
         }
-        this.location.marker.draggable = true;
         this.location.zoom = 15;
       });
     }

@@ -5,6 +5,11 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="row">
+                  <div class="col-md-12" *ngIf="myForm.value.sucursal">
+                    <div mat-stroked-button class="nav-link" class="m-t-10 float-right">
+                      {{myForm.value.sucursal.nombre}}
+                    </div>
+                  </div>
                   <div class="col-md-12">
                     <app-view-people></app-view-people>
                   </div>

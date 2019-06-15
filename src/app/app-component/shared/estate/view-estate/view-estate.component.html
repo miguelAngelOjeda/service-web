@@ -32,65 +32,68 @@
                  <span class="font-16">{{bienesInmuebles.controls.ciudad.value.nombre }}</span>
                </div>
              </div>
-             <div class="col-md-2">
-               <section class="example-section">
-                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="edificado" name="edificado">Edificado</mat-checkbox>
-               </section>
+             <div class="col-md-3">
+               <div class="p-t-10">
+                 <div class="font-medium">Edificado </div>
+                 <span class="font-16">{{(bienesInmuebles.get('edificado').value == true ? 'S' : 'N')}}</span>
+               </div>
              </div>
-             <div class="col-md-2">
-               <section class="example-section">
-                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="escriturado" name="escriturado">Escriturado</mat-checkbox>
-               </section>
+             <div class="col-md-3">
+               <div class="p-t-10">
+                 <div class="font-medium">Escriturado </div>
+                 <span class="font-16">{{(bienesInmuebles.get('escriturado').value == true ? 'S' : 'N')}}</span>
+               </div>
              </div>
-             <div class="col-md-2">
-               <div>
+             <div class="col-md-3">
+               <div class="p-t-10">
                  <div class="font-medium">Nº de Finca </div>
                  <span class="font-16">{{bienesInmuebles.get('numeroFinca').value }}</span>
                </div>
              </div>
              <div class="col-md-3">
-               <div>
+               <div class="p-t-10">
                  <div class="font-medium">Nº de Matricula </div>
                  <span class="font-16">{{bienesInmuebles.get('numeroMatricula').value }}</span>
                </div>
              </div>
              <div class="col-md-3">
-               <div>
+               <div class="p-t-10">
                  <div class="font-medium">Cuenta Catastral </div>
                  <span class="font-16">{{bienesInmuebles.get('cuentaCatastral').value }}</span>
                </div>
              </div>
              <div class="col-md-3">
-               <section class="example-section">
-                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="hipotecado" name="hipotecado">Hipotecado</mat-checkbox>
-               </section>
+               <div class="p-t-10">
+                 <div class="font-medium">Hipotecado </div>
+                 <span class="font-16">{{(bienesInmuebles.get('hipotecado').value == true ? 'S' : 'N')}}</span>
+               </div>
              </div>
              <div class="col-md-3">
-               <div>
+               <div class="p-t-10">
                  <div class="font-medium">Lugar Hipoteca </div>
                  <span class="font-16">{{bienesInmuebles.get('lugarHipoteca').value }}</span>
                </div>
              </div>
              <div class="col-md-3">
-               <div>
+               <div class="p-t-10">
                  <div class="font-medium">Fecha Hipoteca </div>
                  <span class="font-16">{{bienesInmuebles.get('fechaHipoteca').value | date: 'dd/MM/yyyy' }}</span>
                </div>
              </div>
              <div class="col-md-3">
-               <div>
+               <div class="p-t-10">
                  <div class="font-medium">Valor Actual </div>
                  <span class="font-16">{{bienesInmuebles.get('valorActual').value | number }}</span>
                </div>
              </div>
              <div class="col-md-3">
-               <div>
+               <div class="p-t-10">
                  <div class="font-medium">Saldo a Pagar </div>
                  <span class="font-16">{{bienesInmuebles.get('saldo').value | number }}</span>
                </div>
              </div>
              <div class="col-md-3">
-               <div>
+               <div class="p-t-10">
                  <div class="font-medium">Cuota Mensual </div>
                  <span class="font-16">{{bienesInmuebles.get('cuotaMensual').value | number }}</span>
                </div>

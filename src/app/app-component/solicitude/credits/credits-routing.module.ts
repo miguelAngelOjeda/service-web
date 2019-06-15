@@ -10,19 +10,19 @@ const routes: Routes = [
     children: [
     { path: '', component: ListCreditsComponent,
        canActivate: [UserService],
-       data: {roles: ['enterprise', 'listEnterprise']}
+       data: {roles: ['credits', 'lisCredits']}
     },
     { path: 'new', component: AddCreditsComponent,
       canActivate: [UserService],
-      data: {roles: ['enterprise', 'addEnterprise']}
+      data: {roles: ['credits', 'addCredits']}
     },
     { path: ':id', component: ViewCreditsComponent,
       canActivate: [UserService],
-      data: {roles: ['enterprise', 'viewEnterprise']}
+      data: {roles: ['credits', 'viewCredits']}
     },
     { path: ':id/edit', component: EditCreditsComponent,
       data: {
-        allowedRoles: ['enterprise', 'editEnterprise']
+        allowedRoles: ['credits', 'editCredits']
       }
     }
               ]

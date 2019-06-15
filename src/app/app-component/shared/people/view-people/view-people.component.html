@@ -6,7 +6,7 @@
     </div>
     <div class="col-md-2 center">
       <div  class="card-avatar">
-        <app-dropify-image [pathImage]="peopleForm.controls['persona'].get('imagePath').value"></app-dropify-image>
+        <app-dropify-image [disabled]="true" [pathImage]="peopleForm.controls['persona'].get('imagePath').value"></app-dropify-image>
       </div>
     </div>
     <div class="col-md-10">
@@ -154,7 +154,7 @@
         <br>
       </div>
       <div class="col-md-12">
-        <app-map [latitude]="peopleForm.controls['persona'].get('latitud').value" [longitude]="peopleForm.controls['persona'].get('longitud').value"></app-map>
+        <app-map [markerDraggable]="false" [latitude]="peopleForm.controls['persona'].get('latitud').value" [longitude]="peopleForm.controls['persona'].get('longitud').value"></app-map>
       </div>
       <div class="col-md-3">
         <div class="p-l-20">
