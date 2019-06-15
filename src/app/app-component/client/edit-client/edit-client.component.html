@@ -9,30 +9,31 @@
                     <app-people></app-people>
                   </div>
                   <div class="col-md-12">
-                    <app-reference [minRow]="1"></app-reference>
+                    <app-reference [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-reference>
                   </div>
                   <div class="col-md-12">
-                    <app-occupation [minRow]="1"></app-occupation>
+                    <app-occupation [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-occupation>
                   </div>
                   <div class="col-md-12">
-                    <app-estate></app-estate>
+                    <app-estate [fkFilterModel]="myForm.value.persona.id"></app-estate>
                   </div>
                   <div class="col-md-12">
-                    <app-vehicle></app-vehicle>
+                    <app-vehicle [fkFilterModel]="myForm.value.persona.id"></app-vehicle>
                   </div>
                   <div class="col-md-12">
                     <div class="row">
                       <div class="col-md-6">
-                        <app-ingress [minRow]="1"></app-ingress>
+                        <app-ingress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-ingress>
                       </div>
                       <div class="col-md-6">
-                        <app-egress [minRow]="1"></app-egress>
+                        <app-egress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-egress>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <br>
             <mat-card-actions>
               <button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
             </mat-card-actions>

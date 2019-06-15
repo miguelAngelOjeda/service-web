@@ -16,9 +16,9 @@ export class VehicleComponent implements OnInit {
   formArrayName = 'bienesVehiculo';
   @Input() minRow;
   @Input()
-  set fkFilterModel(model: any) {
-    if(model){
-
+  set fkFilterModel(id: any) {
+    if(id){
+      this.onChangesFkModel(id);
     }
   }
 
@@ -33,7 +33,6 @@ export class VehicleComponent implements OnInit {
     this.vehicleForm = this.parentF.form;
     this.vehicleForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
-    this.onChangesPeopleId();
   }
 
   //bienes Vehiculo
@@ -50,9 +49,7 @@ export class VehicleComponent implements OnInit {
     });
   }
 
-  onChangesPeopleId(){
-    (<FormGroup>this.vehicleForm.get('persona')).controls['id'].valueChanges
-    .subscribe(id => {
+  onChangesFkModel(id:any){
       this.apiService.getPageList('/vehiculos',false,null,null, 'desc', 'id',0,50, false,id)
       .subscribe(res => {
         if(res.status == 200){
@@ -66,7 +63,6 @@ export class VehicleComponent implements OnInit {
           }
         }
       });
-    });
   }
 
   addButton(): void {

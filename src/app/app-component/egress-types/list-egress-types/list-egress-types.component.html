@@ -26,16 +26,14 @@
 
          <ng-container matColumnDef="codigo">
            <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
-           <mat-cell *matCellDef="let element">
-             <span class="mobile-label">Codigo:</span>
+          <mat-cell *matCellDef="let element" data-label="codigo">
              {{element.codigo}}
            </mat-cell>
          </ng-container>
 
           <ng-container matColumnDef="nombre">
             <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO EGRESO </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <span class="mobile-label">Tipo Egreso:</span>
+            <mat-cell *matCellDef="let element" data-label="tipo egreso">
               {{element.nombre}}
             </mat-cell>
           </ng-container>

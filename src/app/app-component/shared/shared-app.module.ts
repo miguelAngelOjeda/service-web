@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../core/material/material.module';
 import { environment } from '../../../environments/environment';
-import { ReferenceComponent } from './reference';
-import { EstateComponent } from './estate';
-import { VehicleComponent } from './vehicle';
+import { ReferenceComponent, ViewReferenceComponent } from './reference';
+import { EstateComponent, ViewEstateComponent } from './estate';
+import { VehicleComponent, ViewVehicleComponent } from './vehicle';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { ShowAuthedDirective, SharedModule} from '../../shared';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -12,11 +12,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { IngressComponent } from './ingress';
-import { EgressComponent } from './egress';
-import { PeopleComponent } from './people';
+import { IngressComponent, ViewIngressComponent } from './ingress';
+import { EgressComponent, ViewEgressComponent } from './egress';
+import { PeopleComponent, ViewPeopleComponent } from './people';
 import { DepartmentComponent } from './department';
-import { OccupationComponent } from './occupation';
+import { OccupationComponent, ViewOccupationComponent } from './occupation';
 import { SpouseComponent } from './spouse';
 
 @NgModule({
@@ -30,6 +30,13 @@ import { SpouseComponent } from './spouse';
     ReactiveFormsModule
   ],
   declarations: [
+    ViewReferenceComponent,
+    ViewVehicleComponent,
+    ViewIngressComponent,
+    ViewEgressComponent,
+    ViewEstateComponent,
+    ViewPeopleComponent,
+    ViewOccupationComponent,
     ReferenceComponent,
     EstateComponent,
     VehicleComponent,
@@ -47,6 +54,13 @@ import { SpouseComponent } from './spouse';
     ReferenceComponent,
     IngressComponent,
     PeopleComponent,
+    ViewReferenceComponent,
+    ViewEstateComponent,
+    ViewOccupationComponent,
+    ViewVehicleComponent,
+    ViewIngressComponent,
+    ViewEgressComponent,
+    ViewPeopleComponent,
     DepartmentComponent,
     EgressComponent,
     SpouseComponent,

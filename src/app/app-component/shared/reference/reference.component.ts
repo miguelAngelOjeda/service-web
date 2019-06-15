@@ -16,9 +16,9 @@ export class ReferenceComponent implements OnInit {
   formArrayName = 'referencias';
   @Input() minRow;
   @Input()
-  set fkFilterModel(model: any) {
-    if(model){
-
+  set fkFilterModel(id: any) {
+    if(id){
+      this.onChangesFkModel(id);
     }
   }
   @Input()
@@ -39,12 +39,9 @@ export class ReferenceComponent implements OnInit {
     this.referenceForm = this.parentF.form;
     this.referenceForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
-    this.onChangesPeopleId();
   }
 
-  onChangesPeopleId(){
-    (<FormGroup>this.referenceForm.get('persona')).controls['id'].valueChanges
-    .subscribe(id => {
+  onChangesFkModel(id:any){
       this.apiService.getPageList('/referencias',false,null,null, 'desc', 'id',0,50, false,id)
       .subscribe(res => {
         if(res.status == 200){
@@ -58,7 +55,6 @@ export class ReferenceComponent implements OnInit {
           }
         }
       });
-    });
   }
 
   //Referencias

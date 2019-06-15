@@ -16,7 +16,9 @@ import { MapComponent } from '../../shared/map';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { DropifyImageComponent } from '../../shared/dropify-image';
 import { SelectFilterComponent } from '../../shared/select-filter';
-import { ReferenceComponent, EstateComponent,OccupationComponent,
+import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComponent,
+  ViewReferenceComponent,ViewIngressComponent,ViewEgressComponent,ViewPeopleComponent,
+  ViewOccupationComponent,ViewEstateComponent,
    VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../shared';
 import { SharedAppModule } from '../shared';
 
@@ -39,6 +41,13 @@ import { SharedAppModule } from '../shared';
     MapComponent,
     DeleteDialogComponent,
     ReferenceComponent,
+    ViewReferenceComponent,
+    ViewOccupationComponent,
+    ViewEstateComponent,
+    ViewVehicleComponent,
+    ViewIngressComponent,
+    ViewEgressComponent,
+    ViewPeopleComponent,
     EstateComponent,
     VehicleComponent,
     IngressComponent,

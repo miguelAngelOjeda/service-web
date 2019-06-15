@@ -13,7 +13,6 @@ import { ReactiveFormsModule }    from '@angular/forms';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { SharedModule} from '../../shared';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
-import { ControlMessagesComponent } from '../../shared/control-messages.component';
 import { ValidationService } from '../../core/services';
 import { MapComponent } from '../../shared/map';
 import { DropifyImageComponent } from '../../shared/dropify-image';
@@ -48,7 +47,6 @@ import { SharedAppModule } from '../shared';
     EditDialogoSubsidiaryComponent
   ],
   declarations: [
-    ControlMessagesComponent,
     EditDialogoSubsidiaryComponent,
     AddDialogoSubsidiaryComponent,
     AddBusinessComponent,

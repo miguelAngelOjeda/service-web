@@ -16,14 +16,14 @@ export class IngressComponent implements OnInit {
   formArrayName = 'ingresos';
   @Input() minRow;
   @Input()
-  set fkFilterModel(model: any) {
-    if(model){
-
+  set fkFilterModel(id: any) {
+    if(id){
+      this.onChangesFkModel(id);
     }
   }
   @Input()
   set formControlNameArray(model: any) {
-    if(model){
+    if(model && model.id){
       this.formArrayName = model;
     }
   }
@@ -39,7 +39,6 @@ export class IngressComponent implements OnInit {
     this.ingressForm = this.parentF.form;
     this.ingressForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
-    this.onChangesPeopleId();
   }
 
   //Egresos
@@ -52,9 +51,7 @@ export class IngressComponent implements OnInit {
     });
   }
 
-  onChangesPeopleId(){
-    (<FormGroup>this.ingressForm.get('persona')).controls['id'].valueChanges
-    .subscribe(id => {
+  onChangesFkModel(id:any){
       this.apiService.getPageList('/ingresos',false,null,null, 'desc', 'id',0,50, false,id)
       .subscribe(res => {
         if(res.status == 200){
@@ -68,7 +65,6 @@ export class IngressComponent implements OnInit {
           }
         }
       });
-    });
   }
 
   addButton(): void {

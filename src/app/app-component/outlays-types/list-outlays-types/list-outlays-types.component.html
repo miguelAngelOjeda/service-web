@@ -26,14 +26,14 @@
 
          <ng-container matColumnDef="codigo">
            <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
-           <mat-cell *matCellDef="let element">
+           <mat-cell *matCellDef="let element" data-label="codigo">
               {{element.codigo}}
            </mat-cell>
          </ng-container>
 
           <ng-container matColumnDef="nombre">
             <mat-header-cell *matHeaderCellDef mat-sort-header> DESEMBOLSO CREDITO </mat-header-cell>
-            <mat-cell *matCellDef="let element">
+            <mat-cell *matCellDef="let element" data-label="tipo desembolso">
                {{element.nombre}}
             </mat-cell>
           </ng-container>

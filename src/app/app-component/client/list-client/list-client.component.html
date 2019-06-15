@@ -26,32 +26,28 @@
 
          <ng-container matColumnDef="persona.tipoPersona">
            <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO PERSONA </mat-header-cell>
-           <mat-cell *matCellDef="let element">
-             <span class="mobile-label">Tipo Persona:</span>
+           <mat-cell *matCellDef="let element" data-label="tipo persona">
              {{element.persona.tipoPersona}}
            </mat-cell>
          </ng-container>
 
           <ng-container matColumnDef="persona.documento">
             <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <span class="mobile-label">Documento:</span>
+            <mat-cell *matCellDef="let element" data-label="documento">
               {{element.persona.documento}}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="persona.ruc">
             <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <span class="mobile-label">Ruc:</span>
+            <mat-cell *matCellDef="let element" data-label="ruc">
               {{element.persona.ruc}}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="persona.primerNombre">
             <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <span class="mobile-label">Nombre:</span>
+            <mat-cell *matCellDef="let element" data-label="nombre">
               {{(element.persona.primerNombre == null ? '' : element.persona.primerNombre) +' ' +(element.persona.segundoNombre == null ? '' : element.persona.segundoNombre)
             +', ' +(element.persona.primerApellido == null ? '' : element.persona.primerApellido) + ' ' +(element.persona.segundoApellido == null ? '' : element.persona.segundoApellido)}}
             </mat-cell>
@@ -59,16 +55,14 @@
 
           <ng-container matColumnDef="persona.email">
               <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span class="mobile-label">Email:</span>
+              <mat-cell *matCellDef="let element" data-label="email">
                 {{element.persona.email}}
               </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="sucursal.nombre">
               <mat-header-cell *matHeaderCellDef mat-sort-header> SUCURSAL </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span class="mobile-label">Sucursal:</span>
+              <mat-cell *matCellDef="let element" data-label="sucursal">
                 {{element.sucursal.nombre}}
               </mat-cell>
           </ng-container>

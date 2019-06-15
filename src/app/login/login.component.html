@@ -7,12 +7,12 @@
             <form #formControl="ngForm" (ngSubmit)="formControl.form.valid && submitForm(ngForm)" class="ng-pristine ng-invalid ng-touched">
 
                   <div  class="text-center">
-                    <img alt="homepage" src="assets/images/gow.svg" style="height: 40px; opacity: 0.5;">
+                    <img alt="homepage" src="assets/images/gow.svg" style="height: 60px;">
                   </div>
                   <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
                     <mat-card color="danger" *ngIf="errorMsg">{{errorMsg}}</mat-card>
                     <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
-                      <mat-form-field class="ng-pristine ng-invalid ng-touched">
+                      <mat-form-field class="mat-headline" appearance="legacy">
                         <input matInput #input  placeholder="Usuario"  name="username" [(ngModel)]="model.username" required>
                     		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                       </mat-form-field>
@@ -20,7 +20,7 @@
                   </div>
                   <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
                     <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
-                      <mat-form-field class="ng-pristine ng-invalid ng-touched">
+                      <mat-form-field class="mat-headline" appearance="legacy">
                         <input type="password" matInput #input  placeholder="Password"  name="password" [(ngModel)]="model.password" required>
                     		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                       </mat-form-field>

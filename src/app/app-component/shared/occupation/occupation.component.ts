@@ -16,9 +16,9 @@ export class OccupationComponent implements OnInit {
   formArrayName = 'ocupaciones';
   @Input() minRow;
   @Input()
-  set fkFilterModel(model: any) {
-    if(model){
-
+  set fkFilterModel(id: any) {
+    if(id){
+      this.onChangesFkModel(id);
     }
   }
   @Input()
@@ -40,7 +40,6 @@ export class OccupationComponent implements OnInit {
     this.occupationForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
     this.onChanges();
-    this.onChangesPeopleId();
   }
 
   //bienes Inmueble
@@ -78,9 +77,7 @@ export class OccupationComponent implements OnInit {
     });
   }
 
-  onChangesPeopleId(){
-    (<FormGroup>this.occupationForm.get('persona')).controls['id'].valueChanges
-    .subscribe(id => {
+  onChangesFkModel(id:any){
       this.apiService.getPageList('/ocupaciones',false,null,null, 'desc', 'id',0,50, false,id)
       .subscribe(res => {
         if(res.status == 200){
@@ -100,7 +97,6 @@ export class OccupationComponent implements OnInit {
           }
         }
       });
-    });
   }
 
   addButton(): void {
