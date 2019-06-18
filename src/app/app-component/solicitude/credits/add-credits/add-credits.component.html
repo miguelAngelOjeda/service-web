@@ -98,45 +98,41 @@
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input  placeholder="Forma Pago"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <mat-error *ngIf="(myForm.get('tipoPago').errors)">
+                        <span *ngIf="myForm.get('tipoPago').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input  placeholder="Forma Desembolso"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <mat-error *ngIf="(myForm.get('tipoDesembolso').errors)">
+                        <span *ngIf="myForm.get('tipoDesembolso').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input  placeholder="Periodo Capital"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <mat-error *ngIf="(myForm.get('tipoDesembolso').errors)">
+                        <span *ngIf="myForm.get('tipoDesembolso').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input type="number" min="0"  placeholder="Plazo"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <mat-error *ngIf="(myForm.get('plazo').errors)">
+                        <span *ngIf="myForm.get('plazo').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
@@ -175,23 +171,21 @@
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input type="number"  placeholder="Periodo Interés"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <mat-error *ngIf="(myForm.get('periodoInteres').errors)">
+                        <span *ngIf="myForm.get('periodoInteres').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input type="number" min="0.0" placeholder="Tasa Interés"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <mat-error *ngIf="(myForm.get('tasaInteres').errors)">
+                        <span *ngIf="myForm.get('tasaInteres').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
