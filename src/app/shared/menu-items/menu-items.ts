@@ -17,15 +17,14 @@ const MENUITEMS = [
   {
     state: 'progress-snipper',
     type: 'box',
-    view: false,
     name: 'Solicitudes',
-    icon: 'border_horizontal',
-    entity:'',
-    role:['listCredits'],
+    icon: 'assignment',
+    entity:'credits',
+    role:'listCredits',
     subMenu:[
-      {state: 'credits', name: 'Solicitudes Creditos', icon: 'border_horizontal', entity:'credits', role:'listCredits'},
-      {state: 'tarjetas', name: 'Solicitudes Tarjetas', icon: 'border_horizontal', entity:'tarjetas',  role:'listReferenceTypes'},
-      {state: 'analisis', name: 'Analisis Solicitudes', icon: 'border_horizontal', entity:'reference-types',  role:'listReferenceTypes'},
+      {state: 'credits', name: 'Solicitudes Creditos', icon: 'monetization_on', entity:'credits', role:'listCredits'},
+      {state: 'card', name: 'Solicitudes Tarjetas', icon: 'credit_card', entity:'card',  role:'listCard'},
+      {state: 'review', name: 'Analisis Solicitudes', icon: 'border_horizontal', entity:'review',  role:'listReferenceTypes'},
     ]
   },
   {

@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  api_image_url: 'https://mail.creditoguarani.com.py:8443/beta1/image/',
-  api_url: 'https://mail.creditoguarani.com.py:8443/beta1',
-  whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
+  api_image_url: 'https://app1.creditoguarani.com.py/beta1/image/',
+  api_url: 'https://app1.creditoguarani.com.py/beta1',
+  whitelist: ['172.16.1.51', 'https://app1.creditoguarani.com.py', 'app1.creditoguarani.com.py']
 };
 
 export const authorities = {

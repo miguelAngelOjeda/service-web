@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
     { path: '', component: ListCreditsComponent,
        canActivate: [UserService],
-       data: {roles: ['credits', 'lisCredits']}
+       data: {roles: ['credits', 'listCredits']}
     },
     { path: 'new', component: AddCreditsComponent,
       canActivate: [UserService],

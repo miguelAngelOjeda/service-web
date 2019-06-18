@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   //api_url: 'http://localhost:8989/beta1',
-  api_image_url: 'https://mail.creditoguarani.com.py:8443/beta1/image/',
-  api_url: 'https://mail.creditoguarani.com.py:8443/beta1',
+  api_image_url: 'https://app1.creditoguarani.com.py/beta1/image/',
+  api_url: 'https://app1.creditoguarani.com.py/beta1',
   whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };
 
@@ -102,9 +102,26 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_SOLICITUDE.VIEW"]
     	},
     	"listCredits": {
-    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST"]
+    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST","ROLE_SOLICITUDE.LISTALL"]
     	},
     	"deleteCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
+    	}
+    },
+    "card": {
+      "addCard": {
+    	   "permittedRoles": ["ROLE_SOLICITUDE.ADD"]
+    	 },
+    	"editCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.EDIT"]
+    	},
+    	"viewCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.VIEW"]
+    	},
+    	"listCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST","ROLE_SOLICITUDE.LISTALL"]
+    	},
+    	"deleteCard": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}
     },

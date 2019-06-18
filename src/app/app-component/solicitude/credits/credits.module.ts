@@ -16,6 +16,10 @@ import { SharedModule} from '../../../shared';
 import { DeleteDialogComponent } from '../../../shared/dialog';
 import { DepartmentComponent } from '../../shared';
 import { SharedAppModule} from '../../shared';
+import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComponent,
+  ViewReferenceComponent,ViewIngressComponent,ViewEgressComponent,ViewPeopleComponent,
+  ViewOccupationComponent,ViewEstateComponent,
+   VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../../shared';
 
 @NgModule({
   imports: [
@@ -35,6 +39,20 @@ import { SharedAppModule} from '../../shared';
   exports: [
     MapComponent,
     DepartmentComponent,
+    ReferenceComponent,
+    ViewReferenceComponent,
+    ViewOccupationComponent,
+    ViewEstateComponent,
+    ViewVehicleComponent,
+    ViewIngressComponent,
+    ViewEgressComponent,
+    ViewPeopleComponent,
+    EstateComponent,
+    VehicleComponent,
+    IngressComponent,
+    EgressComponent,
+    OccupationComponent,
+    PeopleComponent,
     DeleteDialogComponent
   ],
   declarations: [
