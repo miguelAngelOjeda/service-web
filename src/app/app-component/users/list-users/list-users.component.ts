@@ -11,7 +11,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
   styleUrls: ['./list-users.component.scss']
 })
 export class ListUsersComponent implements AfterViewInit {
-    public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
+    public rulesColumns  = ['persona.documento', 'alias', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
     displayedColumns = ['alias','persona.documento', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;

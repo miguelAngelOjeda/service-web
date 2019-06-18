@@ -26,6 +26,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/users/users.module#UsersModule'
         },
         {
+        path: 'service-web/userspb',
+        loadChildren: './app-component/userspb/userspb.module#UserspbModule'
+        },
+        {
         path: 'service-web/client',
         loadChildren: './app-component/client/client.module#ClientModule'
         },

@@ -43,7 +43,7 @@ export function tokenGetter() {
     HeaderComponent,
     SpinnerComponent,
     HomeComponent,
-    SidenavListComponent
+    SidenavListComponent,
     // AddReferenceTypesComponent,EditReferenceTypesComponent,ViewReferenceTypesComponent,ListReferenceTypesComponent,
     // ListLinkTypesComponent,AddLinkTypesComponent,EditLinkTypesComponent,ViewLinkTypesComponent
   ],
