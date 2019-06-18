@@ -24,6 +24,13 @@
         <mat-table [dataSource]="dataSource" class="mat-table"
          matSort  matSortActive="id" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
 
+         <ng-container matColumnDef="id">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Nº SOLICITUD</mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="nº solicitud">
+             {{element.id}}
+           </mat-cell>
+         </ng-container>
+
          <ng-container matColumnDef="fechaPresentacion">
            <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA PRESENTACION </mat-header-cell>
            <mat-cell *matCellDef="let element" data-label="fecha presentacion">

@@ -43,68 +43,56 @@
                   </div>
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Modalidad"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <input matInput #input formControlName="modalidad" placeholder="Modalidad"  name="modalidad" required>
+                      <mat-error *ngIf="(myForm.get('modalidad').errors)">
+                        <span *ngIf="myForm.get('modalidad').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Tipo Calculo"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <input matInput #input  placeholder="Tipo Calculo" formControlName="tipoCalculoImporte" name="tipoCalculoImporte" required>
+                      <mat-error *ngIf="(myForm.get('tipoCalculoImporte').errors)">
+                        <span *ngIf="myForm.get('tipoCalculoImporte').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Monto"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <input matInput #input  placeholder="Monto" formControlName="montoSolicitado" name="montoSolicitado" required>
+                      <mat-error *ngIf="(myForm.get('montoSolicitado').errors)">
+                        <span *ngIf="myForm.get('montoSolicitado').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Destino"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error> -->
-                    </mat-form-field>
+                    <app-select-filter  (value)="getValue($event, 'profesion')"
+                     placeholder="Destino" urlFilter="tipos-destinos" [columnsFilter]="['nombre']"></app-select-filter>
                   </div>
                   <div class="col-md-8">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input  placeholder="Aclaracion Destino"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <mat-error *ngIf="(myForm.get('modalidad').errors)">
+                        <span *ngIf="myForm.get('modalidad').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Tipo Garantia"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <input matInput #input  placeholder="Tipo Garantia" formControlName="tipoGarantia" name="tipoGarantia" required>
+                      <mat-error *ngIf="(myForm.get('tipoGarantia').errors)">
+                        <span *ngIf="myForm.get('tipoGarantia').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">

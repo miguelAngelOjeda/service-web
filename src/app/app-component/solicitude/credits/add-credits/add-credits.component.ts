@@ -22,6 +22,18 @@ export class AddCreditsComponent implements OnInit {
   protected initFormBuilder() {
     this.myForm = this.formBuilder.group({
       id: null ,
+      cliente: null ,
+      modalidad: [null, [Validators.required]],
+      tipoCalculoImporte: [null, [Validators.required]],
+      tipoDestino: [null, [Validators.required]],
+      tipoGarantia: [null, [Validators.required]],
+      tipoPago: [null, [Validators.required]],
+      tipoDesembolso: [null, [Validators.required]],
+      plazo: [null, [Validators.required]],
+      periodoInteres: [null, [Validators.required]],
+      tasaInteres: [null, [Validators.required]],
+      montoSolicitado: [null, [Validators.required]],      
+      importeCuota: [null, [Validators.required]],
       activo: 'S'
     });
   }
