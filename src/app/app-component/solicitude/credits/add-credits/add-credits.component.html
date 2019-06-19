@@ -97,7 +97,7 @@
                   </div>
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Forma Pago"  name="ruc">
+                      <input matInput #input  placeholder="Forma Pago" formControlName="tipoPago" name="tipoPago" required>
                       <mat-error *ngIf="(myForm.get('tipoPago').errors)">
                         <span *ngIf="myForm.get('tipoPago').errors.required">
                          Campo requerido
@@ -107,7 +107,7 @@
                   </div>
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Forma Desembolso"  name="ruc">
+                      <input matInput #input  placeholder="Forma Desembolso" formControlName="tipoDesembolso" name="tipoDesembolso" required>
                       <mat-error *ngIf="(myForm.get('tipoDesembolso').errors)">
                         <span *ngIf="myForm.get('tipoDesembolso').errors.required">
                          Campo requerido
@@ -117,9 +117,9 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Periodo Capital"  name="ruc">
-                      <mat-error *ngIf="(myForm.get('tipoDesembolso').errors)">
-                        <span *ngIf="myForm.get('tipoDesembolso').errors.required">
+                      <input matInput #input  placeholder="Periodo Capital" formControlName="periodoCapital"  name="periodoCapital" required>
+                      <mat-error *ngIf="(myForm.get('periodoCapital').errors)">
+                        <span *ngIf="myForm.get('periodoCapital').errors.required">
                          Campo requerido
                         </span>
                       </mat-error>
@@ -127,7 +127,7 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input type="number" min="0"  placeholder="Plazo"  name="ruc">
+                      <input matInput #input type="number" min="0" formControlName="plazo" placeholder="Plazo"  name="plazo" required>
                       <mat-error *ngIf="(myForm.get('plazo').errors)">
                         <span *ngIf="myForm.get('plazo').errors.required">
                          Campo requerido
@@ -159,18 +159,17 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input type="number"  placeholder="Periodo Gracia"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <input matInput #input type="number"  placeholder="Periodo Gracia" formControlName="periodoGracia"  name="periodoGracia" required>
+                      <mat-error *ngIf="(myForm.get('periodoGracia').errors)">
+                        <span *ngIf="myForm.get('periodoGracia').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input type="number"  placeholder="Periodo Interés"  name="ruc">
+                      <input matInput #input type="number"  placeholder="Periodo Interés" formControlName="periodoInteres"  name="periodoInteres" required>
                       <mat-error *ngIf="(myForm.get('periodoInteres').errors)">
                         <span *ngIf="myForm.get('periodoInteres').errors.required">
                          Campo requerido
@@ -180,7 +179,7 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input type="number" min="0.0" placeholder="Tasa Interés"  name="ruc">
+                      <input matInput #input type="number" min="0.0" placeholder="Tasa Interés" formControlName="tasaInteres" name="tasaInteres" required>
                       <mat-error *ngIf="(myForm.get('tasaInteres').errors)">
                         <span *ngIf="myForm.get('tasaInteres').errors.required">
                          Campo requerido
@@ -190,13 +189,12 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input type="number" min="0" placeholder="Cuota"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                      <input matInput #input type="number" min="0" placeholder="Cuota" formControlName="importeCuota" name="importeCuota">
+                      <mat-error *ngIf="(myForm.get('importeCuota').errors)">
+                        <span *ngIf="myForm.get('importeCuota').errors.required">
                          Campo requerido
                         </span>
-                      </mat-error> -->
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-12">
@@ -210,22 +208,22 @@
                       </mat-error> -->
                     </mat-form-field>
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-12 m-t-30">
                     <app-people></app-people>
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-12 m-t-30">
                     <app-reference [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-reference>
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-12 m-t-30">
                     <app-occupation [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-occupation>
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-12 m-t-30">
                     <app-estate [fkFilterModel]="myForm.value.persona.id"></app-estate>
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-12 m-t-30">
                     <app-vehicle [fkFilterModel]="myForm.value.persona.id"></app-vehicle>
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-12 m-t-30">
                     <div class="row">
                       <div class="col-md-6">
                         <app-ingress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-ingress>

@@ -19,6 +19,19 @@ export class AddCreditsComponent implements OnInit {
     this.initFormBuilder();
   }
 
+  onSubmit() {
+    this.apiService.post('/empresas', this.myForm.value)
+    .subscribe(res => {
+      if(res.status == 200){
+
+      }
+    });
+  }
+
+  getValue(data: any, form : any): void {
+    (<FormControl>this.myForm.get(form)).setValue(data);
+  }
+
   protected initFormBuilder() {
     this.myForm = this.formBuilder.group({
       id: null ,
@@ -32,8 +45,10 @@ export class AddCreditsComponent implements OnInit {
       plazo: [null, [Validators.required]],
       periodoInteres: [null, [Validators.required]],
       tasaInteres: [null, [Validators.required]],
-      montoSolicitado: [null, [Validators.required]],      
+      montoSolicitado: [null, [Validators.required]],
       importeCuota: [null, [Validators.required]],
+      periodoGracia: [null, [Validators.required]],
+      periodoCapital: [null, [Validators.required]],
       activo: 'S'
     });
   }

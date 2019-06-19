@@ -43,35 +43,35 @@ const appRoutes: Routes = [
         },
         {
         path: 'service-web/reference-types',
-        loadChildren: './app-component/reference-types/reference-types.module#ReferenceTypesModule'
+        loadChildren: './app-component/types/reference-types/reference-types.module#ReferenceTypesModule'
         },
         {
         path: 'service-web/destinations-types',
-        loadChildren: './app-component/destinations-types/destinations-types.module#DestinationsTypesModule'
+        loadChildren: './app-component/types/destinations-types/destinations-types.module#DestinationsTypesModule'
         },
         {
         path: 'service-web/calculation-types',
-        loadChildren: './app-component/calculation-types/calculation-types.module#CalculationTypesModule'
+        loadChildren: './app-component/types/calculation-types/calculation-types.module#CalculationTypesModule'
         },
         {
         path: 'service-web/outlays-types',
-        loadChildren: './app-component/outlays-types/outlays-types.module#OutlaysTypesModule'
+        loadChildren: './app-component/types/outlays-types/outlays-types.module#OutlaysTypesModule'
         },
         {
         path: 'service-web/egress-types',
-        loadChildren: './app-component/egress-types/egress-types.module#EgressTypesModule'
+        loadChildren: './app-component/types/egress-types/egress-types.module#EgressTypesModule'
         },
         {
         path: 'service-web/ingress-types',
-        loadChildren: './app-component/ingress-types/ingress-types.module#IngressTypesModule'
+        loadChildren: './app-component/types/ingress-types/ingress-types.module#IngressTypesModule'
         },
         {
         path: 'service-web/relations-types',
-        loadChildren: './app-component/relations-types/relations-types.module#RelationsTypesModule'
+        loadChildren: './app-component/types/relations-types/relations-types.module#RelationsTypesModule'
         },
         {
         path: 'service-web/payments-types',
-        loadChildren: './app-component/payments-types/payments-types.module#PaymentsTypesModule'
+        loadChildren: './app-component/types/payments-types/payments-types.module#PaymentsTypesModule'
         },
       ]
     },
