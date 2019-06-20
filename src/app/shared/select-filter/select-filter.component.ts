@@ -24,12 +24,25 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
   @Output() value = new EventEmitter<any>();
   public models: Array<any> = [];
   public idModel: any;
+  public sortActiveModel = "nombre";
+  public sortDirectionModel = "desc";
+
   @ViewChild('filterInputModel') filterInputModel: ElementRef;
   @Input() set disabled (condition : boolean){
     if(condition){
       this.modelControl.disable();
     }else{
       this.modelControl.enable();
+    }
+  }
+  @Input() set sortActive (sortActive : any){
+    if(sortActive){
+      this.sortActiveModel = sortActive;
+    }
+  }
+  @Input() set sortDirection (sortDirection : any){
+    if(sortDirection){
+      this.sortDirectionModel = sortDirection;
     }
   }
   @Input() model;
@@ -90,7 +103,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
                   this.isfilter = true;
                 }
                 return this.apiService.getPageList('/' + this.urlFilter,this.isfilter,this.filterInputModel.nativeElement.value,
-                 this.columnsFilter, 'desc', 'nombre',0,50, false,this.idModel);
+                 this.columnsFilter, this.sortDirectionModel, this.sortActiveModel,0,50, false,this.idModel);
               }else{
                 return null;
               }

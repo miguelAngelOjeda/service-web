@@ -36,6 +36,8 @@ const MENUITEMS = [
     role:'viewTypes',
     subMenu:[
       {state: 'modality', name: 'Modalidades', icon: 'chevron_right', entity:'modality', role:'listModality'},
+      {state: 'guarantee-types', name: 'Tipos Garantias', icon: 'chevron_right', entity:'guarantee-types', role:'listGuaranteeTypes'},
+      {state: 'capital-period', name: 'Periodos Capitales', icon: 'chevron_right', entity:'capital-period', role:'listCapitalPeriod'},
       {state: 'payments-types', name: 'Tipos Pagos', icon: 'chevron_right', entity:'payments-types', role:'listPaymentsTypes'},
       {state: 'reference-types', name: 'Tipos Referencias', icon: 'chevron_right', entity:'reference-types',  role:'listReferenceTypes'},
       {state: 'calculation-types', name: 'Tipos Calculos', icon: 'chevron_right', entity:'calculation-types', role:'listCalculationTypes'},

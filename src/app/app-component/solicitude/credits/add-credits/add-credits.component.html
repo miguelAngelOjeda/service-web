@@ -74,44 +74,21 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Tipo Garantia" formControlName="tipoGarantia" name="tipoGarantia" required>
-                      <mat-error *ngIf="(myForm.get('tipoGarantia').errors)">
-                        <span *ngIf="myForm.get('tipoGarantia').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error>
-                    </mat-form-field>
+                    <app-select-filter  (value)="getValue($event, 'tipoGarantia')" [modelValue]="myForm.get('tipoGarantia').value"
+                     placeholder="Tipo Garantia" urlFilter="tipos-garantias" [columnsFilter]="['nombre']"></app-select-filter>
                   </div>
                   <div class="col-md-4">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Forma Pago" formControlName="tipoPago" name="tipoPago" required>
-                      <mat-error *ngIf="(myForm.get('tipoPago').errors)">
-                        <span *ngIf="myForm.get('tipoPago').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error>
-                    </mat-form-field>
+                    <app-select-filter  (value)="getValue($event, 'tipoPago')" [modelValue]="myForm.get('tipoPago').value"
+                     placeholder="Forma Pago" urlFilter="tipos-pagos" [columnsFilter]="['nombre']"></app-select-filter>
                   </div>
                   <div class="col-md-4">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Forma Desembolso" formControlName="tipoDesembolso" name="tipoDesembolso" required>
-                      <mat-error *ngIf="(myForm.get('tipoDesembolso').errors)">
-                        <span *ngIf="myForm.get('tipoDesembolso').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error>
-                    </mat-form-field>
+                    <app-select-filter  (value)="getValue($event, 'tipoDesembolso')" [modelValue]="myForm.get('tipoDesembolso').value"
+                     placeholder="Forma Desembolso" urlFilter="tipos-desembolsos" [columnsFilter]="['nombre']"></app-select-filter>
                   </div>
                   <div class="col-md-3">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Periodo Capital" formControlName="periodoCapital"  name="periodoCapital" required>
-                      <mat-error *ngIf="(myForm.get('periodoCapital').errors)">
-                        <span *ngIf="myForm.get('periodoCapital').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error>
-                    </mat-form-field>
+                    <app-select-filter  (value)="getValue($event, 'periodoCapital')" [modelValue]="myForm.get('periodoCapital').value"
+                    [sortActive]="cantidadDias" [sortDirection]="asc"
+                     placeholder="Periodo Capital" urlFilter="periodos-capitales" [columnsFilter]="['nombre']"></app-select-filter>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">

@@ -145,6 +145,34 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
+    "guarantee-types": {
+      "addGuaranteeTypes": {
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
+    	 },
+    	"editGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
+    	},
+    	"viewGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
+    	},
+    	"listGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	}
+    },
+    "capital-period": {
+      "addCapitalPeriod": {
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
+    	 },
+    	"editCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
+    	},
+    	"viewCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
+    	},
+    	"listCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	}
+    },
     "calculation-types": {
       "addCalculationTypes": {
     	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]

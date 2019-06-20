@@ -77,6 +77,14 @@ const appRoutes: Routes = [
         path: 'service-web/modality',
         loadChildren: './app-component/types/modality-types/modality-types.module#ModalityTypesModule'
         },
+        {
+        path: 'service-web/guarantee-types',
+        loadChildren: './app-component/types/guarantee-types/guarantee-types.module#GuaranteeTypesModule'
+        },
+        {
+        path: 'service-web/capital-period',
+        loadChildren: './app-component/types/capital-period/capital-period.module#CapitalPeriodModule'
+        }
       ]
     },
     //{ path: 'users', component: UsersComponent, outlet: 'home-content'},
