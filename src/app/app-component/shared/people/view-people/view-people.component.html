@@ -9,7 +9,7 @@
         <app-dropify-image [disabled]="true" [pathImage]="peopleForm.controls['persona'].get('imagePath').value"></app-dropify-image>
       </div>
     </div>
-    <div class="col-md-10" *ngIf="peopleForm.controls['persona'].get('tipoPersona').value == 'FISICA'">
+    <div class="col-md-10">
       <div class="p-l-20 p-t-10">
         <div class="font-medium">{{
           (peopleForm.controls['persona'].get('primerNombre').value == null ? '' : peopleForm.controls['persona'].get('primerNombre').value)
@@ -21,7 +21,7 @@
           (peopleForm.controls['persona'].get('segundoApellido').value == null ? '' : peopleForm.controls['persona'].get('segundoApellido').value)
           }} </div>
         <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].profesion.value">{{peopleForm.controls['persona']['controls'].profesion.value.nombre}}</span>
-        <br>
+        <br *ngIf="peopleForm.controls['persona']['controls'].profesion.value">
         <span class="font-16" *ngIf="peopleForm.controls['persona'].get('email').value">{{peopleForm.controls['persona'].get('email').value }}</span>
         <br>
         <span class="font-16" *ngIf="peopleForm.controls['persona'].get('telefonoParticular').value">Telf. {{
@@ -84,24 +84,6 @@
         <div class="p-l-20 p-t-10">
           <div class="font-medium">Nacionalidad </div>
           <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].nacionalidad.value">{{peopleForm.controls['persona']['controls'].nacionalidad.value.nombre}}</span>
-        </div>
-      </div>
-
-      <div class="col-md-3" *ngIf="peopleForm.controls['persona'].get('tipoPersona').value != 'FISICA'">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Alias </div>
-          <span class="font-16">{{
-            (peopleForm.controls['persona'].get('primerNombre').value == null ? '' : peopleForm.controls['persona'].get('primerNombre').value)}}
-          </span>
-        </div>
-      </div>
-
-      <div class="col-md-3" *ngIf="peopleForm.controls['persona'].get('tipoPersona').value != 'FISICA'">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Nombre </div>
-          <span class="font-16">{{
-            (peopleForm.controls['persona'].get('segundoNombre').value == null ? '' : peopleForm.controls['persona'].get('segundoNombre').value)}}
-          </span>
         </div>
       </div>
 

@@ -36,6 +36,7 @@ export class EditClientComponent implements OnInit{
       this.myForm.value.persona.documento = ' ';
       this.myForm.value.persona.fechaNacimiento = new Date();
       this.myForm.value.persona.primerApellido = ' ';
+      this.myForm.value.persona.estadoCivil = ' ';
       this.myForm.value.persona.sexo = 'N';
     }
 
