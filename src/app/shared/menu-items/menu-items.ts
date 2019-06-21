@@ -30,26 +30,26 @@ const MENUITEMS = [
   {
     state: 'progress-snipper',
     type: 'box',
-    name: 'Servicios',
+    name: 'Servicios Tipos',
     icon: 'border_horizontal',
-    entity:'',
-    role:'',
+    entity:'service-types',
+    role:'viewTypes',
     subMenu:[
-      {state: 'payments-types', name: 'Tipos Pagos', icon: 'border_horizontal', entity:'payments-types', role:'listPaymentsTypes'},
-      {state: 'reference-types', name: 'Tipos Referencias', icon: 'border_horizontal', entity:'reference-types',  role:'listReferenceTypes'},
-      {state: 'calculation-types', name: 'Tipos Calculos', icon: 'border_horizontal', entity:'calculation-types', role:'listCalculationTypes'},
-      {state: 'destinations-types', name: 'Tipos Destinos', icon: 'border_horizontal', entity:'destinations-types',role:'listDestinationsTypes'},
-      {state: 'outlays-types', name: 'Tipos Desembolsos', icon: 'border_horizontal', entity:'outlays-types', role:'listOutlaysTypes'},
-      {state: 'ingress-types', name: 'Tipos Ingresos', icon: 'border_horizontal', entity:'ingress-types', role:'listIngressTypes'},
-      {state: 'egress-types', name: 'Tipos Egresos', icon: 'border_horizontal', entity:'egress-types', role:'listEgressTypes'},
-      {state: 'relations-types', name: 'Tipos Vinculos', icon: 'border_horizontal', entity:'relations-types', role:'listRelationsTypes'}
+      {state: 'payments-types', name: 'Tipos Pagos', icon: 'chevron_right', entity:'payments-types', role:'listPaymentsTypes'},
+      {state: 'reference-types', name: 'Tipos Referencias', icon: 'chevron_right', entity:'reference-types',  role:'listReferenceTypes'},
+      {state: 'calculation-types', name: 'Tipos Calculos', icon: 'chevron_right', entity:'calculation-types', role:'listCalculationTypes'},
+      {state: 'destinations-types', name: 'Tipos Destinos', icon: 'chevron_right', entity:'destinations-types',role:'listDestinationsTypes'},
+      {state: 'outlays-types', name: 'Tipos Desembolsos', icon: 'chevron_right', entity:'outlays-types', role:'listOutlaysTypes'},
+      {state: 'ingress-types', name: 'Tipos Ingresos', icon: 'chevron_right', entity:'ingress-types', role:'listIngressTypes'},
+      {state: 'egress-types', name: 'Tipos Egresos', icon: 'chevron_right', entity:'egress-types', role:'listEgressTypes'},
+      {state: 'relations-types', name: 'Tipos Vinculos', icon: 'chevron_right', entity:'relations-types', role:'listRelationsTypes'}
     ]
   },
   {
     state: 'progress-snipper',
     type: 'box',
     name: 'Configuraciones',
-    icon: 'border_horizontal',
+    icon: 'settings',
     entity:'role',
     role:['listRole'],
     subMenu:[

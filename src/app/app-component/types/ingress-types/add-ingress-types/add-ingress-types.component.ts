@@ -35,8 +35,10 @@ export class AddIngressTypesComponent implements OnInit {
   submit() {
     this.apiService.post('/tipos-ingresos', this.model)
     .subscribe(res => {
-        this.model = res.model as IngressTypes;
-        //this.snackBarService.openSnackBar('res');
+
+        if(res.status == 200){
+          this.model = res.model as IngressTypes;
+        }
 
     });
   }

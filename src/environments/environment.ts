@@ -125,6 +125,11 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}
     },
+    "service-types": {
+    	"viewTypes": {
+    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_OUTLAYS_TYPES.LIST"]
+    	}
+    },
     "reference-types": {
       "addReferenceTypes": {
     	   "permittedRoles": ["ROLE_REFERENCE_TYPES.ADD"]

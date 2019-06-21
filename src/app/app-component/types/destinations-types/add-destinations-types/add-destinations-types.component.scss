@@ -1,11 +1,9 @@
-.form-container {
-  display: flex;
-  flex-direction: column;
+.gray-text {
+  color: #777;
+  vertical-align: text-bottom;
+  margin-right: 5px;
 }
 
-.form-container > * {
-  width: 100%;
-}
 
 .mat-button{
   min-width: 100%;

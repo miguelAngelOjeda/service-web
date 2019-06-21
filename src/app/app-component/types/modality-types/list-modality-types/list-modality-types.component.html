@@ -5,10 +5,10 @@
 
       <div class="row">
         <div class="col-md-6">
-          Tipos Destinos
+          Tipos Calculos
         </div>
         <div class="col-md-6">
-          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/destinations-types/new" *appCanAccess="['destinations-types', 'addDestinationsTypes']">
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/calculation-types/new" *appCanAccess="['calculation-types', 'addCalculationTypes']">
             Agregar
           </a>
         </div>
@@ -21,29 +21,25 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       <!-- </p> -->
-        <mat-table [dataSource]="dataSource"
+        <mat-table [dataSource]="dataSource" class="mat-table"
          matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
 
          <ng-container matColumnDef="codigo">
            <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
-           <mat-cell *matCellDef="let element" data-label="codigo">
-             {{element.codigo}}
-           </mat-cell>
+           <mat-cell *matCellDef="let element" data-label="codigo"> {{element.codigo}} </mat-cell>
          </ng-container>
 
           <ng-container matColumnDef="nombre">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> DESTINO CREDITO </mat-header-cell>
-            <mat-cell *matCellDef="let element" data-label="destino credito">
-              {{element.nombre}}
-            </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> CALCULO CREDITO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="calculo credito"> {{element.nombre}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="opciones">
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <button mat-icon-button routerLink="/service-web/destinations-types/{{element.id}}" *appCanAccess="['destinations-types', 'viewDestinationsTypes']"><mat-icon>visibility</mat-icon></button>
-                  <button mat-icon-button routerLink="/service-web/destinations-types/{{element.id}}/edit" *appCanAccess="['destinations-types', 'editDestinationsTypes']"> <mat-icon>edit</mat-icon></button>
-                  <button mat-icon-button (click)="delete(element)" *appCanAccess="['destinations-types', 'deleteDestinationsTypes']"> <mat-icon>delete</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/calculation-types/{{element.id}}" *appCanAccess="['calculation-types', 'viewCalculationTypes']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/calculation-types/{{element.id}}/edit" *appCanAccess="['calculation-types', 'editCalculationTypes']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button (click)="delete(element)" *appCanAccess="['calculation-types', 'deleteCalculationTypes']"> <mat-icon>delete</mat-icon></button>
                 </mat-cell>
             </ng-container>
 

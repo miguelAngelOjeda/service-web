@@ -35,9 +35,10 @@ export class AddOutlaysTypesComponent implements OnInit {
   submit() {
     this.apiService.post('/tipos-desembolsos', this.model)
     .subscribe(res => {
-        this.model = res.model as OutlaysTypes;
-        //this.snackBarService.openSnackBar('res');
 
+        if(res.status == 200){
+          this.model = res.model as OutlaysTypes;
+        }
     });
   }
 

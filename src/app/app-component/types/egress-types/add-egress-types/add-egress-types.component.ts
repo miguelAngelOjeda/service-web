@@ -35,9 +35,9 @@ export class AddEgressTypesComponent implements OnInit {
   submit() {
     this.apiService.post('/tipos-egresos', this.model)
     .subscribe(res => {
+      if(res.status == 200){
         this.model = res.model as EgressTypes;
-        //this.snackBarService.openSnackBar('res');
-
+      }
     });
   }
 

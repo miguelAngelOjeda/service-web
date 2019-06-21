@@ -46,7 +46,7 @@ export class ApiService {
       let params = new HttpParams({
         fromObject : {
           '_search' : _search.toString(),
-          'page' : page.toString(),
+          'page' : (page + 1).toString(),
           'rows' : rows.toString(),
           'sidx' : sidx,
           'sord' : sort,

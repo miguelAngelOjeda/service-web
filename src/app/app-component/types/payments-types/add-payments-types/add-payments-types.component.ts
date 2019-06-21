@@ -35,9 +35,9 @@ export class AddPaymentsTypesComponent implements OnInit {
   submit() {
     this.apiService.post('/tipos-pagos', this.model)
     .subscribe(res => {
+      if(res.status == 200){
         this.model = res.model as PaymentsTypes;
-        //this.snackBarService.openSnackBar('res');
-
+      }
     });
   }
 

@@ -35,8 +35,10 @@ export class AddReferenceTypesComponent implements OnInit {
   submit() {
     this.apiService.post('/tipos-referencias', this.model)
     .subscribe(res => {
-        this.model = res.model as ReferenceTypes;
-        //this.snackBarService.openSnackBar('res');
+
+        if(res.status == 200){
+          this.model = res.model as ReferenceTypes;
+        }
 
     });
   }
