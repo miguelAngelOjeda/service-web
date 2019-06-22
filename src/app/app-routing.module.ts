@@ -73,6 +73,10 @@ const appRoutes: Routes = [
         path: 'service-web/payments-types',
         loadChildren: './app-component/types/payments-types/payments-types.module#PaymentsTypesModule'
         },
+        {
+        path: 'service-web/modality',
+        loadChildren: './app-component/types/modality-types/modality-types.module#ModalityTypesModule'
+        },
       ]
     },
     //{ path: 'users', component: UsersComponent, outlet: 'home-content'},

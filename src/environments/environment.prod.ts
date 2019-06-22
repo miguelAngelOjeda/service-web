@@ -97,38 +97,61 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_SOLICITUDE.VIEW"]
     	},
     	"listCredits": {
-    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST"]
+    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST","ROLE_SOLICITUDE.LISTALL"]
     	},
     	"deleteCredits": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}
     },
+    "card": {
+      "addCard": {
+    	   "permittedRoles": ["ROLE_SOLICITUDE.ADD"]
+    	 },
+    	"editCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.EDIT"]
+    	},
+    	"viewCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.VIEW"]
+    	},
+    	"listCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST","ROLE_SOLICITUDE.LISTALL"]
+    	},
+    	"deleteCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
+    	}
+    },
+    "service-types": {
+    	"viewTypes": {
+    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_RELATIONS_TYPES.LIST",
+        "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST"]
+    	}
+    },
     "reference-types": {
       "addReferenceTypes": {
-    	   "permittedRoles": ["ROLE_REFERENCE_TYPES.ADD"]
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
     	 },
     	"editReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
     	},
     	"viewReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
     	},
     	"listReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
     "calculation-types": {
       "addCalculationTypes": {
-    	   "permittedRoles": ["ROLE_CALCULATIONS_TYPES.ADD"]
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
     	 },
     	"editCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
     	},
     	"viewCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
     	},
     	"listCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
     "destinations-types": {
@@ -161,30 +184,30 @@ export const authorities = {
     },
     "egress-types": {
       "addEgressTypes": {
-    	   "permittedRoles": ["ROLE_EGRESS_TYPES.ADD"]
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
     	 },
     	"editEgressTypes": {
-    	  "permittedRoles": ["ROLE_EGRESS_TYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
     	},
     	"viewEgressTypes": {
-    	  "permittedRoles": ["ROLE_EGRESS_TYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
     	},
     	"listEgressTypes": {
-    	  "permittedRoles": ["ROLE_EGRESS_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
     "ingress-types": {
       "addIngressTypes": {
-    	   "permittedRoles": ["ROLE_INGRESS_TYPES.ADD"]
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
     	 },
     	"editIngressTypes": {
-    	  "permittedRoles": ["ROLE_INGRESS_TYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
     	},
     	"viewIngressTypes": {
-    	  "permittedRoles": ["ROLE_INGRESS_TYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
     	},
     	"listIngressTypes": {
-    	  "permittedRoles": ["ROLE_INGRESS_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
     "relations-types": {
@@ -213,6 +236,20 @@ export const authorities = {
     	},
     	"listPaymentsTypes": {
     	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.LIST"]
+    	}
+    },
+    "modality": {
+      "addModality": {
+    	   "permittedRoles": ["ROLE_MODALITY.ADD"]
+    	 },
+    	"editModality": {
+    	  "permittedRoles": ["ROLE_MODALITY.EDIT"]
+    	},
+    	"viewModality": {
+    	  "permittedRoles": ["ROLE_MODALITY.VIEW"]
+    	},
+    	"listModality": {
+    	  "permittedRoles": ["ROLE_MODALITY.LIST"]
     	}
     },
     "message": {

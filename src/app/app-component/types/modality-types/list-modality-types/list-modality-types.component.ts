@@ -13,7 +13,7 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
 export class ListModalityTypesComponent implements AfterViewInit {
   public isMobile: Boolean;
   public rulesColumns  = ['codigo','nombre'];
-  public displayedColumns = ['codigo','nombre','opciones'];
+  public displayedColumns = ['codigo','nombre','montoMaximo','montoMinimo','interes','tipoCalculos.nombre','opciones'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -23,17 +23,12 @@ export class ListModalityTypesComponent implements AfterViewInit {
 
   //Filter
   isfilter = false;
-  filter = new Filter;
-  rules: Array<Rules> = [];
   // MatPaginator Inputs
   length = 0;
   pageSize = 10;
   pageSizeOptions: number[] = [10, 25, 100];
   // MatPaginator Output
   pageEvent: PageEvent;
-
-  isLoadingResults = true;
-  isRateLimitReached = false;
 
   constructor(private apiService: ApiService) { }
 
@@ -47,13 +42,15 @@ export class ListModalityTypesComponent implements AfterViewInit {
             if(this.filterInput.nativeElement.value.length  > 3){
               this.isfilter = true;
             }
-            return this.apiService.getPageList('/tipos-calculos',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
+            return this.apiService.getPageList('/modalidades',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
             this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {
-            // Flip flag to show that loading has finished.
-            this.length = data.records;
-            return data.rows as CalculationTypes[];;
+            if(data.status == 200){
+              this.length = data.records;
+              return data.rows;
+            }
+            return observableOf([]);
           }),
           catchError(() => {
             return observableOf([]);

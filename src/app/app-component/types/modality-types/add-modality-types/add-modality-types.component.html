@@ -1,29 +1,69 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/calculation-types"> Tipos Calculos </a> &gt; <span class="current">Agregar</span></h2>
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/modality">Modalidades </a> &gt; <span class="current">Agregar</span></h2>
 <mat-card class="form-card">
-<!-- <mat-card-header>
-  <mat-card-title>
-    <a class="nav-link" mat-mini-fab color="primary" routerLink="/service-web/calculation-types/{{model.id}}">
-      <mat-icon>reply</mat-icon>
-    </a>
-    Agregar Tipo Refrencia
-  </mat-card-title>
-</mat-card-header> -->
 <mat-card-content>
-  <form  class="mat-dialog-content" (ngSubmit)="formControl.form.valid && submit()" #formControl="ngForm">
-    <div class="row" fxLayout="row wrap">
+  <form  [formGroup]="modalityForm" (ngSubmit)="modalityForm.valid && onSubmit()">
+    <div class="row">
       <div class="col-md-12">
-         <h4  class="m-0"><mat-icon class="gray-text">description</mat-icon>Tipo Calculo</h4>
+         <h4  class="m-0"><mat-icon class="gray-text">description</mat-icon>Modalidad</h4>
          <br>
       </div>
-      <div class="col-md-6">
-        <mat-form-field   class="col-sm-12" appearance="legacy">
-      		<input matInput #input  placeholder="Calculo" [(ngModel)]="model.nombre" name="nombre" required>
-      		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      <div class="col-md-4">
+        <mat-form-field  appearance="legacy">
+      		<input matInput #input  placeholder="Modalidad" formControlName="nombre" name="nombre" required>
+          <mat-error *ngIf="(modalityForm.get('nombre').errors)">
+            <span *ngIf="modalityForm.get('nombre').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
       	</mat-form-field>
       </div>
+      <div class="col-md-8">
+        <mat-form-field  appearance="legacy">
+         <input matInput #input  placeholder="Descripcion" formControlName="descripcion" name="descripcion">
+         <mat-error *ngIf="(modalityForm.get('descripcion').errors)">
+           <span *ngIf="modalityForm.get('descripcion').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter  (value)="getValue($event, 'tipoCalculos')" [modelValue]="modalityForm.get('tipoCalculos').value"
+         placeholder="Tipo Calculo" urlFilter="tipos-calculos" [columnsFilter]="['nombre']"></app-select-filter>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field appearance="legacy">
+         <input matInput #input type="number" placeholder="% Interes" formControlName="interes" name="interes" min='0' step='0.01' floatLabelType= 'Auto' required>
+          <mat-error *ngIf="(modalityForm.get('interes').errors)">
+            <span *ngIf="modalityForm.get('interes').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field appearance="legacy">
+         <input matInput #input type="number" placeholder="Monto Minimo" formControlName="montoMinimo" name="montoMinimo" min='0' floatLabelType= 'Auto' required>
+          <mat-error *ngIf="(modalityForm.get('montoMinimo').errors)">
+            <span *ngIf="modalityForm.get('montoMinimo').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field appearance="legacy">
+         <input matInput #input type="number" placeholder="Monto Maximo" formControlName="montoMaximo" name="montoMaximo" min='0' floatLabelType= 'Auto' required>
+          <mat-error *ngIf="(modalityForm.get('montoMaximo').errors)">
+            <span *ngIf="modalityForm.get('montoMaximo').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
     </div>
     <mat-card-actions>
-      <button mat-button [type]="submit"  mat-raised-button >Guardar</button>
+      <button mat-button [type]="onSubmit"  mat-raised-button >Guardar</button>
     </mat-card-actions>
   </form>
 </mat-card-content>

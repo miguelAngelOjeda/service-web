@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CalculationTypes } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
@@ -11,38 +11,47 @@ import { ApiService } from '../../../../core/services';
 })
 export class EditModalityTypesComponent implements OnInit {
 
-  public model: CalculationTypes;
+  public modalityForm: FormGroup;
 
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
   constructor(
-    private apiService: ApiService,
-    private route: ActivatedRoute
-  ) {
-    this.model = new CalculationTypes();
-   }
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit() {
-    this.apiService.get('/tipos-calculos/' + this.route.snapshot.params.id)
+    this.initFormBuilder();
+    this.apiService.get('/modalidades/' + this.route.snapshot.params.id)
     .subscribe(res => {
-       this.model = res.model as CalculationTypes;
+      if(res.status == 200){
+        (<FormGroup>this.modalityForm).patchValue(res.model);
+      }
     });
 
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+  initFormBuilder() {
+    this.modalityForm = this.formBuilder.group({
+      id: null,
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      codigo: [' '],
+      descripcion: null,
+      montoMaximo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      montoMinimo: ['', [Validators.required]],
+      interes: [0.0, [Validators.required]],
+      tipoCalculos: ['', [Validators.required]]
+    });
   }
 
-  submit() {
-    this.apiService.put('/tipos-calculos/' + this.route.snapshot.params.id, this.model)
+  onSubmit() {
+    this.apiService.put('/modalidades/' + this.route.snapshot.params.id, this.modalityForm.value)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');
     });
+  }
+
+  getValue(data: any, form : any): void {
+    (<FormControl>this.modalityForm.get(form)).setValue(data);
   }
 
 }

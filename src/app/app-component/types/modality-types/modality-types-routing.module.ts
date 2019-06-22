@@ -10,19 +10,19 @@ const routes: Routes = [
     children: [
     { path: '', component: ListModalityTypesComponent,
        canActivate: [UserService],
-       data: {roles: ['calculation-types', 'listModalityTypes']}
+       data: {roles: ['modality', 'listModality']}
     },
     { path: 'new', component: AddModalityTypesComponent,
       canActivate: [UserService],
-      data: {roles: ['calculation-types', 'addModalityTypes']}
+      data: {roles: ['modality', 'addModality']}
     },
     { path: ':id', component: ViewModalityTypesComponent,
       canActivate: [UserService],
-      data: {roles: ['calculation-types', 'viewModalityTypes']}
+      data: {roles: ['modality', 'viewModality']}
     },
     { path: ':id/edit', component: EditModalityTypesComponent,
       data: {
-        allowedRoles: ['calculation-types', 'editModalityTypes']
+        allowedRoles: ['modality', 'editModality']
       }
     }
               ]

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CalculationTypes } from '../../../../core/models';
+import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ApiService } from '../../../../core/services';
-import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-add-modality-types',
@@ -11,34 +10,42 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AddModalityTypesComponent implements OnInit {
 
-  public model: CalculationTypes;
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
+  public modalityForm: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService
-  ) {
-    this.model = new CalculationTypes();
-   }
+  ) {}
 
   ngOnInit() {
+    this.initFormBuilder();
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+  initFormBuilder() {
+    this.modalityForm = this.formBuilder.group({
+      id: null,
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      codigo: [' '],
+      descripcion: null,
+      montoMaximo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      montoMinimo: ['', [Validators.required]],
+      interes: [0.0, [Validators.required]],
+      tipoCalculos: ['', [Validators.required]]
+    });
   }
 
-  submit() {
-    this.apiService.post('/tipos-calculos', this.model)
+
+  onSubmit() {
+    this.apiService.post('/modalidades', this.modalityForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.model = res.model as CalculationTypes;
+
       }
     });
+  }
+
+  getValue(data: any, form : any): void {
+    (<FormControl>this.modalityForm.get(form)).setValue(data);
   }
 
 }

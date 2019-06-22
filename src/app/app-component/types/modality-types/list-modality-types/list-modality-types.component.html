@@ -5,10 +5,10 @@
 
       <div class="row">
         <div class="col-md-6">
-          Tipos Calculos
+          Modalidades
         </div>
         <div class="col-md-6">
-          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/calculation-types/new" *appCanAccess="['calculation-types', 'addCalculationTypes']">
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/modality/new" *appCanAccess="['modality', 'addModality']">
             Agregar
           </a>
         </div>
@@ -30,16 +30,36 @@
          </ng-container>
 
           <ng-container matColumnDef="nombre">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> CALCULO CREDITO </mat-header-cell>
-            <mat-cell *matCellDef="let element" data-label="calculo credito"> {{element.nombre}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> MODALIDAD </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="modalidad"> {{element.nombre}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="montoMaximo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> MONTO MAXIMO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="monto maximo"> {{element.montoMaximo | number}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="montoMinimo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> MONTO MINIMO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="monto minimo"> {{element.montoMinimo | number}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="interes">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> INTERES </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="interes"> {{element.interes}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="tipoCalculos.nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO CALCULO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="tipo calculo"> {{element.tipoCalculos.nombre}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="opciones">
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <button mat-icon-button routerLink="/service-web/calculation-types/{{element.id}}" *appCanAccess="['calculation-types', 'viewCalculationTypes']"><mat-icon>visibility</mat-icon></button>
-                  <button mat-icon-button routerLink="/service-web/calculation-types/{{element.id}}/edit" *appCanAccess="['calculation-types', 'editCalculationTypes']"> <mat-icon>edit</mat-icon></button>
-                  <button mat-icon-button (click)="delete(element)" *appCanAccess="['calculation-types', 'deleteCalculationTypes']"> <mat-icon>delete</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/modality/{{element.id}}" *appCanAccess="['modality', 'viewModality']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/modality/{{element.id}}/edit" *appCanAccess="['modality', 'editModality']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button (click)="delete(element)" *appCanAccess="['modality', 'deleteModality']"> <mat-icon>delete</mat-icon></button>
                 </mat-cell>
             </ng-container>
 

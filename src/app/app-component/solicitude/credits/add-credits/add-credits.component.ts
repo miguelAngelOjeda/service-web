@@ -17,6 +17,7 @@ export class AddCreditsComponent implements OnInit {
 
   ngOnInit() {
     this.initFormBuilder();
+    this.valueChangeModality();
   }
 
   onSubmit() {
@@ -30,6 +31,16 @@ export class AddCreditsComponent implements OnInit {
 
   getValue(data: any, form : any): void {
     (<FormControl>this.myForm.get(form)).setValue(data);
+  }
+
+  protected valueChangeModality() {
+    this.myForm.controls['modalidad'].valueChanges.subscribe(
+        (selectedValue) => {
+          this.myForm.controls['tipoCalculoImporte'].setValue(selectedValue.tipoCalculos);
+          this.myForm.controls['tasaInteres'].setValue(selectedValue.interes);
+          console.log(selectedValue);
+        }
+    );
   }
 
   protected initFormBuilder() {
