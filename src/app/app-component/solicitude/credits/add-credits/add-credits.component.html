@@ -6,40 +6,7 @@
               <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-12">
-                    <h4  class="m-0"><mat-icon class="gray-text">account_circle</mat-icon>Solicitud</h4>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Documento"   name="documento" required>
-                     <mat-icon matSuffix>search</mat-icon>
-                      <!-- <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error> -->
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Ruc"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error> -->
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Nombre"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error> -->
-                    </mat-form-field>
+                    <h4  class="m-0"><mat-icon class="gray-text">event_note</mat-icon>Solicitud Credito</h4>
                   </div>
                   <div class="col-md-4">
                     <app-select-filter  (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
@@ -51,7 +18,8 @@
                   </div>
                   <div class="col-md-4">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Monto" formControlName="montoSolicitado" name="montoSolicitado" required>
+                      <input matInput #input type="number" placeholder="Monto" formControlName="montoSolicitado" name="montoSolicitado" pattern="[0-9]*" required>
+                      <mat-hint align="end">{{myForm.get('montoSolicitado').value | number}}</mat-hint>
                       <mat-error *ngIf="(myForm.get('montoSolicitado').errors)">
                         <span *ngIf="myForm.get('montoSolicitado').errors.required">
                          Campo requerido
@@ -86,9 +54,23 @@
                      placeholder="Forma Desembolso" urlFilter="tipos-desembolsos" [columnsFilter]="['nombre']"></app-select-filter>
                   </div>
                   <div class="col-md-3">
-                    <app-select-filter  (value)="getValue($event, 'periodoCapital')" [modelValue]="myForm.get('periodoCapital').value"
-                    [sortActive]="cantidadDias" [sortDirection]="asc"
-                     placeholder="Periodo Capital" urlFilter="periodos-capitales" [columnsFilter]="['nombre']"></app-select-filter>
+                    <mat-form-field  appearance="legacy">
+                       <mat-label>Periodo Capital</mat-label>
+                       <mat-select formControlName="periodoCapital" name="periodoCapital" required>
+                         <mat-option  value="1">1 - DIARIO</mat-option>
+                         <mat-option  value="15">15 - QUINCENAL</mat-option>
+                         <mat-option  value="30">30 - MENSUAL</mat-option>
+                         <mat-option  value="60">60 - BIMESTRAL</mat-option>
+                         <mat-option  value="90">90 - TRIMESTRAL</mat-option>
+                         <mat-option  value="180">180 - SEMESTRAL</mat-option>
+                         <mat-option  value="360">360 - ANUAL</mat-option>
+                       </mat-select>
+                       <mat-error *ngIf="(myForm.get('vencimientoInteres').errors)">
+                         <span *ngIf="myForm.get('vencimientoInteres').errors.required">
+                          Campo requerido
+                         </span>
+                       </mat-error>
+                    </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
@@ -112,14 +94,20 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
-                    <mat-form-field    appearance="legacy">
-                      <input matInput #input  placeholder="Vto. Interés"  name="ruc">
-                      <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                      <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                        <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error> -->
+                    <mat-form-field  appearance="legacy">
+                       <mat-label>Vto. Interes</mat-label>
+                       <mat-select formControlName="vencimientoInteres" name="vencimientoInteres" required>
+                         <mat-option  value="1">DIARIO</mat-option>
+                         <mat-option  value="15">QUINCENAL</mat-option>
+                         <mat-option  value="30">MENSUAL</mat-option>
+                         <mat-option  value="0">Vto. Capital</mat-option>
+                         <mat-option  value="-1">Meses de Gracia</mat-option>
+                       </mat-select>
+                       <mat-error *ngIf="(myForm.get('vencimientoInteres').errors)">
+                         <span *ngIf="myForm.get('vencimientoInteres').errors.required">
+                          Campo requerido
+                         </span>
+                       </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
@@ -135,6 +123,7 @@
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input type="number"  placeholder="Periodo Interés" formControlName="periodoInteres"  name="periodoInteres" required>
+                      <mat-hint align="end">{{myForm.get('periodoInteres').value + ' Dias'}}</mat-hint>
                       <mat-error *ngIf="(myForm.get('periodoInteres').errors)">
                         <span *ngIf="myForm.get('periodoInteres').errors.required">
                          Campo requerido
@@ -144,7 +133,7 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input type="number" min="0.0" placeholder="Tasa Interés" formControlName="tasaInteres" name="tasaInteres" required>
+                      <input matInput #input type="number" min="0" placeholder="Tasa Interés" formControlName="tasaInteres" name="tasaInteres" required>
                       <mat-error *ngIf="(myForm.get('tasaInteres').errors)">
                         <span *ngIf="myForm.get('tasaInteres').errors.required">
                          Campo requerido
@@ -155,6 +144,7 @@
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
                       <input matInput #input type="number" min="0" placeholder="Cuota" formControlName="importeCuota" name="importeCuota">
+                      <mat-hint align="end">{{myForm.get('importeCuota').value | number}}</mat-hint>
                       <mat-error *ngIf="(myForm.get('importeCuota').errors)">
                         <span *ngIf="myForm.get('importeCuota').errors.required">
                          Campo requerido

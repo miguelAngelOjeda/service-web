@@ -36,11 +36,13 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
     }
   }
   @Input() set sortActive (sortActive : any){
+    console.log(sortActive);
     if(sortActive){
       this.sortActiveModel = sortActive;
     }
   }
   @Input() set sortDirection (sortDirection : any){
+    console.log(sortDirection);
     if(sortDirection){
       this.sortDirectionModel = sortDirection;
     }

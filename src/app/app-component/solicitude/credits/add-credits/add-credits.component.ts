@@ -18,6 +18,9 @@ export class AddCreditsComponent implements OnInit {
   ngOnInit() {
     this.initFormBuilder();
     this.valueChangeModality();
+    this.valueChangeVtoInteres();
+    this.valueChangePlazo();
+    this.valueChangeTasaInteres();
   }
 
   onSubmit() {
@@ -38,7 +41,71 @@ export class AddCreditsComponent implements OnInit {
         (selectedValue) => {
           this.myForm.controls['tipoCalculoImporte'].setValue(selectedValue.tipoCalculos);
           this.myForm.controls['tasaInteres'].setValue(selectedValue.interes);
+        }
+    );
+  }
+
+  protected valueChangePlazo() {
+    this.myForm.controls['plazo'].valueChanges.subscribe(
+        (selectedValue) => {
+          if(this.myForm.get('modalidad').value != null
+              && this.myForm.get('montoSolicitado').value != null
+              && this.myForm.get('periodoCapital').value != null && this.myForm.get('tasaInteres').value != null){
+
+                if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-2'){
+                  console.log(this.myForm.get('tasaInteres').value);
+                  let valor_1 = ((this.myForm.get('montoSolicitado').value * this.myForm.get('tasaInteres').value) / 36500) * this.myForm.get('vencimientoInteres').value;
+                  console.log(valor_1);
+                  let valor_2 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), selectedValue) - 1;
+                  console.log(valor_2);
+                  let valor_3 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), selectedValue);
+                  console.log(valor_3);
+                  let valor_4 = valor_1/valor_2;
+
+                  this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
+                }
+
+              }
+        }
+    );
+  }
+
+  protected valueChangeTasaInteres() {
+    this.myForm.controls['tasaInteres'].valueChanges.subscribe(
+        (selectedValue) => {
           console.log(selectedValue);
+          if(this.myForm.get('modalidad').value != null
+              && this.myForm.get('montoSolicitado').value != null && this.myForm.get('plazo').value != null
+              && this.myForm.get('periodoCapital').value != null){
+
+                if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-2'){
+
+                  let valor_1 = ((this.myForm.get('montoSolicitado').value * selectedValue) / 36500) * this.myForm.get('vencimientoInteres').value;
+                  console.log(valor_1);
+                  let valor_2 = Math.pow((  1 + ((selectedValue/ 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value) - 1;
+                  console.log(valor_2);
+                  let valor_3 = Math.pow((  1 + ((selectedValue/ 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value);
+                  console.log(valor_3);
+                  let valor_4 = valor_1/valor_2;
+
+                  this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
+                }
+
+              }
+        }
+    );
+  }
+
+  protected valueChangeVtoInteres() {
+    this.myForm.controls['vencimientoInteres'].valueChanges.subscribe(
+        (selectedValue) => {
+          if(Number(selectedValue) == 0){
+            this.myForm.controls['periodoInteres'].setValue(this.myForm.get('periodoCapital').value);
+          }else if(Number(selectedValue) == -1){
+
+          }else{
+            this.myForm.controls['periodoInteres'].setValue(selectedValue);
+          }
         }
     );
   }
@@ -54,12 +121,13 @@ export class AddCreditsComponent implements OnInit {
       tipoPago: [null, [Validators.required]],
       tipoDesembolso: [null, [Validators.required]],
       plazo: [null, [Validators.required]],
-      periodoInteres: [null, [Validators.required]],
+      vencimientoInteres: ['30', [Validators.required]],
+      periodoInteres: [30, [Validators.required]],
       tasaInteres: [null, [Validators.required]],
       montoSolicitado: [null, [Validators.required]],
       importeCuota: [null, [Validators.required]],
-      periodoGracia: [null, [Validators.required]],
-      periodoCapital: [null, [Validators.required]],
+      periodoGracia: [30, [Validators.required]],
+      periodoCapital: ['30', [Validators.required]],
       activo: 'S'
     });
   }
