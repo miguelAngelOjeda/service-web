@@ -53,16 +53,33 @@ export class AddCreditsComponent implements OnInit {
               && this.myForm.get('periodoCapital').value != null && this.myForm.get('tasaInteres').value != null){
 
                 if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-2'){
-                  console.log(this.myForm.get('tasaInteres').value);
+
                   let valor_1 = ((this.myForm.get('montoSolicitado').value * this.myForm.get('tasaInteres').value) / 36500) * this.myForm.get('vencimientoInteres').value;
-                  console.log(valor_1);
+
                   let valor_2 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), selectedValue) - 1;
-                  console.log(valor_2);
+
                   let valor_3 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), selectedValue);
-                  console.log(valor_3);
+
                   let valor_4 = valor_1/valor_2;
 
                   this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
+
+                } else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-4'){
+
+                  let interesDias = this.myForm.get('tasaInteres').value / 36500;
+
+                  let montoInteres = this.myForm.get('montoSolicitado').value * interesDias * (this.myForm.get('vencimientoInteres').value * selectedValue);
+
+                  let montoTotal = Math.round(this.myForm.get('montoSolicitado').value + montoInteres);
+
+                  let montoCuota = montoTotal / selectedValue;
+
+                  this.myForm.controls['importeCuota'].setValue(Math.round(montoCuota));
+
+                }else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-5'){
+
+                  let interesDias = this.myForm.get('montoSolicitado').value * (this.myForm.get('tasaInteres').value / 36500);
+
                 }
 
               }
