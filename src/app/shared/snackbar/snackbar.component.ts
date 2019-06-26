@@ -33,7 +33,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
 export class SnackbarComponent implements OnInit, OnDestroy {
 
 
-  private show = false;
+  public show = false;
   private message: string = 'This is snackbar';
   private type: string = 'success';
   private snackbarSubscription: Subscription;
