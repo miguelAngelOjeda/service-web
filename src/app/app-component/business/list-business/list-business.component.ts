@@ -15,9 +15,9 @@ export class ListBusinessComponent implements AfterViewInit {
   public isMobile: Boolean;
   public rulesColumns  = ['nombre', 'ruc', 'direccion'];
   public displayedColumns = ['nombre', 'ruc', 'direccion', 'telefono', 'email','opciones'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('filter') filterInput: ElementRef;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('filter', { static: true }) filterInput: ElementRef;
 
   public dataSource = new MatTableDataSource<Business>();
   //Filter

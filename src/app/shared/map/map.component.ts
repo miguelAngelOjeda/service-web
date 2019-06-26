@@ -24,7 +24,7 @@ export class MapComponent implements OnInit {
     },
     zoom: 5
   };
-  @ViewChild(AgmMap) map: AgmMap;
+  @ViewChild(AgmMap, { static: true }) map: AgmMap;
 
   constructor(
     public mapsApiLoader: MapsAPILoader,

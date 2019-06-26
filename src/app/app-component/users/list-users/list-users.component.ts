@@ -16,9 +16,9 @@ export class ListUsersComponent implements AfterViewInit {
     public displayedColumns = ['alias', 'persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
     public dataSource = new MatTableDataSource<any>();
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild('filter') filterInput: ElementRef;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild('filter', { static: true }) filterInput: ElementRef;
 
     //Filter
     isfilter = false;

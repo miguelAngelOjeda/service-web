@@ -13,7 +13,7 @@ export class ViewIngressComponent implements AfterViewInit {
   public isMobile: Boolean;
   public displayedColumns = ['monto','tipoIngresosEgresos.nombre'];
   public dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input()
   set fkFilterModel(id: any) {

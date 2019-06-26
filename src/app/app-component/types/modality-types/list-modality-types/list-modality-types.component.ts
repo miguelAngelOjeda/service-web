@@ -15,9 +15,9 @@ export class ListModalityTypesComponent implements AfterViewInit {
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','montoMaximo','montoMinimo','interes','tipoCalculos.nombre','opciones'];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('filter') filterInput: ElementRef;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('filter', { static: true }) filterInput: ElementRef;
 
   public dataSource = new MatTableDataSource<CalculationTypes>();
 

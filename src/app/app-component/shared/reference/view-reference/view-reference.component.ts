@@ -13,7 +13,7 @@ export class ViewReferenceComponent implements AfterViewInit {
   public isMobile: Boolean;
   public displayedColumns = ['nombreContacto','telefonoCelular','telefono','tipoReferencia.nombre'];
   public dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input()
   set fkFilterModel(id: any) {

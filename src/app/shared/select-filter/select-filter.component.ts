@@ -27,7 +27,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
   public sortActiveModel = "nombre";
   public sortDirectionModel = "desc";
 
-  @ViewChild('filterInputModel') filterInputModel: ElementRef;
+  @ViewChild('filterInputModel', { static: true }) filterInputModel: ElementRef;
   @Input() set disabled (condition : boolean){
     if(condition){
       this.modelControl.disable();

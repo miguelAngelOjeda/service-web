@@ -16,9 +16,9 @@ export class ListDestinationsTypesComponent implements AfterViewInit {
   public displayedColumns = ['codigo','nombre','opciones'];
   public dataSource = new MatTableDataSource<DestinationsTypes>();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('filter') filterInput: ElementRef;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('filter', { static: true }) filterInput: ElementRef;
 
 
 

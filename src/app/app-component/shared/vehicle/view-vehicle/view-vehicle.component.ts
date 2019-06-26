@@ -13,7 +13,7 @@ export class ViewVehicleComponent implements AfterViewInit {
   public isMobile: Boolean;
   public displayedColumns = ['marca','modeloAnio','valorActual','cuotaMensual','saldo'];
   public dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input()
   set fkFilterModel(id: any) {
