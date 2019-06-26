@@ -133,7 +133,7 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input type="number" min="0" placeholder="Tasa Interés" formControlName="tasaInteres" name="tasaInteres" required>
+                      <input matInput #input type="number" min="0" placeholder="Tasa Interés(%)" formControlName="tasaInteres" name="tasaInteres" required>
                       <mat-error *ngIf="(myForm.get('tasaInteres').errors)">
                         <span *ngIf="myForm.get('tasaInteres').errors.required">
                          Campo requerido
@@ -143,10 +143,9 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field    appearance="legacy">
-                      <input matInput #input type="number" min="0" placeholder="Cuota" formControlName="importeCuota" name="importeCuota">
-                      <mat-hint align="end">{{myForm.get('importeCuota').value | number}}</mat-hint>
-                      <mat-error *ngIf="(myForm.get('importeCuota').errors)">
-                        <span *ngIf="myForm.get('importeCuota').errors.required">
+                      <input matInput #input type="number" min="0" placeholder="Gastos Administrativos(%)" formControlName="gastosAdministrativos" name="gastosAdministrativos" required>
+                      <mat-error *ngIf="(myForm.get('gastosAdministrativos').errors)">
+                        <span *ngIf="myForm.get('gastosAdministrativos').errors.required">
                          Campo requerido
                         </span>
                       </mat-error>
@@ -163,6 +162,65 @@
                       </mat-error> -->
                     </mat-form-field>
                   </div>
+                  <div class="col-md-12">
+                    <h4  class="m-0">Descuentos</h4>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field    appearance="legacy">
+                      <input matInput #input type="number"  placeholder="Impuestos" formControlName="impuestos"  name="impuestos" required>
+                      <mat-hint align="end">{{myForm.get('impuestos').value | number}}</mat-hint>
+                      <mat-error *ngIf="(myForm.get('impuestos').errors)">
+                        <span *ngIf="myForm.get('impuestos').errors.required">
+                         Campo requerido
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field    appearance="legacy">
+                      <input matInput #input type="number"  placeholder="Comision" formControlName="comision"  name="comision" required>
+                      <mat-hint align="end">{{myForm.get('comision').value | number}}</mat-hint>
+                      <mat-error *ngIf="(myForm.get('comision').errors)">
+                        <span *ngIf="myForm.get('comision').errors.required">
+                         Campo requerido
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field    appearance="legacy">
+                      <input matInput #input type="number"  placeholder="Gastos Varios" formControlName="gastosVarios"  name="gastosVarios" required>
+                      <mat-hint align="end">{{myForm.get('gastosVarios').value | number}}</mat-hint>
+                      <mat-error *ngIf="(myForm.get('gastosVarios').errors)">
+                        <span *ngIf="myForm.get('gastosVarios').errors.required">
+                         Campo requerido
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field    appearance="legacy">
+                      <input matInput #input type="number"  placeholder="Seguros" formControlName="seguros"  name="seguros" required>
+                      <mat-hint align="end">{{myForm.get('seguros').value | number}}</mat-hint>
+                      <mat-error *ngIf="(myForm.get('seguros').errors)">
+                        <span *ngIf="myForm.get('seguros').errors.required">
+                         Campo requerido
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field    appearance="legacy">
+                      <input matInput #input type="number" min="0" placeholder="Cuota" formControlName="importeCuota" name="importeCuota">
+                      <mat-hint align="end">{{myForm.get('importeCuota').value | number}}</mat-hint>
+                      <mat-error *ngIf="(myForm.get('importeCuota').errors)">
+                        <span *ngIf="myForm.get('importeCuota').errors.required">
+                         Campo requerido
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
                   <div class="col-md-12 m-t-30">
                     <app-people></app-people>
                   </div>
