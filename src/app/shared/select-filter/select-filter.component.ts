@@ -22,12 +22,29 @@ export function RequireMatch(control: AbstractControl) {
 export class SelectFilterComponent implements AfterViewInit, OnInit {
   modelControl = new FormControl('', [Validators.required, RequireMatch]);
   @Output() value = new EventEmitter<any>();
-  protected models: Array<any> = [];
-  protected idModel: any;
+  public models: Array<any> = [];
+  public idModel: any;
+  public sortActiveModel = "nombre";
+  public sortDirectionModel = "desc";
+
   @ViewChild('filterInputModel') filterInputModel: ElementRef;
   @Input() set disabled (condition : boolean){
     if(condition){
       this.modelControl.disable();
+    }else{
+      this.modelControl.enable();
+    }
+  }
+  @Input() set sortActive (sortActive : any){
+    console.log(sortActive);
+    if(sortActive){
+      this.sortActiveModel = sortActive;
+    }
+  }
+  @Input() set sortDirection (sortDirection : any){
+    console.log(sortDirection);
+    if(sortDirection){
+      this.sortDirectionModel = sortDirection;
     }
   }
   @Input() model;
@@ -38,6 +55,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
   set fkFilterModel(model: any) {
     if(model){
       this.idModel = model.id;
+      this.modelControl.setValue(null);
       this.modelControl.enable();
       this.filter();
     }
@@ -74,12 +92,6 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
       this.filter();
   }
 
-  onChanges(): void {
-    this.modelControl.valueChanges.subscribe(val => {
-
-    });
-  }
-
   protected filter() {
     setTimeout(() => {
       merge(fromEvent(this.filterInputModel.nativeElement, 'keyup'))
@@ -93,7 +105,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
                   this.isfilter = true;
                 }
                 return this.apiService.getPageList('/' + this.urlFilter,this.isfilter,this.filterInputModel.nativeElement.value,
-                 this.columnsFilter, 'desc', 'nombre',0,50, false,this.idModel);
+                 this.columnsFilter, this.sortDirectionModel, this.sortActiveModel,0,50, false,this.idModel);
               }else{
                 return null;
               }

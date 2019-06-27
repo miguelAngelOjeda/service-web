@@ -1,0 +1,34 @@
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/guarantee-types">Tipos Garantias </a> &gt; <span class="current">Visualizar</span></h2>
+<mat-card class="form-card">
+<mat-card-content>
+  <form  [formGroup]="modalityForm">
+    <div class="row">
+      <div class="col-md-12">
+         <h4  class="m-0"><mat-icon class="gray-text">description</mat-icon>Tipo Garantia</h4>
+         <br>
+      </div>
+      <div class="col-md-12">
+        <div class="p-l-20">
+          <div class="font-medium">{{
+            (modalityForm.get('codigo').value == null ? '' : modalityForm.get('codigo').value)
+            + ' / ' +
+            (modalityForm.get('nombre').value == null ? '' : modalityForm.get('nombre').value)}} </div>
+          <br>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-l-20 p-t-10">
+          <div class="font-medium">Codeudor</div>
+          <span class="font-16">{{(modalityForm.get('codeudor').value == true ? 'Con Codeudor' : 'Sin Codeudor')}}</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-l-20 p-t-10">
+          <div class="font-medium">Hipoteca</div>
+          <span class="font-16">{{(modalityForm.get('hipoteca').value == true ? 'Con Hipoteca' : 'Sin Hipoteca')}}</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-card-content>
+</mat-card>

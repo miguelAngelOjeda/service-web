@@ -10,8 +10,8 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./view-role.component.scss']
 })
 export class ViewRoleComponent implements OnInit {
-    private model = new Role;
-    private authorities: Array<Authorities> = [];
+    public model = new Role;
+    public authorities: Array<Authorities> = [];
     constructor(
       private apiService: ApiService,
       private route: ActivatedRoute

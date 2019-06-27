@@ -1,0 +1,82 @@
+<ng-container>
+  <div class="row">
+    <div class="col-md-12">
+        <h4  class="m-0"><mat-icon class="gray-text">account_balance</mat-icon>Datos Laborales
+        </h4>
+    </div>
+    <div [formArrayName]="formArrayName" class="col-md-12">
+        <div [formGroupName]="i" *ngFor="let ocupaciones of occupationForm.get(formArrayName)['controls']; let i = index">
+          <blockquote>
+            <div class="row">
+               <div class="col-sm-3">
+                 <div >
+                   <div class="font-medium">Empresa </div>
+                   <span class="font-16">{{ocupaciones.get('empresa').value }}</span>
+                 </div>
+               </div>
+               <div class="col-sm-3">
+                 <div>
+                   <div class="font-medium">Cargo </div>
+                   <span class="font-16">{{ocupaciones.get('cargo').value }}</span>
+                 </div>
+               </div>
+               <div class="col-md-3">
+                 <div>
+                   <div class="font-medium">Ocupacion </div>
+                   <span class="font-16">{{ocupaciones.controls.tipoOcupacion.value.nombre }}</span>
+                 </div>
+               </div>
+               <div class="col-md-3">
+                 <div>
+                   <div class="font-medium">Tipo Trabajo </div>
+                   <span class="font-16">{{ocupaciones.get('tipoTrabajo').value }}</span>
+                 </div>
+               </div>
+               <div class="col-sm-3">
+                 <div class=" p-t-10">
+                   <div class="font-medium">Ingreso Mensual </div>
+                   <span class="font-16">{{ocupaciones.get('ingresosMensuales').value | number}}</span>
+                 </div>
+               </div>
+               <div class="col-md-3">
+                 <div class=" p-t-10">
+                   <div class="font-medium">Fecha Ingreso </div>
+                   <span class="font-16">{{ocupaciones.get('fechaIngreso').value | date: 'dd/MM/yyyy'}}</span>
+                 </div>
+               </div>
+               <div class="col-md-3">
+                 <div class="p-t-10">
+                   <div class="font-medium">Fecha Salida </div>
+                   <span class="font-16">{{ocupaciones.get('fechaSalida').value | date: 'dd/MM/yyyy'}}</span>
+                 </div>
+               </div>
+               <div class="col-md-3">
+                 <div class="p-t-10">
+                   <div class="font-medium">Telefono </div>
+                   <span class="font-16">{{ocupaciones.get('telefonoPrincipal').value}}</span>
+                 </div>
+               </div>
+               <div class="col-md-3">
+                 <div class="p-t-10">
+                   <div class="font-medium">Telefono Secundario </div>
+                   <span class="font-16">{{ocupaciones.get('telefonoSecundario').value}}</span>
+                 </div>
+               </div>
+               <div class="col-md-3">
+                 <div class="p-t-10">
+                   <div class="font-medium">Interno </div>
+                   <span class="font-16">{{ocupaciones.get('interno').value}}</span>
+                 </div>
+               </div>
+               <div class="col-md-6">
+                 <div class="p-t-10">
+                   <div class="font-medium">Direccion </div>
+                   <span class="font-16">{{ocupaciones.get('direccion').value}}</span>
+                 </div>
+               </div>
+            </div>
+          </blockquote>
+        </div>
+    </div>
+  </div>
+</ng-container>

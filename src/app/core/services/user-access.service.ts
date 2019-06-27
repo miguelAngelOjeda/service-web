@@ -89,6 +89,7 @@ export class UserService implements CanActivate {
       // Remove JWT from localstorage
       this.jwtService.destroyToken();
       // Set current user to an empty object
+      this.userRoles = null;
       this.currentUserSubject.next({} as UserSession);
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
@@ -106,7 +107,6 @@ export class UserService implements CanActivate {
     }
 
     public getUser(): Observable<UserSession> {
-      console.log('this.isAuthenticatedSubject.asObservable()',this.isAuthenticatedSubject.asObservable());
       if (!this.isAuthenticatedSubject.asObservable()) {
         this.populate();
       }
@@ -132,7 +132,7 @@ export class UserService implements CanActivate {
         return this.getUser()
           .map(currentUser => {
               if(currentUser && (Object.keys(currentUser).length === 0)){
-                return (this.jwtService.getUser() == null ? null : this.jwtService.getUser().authorities);
+                return this.jwtService.getUser().authorities;
               }else{
                  return currentUser.authorities;
               }

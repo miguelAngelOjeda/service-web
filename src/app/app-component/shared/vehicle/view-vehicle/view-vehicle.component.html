@@ -1,0 +1,51 @@
+<ng-container>
+  <div class="row">
+    <div class="col-md-12">
+        <h4  class="m-0"><mat-icon class="gray-text">local_taxi</mat-icon>Vehiculos</h4>
+    </div>
+    <div class="col-md-12">
+      <mat-table [dataSource]="dataSource" class="mat-table"
+       matSort  matSortActive="marca" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+
+       <ng-container matColumnDef="marca">
+         <mat-header-cell *matHeaderCellDef mat-sort-header> MARCA </mat-header-cell>
+         <mat-cell *matCellDef="let element" data-label="marca">
+            {{element.marca}}
+         </mat-cell>
+       </ng-container>
+
+        <ng-container matColumnDef="modeloAnio">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> MODELO </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="modelo">
+             {{element.modeloAnio}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="valorActual">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> VALOR ACTUAL </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="valor actual">
+             {{element.valorActual | number}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="cuotaMensual">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> CUOTA MENSUAL </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="cuota mensual">
+             {{element.cuotaMensual | number}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="saldo">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> SALDO </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="saldo">
+             {{element.saldo | number}}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+  <br>
+</ng-container>

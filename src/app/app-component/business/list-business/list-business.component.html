@@ -14,7 +14,7 @@
           Empresas
         </div>
         <div class="col-md-6">
-          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/business/new">
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/business/new" *appCanAccess="['enterprise', 'addEnterprise']">
             Agregar
           </a>
         </div>
@@ -30,40 +30,35 @@
          matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
           <ng-container matColumnDef="nombre">
             <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <span class="mobile-label">Nombre:</span>
+            <mat-cell *matCellDef="let element" data-label="nombre">
               {{element.nombre}}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="ruc">
             <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <span class="mobile-label">Ruc:</span>
+            <mat-cell *matCellDef="let element" data-label="ruc">
               {{element.ruc}}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="direccion">
             <mat-header-cell *matHeaderCellDef> DIRECCION </mat-header-cell>
-            <mat-cell mat-cell *matCellDef="let element">
-              <span class="mobile-label">Direccion:</span>
+            <mat-cell mat-cell *matCellDef="let element" data-label="direccion">
               {{element.direccion}}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="telefono">
             <mat-header-cell *matHeaderCellDef> TELEFONO </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <span class="mobile-label">Telefono:</span>
+            <mat-cell *matCellDef="let element" data-label="telefono">
               {{element.telefono}}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="email">
               <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span class="mobile-label">Email:</span>
+              <mat-cell *matCellDef="let element" data-label="email">
                 {{element.email}}
               </mat-cell>
           </ng-container>
@@ -82,7 +77,7 @@
         </mat-table>
 
         <mat-paginator [length]="length"
-                      [showFirstLastButtons]="true"
+                      [showFirstLastButtons]="false"
                       [pageSize]="pageSize"
                       [pageSizeOptions]="pageSizeOptions">
         </mat-paginator>

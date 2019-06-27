@@ -1,0 +1,112 @@
+<ng-container>
+  <div class="row">
+    <div class="col-md-12">
+        <h4  class="m-0"><mat-icon class="gray-text">store</mat-icon>Inmuebles
+          <a  mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
+        </h4>
+    </div>
+    <div [formArrayName]="formArrayName"  *ngFor="let bienesInmuebles of estateForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
+      <blockquote>
+        <div [formGroupName]="i">
+          <div class="row">
+             <div class="col-sm-3">
+               <mat-form-field    appearance="legacy">
+                 <input matInput #input  placeholder="Direccion"  formControlName="direccion" name="direccion" required>
+                 <mat-error *ngIf="(bienesInmuebles.get('direccion').errors)">
+                   <span *ngIf="bienesInmuebles.get('direccion').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <app-select-filter (value)="getValue($event, bienesInmuebles.controls['pais'])"
+               [modelValue]="bienesInmuebles.controls.pais.value"
+               placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
+             </div>
+             <div class="col-md-3">
+               <app-select-filter (value)="getValue($event, bienesInmuebles.controls['departamento'])" [disabled]="true"
+               placeholder="Departamento"
+                urlFilter="departamentos" [columnsFilter]="['nombre']"
+                [modelValue]="bienesInmuebles.controls.departamento.value"
+                [fkFilterModel]="bienesInmuebles.controls['pais'].value"></app-select-filter>
+             </div>
+             <div class="col-md-3">
+               <app-select-filter (value)="getValue($event, bienesInmuebles.controls['ciudad'])" [disabled]="true" placeholder="Ciudad"
+                urlFilter="ciudades" [columnsFilter]="['nombre']"
+                [modelValue]="bienesInmuebles.controls.ciudad.value"
+                [fkFilterModel]="bienesInmuebles.controls['departamento'].value"></app-select-filter>
+             </div>
+             <div class="col-md-2">
+               <section class="example-section">
+                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="edificado" name="edificado">Edificado</mat-checkbox>
+               </section>
+             </div>
+             <div class="col-md-2">
+               <section class="example-section">
+                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="escriturado" name="escriturado">Escriturado</mat-checkbox>
+               </section>
+             </div>
+             <div class="col-md-2">
+               <mat-form-field    appearance="legacy">
+                 <input matInput #input  placeholder="Nº de Finca" formControlName="numeroFinca"  name="numeroFinca">
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field    appearance="legacy">
+                 <input matInput #input  placeholder="Nº de Matricula" formControlName="numeroMatricula"  name="numeroMatricula">
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field    appearance="legacy">
+                 <input matInput #input  placeholder="Cuenta Catastral" formControlName="cuentaCatastral"  name="cuentaCatastral">
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <section class="example-section">
+                    <mat-checkbox (click)="onClickSepaBienes($event)"   class="example-margin" formControlName="hipotecado" name="hipotecado">Hipotecado</mat-checkbox>
+               </section>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field    appearance="legacy">
+                 <input matInput #input  placeholder="Lugar Hipoteca" formControlName="lugarHipoteca"  name="lugarHipoteca">
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field  appearance="legacy">
+                <input matInput #input [matDatepicker]="pickerTo" formControlName="fechaHipoteca" name="fechaHipoteca" placeholder="Fecha Hipoteca">
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field    appearance="legacy">
+                 <input matInput #input  placeholder="Valor Actual" formControlName="valorActual"  name="valorActual" required>
+                 <mat-error *ngIf="(bienesInmuebles.get('valorActual').errors)">
+                   <span *ngIf="bienesInmuebles.get('valorActual').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field    appearance="legacy">
+                 <input matInput #input  placeholder="Saldo a Pagar" formControlName="saldo"  name="saldo">
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <mat-form-field    appearance="legacy">
+                 <input matInput #input  placeholder="Cuota Mensual" formControlName="cuotaMensual"  name="cuotaMensual">
+               </mat-form-field>
+             </div>
+             <div class="col-md-1">
+               <section class="example-section">
+                    <a mat-icon-button color="warn" (click)="delete(bienesInmuebles.value)"> <mat-icon>delete_forever</mat-icon></a>
+               </section>
+             </div>
+          </div>
+        </div>
+      </blockquote>
+    </div>
+  </div>
+</ng-container>

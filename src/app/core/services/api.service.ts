@@ -29,6 +29,8 @@ export class ApiService {
    page: number = 1, rows: number = 10, all: boolean = false, fkModel: string = null): Observable<any> {
       this.userService.validateTokensSession();
       this.rules = [];
+      console.log(filters);
+      console.log(rulesColumns);
       if(_search){
         for (let i = 0; i < rulesColumns.length; i++)
         {
@@ -44,7 +46,7 @@ export class ApiService {
       let params = new HttpParams({
         fromObject : {
           '_search' : _search.toString(),
-          'page' : page.toString(),
+          'page' : (page + 1).toString(),
           'rows' : rows.toString(),
           'sidx' : sidx,
           'sord' : sort,

@@ -14,12 +14,12 @@ export class MapComponent implements OnInit {
   geocoder:any;
   @Output() valueLocationChange = new EventEmitter<Location>();
   public location:Location = {
-    lat: 51.678418,
-    lng: 7.809007,
+    lat: -25.2877748,
+    lng: -57.6215744,
     isView: true,
     marker: {
-      lat: 51.678418,
-      lng: 7.809007,
+      lat: -25.2877748,
+      lng: -57.6215744,
       draggable: true
     },
     zoom: 5
@@ -40,8 +40,12 @@ export class MapComponent implements OnInit {
  }
 
   ngOnInit() {
-    this.location.marker.draggable = true;
     this.setCurrentLocation();
+  }
+
+  @Input()
+  set markerDraggable(markerDraggable: any) {
+    this.location.marker.draggable = markerDraggable;
   }
 
   @Input()
@@ -66,13 +70,13 @@ export class MapComponent implements OnInit {
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
         if(this.location.isView){
           this.location.lat = position.coords.latitude;
           this.location.lng = position.coords.longitude;
           this.location.marker.lat = position.coords.latitude;
           this.location.marker.lng = position.coords.longitude;
         }
-        this.location.marker.draggable = true;
         this.location.zoom = 15;
       });
     }
@@ -126,9 +130,11 @@ export class MapComponent implements OnInit {
     })
   }
 
-  markerDragEnd(m: any, $event: any) {
+  markerDragEnd(m: any) {
    this.location.marker.lat = m.coords.lat;
    this.location.marker.lng = m.coords.lng;
+   this.location.lat = m.coords.lat;
+   this.location.lng = m.coords.lng;
    this.findAddressByCoordinates();
   }
 

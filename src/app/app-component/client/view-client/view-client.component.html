@@ -1,124 +1,43 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/people"> Personas </a> &gt; <span class="current">Visualizar</span></h2>
-<div  class="row">
-  <div  class="col-md-4">
-    <mat-card class="oh text-center little-profile mat-card card">
-       <img _ngcontent-c12="" alt="Photo of a Shiba Inu" class="mat-card-image" mat-card-image="" src="assets/images/background/user-info.jpg"/>
-  	   <mat-card-content>
-         <div  class="pro-img">
-           <img *ngIf="!model.persona.imagePath"  alt="user" src="assets/images/users/1.jpg" width="100">
-           <img *ngIf="model.persona.imagePath"  alt="user" [src]="urlImage + '/DisplayImage?url=' + model.persona.imagePath" width="100">
-         </div>
-         <h3  class="m-b-0">{{(model.persona.primerNombre == null ? '' : model.persona.primerNombre) + ' ' + (model.persona.segundoNombre == null ? '' : model.persona.segundoNombre)}}</h3>
-         <h6  class="m-b-0" class="card-subtitle">{{(model.persona.primerApellido == null ? '' : model.persona.primerApellido) + ' ' + (model.persona.segundoApellido == null ? '' : model.persona.segundoApellido)}}</h6>
-         <h4  class="m-t-0 ">{{model.rol.nombre == null ? '' : model.rol.nombre}}</h4>
-         <form>
-           <div class="row">
-             <div class="col-md-12">
-               <mat-list>
-                 <mat-list-item *ngIf="model.persona.documento">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.documento}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.ruc">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.ruc}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.email">
-                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.email}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.email">
-                   <p><mat-icon class="gray-text">vpn_key</mat-icon><a routerLink="/service-web/business"> Cambiar Contraseña </a></p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.telefono">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoParticular}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.telefono">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoSecundario}}</p>
-                 </mat-list-item>
-               </mat-list>
-             </div>
-           </div>
-         </form>
-       </mat-card-content>
-    </mat-card>
-  </div>
-  <div  class="col-md-8">
-    <mat-card class="oh text-center little-profile mat-card">
-       <mat-card-header  class="bg-success text-white">
-         <mat-card-title  class="mat-card-title">
-           <h4  class="m-0">{{'Empresa ' + model.persona.sucursal.empresa.nombre}}</h4>
-         </mat-card-title>
-         <mat-card-subtitle>{{'Alias ' + model.persona.sucursal.empresa.nombreFantasia}}</mat-card-subtitle>
-       </mat-card-header>
-  	   <mat-card-content>
-         <form>
-           <div class="row">
-             <div class="col-md-6">
-               <mat-list>
-                 <mat-list-item *ngIf="model.persona.sucursal.empresa.ruc">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.sucursal.empresa.ruc}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.empresa.descripcion">
-                   <p><mat-icon class="gray-text">store</mat-icon>{{model.persona.sucursal.empresa.descripcion}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.empresa.direccion">
-                   <p><mat-icon class="gray-text">directions</mat-icon>{{model.persona.sucursal.empresa.direccion}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.empresa.telefono">
-                   <p><mat-icon class="gray-text">phone</mat-icon>{{model.persona.sucursal.empresa.telefono}}</p>
-                 </mat-list-item>
-               </mat-list>
-             </div>
-             <div class="col-md-6">
-               <mat-list>
-                 <mat-list-item *ngIf="model.persona.sucursal.empresa.telefonoMovil">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.sucursal.empresa.telefonoMovil}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.empresa.email">
-                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.sucursal.empresa.email}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.empresa.fax">
-                   <p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{model.persona.sucursal.empresa.fax}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.empresa.observacion">
-                   <p><mat-icon class="gray-text">speaker_notes</mat-icon>{{model.persona.sucursal.empresa.observacion}}</p>
-                 </mat-list-item>
-               </mat-list>
-             </div>
-           </div>
-           <div class="row">
-             <h3 class="m-0">Sucursal</h3>
-             <div class="col-md-12">
-               <mat-list>
-                 <mat-list-item *ngIf="model.persona.sucursal.descripcion">
-                   <p><mat-icon class="gray-text">store</mat-icon>{{model.persona.sucursal.descripcion}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.direccion">
-                   <p><mat-icon class="gray-text">directions</mat-icon>{{model.persona.sucursal.direccion}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.telefono">
-                   <p><mat-icon class="gray-text">phone</mat-icon>{{model.persona.sucursal.telefono}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.telefonoMovil">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.sucursal.telefonoMovil}}</p>
-                 </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.sucursal.email">
-                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.sucursal.email}}</p>
-                 </mat-list-item>
-
-               </mat-list>
-             </div>
-           </div>
-           <div class="row">
-             <h3 class="m-0">Departamento</h3>
-             <div class="col-md-12">
-               <mat-list>
-                 <mat-list-item *ngFor="let departments of model.departamentos">
-                   <p><span class="label label-primary">{{departments.alias}}</span> {{departments.nombreArea}}</p>
-                 </mat-list-item>
-               </mat-list>
-             </div>
-           </div>
-         </form>
-       </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Clientes </a> &gt; <span class="current">Visualizar</span></h2>
+<mat-card class="form-card">
+  <mat-card-content>
+        <form [formGroup]="myForm">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12" *ngIf="myForm.value.sucursal">
+                    <div mat-stroked-button class="nav-link" class="m-t-10 float-right">
+                      {{myForm.value.sucursal.nombre}}
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <app-view-people></app-view-people>
+                  </div>
+                  <div class="col-md-12 m-t-20">
+                    <app-view-reference [fkFilterModel]="myForm.value.persona.id"></app-view-reference>
+                  </div>
+                  <div class="col-md-12 m-t-20">
+                    <app-view-occupation [fkFilterModel]="myForm.value.persona.id"></app-view-occupation>
+                  </div>
+                  <div class="col-md-12 m-t-20">
+                    <app-view-estate [fkFilterModel]="myForm.value.persona.id"></app-view-estate>
+                  </div>
+                  <div class="col-md-12 m-t-20">
+                    <app-view-vehicle [fkFilterModel]="myForm.value.persona.id"></app-view-vehicle>
+                  </div>
+                  <div class="col-md-12 m-t-20">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <app-view-ingress [fkFilterModel]="myForm.value.persona.id"></app-view-ingress>
+                      </div>
+                      <div class="col-md-6">
+                        <app-view-egresss [fkFilterModel]="myForm.value.persona.id"></app-view-egresss>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </form>
+  </mat-card-content>
+</mat-card>

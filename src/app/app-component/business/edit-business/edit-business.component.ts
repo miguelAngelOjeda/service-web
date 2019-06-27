@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, Injectable } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Business, Location } from '../../../core/models';
 import { ApiService, UserService } from '../../../core/services';
@@ -13,53 +13,66 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 })
 export class EditBusinessComponent implements OnInit {
   accept = 'png jpg jpeg';
-  private model = new Business;
-  public currentUser;
-
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
-
-  formControl = new FormControl('', [Validators.required]);
+  businessForm: FormGroup;
 
   constructor(
-    private snackBar: MatSnackBar,
-    private apiService: ApiService,
-    private userService: UserService,
-    private route: ActivatedRoute
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private apiService: ApiService
   ) {}
 
   ngOnInit() {
-    //Obtener datos del usuario
-    this.userService.getUser().subscribe((data) => {
-        this.currentUser = data;
-    });
+    this.initFormBuilder();
     this.apiService.get('/empresas/' + this.route.snapshot.params.id)
     .subscribe(res => {
-       this.model = res.model as Business;
+      if(res.status == 200){
+        res.model.avatar = null;
+        (<FormGroup>this.businessForm).patchValue(res.model);
+      }
     });
   }
 
-  submit(form) {
-    this.apiService.put('/empresas/' + this.route.snapshot.params.id, this.model)
+  onSubmit() {
+    this.apiService.put('/empresas/' + this.route.snapshot.params.id, this.businessForm.value)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');
     });
   }
 
+  initFormBuilder() {
+    this.businessForm = this.formBuilder.group({
+      id: null,
+      avatar: null ,
+      descripcion: null,
+      telefonoMovil: null,
+      fax: null,
+      observacion: null,
+      activo: null,
+      latitud: null,
+      longitud: null,
+      imagePath: null,
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      nombreFantasia: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      ruc: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      direccion: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      pais: [null, [Validators.required]],
+      departamento: [null, [Validators.required]],
+      ciudad: [null, [Validators.required]],
+      barrio: null
+    });
+  }
+
   // Get Current Location Coordinates
   getAddress(location: Location): void {
-    this.model.latitud = location.lat;
-    this.model.longitud = location.lng;
-    this.model.direccion = location.address;
+    console.log(location);
+    this.businessForm.controls['latitud'].setValue(location.lat);
+    this.businessForm.controls['longitud'].setValue(location.lng);
+    this.businessForm.controls['direccion'].setValue(location.address);
   }
 
-  getAvatar(avatar: any): void {
-    this.model.avatar = avatar;
-  }
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+  getValue(data: any, form : any): void {
+    (<FormControl>this.businessForm.get(form)).setValue(data);
   }
 }

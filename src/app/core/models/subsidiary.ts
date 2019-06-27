@@ -14,5 +14,9 @@ export class Subsidiary {
     longitud: number = null;
     activo: string = null;
     departamentos: Array<Departments> = [];
+    pais: any;
+    departamento: any;
+    ciudad: any;
+    barrio: any;
     empresa: Business = new Business;
 }

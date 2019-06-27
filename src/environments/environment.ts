@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   //api_url: 'http://localhost:8989/beta1',
-  api_image_url: 'http://mail.creditoguarani.com.py:4443/beta1/image/',
-  api_url: 'http://mail.creditoguarani.com.py:4443/beta1',
+  api_image_url: 'https://app1.creditoguarani.com.py/beta1/image/',
+  api_url: 'https://app1.creditoguarani.com.py/beta1',
   whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };
 
@@ -57,21 +57,21 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_DELETE.LIST"]
     	}
     },
-    "people": {
-      "addPeople": {
-    	   "permittedRoles": ["ROLE_PEOPLE.ADD"]
+    "client": {
+      "addClient": {
+    	   "permittedRoles": ["ROLE_CLIENT.ADD"]
     	 },
-    	"editPeople": {
-    	  "permittedRoles": ["ROLE_PEOPLE.EDIT"]
+    	"editClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.EDIT"]
     	},
-    	"viewPeople": {
-    	  "permittedRoles": ["ROLE_PEOPLE.VIEW"]
+    	"viewClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.VIEW"]
     	},
-    	"listPeople": {
-    	  "permittedRoles": ["ROLE_PEOPLE.LIST"]
+    	"listClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.LIST"]
     	},
-    	"deletePeople": {
-    	  "permittedRoles": ["ROLE_PEOPLE.LIST"]
+    	"deleteClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.DELETE"]
     	}
     },
     "role": {
@@ -91,32 +91,100 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_ROLE.DELETE"]
     	}
     },
+    "credits": {
+      "addCredits": {
+    	   "permittedRoles": ["ROLE_SOLICITUDE.ADD"]
+    	 },
+    	"editCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.EDIT"]
+    	},
+    	"viewCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.VIEW"]
+    	},
+    	"listCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST","ROLE_SOLICITUDE.LISTALL"]
+    	},
+    	"deleteCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
+    	}
+    },
+    "card": {
+      "addCard": {
+    	   "permittedRoles": ["ROLE_SOLICITUDE.ADD"]
+    	 },
+    	"editCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.EDIT"]
+    	},
+    	"viewCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.VIEW"]
+    	},
+    	"listCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.LIST","ROLE_SOLICITUDE.LISTALL"]
+    	},
+    	"deleteCard": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
+    	}
+    },
+    "service-types": {
+    	"viewTypes": {
+    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_RELATIONS_TYPES.LIST",
+        "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST"]
+    	}
+    },
     "reference-types": {
       "addReferenceTypes": {
-    	   "permittedRoles": ["ROLE_REFERENCE_TYPES.ADD"]
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
     	 },
     	"editReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
     	},
     	"viewReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
     	},
     	"listReferenceTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	}
+    },
+    "guarantee-types": {
+      "addGuaranteeTypes": {
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
+    	 },
+    	"editGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
+    	},
+    	"viewGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
+    	},
+    	"listGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	}
+    },
+    "capital-period": {
+      "addCapitalPeriod": {
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
+    	 },
+    	"editCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
+    	},
+    	"viewCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
+    	},
+    	"listCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
     "calculation-types": {
       "addCalculationTypes": {
-    	   "permittedRoles": ["ROLE_CALCULATIONS_TYPES.ADD"]
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
     	 },
     	"editCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
     	},
     	"viewCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
     	},
     	"listCalculationTypes": {
-    	  "permittedRoles": ["ROLE_CALCULATIONS_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
     "destinations-types": {
@@ -149,30 +217,30 @@ export const authorities = {
     },
     "egress-types": {
       "addEgressTypes": {
-    	   "permittedRoles": ["ROLE_EGRESS_TYPES.ADD"]
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
     	 },
     	"editEgressTypes": {
-    	  "permittedRoles": ["ROLE_EGRESS_TYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
     	},
     	"viewEgressTypes": {
-    	  "permittedRoles": ["ROLE_EGRESS_TYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
     	},
     	"listEgressTypes": {
-    	  "permittedRoles": ["ROLE_EGRESS_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
     "ingress-types": {
       "addIngressTypes": {
-    	   "permittedRoles": ["ROLE_INGRESS_TYPES.ADD"]
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
     	 },
     	"editIngressTypes": {
-    	  "permittedRoles": ["ROLE_INGRESS_TYPES.EDIT"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
     	},
     	"viewIngressTypes": {
-    	  "permittedRoles": ["ROLE_INGRESS_TYPES.VIEW"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
     	},
     	"listIngressTypes": {
-    	  "permittedRoles": ["ROLE_INGRESS_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
     	}
     },
     "relations-types": {
@@ -201,6 +269,20 @@ export const authorities = {
     	},
     	"listPaymentsTypes": {
     	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.LIST"]
+    	}
+    },
+    "modality": {
+      "addModality": {
+    	   "permittedRoles": ["ROLE_MODALITY.ADD"]
+    	 },
+    	"editModality": {
+    	  "permittedRoles": ["ROLE_MODALITY.EDIT"]
+    	},
+    	"viewModality": {
+    	  "permittedRoles": ["ROLE_MODALITY.VIEW"]
+    	},
+    	"listModality": {
+    	  "permittedRoles": ["ROLE_MODALITY.LIST"]
     	}
     },
     "message": {

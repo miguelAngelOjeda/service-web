@@ -6,22 +6,18 @@ import { MaterialModule } from '../../core/material/material.module';
 import { BusinessRoutingModule } from './business-routing.module';
 import { environment } from '../../../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
-import { CanAccessDirective } from '../../shared/can-access.directive';
 import { DeleteDialogComponent } from '../../shared/dialog';
-import { ShowAuthedDirective, SharedModule} from '../../shared';
+import { SharedModule} from '../../shared';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
-import { ControlMessagesComponent } from '../../shared/control-messages.component';
 import { ValidationService } from '../../core/services';
 import { MapComponent } from '../../shared/map';
 import { DropifyImageComponent } from '../../shared/dropify-image';
-import { DepartmentComponent } from '../core';
-import { CoreAppModule } from '../core';
+import { DepartmentComponent } from '../shared';
+import { SharedAppModule } from '../shared';
 
 @NgModule({
   imports: [
@@ -29,7 +25,7 @@ import { CoreAppModule } from '../core';
     MaterialModule,
     FlexLayoutModule,
     SharedModule,
-    CoreAppModule,
+    SharedAppModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
@@ -51,7 +47,6 @@ import { CoreAppModule } from '../core';
     EditDialogoSubsidiaryComponent
   ],
   declarations: [
-    ControlMessagesComponent,
     EditDialogoSubsidiaryComponent,
     AddDialogoSubsidiaryComponent,
     AddBusinessComponent,

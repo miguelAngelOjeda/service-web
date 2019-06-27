@@ -1,7 +1,11 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/role"> Roles </a> &gt; <span class="current">Editar Rol</span></h2>
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/role"> Roles </a> &gt; <span class="current">Editar</span></h2>
 <mat-card class="form-card">
-<mat-card-content>
+<mat-card-content *ngIf="authorities.length > 0">
   <form  (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm" >
+    <div class="col-md-12">
+      <h4  class="m-0"><mat-icon class="gray-text">perm_data_setting</mat-icon>Rol</h4>
+      <br>
+    </div>
     <div class="row">
       <div class="col-md-4">
       	<mat-form-field   class="col-sm-12" appearance="legacy">
@@ -11,7 +15,10 @@
       </div>
     </div>
     <br>
-    <h3 class="m-t-0 font-light">Permisos</h3>
+    <div class="col-md-12">
+      <h4  class="m-0"><mat-icon class="gray-text">assignment</mat-icon>Permisos</h4>
+      <br>
+    </div>
     <div class="row">
       <div class="col-md-3" *ngFor="let authority of authorities">
         <mat-card>

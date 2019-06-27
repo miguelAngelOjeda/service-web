@@ -15,7 +15,8 @@ export class Avatar {
   styleUrls: ['./dropify-image.component.scss']
 })
 export class DropifyImageComponent implements OnInit {
-  avatar : Avatar;
+  public avatar : Avatar;
+  public isDisabled = false;
   @Output() valueAvatar = new EventEmitter<Avatar>();
   @Input() accept;
   @Input() dataMaxFile;
@@ -58,6 +59,11 @@ export class DropifyImageComponent implements OnInit {
         }
     });
 
+  }
+
+  @Input()
+  set disabled(disabled: any) {
+    this.isDisabled = disabled;
   }
 
   @Input()

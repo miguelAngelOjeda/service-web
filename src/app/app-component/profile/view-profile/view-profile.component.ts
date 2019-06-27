@@ -12,9 +12,9 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./view-profile.component.css']
 })
 export class ViewProfileComponent implements OnInit {
-  private model = new Users;
+  public model = new Users;
   urlImage = environment.api_url;
-  
+
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
@@ -31,7 +31,7 @@ export class ViewProfileComponent implements OnInit {
    changePassword() {
      const dialogConfig = new MatDialogConfig();
      dialogConfig.data = this.model;
-     dialogConfig.maxWidth = "450px";
+     dialogConfig.maxWidth = "400px";
      dialogConfig.autoFocus = true;
 
      const dialogRef = this.dialog.open(PasswordProfileComponent,dialogConfig);

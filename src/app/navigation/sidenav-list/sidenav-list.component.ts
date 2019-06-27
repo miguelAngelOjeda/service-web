@@ -20,6 +20,7 @@ import { Router} from '@angular/router';
 })
 export class SidenavListComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
+  subMenu: false;
   public currentUser;
   private _mobileQueryListener: () => void;
 
@@ -43,7 +44,9 @@ export class SidenavListComponent implements OnDestroy {
   }
 
   logout() {
-    this.userService.purgeAuth();
+    setTimeout(() => {
+      this.userService.purgeAuth();
+    });
     this.router.navigateByUrl('service-web/login');
   }
 

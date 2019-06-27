@@ -6,7 +6,6 @@ import { DeleteDialogComponent } from '../../../shared';
 import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
 import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
 import { EditDialogoSubsidiaryComponent } from './edit-subsidiary';
-import { ViewDialogoSubsidiaryComponent } from './view-subsidiary';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { environment } from '../../../../environments/environment';
@@ -108,16 +107,6 @@ export class ViewBusinessComponent implements OnInit {
           }
        });
 
-    });
-  }
-
-  viewSubsidiary(id: number) {
-    this.apiService.get('/sucursales/' + id)
-    .subscribe(res => {
-       this.subsidiary = res.model as Subsidiary;
-       const dialogRef = this.dialog.open(ViewDialogoSubsidiaryComponent, {
-           data: this.subsidiary
-         });
     });
   }
 

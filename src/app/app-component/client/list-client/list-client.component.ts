@@ -11,49 +11,49 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
   styleUrls: ['./list-client.component.scss']
 })
 export class ListClientComponent implements AfterViewInit {
-    public rulesColumns  = ['documento', 'alias', 'primerNombre', 'segundoNombre', 'primerApellido'];
-    displayedColumns = ['documento', 'primerNombre', 'segundoNombre', 'primerApellido' , 'email', 'idUsuario', 'opciones'];
+  public isMobile: Boolean;
+  public rulesColumns  = ['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
+  public displayedColumns = ['persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'persona.email', 'sucursal.nombre', 'opciones'];
+  public dataSource = new MatTableDataSource<any>();
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild('filter') filterInput: ElementRef;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('filter') filterInput: ElementRef;
 
-    public dataSource = new MatTableDataSource<any>();
+  //Filter
+  isfilter = false;
+  // MatPaginator Inputs
+  length = 0;
+  pageSize = 10;
+  pageSizeOptions: number[] = [10, 25, 100];
+  // MatPaginator Output
+  pageEvent: PageEvent;
 
-    //Filter
-    isfilter = false;
-    // MatPaginator Inputs
-    length = 0;
-    pageSize = 10;
-    pageSizeOptions: number[] = [10, 25, 100];
-    // MatPaginator Output
-    pageEvent: PageEvent;
+  constructor(
+    private apiService: ApiService) {}
 
-    constructor(
-      private apiService: ApiService) {}
-
-    ngAfterViewInit() {
-      this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-      merge(this.sort.sortChange, this.paginator.page, fromEvent(this.filterInput.nativeElement, 'keyup'))
-          .pipe(
-            startWith({}),
-            switchMap(() => {
-              this.isfilter = false;
-              if(this.filterInput.nativeElement.textLength > 3){
-                this.isfilter = true;
-              }
-              return this.apiService.getPageList('/personas',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
-              this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
-            }),
-            map(data => {
-              // Flip flag to show that loading has finished.
-              this.length = data.records;
-              return data.rows as People[];;
-            }),
-            catchError(() => {
-              return observableOf([]);
-            })
-          ).subscribe(data => this.dataSource.data = data);
-    }
+  ngAfterViewInit() {
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page, fromEvent(this.filterInput.nativeElement, 'keyup'))
+        .pipe(
+          startWith({}),
+          switchMap(() => {
+            this.isfilter = false;
+            if(this.filterInput.nativeElement.value > 1){
+              this.isfilter = true;
+            }
+            return this.apiService.getPageList('/clientes',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
+            this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
+          }),
+          map(data => {
+            // Flip flag to show that loading has finished.
+            this.length = data.records;
+            return data.rows as People[];;
+          }),
+          catchError(() => {
+            return observableOf([]);
+          })
+        ).subscribe(data => this.dataSource.data = data);
+  }
 
 }

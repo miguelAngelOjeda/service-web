@@ -12,7 +12,8 @@ import { Users, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
 })
 export class AddUsersComponent implements OnInit {
     myForm: FormGroup;
-    protected departments: Array<Departments> = [];
+    hide = true;
+    public departments: Array<Departments> = [];
 
     constructor(
       private formBuilder: FormBuilder,
@@ -29,6 +30,15 @@ export class AddUsersComponent implements OnInit {
     }
 
     submit() {
+
+      if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
+        this.myForm.value.persona.documento = ' ';
+        this.myForm.value.persona.fechaNacimiento = new Date();
+        this.myForm.value.persona.primerApellido = ' ';
+        this.myForm.value.persona.sexo = 'N';
+        this.myForm.value.persona.estadoCivil = 'N';
+      }
+
       this.apiService.post('/usuarios/', this.myForm.value)
       .subscribe(res => {
 
@@ -48,11 +58,9 @@ export class AddUsersComponent implements OnInit {
       });
     }
 
-    getValue(data: any, form : FormControl): void {
-      form.setValue(data);
+    getValue(data: any, form : any): void {
+      (<FormControl>this.myForm.get(form)).setValue(data);
     }
-
-
 
     protected filterDepartments() {
       if(this.myForm.get('sucursal').value.id != null){

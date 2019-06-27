@@ -12,7 +12,7 @@ declare var google: any;
   styleUrls: ['./add-subsidiary.component.css']
 })
 export class AddSubsidiaryComponent implements OnInit {
-  private model = new Subsidiary();
+  public model = new Subsidiary();
   subsidiaryForm: FormGroup;
 
   constructor(
@@ -27,7 +27,23 @@ export class AddSubsidiaryComponent implements OnInit {
   onSubmit() {
     this.apiService.post('/sucursales', this.subsidiaryForm.value)
     .subscribe(res => {
+      if(res.status == 200){
+        const departments = this.subsidiaryForm.get('departamentos') as FormArray;
 
+        if(res.model.departamentos == null
+            || res.model.departamentos.length == 0){
+          this.subsidiaryForm.patchValue(res.model);
+        }else{
+          // empty form array
+          while (departments.length) {
+            departments.removeAt(0);
+          }
+          // use patchValue instead of setValue
+          this.subsidiaryForm.patchValue(res.model);
+          // add form array values in a loop
+          res.model.departamentos.forEach(staff => departments.push(this.formBuilder.group(staff)));
+        }
+      }
     });
   }
 
@@ -61,8 +77,8 @@ export class AddSubsidiaryComponent implements OnInit {
     this.subsidiaryForm.controls['direccion'].setValue(location.address);
   }
 
-  getValue(data: any, form : FormControl): void {
-    form.setValue(data);
+  getValue(data: any, form : any): void {
+    (<FormControl>this.subsidiaryForm.get(form)).setValue(data);
   }
 
 }

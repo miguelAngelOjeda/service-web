@@ -1,0 +1,97 @@
+<div>
+  <mat-card>
+    <mat-card-content>
+    <mat-card-title>
+
+      <div class="row">
+        <div class="col-md-6">
+          Solicitudes Creditos
+        </div>
+        <div class="col-md-6">
+          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/credits/new" *appCanAccess="['credits', 'addCredits']">
+            Agregar
+          </a>
+        </div>
+      </div>
+    </mat-card-title>
+    <!-- <mat-card-subtitle> </mat-card-subtitle> -->
+      <!-- <p> -->
+        <mat-form-field appearance="fill">
+          <input matInput #filter placeholder="Buscar....." class="form-control-success">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      <!-- </p> -->
+        <mat-table [dataSource]="dataSource" class="mat-table"
+         matSort  matSortActive="id" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+
+         <ng-container matColumnDef="id">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Nº SOLICITUD</mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="nº solicitud">
+             {{element.id}}
+           </mat-cell>
+         </ng-container>
+
+         <ng-container matColumnDef="fechaPresentacion">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA PRESENTACION </mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="fecha presentacion">
+             {{element.fechaPresentacion}}
+           </mat-cell>
+         </ng-container>
+
+          <ng-container matColumnDef="cliente.persona.documento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="documento">
+              {{element.cliente.persona.documento}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="cliente.persona.ruc">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="ruc">
+              {{element.cliente.persona.ruc}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="cliente.persona.primerNombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="nombre">
+              {{(element.cliente.persona.primerNombre == null ? '' : element.cliente.persona.primerNombre) +' ' +(element.cliente.persona.segundoNombre == null ? '' : element.cliente.persona.segundoNombre)
+            +', ' +(element.cliente.persona.primerApellido == null ? '' : element.cliente.persona.primerApellido) + ' ' +(element.cliente.persona.segundoApellido == null ? '' : element.cliente.persona.segundoApellido)}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="montoSolicitadoOriginal">
+              <mat-header-cell *matHeaderCellDef> MONTO SOLICITADO </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="monto solicitado">
+                {{element.montoSolicitadoOriginal}}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="sucursal.nombre">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> SUCURSAL </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="sucursal">
+                {{element.sucursal.nombre}}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="opciones">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <button mat-icon-button routerLink="/service-web/credits/{{element.id}}" *appCanAccess="['credits', 'viewCredits']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button (click)="delete(element)"> <mat-icon>delete</mat-icon></button>
+                </mat-cell>
+            </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [length]="length"
+                      [showFirstLastButtons]="true"
+                      [pageSize]="pageSize"
+                      [pageSizeOptions]="pageSizeOptions">
+        </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

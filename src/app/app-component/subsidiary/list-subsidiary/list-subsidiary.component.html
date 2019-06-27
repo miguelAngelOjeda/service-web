@@ -21,40 +21,43 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       <!-- </p> -->
+      <!-- <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+          <mat-spinner></mat-spinner>
+      </div> -->
         <mat-table [dataSource]="dataSource" class="mat-table"
          matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
 
          <ng-container matColumnDef="codigoSucursal">
            <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
-           <mat-cell *matCellDef="let element">
+           <mat-cell *matCellDef="let element" data-label="codigo">
               {{element.codigoSucursal}}
            </mat-cell>
          </ng-container>
 
           <ng-container matColumnDef="nombre">
             <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
-            <mat-cell *matCellDef="let element">
+            <mat-cell *matCellDef="let element" data-label="nombre">
                {{element.nombre}}
              </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="direccion">
             <mat-header-cell *matHeaderCellDef> DIRECCION </mat-header-cell>
-            <mat-cell mat-cell *matCellDef="let element">
+            <mat-cell mat-cell *matCellDef="let element" data-label="direccion">
                {{element.direccion}}
              </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="telefono">
             <mat-header-cell *matHeaderCellDef> TELEFONO </mat-header-cell>
-            <mat-cell *matCellDef="let element">
+            <mat-cell *matCellDef="let element" data-label="telefono">
               {{element.telefono}}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="email">
               <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" data-label="email">
                 {{element.email}}
               </mat-cell>
           </ng-container>

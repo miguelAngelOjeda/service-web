@@ -1,0 +1,47 @@
+<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/modality">Modalidades </a> &gt; <span class="current">Visualizar</span></h2>
+<mat-card class="form-card">
+<mat-card-content>
+  <form  [formGroup]="modalityForm">
+    <div class="row">
+      <div class="col-md-12">
+         <h4  class="m-0"><mat-icon class="gray-text">description</mat-icon>Modalidad</h4>
+         <br>
+      </div>
+      <div class="col-md-12">
+        <div class="p-l-20">
+          <div class="font-medium">{{
+            (modalityForm.get('codigo').value == null ? '' : modalityForm.get('codigo').value)
+            + ' / ' +
+            (modalityForm.get('nombre').value == null ? '' : modalityForm.get('nombre').value)}} </div>
+          <span class="font-16" *ngIf="modalityForm.get('descripcion').value">{{modalityForm.get('descripcion').value}}</span>
+          <br>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-l-20 p-t-10">
+          <div class="font-medium">Tipo Calculo</div>
+          <span class="font-16" *ngIf="modalityForm.get('tipoCalculos').value">{{modalityForm.get('tipoCalculos').value.nombre}}</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-l-20 p-t-10">
+          <div class="font-medium">% Interes</div>
+          <span class="font-16" *ngIf="modalityForm.get('interes').value">{{modalityForm.get('interes').value}}</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-l-20 p-t-10">
+          <div class="font-medium">Monto Minimo</div>
+          <span class="font-16" *ngIf="modalityForm.get('montoMinimo').value">{{modalityForm.get('montoMinimo').value | number}}</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-l-20 p-t-10">
+          <div class="font-medium">Monto Maximo</div>
+          <span class="font-16" *ngIf="modalityForm.get('montoMaximo').value">{{modalityForm.get('montoMaximo').value | number}}</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-card-content>
+</mat-card>

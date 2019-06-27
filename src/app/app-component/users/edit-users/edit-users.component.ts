@@ -13,7 +13,8 @@ import { Users, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
 })
 export class EditUsersComponent implements OnInit {
   myForm: FormGroup;
-  protected departments: Array<Departments> = [];
+  hide = true;
+  public departments: Array<Departments> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,10 +32,8 @@ export class EditUsersComponent implements OnInit {
     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
-        res.model.persona.avatar = null;
-        res.model.persona.conyuge = null;
         res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
-        (<FormGroup>this.myForm).setValue(res.model);
+        (<FormGroup>this.myForm).patchValue(res.model);
       }
     });
   }
@@ -61,11 +60,9 @@ export class EditUsersComponent implements OnInit {
     });
   }
 
-  getValue(data: any, form : FormControl): void {
-    form.setValue(data);
+  getValue(data: any, form : any): void {
+    (<FormControl>this.myForm.get(form)).setValue(data);
   }
-
-
 
   protected filterDepartments() {
     if(this.myForm.get('sucursal').value.id != null){

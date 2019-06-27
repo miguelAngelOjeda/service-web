@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, Injectable} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Business, Location } from '../../../core/models';
 import { ApiService } from '../../../core/services';
@@ -10,42 +10,61 @@ import { ApiService } from '../../../core/services';
   styleUrls: ['./add-business.component.css']
 })
 export class AddBusinessComponent implements OnInit {
+  businessForm: FormGroup;
   accept = 'png jpg jpeg';
-  private model = new Business();
-  url: string;
-  formControl = new FormControl('', [Validators.required]);
 
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService
   ) {}
 
   ngOnInit() {
+    this.initFormBuilder();
   }
 
-  submit(form) {
-    this.apiService.post('/empresas', this.model)
+  onSubmit() {
+    this.apiService.post('/empresas', this.businessForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.model = res.model as Business;
+
       }
+    });
+  }
+
+  initFormBuilder() {
+    this.businessForm = this.formBuilder.group({
+      id: null,
+      avatar: null ,
+      descripcion: null,
+      telefonoMovil: null,
+      fax: null,
+      observacion: null,
+      activo: null,
+      latitud: null,
+      longitud: null,
+      imagePath: null,
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      nombreFantasia: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      ruc: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      direccion: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      pais: [null, [Validators.required]],
+      departamento: [null, [Validators.required]],
+      ciudad: [null, [Validators.required]],
+      barrio: null
     });
   }
 
   // Get Current Location Coordinates
   getAddress(location: Location): void {
-    this.model.latitud = location.lat;
-    this.model.longitud = location.lng;
-    this.model.direccion = location.address;
+    this.businessForm.controls['latitud'].setValue(location.lat);
+    this.businessForm.controls['longitud'].setValue(location.lng);
+    this.businessForm.controls['direccion'].setValue(location.address);
   }
 
-  getAvatar(avatar: any): void {
-    this.model.avatar = avatar;
-  }
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+  getValue(data: any, form : any): void {
+    (<FormControl>this.businessForm.get(form)).setValue(data);
   }
 
 }

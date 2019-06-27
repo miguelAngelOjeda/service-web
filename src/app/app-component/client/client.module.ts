@@ -16,9 +16,11 @@ import { MapComponent } from '../../shared/map';
 import { DeleteDialogComponent } from '../../shared/dialog';
 import { DropifyImageComponent } from '../../shared/dropify-image';
 import { SelectFilterComponent } from '../../shared/select-filter';
-import { ReferenceComponent, EstateComponent,
-   VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../core';
-import { CoreAppModule } from '../core';
+import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComponent,
+  ViewReferenceComponent,ViewIngressComponent,ViewEgressComponent,ViewPeopleComponent,
+  ViewOccupationComponent,ViewEstateComponent,
+   VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../shared';
+import { SharedAppModule } from '../shared';
 
 @NgModule({
   imports: [
@@ -26,7 +28,7 @@ import { CoreAppModule } from '../core';
     MaterialModule,
     SharedModule,
     FlexLayoutModule,
-    CoreAppModule,
+    SharedAppModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
@@ -39,12 +41,20 @@ import { CoreAppModule } from '../core';
     MapComponent,
     DeleteDialogComponent,
     ReferenceComponent,
+    ViewReferenceComponent,
+    ViewOccupationComponent,
+    ViewEstateComponent,
+    ViewVehicleComponent,
+    ViewIngressComponent,
+    ViewEgressComponent,
+    ViewPeopleComponent,
     EstateComponent,
     VehicleComponent,
     IngressComponent,
     EgressComponent,
     PeopleComponent,
     DropifyImageComponent,
+    OccupationComponent,
     SelectFilterComponent
   ],
   declarations: [

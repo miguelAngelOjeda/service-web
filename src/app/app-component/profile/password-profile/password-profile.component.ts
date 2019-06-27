@@ -12,29 +12,37 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig  } from '@angular/materi
 })
 export class PasswordProfileComponent implements OnInit {
   passwordForm: FormGroup;
-  private model = new Users;
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
+  public isViewClave: Boolean = true;
+  public isViewNewClave: Boolean = true;
+  public isViewNewConf: Boolean = true;
+  public model = new Users;
+
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     public dialogRef: MatDialogRef<PasswordProfileComponent>,
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: Users
-  ) {}
+  ) {
+    this.model = data;
+  }
 
    ngOnInit() {
      this.passwordForm = this.formBuilder.group({
-       contraseña: ['', [Validators.required]],
-       nueva_contraseña: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-       confirmar_contraseña: ['', [Validators.required]]
+       claveAcceso: ['', [Validators.required]],
+       nuevaClaveAcceso: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+       confirmarClaveAcceso: ['', [Validators.required]]
      });
    }
 
    onSubmit() {
 
+     this.apiService.put('/usuarios/password/' + this.model.id, this.passwordForm.value)
+     .subscribe(res => {
+       if(res.status == 200){
+
+       }
+     });
    }
 
 

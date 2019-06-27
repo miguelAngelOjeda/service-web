@@ -12,7 +12,7 @@ import { ApiService } from '../../../core/services';
   styleUrls: ['./view-subsidiary.component.css']
 })
 export class ViewSubsidiaryComponent implements OnInit {
-  private model = new Subsidiary;
+  public model = new Subsidiary;
   latitude: number;
   longitude: number;
   zoom: number;

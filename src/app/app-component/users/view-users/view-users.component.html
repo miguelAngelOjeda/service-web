@@ -1,5 +1,5 @@
 <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/users"> Usuarios </a> &gt; <span class="current">Visualizar</span></h2>
-<div  class="row">
+<div  class="row" *ngIf="model.id">
   <div  class="col-md-4">
     <mat-card class="oh text-center little-profile mat-card card">
        <img _ngcontent-c12="" alt="Photo of a Shiba Inu" class="mat-card-image" mat-card-image="" src="assets/images/background/user-info.jpg"/>
@@ -16,21 +16,21 @@
              <div class="col-md-12">
                <mat-list>
                  <mat-list-item *ngIf="model.persona.documento">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.documento}}</p>
+                   <p><mat-icon class="gray-text">credit_card</mat-icon>{{model.persona.documento}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.ruc">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.persona.ruc}}</p>
+                   <p><mat-icon class="gray-text">featured_play_list</mat-icon>{{model.persona.ruc}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.email">
                    <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.email}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.email">
-                   <p><mat-icon class="gray-text">vpn_key</mat-icon><a routerLink="/service-web/business"> Cambiar Contraseña </a></p>
+                 <mat-list-item *ngIf="model.persona">
+                   <p><mat-icon class="gray-text">vpn_key</mat-icon><a (click)="changePassword()"> <span _ngcontent-c24="" class="label label-light-info">Cambiar Contraseña</span> </a></p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.telefono">
                    <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoParticular}}</p>
                  </mat-list-item>
-                 <mat-list-item *ngIf="model.persona.telefono">
+                 <mat-list-item *ngIf="model.persona.telefonoSecundario">
                    <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoSecundario}}</p>
                  </mat-list-item>
                </mat-list>

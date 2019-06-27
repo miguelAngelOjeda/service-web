@@ -12,6 +12,7 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort, 
   styleUrls: ['./list-business.component.css']
 })
 export class ListBusinessComponent implements AfterViewInit {
+  public isMobile: Boolean;
   public rulesColumns  = ['nombre', 'ruc', 'direccion'];
   public displayedColumns = ['nombre', 'ruc', 'direccion', 'telefono', 'email','opciones'];
   @ViewChild(MatPaginator) paginator: MatPaginator;

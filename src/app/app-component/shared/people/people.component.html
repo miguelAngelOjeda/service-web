@@ -1,0 +1,260 @@
+<ng-container>
+  <div class="row" formGroupName="persona">
+    <div class="col-md-12">
+      <h4  class="m-0"><mat-icon class="gray-text">account_circle</mat-icon>Datos Personales</h4>
+      <br>
+    </div>
+    <div class="col-md-2 center">
+       <app-dropify-image [pathImage]="peopleForm.controls['persona'].get('imagePath').value"  (valueAvatar)="getValue($event,'avatar')"></app-dropify-image>
+    </div>
+    <div class="col-md-10">
+     <div class="row">
+         <div class="col-md-3">
+           <mat-form-field  appearance="legacy">
+              <mat-label>Tipo Persona</mat-label>
+              <mat-select formControlName="tipoPersona" name="tipoPersona" required>
+                <mat-option selected="true" value="FISICA">Fisica</mat-option>
+                <mat-option value="JURIDICA">Juridica</mat-option>
+              </mat-select>
+              <mat-error *ngIf="(peopleForm.controls['persona'].get('tipoPersona').errors)">
+                <span *ngIf="peopleForm.controls['persona'].get('tipoPersona').errors.required">
+                 Campo requerido
+                </span>
+              </mat-error>
+           </mat-form-field>
+         </div>
+         <div class="col-md-3">
+           <mat-form-field    appearance="legacy">
+             <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" required>
+             <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('documento').valid && peopleCi()">search</mat-icon>
+             <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
+               <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
+                Campo requerido
+               </span>
+             </mat-error>
+           </mat-form-field>
+         </div>
+         <div class="col-md-3">
+           <mat-form-field    appearance="legacy">
+             <input matInput #input  placeholder="Ruc" formControlName="ruc" name="ruc">
+             <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
+             <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
+               <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                Campo requerido
+               </span>
+             </mat-error>
+           </mat-form-field>
+         </div>
+         <div class="col-md-3">
+           <mat-form-field  appearance="legacy">
+            <input matInput #input [matDatepicker]="picker" formControlName="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha Nacimiento" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="(peopleForm.controls['persona'].get('fechaNacimiento').errors)">
+              <span *ngIf="peopleForm.controls['persona'].get('fechaNacimiento').errors.required">
+               Campo requerido
+              </span>
+            </mat-error>
+           </mat-form-field>
+         </div>
+         <div class="col-md-3">
+           <mat-form-field  appearance="legacy">
+              <mat-label>Sexo</mat-label>
+              <mat-select formControlName="sexo" name="sexo"  required>
+                <mat-option  value="MASCULINO">Masculino</mat-option>
+                <mat-option value="FEMENINO">Femenino</mat-option>
+              </mat-select>
+              <mat-error *ngIf="(peopleForm.controls['persona'].get('sexo').errors)">
+                <span *ngIf="peopleForm.controls['persona'].get('sexo').errors.required">
+                 Campo requerido
+                </span>
+              </mat-error>
+           </mat-form-field>
+         </div>
+         <div class="col-md-3">
+           <mat-form-field  appearance="legacy">
+              <mat-label>Estado Civil</mat-label>
+              <mat-select formControlName="estadoCivil" name="estadoCivil" required>
+                <mat-option (click)="isSeparacionBienes = true" value="CONCUBINADO/A">Concubinado/a</mat-option>
+                <mat-option (click)="isSeparacionBienes = true" value="SOLTERO/A">Soltero/a</mat-option>
+                <mat-option (click)="isSeparacionBienes = false" value="CASADO/A">Casado/a</mat-option>
+                <mat-option (click)="isSeparacionBienes = true" value="DIVORCIADO/A">Divorciado/a</mat-option>
+                <mat-option (click)="isSeparacionBienes = true" value="VIUDO/A">Viudo/a</mat-option>
+              </mat-select>
+              <mat-error *ngIf="(peopleForm.controls['persona'].get('estadoCivil').errors)">
+                <span *ngIf="peopleForm.controls['persona'].get('estadoCivil').errors.required">
+                 Campo requerido
+                </span>
+              </mat-error>
+           </mat-form-field>
+         </div>
+         <div class="col-md-3">
+           <section class="example-section">
+                <mat-checkbox  [disabled]="(peopleForm.controls['persona'].get('estadoCivil').value == 'CASADO/A' ? false : true)" class="example-margin" formControlName="separacionBienes" name="separacionBienes">Separacion Bienes</mat-checkbox>
+           </section>
+         </div>
+         <div class="col-md-3">
+              <app-select-filter (value)="getValue($event, 'nacionalidad')"
+               [modelValue]="peopleForm.controls['persona']['controls'].nacionalidad.value"
+               placeholder="Nacionalidad" urlFilter="nacionalidades" [columnsFilter]="['codigo', 'nombre']"></app-select-filter>
+         </div>
+     </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input [placeholder]="isDisabled == true ? 'Alias': 'Primer Nombre'" formControlName="primerNombre" name="primerNombre" required>
+          <mat-error *ngIf="(peopleForm.controls['persona'].get('primerNombre').errors)">
+            <span *ngIf="peopleForm.controls['persona'].get('primerNombre').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Segundo Nombre" formControlName="segundoNombre" name="segundoNombre">
+          <mat-error *ngIf="(peopleForm.controls['persona'].get('segundoNombre').errors)">
+            <span *ngIf="peopleForm.controls['persona'].get('segundoNombre').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Primer Apellido" formControlName="primerApellido" name="primerApellido" required>
+          <mat-error *ngIf="(peopleForm.controls['persona'].get('primerApellido').errors)">
+            <span *ngIf="peopleForm.controls['persona'].get('primerApellido').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Segundo Apellido" formControlName="segundoApellido" name="segundoApellido">
+          <mat-error *ngIf="(peopleForm.controls['persona'].get('segundoApellido').errors)">
+            <span *ngIf="peopleForm.controls['persona'].get('segundoApellido').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter  (value)="getValue($event, 'profesion')"
+         [modelValue]="peopleForm.controls['persona']['controls'].profesion.value" [disabled]="isDisabled"
+         placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+         <input matInput #input  placeholder="Email" formControlName="email" name="email" required>
+         <mat-error *ngIf="(peopleForm.controls['persona'].get('email').errors)">
+           <span *ngIf="peopleForm.controls['persona'].get('email').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Telefono Particular" formControlName="telefonoParticular" name="telefonoParticular" required>
+          <mat-error *ngIf="(peopleForm.controls['persona'].get('telefonoParticular').errors)">
+            <span *ngIf="peopleForm.controls['persona'].get('telefonoParticular').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="telefonoSecundario">
+          <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
+            <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field    appearance="legacy">
+           <input matInput #input type="number" min="0"  placeholder="Numero Hijos" formControlName="numeroHijos" name="numeroHijos">
+           <mat-error *ngIf="(peopleForm.controls['persona'].get('numeroHijos').errors)">
+             <span *ngIf="peopleForm.controls['persona'].get('numeroHijos').errors.required">
+              Campo requerido
+             </span>
+           </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field    appearance="legacy">
+           <input matInput #input type="number" min="0"  placeholder="Numero Dependientes" formControlName="numeroDependientes" name="numeroDependientes">
+           <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
+             <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
+              Campo requerido
+             </span>
+           </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-8">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Observacion" formControlName="observacion" name="observacion">
+          <mat-error *ngIf="(peopleForm.controls['persona'].get('observacion').errors)">
+            <span *ngIf="peopleForm.controls['persona'].get('observacion').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12 m-t-20">
+        <h4  class="m-0"><mat-icon class="gray-text">directions</mat-icon>Direccion</h4>
+        <br>
+      </div>
+      <div class="col-md-12">
+        <app-map [latitude]="peopleForm.controls['persona'].get('latitud').value" [longitude]="peopleForm.controls['persona'].get('longitud').value" (valueLocationChange)="getAddress($event)"></app-map>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter  (value)="getValue($event, 'pais')" [modelValue]="peopleForm.controls['persona']['controls'].pais.value"
+         placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter (value)="getValue($event, 'departamento')"
+         [disabled]="true" placeholder="Departamento" [modelValue]="peopleForm.controls['persona']['controls'].departamento.value"
+         urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('pais').value"></app-select-filter>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter (value)="getValue($event, 'ciudad')" [disabled]="true" placeholder="Ciudad"
+        [modelValue]="peopleForm.controls['persona']['controls'].ciudad.value"
+         urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('departamento').value"></app-select-filter>
+      </div>
+      <div class="col-md-3">
+        <app-select-filter (value)="getValue($event, 'barrio')" [disabled]="true" placeholder="Barrio"
+        [modelValue]="peopleForm.controls['persona']['controls'].barrio.value"
+         urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="peopleForm.controls['persona'].get('ciudad').value"></app-select-filter>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Direccion" formControlName="direccionParticular" name="direccionParticular" required>
+          <mat-error *ngIf="(peopleForm.controls['persona'].get('direccionParticular').errors)">
+            <span *ngIf="peopleForm.controls['persona'].get('direccionParticular').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field    appearance="legacy">
+          <input matInput #input  placeholder="Direccion Detallada" formControlName="direccionDetallada" name="direccionDetallada">
+          <!-- <mat-error *ngIf="(peopleForm.get('direccionDetallada').errors)">
+            <span *ngIf="peopleForm.get('direccionDetallada').errors.required">
+             Campo requerido
+            </span>
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <app-spouse></app-spouse>
+      </div>
+    </div>
+  </div>
+</ng-container>

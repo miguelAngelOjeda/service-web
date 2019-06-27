@@ -1,0 +1,30 @@
+<ng-container>
+  <div class="row">
+    <div class="col-md-12">
+        <h4  class="m-0"><mat-icon class="gray-text">monetization_on</mat-icon>Ingresos</h4>
+    </div>
+    <div class="col-md-12">
+      <mat-table [dataSource]="dataSource" class="mat-table"
+       matSort  matSortActive="monto" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+
+       <ng-container matColumnDef="monto">
+         <mat-header-cell *matHeaderCellDef mat-sort-header> MONTO </mat-header-cell>
+         <mat-cell *matCellDef="let element" data-label="monto">
+            {{element.monto | number}}
+         </mat-cell>
+       </ng-container>
+
+        <ng-container matColumnDef="tipoIngresosEgresos.nombre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO INGRESO </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="tipo ingreso">
+             {{element.tipoIngresosEgresos.nombre}}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+  <br>
+</ng-container>
