@@ -67,13 +67,12 @@ export class PeopleComponent implements OnInit{
       pais: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       ciudad: [null, [Validators.required]],
-      barrio: null,
-      conyuge: null
+      barrio: null
     }));
     this.onChanges();
   }
 
-  //Egresos
+  //Persona
   addFormGroup(): FormGroup {
     return this.formBuilder.group({
       id: null ,
@@ -89,25 +88,24 @@ export class PeopleComponent implements OnInit{
       sexo: [null, [Validators.required]],
       numeroHijos: null,
       numeroDependientes: null,
-      estadoCivil: [null, [Validators.required]],
+      estadoCivil: ['CASADO/A', [Validators.required]],
       separacionBienes: null,
       email: [null, [Validators.required]],
+      profesion: [null, [Validators.required]],
       telefonoParticular: [null, [Validators.required]],
       telefonoSecundario: null,
       direccionParticular: [null, [Validators.required]],
       direccionDetallada: '',
       observacion: '',
-      latitud: null,
-      longitud: null,
       activo: 'S',
       nacionalidad: [null, [Validators.required]],
       pais: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       ciudad: [null, [Validators.required]],
-      barrio: null,
-      conyuge: null
+      barrio: null
     });
   }
+
 
   onChanges(){
     (<FormGroup>this.peopleForm.get('persona')).controls['tipoPersona'].valueChanges
@@ -158,9 +156,8 @@ export class PeopleComponent implements OnInit{
     .subscribe(res => {
       if(res.status == 200){
         res.model.avatar = null;
-        res.model.conyuge = null;
         res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
-        (<FormGroup>this.peopleForm.get('persona')).setValue(res.model);
+        (<FormGroup>this.peopleForm.get('persona')).patchValue(res.model);
       }
     });
   }

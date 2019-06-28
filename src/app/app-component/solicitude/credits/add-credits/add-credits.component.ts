@@ -21,6 +21,7 @@ export class AddCreditsComponent implements OnInit {
     this.valueChangeVtoInteres();
     this.valueChangePlazo();
     this.valueChangeTasaInteres();
+    this.valueChangePeriodoInteres();
   }
 
   onSubmit() {
@@ -41,6 +42,7 @@ export class AddCreditsComponent implements OnInit {
         (selectedValue) => {
           this.myForm.controls['tipoCalculoImporte'].setValue(selectedValue.tipoCalculos);
           this.myForm.controls['tasaInteres'].setValue(selectedValue.interes);
+          this.calcularCuota();
         }
     );
   }
@@ -48,41 +50,7 @@ export class AddCreditsComponent implements OnInit {
   protected valueChangePlazo() {
     this.myForm.controls['plazo'].valueChanges.subscribe(
         (selectedValue) => {
-          if(this.myForm.get('modalidad').value != null
-              && this.myForm.get('montoSolicitado').value != null
-              && this.myForm.get('periodoCapital').value != null && this.myForm.get('tasaInteres').value != null){
-
-                if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-2'){
-
-                  let valor_1 = ((this.myForm.get('montoSolicitado').value * this.myForm.get('tasaInteres').value) / 36500) * this.myForm.get('vencimientoInteres').value;
-
-                  let valor_2 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), selectedValue) - 1;
-
-                  let valor_3 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), selectedValue);
-
-                  let valor_4 = valor_1/valor_2;
-
-                  this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
-
-                } else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-4'){
-
-                  let interesDias = this.myForm.get('tasaInteres').value / 36500;
-
-                  let montoInteres = this.myForm.get('montoSolicitado').value * interesDias * (this.myForm.get('vencimientoInteres').value * selectedValue);
-
-                  let montoTotal = Math.round(this.myForm.get('montoSolicitado').value + montoInteres);
-
-                  let montoCuota = montoTotal / selectedValue;
-
-                  this.myForm.controls['importeCuota'].setValue(Math.round(montoCuota));
-
-                }else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-5'){
-
-                  let interesDias = this.myForm.get('montoSolicitado').value * (this.myForm.get('tasaInteres').value / 36500);
-
-                }
-
-              }
+          this.calcularCuota();
         }
     );
   }
@@ -90,25 +58,15 @@ export class AddCreditsComponent implements OnInit {
   protected valueChangeTasaInteres() {
     this.myForm.controls['tasaInteres'].valueChanges.subscribe(
         (selectedValue) => {
-          console.log(selectedValue);
-          if(this.myForm.get('modalidad').value != null
-              && this.myForm.get('montoSolicitado').value != null && this.myForm.get('plazo').value != null
-              && this.myForm.get('periodoCapital').value != null){
+          this.calcularCuota();
+        }
+    );
+  }
 
-                if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-2'){
-
-                  let valor_1 = ((this.myForm.get('montoSolicitado').value * selectedValue) / 36500) * this.myForm.get('vencimientoInteres').value;
-                  console.log(valor_1);
-                  let valor_2 = Math.pow((  1 + ((selectedValue/ 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value) - 1;
-                  console.log(valor_2);
-                  let valor_3 = Math.pow((  1 + ((selectedValue/ 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value);
-                  console.log(valor_3);
-                  let valor_4 = valor_1/valor_2;
-
-                  this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
-                }
-
-              }
+  protected valueChangePeriodoInteres() {
+    this.myForm.controls['periodoInteres'].valueChanges.subscribe(
+        (selectedValue) => {
+          this.calcularCuota();
         }
     );
   }
@@ -123,8 +81,78 @@ export class AddCreditsComponent implements OnInit {
           }else{
             this.myForm.controls['periodoInteres'].setValue(selectedValue);
           }
+          this.calcularCuota();
         }
     );
+  }
+
+  protected calcularCuota() {
+    if(this.myForm.get('modalidad').value != null
+        && this.myForm.get('montoSolicitado').value != null && this.myForm.get('plazo').value != null
+        && this.myForm.get('periodoCapital').value != null && this.myForm.get('tasaInteres').value != null){
+
+          if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-2'){
+
+            let valor_1 = ((this.myForm.get('montoSolicitado').value * this.myForm.get('tasaInteres').value) / 36500) * this.myForm.get('vencimientoInteres').value;
+
+            let valor_2 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value) - 1;
+
+            let valor_3 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value);
+
+            let valor_4 = valor_1/valor_2;
+
+            this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
+
+          } else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-4'){
+
+            let interes = this.myForm.get('tasaInteres').value / 100;
+
+            let periodoInteres = 0;
+            if(this.myForm.get('vencimientoInteres').value == 30){
+              periodoInteres = interes / 12;
+            }else if(this.myForm.get('vencimientoInteres').value == 0){
+              if(this.myForm.get('periodoCapital').value == 60){
+                periodoInteres = interes / 6;
+              }else if(this.myForm.get('periodoCapital').value == 90){
+                periodoInteres = interes / 4;
+              }else if(this.myForm.get('periodoCapital').value == 180){
+                periodoInteres = interes / 2;
+              }else if(this.myForm.get('periodoCapital').value == 360){
+                periodoInteres = interes / 1;
+              }else if(this.myForm.get('periodoCapital').value == 15){
+                periodoInteres = interes / 24
+              }else if(this.myForm.get('periodoCapital').value == 1){
+                periodoInteres = interes / 365
+              }else if(this.myForm.get('periodoCapital').value == 30){
+                periodoInteres = interes / 12
+              }
+            }
+
+            let montoInteres = this.myForm.get('montoSolicitado').value * periodoInteres * this.myForm.get('plazo').value;
+
+            let montoTotal = Math.round(this.myForm.get('montoSolicitado').value + montoInteres);
+
+            let montoCuota = montoTotal / this.myForm.get('plazo').value;
+
+            this.myForm.controls['importeCuota'].setValue(Math.round(montoCuota));
+
+          }else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-5'){
+
+            let tasaInteres = ((this.myForm.get('tasaInteres').value / 100) / 365) * 30;
+
+
+
+            let montoInteres = this.myForm.get('montoSolicitado').value * Math.pow( (  1 + tasaInteres), this.myForm.get('plazo').value);
+
+            let montoTotal = Math.round(this.myForm.get('montoSolicitado').value + montoInteres);
+
+            let montoCuota = montoTotal / this.myForm.get('plazo').value;
+
+            this.myForm.controls['importeCuota'].setValue(Math.round(montoCuota));
+
+          }
+
+        }
   }
 
   protected initFormBuilder() {
