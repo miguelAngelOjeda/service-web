@@ -33,6 +33,7 @@ export class EstateComponent implements OnInit {
     this.estateForm = this.parentF.form;
     this.estateForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
+    this.onChangesPeople();
   }
 
   //bienes Inmueble
@@ -110,6 +111,13 @@ export class EstateComponent implements OnInit {
         this.addButton();
       }
     }
+  }
+
+  onChangesPeople(){
+    (<FormGroup>this.estateForm.get('persona')).controls['id'].valueChanges
+    .subscribe(id => {
+        this.onChangesFkModel(id);
+    });
   }
 
   getValue(data: any, form : FormControl): void {

@@ -37,7 +37,7 @@ export class FamilyRelationshipComponent implements OnInit{
     this.relationshipForm.addControl('vinculos', this.formBuilder.array([]));
     this.addButton();
     this.onChanges();
-    console.log(this.relationshipForm);
+    this.onChangesPeople();
   }
 
 
@@ -124,7 +124,13 @@ export class FamilyRelationshipComponent implements OnInit{
                   staff.personaVinculo.fechaNacimiento = new Date(staff.personaVinculo.fechaNacimiento);
                   staff.personaVinculo = this.formBuilder.group(staff.personaVinculo);
                   staff.persona = this.formBuilder.group(staff.persona)
-                  staff.ocupaciones = this.formBuilder.array([this.addOccupationFormGroup()]);
+                  const ocupaciones = this.formBuilder.array([]);
+                  staff.ocupaciones.forEach(staff => {
+                    staff.fechaIngreso = new Date(staff.fechaIngreso);
+                    staff.fechaSalida = (staff.fechaSalida == null ? null : new Date(staff.fechaSalida));
+                    ocupaciones.push(this.formBuilder.group(staff))
+                  });
+                  staff.ocupaciones = ocupaciones;
                   formArray.push(this.formBuilder.group(staff));
                 });
           }
@@ -164,7 +170,7 @@ export class FamilyRelationshipComponent implements OnInit{
           this.addButton();
         }
       }
-    }    
+    }
   }
 
   deleteOccupation(data: any, index:any){
@@ -205,6 +211,13 @@ export class FamilyRelationshipComponent implements OnInit{
           }
 
         }
+    });
+  }
+
+  onChangesPeople(){
+    (<FormGroup>this.relationshipForm.get('persona')).controls['id'].valueChanges
+    .subscribe(id => {
+        this.onChangesFkModel(id);
     });
   }
 

@@ -40,6 +40,7 @@ export class OccupationComponent implements OnInit {
     this.occupationForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
     this.onChanges();
+    this.onChangesPeople();
   }
 
   //bienes Inmueble
@@ -132,6 +133,13 @@ export class OccupationComponent implements OnInit {
         this.addButton();
       }
     }
+  }
+
+  onChangesPeople(){
+    (<FormGroup>this.occupationForm.get('persona')).controls['id'].valueChanges
+    .subscribe(id => {
+        this.onChangesFkModel(id);
+    });
   }
 
   getValue(data: any, form : FormControl): void {

@@ -39,6 +39,7 @@ export class ReferenceComponent implements OnInit {
     this.referenceForm = this.parentF.form;
     this.referenceForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
+    this.onChanges();
   }
 
   onChangesFkModel(id:any){
@@ -103,6 +104,13 @@ export class ReferenceComponent implements OnInit {
         this.addButton();
       }
     }
+  }
+
+  onChanges(){
+    (<FormGroup>this.referenceForm.get('persona')).controls['id'].valueChanges
+    .subscribe(id => {
+        this.onChangesFkModel(id);
+    });
   }
 
   getValue(data: any, form : FormControl): void {

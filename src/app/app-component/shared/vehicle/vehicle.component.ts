@@ -33,6 +33,7 @@ export class VehicleComponent implements OnInit {
     this.vehicleForm = this.parentF.form;
     this.vehicleForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
+    this.onChangesPeople();
   }
 
   //bienes Vehiculo
@@ -99,6 +100,13 @@ export class VehicleComponent implements OnInit {
         this.addButton();
       }
     }
+  }
+
+  onChangesPeople(){
+    (<FormGroup>this.vehicleForm.get('persona')).controls['id'].valueChanges
+    .subscribe(id => {
+        this.onChangesFkModel(id);
+    });
   }
 
 }

@@ -33,6 +33,7 @@ export class EgressComponent implements OnInit {
     this.egressForm = this.parentF.form;
     this.egressForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
+    this.onChangesPeople();
   }
 
   //Egresos
@@ -95,6 +96,13 @@ export class EgressComponent implements OnInit {
         this.addButton();
       }
     }
+  }
+
+  onChangesPeople(){
+    (<FormGroup>this.egressForm.get('persona')).controls['id'].valueChanges
+    .subscribe(id => {
+        this.onChangesFkModel(id);
+    });
   }
 
   getValue(data: any, form : FormControl): void {

@@ -56,7 +56,7 @@ export class EditClientComponent implements OnInit{
     this.myForm = this.formBuilder.group({
       id: null ,
       activo: 'S'
-    });
+    },{ updateOn: 'change' });
   }
 
   // Get Current Location Coordinates
