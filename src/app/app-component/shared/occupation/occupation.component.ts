@@ -39,7 +39,7 @@ export class OccupationComponent implements OnInit {
     this.occupationForm = this.parentF.form;
     this.occupationForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
-    this.onChanges();
+    //this.onChanges();
     this.onChangesPeople();
   }
 
