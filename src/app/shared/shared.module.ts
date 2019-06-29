@@ -8,6 +8,7 @@ import { MenuItems } from './menu-items/menu-items';
 import { BrowserModule } from '@angular/platform-browser';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { ShowAuthedDirective } from './show-authed.directive';
+import { SnackbarService,SnackbarComponent } from '../shared';
 import { DeleteDialogComponent } from './dialog';
 import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';

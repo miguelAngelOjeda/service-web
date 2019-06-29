@@ -1,0 +1,11 @@
+<div class="cdk-overlay-container" *ngIf="show">
+  <div class="cdk-global-overlay-wrapper" dir="ltr" style="justify-content: flex-end; align-items: flex-end;">
+    <div id="cdk-overlay-0" class="cdk-overlay-pane" style="pointer-events: auto; position: static; margin-bottom: 0px; margin-right: 0px;">
+      <div
+           @state
+           [ngClass]="['snackbar-wrap',type]">
+          <h5 class="snackbar-text">{{message}}</h5>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } 
 import { DeleteDialogComponent } from '../../../shared';
 import { Estate, Message, Location } from '../../../core/models';
 import { UserService, ApiService, FormsService} from '../../../core/services';
+import { SnackbarService } from '../../../shared';
 
 @Component({
   selector: 'app-family-relationship',
@@ -24,6 +25,7 @@ export class FamilyRelationshipComponent implements OnInit{
   }
 
   constructor(
+    private snackbarService: SnackbarService,
     private controlContainer: ControlContainer,
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
@@ -38,6 +40,7 @@ export class FamilyRelationshipComponent implements OnInit{
     this.addButton();
     this.onChanges();
     this.onChangesPeople();
+    this.onChangesTipoPersona();
   }
 
 
@@ -206,9 +209,24 @@ export class FamilyRelationshipComponent implements OnInit{
           this.minRow = 0;
         }else{
           this.minRow = 1;
+          this.snackbarService.show('Cargar datos del Conyuge en Vinculos!!','warning');
           if((<FormArray>this.relationshipForm.get('vinculos')).controls.length < this.minRow){
             this.addButton();
           }
+
+        }
+    });
+  }
+
+  onChangesTipoPersona(){
+    (<FormGroup>this.relationshipForm.get('persona')).controls['tipoPersona'].valueChanges
+    .subscribe(tipoPersona => {
+        if(tipoPersona != 'FISICA'){
+          const formArray = (<FormArray>this.relationshipForm.get('vinculos'));
+          while (formArray.length) {
+            formArray.removeAt(0);
+          }
+        }else{
 
         }
     });

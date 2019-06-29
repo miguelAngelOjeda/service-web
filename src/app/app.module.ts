@@ -26,6 +26,7 @@ import { MaterialModule } from './core/material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { SpinnerComponent } from './shared/spinner';
+import { SnackbarComponent } from './shared';
 import { SharedAppModule } from './app-component/shared';
 import * as $ from 'jquery';
 
@@ -38,6 +39,7 @@ import * as $ from 'jquery';
     LoaderComponent,
     FullComponent,
     HeaderComponent,
+    SnackbarComponent,
     SpinnerComponent,
     HomeComponent,
     SidenavListComponent

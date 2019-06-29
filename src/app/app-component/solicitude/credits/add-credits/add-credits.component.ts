@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../../core/services';
+import { SnackbarService } from '../../../../shared';
 
 @Component({
   selector: 'app-add-credits',
@@ -11,7 +12,9 @@ export class AddCreditsComponent implements OnInit {
   myForm: FormGroup;
   validateForm = true;
   isSeparacionBienes = true;
+  isTieneHipoteca = 0;
   constructor(
+    private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
     private apiService: ApiService) { }
 
@@ -22,15 +25,17 @@ export class AddCreditsComponent implements OnInit {
     this.valueChangePlazo();
     this.valueChangeTasaInteres();
     this.valueChangePeriodoInteres();
+    this.valueChangeTipoGarantia();
   }
 
   onSubmit() {
-    this.apiService.post('/empresas', this.myForm.value)
-    .subscribe(res => {
-      if(res.status == 200){
-
-      }
-    });
+    this.snackbarService.show('This is test');
+    // this.apiService.post('/empresas', this.myForm.value)
+    // .subscribe(res => {
+    //   if(res.status == 200){
+    //
+    //   }
+    // });
   }
 
   getValue(data: any, form : any): void {
@@ -51,6 +56,19 @@ export class AddCreditsComponent implements OnInit {
     this.myForm.controls['plazo'].valueChanges.subscribe(
         (selectedValue) => {
           this.calcularCuota();
+        }
+    );
+  }
+
+  protected valueChangeTipoGarantia() {
+    this.myForm.controls['tipoGarantia'].valueChanges.subscribe(
+        (tipoGarantia) => {
+          if(tipoGarantia.id == 3){
+            this.snackbarService.show('Cargar datos de la Hipoteca en Inmuebles!!','warning');
+            this.isTieneHipoteca = 1;
+          }else{
+            this.isTieneHipoteca = 0;
+          }
         }
     );
   }

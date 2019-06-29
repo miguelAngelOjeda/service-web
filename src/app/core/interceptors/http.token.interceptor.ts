@@ -8,14 +8,14 @@ import { JwtService } from '../services';
 import 'rxjs/add/observable/fromPromise';
 import { throwError } from 'rxjs';
 import { finalize } from "rxjs/operators";
-import { MatSnackBarComponent } from '../mat-snack-bar/mat-snack-bar.component';
+import { SnackbarService } from '../../shared/snackbar';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
 
   constructor(
+    private snackbarService: SnackbarService,
     private router: Router,
-    private snackBar: MatSnackBarComponent,
     private jwtService: JwtService
   ) {}
 
@@ -33,9 +33,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
                     if(evt.body != null
                       && evt.body.status != 200){
-                      this.snackBar.openSnackBar(evt.body.message,'Close','alert-danger');
+                        this.snackbarService.show(evt.body.message,'danger');
                     }else if(request.method != 'GET'){
-                      this.snackBar.openSnackBar(evt.body.message,'Close','alert-success');
+                        this.snackbarService.show(evt.body.message,'success');
                     }
                 }
             }),
@@ -43,16 +43,16 @@ export class HttpTokenInterceptor implements HttpInterceptor {
                 if(err instanceof HttpErrorResponse) {
                     try {
                           if(err.status == 0){
-                            this.snackBar.openSnackBar('Error al conectar con el servidor, si el problema persiste contactar con el administrador.','Close','red-snackbar');
+                            this.snackbarService.show('Error al conectar con el servidor, si el problema persiste contactar con el administrador.','danger');
                             //this.jwtService.destroyToken();
                             //setTimeout(() => {
                               //this.router.navigateByUrl('service-web/login');
                             //}, 7000);
                           }else if(err.status != 401){
-                            this.snackBar.openSnackBar(err.status + ' ' + err.message,'Close','alert-danger');
+                            this.snackbarService.show(err.status + ' ' + err.message,'danger');
                           }
                     } catch(e) {
-                          this.snackBar.openSnackBar('Error no determinado','Close','alert-danger');
+                          this.snackbarService.show('Error no determinado','danger');
                     }
                     //log error
                 }

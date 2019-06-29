@@ -12,7 +12,7 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from '../../../shared/map';
-import { SharedModule} from '../../../shared';
+import { SharedModule, SnackbarComponent} from '../../../shared';
 import { DeleteDialogComponent } from '../../../shared/dialog';
 import { DepartmentComponent } from '../../shared';
 import { SharedAppModule} from '../../shared';

@@ -1,7 +1,7 @@
 <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Solicitud Creditos </a> &gt; <span class="current">Agregar</span></h2>
 <mat-card class="form-card">
   <mat-card-content>
-        <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
             <div class="row">
               <div class="col-md-12">
                 <div class="row">
@@ -173,7 +173,7 @@
                     <app-occupation [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-occupation>
                   </div>
                   <div class="col-md-12 m-t-30">
-                    <app-estate [fkFilterModel]="myForm.value.persona.id"></app-estate>
+                    <app-estate [fkFilterModel]="myForm.value.persona.id" [minRow]="isTieneHipoteca"></app-estate>
                   </div>
                   <div class="col-md-12 m-t-30">
                     <app-vehicle [fkFilterModel]="myForm.value.persona.id"></app-vehicle>
