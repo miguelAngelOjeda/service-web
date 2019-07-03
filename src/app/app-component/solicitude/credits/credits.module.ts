@@ -16,16 +16,19 @@ import { SharedModule, SnackbarComponent} from '../../../shared';
 import { DeleteDialogComponent } from '../../../shared/dialog';
 import { DepartmentComponent } from '../../shared';
 import { SharedAppModule} from '../../shared';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComponent,
   ViewReferenceComponent,ViewIngressComponent,ViewEgressComponent,ViewPeopleComponent,
   ViewOccupationComponent,ViewEstateComponent,
    VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../../shared';
+import { FileSelectDirective, FileUploader } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
     CreditsRoutingModule,
     MaterialModule,
     SharedAppModule,
+    AngularFileUploaderModule,
     FlexLayoutModule,
     SharedModule,
     EcoFabSpeedDialModule,
@@ -56,6 +59,7 @@ import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComp
     DeleteDialogComponent
   ],
   declarations: [
+    FileSelectDirective,
     AddCreditsComponent,
     EditCreditsComponent,
     ListCreditsComponent,
@@ -63,6 +67,10 @@ import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComp
   ],
   providers: [
 
-  ]
+  ],
+  // entryComponents: [
+  // FileSelectDirective,
+  // FileUploader,
+  // ]
 })
 export class CreditsModule {}

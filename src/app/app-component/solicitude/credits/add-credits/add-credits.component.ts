@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild  } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../../core/services';
 import { SnackbarService } from '../../../../shared';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-add-credits',
@@ -13,6 +14,16 @@ export class AddCreditsComponent implements OnInit {
   validateForm = true;
   isSeparacionBienes = true;
   isTieneHipoteca = 0;
+
+  public uploader: FileUploader = new FileUploader({
+    url: 'URL',
+    disableMultipart : false,
+    autoUpload: false,
+    method: 'post',
+    itemAlias: 'attachment',
+    allowedFileType: ['image', 'pdf']
+    });
+
   constructor(
     private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
@@ -26,6 +37,12 @@ export class AddCreditsComponent implements OnInit {
     this.valueChangeTasaInteres();
     this.valueChangePeriodoInteres();
     this.valueChangeTipoGarantia();
+  }
+
+  public onFileSelected(event: EventEmitter<File[]>) {
+    const file: File = event[0];
+    console.log(file);
+
   }
 
   onSubmit() {

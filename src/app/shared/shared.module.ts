@@ -13,6 +13,7 @@ import { DeleteDialogComponent } from './dialog';
 import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 import { MapComponent } from '../shared/map';
+import { ThumbnailDirective } from '../shared/upload';
 import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
 
@@ -30,6 +31,7 @@ import { SelectFilterComponent } from './select-filter/select-filter.component';
   ],
   declarations: [
     ShowAuthedDirective,
+    ThumbnailDirective,
     CanAccessDirective,
     AccordionAnchorDirective,
     AccordionLinkDirective,
@@ -47,6 +49,7 @@ import { SelectFilterComponent } from './select-filter/select-filter.component';
     RouterModule,
     CanAccessDirective,
     ShowAuthedDirective,
+    ThumbnailDirective,
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,

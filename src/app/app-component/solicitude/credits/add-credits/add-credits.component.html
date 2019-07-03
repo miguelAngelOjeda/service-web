@@ -220,7 +220,48 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-
+                  <div class="col-md-12">
+                    <h4  class="m-0"><mat-icon class="gray-text">event_note</mat-icon>Documentos
+                      <span class="hidden-file">
+                        <input type="file" #fileInput ng2FileSelect [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+                      </span>
+                      <a mat-mini-fab (click)="fileInput.click()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
+                    </h4>
+                  </div>
+                  <div class="col-md-12 m-t-30">
+                    <section>
+                      <div  class="row">
+                        <div class="col-md-12">
+                    			<table  class="table">
+                    				<thead>
+                    					<tr>
+                                <th></th>
+                    						<th>Nombre</th>
+                    						<th>Tamaño</th>
+                    						<th></th>
+                    					</tr>
+                    				</thead>
+                    				<tbody>
+                    					<tr *ngFor="let item of uploader.queue">
+                                <td>
+                    							<img src="" thumbnail [image]="item?._file"/>
+                    						</td>
+                    						<td>
+                    							{{ item?.file?.name }}
+                    						</td>
+                    						<td>
+                    							{{ item?.file?.size/1024/1024 | number:'.2' }} MB
+                    						</td>
+                    						<td>
+                                  <a mat-icon-button color="warn" (click)="item.remove()"> <mat-icon>delete_forever</mat-icon></a>
+                    						</td>
+                    					</tr>
+                    				</tbody>
+                    			</table>
+                    		</div>
+                      </div>
+                    </section>
+                  </div>
                   <div class="col-md-12 m-t-30">
                     <app-people></app-people>
                   </div>
@@ -249,6 +290,7 @@
                 </div>
               </div>
             </div>
+
             <mat-card-actions>
               <button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
             </mat-card-actions>

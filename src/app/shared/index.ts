@@ -5,3 +5,4 @@ export * from './show-authed.directive';
 export * from './can-access.directive';
 export * from './shared.module';
 export * from './snackbar';
+export * from './upload';
