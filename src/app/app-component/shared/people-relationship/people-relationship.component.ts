@@ -7,20 +7,29 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 import { SnackbarService } from '../../../shared';
 
 @Component({
-  selector: 'app-family-relationship',
-  templateUrl: './family-relationship.component.html',
-  styleUrls: ['./family-relationship.component.scss'],
+  selector: 'app-people-relationship',
+  templateUrl: './people-relationship.component.html',
+  styleUrls: ['./people-relationship.component.scss'],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
-export class FamilyRelationshipComponent implements OnInit{
+  export class  PeopleRelationshipComponent implements OnInit{
   isDisabled = false;
   relationshipForm: FormGroup;
+  formName = 'vinculos';
   minRow = 0;
+  step = 0;
 
   @Input()
   set fkFilterModel(id: any) {
     if(id){
       this.onChangesFkModel(id);
+    }
+  }
+
+  @Input()
+  set formControlName(model: any) {
+    if(model){
+      this.formName = model;
     }
   }
 
@@ -36,11 +45,23 @@ export class FamilyRelationshipComponent implements OnInit{
 
   ngOnInit() {
     this.relationshipForm = this.parentF.form;
-    this.relationshipForm.addControl('vinculos', this.formBuilder.array([]));
+    this.relationshipForm.addControl(this.formName, this.formBuilder.array([]));
     this.addButton();
     this.onChanges();
     this.onChangesPeople();
     this.onChangesTipoPersona();
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 
 
@@ -72,11 +93,11 @@ export class FamilyRelationshipComponent implements OnInit{
   }
 
   addButton(): void {
-    (<FormArray>this.relationshipForm.get('vinculos')).push(this.addFormGroup());
+    (<FormArray>this.relationshipForm.get(this.formName)).push(this.addFormGroup());
   }
 
   addButtonOccupation(index:any): void {
-    (<FormArray>(<FormArray>this.relationshipForm.get('vinculos')).controls[index].get('ocupaciones')).push(this.addOccupationFormGroup());
+    (<FormArray>(<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('ocupaciones')).push(this.addOccupationFormGroup());
   }
 
   //Persona
@@ -114,12 +135,12 @@ export class FamilyRelationshipComponent implements OnInit{
   }
 
   onChangesFkModel(id:any){
-      this.apiService.getPageList('/vinculos',false,null,null, 'desc', 'id',0,50, false,id)
+      this.apiService.getPageList('/'+ this.formName,false,null,null, 'desc', 'id',0,50, false,id)
       .subscribe(res => {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.relationshipForm.get('vinculos'));
+                const formArray = (<FormArray>this.relationshipForm.get(this.formName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
@@ -153,12 +174,12 @@ export class FamilyRelationshipComponent implements OnInit{
       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
-          this.apiService.delete('/vinculos/' + data.id)
+          this.apiService.delete('/' + this.formName + '/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.relationshipForm.get('vinculos')).removeAt((<FormArray>this.relationshipForm.get('vinculos')).value.findIndex(dep => dep === data))
+                (<FormArray>this.relationshipForm.get(this.formName)).removeAt((<FormArray>this.relationshipForm.get(this.formName)).value.findIndex(dep => dep === data))
                 if(this.minRow > 0){
-                  if((<FormArray>this.relationshipForm.get('vinculos')).controls.length < this.minRow){
+                  if((<FormArray>this.relationshipForm.get(this.formName)).controls.length < this.minRow){
                     this.addButton();
                   }
                 }
@@ -167,9 +188,9 @@ export class FamilyRelationshipComponent implements OnInit{
         }
       })
     }else{
-      (<FormArray>this.relationshipForm.get('vinculos')).removeAt((<FormArray>this.relationshipForm.get('vinculos')).value.findIndex(dep => dep === data))
+      (<FormArray>this.relationshipForm.get(this.formName)).removeAt((<FormArray>this.relationshipForm.get(this.formName)).value.findIndex(dep => dep === data))
       if(this.minRow > 0){
-        if((<FormArray>this.relationshipForm.get('vinculos')).controls.length < this.minRow){
+        if((<FormArray>this.relationshipForm.get(this.formName)).controls.length < this.minRow){
           this.addButton();
         }
       }
@@ -191,13 +212,13 @@ export class FamilyRelationshipComponent implements OnInit{
           this.apiService.delete('/ocupaciones/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>(<FormArray>this.relationshipForm.get('vinculos')).controls[index].get('ocupaciones')).removeAt((<FormArray>this.relationshipForm.get('vinculos')).controls[index].get('ocupaciones').value.findIndex(dep => dep === data))
+                (<FormArray>(<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('ocupaciones')).removeAt((<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('ocupaciones').value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>(<FormArray>this.relationshipForm.get('vinculos')).controls[index].get('ocupaciones')).removeAt((<FormArray>this.relationshipForm.get('vinculos')).controls[index].get('ocupaciones').value.findIndex(dep => dep === data))
+      (<FormArray>(<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('ocupaciones')).removeAt((<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('ocupaciones').value.findIndex(dep => dep === data))
     }
 
   }
@@ -210,7 +231,7 @@ export class FamilyRelationshipComponent implements OnInit{
         }else{
           this.minRow = 1;
           this.snackbarService.show('Cargar datos del Conyuge en Vinculos!!','warning');
-          if((<FormArray>this.relationshipForm.get('vinculos')).controls.length < this.minRow){
+          if((<FormArray>this.relationshipForm.get(this.formName)).controls.length < this.minRow){
             this.addButton();
           }
 
@@ -222,7 +243,7 @@ export class FamilyRelationshipComponent implements OnInit{
     (<FormGroup>this.relationshipForm.get('persona')).controls['tipoPersona'].valueChanges
     .subscribe(tipoPersona => {
         if(tipoPersona != 'FISICA'){
-          const formArray = (<FormArray>this.relationshipForm.get('vinculos'));
+          const formArray = (<FormArray>this.relationshipForm.get(this.formName));
           while (formArray.length) {
             formArray.removeAt(0);
           }
@@ -238,7 +259,6 @@ export class FamilyRelationshipComponent implements OnInit{
         this.onChangesFkModel(id);
     });
   }
-
 
   getValue(data: any, form : FormControl): void {
     form.setValue(data);

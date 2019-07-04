@@ -25,6 +25,7 @@
             ],
             "styles": [
               "src/assets/styles/style.scss",
+              "./node_modules/ng2-image-viewer/imageviewer.scss",
               "src/styles.css"
             ],
             "scripts": []

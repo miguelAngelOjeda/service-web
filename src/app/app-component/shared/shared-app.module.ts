@@ -17,7 +17,7 @@ import { EgressComponent, ViewEgressComponent } from './egress';
 import { PeopleComponent, ViewPeopleComponent } from './people';
 import { DepartmentComponent } from './department';
 import { OccupationComponent, ViewOccupationComponent } from './occupation';
-import { FamilyRelationshipComponent } from './family-relationship';
+import { PeopleRelationshipComponent } from './people-relationship';
 
 @NgModule({
   imports: [
@@ -44,7 +44,7 @@ import { FamilyRelationshipComponent } from './family-relationship';
     PeopleComponent,
     DepartmentComponent,
     EgressComponent,
-    FamilyRelationshipComponent,
+    PeopleRelationshipComponent,
     OccupationComponent
   ],
   exports: [
@@ -63,7 +63,7 @@ import { FamilyRelationshipComponent } from './family-relationship';
     ViewPeopleComponent,
     DepartmentComponent,
     EgressComponent,
-    FamilyRelationshipComponent,
+    PeopleRelationshipComponent,
     OccupationComponent
   ]
 })

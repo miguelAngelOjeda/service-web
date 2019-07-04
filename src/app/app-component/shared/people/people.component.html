@@ -354,8 +354,8 @@
           </mat-error> -->
         </mat-form-field>
       </div>
-      <div class="col-md-12" *ngIf="peopleForm.controls['persona'].get('tipoPersona').value != 'JURIDICA'">
-        <app-family-relationship [fkFilterModel]="peopleForm.controls['persona'].get('id').value"></app-family-relationship>
+      <div class="col-md-12 m-t-20" *ngIf="peopleForm.controls['persona'].get('tipoPersona').value != 'JURIDICA'">
+        <app-people-relationship [fkFilterModel]="peopleForm.controls['persona'].get('id').value"></app-people-relationship>
       </div>
     </div>
   </div>

@@ -22,6 +22,7 @@ import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComp
   ViewOccupationComponent,ViewEstateComponent,
    VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../../shared';
 import { FileSelectDirective, FileUploader } from 'ng2-file-upload';
+import { ImageViewerModule } from 'ng2-image-viewer';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { FileSelectDirective, FileUploader } from 'ng2-file-upload';
     MaterialModule,
     SharedAppModule,
     AngularFileUploaderModule,
+    ImageViewerModule,
     FlexLayoutModule,
     SharedModule,
     EcoFabSpeedDialModule,

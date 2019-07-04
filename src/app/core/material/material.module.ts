@@ -13,6 +13,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 //create our cost var with the information about the format that we want
 export const MY_FORMATS = {
@@ -35,6 +36,7 @@ export const MY_FORMATS = {
     MatIconModule,
     MatCheckboxModule,
     MatTooltipModule,
+    MatExpansionModule,
     MatStepperModule,
     MatInputModule,
     MatRadioModule,
@@ -73,6 +75,7 @@ export const MY_FORMATS = {
     MatCheckboxModule,
     MatSnackBarModule,
     MatDatepickerModule,
+    MatExpansionModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
     FormsModule,

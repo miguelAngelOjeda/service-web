@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, ViewChild  } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../../core/services';
 import { SnackbarService } from '../../../../shared';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 
 @Component({
@@ -25,18 +26,14 @@ export class AddCreditsComponent implements OnInit {
     });
 
   constructor(
+    public dialog: MatDialog,
     private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
     private apiService: ApiService) { }
 
   ngOnInit() {
     this.initFormBuilder();
-    this.valueChangeModality();
-    this.valueChangeVtoInteres();
-    this.valueChangePlazo();
-    this.valueChangeTasaInteres();
-    this.valueChangePeriodoInteres();
-    this.valueChangeTipoGarantia();
+    this.valueChange();
   }
 
   public onFileSelected(event: EventEmitter<File[]>) {
@@ -59,25 +56,21 @@ export class AddCreditsComponent implements OnInit {
     (<FormControl>this.myForm.get(form)).setValue(data);
   }
 
-  protected valueChangeModality() {
+  protected valueChange(){
     this.myForm.controls['modalidad'].valueChanges.subscribe(
         (selectedValue) => {
           this.myForm.controls['tipoCalculoImporte'].setValue(selectedValue.tipoCalculos);
           this.myForm.controls['tasaInteres'].setValue(selectedValue.interes);
-          this.calcularCuota();
+          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
         }
     );
-  }
 
-  protected valueChangePlazo() {
     this.myForm.controls['plazo'].valueChanges.subscribe(
         (selectedValue) => {
-          this.calcularCuota();
+          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
         }
     );
-  }
 
-  protected valueChangeTipoGarantia() {
     this.myForm.controls['tipoGarantia'].valueChanges.subscribe(
         (tipoGarantia) => {
           if(tipoGarantia.id == 3){
@@ -88,25 +81,37 @@ export class AddCreditsComponent implements OnInit {
           }
         }
     );
-  }
 
-  protected valueChangeTasaInteres() {
     this.myForm.controls['tasaInteres'].valueChanges.subscribe(
         (selectedValue) => {
-          this.calcularCuota();
+          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
         }
     );
-  }
 
-  protected valueChangePeriodoInteres() {
+    this.myForm.controls['gastosAdministrativos'].valueChanges.subscribe(
+        (gastosAdministrativos) => {
+          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
+        }
+    );
+
     this.myForm.controls['periodoInteres'].valueChanges.subscribe(
         (selectedValue) => {
-          this.calcularCuota();
+          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
         }
     );
-  }
 
-  protected valueChangeVtoInteres() {
+    this.myForm.controls['periodoCapital'].valueChanges.subscribe(
+        (selectedValue) => {
+          if(Number(this.myForm.get('vencimientoInteres').value) == 0){
+            this.myForm.controls['periodoInteres'].setValue(selectedValue);
+          }else if(Number(this.myForm.get('vencimientoInteres').value) == -1){
+
+          }else{
+            this.myForm.controls['periodoInteres'].setValue(this.myForm.get('vencimientoInteres').value);
+          }
+        }
+    );
+
     this.myForm.controls['vencimientoInteres'].valueChanges.subscribe(
         (selectedValue) => {
           if(Number(selectedValue) == 0){
@@ -116,31 +121,36 @@ export class AddCreditsComponent implements OnInit {
           }else{
             this.myForm.controls['periodoInteres'].setValue(selectedValue);
           }
-          this.calcularCuota();
+          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
         }
     );
   }
 
-  protected calcularCuota() {
+  protected calcularCuota() : number {
     if(this.myForm.get('modalidad').value != null
         && this.myForm.get('montoSolicitado').value != null && this.myForm.get('plazo').value != null
         && this.myForm.get('periodoCapital').value != null && this.myForm.get('tasaInteres').value != null){
 
           if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-2'){
 
-            let valor_1 = ((this.myForm.get('montoSolicitado').value * this.myForm.get('tasaInteres').value) / 36500) * this.myForm.get('vencimientoInteres').value;
+            let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
 
-            let valor_2 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value) - 1;
+            let valor_1 = ((this.myForm.get('montoSolicitado').value * tasaInteres) / 36500) * this.myForm.get('vencimientoInteres').value;
 
-            let valor_3 = Math.pow((  1 + ((this.myForm.get('tasaInteres').value / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value);
+            let valor_2 = Math.pow((  1 + ((tasaInteres / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value) - 1;
+
+            let valor_3 = Math.pow((  1 + ((tasaInteres / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value);
 
             let valor_4 = valor_1/valor_2;
 
-            this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
+            //this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
+            return Math.round(valor_4 * valor_3);
 
           } else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-4'){
 
-            let interes = this.myForm.get('tasaInteres').value / 100;
+            let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
+
+            let interes = tasaInteres / 100;
 
             let periodoInteres = 0;
             if(this.myForm.get('vencimientoInteres').value == 30){
@@ -169,11 +179,14 @@ export class AddCreditsComponent implements OnInit {
 
             let montoCuota = montoTotal / this.myForm.get('plazo').value;
 
-            this.myForm.controls['importeCuota'].setValue(Math.round(montoCuota));
+            //this.myForm.controls['importeCuota'].setValue();
+            return Math.round(montoCuota);
 
           }else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-5'){
 
-            let tasaInteres = ((this.myForm.get('tasaInteres').value / 100) / 365) * 30;
+            let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
+
+            //let tasaInteres = ((this.myForm.get('tasaInteres').value / 100) / 365) * 30;
 
 
 
@@ -183,12 +196,13 @@ export class AddCreditsComponent implements OnInit {
 
             let montoCuota = montoTotal / this.myForm.get('plazo').value;
 
-            this.myForm.controls['importeCuota'].setValue(Math.round(montoCuota));
-
+            //this.myForm.controls['importeCuota'].setValue(Math.round(montoCuota));
+            return Math.round(montoCuota);
           }
 
         }
   }
+
 
   protected initFormBuilder() {
     this.myForm = this.formBuilder.group({
@@ -206,10 +220,13 @@ export class AddCreditsComponent implements OnInit {
       tasaInteres: [null, [Validators.required]],
       gastosAdministrativos: [null, [Validators.required]],
       impuestos: [null],
+      beneficiarioCheque: [null],
+      detalleDestino: [null],
       comision: [null],
       gastosVarios: [null],
       seguros: [null],
       montoSolicitado: [null, [Validators.required]],
+      montoEntregar: [null, [Validators.required]],
       importeCuota: [null, [Validators.required]],
       periodoGracia: [30, [Validators.required]],
       periodoCapital: ['30', [Validators.required]],

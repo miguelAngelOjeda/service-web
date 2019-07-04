@@ -25,6 +25,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
   public models: Array<any> = [];
   public idModel: any;
   public sortActiveModel = "nombre";
+  public inputType = "legacy";
   public sortDirectionModel = "desc";
 
   @ViewChild('filterInputModel', { static: true }) filterInputModel: ElementRef;
@@ -34,6 +35,9 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
     }else{
       this.modelControl.enable();
     }
+  }
+  @Input() set appearance (appearance : any){
+    this.inputType = appearance;
   }
   @Input() set sortActive (sortActive : any){
     console.log(sortActive);
