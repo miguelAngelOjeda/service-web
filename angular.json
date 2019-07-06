@@ -28,7 +28,9 @@
               "./node_modules/ng2-image-viewer/imageviewer.scss",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/ng2-image-viewer/index.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, ViewChild  } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../../core/services';
-import { SnackbarService } from '../../../../shared';
+import { SnackbarService, GalleryDialogComponent } from '../../../../shared';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 
@@ -54,6 +54,35 @@ export class AddCreditsComponent implements OnInit {
 
   getValue(data: any, form : any): void {
     (<FormControl>this.myForm.get(form)).setValue(data);
+  }
+
+
+
+  viewImage(files : any): void {
+    let images = [];
+    files.forEach(item=> {
+      var reader = new FileReader();
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          var binaryData = e.target.result;
+          //Converting Binary Data to base 64
+          var base64String = window.btoa(binaryData);
+          images.push(base64String);
+        };
+      })(item._file);
+      reader.readAsBinaryString(item._file);
+     });
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = images;
+    dialogConfig.minWidth = '80%';
+    let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+
+      }
+    })
   }
 
   protected valueChange(){

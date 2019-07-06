@@ -16,12 +16,14 @@ import { MapComponent } from '../shared/map';
 import { ThumbnailDirective } from '../shared/upload';
 import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
+import { ImageViewerModule } from 'ng2-image-viewer';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     MaterialModule,
+    ImageViewerModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'

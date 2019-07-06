@@ -283,7 +283,7 @@
                       <tbody>
                         <tr *ngFor="let item of uploader.queue">
                           <td>
-                            <img src="" thumbnail [image]="item?._file"/>
+                            <a (click)="viewImage(uploader.queue)"><img src="" thumbnail [image]="item?._file"/></a>                          
                           </td>
                           <td>
                             {{ item?.file?.name }}
