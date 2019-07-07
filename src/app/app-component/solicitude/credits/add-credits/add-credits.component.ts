@@ -56,33 +56,21 @@ export class AddCreditsComponent implements OnInit {
     (<FormControl>this.myForm.get(form)).setValue(data);
   }
 
+  viewImage(file : any): void {
+    let image;
+    var reader = new FileReader();
+    reader.onloadend = (readerEvent) => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = reader.result.toString().split(',')[1];
+      dialogConfig.minWidth = '50%';
+      let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
 
-
-  viewImage(files : any): void {
-    let images = [];
-    files.forEach(item=> {
-      var reader = new FileReader();
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          var binaryData = e.target.result;
-          //Converting Binary Data to base 64
-          var base64String = window.btoa(binaryData);
-          images.push(base64String);
-        };
-      })(item._file);
-      reader.readAsBinaryString(item._file);
-     });
-
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = images;
-    dialogConfig.minWidth = '80%';
-    let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-
-      }
-    })
+        }
+      })
+    }
+    reader.readAsDataURL(file);
   }
 
   protected valueChange(){

@@ -1,28 +1,23 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, OnChanges, Inject, SimpleChanges } from '@angular/core';
 import { MAT_DIALOG_DATA } from "@angular/material";
 import { Message } from "../../../core";
 import { MatDialogRef, MatDialog, MatDialogConfig } from "@angular/material";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-gallery-dialog',
   templateUrl: './gallery-dialog.component.html',
   styleUrls: ['./gallery-dialog.component.css']
 })
-export class GalleryDialogComponent implements OnInit{
-  public imagesList = [];
-  public images = ['iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='];
+export class GalleryDialogComponent{
+  public images = [''];
   constructor(
-    private dialog: MatDialog,
+    public sanitizer: DomSanitizer,
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<GalleryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.imagesList = data;
-  }
-
-  ngOnInit() {
-    this.imagesList.forEach(item=> {
-      this.images.push(item)
-    });
+    this.images = [data];
   }
 
   close() {
