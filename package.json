@@ -39,6 +39,7 @@
     "ng2-file-upload": "^1.3.0",
     "ng2-image-viewer": "^3.0.4",
     "ngx-mat-select-search": "^1.7.6",
+    "ngx-take-until-destroy": "^5.4.0",
     "node-sass": "^4.12.0",
     "rxjs": "~6.5.2",
     "rxjs-compat": "^6.5.2",

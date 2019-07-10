@@ -2,8 +2,7 @@ import { Component, OnInit, EventEmitter, ViewChild  } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../../core/services';
 import { SnackbarService, GalleryDialogComponent } from '../../../../shared';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
+
 
 @Component({
   selector: 'app-add-credits',
@@ -16,17 +15,7 @@ export class AddCreditsComponent implements OnInit {
   isSeparacionBienes = true;
   isTieneHipoteca = 0;
 
-  public uploader: FileUploader = new FileUploader({
-    url: 'URL',
-    disableMultipart : false,
-    autoUpload: false,
-    method: 'post',
-    itemAlias: 'attachment',
-    allowedFileType: ['image', 'pdf']
-    });
-
   constructor(
-    public dialog: MatDialog,
     private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
     private apiService: ApiService) { }
@@ -54,23 +43,6 @@ export class AddCreditsComponent implements OnInit {
 
   getValue(data: any, form : any): void {
     (<FormControl>this.myForm.get(form)).setValue(data);
-  }
-
-  viewImage(file : any): void {
-    let image;
-    var reader = new FileReader();
-    reader.onloadend = (readerEvent) => {
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = reader.result.toString().split(',')[1];
-      dialogConfig.minWidth = '50%';
-      let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-
-        }
-      })
-    }
-    reader.readAsDataURL(file);
   }
 
   protected valueChange(){

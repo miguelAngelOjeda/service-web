@@ -13,10 +13,11 @@ import { DeleteDialogComponent, GalleryDialogComponent } from './dialog';
 import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 import { MapComponent } from '../shared/map';
-import { ThumbnailDirective } from '../shared/upload';
+import { ThumbnailDirective, UploadComponent } from '../shared/upload';
 import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
 import { ImageViewerModule } from 'ng2-image-viewer';
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
@@ -34,6 +35,8 @@ import { ImageViewerModule } from 'ng2-image-viewer';
   declarations: [
     ShowAuthedDirective,
     ThumbnailDirective,
+    UploadComponent,
+    FileSelectDirective,
     CanAccessDirective,
     AccordionAnchorDirective,
     AccordionLinkDirective,
@@ -53,6 +56,7 @@ import { ImageViewerModule } from 'ng2-image-viewer';
     CanAccessDirective,
     ShowAuthedDirective,
     ThumbnailDirective,
+    UploadComponent,
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,

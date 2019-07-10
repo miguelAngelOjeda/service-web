@@ -21,7 +21,6 @@ import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComp
   ViewReferenceComponent,ViewIngressComponent,ViewEgressComponent,ViewPeopleComponent,
   ViewOccupationComponent,ViewEstateComponent,
    VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../../shared';
-import { FileSelectDirective, FileUploader } from 'ng2-file-upload';
 import { ImageViewerModule } from 'ng2-image-viewer';
 
 @NgModule({
@@ -61,7 +60,6 @@ import { ImageViewerModule } from 'ng2-image-viewer';
     DeleteDialogComponent
   ],
   declarations: [
-    FileSelectDirective,
     AddCreditsComponent,
     EditCreditsComponent,
     ListCreditsComponent,
