@@ -5,11 +5,21 @@
         </h4>
     </div>
     <div [formArrayName]="formArrayName" class="col-md-12">
+        <ng-container *ngIf="occupationForm.get(formArrayName)['controls'].length == 0">
+          <div class="timeline-badge danger m-t-10">
+            <i  class="fa fa-info-circle"></i>
+          </div>
+          <div class="timeline-panel m-t-10">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">No posee registros cargados</h4>
+            </div>
+          </div>
+        </ng-container>
         <div [formGroupName]="i" *ngFor="let ocupaciones of occupationForm.get(formArrayName)['controls']; let i = index">
           <blockquote>
             <div class="row">
                <div class="col-sm-3">
-                 <div >
+                 <div>
                    <div class="font-medium">Empresa </div>
                    <span class="font-16">{{ocupaciones.get('empresa').value }}</span>
                  </div>

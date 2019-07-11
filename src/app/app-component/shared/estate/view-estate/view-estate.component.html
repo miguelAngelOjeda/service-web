@@ -4,6 +4,14 @@
         <h4  class="m-0"><mat-icon class="gray-text">store</mat-icon>Inmuebles
         </h4>
     </div>
+    <div class="timeline-badge danger" *ngIf="estateForm.get(formArrayName)['controls'].length == 0">
+      <i  class="fa fa-info-circle"></i>
+    </div>
+    <div class="timeline-panel" *ngIf="estateForm.get(formArrayName)['controls'].length == 0">
+      <div class="timeline-heading">
+        <h4 class="timeline-title">No posee registros cargados</h4>
+      </div>
+    </div>
     <div [formArrayName]="formArrayName"  *ngFor="let bienesInmuebles of estateForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
       <blockquote>
         <div [formGroupName]="i">

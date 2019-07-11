@@ -17,6 +17,21 @@ const MENUITEMS = [
   {
     state: 'progress-snipper',
     type: 'box',
+    name: 'Recursos Humanos',
+    icon: 'assignment',
+    entity:'rrhh',
+    role:'viewRRHH',
+    subMenu:[
+      {state: 'functionary', name: 'Funcionarios', icon: 'chevron_right', entity:'functionary', role:'listFunctionary'},
+      {state: 'horary-types', name: 'Cargos', icon: 'chevron_right', entity:'horary-types', role:'listHoraryTypes'},
+      {state: 'functionary-types', name: 'Tipos Funcionarios', icon: 'chevron_right', entity:'functionary-types', role:'listFunctionaryTypes'},
+      {state: 'horary-types', name: 'Tipos Horarios', icon: 'chevron_right', entity:'horary-types', role:'listHoraryTypes'},
+      {state: 'horary-types', name: 'Motivos de Retiros', icon: 'chevron_right', entity:'horary-types', role:'listHoraryTypes'},
+    ]
+  },
+  {
+    state: 'progress-snipper',
+    type: 'box',
     name: 'Solicitudes',
     icon: 'assignment',
     entity:'credits',

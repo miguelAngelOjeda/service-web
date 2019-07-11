@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row  m-t-10">
   <div class="col-md-12">
     <h4  class="m-0"><mat-icon class="gray-text">attachment</mat-icon>Documentos
       <span class="hidden-file">
@@ -32,21 +32,28 @@
               </tr>
             </thead> -->
             <tbody>
-              <tr *ngFor="let item of uploader.queue">
-                <td>
-                  <a (click)="viewImage(item?._file)"><img src="" thumbnail [image]="item?._file"/></a>
-                </td>
-                <td>
-                  <a (click)="viewImage(item?._file)">{{ item?.file?.name }}</a>
-                </td>
-                <td>
-                  {{ item?.file?.size/1024/1024 | number:'.2' }} MB
-                </td>
-                <td>
-                  <a mat-icon-button color="warn" (click)="item.remove()"> <mat-icon>delete_forever</mat-icon></a>
-                  <a mat-icon-button  (click)="viewImage(item?._file)"> <mat-icon>visibility</mat-icon></a>
-                </td>
-              </tr>
+              <ng-container [formArrayName]="formArrayName">
+                <tr [formGroupName]="i" *ngFor="let item of uploadForm.get(formArrayName)['controls']; let i = index">
+                  <td>
+                    <a (click)="viewImage(item?.get('file').value)"><img src="" thumbnail [image]="item?.get('file').value"/></a>
+                  </td>
+                  <td>
+                    <a (click)="viewImage(item?.get('file').value)">{{ item?.get('file').value?.name }}</a>
+                  </td>
+                  <td>
+                    {{ item.get('file').value?.size/1024/1024 | number:'.2' }} MB
+                  </td>
+                  <td>
+                    <app-select-filter
+                    [modelValue]="item.controls.tipoDocumento.value"
+                    placeholder="Tipo Documento" urlFilter="tipos-egresos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
+                  </td>
+                  <td>
+                    <a mat-icon-button color="warn" (click)="item.remove()"> <mat-icon>delete_forever</mat-icon></a>
+                    <a mat-icon-button  (click)="viewImage(item.get('file').value)"> <mat-icon>visibility</mat-icon></a>
+                  </td>
+                </tr>
+              </ng-container>
             </tbody>
           </table>
           <div *ngIf="uploader?.queue?.length > 0">
