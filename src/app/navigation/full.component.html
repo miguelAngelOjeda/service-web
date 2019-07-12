@@ -31,7 +31,7 @@
         <!-- sidebar toggle -->
         <!-- ============================================================== -->
 
-        <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+        <button #snavClose id="snavClose" mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
             <mat-icon>menu</mat-icon>
         </button>
         <span fxFlex></span>
@@ -50,7 +50,6 @@
         <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"  >
 
                 <app-sidenav-list></app-sidenav-list>
-
 
         </mat-sidenav>
         <!-- ============================================================== -->

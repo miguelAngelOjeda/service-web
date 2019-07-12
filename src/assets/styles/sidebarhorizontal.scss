@@ -1,0 +1,154 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+$mini-sidebar-width: 80px;
+/*******************
+Main sidebar
+******************/
+
+@media (min-width: 769px){
+  html .page-wrapper{
+    height:calc(100vh - 122px)
+  }
+  #snavHor{
+    width:100%;
+    padding-top:0;
+    position:relative;
+    overflow:visible;
+    box-shadow:0 5px 20px rgba(0,0,0,.05)!important;
+    -webkit-box-shadow:0 5px 20px rgba(0,0,0,.05)!important;
+  }
+  #snavClose{
+    display: none;
+  }
+  #snavHor .user-profile{
+    display: none;
+  }
+  #snavHor .mat-drawer-inner-container{
+    overflow:visible;
+  }
+  #snavHor~.mat-drawer-content{
+    margin-left:0!important;margin-right:0!important
+  }
+  #snavHor .label,#snavHor .saperator{
+    display:none
+  }
+  #snavHor .mat-nav-list{
+    padding:0 15px;
+  }
+  #snavHor .mat-nav-list .mat-list-item{
+    height:auto;padding:6px 0;
+    display:inline-block;
+    width:auto;
+  }
+  #snavHor .mat-nav-list .mat-list-item .mat-list-item-content{
+    display:block;padding:0
+  }#snavHor .mat-nav-list .mat-list-item .sub-item{
+    display:none;
+    position:absolute;
+    width:300px;
+    padding:0;
+    box-shadow:0 5px 20px rgba(0,0,0,.05)!important;
+    -webkit-box-shadow:0 5px 20px rgba(0,0,0,.05)!important;
+    background:#fff;
+    margin-top:5px;
+    max-height:400px;
+    overflow:auto
+  }
+  #snavHor .mat-nav-list .mat-list-item .sub-item .mat-nav-list{
+    padding:0
+  }
+  #snavHor .mat-nav-list .mat-list-item .sub-item .mat-list-item{
+    display:block
+  }
+  #snavHor .mat-nav-list .mat-list-item .sub-item a{
+    padding:0 15px;
+    height:38px;
+    margin-bottom:0
+  }
+  #snavHor .mat-nav-list .mat-list-item .sub-item a:hover{
+    color:#1e88e5
+  }
+  #snavHor .mat-nav-list .mat-list-item:hover{
+    background:0 0
+  }
+  #snavHor .mat-nav-list .mat-list-item:hover>a{
+    color:#1e88e5
+  }
+  #snavHor .mat-nav-list .mat-list-item:hover .sub-item{
+    display:block
+  }
+  #snavHor .mat-nav-list .mat-list-item a{
+    height:45px;
+    padding:0 10px;
+    align-items:center;
+    display:flex;
+    font-size:15px;
+    white-space:nowrap;
+    color:#607d8b
+  }
+  #snavHor .mat-nav-list .mat-list-item a:hover{
+    color:#1e88e5
+  }
+  #snavHor .mat-nav-list .mat-list-item a mat-icon:not(.dd-icon){
+    margin-right:8px
+  }
+  #snavHor .mat-nav-list .mat-list-item a mat-icon{
+    color:#99abb4
+  }
+  #snavHor .mat-nav-list .mat-list-item a .dd-icon{
+    display:none
+  }#snavHor .mat-nav-list .mat-list-item.selected>.mat-list-item-content>a{
+    background:#26c6da;
+    border-radius:4px;
+    color:#fff
+  }
+  #snavHor .mat-nav-list .mat-list-item.selected>.mat-list-item-content>a mat-icon{
+    color:#fff
+  }
+  #snavHor .mat-nav-list .mat-list-item.selected>.mat-list-item-content>a .dd-icon{
+    -webkit-transform:rotate(-180deg);
+    transform:rotate(-180deg)
+  }
+  #snavHor .mat-nav-list .mat-list-item.selected .sub-item .mat-list-item-content a.selected{
+    background:0 0;
+    color:#2f3d4a;
+    font-weight:500
+  }
+  #snavHor .mat-nav-list>.mat-list-item:last-child .sub-item{
+    right:0
+  }[dir=rtl].main-container
+  #snavHor .mat-list-item:last-child .sub-item{
+    left:0;right:auto
+  }
+}
+@media (max-width:768px){
+  html .page-wrapper{
+    height:calc(100vh - 64px)
+  }mat-sidenav{
+    width:240px;
+    padding-top:0
+  }
+  #snavHor{box-shadow:1px 0 20px rgba(0,0,0,.08)}
+  #snavHor .mat-list-item{height:auto}
+  #snavHor .mat-list-item:hover{background:0 0}
+  #snavHor .mat-list-item .mat-list-item-content{display:block;padding:0 15px}
+  #snavHor .mat-list-item .mat-list-item-content:hover{background:0 0}
+  #snavHor .mat-list-item .mat-list-item-content:hover>a{color:#1e88e5}
+  #snavHor .mat-list-item a{height:45px;padding:0 10px;margin-bottom:10px;align-items:center;display:flex;font-size:15px;white-space:nowrap;color:#607d8b}
+  #snavHor .mat-list-item a mat-icon:not(.dd-icon){margin-right:8px}
+  #snavHor .mat-list-item a mat-icon{color:#99abb4}
+  #snavHor .mat-list-item a .dd-icon{font-size:16px;width:16px;transition:.2s ease-in;margin:5px 0 5px 5px;height:16px}
+  #snavHor .mat-list-item.selected>.mat-list-item-content>a{background:#26c6da;border-radius:4px;color:#fff}
+  #snavHor .mat-list-item.selected>.mat-list-item-content>a mat-icon{color:#fff}
+  #snavHor .mat-list-item.selected>.mat-list-item-content>a .dd-icon{-webkit-transform:rotate(-180deg);transform:rotate(-180deg)}
+  #snavHor .mat-list-item.selected .sub-item .mat-list-item-content a.selected{background:0 0;color:#2f3d4a;font-weight:500}
+  #snavHor .sub-item{display:none;margin-top:-15px}
+  #snavHor .sub-item a{padding-left:28px;height:50px;margin-bottom:0}
+  #snavHor .saperator{cursor:text;font-size:13px;margin-bottom:15px;margin-top:25px;font-weight:500;white-space:nowrap}
+  #snavHor .selected .sub-item{display:block}}@media (min-width:1650px){.main-container.boxed{max-width:1920px;margin:0 auto}
+}
