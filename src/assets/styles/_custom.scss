@@ -1,4 +1,4 @@
-// Estilos personalizados 
+// Estilos personalizados
 
 .breadcrumb2 {
 	text-transform: uppercase !important;
@@ -6,8 +6,8 @@
 	padding-left: 1rem;
 	.previous {
 		font-size: 1.14rem;
-		border-bottom: 2px dotted rgba($megna,0.5) !important;	
-		color: rgba(0,0,0,0.5) !important;
+		border-bottom: 2px dotted rgba($megna,0.5) !important;
+		color: #26c6da !important;;
 		margin-right: 15px;
 		&:hover {
 			color: $megna !important;
@@ -18,6 +18,16 @@
 	}
 }
 
+.mat-button-single-row {
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 16px;
+    width: 100%;
+		height: 30px;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+}
 
 .agm-map-container-inner {
 	margin-bottom: 20px;

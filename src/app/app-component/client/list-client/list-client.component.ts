@@ -1,6 +1,7 @@
 import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort} from '@angular/material';
-import { People } from '../../../core/models';
+import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort, MatDialogConfig} from '@angular/material';
+import { People, Message } from '../../../core/models';
+import { DeleteDialogComponent } from '../../../shared';
 import { ApiService } from '../../../core/services';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
@@ -30,6 +31,7 @@ export class ListClientComponent implements AfterViewInit {
   pageEvent: PageEvent;
 
   constructor(
+    public dialog: MatDialog,
     private apiService: ApiService) {}
 
   ngAfterViewInit() {
@@ -54,6 +56,29 @@ export class ListClientComponent implements AfterViewInit {
             return observableOf([]);
           })
         ).subscribe(data => this.dataSource.data = data);
+  }
+
+  delete(data: any){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro " + data.nombre;
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/clientes/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                this.paginator._changePageSize(this.paginator.pageSize);
+              }
+          });
+        }
+      })
+    }
   }
 
 }
