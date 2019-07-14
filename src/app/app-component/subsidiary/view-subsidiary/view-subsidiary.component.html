@@ -1,4 +1,15 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/subsidiary"> Sucursales </a> &gt; <span class="current">Visualizar</span></h2>
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/subsidiary"> Sucursales </a> &gt; <span class="current">Visualizar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+  <a mat-raised-button class="m-l-10" routerLink="/service-web/subsidiary/{{model.id}}/edit" *appCanAccess="['subsidiary', 'editSubsidiary']">
+    <i _ngcontent-ugv-c42="" aria-hidden="true" class="fa fa-eye"></i>
+     Editar
+  </a>
+  <a mat-raised-button class="m-l-10" (click)="delete(model)" *appCanAccess="['subsidiary', 'deleteSubsidiary']">
+    <i  class="fa fa-times" aria-hidden="true"></i>
+     Borrar Sucursal
+  </a>
+</div>
 <mat-card style="width: 100%;">
   <mat-card-content>
     <div class="row">

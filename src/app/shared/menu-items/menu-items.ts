@@ -50,17 +50,17 @@ const MENUITEMS = [
     entity:'service-types',
     role:'viewTypes',
     subMenu:[
-      {state: 'modality', name: 'Modalidades', icon: 'chevron_right', entity:'modality', role:'listModality'},
-      {state: 'guarantee-types', name: 'Tipos Garantias', icon: 'chevron_right', entity:'guarantee-types', role:'listGuaranteeTypes'},
-      {state: 'capital-period', name: 'Periodos Capitales', icon: 'chevron_right', entity:'capital-period', role:'listCapitalPeriod'},
-      {state: 'payments-types', name: 'Tipos Pagos', icon: 'chevron_right', entity:'payments-types', role:'listPaymentsTypes'},
-      {state: 'reference-types', name: 'Tipos Referencias', icon: 'chevron_right', entity:'reference-types',  role:'listReferenceTypes'},
-      {state: 'calculation-types', name: 'Tipos Calculos', icon: 'chevron_right', entity:'calculation-types', role:'listCalculationTypes'},
-      {state: 'destinations-types', name: 'Tipos Destinos', icon: 'chevron_right', entity:'destinations-types',role:'listDestinationsTypes'},
-      {state: 'outlays-types', name: 'Tipos Desembolsos', icon: 'chevron_right', entity:'outlays-types', role:'listOutlaysTypes'},
-      {state: 'ingress-types', name: 'Tipos Ingresos', icon: 'chevron_right', entity:'ingress-types', role:'listIngressTypes'},
-      {state: 'egress-types', name: 'Tipos Egresos', icon: 'chevron_right', entity:'egress-types', role:'listEgressTypes'},
-      {state: 'relations-types', name: 'Tipos Vinculos', icon: 'chevron_right', entity:'relations-types', role:'listRelationsTypes'}
+      {state: 'modality', name: 'Modalidades', entity:'modality', role:'listModality'},
+      {state: 'guarantee-types', name: 'Tipos Garantias', entity:'guarantee-types', role:'listGuaranteeTypes'},
+      {state: 'capital-period', name: 'Periodos Capitales', entity:'capital-period', role:'listCapitalPeriod'},
+      {state: 'payments-types', name: 'Tipos Pagos', entity:'payments-types', role:'listPaymentsTypes'},
+      {state: 'reference-types', name: 'Tipos Referencias', entity:'reference-types',  role:'listReferenceTypes'},
+      {state: 'calculation-types', name: 'Tipos Calculos', entity:'calculation-types', role:'listCalculationTypes'},
+      {state: 'destinations-types', name: 'Tipos Destinos', entity:'destinations-types',role:'listDestinationsTypes'},
+      {state: 'outlays-types', name: 'Tipos Desembolsos', entity:'outlays-types', role:'listOutlaysTypes'},
+      {state: 'ingress-types', name: 'Tipos Ingresos', entity:'ingress-types', role:'listIngressTypes'},
+      {state: 'egress-types', name: 'Tipos Egresos', entity:'egress-types', role:'listEgressTypes'},
+      {state: 'relations-types', name: 'Tipos Vinculos', entity:'relations-types', role:'listRelationsTypes'}
     ]
   },
   {
