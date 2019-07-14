@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Subsidiary } from '../../../core/models';
+import { Subsidiary, Message } from '../../../core/models';
 import {FormControl, Validators} from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-declare var google: any;
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services';
+import { DeleteDialogComponent } from '../../../shared';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-view-subsidiary',
@@ -18,6 +19,7 @@ export class ViewSubsidiaryComponent implements OnInit {
   zoom: number;
 
   constructor(
+    public dialog: MatDialog,
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {}
@@ -27,18 +29,28 @@ export class ViewSubsidiaryComponent implements OnInit {
     .subscribe(res => {
        this.model = res.model as Subsidiary;
     });
-    this.setCurrentLocation();
   }
 
-  // Get Current Location Coordinates
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = this.model.latitud == null ? position.coords.latitude : this.model.latitud;
-        this.longitude = this.model.longitud == null ? position.coords.longitude : this.model.longitud;
-        this.zoom = 15;
-        //this.getAddress(this.latitude, this.longitude);
-      });
+  delete(data: any){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro " + data.nombre;
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/sucursales/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                this.router.navigateByUrl('service-web/subsidiary');
+              }
+          });
+        }
+      })
     }
   }
 

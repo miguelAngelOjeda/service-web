@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Users, People} from '../../../core/models';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Users, People, Message} from '../../../core/models';
 import { ApiService } from '../../../core/services';
 import { PasswordProfileComponent } from '../../profile/password-profile';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { environment } from '../../../../environments/environment';
+import { DeleteDialogComponent } from '../../../shared';
 
 @Component({
   selector: 'app-view-users',
@@ -16,7 +17,8 @@ export class ViewUsersComponent implements OnInit {
   urlImage = environment.api_url;
 
   constructor(
-    public dialog: MatDialog,
+    private router: Router,
+    private dialog: MatDialog,
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {}
@@ -43,6 +45,29 @@ export class ViewUsersComponent implements OnInit {
 
          }
      });
+   }
+
+   delete(data: any){
+     if(data.id){
+       const message = new Message;
+       message.titulo = "Eliminar Registro"
+       message.texto = "Esta seguro que desea eliminar el registro!! ";
+
+       const dialogConfig = new MatDialogConfig();
+       dialogConfig.data = message;
+
+       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+       dialogRef.afterClosed().subscribe(result => {
+         if(result){
+           this.apiService.delete('/usuarios/' + data.id)
+           .subscribe(res => {
+               if(res.status == 200){
+                 this.router.navigateByUrl('service-web/users');
+               }
+           });
+         }
+       })
+     }
    }
 
 }

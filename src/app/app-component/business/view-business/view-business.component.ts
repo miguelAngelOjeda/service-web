@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Business, Subsidiary, Departments, Message } from '../../../core/models';
 import { ApiService, UserService } from '../../../core/services';
 import { DeleteDialogComponent } from '../../../shared';
@@ -7,7 +7,7 @@ import { ListSubsidiaryComponent } from '../../subsidiary/list-subsidiary';
 import { AddDialogoSubsidiaryComponent } from './add-subsidiary';
 import { EditDialogoSubsidiaryComponent } from './edit-subsidiary';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
@@ -36,6 +36,7 @@ export class ViewBusinessComponent implements OnInit {
   formControl = new FormControl('', [Validators.required]);
 
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private userService: UserService,
     private apiService: ApiService,
@@ -145,6 +146,29 @@ export class ViewBusinessComponent implements OnInit {
     return this.formControl.hasError('required') ? 'Campo requerido' :
       this.formControl.hasError('email') ? 'Not a valid email' :
         '';
+  }
+
+  delete(data: any){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro!! ";
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/empresas/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                this.router.navigateByUrl('service-web/business');
+              }
+          });
+        }
+      })
+    }
   }
 
 }

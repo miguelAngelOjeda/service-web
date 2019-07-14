@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, Injectable } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Business, Location } from '../../../core/models';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DeleteDialogComponent } from '../../../shared';
+import { Business, Location, Message } from '../../../core/models';
 import { ApiService, UserService } from '../../../core/services';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogConfig} from '@angular/material';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 
 @Component({
@@ -16,6 +17,8 @@ export class EditBusinessComponent implements OnInit {
   businessForm: FormGroup;
 
   constructor(
+    private router: Router,
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private apiService: ApiService
@@ -74,5 +77,28 @@ export class EditBusinessComponent implements OnInit {
 
   getValue(data: any, form : any): void {
     (<FormControl>this.businessForm.get(form)).setValue(data);
+  }
+
+  delete(data: any){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro!! ";
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/empresas/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                this.router.navigateByUrl('service-web/business');
+              }
+          });
+        }
+      })
+    }
   }
 }
