@@ -8,284 +8,294 @@
         </ng-template>
         <mat-card-content>
           <div class="row">
-            <!-- <div class="col-md-12">
-              <h4  class="m-0"><mat-icon class="gray-text">event_note</mat-icon>Solicitud Credito</h4>
-            </div> -->
-            <div class="col-md-4">
-              <app-select-filter  (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
-               placeholder="Modalidad" urlFilter="modalidades" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div class="col-md-4">
-              <app-select-filter  (value)="getValue($event, 'tipoCalculoImporte')" [modelValue]="myForm.get('tipoCalculoImporte').value"
-               placeholder="Tipo Calculo" urlFilter="tipos-calculos" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number" placeholder="Monto" formControlName="montoSolicitado" name="montoSolicitado" pattern="[0-9]*" required>
-                <mat-hint align="end">{{myForm.get('montoSolicitado').value | number}}</mat-hint>
-                <mat-error *ngIf="(myForm.get('montoSolicitado').errors)">
-                  <span *ngIf="myForm.get('montoSolicitado').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <app-select-filter  (value)="getValue($event, 'tipoDestino')" [modelValue]="myForm.get('tipoDestino').value"
-               placeholder="Destino" urlFilter="tipos-destinos" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div class="col-md-8">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input  placeholder="Aclaracion Destino" formControlName="detalleDestino"  name="detalleDestino">
-                <mat-error *ngIf="(myForm.get('detalleDestino').errors)">
-                  <span *ngIf="myForm.get('detalleDestino').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-              <app-select-filter  (value)="getValue($event, 'tipoGarantia')" [modelValue]="myForm.get('tipoGarantia').value"
-               placeholder="Tipo Garantia" urlFilter="tipos-garantias" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-              <app-select-filter  (value)="getValue($event, 'tipoPago')" [modelValue]="myForm.get('tipoPago').value"
-               placeholder="Forma Pago" urlFilter="tipos-pagos" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-              <app-select-filter  (value)="getValue($event, 'tipoDesembolso')" [modelValue]="myForm.get('tipoDesembolso').value"
-               placeholder="Forma Desembolso" urlFilter="tipos-desembolsos" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
-              <mat-form-field  appearance="legacy">
-                <input matInput #input  placeholder="Beneficiario Cheque" formControlName="beneficiarioCheque" name="beneficiarioCheque">
-                <mat-error *ngIf="(myForm.get('beneficiarioCheque').errors)">
-                  <span *ngIf="myForm.get('beneficiarioCheque').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field  appearance="legacy">
-                 <mat-label>Periodo Capital</mat-label>
-                 <mat-select formControlName="periodoCapital" name="periodoCapital" required>
-                   <mat-option  value="1">1 - DIARIO</mat-option>
-                   <mat-option  value="15">15 - QUINCENAL</mat-option>
-                   <mat-option  value="30">30 - MENSUAL</mat-option>
-                   <mat-option  value="60">60 - BIMESTRAL</mat-option>
-                   <mat-option  value="90">90 - TRIMESTRAL</mat-option>
-                   <mat-option  value="180">180 - SEMESTRAL</mat-option>
-                   <mat-option  value="360">360 - ANUAL</mat-option>
-                 </mat-select>
-                 <mat-error *ngIf="(myForm.get('vencimientoInteres').errors)">
-                   <span *ngIf="myForm.get('vencimientoInteres').errors.required">
-                    Campo requerido
-                   </span>
-                 </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number" min="0" formControlName="plazo" placeholder="Plazo"  name="plazo" required>
-                <mat-error *ngIf="(myForm.get('plazo').errors)">
-                  <span *ngIf="myForm.get('plazo').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number" min="0" placeholder="Cant. Amortiz."  name="ruc">
-                <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                  <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error> -->
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field  appearance="legacy">
-                 <mat-label>Vto. Interes</mat-label>
-                 <mat-select formControlName="vencimientoInteres" name="vencimientoInteres" required>
-                   <!-- <mat-option  value="1">DIARIO</mat-option>
-                   <mat-option  value="15">QUINCENAL</mat-option> -->
-                   <mat-option  value="30">MENSUAL</mat-option>
-                   <mat-option  value="0">Vto. Capital</mat-option>
-                   <mat-option  value="-1">Meses de Gracia</mat-option>
-                 </mat-select>
-                 <mat-error *ngIf="(myForm.get('vencimientoInteres').errors)">
-                   <span *ngIf="myForm.get('vencimientoInteres').errors.required">
-                    Campo requerido
-                   </span>
-                 </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number"  placeholder="Periodo Gracia" formControlName="periodoGracia"  name="periodoGracia" required>
-                <mat-error *ngIf="(myForm.get('periodoGracia').errors)">
-                  <span *ngIf="myForm.get('periodoGracia').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number"  placeholder="Periodo Interés" formControlName="periodoInteres"  name="periodoInteres" required>
-                <mat-hint align="end">{{myForm.get('periodoInteres').value + ' Dias'}}</mat-hint>
-                <mat-error *ngIf="(myForm.get('periodoInteres').errors)">
-                  <span *ngIf="myForm.get('periodoInteres').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number" min="0" placeholder="Tasa Interés Anual(%)" formControlName="tasaInteres" name="tasaInteres" required>
-                <mat-error *ngIf="(myForm.get('tasaInteres').errors)">
-                  <span *ngIf="myForm.get('tasaInteres').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number" min="0" placeholder="Gastos Administrativos(%)" formControlName="gastosAdministrativos" name="gastosAdministrativos" required>
-                <mat-error *ngIf="(myForm.get('gastosAdministrativos').errors)">
-                  <span *ngIf="myForm.get('gastosAdministrativos').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
             <div class="col-md-12">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input  placeholder="Observacion"  name="ruc">
-                <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
-                <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
-                  <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error> -->
-              </mat-form-field>
-            </div>
-            <div class="col-md-12">
-              <h4  class="m-0">Descuentos</h4>
-            </div>
-            <div class="col-md-12 m-t-10">
               <div class="row">
-                <div class="col-md-3">
-                  <mat-form-field    appearance="outline">
-                    <input matInput #input type="number"  placeholder="Impuestos" formControlName="impuestos"  name="impuestos">
-                    <mat-hint align="end">{{myForm.get('impuestos').value | number}}</mat-hint>
-                    <mat-error *ngIf="(myForm.get('impuestos').errors)">
-                      <span *ngIf="myForm.get('impuestos').errors.required">
+              <!-- <div class="col-md-12">
+                <h4  class="m-0"><mat-icon class="gray-text">event_note</mat-icon>Solicitud Credito</h4>
+              </div> -->
+                <div class="col-md-4">
+                  <app-select-filter  (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
+                   placeholder="Modalidad" urlFilter="modalidades" [columnsFilter]="['nombre']"></app-select-filter>
+                </div>
+                <div class="col-md-4">
+                  <app-select-filter  (value)="getValue($event, 'tipoCalculoImporte')" [modelValue]="myForm.get('tipoCalculoImporte').value"
+                   placeholder="Tipo Calculo" urlFilter="tipos-calculos" [columnsFilter]="['nombre']"></app-select-filter>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number" placeholder="Monto" formControlName="montoSolicitado" name="montoSolicitado" pattern="[0-9]*" required>
+                    <mat-hint align="end">{{myForm.get('montoSolicitado').value | number}}</mat-hint>
+                    <mat-error *ngIf="(myForm.get('montoSolicitado').errors)">
+                      <span *ngIf="myForm.get('montoSolicitado').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <app-select-filter  (value)="getValue($event, 'tipoDestino')" [modelValue]="myForm.get('tipoDestino').value"
+                   placeholder="Destino" urlFilter="tipos-destinos" [columnsFilter]="['nombre']"></app-select-filter>
+                </div>
+                <div class="col-md-8">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input  placeholder="Aclaracion Destino" formControlName="detalleDestino"  name="detalleDestino">
+                    <mat-error *ngIf="(myForm.get('detalleDestino').errors)">
+                      <span *ngIf="myForm.get('detalleDestino').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                  <app-select-filter  (value)="getValue($event, 'tipoGarantia')" [modelValue]="myForm.get('tipoGarantia').value"
+                   placeholder="Tipo Garantia" urlFilter="tipos-garantias" [columnsFilter]="['nombre']"></app-select-filter>
+                </div>
+                <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                  <app-select-filter  (value)="getValue($event, 'tipoPago')" [modelValue]="myForm.get('tipoPago').value"
+                   placeholder="Forma Pago" urlFilter="tipos-pagos" [columnsFilter]="['nombre']"></app-select-filter>
+                </div>
+                <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                  <app-select-filter  (value)="getValue($event, 'tipoDesembolso')" [modelValue]="myForm.get('tipoDesembolso').value"
+                   placeholder="Forma Desembolso" urlFilter="tipos-desembolsos" [columnsFilter]="['nombre']"></app-select-filter>
+                </div>
+                <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
+                  <mat-form-field  appearance="legacy">
+                    <input matInput #input  placeholder="Beneficiario Cheque" formControlName="beneficiarioCheque" name="beneficiarioCheque">
+                    <mat-error *ngIf="(myForm.get('beneficiarioCheque').errors)">
+                      <span *ngIf="myForm.get('beneficiarioCheque').errors.required">
                        Campo requerido
                       </span>
                     </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field    appearance="outline">
-                    <input matInput #input type="number"  placeholder="Comision" formControlName="comision"  name="comision">
-                    <mat-hint align="end">{{myForm.get('comision').value | number}}</mat-hint>
-                    <mat-error *ngIf="(myForm.get('comision').errors)">
-                      <span *ngIf="myForm.get('comision').errors.required">
+                  <mat-form-field  appearance="legacy">
+                     <mat-label>Periodo Capital</mat-label>
+                     <mat-select formControlName="periodoCapital" name="periodoCapital" required>
+                       <mat-option  value="1">1 - DIARIO</mat-option>
+                       <mat-option  value="15">15 - QUINCENAL</mat-option>
+                       <mat-option  value="30">30 - MENSUAL</mat-option>
+                       <mat-option  value="60">60 - BIMESTRAL</mat-option>
+                       <mat-option  value="90">90 - TRIMESTRAL</mat-option>
+                       <mat-option  value="180">180 - SEMESTRAL</mat-option>
+                       <mat-option  value="360">360 - ANUAL</mat-option>
+                     </mat-select>
+                     <mat-error *ngIf="(myForm.get('vencimientoInteres').errors)">
+                       <span *ngIf="myForm.get('vencimientoInteres').errors.required">
+                        Campo requerido
+                       </span>
+                     </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number" min="0" formControlName="plazo" placeholder="Plazo"  name="plazo" required>
+                    <mat-error *ngIf="(myForm.get('plazo').errors)">
+                      <span *ngIf="myForm.get('plazo').errors.required">
                        Campo requerido
                       </span>
                     </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field    appearance="outline">
-                    <input matInput #input type="number"  placeholder="Gastos Varios" formControlName="gastosVarios"  name="gastosVarios">
-                    <mat-hint align="end">{{myForm.get('gastosVarios').value | number}}</mat-hint>
-                    <mat-error *ngIf="(myForm.get('gastosVarios').errors)">
-                      <span *ngIf="myForm.get('gastosVarios').errors.required">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number" min="0" placeholder="Cant. Amortiz."  name="ruc">
+                    <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
+                    <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
+                      <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error> -->
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field  appearance="legacy">
+                     <mat-label>Vto. Interes</mat-label>
+                     <mat-select formControlName="vencimientoInteres" name="vencimientoInteres" required>
+                       <!-- <mat-option  value="1">DIARIO</mat-option>
+                       <mat-option  value="15">QUINCENAL</mat-option> -->
+                       <mat-option  value="30">MENSUAL</mat-option>
+                       <mat-option  value="0">Vto. Capital</mat-option>
+                       <mat-option  value="-1">Meses de Gracia</mat-option>
+                     </mat-select>
+                     <mat-error *ngIf="(myForm.get('vencimientoInteres').errors)">
+                       <span *ngIf="myForm.get('vencimientoInteres').errors.required">
+                        Campo requerido
+                       </span>
+                     </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number"  placeholder="Periodo Gracia" formControlName="periodoGracia"  name="periodoGracia" required>
+                    <mat-error *ngIf="(myForm.get('periodoGracia').errors)">
+                      <span *ngIf="myForm.get('periodoGracia').errors.required">
                        Campo requerido
                       </span>
                     </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field    appearance="outline">
-                    <input matInput #input type="number"  placeholder="Seguros" formControlName="seguros"  name="seguros" >
-                    <mat-hint align="end">{{myForm.get('seguros').value | number}}</mat-hint>
-                    <mat-error *ngIf="(myForm.get('seguros').errors)">
-                      <span *ngIf="myForm.get('seguros').errors.required">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number"  placeholder="Periodo Interés" formControlName="periodoInteres"  name="periodoInteres" required>
+                    <mat-hint align="end">{{myForm.get('periodoInteres').value + ' Dias'}}</mat-hint>
+                    <mat-error *ngIf="(myForm.get('periodoInteres').errors)">
+                      <span *ngIf="myForm.get('periodoInteres').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number" min="0" placeholder="Tasa Interés Anual(%)" formControlName="tasaInteres" name="tasaInteres" required>
+                    <mat-error *ngIf="(myForm.get('tasaInteres').errors)">
+                      <span *ngIf="myForm.get('tasaInteres').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number" min="0" placeholder="Gastos Administrativos(%)" formControlName="gastosAdministrativos" name="gastosAdministrativos" required>
+                    <mat-error *ngIf="(myForm.get('gastosAdministrativos').errors)">
+                      <span *ngIf="myForm.get('gastosAdministrativos').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input  placeholder="Observacion"  name="ruc">
+                    <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
+                    <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
+                      <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error> -->
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <h4  class="m-0">Descuentos</h4>
+                </div>
+                <div class="col-md-12 m-t-10">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field    appearance="outline">
+                        <input matInput #input type="number"  placeholder="Impuestos" formControlName="impuestos"  name="impuestos">
+                        <mat-hint align="end">{{myForm.get('impuestos').value | number}}</mat-hint>
+                        <mat-error *ngIf="(myForm.get('impuestos').errors)">
+                          <span *ngIf="myForm.get('impuestos').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field    appearance="outline">
+                        <input matInput #input type="number"  placeholder="Comision" formControlName="comision"  name="comision">
+                        <mat-hint align="end">{{myForm.get('comision').value | number}}</mat-hint>
+                        <mat-error *ngIf="(myForm.get('comision').errors)">
+                          <span *ngIf="myForm.get('comision').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field    appearance="outline">
+                        <input matInput #input type="number"  placeholder="Gastos Varios" formControlName="gastosVarios"  name="gastosVarios">
+                        <mat-hint align="end">{{myForm.get('gastosVarios').value | number}}</mat-hint>
+                        <mat-error *ngIf="(myForm.get('gastosVarios').errors)">
+                          <span *ngIf="myForm.get('gastosVarios').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field    appearance="outline">
+                        <input matInput #input type="number"  placeholder="Seguros" formControlName="seguros"  name="seguros" >
+                        <mat-hint align="end">{{myForm.get('seguros').value | number}}</mat-hint>
+                        <mat-error *ngIf="(myForm.get('seguros').errors)">
+                          <span *ngIf="myForm.get('seguros').errors.required">
+                           Campo requerido
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number" min="0" placeholder="Monto Entregar" formControlName="importeCuota" name="importeCuota">
+                    <mat-hint align="end">{{myForm.get('importeCuota').value | number}}</mat-hint>
+                    <mat-error *ngIf="(myForm.get('importeCuota').errors)">
+                      <span *ngIf="myForm.get('importeCuota').errors.required">
+                       Campo requerido
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field    appearance="legacy">
+                    <input matInput #input type="number" min="0" placeholder="Cuota" formControlName="importeCuota" name="importeCuota">
+                    <mat-hint align="end">{{myForm.get('importeCuota').value | number}}</mat-hint>
+                    <mat-error *ngIf="(myForm.get('importeCuota').errors)">
+                      <span *ngIf="myForm.get('importeCuota').errors.required">
                        Campo requerido
                       </span>
                     </mat-error>
                   </mat-form-field>
                 </div>
               </div>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number" min="0" placeholder="Monto Entregar" formControlName="importeCuota" name="importeCuota">
-                <mat-hint align="end">{{myForm.get('importeCuota').value | number}}</mat-hint>
-                <mat-error *ngIf="(myForm.get('importeCuota').errors)">
-                  <span *ngIf="myForm.get('importeCuota').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input type="number" min="0" placeholder="Cuota" formControlName="importeCuota" name="importeCuota">
-                <mat-hint align="end">{{myForm.get('importeCuota').value | number}}</mat-hint>
-                <mat-error *ngIf="(myForm.get('importeCuota').errors)">
-                  <span *ngIf="myForm.get('importeCuota').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-12">
-              <app-upload></app-upload>
-            </div>
-            <div class="col-md-12 m-t-20">
-              <app-people></app-people>
+              <!-- <div class="col-md-12"> -->
+                <app-upload></app-upload>
+              <!-- </div> -->
+              <!-- <div class="col-md-12 m-t-20"> -->
+
+              <!-- </div> -->
             </div>
           </div>
         </mat-card-content>
       </mat-tab>
       <mat-tab>
         <ng-template mat-tab-label>
-          <h4  class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Datos Cliente</h4>
+          <h4  class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Cliente</h4>
         </ng-template>
         <mat-card-content>
-          <div class="row">
-            <div class="col-md-12 m-t-30">
-              <app-reference [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-reference>
-            </div>
-            <div class="col-md-12 m-t-30">
-              <app-occupation [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-occupation>
-            </div>
-            <div class="col-md-12 m-t-30">
-              <app-estate [fkFilterModel]="myForm.value.persona.id" [minRow]="isTieneHipoteca"></app-estate>
-            </div>
-            <div class="col-md-12 m-t-30">
-              <app-vehicle [fkFilterModel]="myForm.value.persona.id"></app-vehicle>
-            </div>
-            <div class="col-md-12 m-t-30">
-              <div class="row">
-                <div class="col-md-6">
-                  <app-ingress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-ingress>
-                </div>
-                <div class="col-md-6">
-                  <app-egress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-egress>
+          <ng-template matTabContent class="row">
+            <!-- <div class="row"> -->
+              <div class="col-md-12 m-t-30">
+                <app-people></app-people>
+              </div>
+              <div class="col-md-12 m-t-30">
+                <app-reference [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-reference>
+              </div>
+              <div class="col-md-12 m-t-30">
+                <app-occupation [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-occupation>
+              </div>
+              <div class="col-md-12 m-t-30">
+                <app-estate [fkFilterModel]="myForm.value.persona.id" [minRow]="isTieneHipoteca"></app-estate>
+              </div>
+              <div class="col-md-12 m-t-30">
+                <app-vehicle [fkFilterModel]="myForm.value.persona.id"></app-vehicle>
+              </div>
+              <div class="col-md-12 m-t-30">
+                <div class="row">
+                  <div class="col-md-6">
+                    <app-ingress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-ingress>
+                  </div>
+                  <div class="col-md-6">
+                    <app-egress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-egress>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            <!-- </div> -->
+          </ng-template>
+
           <mat-card-actions>
             <button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
           </mat-card-actions>
