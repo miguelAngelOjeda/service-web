@@ -1,4 +1,8 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/subsidiary"> Sucursales </a> &gt; <span class="current">Agregar</span></h2>
+
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/subsidiary"> Sucursales </a> &gt; <span class="current">Agregar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
 <mat-card style="width: 100%;">
 	<mat-card-content>
 			<form  [formGroup]="subsidiaryForm" (ngSubmit)="subsidiaryForm.valid && onSubmit()">

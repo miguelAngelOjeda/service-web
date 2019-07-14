@@ -1,19 +1,13 @@
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/business"> SUCURSALES </a> &gt; <span class="current">Lista de Sucursales</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+  <a mat-raised-button class="m-l-10" routerLink="/service-web/subsidiary/new" *appCanAccess="['subsidiary', 'addSubsidiary']">
+     Agregar
+  </a>
+</div>
 <div>
   <mat-card>
     <mat-card-content>
-    <mat-card-title>
-
-      <div class="row">
-        <div class="col-md-6">
-          Sucursales
-        </div>
-        <div class="col-md-6">
-          <a mat-stroked-button class="nav-link" class="m-t-10 float-right" routerLink="/service-web/subsidiary/new" *appCanAccess="['subsidiary', 'addSubsidiary']">
-            Agregar
-          </a>
-        </div>
-      </div>
-    </mat-card-title>
     <!-- <mat-card-subtitle> </mat-card-subtitle> -->
       <!-- <p> -->
         <mat-form-field appearance="fill">

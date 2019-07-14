@@ -1,4 +1,7 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/role"> Roles </a> &gt; <span class="current">Agregar Rol</span></h2>
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/role"> Roles </a> &gt; <span class="current">Agregar Rol</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
 <mat-card class="form-card">
 <mat-card-content *ngIf="authorities.length > 0">
   <form  (ngSubmit)="formControl.form.valid && submit(ngForm)" #formControl="ngForm" >

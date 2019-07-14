@@ -2,7 +2,7 @@
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/business"> Empresas </a> &gt; <span class="current">{{data.nombreFantasia}}</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
   <a mat-raised-button class="m-l-10" routerLink="/service-web/business/{{data.id}}/edit">
-    <i _ngcontent-ugv-c42="" aria-hidden="true" class="fa fa-eye"></i>
+    <i _ngcontent-ugv-c42="" class="fa fa-pencil-square-o"></i>
      Editar
   </a>
   <a mat-raised-button class="m-l-10" (click)="delete(data)" *appCanAccess="['enterprise', 'deleteEnterprise']">
