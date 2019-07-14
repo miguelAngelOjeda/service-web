@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subsidiary, Departments, Message, Location } from '../../../core/models';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services';
 import { DeleteDialogComponent } from '../../../shared';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
@@ -15,7 +15,8 @@ export class EditSubsidiaryComponent implements OnInit {
   subsidiaryForm: FormGroup;
 
   constructor(
-    public dialog: MatDialog,
+    private router: Router,
+    private dialog: MatDialog,
     private apiService: ApiService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute

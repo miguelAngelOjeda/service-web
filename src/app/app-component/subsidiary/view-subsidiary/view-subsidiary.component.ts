@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subsidiary, Message } from '../../../core/models';
 import {FormControl, Validators} from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services';
 import { DeleteDialogComponent } from '../../../shared';
 import { MatDialog, MatDialogConfig } from '@angular/material';
@@ -19,7 +19,8 @@ export class ViewSubsidiaryComponent implements OnInit {
   zoom: number;
 
   constructor(
-    public dialog: MatDialog,
+    private router: Router,
+    private dialog: MatDialog,
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {}
