@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
+import { Component, OnInit, EventEmitter,
+   Output, Input, HostListener, AfterContentInit,
+   AfterViewInit, AfterViewChecked, OnChanges } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import * as $ from 'jquery';
 import 'dropify';
@@ -14,7 +16,7 @@ export class Avatar {
   templateUrl: './dropify-image.component.html',
   styleUrls: ['./dropify-image.component.scss']
 })
-export class DropifyImageComponent implements OnInit {
+export class DropifyImageComponent implements OnInit, AfterViewChecked{
   public avatar : Avatar;
   public isDisabled = false;
   @Output() valueAvatar = new EventEmitter<Avatar>();
@@ -28,6 +30,10 @@ export class DropifyImageComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.onInitDropify();
+  }
+
+  ngAfterViewChecked() {
     this.onInitDropify();
   }
 
@@ -75,14 +81,6 @@ export class DropifyImageComponent implements OnInit {
       drEvent.settings.defaultFile = environment.api_url +"/DisplayImage?url=" + pathImage;
       drEvent.destroy();
       drEvent.init();
-    }
-  }
-
-  @HostListener('click', ['$event.target.type'])
-  onFileDelete(event) {
-    if(event === 'button'){
-      this.avatar = new Avatar;
-      this.valueAvatar.emit(this.avatar);
     }
   }
 

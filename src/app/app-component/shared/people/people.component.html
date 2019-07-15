@@ -5,7 +5,7 @@
       <br>
     </div>
     <div class="col-md-2 center">
-       <app-dropify-image [pathImage]="peopleForm.controls['persona'].get('imagePath').value"  (valueAvatar)="getValue($event,'avatar')"></app-dropify-image>
+       <app-dropify-image load="true" [pathImage]="peopleForm.controls['persona'].get('imagePath').value"  (valueAvatar)="getValue($event,'avatar')"></app-dropify-image>
     </div>
     <ng-container *ngIf="peopleForm.controls['persona'].get('tipoPersona').value == 'FISICA'">
       <div class="col-md-10">

@@ -1,15 +1,16 @@
-import { Component, OnInit, EventEmitter, ViewChild  } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild, AfterViewInit  } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../../core/services';
-import { SnackbarService, GalleryDialogComponent } from '../../../../shared';
-
+import { SnackbarService } from '../../../../shared';
+import * as $ from 'jquery';
+import 'dropify';
 
 @Component({
   selector: 'app-add-credits',
   templateUrl: './add-credits.component.html',
   styleUrls: ['./add-credits.component.scss']
 })
-export class AddCreditsComponent implements OnInit {
+export class AddCreditsComponent implements OnInit, AfterViewInit {
   myForm: FormGroup;
   validateForm = true;
   isSeparacionBienes = true;
@@ -23,6 +24,10 @@ export class AddCreditsComponent implements OnInit {
   ngOnInit() {
     this.initFormBuilder();
     this.valueChange();
+  }
+
+  ngAfterViewInit() {
+    this.onInitDropify();
   }
 
   public onFileSelected(event: EventEmitter<File[]>) {
@@ -190,6 +195,36 @@ export class AddCreditsComponent implements OnInit {
           }
 
         }
+  }
+
+  onInitDropify() {
+    let drEvent =  (<any>$('.dropify') ).dropify({
+        tpl: {
+            wrap:            '<div class="dropify-wrapper"></div>',
+            loader:          '<div class="dropify-loader"></div>',
+            message:         '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
+            preview:         '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+            filename:        '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
+            clearButton:     '<button type="button" (click)="onFileDelete($event)" class="dropify-clear">{{ remove }}</button>',
+            errorLine:       '<p class="dropify-error">{{ error }}</p>',
+            errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+        },
+        messages: {
+                default: 'Arrastre un archivo o haga clic aquí',
+                replace: 'Arrastre un archivo o haga clic en reemplazar',
+                remove: 'Eliminar',
+                error: 'Lo sentimos, el archivo demasiado grande'
+        },
+        error: {
+              fileSize: 'El tamaño del archivo es demasiado grande ({{ value }} max).',
+              minWidth: 'El ancho de la imagen es demasiado pequeño ({{ value }}}px min).',
+              maxWidth: 'El ancho de la imagen es demasiado grande ({{ value }}}px max).',
+              minHeight: 'The image height is too small ({{ value }}}px min).',
+              maxHeight: 'La altura de la imagen es demasiado grande ({{ value }}px max).',
+              imageFormat: 'El formato de la imagen no está permitido ({{ value }} only).'
+        }
+    });
+
   }
 
 
