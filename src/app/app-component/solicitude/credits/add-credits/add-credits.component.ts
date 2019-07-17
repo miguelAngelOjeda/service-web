@@ -236,6 +236,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
       tipoCalculoImporte: [null, [Validators.required]],
       tipoDestino: [null, [Validators.required]],
       tipoGarantia: [null, [Validators.required]],
+      tipoDescuento: ['I-D', [Validators.required]],
       tipoPago: [null, [Validators.required]],
       tipoDesembolso: [null, [Validators.required]],
       plazo: [null, [Validators.required]],

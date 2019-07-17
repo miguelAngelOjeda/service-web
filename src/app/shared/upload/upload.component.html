@@ -34,16 +34,16 @@
             <tbody>
               <ng-container [formArrayName]="formArrayName">
                 <tr [formGroupName]="i" *ngFor="let item of uploadForm.get(formArrayName)['controls']; let i = index">
-                  <td>
+                  <td style="text-align:center">
                     <a (click)="viewImage(item?.get('file').value)"><img src="" thumbnail [image]="item?.get('file').value"/></a>
                   </td>
-                  <td>
+                  <td style="text-align:center">
                     <a (click)="viewImage(item?.get('file').value)">{{ item?.get('file').value?.name }}</a>
                   </td>
-                  <td>
+                  <td style="text-align:center" align="center">
                     {{ item.get('file').value?.size/1024/1024 | number:'.2' }} MB
                   </td>
-                  <td>
+                  <td style="text-align:center">
                     <app-select-filter
                     [modelValue]="item.controls.tipoDocumento.value"
                     placeholder="Tipo Documento" urlFilter="tipos-egresos" [columnsFilter]="['nombre','codigo']"></app-select-filter>

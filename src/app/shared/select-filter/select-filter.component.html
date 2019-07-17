@@ -11,6 +11,7 @@
 </form> -->
 <form>
   <mat-form-field  [appearance]="inputType">
+    <mat-label>{{placeholder}}</mat-label>
     <input type="text"  matInput #filterInputModel placeholder="{{placeholder}}" aria-label="Number"  [formControl]="modelControl"  [matAutocomplete]="auto">
     <mat-autocomplete  autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='setValue($event.option.value)' [displayWith]="displayFn.bind(this)">
       <mat-option *ngFor="let option of models" [value]="option">
