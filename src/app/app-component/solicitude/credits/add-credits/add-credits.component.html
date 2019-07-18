@@ -24,7 +24,7 @@
                 <div class="col-md-4">
                   <mat-form-field appearance="outline">
                     <mat-label>Monto</mat-label>
-                    <input matInput #input type="number" placeholder="Monto" formControlName="montoSolicitado" name="montoSolicitado" pattern="[0-9]*" required>
+                    <input matInput #input type="text" placeholder="Monto" formControlName="montoSolicitado"  name="montoSolicitado"  currencyMask>
                     <mat-hint align="end">{{myForm.get('montoSolicitado').value | number}}</mat-hint>
                     <mat-error *ngIf="(myForm.get('montoSolicitado').errors)">
                       <span *ngIf="myForm.get('montoSolicitado').errors.required">
@@ -205,10 +205,10 @@
                       <div class="col-md-3">
                         <mat-form-field appearance="outline">
                           <mat-label>Monto Entregar</mat-label>
-                          <input matInput #input type="number" min="0" placeholder="Monto Entregar" formControlName="importeCuota" name="importeCuota" disabled="disabled">
+                          <input matInput #input type="text" placeholder="Monto Entregar" formControlName="importeEntregar" name="importeEntregar" currencyMask>
                           <mat-hint align="end">Monto Entregar</mat-hint>
-                          <mat-error *ngIf="(myForm.get('importeCuota').errors)">
-                            <span *ngIf="myForm.get('importeCuota').errors.required">
+                          <mat-error *ngIf="(myForm.get('importeEntregar').errors)">
+                            <span *ngIf="myForm.get('importeEntregar').errors.required">
                              Campo requerido
                             </span>
                           </mat-error>
@@ -217,7 +217,7 @@
                       <div class="col-md-3">
                         <mat-form-field appearance="outline">
                           <mat-label>Cuota</mat-label>
-                          <input matInput #input type="number" min="0" placeholder="Cuota" formControlName="importeCuota" name="importeCuota">
+                          <input matInput #input type="text" placeholder="Cuota" formControlName="importeCuota" name="importeCuota" currencyMask>
                           <mat-hint align="end">Cuota</mat-hint>
                           <mat-error *ngIf="(myForm.get('importeCuota').errors)">
                             <span *ngIf="myForm.get('importeCuota').errors.required">
@@ -232,8 +232,7 @@
                       <div class="col-md-3">
                         <mat-form-field  appearance="outline">
                           <mat-label>Impuestos</mat-label>
-                          <input matInput #input type="number"  placeholder="Impuestos" formControlName="impuestos"  name="impuestos">
-                          <mat-hint align="end">{{myForm.get('impuestos').value | number}}</mat-hint>
+                          <input matInput #input type="text" min="0" placeholder="Impuestos" formControlName="impuestos"  name="impuestos" currencyMask>
                           <mat-error *ngIf="(myForm.get('impuestos').errors)">
                             <span *ngIf="myForm.get('impuestos').errors.required">
                              Campo requerido
@@ -244,8 +243,7 @@
                       <div class="col-md-3">
                         <mat-form-field appearance="outline">
                           <mat-label>Comision</mat-label>
-                          <input matInput #input type="number"  placeholder="Comision" formControlName="comision"  name="comision">
-                          <mat-hint align="end">{{myForm.get('comision').value | number}}</mat-hint>
+                          <input matInput #input type="text" min="0"  placeholder="Comision" formControlName="comision"  name="comision" currencyMask>
                           <mat-error *ngIf="(myForm.get('comision').errors)">
                             <span *ngIf="myForm.get('comision').errors.required">
                              Campo requerido
@@ -256,8 +254,7 @@
                       <div class="col-md-3">
                         <mat-form-field appearance="outline">
                           <mat-label>Gastos Varios</mat-label>
-                          <input matInput #input type="number"  placeholder="Gastos Varios" formControlName="gastosVarios"  name="gastosVarios">
-                          <mat-hint align="end">{{myForm.get('gastosVarios').value | number}}</mat-hint>
+                          <input matInput #input type="text" min="0"  placeholder="Gastos Varios" formControlName="gastosVarios"  name="gastosVarios" currencyMask>
                           <mat-error *ngIf="(myForm.get('gastosVarios').errors)">
                             <span *ngIf="myForm.get('gastosVarios').errors.required">
                              Campo requerido
@@ -268,8 +265,7 @@
                       <div class="col-md-3">
                         <mat-form-field appearance="outline">
                           <mat-label>Seguros</mat-label>
-                          <input matInput #input type="number"  placeholder="Seguros" formControlName="seguros"  name="seguros" >
-                          <mat-hint align="end">{{myForm.get('seguros').value | number}}</mat-hint>
+                          <input matInput #input type="text"  placeholder="Seguros" formControlName="seguros"  name="seguros" currencyMask>
                           <mat-error *ngIf="(myForm.get('seguros').errors)">
                             <span *ngIf="myForm.get('seguros').errors.required">
                              Campo requerido

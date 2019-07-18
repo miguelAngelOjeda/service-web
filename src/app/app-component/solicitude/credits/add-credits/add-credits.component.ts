@@ -65,6 +65,40 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
         }
     );
 
+    // this.myForm.controls['montoSolicitado'].valueChanges.subscribe(
+    //     (montoSolicitado) => {
+    //       this.myForm.controls['montoSolicitadoOriginal'].setValue(montoSolicitado);
+    //     }
+    // );
+
+    this.myForm.controls['impuestos'].valueChanges.subscribe(
+        (impuestos) => {
+
+          if(this.myForm.get('tipoDescuento').value === 'I-D'){
+
+            let descuentos = impuestos + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+
+            let montoEntregar = this.myForm.get('montoSolicitado').value - descuentos;
+
+            this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+
+          }else{
+
+            let descuentos = impuestos + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+
+            let montoEntregar = this.myForm.get('montoSolicitado').value + descuentos;
+
+            this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+
+            this.myForm.controls['montoSolicitado'].setValue(montoEntregar);
+
+          }
+
+        }
+    );
+
+
+
     this.myForm.controls['tipoGarantia'].valueChanges.subscribe(
         (tipoGarantia) => {
           if(tipoGarantia.id == 3){
@@ -129,6 +163,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
 
             let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
 
+
             let valor_1 = ((this.myForm.get('montoSolicitado').value * tasaInteres) / 36500) * this.myForm.get('vencimientoInteres').value;
 
             let valor_2 = Math.pow((  1 + ((tasaInteres / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value) - 1;
@@ -141,6 +176,13 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
             return Math.round(valor_4 * valor_3);
 
           } else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-4'){
+
+            //Interés simple (i) = Capital (c) x Tipo de Interés (r) x Tiempo (t)
+            //• Si la duración es 3 años, t = 3
+            //• Si la duración es 18 meses, t = 18 / 12 = 1,5
+            //• Si la duración es 1 año, t = 1
+            //• Si la duración es 6 meses, t = 6 / 12 = 0,5
+            //• Si la duración es 1 día, t = 1 / 365
 
             let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
 
@@ -180,11 +222,32 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
 
             let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
 
-            //let tasaInteres = ((this.myForm.get('tasaInteres').value / 100) / 365) * 30;
+            let interes = tasaInteres / 100;
+
+            let periodoInteres = 0;
+            if(this.myForm.get('vencimientoInteres').value == 30){
+              periodoInteres = (Math.pow((  1 + interes ), this.myForm.get('plazo').value / 12)) - 1;
+            }else if(this.myForm.get('vencimientoInteres').value == 0){
+              if(this.myForm.get('periodoCapital').value == 60){
+                periodoInteres = (Math.pow((  1 + (interes / 6) ), ((this.myForm.get('plazo').value/12 ) * 6))) - 1;
+              }else if(this.myForm.get('periodoCapital').value == 90){
+                periodoInteres = (Math.pow((  1 + (interes / 4) ), ((this.myForm.get('plazo').value/12 ) * 4))) - 1;
+              }else if(this.myForm.get('periodoCapital').value == 180){
+                periodoInteres = (Math.pow((  1 + (interes / 2) ), ((this.myForm.get('plazo').value/12 ) * 2))) - 1;
+              }else if(this.myForm.get('periodoCapital').value == 360){
+                periodoInteres = (Math.pow((  1 + interes ), this.myForm.get('plazo').value / 12)) - 1;
+              }else if(this.myForm.get('periodoCapital').value == 15){
+                periodoInteres = interes / 24
+              }else if(this.myForm.get('periodoCapital').value == 1){
+                periodoInteres = interes / 365
+                periodoInteres = (Math.pow((  1 + (interes / 2) ), ((this.myForm.get('plazo').value/12 ) * 2))) - 1;
+              }else if(this.myForm.get('periodoCapital').value == 30){
+                periodoInteres = (Math.pow((  1 + interes ), this.myForm.get('plazo').value / 12)) - 1;
+              }
+            }
 
 
-
-            let montoInteres = this.myForm.get('montoSolicitado').value * Math.pow( (  1 + tasaInteres), this.myForm.get('plazo').value);
+            let montoInteres = this.myForm.get('montoSolicitado').value * periodoInteres;
 
             let montoTotal = Math.round(this.myForm.get('montoSolicitado').value + montoInteres);
 
@@ -237,6 +300,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
       tipoDestino: [null, [Validators.required]],
       tipoGarantia: [null, [Validators.required]],
       tipoDescuento: ['I-D', [Validators.required]],
+      importeEntregar: [null, [Validators.required]],
       tipoPago: [null, [Validators.required]],
       tipoDesembolso: [null, [Validators.required]],
       plazo: [null, [Validators.required]],
@@ -244,14 +308,14 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
       periodoInteres: [30, [Validators.required]],
       tasaInteres: [null, [Validators.required]],
       gastosAdministrativos: [null, [Validators.required]],
-      impuestos: [null],
+      impuestos: [0],
       beneficiarioCheque: [null],
       detalleDestino: [null],
-      comision: [null],
-      gastosVarios: [null],
-      seguros: [null],
-      montoSolicitado: [null, [Validators.required]],
-      montoEntregar: [null, [Validators.required]],
+      comision: [0],
+      gastosVarios: [0],
+      seguros: [0],
+      montoSolicitado: [0, [Validators.required]],
+      montoSolicitadoOriginal: [null, [Validators.required]],
       importeCuota: [null, [Validators.required]],
       periodoGracia: [30, [Validators.required]],
       periodoCapital: ['30', [Validators.required]],

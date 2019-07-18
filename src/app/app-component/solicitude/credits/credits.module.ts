@@ -22,6 +22,19 @@ import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComp
   ViewOccupationComponent,ViewEstateComponent,
    VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../../shared';
 import { ImageViewerModule } from 'ng2-image-viewer';
+import { NgxCurrencyModule } from "ngx-currency";
+
+export const customCurrencyMaskConfig = {
+    align: "right",
+    allowNegative: false,
+    allowZero: true,
+    decimal: ",",
+    precision: 0,
+    prefix: "G ",
+    suffix: "",
+    thousands: ".",
+    nullable: false
+};
 
 @NgModule({
   imports: [
@@ -31,6 +44,7 @@ import { ImageViewerModule } from 'ng2-image-viewer';
     AngularFileUploaderModule,
     ImageViewerModule,
     FlexLayoutModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     SharedModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({
