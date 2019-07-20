@@ -36,8 +36,15 @@ export class ReferenceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.referenceForm = this.parentF.form;
     this.referenceForm.addControl(this.formArrayName, this.formBuilder.array([]));
+
+    const formArray = (<FormArray>this.referenceForm.get(this.formArrayName));
+    while (formArray.length) {
+      formArray.removeAt(0);
+    }
+
     this.addButton();
     this.onChanges();
   }

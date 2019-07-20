@@ -1,6 +1,6 @@
 <div class="row  m-t-10">
   <div class="col-md-12">
-    <h4  class="m-0"><mat-icon class="gray-text">attachment</mat-icon>Documentos
+    <h4  class="m-0"><mat-icon class="gray-text">archive</mat-icon>Documentos
       <span class="hidden-file">
         <input type="file" #fileInput ng2FileSelect [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
       </span>
@@ -22,7 +22,7 @@
               <p>Documentos pertenecientes a la propuesta (Imagen/Pdf).</p>
             </div>
           </div>
-          <table  class="table" *ngIf="uploader?.queue?.length > 0">
+          <table  class="table product-overview" *ngIf="uploader?.queue?.length > 0">
             <!-- <thead>
               <tr>
                 <th></th>

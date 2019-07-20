@@ -56,6 +56,8 @@ export class EstateComponent implements OnInit {
       fechaHipoteca: '',
       saldo: '',
       cuotaMensual: '',
+      latitud: null,
+      longitud: null,
       tipoBien: 'INMUEBLE',
       activo: ['S']
     });
@@ -122,6 +124,13 @@ export class EstateComponent implements OnInit {
 
   getValue(data: any, form : FormControl): void {
     form.setValue(data);
+  }
+
+  // Get Current Location Coordinates
+  getAddress(location: any): void {
+    (<FormGroup>this.estateForm.get(this.formArrayName)).controls['latitud'].setValue(location.lat);
+    (<FormGroup>this.estateForm.get(this.formArrayName)).controls['longitud'].setValue(location.lng);
+    (<FormGroup>this.estateForm.get(this.formArrayName)).controls['direccion'].setValue(location.address);
   }
 
 }

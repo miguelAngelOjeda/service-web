@@ -10,60 +10,97 @@
         <div class="col-md-12">
           <app-people></app-people>
         </div>
-        <div class="col-md-12  m-t-20">
-          <h4  class="m-0"><mat-icon class="gray-text">perm_data_setting</mat-icon>Datos Sistema</h4>
-          <br>
-        </div>
-        <div class="col-md-3">
-          <mat-form-field  appearance="legacy">
-            <input matInput #input  formControlName="alias" placeholder="Alias"  name="alias" required>
-            <mat-error *ngIf="(myForm.get('alias').errors)">
-              <span *ngIf="myForm.get('alias').errors.required">
-               Campo requerido
-              </span>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-md-3">
-          <mat-form-field  appearance="legacy">
-            <input matInput #input [type]="hide ? 'password' : 'text'" formControlName="claveAcceso" placeholder="Contraseña" name="claveAcceso" required>
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            <mat-error *ngIf="(myForm.get('claveAcceso').errors)">
-              <span *ngIf="myForm.get('claveAcceso').errors.required">
-               Campo requerido
-              </span>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-md-3">
-          <mat-form-field appearance="legacy">
-             <input matInput #input type="number" min="0"  placeholder="Expiración Sesion" formControlName="expirationTimeTokens" name="expirationTimeTokens" required>
-             <mat-error *ngIf="(myForm.get('expirationTimeTokens').errors)">
-               <span *ngIf="myForm.get('expirationTimeTokens').errors.required">
-                Campo requerido
-               </span>
-             </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-md-3">
-             <app-select-filter (value)="getValue($event, 'rol')" [modelValue]="myForm.get('rol').value"
-              placeholder="Rol" urlFilter="roles" [columnsFilter]="['nombre']"></app-select-filter>
-        </div>
-        <div class="col-md-3">
-             <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="myForm.get('sucursal').value"
-              placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
-        </div>
-        <div class="col-md-4">
-          <mat-form-field appearance="legacy">
-             <mat-label>Departamento</mat-label>
-             <mat-select [compareWith]="compareObjects" formControlName="departamentos" name="departamentos" multiple required>
-               <mat-option *ngFor="let dep of departments" [value]="dep">{{dep.nombreArea}}</mat-option>
-             </mat-select>
-          </mat-form-field>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12  m-t-20">
+              <h4  class="m-0"><mat-icon class="gray-text">perm_data_setting</mat-icon>Datos Sistema</h4>
+              <br>
+            </div>
+            <div class="col-md-12">
+              <section class="example-section">
+                   <mat-checkbox  class="example-margin" formControlName="esFuncionario" name="esFuncionario">Es Funcionario</mat-checkbox>
+              </section>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field  appearance="legacy">
+                <input matInput #input  formControlName="alias" placeholder="Alias"  name="alias" required>
+                <mat-error *ngIf="(myForm.get('alias').errors)">
+                  <span *ngIf="myForm.get('alias').errors.required">
+                   Campo requerido
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field  appearance="legacy">
+                <input matInput #input [type]="hide ? 'password' : 'text'" formControlName="claveAcceso" placeholder="Contraseña" name="claveAcceso" required>
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="(myForm.get('claveAcceso').errors)">
+                  <span *ngIf="myForm.get('claveAcceso').errors.required">
+                   Campo requerido
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field appearance="legacy">
+                 <input matInput #input type="number" min="0"  placeholder="Expiración Sesion" formControlName="expirationTimeTokens" name="expirationTimeTokens" required>
+                 <mat-error *ngIf="(myForm.get('expirationTimeTokens').errors)">
+                   <span *ngIf="myForm.get('expirationTimeTokens').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                 <app-select-filter (value)="getValue($event, 'rol')" [modelValue]="myForm.get('rol').value"
+                  placeholder="Rol" urlFilter="roles" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-3">
+                 <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="myForm.get('sucursal').value"
+                  placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field appearance="legacy">
+                 <mat-label>Departamento</mat-label>
+                 <mat-select [compareWith]="compareObjects" formControlName="departamentos" name="departamentos" multiple required>
+                   <mat-option *ngFor="let dep of departments" [value]="dep">{{dep.nombreArea}}</mat-option>
+                 </mat-select>
+              </mat-form-field>
+            </div>
+
+            <ng-container *ngIf="myForm.get('esFuncionario').value">
+              <div class="col-md-12  m-t-20">
+                <h4  class="m-0"><mat-icon class="gray-text">perm_contact_calendar</mat-icon>Datos Funcionario</h4>
+                <br>
+              </div>
+              <div class="col-md-3">
+                   <app-select-filter (value)="getValue($event, 'rol')" [modelValue]="myForm.get('rol').value"
+                    placeholder="Tipo Funcionario" urlFilter="roles" [columnsFilter]="['nombre']"></app-select-filter>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field appearance="legacy">
+                   <input matInput #input type="text"  placeholder="Numero Legajo" formControlName="expirationTimeTokens" name="expirationTimeTokens" required>
+                   <mat-error *ngIf="(myForm.get('expirationTimeTokens').errors)">
+                     <span *ngIf="myForm.get('expirationTimeTokens').errors.required">
+                      Campo requerido
+                     </span>
+                   </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-12 m-t-20">
+                <app-reference [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-reference>
+              </div>
+              <div class="col-md-12 m-t-20">
+                <app-studies [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-studies>
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
-      <mat-card-actions>
-        <button mat-button [type]="submit"  mat-raised-button>Guardar</button>
+      <br>
+      <mat-card-actions >
+        <button mat-button [type]="submit"  class="m-t-20" mat-raised-button>Guardar</button>
       </mat-card-actions>
   </form>
 </mat-card-content>

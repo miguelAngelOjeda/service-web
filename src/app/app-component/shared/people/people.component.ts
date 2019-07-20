@@ -14,6 +14,7 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 export class PeopleComponent implements OnInit{
   isSeparacionBienes = true;
   isDisabled = false;
+  isRelationShip = false;
   peopleForm: FormGroup;
   form: FormGroup;
   @Output() documentValue = new EventEmitter<String>();
@@ -23,6 +24,10 @@ export class PeopleComponent implements OnInit{
     if(model){
 
     }
+  }
+  @Input()
+  set relationShip(model: any) {
+    this.isRelationShip = true;
   }
 
   constructor(

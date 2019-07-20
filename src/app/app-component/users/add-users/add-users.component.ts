@@ -54,6 +54,7 @@ export class AddUsersComponent implements OnInit {
         rol: [null, [Validators.required]],
         sucursal: [null, [Validators.required]],
         departamentos: [null, [Validators.required]],
+        esFuncionario: null ,
         activo: 'S'
       });
     }

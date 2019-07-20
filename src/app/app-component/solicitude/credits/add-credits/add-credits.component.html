@@ -14,15 +14,15 @@
                   <h4  class="m-0"><mat-icon class="gray-text">event_note</mat-icon>Solicitud</h4>
                 </div>
                 <div class="col-md-4">
-                  <app-select-filter appearance="outline" (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
+                  <app-select-filter appearance="legacy" (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
                    placeholder="Modalidad" urlFilter="modalidades" [columnsFilter]="['nombre']"></app-select-filter>
                 </div>
                 <div class="col-md-4">
-                  <app-select-filter appearance="outline" (value)="getValue($event, 'tipoCalculoImporte')" [modelValue]="myForm.get('tipoCalculoImporte').value"
+                  <app-select-filter appearance="legacy" (value)="getValue($event, 'tipoCalculoImporte')" [modelValue]="myForm.get('tipoCalculoImporte').value"
                    placeholder="Tipo Calculo" urlFilter="tipos-calculos" [columnsFilter]="['nombre']"></app-select-filter>
                 </div>
                 <div class="col-md-4">
-                  <mat-form-field appearance="outline">
+                  <mat-form-field appearance="legacy">
                     <mat-label>Monto</mat-label>
                     <input matInput #input type="text" placeholder="Monto" formControlName="montoSolicitado"  name="montoSolicitado"  currencyMask>
                     <mat-hint align="end">{{myForm.get('montoSolicitado').value | number}}</mat-hint>
@@ -34,11 +34,11 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <app-select-filter appearance="outline" (value)="getValue($event, 'tipoDestino')" [modelValue]="myForm.get('tipoDestino').value"
+                  <app-select-filter appearance="legacy" (value)="getValue($event, 'tipoDestino')" [modelValue]="myForm.get('tipoDestino').value"
                    placeholder="Destino" urlFilter="tipos-destinos" [columnsFilter]="['nombre']"></app-select-filter>
                 </div>
                 <div class="col-md-8">
-                  <mat-form-field  appearance="outline">
+                  <mat-form-field  appearance="legacy">
                     <mat-label>Aclaracion Destino</mat-label>
                     <input matInput #input  placeholder="Aclaracion Destino" formControlName="detalleDestino"  name="detalleDestino">
                     <mat-error *ngIf="(myForm.get('detalleDestino').errors)">
@@ -49,15 +49,15 @@
                   </mat-form-field>
                 </div>
                 <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                  <app-select-filter appearance="outline" (value)="getValue($event, 'tipoGarantia')" [modelValue]="myForm.get('tipoGarantia').value"
+                  <app-select-filter appearance="legacy" (value)="getValue($event, 'tipoGarantia')" [modelValue]="myForm.get('tipoGarantia').value"
                    placeholder="Tipo Garantia" urlFilter="tipos-garantias" [columnsFilter]="['nombre']"></app-select-filter>
                 </div>
                 <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                  <app-select-filter appearance="outline" (value)="getValue($event, 'tipoPago')" [modelValue]="myForm.get('tipoPago').value"
+                  <app-select-filter appearance="legacy" (value)="getValue($event, 'tipoPago')" [modelValue]="myForm.get('tipoPago').value"
                    placeholder="Forma Pago" urlFilter="tipos-pagos" [columnsFilter]="['nombre']"></app-select-filter>
                 </div>
                 <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                  <app-select-filter appearance="outline" (value)="getValue($event, 'tipoDesembolso')" [modelValue]="myForm.get('tipoDesembolso').value"
+                  <app-select-filter appearance="legacy" (value)="getValue($event, 'tipoDesembolso')" [modelValue]="myForm.get('tipoDesembolso').value"
                    placeholder="Forma Desembolso" urlFilter="tipos-desembolsos" [columnsFilter]="['nombre']"></app-select-filter>
                 </div>
                 <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
@@ -72,7 +72,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field  appearance="outline">
+                  <mat-form-field  appearance="legacy">
                      <mat-label>Periodo Capital</mat-label>
                      <mat-select formControlName="periodoCapital" name="periodoCapital" required>
                        <mat-option  value="1">1 - DIARIO</mat-option>
@@ -91,7 +91,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field  appearance="outline">
+                  <mat-form-field  appearance="legacy">
                     <mat-label>Plazo</mat-label>
                     <input matInput #input type="number" min="0" formControlName="plazo" placeholder="Plazo"  name="plazo" required>
                     <mat-error *ngIf="(myForm.get('plazo').errors)">
@@ -102,7 +102,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field  appearance="outline">
+                  <mat-form-field  appearance="legacy">
                     <mat-label>Cant. Amortiz.</mat-label>
                     <input matInput #input type="number" min="0" placeholder="Cant. Amortiz."  name="ruc">
                     <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
@@ -114,7 +114,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field  appearance="outline">
+                  <mat-form-field  appearance="legacy">
                      <mat-label>Vto. Interes</mat-label>
                      <mat-select formControlName="vencimientoInteres" name="vencimientoInteres" required>
                        <!-- <mat-option  value="1">DIARIO</mat-option>
@@ -131,7 +131,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field  appearance="outline">
+                  <mat-form-field  appearance="legacy">
                     <mat-label>Periodo Gracia</mat-label>
                     <input matInput #input type="number"  placeholder="Periodo Gracia" formControlName="periodoGracia"  name="periodoGracia" required>
                     <mat-error *ngIf="(myForm.get('periodoGracia').errors)">
@@ -142,7 +142,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field  appearance="outline">
+                  <mat-form-field  appearance="legacy">
                     <mat-label>Periodo Interés</mat-label>
                     <input matInput #input type="number"  placeholder="Periodo Interés" formControlName="periodoInteres"  name="periodoInteres" required>
                     <mat-hint align="end">{{myForm.get('periodoInteres').value + ' Dias'}}</mat-hint>
@@ -154,7 +154,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field  appearance="outline">
+                  <mat-form-field  appearance="legacy">
                     <mat-label>Tasa Interés Anual(%)</mat-label>
                     <input matInput #input type="number" min="0" placeholder="Tasa Interés Anual(%)" formControlName="tasaInteres" name="tasaInteres" required>
                     <mat-error *ngIf="(myForm.get('tasaInteres').errors)">
@@ -165,7 +165,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field    appearance="outline">
+                  <mat-form-field    appearance="legacy">
                     <mat-label>Gastos Administrativos(%)</mat-label>
                     <input matInput #input type="number" min="0" placeholder="Gastos Administrativos(%)" formControlName="gastosAdministrativos" name="gastosAdministrativos" required>
                     <mat-error *ngIf="(myForm.get('gastosAdministrativos').errors)">
@@ -176,7 +176,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">
-                  <mat-form-field    appearance="outline">
+                  <mat-form-field    appearance="legacy">
                     <mat-label>Observacion</mat-label>
                     <input matInput #input  placeholder="Observacion"  name="ruc">
                     <!-- <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
@@ -187,14 +187,14 @@
                     </mat-error> -->
                   </mat-form-field>
                 </div>
-                <div class="col-md-12 b-all">
+                <div class="col-md-12 b-t">
                   <!-- <div class="col-md-12 m-t-10"> -->
                     <div class="row">
                       <div class="col-md-12 p-20">
-                        <h4  class="m-0">Descuentos</h4>
+                        <h4 class="m-0"><mat-icon class="gray-text">assessment</mat-icon>Descuentos</h4>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="legacy">
                           <mat-label>Tipo Calculo</mat-label>
                           <mat-select formControlName="tipoDescuento" name="tipoDescuento" required>
                             <mat-option  value="I-D">IMPORTE DISPONER</mat-option>
@@ -203,7 +203,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="legacy">
                           <mat-label>Monto Entregar</mat-label>
                           <input matInput #input type="text" placeholder="Monto Entregar" formControlName="importeEntregar" name="importeEntregar" currencyMask>
                           <mat-hint align="end">Monto Entregar</mat-hint>
@@ -215,7 +215,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="legacy">
                           <mat-label>Cuota</mat-label>
                           <input matInput #input type="text" placeholder="Cuota" formControlName="importeCuota" name="importeCuota" currencyMask>
                           <mat-hint align="end">Cuota</mat-hint>
@@ -230,7 +230,7 @@
 
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field  appearance="outline">
+                        <mat-form-field  appearance="legacy">
                           <mat-label>Impuestos</mat-label>
                           <input matInput #input type="text" min="0" placeholder="Impuestos" formControlName="impuestos"  name="impuestos" currencyMask>
                           <mat-error *ngIf="(myForm.get('impuestos').errors)">
@@ -241,7 +241,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="legacy">
                           <mat-label>Comision</mat-label>
                           <input matInput #input type="text" min="0"  placeholder="Comision" formControlName="comision"  name="comision" currencyMask>
                           <mat-error *ngIf="(myForm.get('comision').errors)">
@@ -252,7 +252,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="legacy">
                           <mat-label>Gastos Varios</mat-label>
                           <input matInput #input type="text" min="0"  placeholder="Gastos Varios" formControlName="gastosVarios"  name="gastosVarios" currencyMask>
                           <mat-error *ngIf="(myForm.get('gastosVarios').errors)">
@@ -263,7 +263,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="legacy">
                           <mat-label>Seguros</mat-label>
                           <input matInput #input type="text"  placeholder="Seguros" formControlName="seguros"  name="seguros" currencyMask>
                           <mat-error *ngIf="(myForm.get('seguros').errors)">
@@ -275,11 +275,6 @@
                       </div>
                     </div>
                   <!-- </div> -->
-                </div>
-                <div class="col-md-12 m-t-10">
-                  <div class="row m-t-10">
-
-                  </div>
                 </div>
               </div>
               <!-- <div class="col-md-12 m-t-20"> -->

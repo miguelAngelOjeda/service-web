@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../core/material/material.module';
 import { environment } from '../../../environments/environment';
 import { ReferenceComponent, ViewReferenceComponent } from './reference';
+import { StudiesComponent, ViewStudiesComponent } from './studies';
 import { EstateComponent, ViewEstateComponent } from './estate';
 import { VehicleComponent, ViewVehicleComponent } from './vehicle';
 import { DeleteDialogComponent } from '../../shared/dialog';
@@ -30,6 +31,8 @@ import { PeopleRelationshipComponent } from './people-relationship';
     ReactiveFormsModule
   ],
   declarations: [
+    StudiesComponent,
+    ViewStudiesComponent,
     ViewReferenceComponent,
     ViewVehicleComponent,
     ViewIngressComponent,
@@ -49,6 +52,8 @@ import { PeopleRelationshipComponent } from './people-relationship';
   ],
   exports: [
     DeleteDialogComponent,
+    StudiesComponent,
+    ViewStudiesComponent,
     EstateComponent,
     VehicleComponent,
     ReferenceComponent,
