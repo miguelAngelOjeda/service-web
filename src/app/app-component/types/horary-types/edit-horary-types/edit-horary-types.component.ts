@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder,
+   Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentsTypes } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
@@ -18,6 +19,7 @@ export class EditHoraryTypesComponent implements OnInit {
   // Validators.email,
   ]);
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {
@@ -38,7 +40,7 @@ export class EditHoraryTypesComponent implements OnInit {
         '';
   }
 
-  submit() {
+  onSubmit() {
     this.apiService.put('/tipos-estudios/' + this.route.snapshot.params.id, this.model)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');

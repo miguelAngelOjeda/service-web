@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder,
+   Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CalculationTypes } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
@@ -11,37 +12,39 @@ import { ApiService } from '../../../../core/services';
 })
 export class EditCalculationTypesComponent implements OnInit {
 
-  public model: CalculationTypes;
+  myForm: FormGroup;
 
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService,
     private route: ActivatedRoute
-  ) {
-    this.model = new CalculationTypes();
-   }
+  ) {}
 
   ngOnInit() {
+    this.initFormBuilder();
     this.apiService.get('/tipos-calculos/' + this.route.snapshot.params.id)
     .subscribe(res => {
-       this.model = res.model as CalculationTypes;
+      if(res.status == 200){
+        this.myForm.patchValue(res.model);
+      }
     });
 
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
-  }
-
-  submit() {
-    this.apiService.put('/tipos-calculos/' + this.route.snapshot.params.id, this.model)
+  onSubmit() {
+    this.apiService.put('/tipos-calculos/' + this.route.snapshot.params.id, this.myForm.value)
     .subscribe(res => {
         //this.snackBarService.openSnackBar('res');
+    });
+  }
+
+  protected initFormBuilder() {
+    this.myForm = this.formBuilder.group({
+      id: null ,
+      nombre: [null, [Validators.required]],
+      descripcion: [null],
+      codigo: ' ',
+      activo: 'S'
     });
   }
 

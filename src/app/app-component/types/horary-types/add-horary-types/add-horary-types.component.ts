@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentsTypes } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder,
+   Validators, NgForm, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-add-horary-types',
@@ -18,6 +19,7 @@ export class AddHoraryTypesComponent implements OnInit {
   ]);
 
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService
   ) {
     this.model = new PaymentsTypes();
@@ -32,7 +34,7 @@ export class AddHoraryTypesComponent implements OnInit {
         '';
   }
 
-  submit() {
+  onSubmit() {
     this.apiService.post('/tipos-estudios', this.model)
     .subscribe(res => {
       if(res.status == 200){

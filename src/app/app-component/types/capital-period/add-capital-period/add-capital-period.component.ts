@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder,
+   Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ApiService } from '../../../../core/services';
 
 @Component({

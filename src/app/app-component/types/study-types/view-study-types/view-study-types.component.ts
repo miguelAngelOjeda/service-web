@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentsTypes } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder,
+   Validators, NgForm, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-view-study-types',
@@ -10,23 +11,33 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./view-study-types.component.scss']
 })
 export class ViewStudyTypesComponent implements OnInit {
-
-
-    public model: PaymentsTypes;
+    myForm: FormGroup;
 
     constructor(
+      private formBuilder: FormBuilder,
       private apiService: ApiService,
       private route: ActivatedRoute
-    ) {
-      this.model = new PaymentsTypes();
-     }
+    ) {}
 
     ngOnInit() {
+      this.initFormBuilder();
       this.apiService.get('/tipos-estudios/' + this.route.snapshot.params.id)
       .subscribe(res => {
-         this.model = res.model as PaymentsTypes;
+        if(res.status == 200){
+          this.myForm.patchValue(res.model);
+        }
       });
 
+    }
+
+    protected initFormBuilder() {
+      this.myForm = this.formBuilder.group({
+        id: null ,
+        nombre: [null, [Validators.required]],
+        descripcion: [null],
+        codigo: ' ',
+        activo: 'S'
+      });
     }
 
 

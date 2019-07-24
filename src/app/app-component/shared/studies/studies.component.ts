@@ -59,7 +59,10 @@ export class StudiesComponent implements OnInit {
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
-                res.rows.forEach(staff => formArray.push(this.formBuilder.group(staff)));
+                res.rows.forEach(staff => {
+                  staff.fechaInicio =  new Date(staff.fechaInicio);
+                  formArray.push(this.formBuilder.group(staff))
+                });
           }
         }
       });
@@ -74,9 +77,10 @@ export class StudiesComponent implements OnInit {
       titulo: [''],
       concluido: [false, Validators.required],
       numeroRegistro: [null],
-      nombreEntidad: [null],
+      nombre: [null],
       semestre: [null],
       tipoEstudio : ['', Validators.required],
+      entidad: ['', Validators.required],
       activo: ['S']
     });
   }

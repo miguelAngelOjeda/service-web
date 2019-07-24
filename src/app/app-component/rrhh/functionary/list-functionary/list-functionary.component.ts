@@ -42,7 +42,7 @@ export class ListFunctionaryComponent implements AfterViewInit {
               if(this.filterInput.nativeElement.value.length > 3){
                 this.isfilter = true;
               }
-              return this.apiService.getPageList('/usuarios',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
+              return this.apiService.getPageList('/funcionarios',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
               this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
             }),
             map(data => {

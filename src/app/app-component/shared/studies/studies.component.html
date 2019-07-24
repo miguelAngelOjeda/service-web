@@ -12,13 +12,13 @@
             <div class="col-md-3">
                 <app-select-filter (value)="getValue($event,estudios.controls['tipoEstudio'])"
                 [modelValue]="estudios.controls.tipoEstudio.value"
-                placeholder="Tipo Estudio" urlFilter="tipos-referencias" [columnsFilter]="['nombre']"></app-select-filter>
+                placeholder="Tipo Estudio" urlFilter="tipos-estudios" [columnsFilter]="['nombre']"></app-select-filter>
             </div>
             <div class="col-sm-3">
               <mat-form-field    appearance="legacy">
-                <input matInput #input  placeholder="Entidad"  formControlName="nombre"  name="nombre" required>
-                <mat-error *ngIf="(estudios.get('titulo').errors)">
-                  <span *ngIf="estudios.get('titulo').errors.required">
+                <input matInput #input  placeholder="Colegio/Facultad/Instituto"  formControlName="nombre"  name="nombre" required>
+                <mat-error *ngIf="(estudios.get('nombre').errors)">
+                  <span *ngIf="estudios.get('nombre').errors.required">
                    Campo requerido
                   </span>
                 </mat-error>
@@ -38,7 +38,7 @@
             </div>
             <div class="col-md-3">
               <mat-form-field  appearance="legacy">
-               <input matInput #input [matDatepicker]="pickerF" formControlName="fechaFin" name="fechaFin" placeholder="Fecha Fin" required>
+               <input matInput #input [matDatepicker]="pickerF" formControlName="fechaFin" name="fechaFin" placeholder="Fecha Fin">
                <mat-datepicker-toggle matSuffix [for]="pickerF"></mat-datepicker-toggle>
                <mat-datepicker #pickerF></mat-datepicker>
                <mat-error *ngIf="(estudios.get('fechaFin').errors)">
@@ -55,7 +55,7 @@
             </div>
              <div class="col-sm-3">
                <mat-form-field    appearance="legacy">
-                 <input matInput #input  placeholder="Titulo"  formControlName="titulo"  name="titulo" required>
+                 <input matInput #input  placeholder="Titulo"  formControlName="titulo"  name="titulo">
                  <mat-error *ngIf="(estudios.get('titulo').errors)">
                    <span *ngIf="estudios.get('titulo').errors.required">
                     Campo requerido
@@ -65,7 +65,7 @@
              </div>
              <div class="col-sm-3">
                <mat-form-field    appearance="legacy">
-                 <input matInput #input  placeholder="Nro. Registro"  formControlName="numeroRegistro" name="numeroRegistro" required>
+                 <input matInput #input  placeholder="Nro. Registro"  formControlName="numeroRegistro" name="numeroRegistro">
                  <mat-error *ngIf="(estudios.get('numeroRegistro').errors)">
                    <span *ngIf="estudios.get('numeroRegistro').errors.required">
                     Campo requerido

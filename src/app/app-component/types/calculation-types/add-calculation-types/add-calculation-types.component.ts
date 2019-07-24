@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CalculationTypes } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder,
+   Validators, NgForm, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-add-calculation-types',
@@ -11,33 +12,33 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AddCalculationTypesComponent implements OnInit {
 
-  public model: CalculationTypes;
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
+  myForm: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService
-  ) {
-    this.model = new CalculationTypes();
-   }
+  ) {}
 
   ngOnInit() {
+    this.initFormBuilder();
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
-  }
-
-  submit() {
-    this.apiService.post('/tipos-calculos', this.model)
+  onSubmit() {
+    this.apiService.post('/tipos-calculos', this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.model = res.model as CalculationTypes;
+
       }
+    });
+  }
+
+  protected initFormBuilder() {
+    this.myForm = this.formBuilder.group({
+      id: null ,
+      nombre: [null, [Validators.required]],
+      descripcion: [null],
+      codigo: ' ',
+      activo: 'S'
     });
   }
 

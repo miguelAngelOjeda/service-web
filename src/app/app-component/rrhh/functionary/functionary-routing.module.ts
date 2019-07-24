@@ -10,19 +10,19 @@ const routes: Routes = [
     children: [
     { path: '', component: ListFunctionaryComponent,
       canActivate: [UserService],
-      data: {roles: ['users', 'listFunctionary']}
+      data: {roles: ['functionary', 'listFunctionary']}
     },
     { path: 'new', component: AddFunctionaryComponent,
       canActivate: [UserService],
-      data: {roles: ['users', 'addFunctionary']}
+      data: {roles: ['functionary', 'addFunctionary']}
     },
     { path: ':id', component: ViewFunctionaryComponent,
       canActivate: [UserService],
-      data: {roles: ['users', 'viewFunctionary']}
+      data: {roles: ['functionary', 'viewFunctionary']}
     },
     { path: ':id/edit', component: EditFunctionaryComponent,
       data: {
-        allowedRoles: ['users', 'editFunctionary']
+        allowedRoles: ['functionary', 'editFunctionary']
       }
     }
               ]

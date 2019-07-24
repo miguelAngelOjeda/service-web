@@ -22,8 +22,8 @@ const appRoutes: Routes = [
         loadChildren: './app-component/subsidiary/subsidiary.module#SubsidiaryModule'
         },
         {
-        path: 'service-web/users',
-        loadChildren: './app-component/users/users.module#UsersModule'
+        path: 'service-web/functionary',
+        loadChildren: './app-component/rrhh/functionary/functionary.module#FunctionaryModule'
         },
         {
         path: 'service-web/client',
@@ -58,6 +58,14 @@ const appRoutes: Routes = [
         loadChildren: './app-component/types/outlays-types/outlays-types.module#OutlaysTypesModule'
         },
         {
+        path: 'service-web/study-types',
+        loadChildren: './app-component/types/study-types/study-types.module#StudyTypesModule'
+        },
+        {
+        path: 'service-web/functionary-types',
+        loadChildren: './app-component/types/functionary-types/functionary-types.module#FunctionaryTypesModule'
+        },
+        {
         path: 'service-web/egress-types',
         loadChildren: './app-component/types/egress-types/egress-types.module#EgressTypesModule'
         },
@@ -80,6 +88,10 @@ const appRoutes: Routes = [
         {
         path: 'service-web/guarantee-types',
         loadChildren: './app-component/types/guarantee-types/guarantee-types.module#GuaranteeTypesModule'
+        },
+        {
+        path: 'service-web/position-types',
+        loadChildren: './app-component/types/position-types/position-types.module#PositionTypesModule'
         },
         {
         path: 'service-web/capital-period',

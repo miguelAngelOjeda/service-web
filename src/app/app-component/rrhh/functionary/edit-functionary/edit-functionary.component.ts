@@ -3,8 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatDialogConfig } from '@angu
 import { FormControl, Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { UserService, ApiService} from '../../../../core/services';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Users, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
-   Subsidiary, Departments, Nationalities, Message } from '../../../../core/models';
+import { Users, Departments, Message } from '../../../../core/models';
 import { DeleteDialogComponent } from '../../../../shared';
 
 @Component({
@@ -32,17 +31,18 @@ export class EditFunctionaryComponent implements OnInit {
         this.filterDepartments();
       }
     );
-    this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
+    this.apiService.get('/funcionarios/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
         res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
+        res.model.fechaIngreso =  new Date(res.model.fechaIngreso);
         (<FormGroup>this.myForm).patchValue(res.model);
       }
     });
   }
 
   submit() {
-    this.apiService.put('/usuarios/' + this.route.snapshot.params.id, this.myForm.value)
+    this.apiService.put('/funcionarios/' + this.route.snapshot.params.id, this.myForm.value)
     .subscribe(res => {
 
     });
@@ -52,14 +52,18 @@ export class EditFunctionaryComponent implements OnInit {
 
   protected initFormBuilder() {
     this.myForm = this.formBuilder.group({
-      id: null ,
-      alias: [null, [Validators.required]],
-      expirationTimeTokens: [5, [Validators.required]],
-      claveAcceso: [null, [Validators.required]],
-      rol: [null, [Validators.required]],
-      departamentos: [null, [Validators.required]],
-      sucursal: ['', [Validators.required]],
-      activo: 'S'
+        id: null,
+        alias: [null, [Validators.required]],
+        nroLegajo: [null, [Validators.required]],
+        fechaIngreso: [null, [Validators.required]],
+        cargo: [null, [Validators.required]],
+        expirationTimeTokens: [5, [Validators.required]],
+        claveAcceso: [null, [Validators.required]],
+        rol: [null, [Validators.required]],
+        sucursal: [null, [Validators.required]],
+        departamentos: [null, [Validators.required]],
+        tipoFuncionario: [null, [Validators.required]],
+        activo: 'S'
     });
   }
 
@@ -72,7 +76,7 @@ export class EditFunctionaryComponent implements OnInit {
       this.apiService.getPageList('/sucursales/' + this.myForm.get('sucursal').value.id +'/departamentos',false,null,null, 'desc', 'id',
       0,10)
       .subscribe(res => {
-        if(res.status == 200){
+        if(res.status === 200) {
           this.departments = res.rows as Departments[];
         }
       });

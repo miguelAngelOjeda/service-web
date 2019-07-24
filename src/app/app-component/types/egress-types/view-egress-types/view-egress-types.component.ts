@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EgressTypes } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormArray , FormControl, FormBuilder,
+   Validators, NgForm, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-view-egress-types',
@@ -10,33 +11,34 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./view-egress-types.component.scss']
 })
 export class ViewEgressTypesComponent implements OnInit {
+    myForm: FormGroup;
 
-
-    public model: EgressTypes;
-
-    formControl = new FormControl('', [
-      Validators.required
-    // Validators.email,
-    ]);
     constructor(
+      private formBuilder: FormBuilder,
       private apiService: ApiService,
       private route: ActivatedRoute
-    ) {
-      this.model = new EgressTypes();
-     }
+    ) {}
 
     ngOnInit() {
+      this.initFormBuilder();
       this.apiService.get('/tipos-egresos/' + this.route.snapshot.params.id)
       .subscribe(res => {
-         this.model = res.model as EgressTypes;
+        if(res.status == 200){
+          this.myForm.patchValue(res.model);
+        }
       });
 
     }
 
-    getErrorMessage() {
-      return this.formControl.hasError('required') ? 'Campo requerido' :
-        this.formControl.hasError('email') ? 'Not a valid email' :
-          '';
+    protected initFormBuilder() {
+      this.myForm = this.formBuilder.group({
+        id: null ,
+        nombre: [null, [Validators.required]],
+        descripcion: [null],
+        codigo: ' ',
+        activo: 'S'
+      });
     }
+
 
 }

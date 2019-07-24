@@ -22,11 +22,9 @@ const MENUITEMS = [
     entity:'rrhh',
     role:'viewRRHH',
     subMenu:[
-      {state: 'functionary', name: 'Funcionarios', icon: 'chevron_right', entity:'functionary', role:'listFunctionary'},
-      {state: 'horary-types', name: 'Cargos', icon: 'chevron_right', entity:'horary-types', role:'listHoraryTypes'},
-      {state: 'functionary-types', name: 'Tipos Funcionarios', icon: 'chevron_right', entity:'functionary-types', role:'listFunctionaryTypes'},
-      {state: 'horary-types', name: 'Tipos Horarios', icon: 'chevron_right', entity:'horary-types', role:'listHoraryTypes'},
-      {state: 'horary-types', name: 'Motivos de Retiros', icon: 'chevron_right', entity:'horary-types', role:'listHoraryTypes'},
+      {state: 'functionary', name: 'Funcionarios', icon: '', entity:'functionary', role:'listFunctionary'},
+      {state: 'horary-types', name: 'Tipos Horarios', icon: '', entity:'horary-types', role:'listHoraryTypes'},
+      {state: 'horary-types', name: 'Motivos de Retiros', icon: '', entity:'horary-types', role:'listHoraryTypes'},
     ]
   },
   {
@@ -50,17 +48,20 @@ const MENUITEMS = [
     entity:'service-types',
     role:'viewTypes',
     subMenu:[
-      {state: 'modality', name: 'Modalidades', icon: 'list', entity:'modality', role:'listModality'},
-      {state: 'guarantee-types', name: 'Tipos Garantias', icon: 'list', entity:'guarantee-types', role:'listGuaranteeTypes'},
-      {state: 'capital-period', name: 'Periodos Capitales', icon: 'list', entity:'capital-period', role:'listCapitalPeriod'},
-      {state: 'payments-types', name: 'Tipos Pagos', icon: 'list', entity:'payments-types', role:'listPaymentsTypes'},
-      {state: 'reference-types', name: 'Tipos Referencias', icon: 'list', entity:'reference-types',  role:'listReferenceTypes'},
-      {state: 'calculation-types', name: 'Tipos Calculos', icon: 'list', entity:'calculation-types', role:'listCalculationTypes'},
-      {state: 'destinations-types', name: 'Tipos Destinos', icon: 'list', entity:'destinations-types',role:'listDestinationsTypes'},
-      {state: 'outlays-types', name: 'Tipos Desembolsos', icon: 'list', entity:'outlays-types', role:'listOutlaysTypes'},
-      {state: 'ingress-types', name: 'Tipos Ingresos', icon: 'list', entity:'ingress-types', role:'listIngressTypes'},
-      {state: 'egress-types', name: 'Tipos Egresos', icon: 'list', entity:'egress-types', role:'listEgressTypes'},
-      {state: 'relations-types', name: 'Tipos Vinculos', icon: 'list', entity:'relations-types', role:'listRelationsTypes'}
+      {state: 'modality', name: 'Modalidades', icon: '', entity:'modality', role:'listModality'},
+      {state: 'guarantee-types', name: 'Tipos Garantias', icon: '', entity:'guarantee-types', role:'listGuaranteeTypes'},
+      {state: 'capital-period', name: 'Periodos Capitales', icon: '', entity:'capital-period', role:'listCapitalPeriod'},
+      {state: 'payments-types', name: 'Tipos Pagos', icon: '', entity:'payments-types', role:'listPaymentsTypes'},
+      {state: 'reference-types', name: 'Tipos Referencias', icon: '', entity:'reference-types',  role:'listReferenceTypes'},
+      {state: 'calculation-types', name: 'Tipos Calculos', icon: '', entity:'calculation-types', role:'listCalculationTypes'},
+      {state: 'destinations-types', name: 'Tipos Destinos', icon: '', entity:'destinations-types',role:'listDestinationsTypes'},
+      {state: 'outlays-types', name: 'Tipos Desembolsos', icon: '', entity:'outlays-types', role:'listOutlaysTypes'},
+      {state: 'ingress-types', name: 'Tipos Ingresos', icon: '', entity:'ingress-types', role:'listIngressTypes'},
+      {state: 'egress-types', name: 'Tipos Egresos', icon: '', entity:'egress-types', role:'listEgressTypes'},
+      {state: 'relations-types', name: 'Tipos Vinculos', icon: '', entity:'relations-types', role:'listRelationsTypes'},
+      {state: 'position-types', name: 'Tipos Cargos', icon: '', entity:'position-types', role:'listPositionTypes'},
+      {state: 'functionary-types', name: 'Tipos Funcionarios', icon: '', entity:'functionary-types', role:'listFunctionaryTypes'},
+      {state: 'study-types', name: 'Tipos Estudios', icon: '', entity:'study-types', role:'listStudyTypes'}
     ]
   },
   {

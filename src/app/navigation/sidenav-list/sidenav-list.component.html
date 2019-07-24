@@ -41,9 +41,9 @@
           </a>
         </ng-container>
         <mat-nav-list class="sub-item mat-nav-list mat-list-base ng-star-inserted"  role="navigation" *ngIf="menuitem.type === 'box'">
-          <mat-list-item class="mat-list-item ng-star-inserted" *ngFor="let sub of menuitem.subMenu">
+          <mat-list-item class="mat-list-item ng-star-inserted"   *ngFor="let sub of menuitem.subMenu">
             <ng-container *appCanAccess="[sub.entity, sub.role]">
-              <a  class="relative ng-star-inserted" [routerLink]="['/service-web/', sub.state]">
+              <a  class="relative ng-star-inserted" routerLinkActive="selected" [routerLink]="['/service-web/', sub.state]">
                 <mat-icon>{{ sub.icon }}</mat-icon>
                 <span>{{ sub.name }}</span>
               </a>

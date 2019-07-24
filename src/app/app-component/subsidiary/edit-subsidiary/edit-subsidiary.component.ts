@@ -67,7 +67,7 @@ export class EditSubsidiaryComponent implements OnInit {
       longitud: [null],
       empresa: [null],
       nombre: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      direccion: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      direccion: [null, [Validators.required, Validators.minLength(2)]],
       telefono: [null, [Validators.required]],
       email: [null, [Validators.required]],
       pais: [null, [Validators.required]],

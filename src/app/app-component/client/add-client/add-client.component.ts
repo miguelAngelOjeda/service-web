@@ -2,8 +2,6 @@ import { Component, OnInit, Inject, ViewChild, NgZone, ElementRef  } from '@angu
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../core/services';
-import { People, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
-   Subsidiary, Departments, Nationalities, Location } from '../../../core/models';
 import {ErrorStateMatcher} from '@angular/material/core';
 
 
@@ -37,7 +35,10 @@ export class AddClientComponent implements OnInit {
 
       this.apiService.post('/clientes', this.myForm.value)
       .subscribe(res => {
-
+        if(res.status == 200){
+          res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
+          this.myForm.patchValue(res.model);
+        }
       });
     }
 
@@ -49,7 +50,7 @@ export class AddClientComponent implements OnInit {
     }
 
     // Get Current Location Coordinates
-    getAddress(location: Location): void {
+    getAddress(location: any): void {
       this.myForm.controls['latitud'].setValue(location.lat);
       this.myForm.controls['longitud'].setValue(location.lng);
       this.myForm.controls['direccionParticular'].setValue(location.address);

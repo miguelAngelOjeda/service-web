@@ -12,8 +12,8 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort }
 })
 export class ListStudyTypesComponent implements AfterViewInit {
   public isMobile: Boolean;
-  public rulesColumns  = ['codigo','nombre'];
-  public displayedColumns = ['codigo','nombre','opciones'];
+  public rulesColumns  = ['nombre'];
+  public displayedColumns = ['nombre','opciones'];
   public dataSource = new MatTableDataSource<PaymentsTypes>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

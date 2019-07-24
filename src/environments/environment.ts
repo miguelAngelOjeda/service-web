@@ -13,7 +13,7 @@ export const environment = {
 export const authorities = {
   "role": {
     "enterprise": {
-      "addEnterprise": {
+      'addEnterprise': {
     	   "permittedRoles": ["ROLE_ENTERPRISE.ADD"]
     	 },
     	"editEnterprise": {
@@ -144,8 +144,8 @@ export const authorities = {
     },
     "service-types": {
     	"viewTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_RELATIONS_TYPES.LIST",
-        "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_RELATIONS_TYPES.LIST","ROLE_FUNCTIONARY_TYPES.LIST",
+        "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST","ROLE_STUDY_TYPES.LIST"]
     	}
     },
     "rrhh": {
@@ -357,6 +357,40 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.DELETE"]
     	}
     },
+    "position-types": {
+      "addPositionTypes": {
+    	   "permittedRoles": ["ROLE_POSITION_TYPES.ADD"]
+    	 },
+    	"editPositionTypes": {
+    	  "permittedRoles": ["ROLE_POSITION_TYPES.EDIT"]
+    	},
+    	"viewPositionTypes": {
+    	  "permittedRoles": ["ROLE_POSITION_TYPES.VIEW"]
+    	},
+    	"listPositionTypes": {
+    	  "permittedRoles": ["ROLE_POSITION_TYPES.LIST"]
+    	},
+      "deletePositionTypes": {
+    	  "permittedRoles": ["ROLE_POSITION_TYPES.DELETE"]
+    	}
+    },
+    "study-types": {
+      "addStudyTypes": {
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
+    	 },
+    	"editStudyTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
+    	},
+    	"viewStudyTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
+    	},
+    	"listStudyTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	},
+      "deleteStudyTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
+    	}
+    },    
     "modality": {
       "addModality": {
     	   "permittedRoles": ["ROLE_MODALITY.ADD"]

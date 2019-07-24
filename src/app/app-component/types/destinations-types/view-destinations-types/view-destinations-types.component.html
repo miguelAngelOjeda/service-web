@@ -1,24 +1,36 @@
-<mat-card class="form-card">
-<mat-card-header>
 
-  <mat-card-title>
-    <a class="nav-link" mat-mini-fab color="primary" routerLink="/service-web/destinations-types">
-      <mat-icon>reply</mat-icon>
-    </a>
-    Visiualizar Tipo Destino
-  </mat-card-title>
-  <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
-</mat-card-header>
-<mat-card-content>
-  <form  #formControl="ngForm">
-    <div class="form-container">
-      <mat-form-field   class="col-sm-12" appearance="legacy">
-    		<input matInput #input  placeholder="Codigo" [(ngModel)]="model.codigo" name="codigo" required disabled>
-    	</mat-form-field>
-    	<mat-form-field   class="col-sm-12" appearance="legacy">
-    		<input matInput #input  placeholder="Tipo Referencia" [(ngModel)]="model.nombre" name="nombre" required disabled>
-    	</mat-form-field>
-    </div>
-  </form>
-</mat-card-content>
+
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/destinations-types"> TIPOS DESTINOS </a> &gt; <span class="current">Visualizar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+  <a mat-raised-button class="m-l-10" routerLink="/service-web/destinations-types/{{myForm.get('id').value}}/edit">
+    <i _ngcontent-ugv-c42="" class="fa fa-pencil-square-o"></i>
+     Editar
+  </a>
+  <a mat-raised-button class="m-l-10" (click)="delete(myForm.value)" *appCanAccess="['destinations-types', 'deleteDestinationsTypes']">
+    <i  class="fa fa-times" aria-hidden="true"></i>
+     Borrar
+  </a>
+</div>
+<mat-card class="form-card">
+  <mat-card-content>
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+           <h4  class="m-0"><mat-icon class="gray-text">description</mat-icon>Tipo Destino</h4>
+           <br>
+        </div>
+        <div class="col-md-12">
+          <mat-list>
+            <mat-list-item>
+              <p><span class="font-bold">Codigo: </span> {{myForm.get('codigo').value}}</p>
+            </mat-list-item>
+            <mat-list-item>
+              <p><span class="font-bold">Nombre: </span> {{myForm.get('nombre').value}}</p>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
 </mat-card>
