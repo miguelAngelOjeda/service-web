@@ -33,7 +33,7 @@ export class VehicleComponent implements OnInit {
     this.vehicleForm = this.parentF.form;
     this.vehicleForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
-    this.onChangesPeople();
+    //this.onChangesPeople();
   }
 
   //bienes Vehiculo

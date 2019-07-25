@@ -5,6 +5,7 @@ import { UserService, ApiService} from '../../../../core/services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Users, Departments, Message } from '../../../../core/models';
 import { DeleteDialogComponent } from '../../../../shared';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-functionary',
@@ -13,6 +14,7 @@ import { DeleteDialogComponent } from '../../../../shared';
 })
 export class EditFunctionaryComponent implements OnInit {
   myForm: FormGroup;
+  params = new HttpParams({fromObject : {'included' : 'referencias'}});
   hide = true;
   public departments: Array<Departments> = [];
 
@@ -31,12 +33,10 @@ export class EditFunctionaryComponent implements OnInit {
         this.filterDepartments();
       }
     );
-    this.apiService.get('/funcionarios/' + this.route.snapshot.params.id)
+    this.apiService.get('/funcionarios/' + this.route.snapshot.params.id, this.params)
     .subscribe(res => {
       if(res.status == 200){
-        res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
-        res.model.fechaIngreso =  new Date(res.model.fechaIngreso);
-        (<FormGroup>this.myForm).patchValue(res.model);
+        this.loadData(res.model);
       }
     });
   }
@@ -44,7 +44,9 @@ export class EditFunctionaryComponent implements OnInit {
   submit() {
     this.apiService.put('/funcionarios/' + this.route.snapshot.params.id, this.myForm.value)
     .subscribe(res => {
-
+      if(res.status == 200){
+        this.loadData(res.model);
+      }
     });
   }
 
@@ -65,6 +67,12 @@ export class EditFunctionaryComponent implements OnInit {
         tipoFuncionario: [null, [Validators.required]],
         activo: 'S'
     });
+  }
+
+  protected loadData(response: any) {
+    response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
+    response.fechaIngreso =  new Date(response.fechaIngreso);
+    (<FormGroup>this.myForm).patchValue(response);
   }
 
   getValue(data: any, form : any): void {

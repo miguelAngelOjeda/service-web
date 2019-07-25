@@ -6,6 +6,7 @@ import { PasswordProfileComponent } from '../../../profile/password-profile';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { environment } from '../../../../../environments/environment';
 import { DeleteDialogComponent } from '../../../../shared';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-view-functionary',
@@ -14,6 +15,7 @@ import { DeleteDialogComponent } from '../../../../shared';
 })
 export class ViewFunctionaryComponent implements OnInit {
   public model = new Users;
+  params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones'}});
   urlImage = environment.api_url;
 
   constructor(
@@ -24,7 +26,7 @@ export class ViewFunctionaryComponent implements OnInit {
   ) {}
 
    ngOnInit() {
-     this.apiService.get('/funcionarios/' + this.route.snapshot.params.id)
+     this.apiService.get('/funcionarios/' + this.route.snapshot.params.id, this.params)
      .subscribe(res => {
        if(res.status == 200){
          this.model = res.model;

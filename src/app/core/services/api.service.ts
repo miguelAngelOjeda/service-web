@@ -53,6 +53,7 @@ export class ApiService {
           'filters' : JSON.stringify(this.filter)
         }
       });
+      
     return this.http.get(`${environment.api_url}${path}`, { params })
       .pipe(catchError(this.formatErrors));
   }

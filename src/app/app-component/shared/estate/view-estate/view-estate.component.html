@@ -16,96 +16,76 @@
       <blockquote>
         <div [formGroupName]="i">
           <div class="row">
-             <div class="col-sm-4">
-               <div>
-                 <div class="font-medium">Direccion </div>
-                 <span class="font-16">{{bienesInmuebles.get('direccion').value }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div>
-                 <div class="font-medium">Pais </div>
-                 <span class="font-16">{{bienesInmuebles.controls.pais.value.nombre }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div>
-                 <div class="font-medium">Departamento </div>
-                 <span class="font-16">{{bienesInmuebles.controls.departamento.value.nombre }}</span>
-               </div>
-             </div>
-             <div class="col-md-2">
-               <div>
-                 <div class="font-medium">Ciudad </div>
-                 <span class="font-16">{{bienesInmuebles.controls.ciudad.value.nombre }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Edificado </div>
-                 <span class="font-16">{{(bienesInmuebles.get('edificado').value == true ? 'S' : 'N')}}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Escriturado </div>
-                 <span class="font-16">{{(bienesInmuebles.get('escriturado').value == true ? 'S' : 'N')}}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Nº de Finca </div>
-                 <span class="font-16">{{bienesInmuebles.get('numeroFinca').value }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Nº de Matricula </div>
-                 <span class="font-16">{{bienesInmuebles.get('numeroMatricula').value }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Cuenta Catastral </div>
-                 <span class="font-16">{{bienesInmuebles.get('cuentaCatastral').value }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Hipotecado </div>
-                 <span class="font-16">{{(bienesInmuebles.get('hipotecado').value == true ? 'S' : 'N')}}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Lugar Hipoteca </div>
-                 <span class="font-16">{{bienesInmuebles.get('lugarHipoteca').value }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Fecha Hipoteca </div>
-                 <span class="font-16">{{bienesInmuebles.get('fechaHipoteca').value | date: 'dd/MM/yyyy' }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Valor Actual </div>
-                 <span class="font-16">{{bienesInmuebles.get('valorActual').value | number }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Saldo a Pagar </div>
-                 <span class="font-16">{{bienesInmuebles.get('saldo').value | number }}</span>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="p-t-10">
-                 <div class="font-medium">Cuota Mensual </div>
-                 <span class="font-16">{{bienesInmuebles.get('cuotaMensual').value | number }}</span>
-               </div>
-             </div>
+            <div class="col-sm-12">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Direccion: </span> {{bienesInmuebles.get('direccion').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Pais: </span> {{bienesInmuebles.controls.pais.value.nombre}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Departamento: </span> {{bienesInmuebles.controls.departamento.value.nombre}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Ciudad: </span> {{bienesInmuebles.controls.ciudad.value.nombre}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Edificado: </span> {{(bienesInmuebles.get('edificado').value == true ? 'S' : 'N')}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Escriturado: </span> {{(bienesInmuebles.get('escriturado').value == true ? 'S' : 'N')}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Nº de Finca: </span> {{bienesInmuebles.get('numeroFinca').value}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Nº de Matricula: </span> {{bienesInmuebles.get('numeroMatricula').value}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Cuenta Catastral: </span> {{bienesInmuebles.get('cuentaCatastral').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Hipotecado: </span> {{(bienesInmuebles.get('hipotecado').value == true ? 'S' : 'N')}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Lugar Hipoteca: </span> {{bienesInmuebles.get('lugarHipoteca').value}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Fecha Hipoteca: </span> {{bienesInmuebles.get('fechaHipoteca').value | date: 'dd/MM/yyyy'}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Valor Actual: </span> {{bienesInmuebles.get('valorActual').value | number }}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Saldo a Pagar: </span> {{bienesInmuebles.get('saldo').value | number }}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Cuota Mensual: </span> {{bienesInmuebles.get('cuotaMensual').value | number }}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+
           </div>
         </div>
       </blockquote>

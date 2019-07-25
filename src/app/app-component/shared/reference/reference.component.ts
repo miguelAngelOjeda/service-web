@@ -36,7 +36,7 @@ export class ReferenceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     this.referenceForm = this.parentF.form;
     this.referenceForm.addControl(this.formArrayName, this.formBuilder.array([]));
 
@@ -46,7 +46,7 @@ export class ReferenceComponent implements OnInit {
     }
 
     this.addButton();
-    this.onChanges();
+    //this.onChanges();
   }
 
   onChangesFkModel(id:any){

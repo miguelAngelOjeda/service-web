@@ -18,71 +18,58 @@
         <div [formGroupName]="i" *ngFor="let ocupaciones of occupationForm.get(formArrayName)['controls']; let i = index">
           <blockquote>
             <div class="row">
-               <div class="col-sm-3">
-                 <div>
-                   <div class="font-medium">Empresa </div>
-                   <span class="font-16">{{ocupaciones.get('empresa').value }}</span>
-                 </div>
+               <div class="col-sm-4">
+                 <mat-list>
+                   <mat-list-item>
+                     <p><span class="font-bold">Empresa: </span> {{ocupaciones.get('empresa').value}}</p>
+                   </mat-list-item>
+                   <mat-list-item>
+                     <p><span class="font-bold">Cargo: </span> {{ocupaciones.get('cargo').value}}</p>
+                   </mat-list-item>
+                   <mat-list-item>
+                     <p><span class="font-bold">Ocupacion: </span> {{ocupaciones.controls.tipoOcupacion.value.nombre}}</p>
+                   </mat-list-item>
+                 </mat-list>
                </div>
-               <div class="col-sm-3">
-                 <div>
-                   <div class="font-medium">Cargo </div>
-                   <span class="font-16">{{ocupaciones.get('cargo').value }}</span>
-                 </div>
+               <div class="col-sm-4">
+                 <mat-list>
+                   <mat-list-item>
+                     <p><span class="font-bold">Tipo Trabajo: </span> {{ocupaciones.get('tipoTrabajo').value}}</p>
+                   </mat-list-item>
+                   <mat-list-item>
+                     <p><span class="font-bold">Ingreso Mensual: </span> {{ocupaciones.get('ingresosMensuales').value | number}}</p>
+                   </mat-list-item>
+                   <mat-list-item>
+                     <p><span class="font-bold">Fecha Ingreso: </span> {{ocupaciones.get('fechaIngreso').value | date: 'dd/MM/yyyy'}}</p>
+                   </mat-list-item>
+                 </mat-list>
                </div>
-               <div class="col-md-3">
-                 <div>
-                   <div class="font-medium">Ocupacion </div>
-                   <span class="font-16">{{ocupaciones.controls.tipoOcupacion.value.nombre }}</span>
-                 </div>
+               <div class="col-sm-4">
+                 <mat-list>
+                   <mat-list-item>
+                     <p><span class="font-bold">Fecha Salida: </span> {{ocupaciones.get('fechaSalida').value | date: 'dd/MM/yyyy'}}</p>
+                   </mat-list-item>
+                   <mat-list-item>
+                     <p><span class="font-bold">Telefono: </span> {{ocupaciones.get('telefonoPrincipal').value}}</p>
+                   </mat-list-item>
+                   <mat-list-item>
+                     <p><span class="font-bold">Telefono Secundario: </span> {{ocupaciones.get('telefonoSecundario').value | date: 'dd/MM/yyyy'}}</p>
+                   </mat-list-item>
+                 </mat-list>
                </div>
-               <div class="col-md-3">
-                 <div>
-                   <div class="font-medium">Tipo Trabajo </div>
-                   <span class="font-16">{{ocupaciones.get('tipoTrabajo').value }}</span>
-                 </div>
+               <div class="col-sm-4">
+                 <mat-list>
+                   <mat-list-item>
+                     <p><span class="font-bold">Interno: </span> {{ocupaciones.get('interno').value}}</p>
+                   </mat-list-item>
+                 </mat-list>
                </div>
-               <div class="col-sm-3">
-                 <div class=" p-t-10">
-                   <div class="font-medium">Ingreso Mensual </div>
-                   <span class="font-16">{{ocupaciones.get('ingresosMensuales').value | number}}</span>
-                 </div>
-               </div>
-               <div class="col-md-3">
-                 <div class=" p-t-10">
-                   <div class="font-medium">Fecha Ingreso </div>
-                   <span class="font-16">{{ocupaciones.get('fechaIngreso').value | date: 'dd/MM/yyyy'}}</span>
-                 </div>
-               </div>
-               <div class="col-md-3">
-                 <div class="p-t-10">
-                   <div class="font-medium">Fecha Salida </div>
-                   <span class="font-16">{{ocupaciones.get('fechaSalida').value | date: 'dd/MM/yyyy'}}</span>
-                 </div>
-               </div>
-               <div class="col-md-3">
-                 <div class="p-t-10">
-                   <div class="font-medium">Telefono </div>
-                   <span class="font-16">{{ocupaciones.get('telefonoPrincipal').value}}</span>
-                 </div>
-               </div>
-               <div class="col-md-3">
-                 <div class="p-t-10">
-                   <div class="font-medium">Telefono Secundario </div>
-                   <span class="font-16">{{ocupaciones.get('telefonoSecundario').value}}</span>
-                 </div>
-               </div>
-               <div class="col-md-3">
-                 <div class="p-t-10">
-                   <div class="font-medium">Interno </div>
-                   <span class="font-16">{{ocupaciones.get('interno').value}}</span>
-                 </div>
-               </div>
-               <div class="col-md-6">
-                 <div class="p-t-10">
-                   <div class="font-medium">Direccion </div>
-                   <span class="font-16">{{ocupaciones.get('direccion').value}}</span>
-                 </div>
+               <div class="col-sm-8">
+                 <mat-list>
+                   <mat-list-item>
+                     <p><span class="font-bold">Direccion: </span> {{ocupaciones.get('direccion').value}}</p>
+                   </mat-list-item>
+                 </mat-list>
                </div>
             </div>
           </blockquote>

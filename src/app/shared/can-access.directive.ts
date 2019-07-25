@@ -5,7 +5,7 @@ import { UserService } from '../core/services';
 
 @Directive({ selector: '[appCanAccess]' })
 export class CanAccessDirective  implements OnInit, OnDestroy{
-    @Input('appCanAccess') appCanAccess: string | string[];
+    @Input('appCanAccess') appCanAccess: string | string[] = [' ',' '];
     private permission$: Subscription;
 
     constructor(private templateRef: TemplateRef<any>,

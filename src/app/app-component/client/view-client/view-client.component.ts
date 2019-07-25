@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, AfterViewInit, OnDestroy, ViewChild, Element
 import { MAT_DIALOG_DATA, MatDialogRef, MatSelect, MatDialog, MatDialogConfig} from '@angular/material';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { Router, CanActivate, ActivatedRoute} from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 import { People, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
    Subsidiary, Departments, Nationalities, Location, Message } from '../../../core/models';
 import { UserService, ApiService} from '../../../core/services';
@@ -14,6 +15,7 @@ import { DeleteDialogComponent } from '../../../shared';
 })
 export class ViewClientComponent implements OnInit {
   myForm: FormGroup;
+  params = new HttpParams({fromObject : {'included' : 'inmuebles,ocupaciones'}});
 
   constructor(
     private router: Router,
@@ -25,11 +27,10 @@ export class ViewClientComponent implements OnInit {
 
   ngOnInit() {
     this.initFormBuilder();
-    this.apiService.get('/clientes/' + this.route.snapshot.params.id)
+    this.apiService.get('/clientes/' + this.route.snapshot.params.id, this.params)
     .subscribe(res => {
       if(res.status == 200){
-        res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
-        this.myForm.patchValue(res.model);
+        this.loadData(res.model);
       }
     });
   }
@@ -63,6 +64,40 @@ export class ViewClientComponent implements OnInit {
         }
       })
     }
+  }
+
+  //Cargar datos
+  protected loadData(response: any) {
+    response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
+    this.myForm.patchValue(response);
+    //Cargar Ocupaciones
+    if( response.ocupaciones != null && response.ocupaciones.length > 0){
+      const ocupaciones = (<FormArray>this.myForm.get('ocupaciones'));
+      while (ocupaciones.length) {
+        ocupaciones.removeAt(0);
+      }
+      response.ocupaciones.forEach(staff => {
+        staff.fechaIngreso = new Date(staff.fechaIngreso);
+        if(staff.fechaSalida){
+          staff.fechaSalida = new Date(staff.fechaSalida);
+        }
+        ocupaciones.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Inmuebles
+    if(response.bienesInmuebles != null && response.bienesInmuebles.length > 0){
+      console.log('oooooooooooooooooooooo');
+      const bienesInmuebles = (<FormArray>this.myForm.get('bienesInmuebles'));
+      while (bienesInmuebles.length) {
+        bienesInmuebles.removeAt(0);
+      }
+      response.bienesInmuebles.forEach(staff => {
+        bienesInmuebles.push(this.formBuilder.group(staff));
+      });
+    }
+
+
   }
 
 }

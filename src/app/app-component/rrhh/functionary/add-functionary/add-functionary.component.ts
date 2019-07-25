@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UserService, ApiService } from '../../../../core/services';
 import { Users, Departments } from '../../../../core/models';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
     selector: 'app-add-functionary',

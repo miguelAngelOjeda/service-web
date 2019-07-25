@@ -4,7 +4,17 @@
         <h4  class="m-0"><mat-icon class="gray-text">local_taxi</mat-icon>Vehiculos</h4>
     </div>
     <div class="col-md-12">
-      <mat-table [dataSource]="dataSource" class="mat-table"
+      <!-- <ng-container *ngIf="dataSource.data.length == 0">
+        <div class="timeline-badge danger m-t-10">
+          <i  class="fa fa-info-circle"></i>
+        </div>
+        <div class="timeline-panel m-t-10">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">No posee registros cargados</h4>
+          </div>
+        </div>
+      </ng-container> -->
+      <mat-table  [dataSource]="dataSource" class="mat-table"
        matSort  matSortActive="marca" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
 
        <ng-container matColumnDef="marca">

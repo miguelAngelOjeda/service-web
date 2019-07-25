@@ -33,7 +33,7 @@ export class EgressComponent implements OnInit {
     this.egressForm = this.parentF.form;
     this.egressForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
-    this.onChangesPeople();
+    //this.onChangesPeople();
   }
 
   //Egresos

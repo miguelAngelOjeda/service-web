@@ -170,8 +170,6 @@ export class UserService implements CanActivate {
     }
 
     validateTokensSession(){
-      console.log(this.jwtHelper.getTokenExpirationDate());
-      console.log(this.jwtHelper.isTokenExpired());
       if(this.jwtHelper.isTokenExpired()){
         //Retornar un mensaje de que su session expiro
         this.purgeAuth();

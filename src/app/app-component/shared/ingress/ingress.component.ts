@@ -39,7 +39,7 @@ export class IngressComponent implements OnInit {
     this.ingressForm = this.parentF.form;
     this.ingressForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
-    this.onChangesPeople();
+    //this.onChangesPeople();
   }
 
   //Egresos

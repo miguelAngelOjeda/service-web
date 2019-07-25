@@ -33,7 +33,7 @@ export class EstateComponent implements OnInit {
     this.estateForm = this.parentF.form;
     this.estateForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
-    this.onChangesPeople();
+    //this.onChangesPeople();
   }
 
   //bienes Inmueble
