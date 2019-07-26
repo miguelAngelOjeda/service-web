@@ -11,16 +11,24 @@ import { UserService, ApiService, FormsService} from '../../../../core/services'
 })
 export class ViewPeopleComponent implements OnInit{
   isSeparacionBienes = true;
-  isDisabled = false;
+  isRelationShip = false;
   peopleForm: FormGroup;
   form: FormGroup;
+
   @Output() documentValue = new EventEmitter<String>();
+
   @Output() rucValue = new EventEmitter<String>();
+
   @Input()
   set fkFilterModel(model: any) {
     if(model){
 
     }
+  }
+
+  @Input()
+  set relationShip(model: any) {
+    this.isRelationShip = true;
   }
 
   constructor(
@@ -68,7 +76,6 @@ export class ViewPeopleComponent implements OnInit{
       barrio: null,
       conyuge: null
     }));
-    this.onChanges();
   }
 
   //Egresos
@@ -104,62 +111,6 @@ export class ViewPeopleComponent implements OnInit{
       ciudad: [null, [Validators.required]],
       barrio: null,
       conyuge: null
-    });
-  }
-
-  onChanges(){
-    (<FormGroup>this.peopleForm.get('persona')).controls['tipoPersona'].valueChanges
-    .subscribe(tipoPersona => {
-        if (tipoPersona != 'FISICA') {
-            (<FormGroup>this.peopleForm.get('persona')).controls['ruc'].setValidators([Validators.required]); // or clearValidators()
-            (<FormGroup>this.peopleForm.get('persona')).controls['ruc'].updateValueAndValidity();
-            (<FormGroup>this.peopleForm.get('persona')).controls['documento'].patchValue('value', { onlySelf: true });
-            (<FormGroup>this.peopleForm.get('persona')).controls['documento'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['documento'].disable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['primerApellido'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['primerApellido'].disable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['primerApellido'].setValue('  ');
-            (<FormGroup>this.peopleForm.get('persona')).controls['segundoApellido'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['segundoApellido'].disable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['fechaNacimiento'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['fechaNacimiento'].disable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['sexo'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['sexo'].disable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['numeroHijos'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['numeroHijos'].disable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['numeroDependientes'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['numeroDependientes'].disable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['estadoCivil'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['estadoCivil'].disable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['profesion'].reset();
-            (<FormGroup>this.peopleForm.get('persona')).controls['profesion'].disable();
-            this.isDisabled = true;
-        }
-        else {
-            (<FormGroup>this.peopleForm.get('persona')).controls['ruc'].setValidators([]); // or clearValidators()
-            (<FormGroup>this.peopleForm.get('persona')).controls['ruc'].updateValueAndValidity();
-            (<FormGroup>this.peopleForm.get('persona')).controls['documento'].enable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['primerApellido'].enable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['segundoApellido'].enable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['fechaNacimiento'].enable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['sexo'].enable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['numeroHijos'].enable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['numeroDependientes'].enable();
-            (<FormGroup>this.peopleForm.get('persona')).controls['estadoCivil'].enable();
-            this.isDisabled = false;
-        }
-    });
-  }
-
-  peopleCi() {
-    this.apiService.get('/personas/documento/' + (<FormGroup>this.peopleForm.get('persona')).controls.documento.value)
-    .subscribe(res => {
-      if(res.status == 200){
-        res.model.avatar = null;
-        res.model.conyuge = null;
-        res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
-        (<FormGroup>this.peopleForm.get('persona')).setValue(res.model);
-      }
     });
   }
 

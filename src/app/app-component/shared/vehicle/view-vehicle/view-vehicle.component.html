@@ -1,61 +1,60 @@
+
 <ng-container>
-  <div class="row">
+  <div class="row" *ngIf="vehicleForm.get(formArrayName)['controls'].length > 0">
     <div class="col-md-12">
-        <h4  class="m-0"><mat-icon class="gray-text">local_taxi</mat-icon>Vehiculos</h4>
+        <h4  class="m-0 font-20"><mat-icon class="gray-text">local_taxi</mat-icon>Vehiculos
+        </h4>
     </div>
-    <div class="col-md-12">
-      <!-- <ng-container *ngIf="dataSource.data.length == 0">
-        <div class="timeline-badge danger m-t-10">
-          <i  class="fa fa-info-circle"></i>
-        </div>
-        <div class="timeline-panel m-t-10">
-          <div class="timeline-heading">
-            <h4 class="timeline-title">No posee registros cargados</h4>
+    <div class="timeline-badge danger" *ngIf="vehicleForm.get(formArrayName)['controls'].length == 0">
+      <i  class="fa fa-info-circle"></i>
+    </div>
+    <div class="timeline-panel" *ngIf="vehicleForm.get(formArrayName)['controls'].length == 0">
+      <div class="timeline-heading">
+        <h4 class="timeline-title">No posee registros cargados</h4>
+      </div>
+    </div>
+    <div [formArrayName]="formArrayName"  *ngFor="let vehiculos of vehicleForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
+      <blockquote>
+        <div [formGroupName]="i">
+          <div class="row">
+            <div class="col-sm-4" *ngIf="vehiculos.get('marca').value">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Marca: </span> {{vehiculos.get('marca').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4" *ngIf="vehiculos.get('modeloAnio').value">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Modelo/Año: </span> {{vehiculos.get('modeloAnio').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4" *ngIf="vehiculos.get('valorActual').value">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Valor Actual: </span> {{vehiculos.get('valorActual').value  | number}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4" *ngIf="vehiculos.get('cuotaMensual').value">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Cuota Mensual: </span> {{vehiculos.get('cuotaMensual').value  | number}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4" *ngIf="vehiculos.get('saldo').value">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Saldo: </span> {{vehiculos.get('saldo').value  | number}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
           </div>
         </div>
-      </ng-container> -->
-      <mat-table  [dataSource]="dataSource" class="mat-table"
-       matSort  matSortActive="marca" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
-
-       <ng-container matColumnDef="marca">
-         <mat-header-cell *matHeaderCellDef mat-sort-header> MARCA </mat-header-cell>
-         <mat-cell *matCellDef="let element" data-label="marca">
-            {{element.marca}}
-         </mat-cell>
-       </ng-container>
-
-        <ng-container matColumnDef="modeloAnio">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> MODELO </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="modelo">
-             {{element.modeloAnio}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="valorActual">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> VALOR ACTUAL </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="valor actual">
-             {{element.valorActual | number}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="cuotaMensual">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> CUOTA MENSUAL </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="cuota mensual">
-             {{element.cuotaMensual | number}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="saldo">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> SALDO </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="saldo">
-             {{element.saldo | number}}
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
+      </blockquote>
     </div>
   </div>
-  <br>
 </ng-container>

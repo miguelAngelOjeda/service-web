@@ -30,6 +30,13 @@
             </mat-cell>
          </ng-container>
 
+         <ng-container matColumnDef="nroLegajo">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> NRO. LEGAJO </mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="nro. legajo">
+              {{element.nroLegajo}}
+            </mat-cell>
+         </ng-container>
+
          <ng-container matColumnDef="persona.tipoPersona">
            <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO PERSONA </mat-header-cell>
            <mat-cell *matCellDef="let element" data-label="tipo persona">

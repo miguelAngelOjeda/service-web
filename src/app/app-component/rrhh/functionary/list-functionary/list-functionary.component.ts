@@ -1,9 +1,11 @@
 import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort} from '@angular/material';
-import { Users, Filter, Rules } from '../../../../core/models';
+import { MatPaginator, MatTableDataSource, MatDialog,
+   MatDialogConfig, MatSort, PageEvent, Sort} from '@angular/material';
+import { Users, Filter, Rules, Message } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
+import { DeleteDialogComponent } from '../../../../shared';
 
 @Component({
   selector: 'app-list-functionary',
@@ -13,7 +15,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 export class ListFunctionaryComponent implements AfterViewInit {
     public isMobile: Boolean;
     public rulesColumns  = ['persona.documento', 'alias', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
-    public displayedColumns = ['alias', 'persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
+    public displayedColumns = ['alias', 'nroLegajo', 'persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
     public dataSource = new MatTableDataSource<any>();
 
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -30,6 +32,7 @@ export class ListFunctionaryComponent implements AfterViewInit {
     pageEvent: PageEvent;
 
     constructor(
+      private dialog: MatDialog,
       private apiService: ApiService) {}
 
     ngAfterViewInit() {
@@ -55,6 +58,29 @@ export class ListFunctionaryComponent implements AfterViewInit {
               return observableOf([]);
             })
           ).subscribe(data => this.dataSource.data = data);
+    }
+
+    delete(data: any){
+      if(data.id){
+        const message = new Message;
+        message.titulo = "Eliminar Registro"
+        message.texto = "Esta seguro que desea eliminar el registro!! ";
+
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = message;
+
+        let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            this.apiService.delete('/clientes/' + data.id)
+            .subscribe(res => {
+                if(res.status == 200){
+                  this.paginator._changePageSize(this.paginator.pageSize);
+                }
+            });
+          }
+        })
+      }
     }
 
 }

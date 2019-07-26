@@ -9,10 +9,10 @@
         <mat-card-content>
           <div class="row">
             <div class="col-md-12">
-              <div class="row b-all">
-                <div class="col-md-12 p-20">
-                  <h4  class="m-0"><mat-icon class="gray-text">event_note</mat-icon>Solicitud</h4>
-                </div>
+              <h4  class="m-0 font-20"><mat-icon class="gray-text">event_note</mat-icon>Solicitud</h4>
+            </div>
+            <div class="col-md-12">
+              <div class="row m-l-10">
                 <div class="col-md-4">
                   <app-select-filter appearance="legacy" (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
                    placeholder="Modalidad" urlFilter="modalidades" [columnsFilter]="['nombre']"></app-select-filter>
@@ -187,11 +187,11 @@
                     </mat-error> -->
                   </mat-form-field>
                 </div>
-                <div class="col-md-12 b-t">
+                <div class="col-md-12">
                   <!-- <div class="col-md-12 m-t-10"> -->
                     <div class="row">
-                      <div class="col-md-12 p-20">
-                        <h4 class="m-0"><mat-icon class="gray-text">assessment</mat-icon>Descuentos</h4>
+                      <div class="col-md-12 p-10">
+                        <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>Descuentos</h4>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field appearance="legacy">
@@ -281,7 +281,7 @@
 
               <!-- </div> -->
             </div>
-            <div class="col-md-12  m-t-20">
+            <div class="col-md-12  m-t-10">
               <app-upload></app-upload>
             </div>
           </div>
@@ -296,38 +296,29 @@
             <div class="col-md-12">
               <app-people></app-people>
             </div>
-          </div>
-        </mat-card-content>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <h4  class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Datos Varios(Cliente)</h4>
-        </ng-template>
-        <mat-card-content>
-            <div class="row">
-              <div class="col-md-12">
-                <app-reference [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-reference>
-              </div>
-              <div class="col-md-12 m-t-30">
-                <app-occupation [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-occupation>
-              </div>
-              <div class="col-md-12 m-t-30">
-                <app-estate [fkFilterModel]="myForm.value?.persona?.id" [minRow]="isTieneHipoteca"></app-estate>
-              </div>
-              <div class="col-md-12 m-t-30">
-                <app-vehicle [fkFilterModel]="myForm.value?.persona?.id"></app-vehicle>
-              </div>
-              <div class="col-md-12 m-t-30">
-                <div class="row">
-                  <div class="col-md-6">
-                    <app-ingress [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-ingress>
-                  </div>
-                  <div class="col-md-6">
-                    <app-egress [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-egress>
-                  </div>
+            <div class="col-md-12">
+              <app-reference [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-reference>
+            </div>
+            <div class="col-md-12 m-t-30">
+              <app-occupation [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-occupation>
+            </div>
+            <div class="col-md-12 m-t-30">
+              <app-estate [fkFilterModel]="myForm.value?.persona?.id" [minRow]="isTieneHipoteca"></app-estate>
+            </div>
+            <div class="col-md-12 m-t-30">
+              <app-vehicle [fkFilterModel]="myForm.value?.persona?.id"></app-vehicle>
+            </div>
+            <div class="col-md-12 m-t-30">
+              <div class="row">
+                <div class="col-md-6">
+                  <app-ingress [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-ingress>
+                </div>
+                <div class="col-md-6">
+                  <app-egress [fkFilterModel]="myForm.value?.persona?.id" [minRow]="1"></app-egress>
                 </div>
               </div>
             </div>
+          </div>
           <mat-card-actions>
             <button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
           </mat-card-actions>

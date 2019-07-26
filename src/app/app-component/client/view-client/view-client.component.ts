@@ -15,7 +15,7 @@ import { DeleteDialogComponent } from '../../../shared';
 })
 export class ViewClientComponent implements OnInit {
   myForm: FormGroup;
-  params = new HttpParams({fromObject : {'included' : 'inmuebles,ocupaciones'}});
+  params = new HttpParams({fromObject : {'included' : 'inmuebles,ocupaciones,referencias,vehiculos'}});
 
   constructor(
     private router: Router,
@@ -85,9 +85,30 @@ export class ViewClientComponent implements OnInit {
       });
     }
 
+    //Cargar Referencias
+    if(response.referencias > 0){
+      const referencias = (<FormArray>this.myForm.get('referencias'));
+      while (referencias.length) {
+        referencias.removeAt(0);
+      }
+      response.referencias.forEach(staff => {
+        referencias.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Vehiculos
+    if(response.bienesVehiculo > 0){
+      const bienesVehiculo = (<FormArray>this.myForm.get('bienesVehiculo'));
+      while (bienesVehiculo.length) {
+        bienesVehiculo.removeAt(0);
+      }
+      response.bienesVehiculo.forEach(staff => {
+        bienesVehiculo.push(this.formBuilder.group(staff));
+      });
+    }
+
     //Cargar Inmuebles
     if(response.bienesInmuebles != null && response.bienesInmuebles.length > 0){
-      console.log('oooooooooooooooooooooo');
       const bienesInmuebles = (<FormArray>this.myForm.get('bienesInmuebles'));
       while (bienesInmuebles.length) {
         bienesInmuebles.removeAt(0);
@@ -96,7 +117,6 @@ export class ViewClientComponent implements OnInit {
         bienesInmuebles.push(this.formBuilder.group(staff));
       });
     }
-
 
   }
 

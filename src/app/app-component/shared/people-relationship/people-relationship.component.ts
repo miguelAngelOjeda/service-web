@@ -264,4 +264,16 @@ import { SnackbarService } from '../../../shared';
     form.setValue(data);
   }
 
+  peopleCi(data: any, index:any) {
+    console.log(data);
+    this.apiService.get('/personas/documento/' + data)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.model.avatar = null;
+        res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
+        (<FormGroup>(<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('personaVinculo')).patchValue(res.model);
+      }
+    });
+  }
+
 }

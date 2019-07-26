@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Users, People, Message} from '../../../../core/models';
+import { FormGroup, FormArray , FormControl, FormBuilder,
+   Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ApiService } from '../../../../core/services';
 import { PasswordProfileComponent } from '../../../profile/password-profile';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
@@ -14,29 +16,50 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./view-functionary.component.css']
 })
 export class ViewFunctionaryComponent implements OnInit {
-  public model = new Users;
-  params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones'}});
-  urlImage = environment.api_url;
+  myForm: FormGroup;
+  params = new HttpParams({fromObject : {'included' : 'referencias,estudios'}});
+
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
+    private formBuilder: FormBuilder,
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {}
 
    ngOnInit() {
+     this.initFormBuilder();
      this.apiService.get('/funcionarios/' + this.route.snapshot.params.id, this.params)
      .subscribe(res => {
        if(res.status == 200){
-         this.model = res.model;
+         this.loadData(res.model);
        }
+     });
+   }
+
+   protected initFormBuilder() {
+     this.myForm = this.formBuilder.group({
+         id: null,
+         alias: [null, [Validators.required]],
+         nroLegajo: [null, [Validators.required]],
+         fechaIngreso: [null, [Validators.required]],
+         fechaEgreso: [null],
+         tipoMotivoRetiro: [null],
+         cargo: [null, [Validators.required]],
+         expirationTimeTokens: [5, [Validators.required]],
+         claveAcceso: [null, [Validators.required]],
+         rol: [null, [Validators.required]],
+         sucursal: [null, [Validators.required]],
+         departamentos: [null, [Validators.required]],
+         tipoFuncionario: [null, [Validators.required]],
+         activo: 'S'
      });
    }
 
    changePassword() {
      const dialogConfig = new MatDialogConfig();
-     dialogConfig.data = this.model;
+     dialogConfig.data = this.myForm.value;
      dialogConfig.maxWidth = "400px";
      dialogConfig.autoFocus = true;
 
@@ -49,27 +72,21 @@ export class ViewFunctionaryComponent implements OnInit {
      });
    }
 
-   delete(data: any){
-     if(data.id){
-       const message = new Message;
-       message.titulo = "Eliminar Registro"
-       message.texto = "Esta seguro que desea eliminar el registro!! ";
-
-       const dialogConfig = new MatDialogConfig();
-       dialogConfig.data = message;
-
-       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
-       dialogRef.afterClosed().subscribe(result => {
-         if(result){
-           this.apiService.delete('/usuarios/' + data.id)
-           .subscribe(res => {
-               if(res.status == 200){
-                 this.router.navigateByUrl('service-web/users');
-               }
-           });
-         }
-       })
+   //Cargar datos
+   protected loadData(response: any) {
+     response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
+     this.myForm.patchValue(response);
+     //Cargar Referencias
+     if(response.referencias > 0){
+       const referencias = (<FormArray>this.myForm.get('referencias'));
+       while (referencias.length) {
+         referencias.removeAt(0);
+       }
+       response.referencias.forEach(staff => {
+         referencias.push(this.formBuilder.group(staff));
+       });
      }
+
    }
 
 }

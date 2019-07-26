@@ -1,44 +1,53 @@
+
 <ng-container>
-  <div class="row">
+  <div class="row" *ngIf="referenceForm.get(formArrayName)['controls'].length > 0">
     <div class="col-md-12">
-        <h4  class="m-0"><mat-icon class="gray-text">contacts</mat-icon>Referencias</h4>
+        <h4  class="m-0 font-20"><mat-icon class="gray-text">contacts</mat-icon>Referencias
+        </h4>
     </div>
-    <div class="col-md-12">
-      <mat-table [dataSource]="dataSource" class="mat-table"
-       matSort  matSortActive="nombreContacto" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
-
-       <ng-container matColumnDef="nombreContacto">
-         <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
-         <mat-cell *matCellDef="let element" data-label="nombre">
-            {{element.nombreContacto}}
-         </mat-cell>
-       </ng-container>
-
-        <ng-container matColumnDef="telefonoCelular">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> CELULAR </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="celular">
-             {{element.telefonoCelular}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="telefono">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> TELEFONO </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="telefono">
-             {{element.telefono}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="tipoReferencia.nombre">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO REFERENCIA </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="tipo referencia">
-             {{element.tipoReferencia.nombre}}
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
+    <div class="timeline-badge danger" *ngIf="referenceForm.get(formArrayName)['controls'].length == 0">
+      <i  class="fa fa-info-circle"></i>
+    </div>
+    <div class="timeline-panel" *ngIf="referenceForm.get(formArrayName)['controls'].length == 0">
+      <div class="timeline-heading">
+        <h4 class="timeline-title">No posee registros cargados</h4>
+      </div>
+    </div>
+    <div [formArrayName]="formArrayName"  *ngFor="let referencias of referenceForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
+      <blockquote>
+        <div [formGroupName]="i">
+          <div class="row">
+            <div class="col-sm-4" *ngIf="referencias.controls.tipoReferencia.value?.nombre">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Tipo Referencia: </span> {{referencias.controls.tipoReferencia.value?.nombre}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4" *ngIf="referencias.get('nombreContacto').value">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Nombre: </span> {{referencias.get('nombreContacto').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4" *ngIf="referencias.get('telefonoCelular').value">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Celular: </span> {{referencias.get('telefonoCelular').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4" *ngIf="referencias.get('telefono').value">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Telefono: </span> {{referencias.get('telefono').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </div>
+      </blockquote>
     </div>
   </div>
-  <br>
 </ng-container>

@@ -80,7 +80,6 @@ export class StudiesComponent implements OnInit {
       nombre: [null],
       semestre: [null],
       tipoEstudio : ['', Validators.required],
-      entidad: ['', Validators.required],
       activo: ['S']
     });
   }

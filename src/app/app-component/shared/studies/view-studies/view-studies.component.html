@@ -1,44 +1,53 @@
+
 <ng-container>
-  <div class="row">
+  <div class="row" *ngIf="studiesForm.get(formArrayName)['controls'].length > 0">
     <div class="col-md-12">
-        <h4  class="m-0"><mat-icon class="gray-text">contacts</mat-icon>Referencias</h4>
+        <h4  class="m-0 font-20"><mat-icon class="gray-text">library_books</mat-icon>Estudios
+        </h4>
     </div>
-    <div class="col-md-12">
-      <mat-table [dataSource]="dataSource" class="mat-table"
-       matSort  matSortActive="nombreContacto" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
-
-       <ng-container matColumnDef="nombreContacto">
-         <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
-         <mat-cell *matCellDef="let element" data-label="nombre">
-            {{element.nombreContacto}}
-         </mat-cell>
-       </ng-container>
-
-        <ng-container matColumnDef="telefonoCelular">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> CELULAR </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="celular">
-             {{element.telefonoCelular}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="telefono">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> TELEFONO </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="telefono">
-             {{element.telefono}}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="tipoReferencia.nombre">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO REFERENCIA </mat-header-cell>
-          <mat-cell *matCellDef="let element" data-label="tipo referencia">
-             {{element.tipoReferencia.nombre}}
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
+    <div [formArrayName]="formArrayName"  *ngFor="let estudios of studiesForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
+      <blockquote>
+        <div [formGroupName]="i">
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Tipo Estudio: </span> {{estudios.controls.tipoEstudio.value?.nombre}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Entidad Estudio: </span> {{estudios.get('nombre').value}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Semestre: </span> {{estudios.get('semestre').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Fecha Inicio: </span> {{estudios.get('fechaInicio').value  | date: 'dd/MM/yyyy'}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Concluido: </span> {{(estudios.get('concluido').value == true ? 'S' : 'N')}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Titulo: </span> {{estudios.get('titulo').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-4">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Fecha Fin: </span> {{estudios.get('fechaFin').value  | date: 'dd/MM/yyyy'}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                  <p><span class="font-bold">Nro. Registro: </span> {{estudios.get('numeroRegistro').value}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </div>
+      </blockquote>
     </div>
   </div>
-  <br>
 </ng-container>

@@ -17,14 +17,18 @@ export class PeopleComponent implements OnInit{
   isRelationShip = false;
   peopleForm: FormGroup;
   form: FormGroup;
+
   @Output() documentValue = new EventEmitter<String>();
+
   @Output() rucValue = new EventEmitter<String>();
+
   @Input()
   set fkFilterModel(model: any) {
     if(model){
 
     }
   }
+
   @Input()
   set relationShip(model: any) {
     this.isRelationShip = true;

@@ -1,7 +1,7 @@
 <ng-container>
   <div class="row" formGroupName="persona">
     <div class="col-md-12">
-      <h4  class="m-0"><mat-icon class="gray-text">account_circle</mat-icon>Datos Personales</h4>
+      <h4  class="m-0 font-20"><mat-icon class="gray-text">account_circle</mat-icon>Datos Personales</h4>
       <br>
     </div>
     <div class="col-md-2 center">
@@ -32,125 +32,87 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4" *ngIf="peopleForm.controls['persona'].get('tipoPersona').value">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Tipo Persona </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('tipoPersona').value}}</span>
-        </div>
+      <div class="col-sm-4">
+        <mat-list>
+          <mat-list-item>
+            <p><span class="font-bold">Tipo Persona: </span> {{peopleForm.controls['persona'].get('tipoPersona').value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Documento: </span> {{peopleForm.controls['persona'].get('documento').value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Ruc: </span> {{peopleForm.controls['persona'].get('ruc').value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Fecha Nacimiento: </span> {{peopleForm.controls['persona'].get('fechaNacimiento').value | date: 'dd/MM/yyyy'}}</p>
+          </mat-list-item>
+        </mat-list>
       </div>
-      <div class="col-md-4">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Documento </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('documento').value}}</span>
-        </div>
+      <div class="col-sm-4">
+        <mat-list>
+          <mat-list-item>
+            <p><span class="font-bold">Sexo: </span> {{peopleForm.controls['persona'].get('sexo').value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Estado Civil: </span> {{peopleForm.controls['persona'].get('estadoCivil').value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Separacion Bienes: </span> {{(peopleForm.controls['persona'].get('separacionBienes').value == true ? 'S' : 'N')}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Nacionalidad: </span> {{peopleForm.controls['persona']['controls'].nacionalidad?.value?.nombre}}</p>
+          </mat-list-item>
+        </mat-list>
       </div>
-      <div class="col-md-4">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Ruc </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('ruc').value}}</span>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Fecha Nacimiento </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('fechaNacimiento').value | date: 'dd/MM/yyyy'}}</span>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Sexo </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('sexo').value}}</span>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Estado Civil </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('estadoCivil').value}}</span>
-        </div>
-      </div>
-      <div class="col-md-4" *ngIf="peopleForm.controls['persona'].get('separacionBienes').value == true">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Separacion Bienes </div>
-          <span class="font-16">S</span>
-        </div>
-      </div>
-      <div class="col-md-4" *ngIf="peopleForm.controls['persona'].get('separacionBienes').value != true">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Separacion Bienes </div>
-          <span class="font-16">N</span>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Nacionalidad </div>
-          <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].nacionalidad.value">{{peopleForm.controls['persona']['controls'].nacionalidad.value.nombre}}</span>
-        </div>
-      </div>
-
-      <div class="col-md-3">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Numero Hijos </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('numeroHijos').value }}</span>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Numero Dependientes </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('numeroDependientes').value }}</span>
-        </div>
-      </div>
-      <div class="col-md-8">
-        <div class="p-l-20 p-t-10">
-          <div class="font-medium">Observacion </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('observacion').value }}</span>
-        </div>
+      <div class="col-sm-4">
+        <mat-list>
+          <mat-list-item>
+            <p><span class="font-bold">Numero Hijos: </span> {{peopleForm.controls['persona'].get('numeroHijos').value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Numero Dependientes: </span> {{peopleForm.controls['persona'].get('numeroDependientes').value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Observacion: </span> {{peopleForm.controls['persona'].get('observacion').value}}</p>
+          </mat-list-item>
+        </mat-list>
       </div>
       <br>
       <div class="col-md-12 m-t-20">
-        <h4  class="m-0"><mat-icon class="gray-text">directions</mat-icon>Direccion</h4>
+        <h4  class="m-0 font-20"><mat-icon class="gray-text">directions</mat-icon>Direccion</h4>
         <br>
       </div>
       <div class="col-md-12">
         <app-map [markerDraggable]="false" [latitude]="peopleForm.controls['persona'].get('latitud').value" [longitude]="peopleForm.controls['persona'].get('longitud').value"></app-map>
       </div>
-      <div class="col-md-3">
-        <div class="p-l-20">
-          <div class="font-medium">Pais </div>
-          <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].pais.value">{{peopleForm.controls['persona']['controls'].pais.value.nombre }}</span>
-        </div>
+      <div class="col-sm-4">
+        <mat-list>
+          <mat-list-item>
+            <p><span class="font-bold">Pais: </span> {{peopleForm.controls['persona']['controls'].pais.value?.nombre}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Departamento: </span> {{peopleForm.controls['persona']['controls'].departamento.value?.nombre}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Ciudad: </span> {{peopleForm.controls['persona']['controls'].ciudad.value?.nombre}}</p>
+          </mat-list-item>
+        </mat-list>
       </div>
-      <div class="col-md-3">
-        <div class="p-l-20">
-          <div class="font-medium">Departamento </div>
-          <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].departamento.value">{{peopleForm.controls['persona']['controls'].departamento.value.nombre }}</span>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="p-l-20">
-          <div class="font-medium">Ciudad </div>
-          <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].ciudad.value">{{peopleForm.controls['persona']['controls'].ciudad.value.nombre }}</span>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="p-l-20">
-          <div class="font-medium">Barrio </div>
-          <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].barrio.value">{{peopleForm.controls['persona']['controls'].barrio.value.nombre }}</span>
-        </div>
-      </div>
-      <div class="col-md-6  p-t-10">
-        <div class="p-l-20">
-          <div class="font-medium">Direccion </div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('direccionParticular').value }}</span>
-        </div>
-      </div>
-      <div class="col-md-6  p-t-10">
-        <div class="p-l-20">
-          <div class="font-medium">Direccion Detallada</div>
-          <span class="font-16">{{peopleForm.controls['persona'].get('direccionDetallada').value }}</span>
-        </div>
+      <div class="col-sm-8">
+        <mat-list>
+          <mat-list-item>
+            <p><span class="font-bold">Barrio: </span> {{peopleForm.controls['persona']['controls'].barrio.value?.nombre}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Direccion: </span> {{peopleForm.controls['persona'].get('direccionParticular').value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <p><span class="font-bold">Direccion Detallada: </span> {{peopleForm.controls['persona'].get('direccionDetallada').value}}</p>
+          </mat-list-item>
+        </mat-list>
       </div>
       <div class="col-md-12">
-        <app-people-relationship [fkFilterModel]="peopleForm.controls['persona'].get('id').value"></app-people-relationship>
+        <app-view-people-relationship *ngIf="isRelationShip" [fkFilterModel]="peopleForm.controls['persona'].get('id').value"></app-view-people-relationship>
       </div>
       <br>
     </div>
