@@ -71,12 +71,15 @@ export class ViewClientComponent implements OnInit {
     response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
     this.myForm.patchValue(response);
     //Cargar Ocupaciones
-    if( response.ocupaciones != null && response.ocupaciones.length > 0){
+    if(response.persona.ocupaciones != null &&  response.persona.ocupaciones.length > 0){
       const ocupaciones = (<FormArray>this.myForm.get('ocupaciones'));
-      while (ocupaciones.length) {
-        ocupaciones.removeAt(0);
+      if(ocupaciones){
+        while (ocupaciones.length) {
+          ocupaciones.removeAt(0);
+        }
       }
-      response.ocupaciones.forEach(staff => {
+
+      response.persona.ocupaciones.forEach(staff => {
         staff.fechaIngreso = new Date(staff.fechaIngreso);
         if(staff.fechaSalida){
           staff.fechaSalida = new Date(staff.fechaSalida);
@@ -86,35 +89,68 @@ export class ViewClientComponent implements OnInit {
     }
 
     //Cargar Referencias
-    if(response.referencias > 0){
+    if(response.persona.referencias != null && response.persona.referencias.length > 0){
       const referencias = (<FormArray>this.myForm.get('referencias'));
-      while (referencias.length) {
-        referencias.removeAt(0);
+      if(referencias){
+        while (referencias.length) {
+          referencias.removeAt(0);
+        }
       }
-      response.referencias.forEach(staff => {
+      response.persona.referencias.forEach(staff => {
         referencias.push(this.formBuilder.group(staff));
       });
     }
 
-    //Cargar Vehiculos
-    if(response.bienesVehiculo > 0){
-      const bienesVehiculo = (<FormArray>this.myForm.get('bienesVehiculo'));
-      while (bienesVehiculo.length) {
-        bienesVehiculo.removeAt(0);
+    //Cargar Inmuebles
+    if(response.persona.bienesInmuebles != null && response.persona.bienesInmuebles.length > 0){
+      const bienesInmuebles = (<FormArray>this.myForm.get('bienesInmuebles'));
+      if(bienesInmuebles){
+        while (bienesInmuebles.length) {
+          bienesInmuebles.removeAt(0);
+        }
       }
-      response.bienesVehiculo.forEach(staff => {
+      response.persona.bienesInmuebles.forEach(staff => {
+        bienesInmuebles.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Vehiculos
+    if(response.persona.bienesVehiculo != null && response.persona.bienesVehiculo.length > 0){
+      const bienesVehiculo = (<FormArray>this.myForm.get('bienesVehiculo'));
+      if(bienesVehiculo){
+        while (bienesVehiculo.length) {
+          bienesVehiculo.removeAt(0);
+        }
+      }
+
+      response.persona.bienesVehiculo.forEach(staff => {
         bienesVehiculo.push(this.formBuilder.group(staff));
       });
     }
 
-    //Cargar Inmuebles
-    if(response.bienesInmuebles != null && response.bienesInmuebles.length > 0){
-      const bienesInmuebles = (<FormArray>this.myForm.get('bienesInmuebles'));
-      while (bienesInmuebles.length) {
-        bienesInmuebles.removeAt(0);
+    //Cargar Ingresos
+    if(response.persona.ingresos != null && response.persona.ingresos.length > 0){
+      const ingresos = (<FormArray>this.myForm.get('ingresos'));
+      if(ingresos){
+        while (ingresos.length) {
+          ingresos.removeAt(0);
+        }
       }
-      response.bienesInmuebles.forEach(staff => {
-        bienesInmuebles.push(this.formBuilder.group(staff));
+      response.persona.ingresos.forEach(staff => {
+        ingresos.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Egresos
+    if(response.persona.egresos != null && response.persona.egresos.length > 0){
+      const egresos = (<FormArray>this.myForm.get('egresos'));
+      if(egresos){
+        while (egresos.length) {
+          egresos.removeAt(0);
+        }
+      }
+      response.persona.egresos.forEach(staff => {
+        egresos.push(this.formBuilder.group(staff));
       });
     }
 

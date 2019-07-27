@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef  } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
-import { FormControl, Validators, FormBuilder, FormGroup} from '@angular/forms';
+import { FormControl, FormArray, Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { UserService, ApiService} from '../../../../core/services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Users, Departments, Message } from '../../../../core/models';
@@ -14,7 +14,7 @@ import { HttpParams } from '@angular/common/http';
 })
 export class EditFunctionaryComponent implements OnInit {
   myForm: FormGroup;
-  params = new HttpParams({fromObject : {'included' : 'referencias'}});
+  params = new HttpParams({fromObject : {'included' : 'referencias,sucursal,estudios'}});
   hide = true;
   public departments: Array<Departments> = [];
 
@@ -73,6 +73,32 @@ export class EditFunctionaryComponent implements OnInit {
     response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
     response.fechaIngreso =  new Date(response.fechaIngreso);
     (<FormGroup>this.myForm).patchValue(response);
+
+    //Cargar Referencias
+    if(response.persona.referencias != null && response.persona.referencias.length > 0){
+      const referencias = (<FormArray>this.myForm.get('referencias'));
+      if(referencias != null){
+        while (referencias.length) {
+          referencias.removeAt(0);
+        }
+      }
+      response.persona.referencias.forEach(staff => {
+        referencias.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Estudios
+    if(response.persona.estudios != null && response.persona.estudios.length > 0){
+      const estudios = (<FormArray>this.myForm.get('estudios'));
+      if(estudios != null){
+        while (estudios.length) {
+          estudios.removeAt(0);
+        }
+      }
+      response.persona.estudios.forEach(staff => {
+        estudios.push(this.formBuilder.group(staff));
+      });
+    }
   }
 
   getValue(data: any, form : any): void {

@@ -18,7 +18,8 @@ import { EgressComponent, ViewEgressComponent } from './egress';
 import { PeopleComponent, ViewPeopleComponent } from './people';
 import { DepartmentComponent } from './department';
 import { OccupationComponent, ViewOccupationComponent } from './occupation';
-import { PeopleRelationshipComponent, ViewPeopleRelationsComponent } from './people-relationship';
+import { PeopleRelationshipComponent, ViewPeopleRelationsComponent,
+   EditModalPeopleRelationsComponent } from './people-relationship';
 
 @NgModule({
   imports: [
@@ -30,6 +31,9 @@ import { PeopleRelationshipComponent, ViewPeopleRelationsComponent } from './peo
     LayoutModule,
     ReactiveFormsModule
   ],
+  entryComponents: [
+    EditModalPeopleRelationsComponent
+  ],
   declarations: [
     StudiesComponent,
     ViewStudiesComponent,
@@ -40,6 +44,7 @@ import { PeopleRelationshipComponent, ViewPeopleRelationsComponent } from './peo
     ViewEstateComponent,
     ViewPeopleComponent,
     ViewPeopleRelationsComponent,
+    EditModalPeopleRelationsComponent,
     ViewOccupationComponent,
     ReferenceComponent,
     EstateComponent,

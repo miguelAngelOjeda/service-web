@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormArray, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UserService, ApiService } from '../../../../core/services';
 import { Users, Departments } from '../../../../core/models';
 import { HttpParams } from '@angular/common/http';
@@ -30,7 +30,6 @@ export class AddFunctionaryComponent implements OnInit {
     }
 
     submit() {
-
         if (this.myForm.value.persona.tipoPersona !== 'FISICA') {
             this.myForm.value.persona.documento = ' ';
             this.myForm.value.persona.fechaNacimiento = new Date();
@@ -41,7 +40,9 @@ export class AddFunctionaryComponent implements OnInit {
 
         this.apiService.post('/funcionarios/', this.myForm.value)
             .subscribe(res => {
-
+              if(res.status == 200){
+                this.loadData(res.model);
+              }
             });
     }
 
@@ -85,6 +86,38 @@ export class AddFunctionaryComponent implements OnInit {
             return false;
         }
         return o1.id === Number(o2.id);
+    }
+
+    protected loadData(response: any) {
+      response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
+      response.fechaIngreso =  new Date(response.fechaIngreso);
+      (<FormGroup>this.myForm).patchValue(response);
+
+      //Cargar Referencias
+      if(response.persona.referencias != null && response.persona.referencias.length > 0){
+        const referencias = (<FormArray>this.myForm.get('referencias'));
+        if(referencias != null){
+          while (referencias.length) {
+            referencias.removeAt(0);
+          }
+        }
+        response.persona.referencias.forEach(staff => {
+          referencias.push(this.formBuilder.group(staff));
+        });
+      }
+
+      //Cargar Estudios
+      if(response.persona.estudios != null &&  response.persona.estudios.length > 0){
+        const estudios = (<FormArray>this.myForm.get('estudios'));
+        if(estudios != null){
+          while (estudios.length) {
+            estudios.removeAt(0);
+          }
+        }
+        response.persona.estudios.forEach(staff => {
+          estudios.push(this.formBuilder.group(staff));
+        });
+      }
     }
 
 

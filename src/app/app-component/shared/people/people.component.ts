@@ -171,6 +171,94 @@ export class PeopleComponent implements OnInit{
     });
   }
 
+  protected loadData(response: any) {
+    response.fechaNacimiento =  new Date(response.fechaNacimiento);
+    (<FormGroup>this.peopleForm.get('persona')).patchValue(response);
+    //Cargar Ocupaciones
+    if(response.ocupaciones != null &&  response.ocupaciones.length > 0){
+      const ocupaciones = (<FormArray>this.peopleForm.get('ocupaciones'));
+      if(ocupaciones){
+        while (ocupaciones.length) {
+          ocupaciones.removeAt(0);
+        }
+      }
+
+      response.ocupaciones.forEach(staff => {
+        staff.fechaIngreso = new Date(staff.fechaIngreso);
+        if(staff.fechaSalida){
+          staff.fechaSalida = new Date(staff.fechaSalida);
+        }
+        ocupaciones.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Referencias
+    if(response.referencias != null && response.referencias.length > 0){
+      const referencias = (<FormArray>this.peopleForm.get('referencias'));
+      if(referencias){
+        while (referencias.length) {
+          referencias.removeAt(0);
+        }
+      }
+      response.referencias.forEach(staff => {
+        referencias.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Inmuebles
+    if(response.bienesInmuebles != null && response.bienesInmuebles.length > 0){
+      const bienesInmuebles = (<FormArray>this.peopleForm.get('bienesInmuebles'));
+      if(bienesInmuebles){
+        while (bienesInmuebles.length) {
+          bienesInmuebles.removeAt(0);
+        }
+      }
+      response.bienesInmuebles.forEach(staff => {
+        bienesInmuebles.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Vehiculos
+    if(response.bienesVehiculo != null && response.bienesVehiculo.length > 0){
+      const bienesVehiculo = (<FormArray>this.peopleForm.get('bienesVehiculo'));
+      if(bienesVehiculo){
+        while (bienesVehiculo.length) {
+          bienesVehiculo.removeAt(0);
+        }
+      }
+
+      response.bienesVehiculo.forEach(staff => {
+        bienesVehiculo.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Ingresos
+    if(response.ingresos != null && response.ingresos.length > 0){
+      const ingresos = (<FormArray>this.peopleForm.get('ingresos'));
+      if(ingresos){
+        while (ingresos.length) {
+          ingresos.removeAt(0);
+        }
+      }
+      response.ingresos.forEach(staff => {
+        ingresos.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Egresos
+    if(response.egresos != null && response.egresos.length > 0){
+      const egresos = (<FormArray>this.peopleForm.get('egresos'));
+      if(egresos){
+        while (egresos.length) {
+          egresos.removeAt(0);
+        }
+      }
+      response.egresos.forEach(staff => {
+        egresos.push(this.formBuilder.group(staff));
+      });
+    }
+  }
+
   // peopleCi() {
   //   this.documentValue.emit((<FormGroup>this.peopleForm.get('persona')).controls.documento.value);
   // }

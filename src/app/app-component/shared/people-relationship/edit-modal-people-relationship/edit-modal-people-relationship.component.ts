@@ -1,38 +1,42 @@
-import { Component, OnInit, Inject, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSelect, MatDialog, MatDialogConfig} from '@angular/material';
-import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
-import { Router, CanActivate, ActivatedRoute} from '@angular/router';
+import { Component, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
-import { People, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
-   Subsidiary, Departments, Nationalities, Location, Message } from '../../../core/models';
-import { UserService, ApiService} from '../../../core/services';
-import { DeleteDialogComponent } from '../../../shared';
-
+import { ValidationService } from '../../../../core/services/validation.service';
+import { Subsidiary, Departments, Message, Location } from '../../../../core/models';
+import { ApiService } from '../../../../core/services';
+import { DeleteDialogComponent } from '../../../../shared';
+import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
+import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
+   Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 
 @Component({
-  selector: 'app-edit-client',
-  templateUrl: './edit-client.component.html',
-  styleUrls: ['./edit-client.component.scss']
+  selector: 'app-modal-people-relationship',
+  templateUrl: './edit-modal-people-relationship.component.html',
+  styleUrls: ['./edit-modal-people-relationship.component.css']
 })
-export class EditClientComponent implements OnInit{
-  myForm: FormGroup;
+export class EditModalPeopleRelationsComponent implements OnInit{
   params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones'}});
+  myForm: FormGroup;
+  private idPeople: any;
 
   constructor(
-    private router: Router,
-    private dialog: MatDialog,
-    private formBuilder: FormBuilder,
-    private apiService: ApiService,
-    private route: ActivatedRoute
-  ) {}
+            public dialog: MatDialog,
+            private formBuilder: FormBuilder,
+            public dialogRef: MatDialogRef<EditModalPeopleRelationsComponent>,
+            private apiService: ApiService,
+            @Inject(MAT_DIALOG_DATA) public data: any) {
+              this.idPeople = data;
+  }
 
   ngOnInit() {
     this.initFormBuilder();
-    this.apiService.get('/clientes/' + this.route.snapshot.params.id, this.params)
-    .subscribe(res => {
-      if(res.status == 200){
-        this.loadData(res.model);
-      }
+    setTimeout(() => {
+      this.apiService.get('/personas/' + this.idPeople,this.params)
+      .subscribe(res => {
+        if(res.status == 200){
+          this.loadData(res.model);
+        }
+      });
     });
   }
 
@@ -47,7 +51,7 @@ export class EditClientComponent implements OnInit{
       this.myForm.value.persona.sexo = 'N';
     }
 
-    this.apiService.put('/clientes/' + this.route.snapshot.params.id, this.myForm.value)
+    this.apiService.put('/clientes/' , this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
         this.loadData(res.model);
@@ -57,18 +61,15 @@ export class EditClientComponent implements OnInit{
   }
 
   protected initFormBuilder() {
-    this.myForm = this.formBuilder.group({
-      id: null ,
-      activo: 'S'
-    },{ updateOn: 'change' });
+    this.myForm = this.formBuilder.group({});
   }
 
   //Cargar datos
   protected loadData(response: any) {
-    response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
-    this.myForm.patchValue(response);
+    response.fechaNacimiento =  new Date(response.fechaNacimiento);
+    (<FormGroup>this.myForm.get('persona')).patchValue(response);
     //Cargar Ocupaciones
-    if(response.persona.ocupaciones != null &&  response.persona.ocupaciones.length > 0){
+    if(response.ocupaciones != null &&  response.ocupaciones.length > 0){
       const ocupaciones = (<FormArray>this.myForm.get('ocupaciones'));
       if(ocupaciones){
         while (ocupaciones.length) {
@@ -76,7 +77,7 @@ export class EditClientComponent implements OnInit{
         }
       }
 
-      response.persona.ocupaciones.forEach(staff => {
+      response.ocupaciones.forEach(staff => {
         staff.fechaIngreso = new Date(staff.fechaIngreso);
         if(staff.fechaSalida){
           staff.fechaSalida = new Date(staff.fechaSalida);
@@ -86,33 +87,33 @@ export class EditClientComponent implements OnInit{
     }
 
     //Cargar Referencias
-    if(response.persona.referencias != null && response.persona.referencias.length > 0){
+    if(response.referencias != null && response.referencias.length > 0){
       const referencias = (<FormArray>this.myForm.get('referencias'));
       if(referencias){
         while (referencias.length) {
           referencias.removeAt(0);
         }
       }
-      response.persona.referencias.forEach(staff => {
+      response.referencias.forEach(staff => {
         referencias.push(this.formBuilder.group(staff));
       });
     }
 
     //Cargar Inmuebles
-    if(response.persona.bienesInmuebles != null && response.persona.bienesInmuebles.length > 0){
+    if(response.bienesInmuebles != null && response.bienesInmuebles.length > 0){
       const bienesInmuebles = (<FormArray>this.myForm.get('bienesInmuebles'));
       if(bienesInmuebles){
         while (bienesInmuebles.length) {
           bienesInmuebles.removeAt(0);
         }
       }
-      response.persona.bienesInmuebles.forEach(staff => {
+      response.bienesInmuebles.forEach(staff => {
         bienesInmuebles.push(this.formBuilder.group(staff));
       });
     }
 
     //Cargar Vehiculos
-    if(response.persona.bienesVehiculo != null && response.persona.bienesVehiculo.length > 0){
+    if(response.bienesVehiculo != null && response.bienesVehiculo.length > 0){
       const bienesVehiculo = (<FormArray>this.myForm.get('bienesVehiculo'));
       if(bienesVehiculo){
         while (bienesVehiculo.length) {
@@ -120,37 +121,36 @@ export class EditClientComponent implements OnInit{
         }
       }
 
-      response.persona.bienesVehiculo.forEach(staff => {
+      response.bienesVehiculo.forEach(staff => {
         bienesVehiculo.push(this.formBuilder.group(staff));
       });
     }
 
     //Cargar Ingresos
-    if(response.persona.ingresos != null && response.persona.ingresos.length > 0){
+    if(response.ingresos != null && response.ingresos.length > 0){
       const ingresos = (<FormArray>this.myForm.get('ingresos'));
       if(ingresos){
         while (ingresos.length) {
           ingresos.removeAt(0);
         }
       }
-      response.persona.ingresos.forEach(staff => {
+      response.ingresos.forEach(staff => {
         ingresos.push(this.formBuilder.group(staff));
       });
     }
 
     //Cargar Egresos
-    if(response.persona.egresos != null && response.persona.egresos.length > 0){
+    if(response.egresos != null && response.egresos.length > 0){
       const egresos = (<FormArray>this.myForm.get('egresos'));
       if(egresos){
         while (egresos.length) {
           egresos.removeAt(0);
         }
       }
-      response.persona.egresos.forEach(staff => {
+      response.egresos.forEach(staff => {
         egresos.push(this.formBuilder.group(staff));
       });
     }
-
   }
 
   // Get Current Location Coordinates
@@ -168,26 +168,4 @@ export class EditClientComponent implements OnInit{
     form.setValue(data);
   }
 
-  delete(data: any){
-    if(data.id){
-      const message = new Message;
-      message.titulo = "Eliminar Registro"
-      message.texto = "Esta seguro que desea eliminar el registro!! ";
-
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = message;
-
-      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          this.apiService.delete('/clientes/' + data.id)
-          .subscribe(res => {
-              if(res.status == 200){
-                this.router.navigateByUrl('service-web/client');
-              }
-          });
-        }
-      })
-    }
-  }
 }

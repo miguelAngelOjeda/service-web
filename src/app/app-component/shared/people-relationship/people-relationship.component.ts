@@ -4,6 +4,7 @@ import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } 
 import { DeleteDialogComponent } from '../../../shared';
 import { Estate, Message, Location } from '../../../core/models';
 import { UserService, ApiService, FormsService} from '../../../core/services';
+import { EditModalPeopleRelationsComponent } from './edit-modal-people-relationship';
 import { SnackbarService } from '../../../shared';
 
 @Component({
@@ -52,16 +53,21 @@ import { SnackbarService } from '../../../shared';
     this.onChangesTipoPersona();
   }
 
-  setStep(index: number) {
-    this.step = index;
-  }
+  editRelationship(id: number) {
 
-  nextStep() {
-    this.step++;
-  }
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = id;
+      //dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
 
-  prevStep() {
-    this.step--;
+      const dialogRef = this.dialog.open(EditModalPeopleRelationsComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+         if(result){
+
+         }
+      });
+
   }
 
 
@@ -105,6 +111,7 @@ import { SnackbarService } from '../../../shared';
     return this.formBuilder.group({
       id: null ,
       avatar: null ,
+      nombre: null,
       primerNombre: [null, [Validators.required]],
       segundoNombre: null,
       primerApellido: [null, [Validators.required]],
@@ -271,6 +278,10 @@ import { SnackbarService } from '../../../shared';
       if(res.status == 200){
         res.model.avatar = null;
         res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
+        res.model.nombre = (res.model.primerNombre == null ? '' : res.model.primerNombre) + ' '
+                            + (res.model.segundoNombre == null ? '' : res.model.segundoNombre) + ' '
+                            + (res.model.primerApellido == null ? '' : res.model.primerApellido) + ' ' + (res.model.segundoApellido == null ? '' : res.model.segundoApellido);
+
         (<FormGroup>(<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('personaVinculo')).patchValue(res.model);
       }
     });

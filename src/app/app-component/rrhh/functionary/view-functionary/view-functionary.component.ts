@@ -17,7 +17,7 @@ import { HttpParams } from '@angular/common/http';
 })
 export class ViewFunctionaryComponent implements OnInit {
   myForm: FormGroup;
-  params = new HttpParams({fromObject : {'included' : 'referencias,estudios'}});
+  params = new HttpParams({fromObject : {'included' : 'referencias,estudios,sucursal'}});
 
 
   constructor(
@@ -77,13 +77,28 @@ export class ViewFunctionaryComponent implements OnInit {
      response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
      this.myForm.patchValue(response);
      //Cargar Referencias
-     if(response.referencias > 0){
+     if(response.persona.referencias != null && response.persona.referencias.length > 0){
        const referencias = (<FormArray>this.myForm.get('referencias'));
-       while (referencias.length) {
-         referencias.removeAt(0);
+       if(referencias != null){
+         while (referencias.length) {
+           referencias.removeAt(0);
+         }
        }
-       response.referencias.forEach(staff => {
+       response.persona.referencias.forEach(staff => {
          referencias.push(this.formBuilder.group(staff));
+       });
+     }
+
+     //Cargar Estudios
+     if(response.persona.estudios != null && response.persona.estudios.length > 0){
+       const estudios = (<FormArray>this.myForm.get('estudios'));
+       if(estudios != null){
+         while (estudios.length) {
+           estudios.removeAt(0);
+         }
+       }
+       response.persona.estudios.forEach(staff => {
+         estudios.push(this.formBuilder.group(staff));
        });
      }
 

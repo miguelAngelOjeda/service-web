@@ -17,23 +17,6 @@
       <div [formGroupName]="i" *ngFor="let relationship of relationshipForm.get('vinculos')['controls']; let i = index">
         <blockquote>
           <div class="row">
-            <div class="col-md-3">
-              <mat-form-field  appearance="legacy">
-                 <mat-label>Tipo Vinculo</mat-label>
-                 <mat-select formControlName="tipoVinculo" name="tipoVinculo"  required>
-                     <mat-option  value="CONYUGE">CONYUGE</mat-option>
-                     <mat-option value="HIJO/A">HIJO/A</mat-option>
-                     <mat-option value="HERMANO/A">HERMANO/A</mat-option>
-                     <mat-option value="MADRE">MADRE</mat-option>
-                     <mat-option value="PADRE">PADRE</mat-option>
-                 </mat-select>
-                 <mat-error *ngIf="(relationship.get('tipoVinculo').errors)">
-                   <span *ngIf="relationship.get('tipoVinculo').errors.required">
-                    Campo requerido
-                   </span>
-                 </mat-error>
-              </mat-form-field>
-            </div>
             <ng-container formGroupName="personaVinculo">
                <div class="col-sm-3">
                  <mat-form-field    appearance="legacy">
@@ -48,51 +31,48 @@
                </div>
                <div class="col-md-3">
                  <mat-form-field    appearance="legacy">
-                   <input matInput #input [placeholder]="isDisabled == true ? 'Alias': 'Primer Nombre'" formControlName="primerNombre" name="primerNombre" required>
-                   <mat-error *ngIf="(relationship.get('personaVinculo').get('primerNombre').errors)">
-                     <span *ngIf="relationship.get('personaVinculo').get('primerNombre').errors.required">
+                   <input matInput #input [placeholder]="isDisabled == true ? 'Alias': 'Nombre'" formControlName="nombre" name="nombre" required>
+                   <mat-error *ngIf="(relationship.get('personaVinculo').get('nombre').errors)">
+                     <span *ngIf="relationship.get('personaVinculo').get('nombre').errors.required">
                       Campo requerido
                      </span>
                    </mat-error>
                  </mat-form-field>
-               </div>
-               <div class="col-md-3">
-                 <mat-form-field    appearance="legacy">
-                   <input matInput #input  placeholder="Segundo Nombre" formControlName="segundoNombre" name="segundoNombre">
-                   <mat-error *ngIf="(relationship.get('personaVinculo').get('segundoNombre').errors)">
-                     <span *ngIf="relationship.get('personaVinculo').get('segundoNombre').errors.required">
-                      Campo requerido
-                     </span>
-                   </mat-error>
-                 </mat-form-field>
-               </div>
-               <div class="col-md-3">
-                 <mat-form-field    appearance="legacy">
-                   <input matInput #input  placeholder="Primer Apellido" formControlName="primerApellido" name="primerApellido" required>
-                   <mat-error *ngIf="(relationship.get('personaVinculo').get('primerApellido').errors)">
-                     <span *ngIf="relationship.get('personaVinculo').get('primerApellido').errors.required">
-                      Campo requerido
-                     </span>
-                   </mat-error>
-                 </mat-form-field>
-               </div>
-               <div class="col-md-3">
-                 <mat-form-field    appearance="legacy">
-                   <input matInput #input  placeholder="Segundo Apellido" formControlName="segundoApellido" name="segundoApellido">
-                   <mat-error *ngIf="(relationship.get('personaVinculo').get('segundoApellido').errors)">
-                     <span *ngIf="relationship.get('personaVinculo').get('segundoApellido').errors.required">
-                      Campo requerido
-                     </span>
-                   </mat-error>
-                 </mat-form-field>
-               </div>
-               <div class="col-md-1">
-                 <section class="example-section">
-                   <button type="button" class="btn btn-danger" (click)="delete(relationship.value)"><i class="fa fa-trash"></i></button>
-                      <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
-                 </section>
                </div>
              </ng-container>
+             <div class="col-md-3">
+               <mat-form-field  appearance="legacy">
+                  <mat-label>Tipo Vinculo</mat-label>
+                  <mat-select formControlName="tipoVinculo" name="tipoVinculo"  required>
+                      <mat-option  value="CONYUGE">CONYUGE</mat-option>
+                      <mat-option value="HIJO/A">HIJO/A</mat-option>
+                      <mat-option value="HERMANO/A">HERMANO/A</mat-option>
+                      <mat-option value="MADRE">MADRE</mat-option>
+                      <mat-option value="PADRE">PADRE</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="(relationship.get('tipoVinculo').errors)">
+                    <span *ngIf="relationship.get('tipoVinculo').errors.required">
+                     Campo requerido
+                    </span>
+                  </mat-error>
+               </mat-form-field>
+             </div>
+             <div class="col-md-3">
+               <section class="example-section">
+                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                   <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="relationship.get('personaVinculo').get('id').value">
+                     <button type="button" class="btn btn-light" (click)="delete(relationship.value)"><i class="fa fa-eye"></i></button>
+                   </div>
+                   <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="relationship.get('personaVinculo').get('id').value">
+                     <button type="button" class="btn btn-light" (click)="editRelationship(relationship.get('personaVinculo').get('id').value)"><i class="fa fa-edit"></i></button>
+                   </div>
+                   <div class="btn-group" role="group" aria-label="Third group">
+                     <button type="button" class="btn btn-danger" (click)="delete(relationship.value)"><i class="fa fa-trash"></i></button>
+                   </div>
+                 </div>
+                    <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+               </section>
+             </div>
           </div>
 
 
