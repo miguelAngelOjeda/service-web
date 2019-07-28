@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
 import { ValidationService } from '../../../../core/services/validation.service';
 import { Subsidiary, Departments, Message, Location } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
@@ -15,9 +14,8 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
   styleUrls: ['./edit-modal-people-relationship.component.css']
 })
 export class EditModalPeopleRelationsComponent implements OnInit{
-  params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones'}});
   myForm: FormGroup;
-  private idPeople: any;
+  private peopleRelations: any;
 
   constructor(
             public dialog: MatDialog,
@@ -25,24 +23,17 @@ export class EditModalPeopleRelationsComponent implements OnInit{
             public dialogRef: MatDialogRef<EditModalPeopleRelationsComponent>,
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: any) {
-              this.idPeople = data;
+              this.peopleRelations = data;
   }
 
   ngOnInit() {
     this.initFormBuilder();
     setTimeout(() => {
-      this.apiService.get('/personas/' + this.idPeople,this.params)
-      .subscribe(res => {
-        if(res.status == 200){
-          this.loadData(res.model);
-        }
-      });
+        this.loadData(this.peopleRelations);
     });
   }
 
   onSubmit() {
-    console.log(this.myForm);
-    console.log(this.myForm.value.persona);
     if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
       this.myForm.value.persona.documento = ' ';
       this.myForm.value.persona.fechaNacimiento = new Date();
@@ -51,10 +42,10 @@ export class EditModalPeopleRelationsComponent implements OnInit{
       this.myForm.value.persona.sexo = 'N';
     }
 
-    this.apiService.put('/clientes/' , this.myForm.value)
+    this.apiService.put('/personas/' + this.myForm.value.persona.id , this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.loadData(res.model);
+        this.dialogRef.close(res.model);
       }
     });
 

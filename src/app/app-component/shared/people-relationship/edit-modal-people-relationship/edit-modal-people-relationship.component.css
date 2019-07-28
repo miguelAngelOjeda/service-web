@@ -1,6 +1,6 @@
 .mat-button{
   min-width: 100%;
-  color: #fff;
+  color: #080808;
   background-color: #74c7a4;
   border-top-left-radius: 4.8px;
   font-family: roboto-light, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -10,6 +10,13 @@
   text-decoration-line: none;
   text-decoration-style: solid;
   text-transform: none;
+}
+
+.section{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
 }
 
 .gray-text {
