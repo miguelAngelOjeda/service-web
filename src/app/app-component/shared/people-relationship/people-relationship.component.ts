@@ -47,8 +47,8 @@ import { SnackbarService } from '../../../shared';
   ngOnInit() {
     this.relationshipForm = this.parentF.form;
     this.relationshipForm.addControl(this.formName, this.formBuilder.array([]));
-    this.addButton();
-    // this.onChanges();
+    this.addButton(null);
+    this.onChanges();
     // this.onChangesPeople();
     // this.onChangesTipoPersona();
   }
@@ -71,17 +71,17 @@ import { SnackbarService } from '../../../shared';
   }
 
 
-  addFormGroup(): FormGroup {
+  addFormGroup(tipoVinculo: string): FormGroup {
     return this.formBuilder.group({
       id: null,
       persona: null,
       personaVinculo: this.addPeopleGroup(),
-      tipoVinculo: [null, Validators.required]
+      tipoVinculo: [(tipoVinculo === null ? null : tipoVinculo), Validators.required]
     });
   }
 
-  addButton(): void {
-    (<FormArray>this.relationshipForm.get(this.formName)).push(this.addFormGroup());
+  addButton(tipoVinculo: string): void {
+    (<FormArray>this.relationshipForm.get(this.formName)).push(this.addFormGroup(tipoVinculo));
   }
 
   //Persona
@@ -165,7 +165,7 @@ import { SnackbarService } from '../../../shared';
                 (<FormArray>this.relationshipForm.get(this.formName)).removeAt((<FormArray>this.relationshipForm.get(this.formName)).value.findIndex(dep => dep === data))
                 if(this.minRow > 0){
                   if((<FormArray>this.relationshipForm.get(this.formName)).controls.length < this.minRow){
-                    this.addButton();
+                    this.addButton(null);
                   }
                 }
               }
@@ -176,7 +176,7 @@ import { SnackbarService } from '../../../shared';
       (<FormArray>this.relationshipForm.get(this.formName)).removeAt((<FormArray>this.relationshipForm.get(this.formName)).value.findIndex(dep => dep === data))
       if(this.minRow > 0){
         if((<FormArray>this.relationshipForm.get(this.formName)).controls.length < this.minRow){
-          this.addButton();
+          this.addButton(null);
         }
       }
     }
@@ -188,11 +188,25 @@ import { SnackbarService } from '../../../shared';
         if(estadoCivil != 'CASADO/A'){
           this.minRow = 0;
         }else{
-          this.minRow = 1;
-          this.snackbarService.show('Cargar datos del Conyuge en Vinculos!!','warning');
-          if((<FormArray>this.relationshipForm.get(this.formName)).controls.length < this.minRow){
-            this.addButton();
+
+          let tieneConyuge = false;
+          (<FormArray>this.relationshipForm.get(this.formName)).controls.forEach(staff => {
+
+            let tipoVinculo = (<FormGroup>staff).controls.tipoVinculo.value;
+
+            if( tipoVinculo === 'CONYUGE'){
+              this.minRow = 0;
+            }else{
+              tieneConyuge = true;
+            }
+
+          });
+
+          if(tieneConyuge){
+            this.snackbarService.show('Cargar datos del Conyuge en Vinculos!!','warning');
+            this.addButton('CONYUGE');
           }
+
 
         }
     });

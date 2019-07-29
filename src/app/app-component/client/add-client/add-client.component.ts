@@ -151,6 +151,26 @@ export class AddClientComponent implements OnInit {
         });
       }
 
+      //Cargar Vinculos
+      if(response.persona.vinculos != null && response.persona.vinculos.length > 0){
+        const vinculos = (<FormArray>this.myForm.get('vinculos'));
+        if(vinculos){
+          while (vinculos.length) {
+            vinculos.removeAt(0);
+          }
+
+          response.persona.vinculos.forEach(staff => {
+            staff.personaVinculo.fechaNacimiento = new Date(staff.personaVinculo.fechaNacimiento);
+            staff.personaVinculo.nombre = (staff.personaVinculo.primerNombre == null ? '' : staff.personaVinculo.primerNombre) + ' '
+                                + (staff.personaVinculo.segundoNombre == null ? '' : staff.personaVinculo.segundoNombre) + ' '
+                                + (staff.personaVinculo.primerApellido == null ? '' : staff.personaVinculo.primerApellido) + ' ' + (staff.personaVinculo.segundoApellido == null ? '' : staff.personaVinculo.segundoApellido);
+            staff.personaVinculo = this.formBuilder.group(staff.personaVinculo);
+            vinculos.push(this.formBuilder.group(staff));
+          });
+        }
+
+      }
+
     }
 
   }

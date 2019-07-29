@@ -32,7 +32,6 @@ export class ViewPeopleRelationsComponent implements OnInit{
   ngOnInit() {
     this.relationshipForm = this.parentF.form;
     this.relationshipForm.addControl(this.formName, this.formBuilder.array([]));
-    this.addButton();
   }
 
   addButton(): void {
@@ -53,6 +52,7 @@ export class ViewPeopleRelationsComponent implements OnInit{
     return this.formBuilder.group({
       id: null ,
       avatar: null ,
+      nombre: null ,
       primerNombre: [null, [Validators.required]],
       segundoNombre: null,
       primerApellido: [null, [Validators.required]],
@@ -81,5 +81,5 @@ export class ViewPeopleRelationsComponent implements OnInit{
       barrio: null
     });
   }
-  
+
 }

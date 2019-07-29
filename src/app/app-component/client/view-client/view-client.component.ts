@@ -15,7 +15,7 @@ import { DeleteDialogComponent } from '../../../shared';
 })
 export class ViewClientComponent implements OnInit {
   myForm: FormGroup;
-  params = new HttpParams({fromObject : {'included' : 'inmuebles,ocupaciones,referencias,vehiculos'}});
+  params = new HttpParams({fromObject : {'included' : 'inmuebles,ocupaciones,referencias,vehiculos,vinculos'}});
 
   constructor(
     private router: Router,
@@ -152,6 +152,26 @@ export class ViewClientComponent implements OnInit {
       response.persona.egresos.forEach(staff => {
         egresos.push(this.formBuilder.group(staff));
       });
+    }
+
+    //Cargar Vinculos
+    if(response.persona.vinculos != null && response.persona.vinculos.length > 0){
+      const vinculos = (<FormArray>this.myForm.get('vinculos'));
+      if(vinculos){
+        while (vinculos.length) {
+          vinculos.removeAt(0);
+        }
+
+        response.persona.vinculos.forEach(staff => {
+          staff.personaVinculo.fechaNacimiento = new Date(staff.personaVinculo.fechaNacimiento);
+          staff.personaVinculo.nombre = (staff.personaVinculo.primerNombre == null ? '' : staff.personaVinculo.primerNombre) + ' '
+                              + (staff.personaVinculo.segundoNombre == null ? '' : staff.personaVinculo.segundoNombre) + ' '
+                              + (staff.personaVinculo.primerApellido == null ? '' : staff.personaVinculo.primerApellido) + ' ' + (staff.personaVinculo.segundoApellido == null ? '' : staff.personaVinculo.segundoApellido);
+          staff.personaVinculo = this.formBuilder.group(staff.personaVinculo);
+          vinculos.push(this.formBuilder.group(staff));
+        });
+      }
+
     }
 
   }
