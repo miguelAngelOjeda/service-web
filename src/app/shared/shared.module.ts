@@ -18,6 +18,7 @@ import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
 import { ImageViewerModule } from 'ng2-image-viewer';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload';
+import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-u
     FormsModule,
     MaterialModule,
     ImageViewerModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,    
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
     }),

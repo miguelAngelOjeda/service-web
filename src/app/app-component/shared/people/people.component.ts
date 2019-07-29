@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, EventEmitter, Output, Input, ElementRef }
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlContainer, FormGroupDirective} from '@angular/forms';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { DeleteDialogComponent } from '../../../shared';
+import { HttpParams } from '@angular/common/http';
 import { Estate, Message, Location } from '../../../core/models';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 
@@ -12,6 +13,7 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
 export class PeopleComponent implements OnInit{
+  params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'}});
   isSeparacionBienes = true;
   isDisabled = false;
   isRelationShip = false;
@@ -161,12 +163,11 @@ export class PeopleComponent implements OnInit{
   }
 
   peopleCi() {
-    this.apiService.get('/personas/documento/' + (<FormGroup>this.peopleForm.get('persona')).controls.documento.value)
+    this.apiService.get('/personas/documento/' + (<FormGroup>this.peopleForm.get('persona')).controls.documento.value, this.params)
     .subscribe(res => {
       if(res.status == 200){
         res.model.avatar = null;
-        res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
-        (<FormGroup>this.peopleForm.get('persona')).patchValue(res.model);
+        this.loadData(res.model);
       }
     });
   }
@@ -256,6 +257,26 @@ export class PeopleComponent implements OnInit{
       response.egresos.forEach(staff => {
         egresos.push(this.formBuilder.group(staff));
       });
+    }
+
+    //Cargar Vinculos
+    if(response.vinculos != null && response.vinculos.length > 0){
+      const vinculos = (<FormArray>this.peopleForm.get('vinculos'));
+      if(vinculos){
+        while (vinculos.length) {
+          vinculos.removeAt(0);
+        }
+
+        response.vinculos.forEach(staff => {
+          staff.personaVinculo.fechaNacimiento = new Date(staff.personaVinculo.fechaNacimiento);
+          staff.personaVinculo.nombre = (staff.personaVinculo.primerNombre == null ? '' : staff.personaVinculo.primerNombre) + ' '
+                              + (staff.personaVinculo.segundoNombre == null ? '' : staff.personaVinculo.segundoNombre) + ' '
+                              + (staff.personaVinculo.primerApellido == null ? '' : staff.personaVinculo.primerApellido) + ' ' + (staff.personaVinculo.segundoApellido == null ? '' : staff.personaVinculo.segundoApellido);
+          staff.personaVinculo = this.formBuilder.group(staff.personaVinculo);
+          vinculos.push(this.formBuilder.group(staff));
+        });
+      }
+
     }
   }
 

@@ -47,6 +47,12 @@ import { SnackbarService } from '../../../shared';
   ngOnInit() {
     this.relationshipForm = this.parentF.form;
     this.relationshipForm.addControl(this.formName, this.formBuilder.array([]));
+
+    const formArray = (<FormArray>this.relationshipForm.get(this.formName));
+    while (formArray.length) {
+      formArray.removeAt(0);
+    }
+
     this.addButton(null);
     this.onChanges();
     // this.onChangesPeople();
@@ -95,27 +101,7 @@ import { SnackbarService } from '../../../shared';
       primerApellido: [null, [Validators.required]],
       segundoApellido: null,
       documento: [null, [Validators.required]],
-      ruc: null,
-      fechaNacimiento: [null, [Validators.required]],
-      tipoPersona: ['FISICA', [Validators.required]],
-      sexo: [null, [Validators.required]],
-      numeroHijos: null,
-      numeroDependientes: null,
-      estadoCivil: [null, [Validators.required]],
-      separacionBienes: null,
-      email: [null, [Validators.required]],
-      profesion: [null, [Validators.required]],
-      telefonoParticular: [null, [Validators.required]],
-      telefonoSecundario: null,
-      direccionParticular: [null, [Validators.required]],
-      direccionDetallada: '',
-      observacion: '',
-      activo: 'S',
-      nacionalidad: [null, [Validators.required]],
-      pais: [null, [Validators.required]],
-      departamento: [null, [Validators.required]],
-      ciudad: [null, [Validators.required]],
-      barrio: null
+      ruc: null
     });
   }
 

@@ -39,7 +39,7 @@
              </div>
              <div class="col-md-3">
                <mat-form-field    appearance="legacy">
-                 <input matInput #input  placeholder="Valor Actual" formControlName="valorActual"  name="valorActual" required>
+                 <input matInput #input  placeholder="Valor Actual" formControlName="valorActual"  name="valorActual" required currencyMask>
                  <mat-error *ngIf="(bienesVehiculo.get('valorActual').errors)">
                    <span *ngIf="bienesVehiculo.get('valorActual').errors.required">
                     Campo requerido
@@ -49,12 +49,12 @@
              </div>
              <div class="col-md-3">
                <mat-form-field    appearance="legacy">
-                 <input matInput #input  placeholder="Saldo a Pagar" formControlName="saldo"  name="saldo">
+                 <input matInput #input  placeholder="Saldo a Pagar" formControlName="saldo"  name="saldo" currencyMask>
                </mat-form-field>
              </div>
              <div class="col-md-3">
                <mat-form-field    appearance="legacy">
-                 <input matInput #input  placeholder="Cuota Mensual" formControlName="cuotaMensual"  name="cuotaMensual">
+                 <input matInput #input  placeholder="Cuota Mensual" formControlName="cuotaMensual"  name="cuotaMensual" currencyMask>
                </mat-form-field>
              </div>
              <div class="col-md-1">

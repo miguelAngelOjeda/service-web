@@ -18,8 +18,22 @@ import { EgressComponent, ViewEgressComponent } from './egress';
 import { PeopleComponent, ViewPeopleComponent } from './people';
 import { DepartmentComponent } from './department';
 import { OccupationComponent, ViewOccupationComponent } from './occupation';
-import { PeopleRelationshipComponent, ViewPeopleRelationsComponent,AddModalPeopleRelationsComponent,
-   EditModalPeopleRelationsComponent, ViewModalPeopleRelationsComponent } from './people-relationship';
+import { PeopleRelationshipComponent, ViewPeopleRelationsComponent,
+   EditModalPeopleRelationsComponent } from './people-relationship';
+import { NgxCurrencyModule } from "ngx-currency";
+
+
+export const customCurrencyMaskConfig = {
+   align: "right",
+   allowNegative: false,
+   allowZero: true,
+   decimal: ",",
+   precision: 0,
+   prefix: "G ",
+   suffix: "",
+   thousands: ".",
+   nullable: false
+};
 
 @NgModule({
   imports: [
@@ -27,14 +41,13 @@ import { PeopleRelationshipComponent, ViewPeopleRelationsComponent,AddModalPeopl
     FlexLayoutModule,
     SharedModule,
     EcoFabSpeedDialModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LayoutModule,
     ReactiveFormsModule
   ],
   entryComponents: [
-    ViewModalPeopleRelationsComponent,
-    EditModalPeopleRelationsComponent,
-    AddModalPeopleRelationsComponent
+    EditModalPeopleRelationsComponent
   ],
   declarations: [
     StudiesComponent,
@@ -46,8 +59,6 @@ import { PeopleRelationshipComponent, ViewPeopleRelationsComponent,AddModalPeopl
     ViewEstateComponent,
     ViewPeopleComponent,
     ViewPeopleRelationsComponent,
-    AddModalPeopleRelationsComponent,
-    ViewModalPeopleRelationsComponent,
     EditModalPeopleRelationsComponent,
     ViewOccupationComponent,
     ReferenceComponent,

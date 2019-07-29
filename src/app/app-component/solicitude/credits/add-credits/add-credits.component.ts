@@ -104,7 +104,17 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
           if(tipoGarantia.id == 3){
             this.snackbarService.show('Cargar datos de la Hipoteca en Inmuebles!!','warning');
             this.isTieneHipoteca = 1;
+            this.myForm.removeControl('codeudor');
+          }else if(tipoGarantia.id == 2){
+            this.isTieneHipoteca = 0;
+
+            this.myForm.addControl('codeudor', this.formBuilder.group({
+              id: null ,
+              documento: [null, [Validators.required]],
+              nombre: [null, [Validators.required]] }));
+
           }else{
+            this.myForm.removeControl('codeudor');
             this.isTieneHipoteca = 0;
           }
         }

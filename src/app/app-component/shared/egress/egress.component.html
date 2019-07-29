@@ -10,7 +10,7 @@
           <div class="row">
              <div class="col-sm-5">
                <mat-form-field    appearance="legacy">
-                 <input matInput #input type="number" min="0"  placeholder="Monto"  formControlName="monto"  name="monto" required>
+                 <input matInput #input type="text" min="0"  placeholder="Monto"  formControlName="monto"  name="monto" required currencyMask>
                  <mat-error *ngIf="(egresos.get('monto').errors)">
                    <span *ngIf="egresos.get('monto').errors.required">
                     Campo requerido
