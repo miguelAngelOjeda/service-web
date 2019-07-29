@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 import { ValidationService } from '../../../../core/services/validation.service';
 import { Subsidiary, Departments, Message, Location } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
@@ -14,8 +15,9 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
   styleUrls: ['./edit-modal-people-relationship.component.css']
 })
 export class EditModalPeopleRelationsComponent implements OnInit{
+  params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones'}});
   myForm: FormGroup;
-  private peopleRelations: any;
+  private idPeople: any;
 
   constructor(
             public dialog: MatDialog,
@@ -23,13 +25,18 @@ export class EditModalPeopleRelationsComponent implements OnInit{
             public dialogRef: MatDialogRef<EditModalPeopleRelationsComponent>,
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: any) {
-              this.peopleRelations = data;
+              this.idPeople = data;
   }
 
   ngOnInit() {
     this.initFormBuilder();
     setTimeout(() => {
-        this.loadData(this.peopleRelations);
+      this.apiService.get('/personas/' + this.idPeople,this.params)
+      .subscribe(res => {
+        if(res.status == 200){
+          this.loadData(res.model);
+        }
+      });
     });
   }
 
@@ -42,10 +49,10 @@ export class EditModalPeopleRelationsComponent implements OnInit{
       this.myForm.value.persona.sexo = 'N';
     }
 
-    this.apiService.put('/personas/' + this.myForm.value.persona.id , this.myForm.value)
+    this.apiService.put('/clientes/' , this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.dialogRef.close(res.model);
+        this.loadData(res.model);
       }
     });
 
