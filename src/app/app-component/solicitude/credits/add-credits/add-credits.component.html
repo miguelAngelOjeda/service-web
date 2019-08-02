@@ -1,18 +1,68 @@
 <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Solicitud Creditos </a> &gt; <span class="current">Agregar</span></h2>
 <mat-card class="form-card">
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <mat-tab-group>
-      <mat-tab>
-        <ng-template mat-tab-label>
+    <!-- <mat-tab-group>
+      <mat-tab> -->
+        <!-- <ng-template mat-tab-label>
           <h4  class="m-0"><mat-icon class="gray-text">event_note</mat-icon>Propuesta Credito</h4>
-        </ng-template>
+        </ng-template> -->
         <mat-card-content>
           <div class="row">
             <div class="col-md-12">
-              <h4  class="m-0 font-20"><mat-icon class="gray-text">event_note</mat-icon>Solicitud</h4>
+              <h4  class="m-0 font-20"><mat-icon class="gray-text">event_note</mat-icon>Propuesta Credito</h4>
             </div>
+            <br>
             <div class="col-md-12">
-              <div class="row m-l-10">
+              <div class="row">
+                    <!-- <div class="col-md-12">
+                      <h4  class="m-0"><mat-icon class="gray-text">account_circle</mat-icon>Cliente</h4>
+                    </div> -->
+                  <!-- <blockquote> -->
+                    <ng-container formGroupName="cliente">
+                        <div class="col-sm-3">
+                          <mat-form-field    appearance="legacy">
+                            <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" required>
+                            <mat-icon matSuffix (click)="myForm.get('cliente').get('documento').valid && peopleCi(myForm.get('cliente').get('documento').value, i)">search</mat-icon>
+                            <mat-error *ngIf="(myForm.get('cliente').get('documento').errors)">
+                              <span *ngIf="myForm.get('cliente').get('documento').errors.required">
+                               Campo requerido
+                              </span>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-3">
+                          <mat-form-field    appearance="legacy">
+                            <input matInput #input  placeholder="Ruc" formControlName="ruc"  name="ruc" required>
+                            <mat-icon matSuffix (click)="myForm.get('cliente').get('ruc').valid && peopleCi(myForm.get('cliente').get('ruc').value, i)">search</mat-icon>
+                            <mat-error *ngIf="(myForm.get('cliente').get('ruc').errors)">
+                              <span *ngIf="myForm.get('cliente').get('ruc').errors.required">
+                               Campo requerido
+                              </span>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-list>
+                            <mat-list-item>
+                              <p><span class="font-bold">Nombre: </span> {{myForm.get('cliente').get('nombre').value}}</p>
+                            </mat-list-item>
+                          </mat-list>
+                        </div>
+                        <div class="col-md-2">
+                          <section class="example-section">
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('cliente').get('id').value">
+                                <button type="button" class="btn btn-light" (click)="delete(myForm.get('cliente').get('id').value)"><i class="fa fa-eye"></i></button>
+                              </div>
+                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('cliente').get('id').value">
+                                <button type="button" class="btn btn-light" (click)="editRelationship(myForm.get('cliente').get('id').value)"><i class="fa fa-edit"></i></button>
+                              </div>
+                            </div>
+                               <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+                          </section>
+                        </div>
+                    </ng-container>
+                  <!-- </blockquote> -->
                 <div class="col-md-4">
                   <app-select-filter appearance="legacy" (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
                    placeholder="Modalidad" urlFilter="modalidades" [columnsFilter]="['nombre']"></app-select-filter>
@@ -281,28 +331,13 @@
 
               <!-- </div> -->
             </div>
-            <div class="col-md-12  m-t-10">
-              <app-upload></app-upload>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <h4  class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Cliente</h4>
-        </ng-template>
-        <mat-card-content>
-          <div class="row">
-            <div class="col-md-12">
-              <app-people [relationShip]="true"></app-people>
-            </div>
             <div class="col-md-12" *ngIf="myForm.get('codeudor')">
               <div class="row">
                 <div class="col-md-12">
                   <h4  class="m-0"><mat-icon class="gray-text">account_circle</mat-icon>Codeudor</h4>
                 </div>
                 <div class="col-md-12">
-                  <blockquote>
+                  <!-- <blockquote> -->
                     <ng-container formGroupName="codeudor">
                       <div class="row">
                         <div class="col-sm-4">
@@ -326,27 +361,26 @@
                             </mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
-                          <section class="example-section">
-                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="delete(relationship.value)"><i class="fa fa-eye"></i></button>
-                              </div>
-                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('codeudor').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="editRelationship(myForm.get('codeudor').get('id').value)"><i class="fa fa-edit"></i></button>
-                              </div>
-                              <div class="btn-group" role="group" aria-label="Third group">
-                                <button type="button" class="btn btn-danger" (click)="delete(relationship.value)"><i class="fa fa-trash"></i></button>
-                              </div>
-                            </div>
-                               <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
-                          </section>
-                        </div>
                       </div>
                     </ng-container>
-                  </blockquote>
+                  <!-- </blockquote> -->
                 </div>
               </div>
+            </div>
+            <div class="col-md-12  m-t-10">
+              <app-upload></app-upload>
+            </div>
+          </div>
+        </mat-card-content>
+      <!-- </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4  class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Cliente</h4>
+        </ng-template>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-12">
+              <app-people [relationShip]="true"></app-people>
             </div>
             <div class="col-md-12">
               <app-reference  [minRow]="1"></app-reference>
@@ -389,7 +423,7 @@
         [idContainer]="'idOnHTML'"
         [loadOnInit]="true"></app-image-viewer>
       </mat-tab> -->
-    </mat-tab-group>
+    <!-- </mat-tab-group> --> -->
 
   </form>
   <!-- <mat-card-content>

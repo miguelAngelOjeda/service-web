@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter, ViewChild, AfterViewInit  } from '@ang
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../../core/services';
 import { SnackbarService } from '../../../../shared';
+import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
+import { EditModalPeopleRelationsComponent } from '../../../shared/people-relationship/edit-modal-people-relationship';
 import * as $ from 'jquery';
 import 'dropify';
 
@@ -19,7 +21,8 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
   constructor(
     private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
-    private apiService: ApiService) { }
+    private apiService: ApiService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.initFormBuilder();
@@ -48,6 +51,23 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
 
   getValue(data: any, form : any): void {
     (<FormControl>this.myForm.get(form)).setValue(data);
+  }
+
+  editRelationship(id: number) {
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = id;
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+
+      const dialogRef = this.dialog.open(EditModalPeopleRelationsComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+         if(result){
+
+         }
+      });
+
   }
 
   protected valueChange(){
@@ -304,7 +324,11 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
   protected initFormBuilder() {
     this.myForm = this.formBuilder.group({
       id: null ,
-      cliente: null ,
+      cliente: this.formBuilder.group({
+        id: null ,
+        documento: [null, [Validators.required]],
+        ruc: [null],
+        nombre: [null, [Validators.required]] }) ,
       modalidad: [null, [Validators.required]],
       tipoCalculoImporte: [null, [Validators.required]],
       tipoDestino: [null, [Validators.required]],
@@ -330,6 +354,22 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
       periodoGracia: [30, [Validators.required]],
       periodoCapital: ['30', [Validators.required]],
       activo: 'S'
+    });
+  }
+
+  peopleCi(data: any, index:any) {
+    console.log(data);
+    this.apiService.get('/personas/documento/' + data)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.model.avatar = null;
+        res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
+        res.model.nombre = (res.model.primerNombre == null ? '' : res.model.primerNombre) + ' '
+                            + (res.model.segundoNombre == null ? '' : res.model.segundoNombre) + ' '
+                            + (res.model.primerApellido == null ? '' : res.model.primerApellido) + ' ' + (res.model.segundoApellido == null ? '' : res.model.segundoApellido);
+
+        (<FormGroup>this.myForm.get('cliente')).patchValue(res.model);
+      }
     });
   }
 

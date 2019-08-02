@@ -1,5 +1,5 @@
 
-<h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Vinculo</h4>
+<h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Registro</h4>
 <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
 		<br>
 		<div class="mat-dialog-content" style="max-height: 75vh">
@@ -35,7 +35,11 @@
 				</div>
 			</div>
 		</div>
-		<section class="section">
+		<mat-dialog-actions align="end">
+		  <button mat-button mat-dialog-close>Cancel</button>
+		  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+		</mat-dialog-actions>
+		<!-- <section class="section">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
@@ -48,5 +52,5 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 </form>

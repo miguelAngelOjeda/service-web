@@ -1,29 +1,32 @@
-<form class="mat-dialog-content" style="max-height: 85vh"[formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="row">
-					<div class="col-md-12">
-						<app-people></app-people>
-					</div>
-					<div class="col-md-12 m-t-30">
-						<app-reference [minRow]="1"></app-reference>
-					</div>
-					<div class="col-md-12 m-t-30">
-						<app-occupation [minRow]="0"></app-occupation>
-					</div>
-					<div class="col-md-12 m-t-30">
-						<app-estate></app-estate>
-					</div>
-					<div class="col-md-12 m-t-30">
-						<app-vehicle></app-vehicle>
-					</div>
-					<div class="col-md-12 m-t-30">
-						<div class="row">
-							<div class="col-md-6">
-								<app-ingress [minRow]="1"></app-ingress>
-							</div>
-							<div class="col-md-6">
-								<app-egress [minRow]="1"></app-egress>
+<h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Registro</h4>
+<form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
+		<div class="mat-dialog-content" style="max-height: 80vh">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12">
+							<app-people [relationShip]="true"></app-people>
+						</div>
+						<div class="col-md-12 m-t-30">
+							<app-reference [minRow]="1"></app-reference>
+						</div>
+						<div class="col-md-12 m-t-30">
+							<app-occupation [minRow]="0"></app-occupation>
+						</div>
+						<div class="col-md-12 m-t-30">
+							<app-estate></app-estate>
+						</div>
+						<div class="col-md-12 m-t-30">
+							<app-vehicle></app-vehicle>
+						</div>
+						<div class="col-md-12 m-t-30">
+							<div class="row">
+								<div class="col-md-6">
+									<app-ingress [minRow]="1"></app-ingress>
+								</div>
+								<div class="col-md-6">
+									<app-egress [minRow]="1"></app-egress>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -31,5 +34,9 @@
 			</div>
 		</div>
 		<br>
-		<button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
+		<mat-dialog-actions align="end">
+		  <button mat-button mat-dialog-close>Cancelar</button>
+		  <button mat-button [type]="onSubmit" cdkFocusInitial>Guardar</button>
+		</mat-dialog-actions>
+		<!-- <button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button> -->
 </form>
