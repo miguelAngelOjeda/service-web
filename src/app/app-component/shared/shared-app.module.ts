@@ -19,7 +19,7 @@ import { PeopleComponent, ViewPeopleComponent } from './people';
 import { DepartmentComponent } from './department';
 import { OccupationComponent, ViewOccupationComponent } from './occupation';
 import { PeopleRelationshipComponent, ViewPeopleRelationsComponent,
-   EditModalPeopleRelationsComponent } from './people-relationship';
+   EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from './people-relationship';
 import { NgxCurrencyModule } from "ngx-currency";
 
 
@@ -47,7 +47,9 @@ export const customCurrencyMaskConfig = {
     ReactiveFormsModule
   ],
   entryComponents: [
-    EditModalPeopleRelationsComponent
+    EditModalPeopleComponent,
+    AddModalPeopleComponent,
+    ViewModalPeopleComponent,
   ],
   declarations: [
     StudiesComponent,
@@ -59,7 +61,9 @@ export const customCurrencyMaskConfig = {
     ViewEstateComponent,
     ViewPeopleComponent,
     ViewPeopleRelationsComponent,
-    EditModalPeopleRelationsComponent,
+    EditModalPeopleComponent,
+    AddModalPeopleComponent,
+    ViewModalPeopleComponent,
     ViewOccupationComponent,
     ReferenceComponent,
     EstateComponent,

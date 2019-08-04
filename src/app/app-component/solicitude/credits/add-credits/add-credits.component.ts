@@ -2,8 +2,9 @@ import { Component, OnInit, EventEmitter, ViewChild, AfterViewInit  } from '@ang
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../../core/services';
 import { SnackbarService } from '../../../../shared';
+import { HttpParams } from '@angular/common/http';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { EditModalPeopleRelationsComponent } from '../../../shared/people-relationship/edit-modal-people-relationship';
+import { EditModalPeopleComponent } from '../../../shared/people-relationship/edit-modal-people';
 import * as $ from 'jquery';
 import 'dropify';
 
@@ -13,6 +14,8 @@ import 'dropify';
   styleUrls: ['./add-credits.component.scss']
 })
 export class AddCreditsComponent implements OnInit, AfterViewInit {
+  params = new HttpParams({fromObject :
+    {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'}});
   myForm: FormGroup;
   validateForm = true;
   isSeparacionBienes = true;
@@ -53,20 +56,26 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
     (<FormControl>this.myForm.get(form)).setValue(data);
   }
 
-  editRelationship(id: number) {
+  editPeople(id: number) {
 
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = id;
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
+    this.apiService.get('/personas/' + id,this.params)
+    .subscribe(res => {
+      if(res.status == 200){
+        console.log(res);
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = { model: res.model, title:'Editar Cliente' };
+        dialogConfig.disableClose = true;
+        //dialogConfig.maxHeight = "65vh";
+        dialogConfig.autoFocus = true;
 
-      const dialogRef = this.dialog.open(EditModalPeopleRelationsComponent, dialogConfig);
+        const dialogRef = this.dialog.open(EditModalPeopleComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+           if(result){
 
-      dialogRef.afterClosed().subscribe(result => {
-         if(result){
-
-         }
-      });
+           }
+        });
+      }
+    });
 
   }
 
@@ -324,7 +333,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
   protected initFormBuilder() {
     this.myForm = this.formBuilder.group({
       id: null ,
-      cliente: this.formBuilder.group({
+      persona: this.formBuilder.group({
         id: null ,
         documento: [null, [Validators.required]],
         ruc: [null],
@@ -368,7 +377,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
                             + (res.model.segundoNombre == null ? '' : res.model.segundoNombre) + ' '
                             + (res.model.primerApellido == null ? '' : res.model.primerApellido) + ' ' + (res.model.segundoApellido == null ? '' : res.model.segundoApellido);
 
-        (<FormGroup>this.myForm.get('cliente')).patchValue(res.model);
+        (<FormGroup>this.myForm.get('persona')).patchValue(res.model);
       }
     });
   }

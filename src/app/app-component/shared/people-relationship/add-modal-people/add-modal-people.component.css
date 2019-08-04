@@ -1,0 +1,13 @@
+
+.section{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.gray-text {
+  color: #777;
+  vertical-align: text-bottom;
+  margin-right: 5px;
+}

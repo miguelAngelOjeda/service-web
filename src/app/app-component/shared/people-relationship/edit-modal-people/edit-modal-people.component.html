@@ -1,13 +1,11 @@
-
-<h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Registro</h4>
+<h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>{{title}}</h4>
 <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
-		<br>
 		<div class="mat-dialog-content" style="max-height: 75vh">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-12">
-							<app-people></app-people>
+							<app-people [relationShip]="true"></app-people>
 						</div>
 						<div class="col-md-12 m-t-30">
 							<app-reference [minRow]="1"></app-reference>
@@ -35,22 +33,10 @@
 				</div>
 			</div>
 		</div>
+		<br>
 		<mat-dialog-actions align="end">
-		  <button mat-button mat-dialog-close>Cancel</button>
-		  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+		  <button mat-button mat-dialog-close>Cancelar</button>
+		  <button mat-button [type]="onSubmit" cdkFocusInitial>Guardar</button>
 		</mat-dialog-actions>
-		<!-- <section class="section">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-						<div class="btn-group mr-2" role="group" aria-label="First group">
-							<button mat-button style="background-color: #e0e5ff;"  [mat-dialog-close]="false" mat-raised-button>Cancelar</button>
-						</div>
-						<div class="btn-group mr-2" role="group" aria-label="Second group">
-							<button  mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
+		<!-- <button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button> -->
 </form>

@@ -10,33 +10,30 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 
 @Component({
-  selector: 'app-modal-people-relationship',
-  templateUrl: './edit-modal-people-relationship.component.html',
-  styleUrls: ['./edit-modal-people-relationship.component.css']
+  selector: 'app-modal-people',
+  templateUrl: './edit-modal-people.component.html',
+  styleUrls: ['./edit-modal-people.component.css']
 })
-export class EditModalPeopleRelationsComponent implements OnInit{
+export class EditModalPeopleComponent implements OnInit{
   params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones'}});
   myForm: FormGroup;
-  private idPeople: any;
+  private people: any;
+  private title: any;
 
   constructor(
             public dialog: MatDialog,
             private formBuilder: FormBuilder,
-            public dialogRef: MatDialogRef<EditModalPeopleRelationsComponent>,
+            public dialogRef: MatDialogRef<EditModalPeopleComponent>,
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: any) {
-              this.idPeople = data;
+              this.people = data.model;
+              this.title = data.title;
   }
 
   ngOnInit() {
     this.initFormBuilder();
     setTimeout(() => {
-      this.apiService.get('/personas/' + this.idPeople,this.params)
-      .subscribe(res => {
-        if(res.status == 200){
-          this.loadData(res.model);
-        }
-      });
+      this.loadData(this.people);
     });
   }
 
@@ -49,7 +46,7 @@ export class EditModalPeopleRelationsComponent implements OnInit{
       this.myForm.value.persona.sexo = 'N';
     }
 
-    this.apiService.put('/clientes/' , this.myForm.value)
+    this.apiService.put('/personas/' , this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
         this.loadData(res.model);
@@ -148,6 +145,26 @@ export class EditModalPeopleRelationsComponent implements OnInit{
       response.egresos.forEach(staff => {
         egresos.push(this.formBuilder.group(staff));
       });
+    }
+
+    //Cargar Vinculos
+    if(response.vinculos != null && response.vinculos.length > 0){
+      const vinculos = (<FormArray>this.myForm.get('vinculos'));
+      if(vinculos){
+        while (vinculos.length) {
+          vinculos.removeAt(0);
+        }
+
+        response.vinculos.forEach(staff => {
+          staff.personaVinculo.fechaNacimiento = new Date(staff.personaVinculo.fechaNacimiento);
+          staff.personaVinculo.nombre = (staff.personaVinculo.primerNombre == null ? '' : staff.personaVinculo.primerNombre) + ' '
+                              + (staff.personaVinculo.segundoNombre == null ? '' : staff.personaVinculo.segundoNombre) + ' '
+                              + (staff.personaVinculo.primerApellido == null ? '' : staff.personaVinculo.primerApellido) + ' ' + (staff.personaVinculo.segundoApellido == null ? '' : staff.personaVinculo.segundoApellido);
+          staff.personaVinculo = this.formBuilder.group(staff.personaVinculo);
+          vinculos.push(this.formBuilder.group(staff));
+        });
+      }
+
     }
   }
 

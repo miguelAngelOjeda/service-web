@@ -2,9 +2,12 @@ import { Component, OnInit, OnChanges, EventEmitter, Output, Input, ElementRef }
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlContainer, FormGroupDirective} from '@angular/forms';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { DeleteDialogComponent } from '../../../shared';
+import { HttpParams } from '@angular/common/http';
 import { Estate, Message, Location } from '../../../core/models';
 import { UserService, ApiService, FormsService} from '../../../core/services';
-import { EditModalPeopleRelationsComponent } from './edit-modal-people-relationship';
+import { EditModalPeopleComponent } from './edit-modal-people';
+import { AddModalPeopleComponent } from './add-modal-people';
+import { ViewModalPeopleComponent } from './view-modal-people';
 import { SnackbarService } from '../../../shared';
 
 @Component({
@@ -14,25 +17,27 @@ import { SnackbarService } from '../../../shared';
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
   export class  PeopleRelationshipComponent implements OnInit{
-  isDisabled = false;
-  relationshipForm: FormGroup;
-  formName = 'vinculos';
-  minRow = 0;
-  step = 0;
+    params = new HttpParams({fromObject :
+      {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'}});
+    isDisabled = false;
+    relationshipForm: FormGroup;
+    formName = 'vinculos';
+    minRow = 0;
+    step = 0;
 
-  @Input()
-  set fkFilterModel(id: any) {
-    if(id){
-      this.onChangesFkModel(id);
+    @Input()
+    set fkFilterModel(id: any) {
+      if(id){
+        this.onChangesFkModel(id);
+      }
     }
-  }
 
-  @Input()
-  set formControlName(model: any) {
-    if(model){
-      this.formName = model;
+    @Input()
+    set formControlName(model: any) {
+      if(model){
+        this.formName = model;
+      }
     }
-  }
 
   constructor(
     private snackbarService: SnackbarService,
@@ -59,14 +64,35 @@ import { SnackbarService } from '../../../shared';
     // this.onChangesTipoPersona();
   }
 
-  editRelationship(id: number) {
+  editPeople(id: number, index: number) {
+      this.apiService.get('/personas/' + id,this.params)
+      .subscribe(res => {
+        if(res.status == 200){
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.data = { model: res.model, title:'Editar Vinculo' };
+          dialogConfig.disableClose = true;
+          //dialogConfig.maxHeight = "65vh";
+          dialogConfig.autoFocus = true;
+
+          const dialogRef = this.dialog.open(EditModalPeopleComponent, dialogConfig);
+          dialogRef.afterClosed().subscribe(result => {
+             if(result){
+
+             }
+          });
+        }
+      });
+  }
+
+  addPeople(index: number) {
 
       const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = id;
-      //dialogConfig.disableClose = true;
+      dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
+      dialogConfig.data = { model: null, title:'Agregar Vinculo' };
+      //dialogConfig.maxHeight = "65vh";
 
-      const dialogRef = this.dialog.open(EditModalPeopleRelationsComponent, dialogConfig);
+      const dialogRef = this.dialog.open(AddModalPeopleComponent, dialogConfig);
 
       dialogRef.afterClosed().subscribe(result => {
          if(result){
@@ -74,6 +100,26 @@ import { SnackbarService } from '../../../shared';
          }
       });
 
+  }
+
+  viewPeople(id: number) {
+    this.apiService.get('/personas/' + id,this.params)
+    .subscribe(res => {
+      if(res.status == 200){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = { model: res.model, title:'Visualizar Vinculo' };
+        //dialogConfig.disableClose = true;
+        //dialogConfig.maxHeight = "65vh";
+        dialogConfig.autoFocus = true;
+
+        const dialogRef = this.dialog.open(ViewModalPeopleComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+           if(result){
+
+           }
+        });
+      }
+    });
   }
 
 

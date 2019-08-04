@@ -9,33 +9,27 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 
 @Component({
-  selector: 'app-view-modal-people-relationship',
-  templateUrl: './view-modal-people-relationship.component.html',
-  styleUrls: ['./view-modal-people-relationship.component.css']
+  selector: 'app-add-modal-people',
+  templateUrl: './add-modal-people.component.html',
+  styleUrls: ['./add-modal-people.component.css']
 })
-export class ViewModalPeopleRelationsComponent implements OnInit{
+export class AddModalPeopleComponent implements OnInit{
+  style = "max-height: 75vh";
   myForm: FormGroup;
   private peopleRelations: any;
 
   constructor(
             public dialog: MatDialog,
             private formBuilder: FormBuilder,
-            public dialogRef: MatDialogRef<ViewModalPeopleRelationsComponent>,
+            public dialogRef: MatDialogRef<AddModalPeopleComponent>,
             private apiService: ApiService,
-            @Inject(MAT_DIALOG_DATA) public data: any) {
-              this.peopleRelations = data;
-  }
+            @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
     this.initFormBuilder();
-    setTimeout(() => {
-        this.loadData(this.peopleRelations);
-    });
   }
 
   onSubmit() {
-    console.log(this.myForm);
-    console.log(this.myForm.value.persona);
     if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
       this.myForm.value.persona.documento = ' ';
       this.myForm.value.persona.fechaNacimiento = new Date();
@@ -44,10 +38,10 @@ export class ViewModalPeopleRelationsComponent implements OnInit{
       this.myForm.value.persona.sexo = 'N';
     }
 
-    this.apiService.put('/personas/' , this.myForm.value)
+    this.apiService.post('/personas/' , this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.loadData(res.model);
+        this.dialogRef.close(res.model);
       }
     });
 
@@ -68,17 +62,15 @@ export class ViewModalPeopleRelationsComponent implements OnInit{
         while (ocupaciones.length) {
           ocupaciones.removeAt(0);
         }
-
-        response.ocupaciones.forEach(staff => {
-          staff.fechaIngreso = new Date(staff.fechaIngreso);
-          if(staff.fechaSalida){
-            staff.fechaSalida = new Date(staff.fechaSalida);
-          }
-          ocupaciones.push(this.formBuilder.group(staff));
-        });
       }
 
-
+      response.ocupaciones.forEach(staff => {
+        staff.fechaIngreso = new Date(staff.fechaIngreso);
+        if(staff.fechaSalida){
+          staff.fechaSalida = new Date(staff.fechaSalida);
+        }
+        ocupaciones.push(this.formBuilder.group(staff));
+      });
     }
 
     //Cargar Referencias
@@ -88,11 +80,10 @@ export class ViewModalPeopleRelationsComponent implements OnInit{
         while (referencias.length) {
           referencias.removeAt(0);
         }
-
-        response.referencias.forEach(staff => {
-          referencias.push(this.formBuilder.group(staff));
-        });
       }
+      response.referencias.forEach(staff => {
+        referencias.push(this.formBuilder.group(staff));
+      });
     }
 
     //Cargar Inmuebles
@@ -102,12 +93,10 @@ export class ViewModalPeopleRelationsComponent implements OnInit{
         while (bienesInmuebles.length) {
           bienesInmuebles.removeAt(0);
         }
-
-        response.bienesInmuebles.forEach(staff => {
-          bienesInmuebles.push(this.formBuilder.group(staff));
-        });
       }
-
+      response.bienesInmuebles.forEach(staff => {
+        bienesInmuebles.push(this.formBuilder.group(staff));
+      });
     }
 
     //Cargar Vehiculos
@@ -117,13 +106,58 @@ export class ViewModalPeopleRelationsComponent implements OnInit{
         while (bienesVehiculo.length) {
           bienesVehiculo.removeAt(0);
         }
+      }
 
-        response.bienesVehiculo.forEach(staff => {
-          bienesVehiculo.push(this.formBuilder.group(staff));
+      response.bienesVehiculo.forEach(staff => {
+        bienesVehiculo.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Ingresos
+    if(response.ingresos != null && response.ingresos.length > 0){
+      const ingresos = (<FormArray>this.myForm.get('ingresos'));
+      if(ingresos){
+        while (ingresos.length) {
+          ingresos.removeAt(0);
+        }
+      }
+      response.ingresos.forEach(staff => {
+        ingresos.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Egresos
+    if(response.egresos != null && response.egresos.length > 0){
+      const egresos = (<FormArray>this.myForm.get('egresos'));
+      if(egresos){
+        while (egresos.length) {
+          egresos.removeAt(0);
+        }
+      }
+      response.egresos.forEach(staff => {
+        egresos.push(this.formBuilder.group(staff));
+      });
+    }
+
+    //Cargar Vinculos
+    if(response.vinculos != null && response.vinculos.length > 0){
+      const vinculos = (<FormArray>this.myForm.get('vinculos'));
+      if(vinculos){
+        while (vinculos.length) {
+          vinculos.removeAt(0);
+        }
+
+        response.vinculos.forEach(staff => {
+          staff.personaVinculo.fechaNacimiento = new Date(staff.personaVinculo.fechaNacimiento);
+          staff.personaVinculo.nombre = (staff.personaVinculo.primerNombre == null ? '' : staff.personaVinculo.primerNombre) + ' '
+                              + (staff.personaVinculo.segundoNombre == null ? '' : staff.personaVinculo.segundoNombre) + ' '
+                              + (staff.personaVinculo.primerApellido == null ? '' : staff.personaVinculo.primerApellido) + ' ' + (staff.personaVinculo.segundoApellido == null ? '' : staff.personaVinculo.segundoApellido);
+          staff.personaVinculo = this.formBuilder.group(staff.personaVinculo);
+          vinculos.push(this.formBuilder.group(staff));
         });
       }
 
-    }  
+    }
   }
 
   // Get Current Location Coordinates
