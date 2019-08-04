@@ -21,8 +21,8 @@
                     <ng-container formGroupName="persona">
                         <div class="col-sm-3">
                           <mat-form-field    appearance="legacy">
-                            <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" required>
-                            <mat-icon matSuffix (click)="myForm.get('persona').get('documento').valid && peopleCi(myForm.get('persona').get('documento').value, i)">search</mat-icon>
+                            <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" (keyup.enter)="myForm.get('persona').get('documento').valid && peopleCi(myForm.get('persona').get('documento').value)" required>
+                            <mat-icon matSuffix (click)="myForm.get('persona').get('documento').valid && peopleCi(myForm.get('persona').get('documento').value)">search</mat-icon>
                             <mat-error *ngIf="(myForm.get('persona').get('documento').errors)">
                               <span *ngIf="myForm.get('persona').get('documento').errors.required">
                                Campo requerido
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-3">
                           <mat-form-field    appearance="legacy">
-                            <input matInput #input  placeholder="Ruc" formControlName="ruc"  name="ruc" required>
+                            <input matInput #input  placeholder="Ruc" formControlName="ruc"  name="ruc" (keyup.enter)="myForm.get('persona').get('ruc').valid && peopleCi(myForm.get('persona').get('ruc').value, i)" required>
                             <mat-icon matSuffix (click)="myForm.get('persona').get('ruc').valid && peopleCi(myForm.get('persona').get('ruc').value, i)">search</mat-icon>
                             <mat-error *ngIf="(myForm.get('persona').get('ruc').errors)">
                               <span *ngIf="myForm.get('persona').get('ruc').errors.required">
@@ -42,7 +42,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                          <mat-list>
+                          <mat-list *ngIf="myForm.get('persona').get('nombre').value">
                             <mat-list-item>
                               <p><span class="font-bold">Nombre: </span> {{myForm.get('persona').get('nombre').value}}</p>
                             </mat-list-item>

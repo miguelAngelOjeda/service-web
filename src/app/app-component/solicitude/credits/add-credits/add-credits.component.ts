@@ -5,6 +5,8 @@ import { SnackbarService } from '../../../../shared';
 import { HttpParams } from '@angular/common/http';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalPeopleComponent } from '../../../shared/people-relationship/edit-modal-people';
+import { AddModalPeopleComponent } from '../../../shared/people-relationship/add-modal-people';
+import { ViewModalPeopleComponent } from '../../../shared/people-relationship/view-modal-people';
 import * as $ from 'jquery';
 import 'dropify';
 
@@ -77,6 +79,44 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
       }
     });
 
+  }
+
+  addPeople() {
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.data = { model: null, title:'Agregar Cliente' };
+      //dialogConfig.maxHeight = "65vh";
+
+      const dialogRef = this.dialog.open(AddModalPeopleComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+         if(result){
+
+         }
+      });
+
+  }
+
+  viewPeople(id: number) {
+    this.apiService.get('/personas/' + id,this.params)
+    .subscribe(res => {
+      if(res.status == 200){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = { model: res.model, title:'Visualizar Cliente' };
+        //dialogConfig.disableClose = true;
+        //dialogConfig.maxHeight = "65vh";
+        dialogConfig.autoFocus = true;
+
+        const dialogRef = this.dialog.open(ViewModalPeopleComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+           if(result){
+
+           }
+        });
+      }
+    });
   }
 
   protected valueChange(){
@@ -366,8 +406,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  peopleCi(data: any, index:any) {
-    console.log(data);
+  peopleCi(data: any) {
     this.apiService.get('/personas/documento/' + data)
     .subscribe(res => {
       if(res.status == 200){
