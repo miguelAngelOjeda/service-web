@@ -65,7 +65,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
       if(res.status == 200){
         console.log(res);
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.data = { model: res.model, title:'Editar Cliente' };
+        dialogConfig.data = { model: res.model, title:'Editar' };
         dialogConfig.disableClose = true;
         //dialogConfig.maxHeight = "65vh";
         dialogConfig.autoFocus = true;
@@ -86,7 +86,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      dialogConfig.data = { model: null, title:'Agregar Cliente' };
+      dialogConfig.data = { model: null, title:'Agregar' };
       //dialogConfig.maxHeight = "65vh";
 
       const dialogRef = this.dialog.open(AddModalPeopleComponent, dialogConfig);
@@ -104,7 +104,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
     .subscribe(res => {
       if(res.status == 200){
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.data = { model: res.model, title:'Visualizar Cliente' };
+        dialogConfig.data = { model: res.model, title:'Visualizar' };
         //dialogConfig.disableClose = true;
         //dialogConfig.maxHeight = "65vh";
         dialogConfig.autoFocus = true;

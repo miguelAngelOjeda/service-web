@@ -17,13 +17,16 @@ export class AddModalPeopleComponent implements OnInit{
   style = "max-height: 75vh";
   myForm: FormGroup;
   private peopleRelations: any;
+  private title: any;
 
   constructor(
             public dialog: MatDialog,
             private formBuilder: FormBuilder,
             public dialogRef: MatDialogRef<AddModalPeopleComponent>,
             private apiService: ApiService,
-            @Inject(MAT_DIALOG_DATA) public data: any) {}
+            @Inject(MAT_DIALOG_DATA) public data: any) {
+              this.title = data.title;
+            }
 
   ngOnInit() {
     this.initFormBuilder();

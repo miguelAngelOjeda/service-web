@@ -364,6 +364,22 @@
                             </mat-error>
                           </mat-form-field>
                         </div>
+                        <div class="col-md-2">
+                          <section class="example-section">
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor').get('id').value == null">
+                                <button type="button" class="btn btn-light" (click)="addPeople(i)"><i class="fa fa-plus"></i></button>
+                              </div>
+                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor').get('id').value">
+                                <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('codeudor').get('id').value, i)"><i class="fa fa-eye"></i></button>
+                              </div>
+                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('persona').get('id').value">
+                                <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('codeudor').get('id').value, i)"><i class="fa fa-edit"></i></button>
+                              </div>
+                            </div>
+                               <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+                          </section>
+                        </div>
                       </div>
                     </ng-container>
                   <!-- </blockquote> -->
