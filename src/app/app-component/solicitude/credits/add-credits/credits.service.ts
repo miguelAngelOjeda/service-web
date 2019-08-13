@@ -40,7 +40,7 @@ export class CreditsService {
                     //• Si la duración es 1 día, t = 1 / 365
 
                     let interes = this.calcularInteres(gastosAdministrativos, tasaInteres);
-                    
+
                     let periodoInteres = this.periodoInteresSimple(plazo, interes, periodoCapital, vencimientoInteres)
 
                     let montoInteres = montoSolicitado * periodoInteres * plazo;
