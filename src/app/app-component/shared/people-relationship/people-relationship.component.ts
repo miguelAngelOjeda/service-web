@@ -75,9 +75,13 @@ import { SnackbarService } from '../../../shared';
           dialogConfig.autoFocus = true;
 
           const dialogRef = this.dialog.open(EditModalPeopleComponent, dialogConfig);
-          dialogRef.afterClosed().subscribe(result => {
-             if(result){
+          dialogRef.afterClosed().subscribe(res => {
+             if(res){
+               res.nombre = (res.primerNombre == null ? '' : res.primerNombre) + ' '
+                                   + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
+                                   + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
 
+               (<FormGroup>(<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('personaVinculo')).patchValue(res);
              }
           });
         }
@@ -94,9 +98,13 @@ import { SnackbarService } from '../../../shared';
 
       const dialogRef = this.dialog.open(AddModalPeopleComponent, dialogConfig);
 
-      dialogRef.afterClosed().subscribe(result => {
-         if(result){
+      dialogRef.afterClosed().subscribe(res => {
+         if(res){
+           res.nombre = (res.primerNombre == null ? '' : res.primerNombre) + ' '
+                               + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
+                               + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
 
+           (<FormGroup>(<FormArray>this.relationshipForm.get(this.formName)).controls[index].get('personaVinculo')).patchValue(res);
          }
       });
 

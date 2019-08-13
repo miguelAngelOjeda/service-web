@@ -3,6 +3,7 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, Fo
 import { UserService, ApiService, FormsService} from '../../../../core/services';
 import { SnackbarService } from '../../../../shared';
 import { HttpParams } from '@angular/common/http';
+import { CreditsService } from '../add-credits';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalPeopleComponent } from '../../../shared/people-relationship/edit-modal-people';
 import { AddModalPeopleComponent } from '../../../shared/people-relationship/add-modal-people';
@@ -15,7 +16,7 @@ import 'dropify';
   templateUrl: './add-credits.component.html',
   styleUrls: ['./add-credits.component.scss']
 })
-export class AddCreditsComponent implements OnInit, AfterViewInit {
+export class AddCreditsComponent implements OnInit{
   params = new HttpParams({fromObject :
     {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'}});
   myForm: FormGroup;
@@ -24,6 +25,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
   isTieneHipoteca = 0;
 
   constructor(
+    private creditsService:CreditsService,
     private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -34,10 +36,6 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
     this.valueChange();
   }
 
-  ngAfterViewInit() {
-    this.onInitDropify();
-  }
-
   public onFileSelected(event: EventEmitter<File[]>) {
     const file: File = event[0];
     console.log(file);
@@ -45,6 +43,7 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
+    console.log(this.myForm.value);
     this.snackbarService.show('This is test');
     // this.apiService.post('/empresas', this.myForm.value)
     // .subscribe(res => {
@@ -73,7 +72,11 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
         const dialogRef = this.dialog.open(EditModalPeopleComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(result => {
            if(result){
+             res.nombre = (res.primerNombre == null ? '' : res.primerNombre) + ' '
+                                 + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
+                                 + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
 
+             (<FormGroup>this.myForm.get('persona')).patchValue(res);
            }
         });
       }
@@ -91,9 +94,13 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
 
       const dialogRef = this.dialog.open(AddModalPeopleComponent, dialogConfig);
 
-      dialogRef.afterClosed().subscribe(result => {
-         if(result){
+      dialogRef.afterClosed().subscribe(res => {
+         if(res){
+           res.nombre = (res.primerNombre == null ? '' : res.primerNombre) + ' '
+                               + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
+                               + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
 
+           (<FormGroup>this.myForm.get('persona')).patchValue(res);
          }
       });
 
@@ -110,11 +117,6 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
         dialogConfig.autoFocus = true;
 
         const dialogRef = this.dialog.open(ViewModalPeopleComponent, dialogConfig);
-        dialogRef.afterClosed().subscribe(result => {
-           if(result){
-
-           }
-        });
       }
     });
   }
@@ -130,15 +132,15 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
 
     this.myForm.controls['plazo'].valueChanges.subscribe(
         (selectedValue) => {
-          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
+          this.calcularCuota();
         }
     );
 
-    // this.myForm.controls['montoSolicitado'].valueChanges.subscribe(
-    //     (montoSolicitado) => {
-    //       this.myForm.controls['montoSolicitadoOriginal'].setValue(montoSolicitado);
-    //     }
-    // );
+    this.myForm.controls['montoSolicitado'].valueChanges.subscribe(
+        (montoSolicitado) => {
+          this.calcularCuota();
+        }
+    );
 
     this.myForm.controls['impuestos'].valueChanges.subscribe(
         (impuestos) => {
@@ -191,19 +193,19 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
 
     this.myForm.controls['tasaInteres'].valueChanges.subscribe(
         (selectedValue) => {
-          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
+          this.calcularCuota();
         }
     );
 
     this.myForm.controls['gastosAdministrativos'].valueChanges.subscribe(
         (gastosAdministrativos) => {
-          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
+          this.calcularCuota();
         }
     );
 
     this.myForm.controls['periodoInteres'].valueChanges.subscribe(
         (selectedValue) => {
-          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
+          this.calcularCuota();
         }
     );
 
@@ -228,145 +230,17 @@ export class AddCreditsComponent implements OnInit, AfterViewInit {
           }else{
             this.myForm.controls['periodoInteres'].setValue(selectedValue);
           }
-          this.myForm.controls['importeCuota'].setValue(this.calcularCuota());
+          this.calcularCuota();
         }
     );
   }
 
-  protected calcularCuota() : number {
-    if(this.myForm.get('modalidad').value != null
-        && this.myForm.get('montoSolicitado').value != null && this.myForm.get('plazo').value != null
-        && this.myForm.get('periodoCapital').value != null && this.myForm.get('tasaInteres').value != null){
-
-          if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-2'){
-
-            let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
-
-
-            let valor_1 = ((this.myForm.get('montoSolicitado').value * tasaInteres) / 36500) * this.myForm.get('vencimientoInteres').value;
-
-            let valor_2 = Math.pow((  1 + ((tasaInteres / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value) - 1;
-
-            let valor_3 = Math.pow((  1 + ((tasaInteres / 36500)* this.myForm.get('vencimientoInteres').value)), this.myForm.get('plazo').value);
-
-            let valor_4 = valor_1/valor_2;
-
-            //this.myForm.controls['importeCuota'].setValue(Math.round(valor_4 * valor_3));
-            return Math.round(valor_4 * valor_3);
-
-          } else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-4'){
-
-            //Interés simple (i) = Capital (c) x Tipo de Interés (r) x Tiempo (t)
-            //• Si la duración es 3 años, t = 3
-            //• Si la duración es 18 meses, t = 18 / 12 = 1,5
-            //• Si la duración es 1 año, t = 1
-            //• Si la duración es 6 meses, t = 6 / 12 = 0,5
-            //• Si la duración es 1 día, t = 1 / 365
-
-            let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
-
-            let interes = tasaInteres / 100;
-
-            let periodoInteres = 0;
-            if(this.myForm.get('vencimientoInteres').value == 30){
-              periodoInteres = interes / 12;
-            }else if(this.myForm.get('vencimientoInteres').value == 0){
-              if(this.myForm.get('periodoCapital').value == 60){
-                periodoInteres = interes / 6;
-              }else if(this.myForm.get('periodoCapital').value == 90){
-                periodoInteres = interes / 4;
-              }else if(this.myForm.get('periodoCapital').value == 180){
-                periodoInteres = interes / 2;
-              }else if(this.myForm.get('periodoCapital').value == 360){
-                periodoInteres = interes / 1;
-              }else if(this.myForm.get('periodoCapital').value == 15){
-                periodoInteres = interes / 24
-              }else if(this.myForm.get('periodoCapital').value == 1){
-                periodoInteres = interes / 365
-              }else if(this.myForm.get('periodoCapital').value == 30){
-                periodoInteres = interes / 12
-              }
-            }
-
-            let montoInteres = this.myForm.get('montoSolicitado').value * periodoInteres * this.myForm.get('plazo').value;
-
-            let montoTotal = Math.round(this.myForm.get('montoSolicitado').value + montoInteres);
-
-            let montoCuota = montoTotal / this.myForm.get('plazo').value;
-
-            //this.myForm.controls['importeCuota'].setValue();
-            return Math.round(montoCuota);
-
-          }else if(this.myForm.get('tipoCalculoImporte').value != null && this.myForm.get('tipoCalculoImporte').value.codigo == 'TC-5'){
-
-            let tasaInteres = (this.myForm.get('gastosAdministrativos').value == null ? 0 : this.myForm.get('gastosAdministrativos').value) + this.myForm.get('tasaInteres').value;
-
-            let interes = tasaInteres / 100;
-
-            let periodoInteres = 0;
-            if(this.myForm.get('vencimientoInteres').value == 30){
-              periodoInteres = (Math.pow((  1 + interes ), this.myForm.get('plazo').value / 12)) - 1;
-            }else if(this.myForm.get('vencimientoInteres').value == 0){
-              if(this.myForm.get('periodoCapital').value == 60){
-                periodoInteres = (Math.pow((  1 + (interes / 6) ), ((this.myForm.get('plazo').value/12 ) * 6))) - 1;
-              }else if(this.myForm.get('periodoCapital').value == 90){
-                periodoInteres = (Math.pow((  1 + (interes / 4) ), ((this.myForm.get('plazo').value/12 ) * 4))) - 1;
-              }else if(this.myForm.get('periodoCapital').value == 180){
-                periodoInteres = (Math.pow((  1 + (interes / 2) ), ((this.myForm.get('plazo').value/12 ) * 2))) - 1;
-              }else if(this.myForm.get('periodoCapital').value == 360){
-                periodoInteres = (Math.pow((  1 + interes ), this.myForm.get('plazo').value / 12)) - 1;
-              }else if(this.myForm.get('periodoCapital').value == 15){
-                periodoInteres = interes / 24
-              }else if(this.myForm.get('periodoCapital').value == 1){
-                periodoInteres = interes / 365
-                periodoInteres = (Math.pow((  1 + (interes / 2) ), ((this.myForm.get('plazo').value/12 ) * 2))) - 1;
-              }else if(this.myForm.get('periodoCapital').value == 30){
-                periodoInteres = (Math.pow((  1 + interes ), this.myForm.get('plazo').value / 12)) - 1;
-              }
-            }
-
-
-            let montoInteres = this.myForm.get('montoSolicitado').value * periodoInteres;
-
-            let montoTotal = Math.round(this.myForm.get('montoSolicitado').value + montoInteres);
-
-            let montoCuota = montoTotal / this.myForm.get('plazo').value;
-
-            //this.myForm.controls['importeCuota'].setValue(Math.round(montoCuota));
-            return Math.round(montoCuota);
-          }
-
-        }
-  }
-
-  onInitDropify() {
-    let drEvent =  (<any>$('.dropify') ).dropify({
-        tpl: {
-            wrap:            '<div class="dropify-wrapper"></div>',
-            loader:          '<div class="dropify-loader"></div>',
-            message:         '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
-            preview:         '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
-            filename:        '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
-            clearButton:     '<button type="button" (click)="onFileDelete($event)" class="dropify-clear">{{ remove }}</button>',
-            errorLine:       '<p class="dropify-error">{{ error }}</p>',
-            errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
-        },
-        messages: {
-                default: 'Arrastre un archivo o haga clic aquí',
-                replace: 'Arrastre un archivo o haga clic en reemplazar',
-                remove: 'Eliminar',
-                error: 'Lo sentimos, el archivo demasiado grande'
-        },
-        error: {
-              fileSize: 'El tamaño del archivo es demasiado grande ({{ value }} max).',
-              minWidth: 'El ancho de la imagen es demasiado pequeño ({{ value }}}px min).',
-              maxWidth: 'El ancho de la imagen es demasiado grande ({{ value }}}px max).',
-              minHeight: 'The image height is too small ({{ value }}}px min).',
-              maxHeight: 'La altura de la imagen es demasiado grande ({{ value }}px max).',
-              imageFormat: 'El formato de la imagen no está permitido ({{ value }} only).'
-        }
-    });
-
+  protected calcularCuota() {
+    let importeCuota = this.creditsService.calcularCuota(this.myForm.get('modalidad').value, this.myForm.get('plazo').value,
+          this.myForm.get('periodoCapital').value, this.myForm.get('vencimientoInteres').value,
+          this.myForm.get('tasaInteres').value, this.myForm.get('montoSolicitado').value,
+          this.myForm.get('tipoCalculoImporte').value.codigo, this.myForm.get('gastosAdministrativos').value);
+    this.myForm.controls['importeCuota'].setValue(importeCuota);
   }
 
 
