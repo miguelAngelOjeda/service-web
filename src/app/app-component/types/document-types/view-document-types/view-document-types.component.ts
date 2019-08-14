@@ -21,7 +21,7 @@ export class ViewDocumentTypesComponent implements OnInit {
 
     ngOnInit() {
       this.initFormBuilder();
-      this.apiService.get('/tipos-pagos/' + this.route.snapshot.params.id)
+      this.apiService.get('/tipos-documentos/' + this.route.snapshot.params.id)
       .subscribe(res => {
         if(res.status == 200){
           this.myForm.patchValue(res.model);

@@ -23,7 +23,7 @@ export class AddDocumentTypesComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiService.post('/tipos-pagos', this.myForm.value)
+    this.apiService.post('/tipos-documentos', this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
 

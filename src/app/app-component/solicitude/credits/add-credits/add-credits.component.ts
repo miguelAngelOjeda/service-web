@@ -45,12 +45,12 @@ export class AddCreditsComponent implements OnInit{
   onSubmit() {
     console.log(this.myForm.value);
     this.snackbarService.show('This is test');
-    // this.apiService.post('/empresas', this.myForm.value)
-    // .subscribe(res => {
-    //   if(res.status == 200){
-    //
-    //   }
-    // });
+    this.apiService.post('/solicitud_creditos', this.myForm.value)
+    .subscribe(res => {
+      if(res.status == 200){
+
+      }
+    });
   }
 
   getValue(data: any, form : any): void {

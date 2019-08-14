@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <h4  class="m-0"><mat-icon class="gray-text">archive</mat-icon>Documentos
       <span class="hidden-file">
-        <input type="file" #fileInput ng2FileSelect [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+        <input type="file" #fileInput ng2FileSelect [uploader]="uploader"/>
       </span>
       <a mat-mini-fab (click)="fileInput.click()" class="nav-link float-right" color="primary"><mat-icon>file_upload</mat-icon></a>
     </h4>
@@ -46,24 +46,24 @@
                   <td style="text-align:center">
                     <app-select-filter
                     [modelValue]="item.controls.tipoDocumento.value"
-                    placeholder="Tipo Documento" urlFilter="tipos-egresos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
+                    placeholder="Tipo Documento" urlFilter="tipos-documentos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
                   </td>
                   <td>
-                    <a mat-icon-button color="warn" (click)="item.remove()"> <mat-icon>delete_forever</mat-icon></a>
+                    <a mat-icon-button color="warn" (click)="delete(item.value)"> <mat-icon>delete_forever</mat-icon></a>
                     <a mat-icon-button  (click)="viewImage(item.get('file').value)"> <mat-icon>visibility</mat-icon></a>
                   </td>
                 </tr>
               </ng-container>
             </tbody>
           </table>
-          <div *ngIf="uploader?.queue?.length > 0">
+          <!-- <div *ngIf="uploader?.queue?.length > 0">
               <div>
                   Progreso:
                   <div class="progress" style="">
                       <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                   </div>
               </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>

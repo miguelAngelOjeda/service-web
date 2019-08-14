@@ -61,6 +61,7 @@ const MENUITEMS = [
       {state: 'relations-types', name: 'Tipos Vinculos', icon: '', entity:'relations-types', role:'listRelationsTypes'},
       {state: 'position-types', name: 'Tipos Cargos', icon: '', entity:'position-types', role:'listPositionTypes'},
       {state: 'functionary-types', name: 'Tipos Funcionarios', icon: '', entity:'functionary-types', role:'listFunctionaryTypes'},
+      {state: 'document-types', name: 'Tipos Documentos', icon: '', entity:'document-types', role:'listDocumentTypes'},
       {state: 'study-types', name: 'Tipos Estudios', icon: '', entity:'study-types', role:'listStudyTypes'}
     ]
   },

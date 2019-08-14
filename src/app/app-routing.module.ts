@@ -94,6 +94,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/types/position-types/position-types.module#PositionTypesModule'
         },
         {
+        path: 'service-web/document-types',
+        loadChildren: './app-component/types/document-types/document-types.module#DocumentTypesModule'
+        },
+        {
         path: 'service-web/capital-period',
         loadChildren: './app-component/types/capital-period/capital-period.module#CapitalPeriodModule'
         }

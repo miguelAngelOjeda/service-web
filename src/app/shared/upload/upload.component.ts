@@ -2,8 +2,11 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@a
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlContainer, FormGroupDirective} from '@angular/forms';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
+import { DeleteDialogComponent } from '../../shared/dialog';
+import { Message } from '../../core/models';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { GalleryDialogComponent } from '../../shared/dialog';
+import { UserService, ApiService, FormsService} from '../../core/services';
 
 @Component({
   selector: 'app-upload',
@@ -27,6 +30,7 @@ export class UploadComponent implements OnInit {
   constructor(
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
+    private apiService: ApiService,
     public dialog: MatDialog
   ) {}
 
@@ -37,10 +41,17 @@ export class UploadComponent implements OnInit {
     //   form.append('someField', 'this.someValue'); //note comma separating key and value
     //   form.append('someField2', 'this.someValue2');
     //  };
+    this.uploader.onAfterAddingFile = (fileItem) => {
+      console.log('selected filed: ', fileItem);
+      (<FormArray>this.uploadForm.get(this.formArrayName)).push(this.addFormGroup(fileItem._file));
+    };
   }
 
   onFileSelected($event){
     console.log($event);
+    console.log(this.uploader);
+    let formData = new FormData();
+    formData.append("file", $event[0]);
     (<FormArray>this.uploadForm.get(this.formArrayName)).push(this.addFormGroup($event[0]));
     console.log(this.uploadForm.value);
   }
@@ -70,6 +81,32 @@ export class UploadComponent implements OnInit {
       })
     }
     reader.readAsDataURL(file);
+  }
+
+  delete(data: any){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro ";
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/documentos/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                (<FormArray>this.uploadForm.get(this.formArrayName)).removeAt((<FormArray>this.uploadForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+              }
+          });
+        }
+      })
+    }else{
+      (<FormArray>this.uploadForm.get(this.formArrayName)).removeAt((<FormArray>this.uploadForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+    }
+
   }
 
 }

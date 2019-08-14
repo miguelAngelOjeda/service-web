@@ -145,7 +145,7 @@ export const authorities = {
     "service-types": {
     	"viewTypes": {
     	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_RELATIONS_TYPES.LIST","ROLE_FUNCTIONARY_TYPES.LIST",
-        "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST","ROLE_STUDY_TYPES.LIST"]
+        "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST","ROLE_STUDY_TYPES.LIST","ROLE_DOCUMENT_TYPES.LIST"]
     	}
     },
     "rrhh": {
@@ -390,7 +390,24 @@ export const authorities = {
       "deleteStudyTypes": {
     	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
     	}
-    },    
+    },
+    "document-types": {
+      "addDocumentTypes": {
+    	   "permittedRoles": ["ROLE_DOCUMENT_TYPES.ADD"]
+    	 },
+    	"editDocumentTypes": {
+    	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.EDIT"]
+    	},
+    	"viewDocumentTypes": {
+    	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.VIEW"]
+    	},
+    	"listDocumentTypes": {
+    	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.LIST"]
+    	},
+      "deleteDocumentTypes": {
+    	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.DELETE"]
+    	}
+    },
     "modality": {
       "addModality": {
     	   "permittedRoles": ["ROLE_MODALITY.ADD"]
