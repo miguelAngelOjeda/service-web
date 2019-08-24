@@ -9,7 +9,15 @@
         <mat-card-content>
           <div class="row">
             <div class="col-md-12">
-              <h4  class="m-b-10 font-20"><mat-icon class="gray-text">event_note</mat-icon>Propuesta Credito</h4>
+              <h4  class="m-b-10 font-20"><mat-icon class="gray-text">event_note</mat-icon>Propuesta Credito
+                <div mat-stroked-button class="nav-link" class="m-t-10 float-right">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Nº Solicitud: </span> {{myForm.get('id').value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+              </h4>
             </div>
             <br>
             <div class="col-md-12">
@@ -18,13 +26,14 @@
                       <h4  class="m-0"><mat-icon class="gray-text">account_circle</mat-icon>Cliente</h4>
                     </div> -->
                   <!-- <blockquote> -->
-                    <ng-container formGroupName="persona">
+                    <ng-container formGroupName="cliente">
+                      <ng-container formGroupName="persona">
                         <div class="col-sm-3">
                           <mat-form-field    appearance="legacy">
-                            <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" (keyup.enter)="myForm.get('persona').get('documento').valid && peopleCi(myForm.get('persona').get('documento').value)" required>
-                            <mat-icon matSuffix (click)="myForm.get('persona').get('documento').valid && peopleCi(myForm.get('persona').get('documento').value)">search</mat-icon>
-                            <mat-error *ngIf="(myForm.get('persona').get('documento').errors)">
-                              <span *ngIf="myForm.get('persona').get('documento').errors.required">
+                            <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" (keyup.enter)="myForm.get('cliente').get('persona').get('documento').valid && peopleCi(myForm.get('cliente').get('persona').get('documento').value)" required>
+                            <mat-icon matSuffix (click)="myForm.get('cliente').get('persona').get('documento').valid && clientCi(myForm.get('cliente').get('persona').get('documento').value)">search</mat-icon>
+                            <mat-error *ngIf="(myForm.get('cliente').get('persona').get('documento').errors)">
+                              <span *ngIf="myForm.get('cliente').get('persona').get('documento').errors.required">
                                Campo requerido
                               </span>
                             </mat-error>
@@ -32,38 +41,39 @@
                         </div>
                         <div class="col-sm-3">
                           <mat-form-field    appearance="legacy">
-                            <input matInput #input  placeholder="Ruc" formControlName="ruc"  name="ruc" (keyup.enter)="myForm.get('persona').get('ruc').valid && peopleCi(myForm.get('persona').get('ruc').value, i)" required>
-                            <mat-icon matSuffix (click)="myForm.get('persona').get('ruc').valid && peopleCi(myForm.get('persona').get('ruc').value, i)">search</mat-icon>
-                            <mat-error *ngIf="(myForm.get('persona').get('ruc').errors)">
-                              <span *ngIf="myForm.get('persona').get('ruc').errors.required">
+                            <input matInput #input  placeholder="Ruc" formControlName="ruc"  name="ruc" (keyup.enter)="myForm.get('cliente').get('persona').get('ruc').valid && peopleCi(myForm.get('cliente').get('persona').get('ruc').value, i)" required>
+                            <mat-icon matSuffix (click)="myForm.get('cliente').get('persona').get('ruc').valid && clientCi(myForm.get('cliente').get('persona').get('ruc').value, i)">search</mat-icon>
+                            <mat-error *ngIf="(myForm.get('cliente').get('persona').get('ruc').errors)">
+                              <span *ngIf="myForm.get('cliente').get('persona').get('ruc').errors.required">
                                Campo requerido
                               </span>
                             </mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                          <mat-list *ngIf="myForm.get('persona').get('nombre').value">
+                          <mat-list *ngIf="myForm.get('cliente').get('persona').get('nombre').value">
                             <mat-list-item>
-                              <p><span class="font-bold">Nombre: </span> {{myForm.get('persona').get('nombre').value}}</p>
+                              <p><span class="font-bold">Nombre: </span> {{myForm.get('cliente').get('persona').get('nombre').value}}</p>
                             </mat-list-item>
                           </mat-list>
                         </div>
                         <div class="col-md-2">
                           <section class="example-section">
                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('persona').get('id').value == null">
+                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('cliente').get('persona').get('id').value == null">
                                 <button type="button" class="btn btn-light" (click)="addPeople(i)"><i class="fa fa-plus"></i></button>
                               </div>
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('persona').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('persona').get('id').value, i)"><i class="fa fa-eye"></i></button>
+                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('cliente').get('persona').get('id').value">
+                                <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('cliente').get('persona').get('id').value, i)"><i class="fa fa-eye"></i></button>
                               </div>
-                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('persona').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('persona').get('id').value, i)"><i class="fa fa-edit"></i></button>
+                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('cliente').get('persona').get('id').value">
+                                <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('cliente').get('persona').get('id').value, i)"><i class="fa fa-edit"></i></button>
                               </div>
                             </div>
                                <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
                           </section>
                         </div>
+                      </ng-container>
                     </ng-container>
                   <!-- </blockquote> -->
                 <div class="col-md-4">
@@ -136,8 +146,8 @@
                        <mat-option  value="180">180 - SEMESTRAL</mat-option>
                        <mat-option  value="360">360 - ANUAL</mat-option>
                      </mat-select>
-                     <mat-error *ngIf="(myForm.get('vencimientoInteres').errors)">
-                       <span *ngIf="myForm.get('vencimientoInteres').errors.required">
+                     <mat-error *ngIf="(myForm.get('periodoCapital').errors)">
+                       <span *ngIf="myForm.get('periodoCapital').errors.required">
                         Campo requerido
                        </span>
                      </mat-error>
@@ -247,42 +257,6 @@
                         <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>Descuentos</h4>
                       </div>
                       <div class="col-md-3">
-                        <mat-form-field appearance="legacy">
-                          <mat-label>Tipo Calculo</mat-label>
-                          <mat-select formControlName="tipoDescuento" name="tipoDescuento" required>
-                            <mat-option  value="I-D">IMPORTE DISPONER</mat-option>
-                            <mat-option  value="I-S">IMPORTE SOLICITAR</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3">
-                        <mat-form-field appearance="legacy">
-                          <mat-label>Monto Entregar</mat-label>
-                          <input matInput #input type="text" placeholder="Monto Entregar" formControlName="importeEntregar" name="importeEntregar" currencyMask>
-                          <mat-hint align="end">Monto Entregar</mat-hint>
-                          <mat-error *ngIf="(myForm.get('importeEntregar').errors)">
-                            <span *ngIf="myForm.get('importeEntregar').errors.required">
-                             Campo requerido
-                            </span>
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3">
-                        <mat-form-field appearance="legacy">
-                          <mat-label>Cuota</mat-label>
-                          <input matInput #input type="text" placeholder="Cuota" formControlName="importeCuota" name="importeCuota" currencyMask>
-                          <mat-hint align="end">Cuota</mat-hint>
-                          <mat-error *ngIf="(myForm.get('importeCuota').errors)">
-                            <span *ngIf="myForm.get('importeCuota').errors.required">
-                             Campo requerido
-                            </span>
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3">
-
-                      </div>
-                      <div class="col-md-3">
                         <mat-form-field  appearance="legacy">
                           <mat-label>Impuestos</mat-label>
                           <input matInput #input type="text" min="0" placeholder="Impuestos" formControlName="impuestos"  name="impuestos" currencyMask>
@@ -325,6 +299,41 @@
                             </span>
                           </mat-error>
                         </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field appearance="legacy">
+                          <mat-label>Tipo Descuento</mat-label>
+                          <mat-select formControlName="tipoDescuento" name="tipoDescuento" required>
+                            <mat-option  value="I-D">IMPORTE DISPONER</mat-option>
+                            <mat-option  value="I-S">IMPORTE SOLICITAR</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="(myForm.get('tipoDescuento').errors)">
+                            <span *ngIf="myForm.get('tipoDescuento').errors.required">
+                             Campo requerido
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-list>
+                          <mat-list-item>
+                            <p><span class="font-bold">Monto Original: </span> {{myForm.get('montoSolicitadoOriginal').value | number}}</p>
+                          </mat-list-item>
+                        </mat-list>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-list>
+                          <mat-list-item>
+                            <p><span class="font-bold">Monto Entregar: </span> {{myForm.get('importeEntregar').value | number}}</p>
+                          </mat-list-item>
+                        </mat-list>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-list>
+                          <mat-list-item>
+                            <p><span class="font-bold">Cuota: </span> {{myForm.get('importeCuota').value | number}}</p>
+                          </mat-list-item>
+                        </mat-list>
                       </div>
                     </div>
                   <!-- </div> -->
@@ -373,7 +382,7 @@
                               <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor').get('id').value">
                                 <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('codeudor').get('id').value, i)"><i class="fa fa-eye"></i></button>
                               </div>
-                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('persona').get('id').value">
+                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('codeudor').get('id').value">
                                 <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('codeudor').get('id').value, i)"><i class="fa fa-edit"></i></button>
                               </div>
                             </div>

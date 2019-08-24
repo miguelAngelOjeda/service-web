@@ -8,8 +8,7 @@ import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } 
 import { EditModalPeopleComponent } from '../../../shared/people-relationship/edit-modal-people';
 import { AddModalPeopleComponent } from '../../../shared/people-relationship/add-modal-people';
 import { ViewModalPeopleComponent } from '../../../shared/people-relationship/view-modal-people';
-import * as $ from 'jquery';
-import 'dropify';
+
 
 @Component({
   selector: 'app-add-credits',
@@ -17,7 +16,7 @@ import 'dropify';
   styleUrls: ['./add-credits.component.scss']
 })
 export class AddCreditsComponent implements OnInit{
-  params = new HttpParams({fromObject :
+  public params = new HttpParams({fromObject :
     {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'}});
   myForm: FormGroup;
   validateForm = true;
@@ -36,10 +35,43 @@ export class AddCreditsComponent implements OnInit{
     this.valueChange();
   }
 
-  public onFileSelected(event: EventEmitter<File[]>) {
-    const file: File = event[0];
-    console.log(file);
-
+  protected initFormBuilder() {
+    this.myForm = this.formBuilder.group({
+      id: null ,
+      cliente: this.formBuilder.group({
+        id: null ,
+        persona: this.formBuilder.group({
+          id: null ,
+          nombre: [null, [Validators.required]],
+          documento: [null, [Validators.required]],
+          ruc: [null]
+        })}),
+      modalidad: [null, [Validators.required]],
+      tipoCalculoImporte: [null, [Validators.required]],
+      tipoDestino: [null, [Validators.required]],
+      tipoGarantia: [null, [Validators.required]],
+      tipoDescuento: [null, [Validators.required]],
+      importeEntregar: [null, [Validators.required]],
+      tipoPago: [null, [Validators.required]],
+      tipoDesembolso: [null, [Validators.required]],
+      plazo: [null, [Validators.required]],
+      vencimientoInteres: ['30', [Validators.required]],
+      periodoInteres: [30, [Validators.required]],
+      tasaInteres: [null, [Validators.required]],
+      gastosAdministrativos: [null, [Validators.required]],
+      impuestos: [0],
+      beneficiarioCheque: [null],
+      detalleDestino: [null],
+      comision: [0],
+      gastosVarios: [0],
+      seguros: [0],
+      montoSolicitado: [0, [Validators.required]],
+      montoSolicitadoOriginal: [null, [Validators.required]],
+      importeCuota: [null, [Validators.required]],
+      periodoGracia: [30, [Validators.required]],
+      periodoCapital: ['30', [Validators.required]],
+      activo: 'S'
+    });
   }
 
   onSubmit() {
@@ -53,8 +85,20 @@ export class AddCreditsComponent implements OnInit{
     });
   }
 
-  getValue(data: any, form : any): void {
-    (<FormControl>this.myForm.get(form)).setValue(data);
+  clientCi(data: any) {
+    this.apiService.get('/clientes/documento/' + data)
+    .subscribe(res => {
+      if(res.status == 200){
+        console.log(res);
+        res.model.persona.avatar = null;
+        res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
+        res.model.persona.nombre = (res.model.persona.primerNombre == null ? '' : res.model.persona.primerNombre) + ' '
+                            + (res.model.persona.segundoNombre == null ? '' : res.model.persona.segundoNombre) + ' '
+                            + (res.model.persona.primerApellido == null ? '' : res.model.persona.primerApellido) + ' ' + (res.model.persona.segundoApellido == null ? '' : res.model.persona.segundoApellido);
+
+        (<FormGroup>this.myForm.get('cliente')).patchValue(res.model);
+      }
+    });
   }
 
   editPeople(id: number) {
@@ -76,7 +120,7 @@ export class AddCreditsComponent implements OnInit{
                                  + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
                                  + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
 
-             (<FormGroup>this.myForm.get('persona')).patchValue(res);
+             (<FormGroup>this.myForm.get('cliente').get('persona')).patchValue(res);
            }
         });
       }
@@ -100,7 +144,7 @@ export class AddCreditsComponent implements OnInit{
                                + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
                                + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
 
-           (<FormGroup>this.myForm.get('persona')).patchValue(res);
+           (<FormGroup>this.myForm.get('cliente').get('persona')).patchValue(res);
          }
       });
 
@@ -119,6 +163,10 @@ export class AddCreditsComponent implements OnInit{
         const dialogRef = this.dialog.open(ViewModalPeopleComponent, dialogConfig);
       }
     });
+  }
+
+  getValue(data: any, form : any): void {
+    (<FormControl>this.myForm.get(form)).setValue(data);
   }
 
   protected valueChange(){
@@ -144,31 +192,75 @@ export class AddCreditsComponent implements OnInit{
 
     this.myForm.controls['impuestos'].valueChanges.subscribe(
         (impuestos) => {
-
-          if(this.myForm.get('tipoDescuento').value === 'I-D'){
-
-            let descuentos = impuestos + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
-
-            let montoEntregar = this.myForm.get('montoSolicitado').value - descuentos;
-
-            this.myForm.controls['importeEntregar'].setValue(montoEntregar);
-
-          }else{
-
-            let descuentos = impuestos + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
-
-            let montoEntregar = this.myForm.get('montoSolicitado').value + descuentos;
-
-            this.myForm.controls['importeEntregar'].setValue(montoEntregar);
-
-            this.myForm.controls['montoSolicitado'].setValue(montoEntregar);
-
+          if(this.myForm.get('tipoDescuento').value !== null){
+            if(this.myForm.get('tipoDescuento').value == 'I-D'){
+              let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+              let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value - valorDescuento;
+              this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+              this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('montoSolicitadoOriginal').value);
+            }else{
+              let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+              let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value + valorDescuento;
+              this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+              this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('importeEntregar').value);
+            }
           }
-
         }
     );
 
+    this.myForm.controls['comision'].valueChanges.subscribe(
+        (impuestos) => {
+          if(this.myForm.get('tipoDescuento').value !== null){
+            if(this.myForm.get('tipoDescuento').value == 'I-D'){
+              let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+              let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value - valorDescuento;
+              this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+              this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('montoSolicitadoOriginal').value);
+            }else{
+              let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+              let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value + valorDescuento;
+              this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+              this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('importeEntregar').value);
+            }
+          }
+        }
+    );
 
+    this.myForm.controls['gastosVarios'].valueChanges.subscribe(
+        (impuestos) => {
+          if(this.myForm.get('tipoDescuento').value !== null){
+            if(this.myForm.get('tipoDescuento').value == 'I-D'){
+              let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+              let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value - valorDescuento;
+              this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+              this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('montoSolicitadoOriginal').value);
+            }else{
+              let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+              let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value + valorDescuento;
+              this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+              this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('importeEntregar').value);
+            }
+          }
+        }
+    );
+
+    this.myForm.controls['seguros'].valueChanges.subscribe(
+        (impuestos) => {
+          if(this.myForm.get('tipoDescuento').value !== null){
+            if(this.myForm.get('tipoDescuento').value == 'I-D'){
+              let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+              let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value - valorDescuento;
+              this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+              this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('montoSolicitadoOriginal').value);
+            }else{
+              let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+              let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value + valorDescuento;
+              this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+              this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('importeEntregar').value);
+            }
+          }
+        }
+    );
 
     this.myForm.controls['tipoGarantia'].valueChanges.subscribe(
         (tipoGarantia) => {
@@ -183,7 +275,6 @@ export class AddCreditsComponent implements OnInit{
               id: null ,
               documento: [null, [Validators.required]],
               nombre: [null, [Validators.required]] }));
-
           }else{
             this.myForm.removeControl('codeudor');
             this.isTieneHipoteca = 0;
@@ -194,6 +285,27 @@ export class AddCreditsComponent implements OnInit{
     this.myForm.controls['tasaInteres'].valueChanges.subscribe(
         (selectedValue) => {
           this.calcularCuota();
+        }
+    );
+
+    this.myForm.controls['tipoDescuento'].valueChanges.subscribe(
+        (selectedValue) => {
+          //Guardar el monto original
+          if(this.myForm.get('montoSolicitadoOriginal').value == null){
+            this.myForm.controls['montoSolicitadoOriginal'].setValue(this.myForm.get('montoSolicitado').value);
+          }
+
+          if(selectedValue == 'I-D'){
+            let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+            let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value - valorDescuento;
+            this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+            this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('montoSolicitadoOriginal').value);
+          }else{
+            let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
+            let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value + valorDescuento;
+            this.myForm.controls['importeEntregar'].setValue(montoEntregar);
+            this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('importeEntregar').value);
+          }
         }
     );
 
@@ -243,56 +355,5 @@ export class AddCreditsComponent implements OnInit{
     this.myForm.controls['importeCuota'].setValue(importeCuota);
   }
 
-
-  protected initFormBuilder() {
-    this.myForm = this.formBuilder.group({
-      id: null ,
-      persona: this.formBuilder.group({
-        id: null ,
-        documento: [null, [Validators.required]],
-        ruc: [null],
-        nombre: [null, [Validators.required]] }) ,
-      modalidad: [null, [Validators.required]],
-      tipoCalculoImporte: [null, [Validators.required]],
-      tipoDestino: [null, [Validators.required]],
-      tipoGarantia: [null, [Validators.required]],
-      tipoDescuento: ['I-D', [Validators.required]],
-      importeEntregar: [null, [Validators.required]],
-      tipoPago: [null, [Validators.required]],
-      tipoDesembolso: [null, [Validators.required]],
-      plazo: [null, [Validators.required]],
-      vencimientoInteres: ['30', [Validators.required]],
-      periodoInteres: [30, [Validators.required]],
-      tasaInteres: [null, [Validators.required]],
-      gastosAdministrativos: [null, [Validators.required]],
-      impuestos: [0],
-      beneficiarioCheque: [null],
-      detalleDestino: [null],
-      comision: [0],
-      gastosVarios: [0],
-      seguros: [0],
-      montoSolicitado: [0, [Validators.required]],
-      montoSolicitadoOriginal: [null, [Validators.required]],
-      importeCuota: [null, [Validators.required]],
-      periodoGracia: [30, [Validators.required]],
-      periodoCapital: ['30', [Validators.required]],
-      activo: 'S'
-    });
-  }
-
-  peopleCi(data: any) {
-    this.apiService.get('/personas/documento/' + data)
-    .subscribe(res => {
-      if(res.status == 200){
-        res.model.avatar = null;
-        res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
-        res.model.nombre = (res.model.primerNombre == null ? '' : res.model.primerNombre) + ' '
-                            + (res.model.segundoNombre == null ? '' : res.model.segundoNombre) + ' '
-                            + (res.model.primerApellido == null ? '' : res.model.primerApellido) + ' ' + (res.model.segundoApellido == null ? '' : res.model.segundoApellido);
-
-        (<FormGroup>this.myForm.get('persona')).patchValue(res.model);
-      }
-    });
-  }
 
 }

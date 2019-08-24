@@ -11,8 +11,8 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 })
 export class ListCreditsComponent implements OnInit {
   public isMobile: Boolean;
-  public rulesColumns  = ['cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre', 'cliente.persona.segundoNombre', 'cliente.persona.primerApellido'];
-  public displayedColumns = ['id','fechaPresentacion', 'cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre' , 'montoSolicitadoOriginal', 'sucursal.nombre', 'opciones'];
+  public rulesColumns  = ['cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre', 'cliente.persona.segundoNombre', 'cliente.persona.primerApellido', 'estado.nombre'];
+  public displayedColumns = ['id','fechaPresentacion', 'cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre' , 'montoSolicitadoOriginal', 'sucursal.nombre', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

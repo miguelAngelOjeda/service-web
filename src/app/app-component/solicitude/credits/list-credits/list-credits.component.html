@@ -28,7 +28,7 @@
          <ng-container matColumnDef="fechaPresentacion">
            <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA PRESENTACION </mat-header-cell>
            <mat-cell *matCellDef="let element" data-label="fecha presentacion">
-             {{element.fechaPresentacion}}
+             {{element.fechaPresentacion | date:'MM/dd/yyyy'}}
            </mat-cell>
          </ng-container>
 
@@ -57,7 +57,7 @@
           <ng-container matColumnDef="montoSolicitadoOriginal">
               <mat-header-cell *matHeaderCellDef> MONTO SOLICITADO </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="monto solicitado">
-                {{element.montoSolicitadoOriginal}}
+                {{element.montoSolicitadoOriginal | number}}
               </mat-cell>
           </ng-container>
 
@@ -65,6 +65,13 @@
               <mat-header-cell *matHeaderCellDef mat-sort-header> SUCURSAL </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="sucursal">
                 {{element.sucursal.nombre}}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="estado.nombre">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="estado">
+                {{element.estado.nombre}}
               </mat-cell>
           </ng-container>
 
