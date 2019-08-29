@@ -4,10 +4,9 @@ import { UserService, ApiService, FormsService} from '../../../../core/services'
 import { SnackbarService } from '../../../../shared';
 import { HttpParams } from '@angular/common/http';
 import { CreditsService } from '../add-credits';
+import { PeopleService } from '../../../shared/people/people.service';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { EditModalPeopleComponent } from '../../../shared/people-relationship/edit-modal-people';
-import { AddModalPeopleComponent } from '../../../shared/people-relationship/add-modal-people';
-import { ViewModalPeopleComponent } from '../../../shared/people-relationship/view-modal-people';
+import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../../shared/people';
 
 
 @Component({
@@ -27,6 +26,7 @@ export class AddCreditsComponent implements OnInit{
     private creditsService:CreditsService,
     private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
+    private peopleService: PeopleService,
     private apiService: ApiService,
     public dialog: MatDialog) { }
 
@@ -41,10 +41,18 @@ export class AddCreditsComponent implements OnInit{
       cliente: this.formBuilder.group({
         id: null ,
         persona: this.formBuilder.group({
-          id: null ,
-          nombre: [null, [Validators.required]],
-          documento: [null, [Validators.required]],
-          ruc: [null]
+          id: [null],
+          profesion: [null],
+          documento: [null],
+          nombre: null ,
+          email: [null],
+          sexo: [null],
+          telefonoParticular: [null],
+          telefonoSecundario: null,
+          primerNombre: [null],
+          segundoNombre: null,
+          primerApellido: [null],
+          segundoApellido: null
         })}),
       modalidad: [null, [Validators.required]],
       tipoCalculoImporte: [null, [Validators.required]],
@@ -86,11 +94,12 @@ export class AddCreditsComponent implements OnInit{
   }
 
   clientCi(data: any) {
+    (<FormGroup>this.myForm.get('cliente')).reset();
     this.apiService.get('/clientes/documento/' + data)
     .subscribe(res => {
       if(res.status == 200){
         console.log(res);
-        res.model.persona.avatar = null;
+
         res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
         res.model.persona.nombre = (res.model.persona.primerNombre == null ? '' : res.model.persona.primerNombre) + ' '
                             + (res.model.persona.segundoNombre == null ? '' : res.model.persona.segundoNombre) + ' '
@@ -103,66 +112,60 @@ export class AddCreditsComponent implements OnInit{
 
   editPeople(id: number) {
 
-    this.apiService.get('/personas/' + id,this.params)
-    .subscribe(res => {
-      if(res.status == 200){
-        console.log(res);
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.data = { model: res.model, title:'Editar' };
-        dialogConfig.disableClose = true;
-        //dialogConfig.maxHeight = "65vh";
-        dialogConfig.autoFocus = true;
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.data = { model: null, title:'Editar Deudor' , addSpouse:true};
 
-        const dialogRef = this.dialog.open(EditModalPeopleComponent, dialogConfig);
-        dialogRef.afterClosed().subscribe(result => {
-           if(result){
-             res.nombre = (res.primerNombre == null ? '' : res.primerNombre) + ' '
-                                 + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
-                                 + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
-
-             (<FormGroup>this.myForm.get('cliente').get('persona')).patchValue(res);
-           }
-        });
-      }
-    });
-
+      this.peopleService.editModalPeople(id, <FormGroup>this.myForm.get('cliente').get('persona'), dialogConfig);
   }
 
-  addPeople() {
+  addPeople(id: number) {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { model: null, title:'Agregar Deudor' , addSpouse:true};
+
+    this.peopleService.addModalPeople(id, <FormGroup>this.myForm.get('cliente').get('persona'), dialogConfig);
+  }
+
+  viewPeople(id: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { model: null, title:'Visualizar Deudor' };
+    //dialogConfig.disableClose = true;
+    //dialogConfig.maxHeight = "65vh";
+    dialogConfig.autoFocus = true;
+    this.peopleService.viewModalPeople(id, dialogConfig);
+  }
+
+  editCodeudor(id: number) {
 
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      dialogConfig.data = { model: null, title:'Agregar' };
-      //dialogConfig.maxHeight = "65vh";
+      dialogConfig.data = { model: null, title:'Editar Codeudor' , addSpouse:true};
 
-      const dialogRef = this.dialog.open(AddModalPeopleComponent, dialogConfig);
-
-      dialogRef.afterClosed().subscribe(res => {
-         if(res){
-           res.nombre = (res.primerNombre == null ? '' : res.primerNombre) + ' '
-                               + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
-                               + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
-
-           (<FormGroup>this.myForm.get('cliente').get('persona')).patchValue(res);
-         }
-      });
-
+      this.peopleService.editModalPeople(id, <FormGroup>this.myForm.get('codeudor'), dialogConfig);
   }
 
-  viewPeople(id: number) {
-    this.apiService.get('/personas/' + id,this.params)
-    .subscribe(res => {
-      if(res.status == 200){
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.data = { model: res.model, title:'Visualizar' };
-        //dialogConfig.disableClose = true;
-        //dialogConfig.maxHeight = "65vh";
-        dialogConfig.autoFocus = true;
+  addCodeudor(id: number) {
 
-        const dialogRef = this.dialog.open(ViewModalPeopleComponent, dialogConfig);
-      }
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { model: null, title:'Agregar Codeudor' , addSpouse:true};
+
+    this.peopleService.addModalPeople(id, <FormGroup>this.myForm.get('codeudor'), dialogConfig);
+  }
+
+  viewCodeudor(id: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { model: null, title:'Visualizar Codeudor' };
+    //dialogConfig.disableClose = true;
+    //dialogConfig.maxHeight = "65vh";
+    dialogConfig.autoFocus = true;
+    this.peopleService.viewModalPeople(id, dialogConfig);
   }
 
   getValue(data: any, form : any): void {
@@ -270,11 +273,19 @@ export class AddCreditsComponent implements OnInit{
             this.myForm.removeControl('codeudor');
           }else if(tipoGarantia.id == 2){
             this.isTieneHipoteca = 0;
-
             this.myForm.addControl('codeudor', this.formBuilder.group({
-              id: null ,
-              documento: [null, [Validators.required]],
-              nombre: [null, [Validators.required]] }));
+              id: [null],
+              profesion: [null],
+              documento: [null],
+              nombre: null ,
+              email: [null],
+              sexo: [null],
+              telefonoParticular: [null],
+              telefonoSecundario: null,
+              primerNombre: [null],
+              segundoNombre: null,
+              primerApellido: [null],
+              segundoApellido: null }));
           }else{
             this.myForm.removeControl('codeudor');
             this.isTieneHipoteca = 0;
@@ -302,9 +313,9 @@ export class AddCreditsComponent implements OnInit{
             this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('montoSolicitadoOriginal').value);
           }else{
             let valorDescuento = this.myForm.get('impuestos').value + this.myForm.get('comision').value + this.myForm.get('gastosVarios').value;
-            let montoEntregar = this.myForm.get('montoSolicitadoOriginal').value + valorDescuento;
+            let montoEntregar = (this.myForm.get('montoSolicitadoOriginal').value + valorDescuento) - valorDescuento;
             this.myForm.controls['importeEntregar'].setValue(montoEntregar);
-            this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('importeEntregar').value);
+            this.myForm.controls['montoSolicitado'].setValue(this.myForm.get('montoSolicitadoOriginal').value + valorDescuento);
           }
         }
     );

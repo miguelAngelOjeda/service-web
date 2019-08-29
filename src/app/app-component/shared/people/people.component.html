@@ -355,9 +355,10 @@
             </mat-error> -->
           </mat-form-field>
         </div>
-        <div class="col-md-12 m-t-20" *ngIf="peopleForm.controls['persona'].get('tipoPersona').value != 'JURIDICA'">
-          <app-people-relationship *ngIf="isRelationShip"></app-people-relationship>
-        </div>
+
+        <!-- <div class="col-md-12 m-t-20" *ngIf="peopleForm.controls['persona'].get('tipoPersona').value != 'JURIDICA' && isRelationShip">
+          <app-people-relationship></app-people-relationship>
+        </div> -->
       </div>
     </div>
   </div>

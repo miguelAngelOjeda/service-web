@@ -10,14 +10,14 @@
        <ng-container matColumnDef="monto">
          <mat-header-cell *matHeaderCellDef mat-sort-header> MONTO </mat-header-cell>
          <mat-cell *matCellDef="let element" data-label="monto">
-            {{element.monto | number}}
+            {{element?.monto | number}}
          </mat-cell>
        </ng-container>
 
         <ng-container matColumnDef="tipoIngresosEgresos.nombre">
           <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO EGRESO </mat-header-cell>
           <mat-cell *matCellDef="let element" data-label="tipo egreso">
-             {{element.tipoIngresosEgresos.nombre}}
+             {{element.tipoIngresosEgresos?.nombre}}
           </mat-cell>
         </ng-container>
 

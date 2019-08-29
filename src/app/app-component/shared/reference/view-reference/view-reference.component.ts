@@ -11,8 +11,9 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlCon
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
 export class ViewReferenceComponent implements OnInit {
-
+  peopleForm: FormGroup;
   referenceForm: FormGroup;
+
   formArrayName = 'referencias';
 
   @Input() minRow;
@@ -39,8 +40,10 @@ export class ViewReferenceComponent implements OnInit {
 
   ngOnInit() {
     this.referenceForm = this.parentF.form;
-    this.referenceForm.addControl(this.formArrayName, this.formBuilder.array([]));
-    this.addButton();
+    this.peopleForm = (<FormGroup>this.referenceForm.get('persona'));
+
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    //this.addButton();
   }
 
   onChangesFkModel(id:any){
@@ -49,7 +52,7 @@ export class ViewReferenceComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.referenceForm.get(this.formArrayName));
+                const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
@@ -72,7 +75,7 @@ export class ViewReferenceComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.referenceForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
 }

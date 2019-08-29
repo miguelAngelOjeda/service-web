@@ -1,0 +1,36 @@
+.gray-text {
+  color: #777;
+  vertical-align: text-bottom;
+  margin-right: 5px;
+}
+
+.example-section{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.class-purple{
+    border: 1px solid rgba(120, 130, 140, 0.13);
+    border-left: 5px solid RebeccaPurple;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.class-medium-purple{
+    border: 1px solid rgba(120, 130, 140, 0.13);
+    border-left: 5px solid MediumPurple;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}

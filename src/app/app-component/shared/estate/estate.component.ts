@@ -13,6 +13,8 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class EstateComponent implements OnInit {
   estateForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'bienesInmuebles';
   @Input() minRow;
   @Input()
@@ -31,7 +33,8 @@ export class EstateComponent implements OnInit {
 
   ngOnInit() {
     this.estateForm = this.parentF.form;
-    this.estateForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.estateForm.get('persona'));
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
     //this.onChangesPeople();
   }
@@ -64,7 +67,7 @@ export class EstateComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.estateForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
   onChangesFkModel(id:any){
@@ -73,7 +76,7 @@ export class EstateComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.estateForm.get(this.formArrayName));
+                const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
@@ -99,24 +102,24 @@ export class EstateComponent implements OnInit {
           this.apiService.delete('/inmuebles/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.estateForm.get(this.formArrayName)).removeAt((<FormArray>this.estateForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+                (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.estateForm.get(this.formArrayName)).removeAt((<FormArray>this.estateForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+      (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
     }
 
     if(this.minRow > 0){
-      if((<FormArray>this.estateForm.get(this.formArrayName)).controls.length < this.minRow){
+      if((<FormArray>this.peopleForm.get(this.formArrayName)).controls.length < this.minRow){
         this.addButton();
       }
     }
   }
 
   onChangesPeople(){
-    (<FormGroup>this.estateForm.get('persona')).controls['id'].valueChanges
+    this.peopleForm.controls['id'].valueChanges
     .subscribe(id => {
         this.onChangesFkModel(id);
     });
@@ -128,9 +131,9 @@ export class EstateComponent implements OnInit {
 
   // Get Current Location Coordinates
   getAddress(location: any): void {
-    (<FormGroup>this.estateForm.get(this.formArrayName)).controls['latitud'].setValue(location.lat);
-    (<FormGroup>this.estateForm.get(this.formArrayName)).controls['longitud'].setValue(location.lng);
-    (<FormGroup>this.estateForm.get(this.formArrayName)).controls['direccion'].setValue(location.address);
+    (<FormGroup>this.peopleForm.get(this.formArrayName)).controls['latitud'].setValue(location.lat);
+    (<FormGroup>this.peopleForm.get(this.formArrayName)).controls['longitud'].setValue(location.lng);
+    (<FormGroup>this.peopleForm.get(this.formArrayName)).controls['direccion'].setValue(location.address);
   }
 
 }

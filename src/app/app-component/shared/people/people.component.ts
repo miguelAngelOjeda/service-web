@@ -4,7 +4,11 @@ import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } 
 import { DeleteDialogComponent } from '../../../shared';
 import { HttpParams } from '@angular/common/http';
 import { Estate, Message, Location } from '../../../core/models';
+import { EditModalPeopleComponent } from './edit-modal-people';
+import { AddModalPeopleComponent } from './add-modal-people';
+import { ViewModalPeopleComponent } from './view-modal-people';
 import { UserService, ApiService, FormsService} from '../../../core/services';
+import { PeopleService } from '../people/people.service';
 
 @Component({
   selector: 'app-people',
@@ -39,6 +43,7 @@ export class PeopleComponent implements OnInit{
   constructor(
     private controlContainer: ControlContainer,
     private parentF: FormGroupDirective,
+    private peopleService: PeopleService,
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     public dialog: MatDialog
@@ -83,41 +88,6 @@ export class PeopleComponent implements OnInit{
     this.onChanges();
   }
 
-  //Persona
-  addFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      id: null ,
-      avatar: null ,
-      primerNombre: [null, [Validators.required]],
-      segundoNombre: null,
-      primerApellido: [null, [Validators.required]],
-      segundoApellido: null,
-      documento: [null, [Validators.required]],
-      ruc: null,
-      fechaNacimiento: [null, [Validators.required]],
-      tipoPersona: ['FISICA', [Validators.required]],
-      sexo: [null, [Validators.required]],
-      numeroHijos: null,
-      numeroDependientes: null,
-      estadoCivil: ['CASADO/A', [Validators.required]],
-      separacionBienes: null,
-      email: [null, [Validators.required]],
-      profesion: [null, [Validators.required]],
-      telefonoParticular: [null, [Validators.required]],
-      telefonoSecundario: null,
-      direccionParticular: [null, [Validators.required]],
-      direccionDetallada: '',
-      observacion: '',
-      activo: 'S',
-      nacionalidad: [null, [Validators.required]],
-      pais: [null, [Validators.required]],
-      departamento: [null, [Validators.required]],
-      ciudad: [null, [Validators.required]],
-      barrio: null
-    });
-  }
-
-
   onChanges(){
     (<FormGroup>this.peopleForm.get('persona')).controls['tipoPersona'].valueChanges
     .subscribe(tipoPersona => {
@@ -160,6 +130,14 @@ export class PeopleComponent implements OnInit{
             this.isDisabled = false;
         }
     });
+
+    (<FormGroup>this.peopleForm.get('persona')).controls['fechaNacimiento'].valueChanges.subscribe(
+        (fecha) => {
+          if(fecha){
+            (<FormControl>this.peopleForm.get('persona')).get('fechaNacimiento').setValue(new Date(fecha), {emitEvent:false});
+          }
+        }
+    );
   }
 
   peopleCi() {
@@ -167,117 +145,24 @@ export class PeopleComponent implements OnInit{
     .subscribe(res => {
       if(res.status == 200){
         res.model.avatar = null;
-        this.loadData(res.model);
+        this.peopleService.loadData(<FormGroup>this.peopleForm.get('persona'),res.model);
       }
     });
   }
 
-  protected loadData(response: any) {
-    response.fechaNacimiento =  new Date(response.fechaNacimiento);
-    (<FormGroup>this.peopleForm.get('persona')).patchValue(response);
-    //Cargar Ocupaciones
-    if(response.ocupaciones != null &&  response.ocupaciones.length > 0){
-      const ocupaciones = (<FormArray>this.peopleForm.get('ocupaciones'));
-      if(ocupaciones){
-        while (ocupaciones.length) {
-          ocupaciones.removeAt(0);
-        }
+  conyugeCi(data: any) {
+    (<FormGroup>this.peopleForm.get('persona').get('conyuge')).reset();
+    this.apiService.get('/personas/documento/' + data)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.model.fechaNacimiento =  new Date(res.model.fechaNacimiento);
+        res.model.nombre = (res.model.primerNombre == null ? '' : res.model.primerNombre) + ' '
+                            + (res.model.segundoNombre == null ? '' : res.model.segundoNombre) + ' '
+                            + (res.model.primerApellido == null ? '' : res.model.primerApellido) + ' ' + (res.model.segundoApellido == null ? '' : res.model.segundoApellido);
+
+        (<FormGroup>this.peopleForm.get('persona').get('conyuge')).patchValue(res.model);
       }
-
-      response.ocupaciones.forEach(staff => {
-        staff.fechaIngreso = new Date(staff.fechaIngreso);
-        if(staff.fechaSalida){
-          staff.fechaSalida = new Date(staff.fechaSalida);
-        }
-        ocupaciones.push(this.formBuilder.group(staff));
-      });
-    }
-
-    //Cargar Referencias
-    if(response.referencias != null && response.referencias.length > 0){
-      const referencias = (<FormArray>this.peopleForm.get('referencias'));
-      if(referencias){
-        while (referencias.length) {
-          referencias.removeAt(0);
-        }
-      }
-      response.referencias.forEach(staff => {
-        referencias.push(this.formBuilder.group(staff));
-      });
-    }
-
-    //Cargar Inmuebles
-    if(response.bienesInmuebles != null && response.bienesInmuebles.length > 0){
-      const bienesInmuebles = (<FormArray>this.peopleForm.get('bienesInmuebles'));
-      if(bienesInmuebles){
-        while (bienesInmuebles.length) {
-          bienesInmuebles.removeAt(0);
-        }
-      }
-      response.bienesInmuebles.forEach(staff => {
-        bienesInmuebles.push(this.formBuilder.group(staff));
-      });
-    }
-
-    //Cargar Vehiculos
-    if(response.bienesVehiculo != null && response.bienesVehiculo.length > 0){
-      const bienesVehiculo = (<FormArray>this.peopleForm.get('bienesVehiculo'));
-      if(bienesVehiculo){
-        while (bienesVehiculo.length) {
-          bienesVehiculo.removeAt(0);
-        }
-      }
-
-      response.bienesVehiculo.forEach(staff => {
-        bienesVehiculo.push(this.formBuilder.group(staff));
-      });
-    }
-
-    //Cargar Ingresos
-    if(response.ingresos != null && response.ingresos.length > 0){
-      const ingresos = (<FormArray>this.peopleForm.get('ingresos'));
-      if(ingresos){
-        while (ingresos.length) {
-          ingresos.removeAt(0);
-        }
-      }
-      response.ingresos.forEach(staff => {
-        ingresos.push(this.formBuilder.group(staff));
-      });
-    }
-
-    //Cargar Egresos
-    if(response.egresos != null && response.egresos.length > 0){
-      const egresos = (<FormArray>this.peopleForm.get('egresos'));
-      if(egresos){
-        while (egresos.length) {
-          egresos.removeAt(0);
-        }
-      }
-      response.egresos.forEach(staff => {
-        egresos.push(this.formBuilder.group(staff));
-      });
-    }
-
-    //Cargar Vinculos
-    if(response.vinculos != null && response.vinculos.length > 0){
-      const vinculos = (<FormArray>this.peopleForm.get('vinculos'));
-      if(vinculos){
-        while (vinculos.length) {
-          vinculos.removeAt(0);
-        }
-
-        response.vinculos.forEach(staff => {
-          staff.personaVinculo.fechaNacimiento = new Date(staff.personaVinculo.fechaNacimiento);
-          staff.personaVinculo.nombre = (staff.personaVinculo.primerNombre == null ? '' : staff.personaVinculo.primerNombre) + ' '
-                              + (staff.personaVinculo.segundoNombre == null ? '' : staff.personaVinculo.segundoNombre) + ' '
-                              + (staff.personaVinculo.primerApellido == null ? '' : staff.personaVinculo.primerApellido) + ' ' + (staff.personaVinculo.segundoApellido == null ? '' : staff.personaVinculo.segundoApellido);
-          staff.personaVinculo = this.formBuilder.group(staff.personaVinculo);
-          vinculos.push(this.formBuilder.group(staff));
-        });
-      }
-
-    }
+    });
   }
 
   // peopleCi() {

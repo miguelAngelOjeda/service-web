@@ -1,87 +1,89 @@
 <ng-container>
-  <div class="row">
+  <div class="row m-t-20">
     <div class="col-md-12">
         <h4  class="m-0"><mat-icon class="gray-text">library_books</mat-icon>Estudios
           <a mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
         </h4>
     </div>
-    <div [formArrayName]="formArrayName"  class="col-md-12">
-      <div [formGroupName]="i" *ngFor="let estudios of studiesForm.get(formArrayName)['controls']; let i = index" >
-        <blockquote>
-          <div class="row">
-            <div class="col-md-3">
-                <app-select-filter (value)="getValue($event,estudios.controls['tipoEstudio'])"
-                [modelValue]="estudios.controls.tipoEstudio.value"
-                placeholder="Tipo Estudio" urlFilter="tipos-estudios" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div class="col-sm-3">
-              <mat-form-field    appearance="legacy">
-                <input matInput #input  placeholder="Colegio/Facultad/Instituto"  formControlName="nombre"  name="nombre" required>
-                <mat-error *ngIf="(estudios.get('nombre').errors)">
-                  <span *ngIf="estudios.get('nombre').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field  appearance="legacy">
-               <input matInput #input [matDatepicker]="picker" formControlName="fechaInicio" name="fechaInicio" placeholder="Fecha Inicio" required>
-               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-               <mat-datepicker #picker></mat-datepicker>
-               <mat-error *ngIf="(estudios.get('fechaInicio').errors)">
-                 <span *ngIf="(estudios.get('fechaInicio').errors)">
-                  Campo requerido
-                 </span>
-               </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field  appearance="legacy">
-               <input matInput #input [matDatepicker]="pickerF" formControlName="fechaFin" name="fechaFin" placeholder="Fecha Fin">
-               <mat-datepicker-toggle matSuffix [for]="pickerF"></mat-datepicker-toggle>
-               <mat-datepicker #pickerF></mat-datepicker>
-               <mat-error *ngIf="(estudios.get('fechaFin').errors)">
-                 <span *ngIf="(estudios.get('fechaFin').errors)">
-                  Campo requerido
-                 </span>
-               </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <section class="example-section">
-                   <mat-checkbox   class="example-margin" formControlName="concluido" name="concluido">Concluido</mat-checkbox>
-              </section>
-            </div>
-             <div class="col-sm-3">
-               <mat-form-field    appearance="legacy">
-                 <input matInput #input  placeholder="Titulo"  formControlName="titulo"  name="titulo">
-                 <mat-error *ngIf="(estudios.get('titulo').errors)">
-                   <span *ngIf="estudios.get('titulo').errors.required">
+    <ng-container formGroupName="persona">
+      <div [formArrayName]="formArrayName"  class="col-md-12">
+        <div [formGroupName]="i" *ngFor="let estudios of peopleForm.get(formArrayName)['controls']; let i = index" >
+          <blockquote>
+            <div class="row">
+              <div class="col-md-3">
+                  <app-select-filter (value)="getValue($event,estudios.controls['tipoEstudio'])"
+                  [modelValue]="estudios.controls.tipoEstudio.value"
+                  placeholder="Tipo Estudio" urlFilter="tipos-estudios" [columnsFilter]="['nombre']"></app-select-filter>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field    appearance="legacy">
+                  <input matInput #input  placeholder="Colegio/Facultad/Instituto"  formControlName="nombre"  name="nombre" required>
+                  <mat-error *ngIf="(estudios.get('nombre').errors)">
+                    <span *ngIf="estudios.get('nombre').errors.required">
+                     Campo requerido
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field  appearance="legacy">
+                 <input matInput #input [matDatepicker]="picker" formControlName="fechaInicio" name="fechaInicio" placeholder="Fecha Inicio" required>
+                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                 <mat-datepicker #picker></mat-datepicker>
+                 <mat-error *ngIf="(estudios.get('fechaInicio').errors)">
+                   <span *ngIf="(estudios.get('fechaInicio').errors)">
                     Campo requerido
                    </span>
                  </mat-error>
-               </mat-form-field>
-             </div>
-             <div class="col-sm-3">
-               <mat-form-field    appearance="legacy">
-                 <input matInput #input  placeholder="Nro. Registro"  formControlName="numeroRegistro" name="numeroRegistro">
-                 <mat-error *ngIf="(estudios.get('numeroRegistro').errors)">
-                   <span *ngIf="estudios.get('numeroRegistro').errors.required">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field  appearance="legacy">
+                 <input matInput #input [matDatepicker]="pickerF" formControlName="fechaFin" name="fechaFin" placeholder="Fecha Fin">
+                 <mat-datepicker-toggle matSuffix [for]="pickerF"></mat-datepicker-toggle>
+                 <mat-datepicker #pickerF></mat-datepicker>
+                 <mat-error *ngIf="(estudios.get('fechaFin').errors)">
+                   <span *ngIf="(estudios.get('fechaFin').errors)">
                     Campo requerido
                    </span>
                  </mat-error>
-               </mat-form-field>
-             </div>
-             <div class="col-md-1">
-               <section class="example-section">
-                 <button type="button" class="btn btn-danger" (click)="delete(estudios.value)"><i class="fa fa-trash"></i></button>
-                    <!-- <a mat-icon-button color="warn" (click)="delete(estudios.value)"> <mat-icon>delete_forever</mat-icon></a> -->
-               </section>
-             </div>
-          </div>
-        </blockquote>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <section class="example-section">
+                     <mat-checkbox   class="example-margin" formControlName="concluido" name="concluido">Concluido</mat-checkbox>
+                </section>
+              </div>
+               <div class="col-sm-3">
+                 <mat-form-field    appearance="legacy">
+                   <input matInput #input  placeholder="Titulo"  formControlName="titulo"  name="titulo">
+                   <mat-error *ngIf="(estudios.get('titulo').errors)">
+                     <span *ngIf="estudios.get('titulo').errors.required">
+                      Campo requerido
+                     </span>
+                   </mat-error>
+                 </mat-form-field>
+               </div>
+               <div class="col-sm-3">
+                 <mat-form-field    appearance="legacy">
+                   <input matInput #input  placeholder="Nro. Registro"  formControlName="numeroRegistro" name="numeroRegistro">
+                   <mat-error *ngIf="(estudios.get('numeroRegistro').errors)">
+                     <span *ngIf="estudios.get('numeroRegistro').errors.required">
+                      Campo requerido
+                     </span>
+                   </mat-error>
+                 </mat-form-field>
+               </div>
+               <div class="col-md-1">
+                 <section class="example-section">
+                   <button type="button" class="btn btn-danger" (click)="delete(estudios.value)"><i class="fa fa-trash"></i></button>
+                      <!-- <a mat-icon-button color="warn" (click)="delete(estudios.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+                 </section>
+               </div>
+            </div>
+          </blockquote>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 </ng-container>

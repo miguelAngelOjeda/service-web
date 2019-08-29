@@ -5,9 +5,9 @@ import { DeleteDialogComponent } from '../../../shared';
 import { HttpParams } from '@angular/common/http';
 import { Estate, Message, Location } from '../../../core/models';
 import { UserService, ApiService, FormsService} from '../../../core/services';
-import { EditModalPeopleComponent } from './edit-modal-people';
-import { AddModalPeopleComponent } from './add-modal-people';
-import { ViewModalPeopleComponent } from './view-modal-people';
+import { EditModalPeopleComponent } from '../people/edit-modal-people';
+import { AddModalPeopleComponent } from '../people/add-modal-people';
+import { ViewModalPeopleComponent } from '../people/view-modal-people';
 import { SnackbarService } from '../../../shared';
 
 @Component({
@@ -59,7 +59,6 @@ import { SnackbarService } from '../../../shared';
     }
 
     this.addButton(null);
-    this.onChanges();
     // this.onChangesPeople();
     // this.onChangesTipoPersona();
   }
@@ -220,36 +219,6 @@ import { SnackbarService } from '../../../shared';
         }
       }
     }
-  }
-
-  onChanges(){
-    (<FormGroup>this.relationshipForm.get('persona')).controls['estadoCivil'].valueChanges
-    .subscribe(estadoCivil => {
-        if(estadoCivil != 'CASADO/A'){
-          this.minRow = 0;
-        }else{
-
-          let tieneConyuge = false;
-          (<FormArray>this.relationshipForm.get(this.formName)).controls.forEach(staff => {
-
-            let tipoVinculo = (<FormGroup>staff).controls.tipoVinculo.value;
-
-            if( tipoVinculo === 'CONYUGE'){
-              this.minRow = 0;
-            }else{
-              tieneConyuge = true;
-            }
-
-          });
-
-          if(tieneConyuge){
-            this.snackbarService.show('Cargar datos del Conyuge en Vinculos!!','warning');
-            this.addButton('CONYUGE');
-          }
-
-
-        }
-    });
   }
 
   onChangesTipoPersona(){

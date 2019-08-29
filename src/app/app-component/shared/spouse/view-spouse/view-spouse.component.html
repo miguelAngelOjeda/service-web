@@ -1,0 +1,58 @@
+<ng-container *ngIf="peopleForm.get('conyuge')?.get('id')?.value">
+  <div class="row">
+    <div class="col-md-12">
+        <h4  class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Conyuge</h4>
+    </div>
+    <div class="col-md-12">
+      <blockquote>
+        <ng-container formGroupName="persona">
+          <ng-container formGroupName="conyuge">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="p-l-20 p-t-10">
+                  <div class="font-medium">{{
+                    (peopleForm.controls['conyuge'].get('primerNombre')?.value == null ? '' : peopleForm.controls['conyuge'].get('primerNombre')?.value)
+                    + ' ' +
+                    (peopleForm.controls['conyuge'].get('segundoNombre')?.value == null ? '' : peopleForm.controls['conyuge'].get('segundoNombre')?.value)
+                    + ' ' +
+                    (peopleForm.controls['conyuge'].get('primerApellido')?.value == null ? '' : peopleForm.controls['conyuge'].get('primerApellido')?.value)
+                    + ' ' +
+                    (peopleForm.controls['conyuge'].get('segundoApellido')?.value == null ? '' : peopleForm.controls['conyuge'].get('segundoApellido')?.value)
+                    }} </div>
+                  <span class="font-16" *ngIf="peopleForm.controls['conyuge']['controls']?.profesion.value">{{peopleForm.controls['conyuge']['controls']?.profesion.value?.nombre}}</span>
+                  <br *ngIf="peopleForm.controls['conyuge']['controls']?.profesion?.value">
+                  <span class="font-16" *ngIf="peopleForm.controls['conyuge'].get('email')?.value">{{peopleForm.controls['conyuge'].get('email')?.value }}</span>
+                  <br>
+                  <span class="font-16" *ngIf="peopleForm.controls['conyuge'].get('telefonoParticular')?.value">Telf. {{
+                    (peopleForm.controls['conyuge'].get('telefonoParticular')?.value == null ? '' : peopleForm.controls['conyuge'].get('telefonoParticular')?.value)
+                    + ' ' +
+                    (peopleForm.controls['conyuge'].get('telefonoSecundario')?.value == null ? '' : peopleForm.controls['conyuge'].get('telefonoSecundario')?.value)
+                    }}</span>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <mat-list>
+                  <mat-list-item>
+                    <p><span class="font-bold">Documento: </span> {{peopleForm.get('conyuge').get('documento')?.value}}</p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <p><span class="font-bold">Sexo: </span> {{peopleForm.get('conyuge').get('sexo')?.value}}</p>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="col-md-2">
+                <section class="example-section">
+                  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="peopleForm.get('conyuge').get('id').value">
+                      <button type="button" class="btn btn-light" (click)="viewPeople(peopleForm.get('conyuge').get('id').value, i)"><i class="fa fa-eye"></i></button>
+                    </div>
+                  </div>
+                </section>
+              </div>              
+            </div>
+          </ng-container>
+        </ng-container>
+      </blockquote>
+    </div>
+  </div>
+</ng-container>

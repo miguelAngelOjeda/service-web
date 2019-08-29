@@ -13,6 +13,8 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class StudiesComponent implements OnInit {
   studiesForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'estudios';
   @Input() minRow;
   @Input()
@@ -36,11 +38,12 @@ export class StudiesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.studiesForm = this.parentF.form;
-    this.studiesForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.studiesForm.get('persona'));
 
-    const formArray = (<FormArray>this.studiesForm.get(this.formArrayName));
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
+
+    const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
     while (formArray.length) {
       formArray.removeAt(0);
     }
@@ -55,7 +58,7 @@ export class StudiesComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.studiesForm.get(this.formArrayName));
+                const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
@@ -85,7 +88,7 @@ export class StudiesComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.studiesForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
   delete(data: Reference){
@@ -104,24 +107,24 @@ export class StudiesComponent implements OnInit {
           this.apiService.delete('/estudios/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.studiesForm.get(this.formArrayName)).removeAt((<FormArray>this.studiesForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+                (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.studiesForm.get(this.formArrayName)).removeAt((<FormArray>this.studiesForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+      (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
     }
 
     if(this.minRow > 0){
-      if((<FormArray>this.studiesForm.get(this.formArrayName)).controls.length < this.minRow){
+      if((<FormArray>this.peopleForm.get(this.formArrayName)).controls.length < this.minRow){
         this.addButton();
       }
     }
   }
 
   onChanges(){
-    (<FormGroup>this.studiesForm.get('persona')).controls['id'].valueChanges
+    this.peopleForm.controls['id'].valueChanges
     .subscribe(id => {
         this.onChangesFkModel(id);
     });

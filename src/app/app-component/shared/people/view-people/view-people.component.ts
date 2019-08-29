@@ -73,8 +73,7 @@ export class ViewPeopleComponent implements OnInit{
       pais: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       ciudad: [null, [Validators.required]],
-      barrio: null,
-      conyuge: null
+      barrio: null
     }));
   }
 
@@ -109,8 +108,7 @@ export class ViewPeopleComponent implements OnInit{
       pais: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       ciudad: [null, [Validators.required]],
-      barrio: null,
-      conyuge: null
+      barrio: null
     });
   }
 

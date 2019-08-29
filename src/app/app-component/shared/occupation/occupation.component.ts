@@ -13,6 +13,8 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class OccupationComponent implements OnInit {
   occupationForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'ocupaciones';
   @Input() minRow;
   @Input()
@@ -37,7 +39,9 @@ export class OccupationComponent implements OnInit {
 
   ngOnInit() {
     this.occupationForm = this.parentF.form;
-    this.occupationForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.occupationForm.get('persona'));
+
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
     //this.onChanges();
     //this.onChangesPeople();
@@ -62,15 +66,15 @@ export class OccupationComponent implements OnInit {
   }
 
   onChanges(){
-    (<FormGroup>this.occupationForm.get('persona')).controls['tipoPersona'].valueChanges
+    (<FormGroup>this.peopleForm.get('persona')).controls['tipoPersona'].valueChanges
     .subscribe(tipoPersona => {
         if(tipoPersona != 'FISICA'){
-          (<FormArray>this.occupationForm.get(this.formArrayName)).controls
+          (<FormArray>this.peopleForm.get(this.formArrayName)).controls
             .forEach(control => {
               control.disable();
             });
         }else{
-          (<FormArray>this.occupationForm.get(this.formArrayName)).controls
+          (<FormArray>this.peopleForm.get(this.formArrayName)).controls
             .forEach(control => {
               control.enable();
             });
@@ -84,7 +88,7 @@ export class OccupationComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const ocupaciones = (<FormArray>this.occupationForm.get(this.formArrayName));
+                const ocupaciones = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (ocupaciones.length) {
                   ocupaciones.removeAt(0);
                 }
@@ -101,7 +105,7 @@ export class OccupationComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.occupationForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
   delete(data: any){
@@ -119,24 +123,24 @@ export class OccupationComponent implements OnInit {
           this.apiService.delete('/ocupaciones/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.occupationForm.get(this.formArrayName)).removeAt((<FormArray>this.occupationForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+                (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.occupationForm.get(this.formArrayName)).removeAt((<FormArray>this.occupationForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+      (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
     }
 
     if(this.minRow > 0){
-      if((<FormArray>this.occupationForm.get(this.formArrayName)).controls.length < this.minRow){
+      if((<FormArray>this.peopleForm.get(this.formArrayName)).controls.length < this.minRow){
         this.addButton();
       }
     }
   }
 
   onChangesPeople(){
-    (<FormGroup>this.occupationForm.get('persona')).controls['id'].valueChanges
+    this.peopleForm.controls['id'].valueChanges
     .subscribe(id => {
         this.onChangesFkModel(id);
     });

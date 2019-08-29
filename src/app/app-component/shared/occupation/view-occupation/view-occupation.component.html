@@ -1,79 +1,81 @@
 <ng-container>
-  <div class="row">
+  <div class="row m-t-20">
     <div class="col-md-12 m-b-10">
         <h4  class="m-0 font-20"><mat-icon class="gray-text">account_balance</mat-icon>Datos Laborales
         </h4>
     </div>
-    <div [formArrayName]="formArrayName" class="col-md-12">
-        <ng-container *ngIf="occupationForm.get(formArrayName)['controls'].length == 0">
-          <div class="timeline-badge danger m-t-10">
-            <i  class="fa fa-info-circle"></i>
-          </div>
-          <div class="timeline-panel m-t-10">
-            <div class="timeline-heading">
-              <h4 class="timeline-title">No posee registros cargados</h4>
+    <ng-container formGroupName="persona">
+      <div [formArrayName]="formArrayName" class="col-md-12">
+          <ng-container *ngIf="peopleForm.get(formArrayName)['controls'].length == 0">
+            <div class="timeline-badge danger m-t-10">
+              <i  class="fa fa-info-circle"></i>
             </div>
-          </div>
-        </ng-container>
-        <div [formGroupName]="i" *ngFor="let ocupaciones of occupationForm.get(formArrayName)['controls']; let i = index">
-          <blockquote>
-            <div class="row">
-               <div class="col-sm-4">
-                 <mat-list>
-                   <mat-list-item>
-                     <p><span class="font-bold">Empresa: </span> {{ocupaciones.get('empresa').value}}</p>
-                   </mat-list-item>
-                   <mat-list-item>
-                     <p><span class="font-bold">Cargo: </span> {{ocupaciones.get('cargo').value}}</p>
-                   </mat-list-item>
-                   <mat-list-item>
-                     <p><span class="font-bold">Ocupacion: </span> {{ocupaciones.controls.tipoOcupacion.value.nombre}}</p>
-                   </mat-list-item>
-                 </mat-list>
-               </div>
-               <div class="col-sm-4">
-                 <mat-list>
-                   <mat-list-item>
-                     <p><span class="font-bold">Tipo Trabajo: </span> {{ocupaciones.get('tipoTrabajo').value}}</p>
-                   </mat-list-item>
-                   <mat-list-item>
-                     <p><span class="font-bold">Ingreso Mensual: </span> {{ocupaciones.get('ingresosMensuales').value | number}}</p>
-                   </mat-list-item>
-                   <mat-list-item>
-                     <p><span class="font-bold">Fecha Ingreso: </span> {{ocupaciones.get('fechaIngreso').value | date: 'dd/MM/yyyy'}}</p>
-                   </mat-list-item>
-                 </mat-list>
-               </div>
-               <div class="col-sm-4">
-                 <mat-list>
-                   <mat-list-item>
-                     <p><span class="font-bold">Fecha Salida: </span> {{ocupaciones.get('fechaSalida').value | date: 'dd/MM/yyyy'}}</p>
-                   </mat-list-item>
-                   <mat-list-item>
-                     <p><span class="font-bold">Telefono: </span> {{ocupaciones.get('telefonoPrincipal').value}}</p>
-                   </mat-list-item>
-                   <mat-list-item>
-                     <p><span class="font-bold">Telefono Secundario: </span> {{ocupaciones.get('telefonoSecundario').value | date: 'dd/MM/yyyy'}}</p>
-                   </mat-list-item>
-                 </mat-list>
-               </div>
-               <div class="col-sm-4">
-                 <mat-list>
-                   <mat-list-item>
-                     <p><span class="font-bold">Interno: </span> {{ocupaciones.get('interno').value}}</p>
-                   </mat-list-item>
-                 </mat-list>
-               </div>
-               <div class="col-sm-8">
-                 <mat-list>
-                   <mat-list-item>
-                     <p><span class="font-bold">Direccion: </span> {{ocupaciones.get('direccion').value}}</p>
-                   </mat-list-item>
-                 </mat-list>
-               </div>
+            <div class="timeline-panel m-t-10">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">No posee registros cargados</h4>
+              </div>
             </div>
-          </blockquote>
-        </div>
-    </div>
+          </ng-container>
+          <div [formGroupName]="i" *ngFor="let ocupaciones of peopleForm.get(formArrayName)['controls']; let i = index">
+            <blockquote>
+              <div class="row">
+                 <div class="col-sm-4">
+                   <mat-list>
+                     <mat-list-item>
+                       <p><span class="font-bold">Empresa: </span> {{ocupaciones.get('empresa')?.value}}</p>
+                     </mat-list-item>
+                     <mat-list-item>
+                       <p><span class="font-bold">Cargo: </span> {{ocupaciones.get('cargo')?.value}}</p>
+                     </mat-list-item>
+                     <mat-list-item>
+                       <p><span class="font-bold">Ocupacion: </span> {{ocupaciones.controls.tipoOcupacion.value?.nombre}}</p>
+                     </mat-list-item>
+                   </mat-list>
+                 </div>
+                 <div class="col-sm-4">
+                   <mat-list>
+                     <mat-list-item>
+                       <p><span class="font-bold">Tipo Trabajo: </span> {{ocupaciones.get('tipoTrabajo')?.value}}</p>
+                     </mat-list-item>
+                     <mat-list-item>
+                       <p><span class="font-bold">Ingreso Mensual: </span> {{ocupaciones.get('ingresosMensuales')?.value | number}}</p>
+                     </mat-list-item>
+                     <mat-list-item>
+                       <p><span class="font-bold">Fecha Ingreso: </span> {{ocupaciones.get('fechaIngreso')?.value | date: 'dd/MM/yyyy'}}</p>
+                     </mat-list-item>
+                   </mat-list>
+                 </div>
+                 <div class="col-sm-4">
+                   <mat-list>
+                     <mat-list-item>
+                       <p><span class="font-bold">Fecha Salida: </span> {{ocupaciones.get('fechaSalida')?.value | date: 'dd/MM/yyyy'}}</p>
+                     </mat-list-item>
+                     <mat-list-item>
+                       <p><span class="font-bold">Telefono: </span> {{ocupaciones.get('telefonoPrincipal')?.value}}</p>
+                     </mat-list-item>
+                     <mat-list-item>
+                       <p><span class="font-bold">Telefono Secundario: </span> {{ocupaciones.get('telefonoSecundario')?.value | date: 'dd/MM/yyyy'}}</p>
+                     </mat-list-item>
+                   </mat-list>
+                 </div>
+                 <div class="col-sm-4">
+                   <mat-list>
+                     <mat-list-item>
+                       <p><span class="font-bold">Interno: </span> {{ocupaciones.get('interno')?.value}}</p>
+                     </mat-list-item>
+                   </mat-list>
+                 </div>
+                 <div class="col-sm-8">
+                   <mat-list>
+                     <mat-list-item>
+                       <p><span class="font-bold">Direccion: </span> {{ocupaciones.get('direccion')?.value}}</p>
+                     </mat-list-item>
+                   </mat-list>
+                 </div>
+              </div>
+            </blockquote>
+          </div>
+      </div>
+    </ng-container>
   </div>
 </ng-container>

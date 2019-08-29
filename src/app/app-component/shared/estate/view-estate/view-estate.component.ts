@@ -11,6 +11,8 @@ import { UserService, ApiService, FormsService} from '../../../../core/services'
 })
 export class ViewEstateComponent implements OnInit {
   estateForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'bienesInmuebles';
   @Input() minRow;
   @Input()
@@ -29,7 +31,9 @@ export class ViewEstateComponent implements OnInit {
 
   ngOnInit() {
     this.estateForm = this.parentF.form;
-    this.estateForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.estateForm.get('persona'));
+
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
   }
 
   //bienes Inmueble
@@ -63,7 +67,7 @@ export class ViewEstateComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.estateForm.get(this.formArrayName));
+                const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }

@@ -9,16 +9,19 @@
 						<div class="col-md-12">
 							<app-people></app-people>
 						</div>
-						<div class="col-md-12 m-t-30">
+						<div class="col-md-12" *ngIf="addSpouse">
+							<app-spouse [addModel]="addSpouse"></app-spouse>
+						</div>
+						<div class="col-md-12">
 							<app-reference [minRow]="1"></app-reference>
 						</div>
-						<div class="col-md-12 m-t-30">
+						<div class="col-md-12">
 							<app-occupation [minRow]="0"></app-occupation>
 						</div>
-						<div class="col-md-12 m-t-30">
+						<div class="col-md-12">
 							<app-estate></app-estate>
 						</div>
-						<div class="col-md-12 m-t-30">
+						<div class="col-md-12">
 							<app-vehicle></app-vehicle>
 						</div>
 						<div class="col-md-12 m-t-30">

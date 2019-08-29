@@ -5,7 +5,7 @@ import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 import { ErrorStateMatcher} from '@angular/material/core';
-
+import { PeopleService } from '../../shared/people';
 
 @Component({
   selector: 'app-add-client',
@@ -14,11 +14,14 @@ import { ErrorStateMatcher} from '@angular/material/core';
 })
 export class AddClientComponent implements OnInit {
     myForm: FormGroup;
+    peopleForm: FormGroup;
+
     validateForm = true;
     isSeparacionBienes = true;
 
     constructor(
       private formBuilder: FormBuilder,
+      private peopleService: PeopleService,
       private apiService: ApiService
     ) {}
 
@@ -38,7 +41,8 @@ export class AddClientComponent implements OnInit {
       this.apiService.post('/clientes', this.myForm.value)
       .subscribe(res => {
         if(res.status == 200){
-          this.loadData(res.model);
+          this.myForm.patchValue(res.model);
+          this.peopleService.loadData((<FormGroup>this.myForm.get('persona')),res.model.persona);
         }
       });
     }
@@ -63,115 +67,6 @@ export class AddClientComponent implements OnInit {
 
     getValue(data: any, form : FormControl): void {
       form.setValue(data);
-    }
-
-    protected loadData(response: any) {
-      response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
-      this.myForm.patchValue(response);
-      //Cargar Ocupaciones
-      if(response.persona.ocupaciones != null &&  response.persona.ocupaciones.length > 0){
-        const ocupaciones = (<FormArray>this.myForm.get('ocupaciones'));
-        if(ocupaciones){
-          while (ocupaciones.length) {
-            ocupaciones.removeAt(0);
-          }
-        }
-
-        response.persona.ocupaciones.forEach(staff => {
-          staff.fechaIngreso = new Date(staff.fechaIngreso);
-          if(staff.fechaSalida){
-            staff.fechaSalida = new Date(staff.fechaSalida);
-          }
-          ocupaciones.push(this.formBuilder.group(staff));
-        });
-      }
-
-      //Cargar Referencias
-      if(response.persona.referencias != null && response.persona.referencias.length > 0){
-        const referencias = (<FormArray>this.myForm.get('referencias'));
-        if(referencias){
-          while (referencias.length) {
-            referencias.removeAt(0);
-          }
-        }
-        response.persona.referencias.forEach(staff => {
-          referencias.push(this.formBuilder.group(staff));
-        });
-      }
-
-      //Cargar Inmuebles
-      if(response.persona.bienesInmuebles != null && response.persona.bienesInmuebles.length > 0){
-        const bienesInmuebles = (<FormArray>this.myForm.get('bienesInmuebles'));
-        if(bienesInmuebles){
-          while (bienesInmuebles.length) {
-            bienesInmuebles.removeAt(0);
-          }
-        }
-        response.persona.bienesInmuebles.forEach(staff => {
-          bienesInmuebles.push(this.formBuilder.group(staff));
-        });
-      }
-
-      //Cargar Vehiculos
-      if(response.persona.bienesVehiculo != null && response.persona.bienesVehiculo.length > 0){
-        const bienesVehiculo = (<FormArray>this.myForm.get('bienesVehiculo'));
-        if(bienesVehiculo){
-          while (bienesVehiculo.length) {
-            bienesVehiculo.removeAt(0);
-          }
-        }
-
-        response.persona.bienesVehiculo.forEach(staff => {
-          bienesVehiculo.push(this.formBuilder.group(staff));
-        });
-      }
-
-      //Cargar Ingresos
-      if(response.persona.ingresos != null && response.persona.ingresos.length > 0){
-        const ingresos = (<FormArray>this.myForm.get('ingresos'));
-        if(ingresos){
-          while (ingresos.length) {
-            ingresos.removeAt(0);
-          }
-        }
-        response.persona.ingresos.forEach(staff => {
-          ingresos.push(this.formBuilder.group(staff));
-        });
-      }
-
-      //Cargar Egresos
-      if(response.persona.egresos != null && response.persona.egresos.length > 0){
-        const egresos = (<FormArray>this.myForm.get('egresos'));
-        if(egresos){
-          while (egresos.length) {
-            egresos.removeAt(0);
-          }
-        }
-        response.persona.egresos.forEach(staff => {
-          egresos.push(this.formBuilder.group(staff));
-        });
-      }
-
-      //Cargar Vinculos
-      if(response.persona.vinculos != null && response.persona.vinculos.length > 0){
-        const vinculos = (<FormArray>this.myForm.get('vinculos'));
-        if(vinculos){
-          while (vinculos.length) {
-            vinculos.removeAt(0);
-          }
-
-          response.persona.vinculos.forEach(staff => {
-            staff.personaVinculo.fechaNacimiento = new Date(staff.personaVinculo.fechaNacimiento);
-            staff.personaVinculo.nombre = (staff.personaVinculo.primerNombre == null ? '' : staff.personaVinculo.primerNombre) + ' '
-                                + (staff.personaVinculo.segundoNombre == null ? '' : staff.personaVinculo.segundoNombre) + ' '
-                                + (staff.personaVinculo.primerApellido == null ? '' : staff.personaVinculo.primerApellido) + ' ' + (staff.personaVinculo.segundoApellido == null ? '' : staff.personaVinculo.segundoApellido);
-            staff.personaVinculo = this.formBuilder.group(staff.personaVinculo);
-            vinculos.push(this.formBuilder.group(staff));
-          });
-        }
-
-      }
-
     }
 
   }

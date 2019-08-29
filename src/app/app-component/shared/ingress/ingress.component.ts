@@ -13,6 +13,8 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class IngressComponent implements OnInit {
   ingressForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'ingresos';
   @Input() minRow;
   @Input()
@@ -37,7 +39,9 @@ export class IngressComponent implements OnInit {
 
   ngOnInit() {
     this.ingressForm = this.parentF.form;
-    this.ingressForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.ingressForm.get('persona'));
+
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
     //this.onChangesPeople();
   }
@@ -58,7 +62,7 @@ export class IngressComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.ingressForm.get(this.formArrayName));
+                const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
@@ -69,7 +73,7 @@ export class IngressComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.ingressForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
   delete(data: any){
@@ -88,24 +92,24 @@ export class IngressComponent implements OnInit {
           this.apiService.delete('/ingresos/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.ingressForm.get(this.formArrayName)).removeAt((<FormArray>this.ingressForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+                (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.ingressForm.get(this.formArrayName)).removeAt((<FormArray>this.ingressForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+      (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
     }
 
     if(this.minRow > 0){
-      if((<FormArray>this.ingressForm.get(this.formArrayName)).controls.length < this.minRow){
+      if((<FormArray>this.peopleForm.get(this.formArrayName)).controls.length < this.minRow){
         this.addButton();
       }
     }
   }
 
   onChangesPeople(){
-    (<FormGroup>this.ingressForm.get('persona')).controls['id'].valueChanges
+    this.peopleForm.controls['id'].valueChanges
     .subscribe(id => {
         this.onChangesFkModel(id);
     });

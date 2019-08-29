@@ -4,6 +4,7 @@ import { FormControl, FormArray, Validators, FormBuilder, FormGroup } from '@ang
 import { UserService, ApiService } from '../../../../core/services';
 import { Users, Departments } from '../../../../core/models';
 import { HttpParams } from '@angular/common/http';
+import { PeopleService } from '../../../shared/people';
 
 @Component({
     selector: 'app-add-functionary',
@@ -17,6 +18,7 @@ export class AddFunctionaryComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
+        private peopleService: PeopleService,
         private apiService: ApiService,
     ) { }
 
@@ -41,7 +43,8 @@ export class AddFunctionaryComponent implements OnInit {
         this.apiService.post('/funcionarios/', this.myForm.value)
             .subscribe(res => {
               if(res.status == 200){
-                this.loadData(res.model);
+                this.myForm.patchValue(res.model);
+                this.peopleService.loadData((<FormGroup>this.myForm.get('persona')),res.model.persona);
               }
             });
     }
@@ -61,6 +64,14 @@ export class AddFunctionaryComponent implements OnInit {
             tipoFuncionario: [null, [Validators.required]],
             activo: 'S'
         });
+
+        this.myForm.controls['fechaIngreso'].valueChanges.subscribe(
+            (fecha) => {
+              if(fecha){
+                this.myForm.get('fechaIngreso').setValue(new Date(fecha), {emitEvent:false});
+              }
+            }
+        );
     }
 
     getValue(data: any, form: any): void {
@@ -87,40 +98,5 @@ export class AddFunctionaryComponent implements OnInit {
         }
         return o1.id === Number(o2.id);
     }
-
-    protected loadData(response: any) {
-      response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
-      response.fechaIngreso =  new Date(response.fechaIngreso);
-      (<FormGroup>this.myForm).patchValue(response);
-
-      //Cargar Referencias
-      if(response.persona.referencias != null && response.persona.referencias.length > 0){
-        const referencias = (<FormArray>this.myForm.get('referencias'));
-        if(referencias != null){
-          while (referencias.length) {
-            referencias.removeAt(0);
-          }
-        }
-        response.persona.referencias.forEach(staff => {
-          referencias.push(this.formBuilder.group(staff));
-        });
-      }
-
-      //Cargar Estudios
-      if(response.persona.estudios != null &&  response.persona.estudios.length > 0){
-        const estudios = (<FormArray>this.myForm.get('estudios'));
-        if(estudios != null){
-          while (estudios.length) {
-            estudios.removeAt(0);
-          }
-        }
-        response.persona.estudios.forEach(staff => {
-          estudios.push(this.formBuilder.group(staff));
-        });
-      }
-    }
-
-
-
 
 }

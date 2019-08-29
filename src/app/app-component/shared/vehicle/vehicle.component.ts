@@ -13,6 +13,8 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class VehicleComponent implements OnInit {
   vehicleForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'bienesVehiculo';
   @Input() minRow;
   @Input()
@@ -31,7 +33,9 @@ export class VehicleComponent implements OnInit {
 
   ngOnInit() {
     this.vehicleForm = this.parentF.form;
-    this.vehicleForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.vehicleForm.get('persona'));
+
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
     //this.onChangesPeople();
   }
@@ -67,7 +71,7 @@ export class VehicleComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.vehicleForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
   delete(data: any){
@@ -86,24 +90,24 @@ export class VehicleComponent implements OnInit {
           this.apiService.delete('/vehiculos/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.vehicleForm.get(this.formArrayName)).removeAt((<FormArray>this.vehicleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+                (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.vehicleForm.get(this.formArrayName)).removeAt((<FormArray>this.vehicleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+      (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
     }
 
     if(this.minRow > 0){
-      if((<FormArray>this.vehicleForm.get(this.formArrayName)).controls.length < this.minRow){
+      if((<FormArray>this.peopleForm.get(this.formArrayName)).controls.length < this.minRow){
         this.addButton();
       }
     }
   }
 
   onChangesPeople(){
-    (<FormGroup>this.vehicleForm.get('persona')).controls['id'].valueChanges
+    this.peopleForm.controls['id'].valueChanges
     .subscribe(id => {
         this.onChangesFkModel(id);
     });

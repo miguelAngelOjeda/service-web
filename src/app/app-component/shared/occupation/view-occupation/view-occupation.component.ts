@@ -11,6 +11,8 @@ import { UserService, ApiService, FormsService} from '../../../../core/services'
 })
 export class ViewOccupationComponent implements OnInit {
   occupationForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'ocupaciones';
   @Input() minRow;
   @Input()
@@ -35,7 +37,9 @@ export class ViewOccupationComponent implements OnInit {
 
   ngOnInit() {
     this.occupationForm = this.parentF.form;
-    this.occupationForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.occupationForm.get('persona'));
+
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
   }
 
   //bienes Inmueble
@@ -63,7 +67,7 @@ export class ViewOccupationComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const ocupaciones = (<FormArray>this.occupationForm.get(this.formArrayName));
+                const ocupaciones = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (ocupaciones.length) {
                   ocupaciones.removeAt(0);
                 }

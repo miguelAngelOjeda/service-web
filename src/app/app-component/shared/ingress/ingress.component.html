@@ -5,32 +5,34 @@
           <a mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
         </h4>
     </div>
-    <div [formArrayName]="formArrayName"  class="col-md-12">
-      <div [formGroupName]="i" *ngFor="let ingresos of ingressForm.get(formArrayName)['controls']; let i = index" >
-          <div class="row">
-             <div class="col-sm-5">
-               <mat-form-field    appearance="legacy">
-                 <input matInput #input type="text" min="0"  placeholder="Monto"  formControlName="monto"  name="monto" required currencyMask>
-                 <mat-error *ngIf="(ingresos.get('monto').errors)">
-                   <span *ngIf="ingresos.get('monto').errors.required">
-                    Campo requerido
-                   </span>
-                 </mat-error>
-               </mat-form-field>
-             </div>
-             <div class="col-md-5">
-                 <app-select-filter (value)="getValue($event,ingresos.controls['tipoIngresosEgresos'])"
-                  [modelValue]="ingresos.controls.tipoIngresosEgresos.value"
-                  placeholder="Tipo Ingreso" urlFilter="tipos-ingresos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
-             </div>
-             <div class="col-md-2">
-               <section class="example-section">
-                 <button type="button" class="btn btn-danger" (click)="delete(ingresos.value)"><i class="fa fa-trash"></i></button>
-                    <!-- <a mat-icon-button color="warn" (click)="delete(ingresos.value)"> <mat-icon>delete_forever</mat-icon></a> -->
-               </section>
-             </div>
-          </div>
+    <ng-container formGroupName="persona">
+      <div [formArrayName]="formArrayName"  class="col-md-12">
+        <div [formGroupName]="i" *ngFor="let ingresos of peopleForm.get(formArrayName)['controls']; let i = index" >
+            <div class="row">
+               <div class="col-sm-5">
+                 <mat-form-field    appearance="legacy">
+                   <input matInput #input type="text" min="0"  placeholder="Monto"  formControlName="monto"  name="monto" required currencyMask>
+                   <mat-error *ngIf="(ingresos.get('monto').errors)">
+                     <span *ngIf="ingresos.get('monto').errors.required">
+                      Campo requerido
+                     </span>
+                   </mat-error>
+                 </mat-form-field>
+               </div>
+               <div class="col-md-5">
+                   <app-select-filter (value)="getValue($event,ingresos.controls['tipoIngresosEgresos'])"
+                    [modelValue]="ingresos.controls.tipoIngresosEgresos.value"
+                    placeholder="Tipo Ingreso" urlFilter="tipos-ingresos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
+               </div>
+               <div class="col-md-2">
+                 <section class="example-section">
+                   <button type="button" class="btn btn-danger" (click)="delete(ingresos.value)"><i class="fa fa-trash"></i></button>
+                      <!-- <a mat-icon-button color="warn" (click)="delete(ingresos.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+                 </section>
+               </div>
+            </div>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 </ng-container>

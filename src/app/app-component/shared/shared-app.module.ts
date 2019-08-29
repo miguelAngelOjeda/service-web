@@ -15,11 +15,12 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { IngressComponent, ViewIngressComponent } from './ingress';
 import { EgressComponent, ViewEgressComponent } from './egress';
-import { PeopleComponent, ViewPeopleComponent } from './people';
+import { PeopleComponent, ViewPeopleComponent,
+   EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from './people';
 import { DepartmentComponent } from './department';
 import { OccupationComponent, ViewOccupationComponent } from './occupation';
-import { PeopleRelationshipComponent, ViewPeopleRelationsComponent,
-   EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from './people-relationship';
+import { SpouseComponent, ViewSpouseComponent } from './spouse';
+import { PeopleRelationshipComponent, ViewPeopleRelationsComponent } from './people-relationship';
 import { NgxCurrencyModule } from "ngx-currency";
 
 
@@ -54,6 +55,8 @@ export const customCurrencyMaskConfig = {
   declarations: [
     StudiesComponent,
     ViewStudiesComponent,
+    SpouseComponent,
+    ViewSpouseComponent,
     ViewReferenceComponent,
     ViewVehicleComponent,
     ViewIngressComponent,
@@ -79,6 +82,8 @@ export const customCurrencyMaskConfig = {
     DeleteDialogComponent,
     StudiesComponent,
     ViewStudiesComponent,
+    SpouseComponent,
+    ViewSpouseComponent,
     EstateComponent,
     VehicleComponent,
     ReferenceComponent,

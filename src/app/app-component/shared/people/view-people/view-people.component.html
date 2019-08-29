@@ -12,22 +12,22 @@
     <div class="col-md-10">
       <div class="p-l-20 p-t-10">
         <div class="font-medium">{{
-          (peopleForm.controls['persona'].get('primerNombre').value == null ? '' : peopleForm.controls['persona'].get('primerNombre').value)
+          (peopleForm.controls['persona'].get('primerNombre')?.value == null ? '' : peopleForm.controls['persona'].get('primerNombre')?.value)
           + ' ' +
-          (peopleForm.controls['persona'].get('segundoNombre').value == null ? '' : peopleForm.controls['persona'].get('segundoNombre').value)
+          (peopleForm.controls['persona'].get('segundoNombre')?.value == null ? '' : peopleForm.controls['persona'].get('segundoNombre')?.value)
           + ' ' +
-          (peopleForm.controls['persona'].get('primerApellido').value == null ? '' : peopleForm.controls['persona'].get('primerApellido').value)
+          (peopleForm.controls['persona'].get('primerApellido')?.value == null ? '' : peopleForm.controls['persona'].get('primerApellido')?.value)
           + ' ' +
-          (peopleForm.controls['persona'].get('segundoApellido').value == null ? '' : peopleForm.controls['persona'].get('segundoApellido').value)
+          (peopleForm.controls['persona'].get('segundoApellido')?.value == null ? '' : peopleForm.controls['persona'].get('segundoApellido')?.value)
           }} </div>
-        <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].profesion.value">{{peopleForm.controls['persona']['controls'].profesion.value.nombre}}</span>
+        <span class="font-16" *ngIf="peopleForm.controls['persona']['controls'].profesion.value">{{peopleForm.controls['persona']['controls'].profesion.value?.nombre}}</span>
         <br *ngIf="peopleForm.controls['persona']['controls'].profesion.value">
-        <span class="font-16" *ngIf="peopleForm.controls['persona'].get('email').value">{{peopleForm.controls['persona'].get('email').value }}</span>
+        <span class="font-16" *ngIf="peopleForm.controls['persona'].get('email').value">{{peopleForm.controls['persona'].get('email')?.value }}</span>
         <br>
         <span class="font-16" *ngIf="peopleForm.controls['persona'].get('telefonoParticular').value">Telf. {{
-          (peopleForm.controls['persona'].get('telefonoParticular').value == null ? '' : peopleForm.controls['persona'].get('telefonoParticular').value)
+          (peopleForm.controls['persona'].get('telefonoParticular')?.value == null ? '' : peopleForm.controls['persona'].get('telefonoParticular')?.value)
           + ' ' +
-          (peopleForm.controls['persona'].get('telefonoSecundario').value == null ? '' : peopleForm.controls['persona'].get('telefonoSecundario').value)
+          (peopleForm.controls['persona'].get('telefonoSecundario')?.value == null ? '' : peopleForm.controls['persona'].get('telefonoSecundario')?.value)
           }}</span>
       </div>
     </div>
@@ -35,29 +35,29 @@
       <div class="col-sm-4">
         <mat-list>
           <mat-list-item>
-            <p><span class="font-bold">Tipo Persona: </span> {{peopleForm.controls['persona'].get('tipoPersona').value}}</p>
+            <p><span class="font-bold">Tipo Persona: </span> {{peopleForm.controls['persona'].get('tipoPersona')?.value}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Documento: </span> {{peopleForm.controls['persona'].get('documento').value}}</p>
+            <p><span class="font-bold">Documento: </span> {{peopleForm.controls['persona'].get('documento')?.value}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Ruc: </span> {{peopleForm.controls['persona'].get('ruc').value}}</p>
+            <p><span class="font-bold">Ruc: </span> {{peopleForm.controls['persona'].get('ruc')?.value}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Fecha Nacimiento: </span> {{peopleForm.controls['persona'].get('fechaNacimiento').value | date: 'dd/MM/yyyy'}}</p>
+            <p><span class="font-bold">Fecha Nacimiento: </span> {{peopleForm.controls['persona'].get('fechaNacimiento')?.value | date: 'dd/MM/yyyy'}}</p>
           </mat-list-item>
         </mat-list>
       </div>
       <div class="col-sm-4">
         <mat-list>
           <mat-list-item>
-            <p><span class="font-bold">Sexo: </span> {{peopleForm.controls['persona'].get('sexo').value}}</p>
+            <p><span class="font-bold">Sexo: </span> {{peopleForm.controls['persona'].get('sexo')?.value}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Estado Civil: </span> {{peopleForm.controls['persona'].get('estadoCivil').value}}</p>
+            <p><span class="font-bold">Estado Civil: </span> {{peopleForm.controls['persona'].get('estadoCivil')?.value}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Separacion Bienes: </span> {{(peopleForm.controls['persona'].get('separacionBienes').value == true ? 'S' : 'N')}}</p>
+            <p><span class="font-bold">Separacion Bienes: </span> {{(peopleForm.controls['persona'].get('separacionBienes')?.value == true ? 'S' : 'N')}}</p>
           </mat-list-item>
           <mat-list-item>
             <p><span class="font-bold">Nacionalidad: </span> {{peopleForm.controls['persona']['controls'].nacionalidad?.value?.nombre}}</p>
@@ -67,13 +67,13 @@
       <div class="col-sm-4">
         <mat-list>
           <mat-list-item>
-            <p><span class="font-bold">Numero Hijos: </span> {{peopleForm.controls['persona'].get('numeroHijos').value}}</p>
+            <p><span class="font-bold">Numero Hijos: </span> {{peopleForm.controls['persona'].get('numeroHijos')?.value}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Numero Dependientes: </span> {{peopleForm.controls['persona'].get('numeroDependientes').value}}</p>
+            <p><span class="font-bold">Numero Dependientes: </span> {{peopleForm.controls['persona'].get('numeroDependientes')?.value}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Observacion: </span> {{peopleForm.controls['persona'].get('observacion').value}}</p>
+            <p><span class="font-bold">Observacion: </span> {{peopleForm.controls['persona'].get('observacion')?.value}}</p>
           </mat-list-item>
         </mat-list>
       </div>
@@ -83,7 +83,7 @@
         <br>
       </div>
       <div class="col-md-12">
-        <app-map [markerDraggable]="false" [latitude]="peopleForm.controls['persona'].get('latitud').value" [longitude]="peopleForm.controls['persona'].get('longitud').value"></app-map>
+        <app-map [markerDraggable]="false" [latitude]="peopleForm.controls['persona'].get('latitud')?.value" [longitude]="peopleForm.controls['persona'].get('longitud')?.value"></app-map>
       </div>
       <div class="col-sm-4">
         <mat-list>
@@ -104,16 +104,16 @@
             <p><span class="font-bold">Barrio: </span> {{peopleForm.controls['persona']['controls'].barrio.value?.nombre}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Direccion: </span> {{peopleForm.controls['persona'].get('direccionParticular').value}}</p>
+            <p><span class="font-bold">Direccion: </span> {{peopleForm.controls['persona'].get('direccionParticular')?.value}}</p>
           </mat-list-item>
           <mat-list-item>
-            <p><span class="font-bold">Direccion Detallada: </span> {{peopleForm.controls['persona'].get('direccionDetallada').value}}</p>
+            <p><span class="font-bold">Direccion Detallada: </span> {{peopleForm.controls['persona'].get('direccionDetallada')?.value}}</p>
           </mat-list-item>
         </mat-list>
       </div>
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
         <app-view-people-relationship *ngIf="isRelationShip" [fkFilterModel]="peopleForm.controls['persona'].get('id').value"></app-view-people-relationship>
-      </div>
+      </div> -->
       <br>
     </div>
   </div>

@@ -13,6 +13,8 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators,
 })
 export class ViewVehicleComponent implements OnInit {
   vehicleForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'bienesVehiculo';
   @Input() minRow;
 
@@ -31,8 +33,9 @@ export class ViewVehicleComponent implements OnInit {
 
   ngOnInit() {
     this.vehicleForm = this.parentF.form;
-    this.vehicleForm.addControl(this.formArrayName, this.formBuilder.array([]));
-    this.addButton();
+    this.peopleForm = (<FormGroup>this.vehicleForm.get('persona'));
+
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
   }
 
   //bienes Vehiculo
@@ -55,7 +58,7 @@ export class ViewVehicleComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.vehicleForm.get(this.formArrayName));
+                const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
@@ -66,7 +69,7 @@ export class ViewVehicleComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.vehicleForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
 }

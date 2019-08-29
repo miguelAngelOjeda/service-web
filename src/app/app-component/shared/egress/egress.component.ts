@@ -13,6 +13,8 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 })
 export class EgressComponent implements OnInit {
   egressForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'egresos';
   @Input() minRow;
   @Input()
@@ -31,7 +33,8 @@ export class EgressComponent implements OnInit {
 
   ngOnInit() {
     this.egressForm = this.parentF.form;
-    this.egressForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.egressForm.get('persona'));
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.addButton();
     //this.onChangesPeople();
   }
@@ -52,7 +55,7 @@ export class EgressComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.egressForm.get(this.formArrayName));
+                const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
@@ -63,7 +66,7 @@ export class EgressComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.egressForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
   delete(data: any){
@@ -82,24 +85,24 @@ export class EgressComponent implements OnInit {
           this.apiService.delete('/egresos/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                (<FormArray>this.egressForm.get(this.formArrayName)).removeAt((<FormArray>this.egressForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+                (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
               }
           });
         }
       })
     }else{
-      (<FormArray>this.egressForm.get(this.formArrayName)).removeAt((<FormArray>this.egressForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
+      (<FormArray>this.peopleForm.get(this.formArrayName)).removeAt((<FormArray>this.peopleForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
     }
 
     if(this.minRow > 0){
-      if((<FormArray>this.egressForm.get(this.formArrayName)).controls.length < this.minRow){
+      if((<FormArray>this.peopleForm.get(this.formArrayName)).controls.length < this.minRow){
         this.addButton();
       }
     }
   }
 
   onChangesPeople(){
-    (<FormGroup>this.egressForm.get('persona')).controls['id'].valueChanges
+    this.peopleForm.controls['id'].valueChanges
     .subscribe(id => {
         this.onChangesFkModel(id);
     });

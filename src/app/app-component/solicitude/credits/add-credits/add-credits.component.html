@@ -28,50 +28,68 @@
                   <!-- <blockquote> -->
                     <ng-container formGroupName="cliente">
                       <ng-container formGroupName="persona">
-                        <div class="col-sm-3">
-                          <mat-form-field    appearance="legacy">
-                            <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" (keyup.enter)="myForm.get('cliente').get('persona').get('documento').valid && peopleCi(myForm.get('cliente').get('persona').get('documento').value)" required>
-                            <mat-icon matSuffix (click)="myForm.get('cliente').get('persona').get('documento').valid && clientCi(myForm.get('cliente').get('persona').get('documento').value)">search</mat-icon>
-                            <mat-error *ngIf="(myForm.get('cliente').get('persona').get('documento').errors)">
-                              <span *ngIf="myForm.get('cliente').get('persona').get('documento').errors.required">
-                               Campo requerido
-                              </span>
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-sm-3">
-                          <mat-form-field    appearance="legacy">
-                            <input matInput #input  placeholder="Ruc" formControlName="ruc"  name="ruc" (keyup.enter)="myForm.get('cliente').get('persona').get('ruc').valid && peopleCi(myForm.get('cliente').get('persona').get('ruc').value, i)" required>
-                            <mat-icon matSuffix (click)="myForm.get('cliente').get('persona').get('ruc').valid && clientCi(myForm.get('cliente').get('persona').get('ruc').value, i)">search</mat-icon>
-                            <mat-error *ngIf="(myForm.get('cliente').get('persona').get('ruc').errors)">
-                              <span *ngIf="myForm.get('cliente').get('persona').get('ruc').errors.required">
-                               Campo requerido
-                              </span>
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-list *ngIf="myForm.get('cliente').get('persona').get('nombre').value">
-                            <mat-list-item>
-                              <p><span class="font-bold">Nombre: </span> {{myForm.get('cliente').get('persona').get('nombre').value}}</p>
-                            </mat-list-item>
-                          </mat-list>
-                        </div>
-                        <div class="col-md-2">
-                          <section class="example-section">
-                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('cliente').get('persona').get('id').value == null">
-                                <button type="button" class="btn btn-light" (click)="addPeople(i)"><i class="fa fa-plus"></i></button>
-                              </div>
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('cliente').get('persona').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('cliente').get('persona').get('id').value, i)"><i class="fa fa-eye"></i></button>
-                              </div>
-                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('cliente').get('persona').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('cliente').get('persona').get('id').value, i)"><i class="fa fa-edit"></i></button>
+                        <div class="col-md-12 m-b-20">
+                          <div class="row">
+                            <div class="col-md-8" *ngIf="myForm.get('cliente').get('persona')?.get('id').value == null">
+                              <mat-list>
+                                <mat-list-item>
+                                  <mat-error>
+                                    <span>
+                                     <h4>Cargar Datos del Deudor</h4>
+                                    </span>
+                                  </mat-error>
+                                </mat-list-item>
+                              </mat-list>
+                            </div>
+                            <div class="col-md-4" *ngIf="myForm.get('cliente').get('persona')?.get('id').value">
+                              <div class="p-l-20 p-t-10">
+                                <div class="font-medium">{{
+                                  (myForm.controls['cliente'].get('persona').get('primerNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerNombre')?.value)
+                                  + ' ' +
+                                  (myForm.controls['cliente'].get('persona').get('segundoNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoNombre')?.value)
+                                  + ' ' +
+                                  (myForm.controls['cliente'].get('persona').get('primerApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerApellido')?.value)
+                                  + ' ' +
+                                  (myForm.controls['cliente'].get('persona').get('segundoApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoApellido')?.value)
+                                  }} </div>
+                                <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion.value">{{myForm.controls['cliente'].get('persona')['controls'].profesion.value?.nombre}}</span>
+                                <br *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion?.value">
+                                <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona').get('email')?.value">{{myForm.controls['cliente'].get('persona').get('email')?.value }}</span>
+                                <br>
+                                <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value">Telf. {{
+                                  (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
+                                  + ' ' +
+                                  (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
+                                  }}</span>
                               </div>
                             </div>
-                               <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
-                          </section>
+                            <div class="col-sm-4" *ngIf="myForm.get('cliente').get('persona')?.get('id').value">
+                              <mat-list>
+                                <mat-list-item>
+                                  <p><span class="font-bold">Documento: </span> {{myForm.controls['cliente'].get('persona').get('documento')?.value}}</p>
+                                </mat-list-item>
+                                <mat-list-item>
+                                  <p><span class="font-bold">Sexo: </span> {{myForm.controls['cliente'].get('persona').get('sexo')?.value}}</p>
+                                </mat-list-item>
+                              </mat-list>
+                            </div>
+                            <div class="col-md-2">
+                              <section class="example-section">
+                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                  <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('cliente').get('persona').get('id').value == null">
+                                    <button type="button" class="btn btn-light" (click)="addPeople(i)"><i class="fa fa-plus pr-2"></i><span class="font-bold">Agregar Deudor</span></button>
+                                  </div>
+                                  <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('cliente').get('persona').get('id').value">
+                                    <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('cliente').get('persona').get('id').value, i)"><i class="fa fa-eye"></i></button>
+                                  </div>
+                                  <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('cliente').get('persona').get('id').value">
+                                    <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('cliente').get('persona').get('id').value, i)"><i class="fa fa-edit"></i></button>
+                                  </div>
+                                </div>
+                                   <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+                              </section>
+                            </div>
+                          </div>
                         </div>
                       </ng-container>
                     </ng-container>
@@ -352,38 +370,60 @@
                   <!-- <blockquote> -->
                     <ng-container formGroupName="codeudor">
                       <div class="row">
-                        <div class="col-sm-4">
-                          <mat-form-field    appearance="legacy">
-                            <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" required>
-                            <mat-icon matSuffix (click)="myForm.get('codeudor').get('documento').valid && peopleCi(myForm.get('codeudor').get('documento').value, i)">search</mat-icon>
-                            <mat-error *ngIf="(myForm.get('codeudor').get('documento').errors)">
-                              <span *ngIf="myForm.get('codeudor').get('documento').errors.required">
-                               Campo requerido
-                              </span>
-                            </mat-error>
-                          </mat-form-field>
+                        <div class="col-md-6" *ngIf="myForm.get('codeudor')?.get('id').value == null">
+                          <mat-list>
+                            <mat-list-item>
+                              <mat-error>
+                                <span>
+                                 <h4>Cargar Datos del Codeudor!!</h4>
+                                </span>
+                              </mat-error>
+                            </mat-list-item>
+                          </mat-list>
                         </div>
-                        <div class="col-md-4">
-                          <mat-form-field    appearance="legacy">
-                            <input matInput #input placeholder="Nombre" formControlName="nombre" name="nombre" required>
-                            <mat-error *ngIf="(myForm.get('codeudor').get('nombre').errors)">
-                              <span *ngIf="myForm.get('codeudor').get('nombre').errors.required">
-                               Campo requerido
-                              </span>
-                            </mat-error>
-                          </mat-form-field>
+                        <div class="col-md-4" *ngIf="myForm.get('codeudor')?.get('id').value">
+                          <div class="p-l-20 p-t-10">
+                            <div class="font-medium">{{
+                              (myForm.controls['codeudor'].get('primerNombre')?.value == null ? '' : myForm.controls['codeudor'].get('primerNombre')?.value)
+                              + ' ' +
+                              (myForm.controls['codeudor'].get('segundoNombre')?.value == null ? '' : myForm.controls['codeudor'].get('segundoNombre')?.value)
+                              + ' ' +
+                              (myForm.controls['codeudor'].get('primerApellido')?.value == null ? '' : myForm.controls['codeudor'].get('primerApellido')?.value)
+                              + ' ' +
+                              (myForm.controls['codeudor'].get('segundoApellido')?.value == null ? '' : myForm.controls['codeudor'].get('segundoApellido')?.value)
+                              }} </div>
+                            <span class="font-16" *ngIf="myForm.controls['codeudor']['controls']?.profesion.value">{{myForm.controls['codeudor']['controls']?.profesion.value?.nombre}}</span>
+                            <br *ngIf="myForm.controls['codeudor']['controls']?.profesion?.value">
+                            <span class="font-16" *ngIf="myForm.controls['codeudor'].get('email')?.value">{{myForm.controls['codeudor'].get('email')?.value }}</span>
+                            <br>
+                            <span class="font-16" *ngIf="myForm.controls['codeudor'].get('telefonoParticular')?.value">Telf. {{
+                              (myForm.controls['codeudor'].get('telefonoParticular')?.value == null ? '' : myForm.controls['codeudor'].get('telefonoParticular')?.value)
+                              + ' ' +
+                              (myForm.controls['codeudor'].get('telefonoSecundario')?.value == null ? '' : myForm.controls['codeudor'].get('telefonoSecundario')?.value)
+                              }}</span>
+                          </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="myForm.controls['codeudor']?.get('id')?.value">
+                          <mat-list>
+                            <mat-list-item>
+                              <p><span class="font-bold">Documento: </span> {{myForm.controls['codeudor'].get('documento')?.value}}</p>
+                            </mat-list-item>
+                            <mat-list-item>
+                              <p><span class="font-bold">Sexo: </span> {{myForm.controls['codeudor'].get('sexo')?.value}}</p>
+                            </mat-list-item>
+                          </mat-list>
                         </div>
                         <div class="col-md-2">
                           <section class="example-section">
                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                               <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor').get('id').value == null">
-                                <button type="button" class="btn btn-light" (click)="addPeople(i)"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-light" (click)="addCodeudor(i)"><i class="fa fa-plus pr-2"></i><span class="font-bold">Agregar Codeudor</span></button>
                               </div>
                               <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('codeudor').get('id').value, i)"><i class="fa fa-eye"></i></button>
+                                <button type="button" class="btn btn-light" (click)="viewCodeudor(myForm.get('codeudor').get('id').value, i)"><i class="fa fa-eye"></i></button>
                               </div>
                               <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('codeudor').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('codeudor').get('id').value, i)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-light" (click)="editCodeudor(myForm.get('codeudor').get('id').value, i)"><i class="fa fa-edit"></i></button>
                               </div>
                             </div>
                                <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->

@@ -13,6 +13,8 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators,
 })
 export class ViewStudiesComponent implements OnInit {
   studiesForm: FormGroup;
+  peopleForm: FormGroup;
+
   formArrayName = 'estudios';
 
   @Input() minRow;
@@ -38,9 +40,10 @@ export class ViewStudiesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.studiesForm = this.parentF.form;
-    this.studiesForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm = (<FormGroup>this.studiesForm.get('persona'));
+
+    this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
 
     this.addButton();
   }
@@ -51,7 +54,7 @@ export class ViewStudiesComponent implements OnInit {
         if(res.status == 200){
           if(res.rows != null
               && res.rows.length > 0){
-                const formArray = (<FormArray>this.studiesForm.get(this.formArrayName));
+                const formArray = (<FormArray>this.peopleForm.get(this.formArrayName));
                 while (formArray.length) {
                   formArray.removeAt(0);
                 }
@@ -81,7 +84,7 @@ export class ViewStudiesComponent implements OnInit {
   }
 
   addButton(): void {
-    (<FormArray>this.studiesForm.get(this.formArrayName)).push(this.addFormGroup());
+    (<FormArray>this.peopleForm.get(this.formArrayName)).push(this.addFormGroup());
   }
 
 }

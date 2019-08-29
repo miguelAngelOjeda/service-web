@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Users, Departments, Message } from '../../../../core/models';
 import { DeleteDialogComponent } from '../../../../shared';
 import { HttpParams } from '@angular/common/http';
+import { PeopleService } from '../../../shared/people';
 
 @Component({
   selector: 'app-edit-functionary',
@@ -22,6 +23,7 @@ export class EditFunctionaryComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private route: ActivatedRoute,
+    private peopleService: PeopleService,
     private formBuilder: FormBuilder,
     private apiService: ApiService,
   ) { }
@@ -36,7 +38,9 @@ export class EditFunctionaryComponent implements OnInit {
     this.apiService.get('/funcionarios/' + this.route.snapshot.params.id, this.params)
     .subscribe(res => {
       if(res.status == 200){
-        this.loadData(res.model);
+        this.peopleService.loadData((<FormGroup>this.myForm.get('persona')),res.model.persona);
+        res.fechaIngreso =  new Date(res.fechaIngreso);
+        this.myForm.patchValue(res.model);
       }
     });
   }
@@ -45,7 +49,8 @@ export class EditFunctionaryComponent implements OnInit {
     this.apiService.put('/funcionarios/' + this.route.snapshot.params.id, this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.loadData(res.model);
+        this.myForm.patchValue(res.model);
+        this.peopleService.loadData((<FormGroup>this.myForm.get('persona')),res.model.persona);
       }
     });
   }
@@ -67,38 +72,14 @@ export class EditFunctionaryComponent implements OnInit {
         tipoFuncionario: [null, [Validators.required]],
         activo: 'S'
     });
-  }
 
-  protected loadData(response: any) {
-    response.persona.fechaNacimiento =  new Date(response.persona.fechaNacimiento);
-    response.fechaIngreso =  new Date(response.fechaIngreso);
-    (<FormGroup>this.myForm).patchValue(response);
-
-    //Cargar Referencias
-    if(response.persona.referencias != null && response.persona.referencias.length > 0){
-      const referencias = (<FormArray>this.myForm.get('referencias'));
-      if(referencias != null){
-        while (referencias.length) {
-          referencias.removeAt(0);
+    this.myForm.controls['fechaIngreso'].valueChanges.subscribe(
+        (fecha) => {
+          if(fecha){
+            this.myForm.get('fechaIngreso').setValue(new Date(fecha), {emitEvent:false});
+          }
         }
-      }
-      response.persona.referencias.forEach(staff => {
-        referencias.push(this.formBuilder.group(staff));
-      });
-    }
-
-    //Cargar Estudios
-    if(response.persona.estudios != null && response.persona.estudios.length > 0){
-      const estudios = (<FormArray>this.myForm.get('estudios'));
-      if(estudios != null){
-        while (estudios.length) {
-          estudios.removeAt(0);
-        }
-      }
-      response.persona.estudios.forEach(staff => {
-        estudios.push(this.formBuilder.group(staff));
-      });
-    }
+    );
   }
 
   getValue(data: any, form : any): void {

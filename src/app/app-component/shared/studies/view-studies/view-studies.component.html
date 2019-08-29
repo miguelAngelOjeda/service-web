@@ -1,53 +1,55 @@
 
-<ng-container>
-  <div class="row" *ngIf="studiesForm.get(formArrayName)['controls'].length > 0">
+<ng-container *ngIf="peopleForm.get(formArrayName)['controls'].length > 0">
+  <div class="row m-t-20">
     <div class="col-md-12 m-b-10">
         <h4  class="m-0 font-20"><mat-icon class="gray-text">library_books</mat-icon>Estudios
         </h4>
     </div>
-    <div [formArrayName]="formArrayName"  *ngFor="let estudios of studiesForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
-      <blockquote>
-        <div [formGroupName]="i">
-          <div class="row">
-            <div class="col-sm-4">
-              <mat-list>
-                <mat-list-item>
-                  <p><span class="font-bold">Tipo Estudio: </span> {{estudios.controls.tipoEstudio.value?.nombre}}</p>
-                </mat-list-item>
-                <mat-list-item>
-                  <p><span class="font-bold">Entidad Estudio: </span> {{estudios.get('nombre').value}}</p>
-                </mat-list-item>
-                <mat-list-item>
-                  <p><span class="font-bold">Semestre: </span> {{estudios.get('semestre').value}}</p>
-                </mat-list-item>
-              </mat-list>
-            </div>
-            <div class="col-sm-4">
-              <mat-list>
-                <mat-list-item>
-                  <p><span class="font-bold">Fecha Inicio: </span> {{estudios.get('fechaInicio').value  | date: 'dd/MM/yyyy'}}</p>
-                </mat-list-item>
-                <mat-list-item>
-                  <p><span class="font-bold">Concluido: </span> {{(estudios.get('concluido').value == true ? 'S' : 'N')}}</p>
-                </mat-list-item>
-                <mat-list-item>
-                  <p><span class="font-bold">Titulo: </span> {{estudios.get('titulo').value}}</p>
-                </mat-list-item>
-              </mat-list>
-            </div>
-            <div class="col-sm-4">
-              <mat-list>
-                <mat-list-item>
-                  <p><span class="font-bold">Fecha Fin: </span> {{estudios.get('fechaFin').value  | date: 'dd/MM/yyyy'}}</p>
-                </mat-list-item>
-                <mat-list-item>
-                  <p><span class="font-bold">Nro. Registro: </span> {{estudios.get('numeroRegistro').value}}</p>
-                </mat-list-item>
-              </mat-list>
+    <ng-container formGroupName="persona">
+      <div [formArrayName]="formArrayName"  *ngFor="let estudios of peopleForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
+        <blockquote>
+          <div [formGroupName]="i">
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-list>
+                  <mat-list-item>
+                    <p><span class="font-bold">Tipo Estudio: </span> {{estudios.controls.tipoEstudio.value?.nombre}}</p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <p><span class="font-bold">Entidad Estudio: </span> {{estudios.get('nombre')?.value}}</p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <p><span class="font-bold">Semestre: </span> {{estudios.get('semestre')?.value}}</p>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="col-sm-4">
+                <mat-list>
+                  <mat-list-item>
+                    <p><span class="font-bold">Fecha Inicio: </span> {{estudios.get('fechaInicio')?.value  | date: 'dd/MM/yyyy'}}</p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <p><span class="font-bold">Concluido: </span> {{(estudios.get('concluido')?.value == true ? 'S' : 'N')}}</p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <p><span class="font-bold">Titulo: </span> {{estudios.get('titulo')?.value}}</p>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="col-sm-4">
+                <mat-list>
+                  <mat-list-item>
+                    <p><span class="font-bold">Fecha Fin: </span> {{estudios.get('fechaFin')?.value  | date: 'dd/MM/yyyy'}}</p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <p><span class="font-bold">Nro. Registro: </span> {{estudios.get('numeroRegistro')?.value}}</p>
+                  </mat-list-item>
+                </mat-list>
+              </div>
             </div>
           </div>
-        </div>
-      </blockquote>
-    </div>
+        </blockquote>
+      </div>
+    </ng-container>
   </div>
 </ng-container>
