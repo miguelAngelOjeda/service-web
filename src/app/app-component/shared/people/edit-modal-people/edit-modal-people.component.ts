@@ -50,7 +50,7 @@ export class EditModalPeopleComponent implements OnInit{
   onSubmit() {
     this.myForm.value.persona.documento = this.people.documento;
     this.myForm.value.persona.tipoPersona = this.people.tipoPersona;
-    
+
     if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
       this.myForm.value.persona.documento = ' ';
       this.myForm.value.persona.fechaNacimiento = new Date();
@@ -60,14 +60,14 @@ export class EditModalPeopleComponent implements OnInit{
     }
 
     if(this.myForm.value.persona.id !== null){
-      this.apiService.put('/personas/' + this.myForm.value.persona.id, this.myForm.value)
+      this.apiService.put('/personas/' + this.myForm.value.persona.id, this.myForm.value.persona)
       .subscribe(res => {
         if(res.status == 200){
           this.dialogRef.close(res.model);
         }
       });
     }else{
-      this.apiService.post('/personas/' , this.myForm.value)
+      this.apiService.post('/personas/' , this.myForm.value.persona)
       .subscribe(res => {
         if(res.status == 200){
           this.dialogRef.close(res.model);

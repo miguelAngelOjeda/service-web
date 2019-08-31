@@ -21,7 +21,7 @@ export class PeopleService {
     private apiService: ApiService,
     public dialog: MatDialog) { }
 
-  public editModalPeopleSolicitud(idPersona: number, idSolicitud: number,peopleFormGroup: FormGroup, matDialogConfig: MatDialogConfig){
+  public editModalPeopleSolicitud(idSolicitud: number, idPersona: number,peopleFormGroup: FormGroup, matDialogConfig: MatDialogConfig){
 
     if(!matDialogConfig){
       matDialogConfig = new MatDialogConfig();
@@ -50,7 +50,7 @@ export class PeopleService {
     });
   }
 
-  public viewModalPeopleSolicitud(idPersona: number, idSolicitud: number, matDialogConfig: MatDialogConfig){
+  public viewModalPeopleSolicitud(idSolicitud: number, idPersona: number, matDialogConfig: MatDialogConfig){
     if(!matDialogConfig){
       matDialogConfig = new MatDialogConfig();
       matDialogConfig.disableClose = true;
