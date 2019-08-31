@@ -15,8 +15,6 @@ import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleCompo
   styleUrls: ['./add-credits.component.scss']
 })
 export class AddCreditsComponent implements OnInit{
-  public params = new HttpParams({fromObject :
-    {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'}});
   myForm: FormGroup;
   validateForm = true;
   isSeparacionBienes = true;
@@ -47,14 +45,17 @@ export class AddCreditsComponent implements OnInit{
           nombre: null ,
           email: [null],
           sexo: [null],
+          estadoCivil: [null],
           telefonoParticular: [null],
           telefonoSecundario: null,
           primerNombre: [null],
           segundoNombre: null,
           primerApellido: [null],
+          imagePath: null,
           segundoApellido: null
         })}),
       modalidad: [null, [Validators.required]],
+      fechaPresentacion: [null],
       tipoCalculoImporte: [null, [Validators.required]],
       tipoDestino: [null, [Validators.required]],
       tipoGarantia: [null, [Validators.required]],
@@ -88,24 +89,7 @@ export class AddCreditsComponent implements OnInit{
     this.apiService.post('/solicitud_creditos', this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
-
-      }
-    });
-  }
-
-  clientCi(data: any) {
-    (<FormGroup>this.myForm.get('cliente')).reset();
-    this.apiService.get('/clientes/documento/' + data)
-    .subscribe(res => {
-      if(res.status == 200){
-        console.log(res);
-
-        res.model.persona.fechaNacimiento =  new Date(res.model.persona.fechaNacimiento);
-        res.model.persona.nombre = (res.model.persona.primerNombre == null ? '' : res.model.persona.primerNombre) + ' '
-                            + (res.model.persona.segundoNombre == null ? '' : res.model.persona.segundoNombre) + ' '
-                            + (res.model.persona.primerApellido == null ? '' : res.model.persona.primerApellido) + ' ' + (res.model.persona.segundoApellido == null ? '' : res.model.persona.segundoApellido);
-
-        (<FormGroup>this.myForm.get('cliente')).patchValue(res.model);
+        this.myForm.patchValue(res.model);
       }
     });
   }

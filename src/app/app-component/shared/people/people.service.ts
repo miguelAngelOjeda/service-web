@@ -21,7 +21,51 @@ export class PeopleService {
     private apiService: ApiService,
     public dialog: MatDialog) { }
 
+  public editModalPeopleSolicitud(idPersona: number, idSolicitud: number,peopleFormGroup: FormGroup, matDialogConfig: MatDialogConfig){
 
+    if(!matDialogConfig){
+      matDialogConfig = new MatDialogConfig();
+      matDialogConfig.disableClose = true;
+      matDialogConfig.autoFocus = true;
+      matDialogConfig.data = { model: null, title:'Editar' };
+    }
+
+    this.apiService.get('/solicitud_creditos/persona/' + idSolicitud + '/' + idPersona,this.params)
+    .subscribe(res => {
+      if(res.status == 200){
+        matDialogConfig.data.model =  res.model;
+
+        const dialogRef = this.dialog.open(EditModalPeopleComponent, matDialogConfig);
+        dialogRef.afterClosed().subscribe(res => {
+           if(res){
+
+             res.nombre = (res.primerNombre == null ? '' : res.primerNombre) + ' '
+                                 + (res.segundoNombre == null ? '' : res.segundoNombre) + ' '
+                                 + (res.primerApellido == null ? '' : res.primerApellido) + ' ' + (res.segundoApellido == null ? '' : res.segundoApellido);
+
+             peopleFormGroup.patchValue(res);
+           }
+        });
+      }
+    });
+  }
+
+  public viewModalPeopleSolicitud(idPersona: number, idSolicitud: number, matDialogConfig: MatDialogConfig){
+    if(!matDialogConfig){
+      matDialogConfig = new MatDialogConfig();
+      matDialogConfig.disableClose = true;
+      matDialogConfig.autoFocus = true;
+      matDialogConfig.data = { model: null, title:'Editar' };
+    }
+    this.apiService.get('/solicitud_creditos/persona/' + idSolicitud + '/' + idPersona,this.params )
+    .subscribe(res => {
+      if(res.status == 200){
+        matDialogConfig.data.model =  res.model;
+
+        const dialogRef = this.dialog.open(ViewModalPeopleComponent, matDialogConfig);
+      }
+    });
+  }
 
   public addModalPeople(id: number,peopleFormGroup: FormGroup, matDialogConfig: MatDialogConfig){
 
