@@ -22,7 +22,7 @@ export class ViewProfileComponent implements OnInit {
   ) {}
 
    ngOnInit() {
-     this.apiService.get('/usuarios/' + this.route.snapshot.params.id)
+     this.apiService.get('/funcionarios/' + this.route.snapshot.params.id)
      .subscribe(res => {
         this.model = res.model;
      });

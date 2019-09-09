@@ -20,7 +20,7 @@ export class IngressComponent implements OnInit {
   @Input()
   set fkFilterModel(id: any) {
     if(id){
-      this.onChangesFkModel(id);
+      //this.onChangesFkModel(id);
     }
   }
   @Input()
@@ -50,6 +50,7 @@ export class IngressComponent implements OnInit {
   addFormGroup(): FormGroup {
     return this.formBuilder.group({
       id: [''],
+      entidad: null,
       monto: [0, [Validators.required, Validators.minLength(5)]],
       tipoIngresosEgresos: [null, [Validators.required]],
       activo: ['S']

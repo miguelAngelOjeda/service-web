@@ -65,6 +65,7 @@ import { SnackbarService } from '../../../shared';
       telefonoParticular: [null],
       telefonoSecundario: null,
       primerNombre: [null],
+      entidad: null,
       segundoNombre: null,
       primerApellido: [null],
       segundoApellido: null}));

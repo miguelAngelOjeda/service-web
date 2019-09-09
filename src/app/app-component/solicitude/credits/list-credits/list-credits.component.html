@@ -79,8 +79,10 @@
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button routerLink="/service-web/credits/{{element.id}}" *appCanAccess="['credits', 'viewCredits']"><mat-icon>visibility</mat-icon></button>
-                  <button mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>edit</mat-icon></button>
-                  <button mat-icon-button (click)="delete(element)"> <mat-icon>delete</mat-icon></button>
+                  <div *ngIf="element.estado.id == 1">
+                    <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>edit</mat-icon></button>
+                    <button  mat-icon-button (click)="delete(element)"> <mat-icon>delete</mat-icon></button>
+                  </div>
                 </mat-cell>
             </ng-container>
 

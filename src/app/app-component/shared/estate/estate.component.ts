@@ -61,6 +61,7 @@ export class EstateComponent implements OnInit {
       cuotaMensual: '',
       latitud: null,
       longitud: null,
+      entidad: null,
       tipoBien: 'INMUEBLE',
       activo: ['S']
     });

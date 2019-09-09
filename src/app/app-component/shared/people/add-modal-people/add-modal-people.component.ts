@@ -19,9 +19,9 @@ export class AddModalPeopleComponent implements OnInit{
   myForm: FormGroup;
   peopleForm: FormGroup;
 
-  private peopleRelations: any;
-  private title: any;
-  private addSpouse = false;
+  public peopleRelations: any;
+  public title: any;
+  public addSpouse = false;
 
   constructor(
             public dialog: MatDialog,
@@ -50,7 +50,7 @@ export class AddModalPeopleComponent implements OnInit{
     }
 
     if(this.myForm.value.persona.id !== null){
-      this.apiService.put('/personas/' + this.myForm.value.persona.id, this.myForm.value)
+      this.apiService.put('/personas/' + this.myForm.value.persona.id, this.myForm.value.persona)
       .subscribe(res => {
         if(res.status == 200){
           this.dialogRef.close(res.model);

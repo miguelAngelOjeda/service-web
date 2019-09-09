@@ -75,6 +75,7 @@ export class ReferenceComponent implements OnInit {
       nombreContacto: ['', Validators.required],
       telefonoCelular : ['', Validators.required],
       telefono: [''],
+      entidad: null,
       tipoReferencia : ['', Validators.required],
       activo: ['S']
     });

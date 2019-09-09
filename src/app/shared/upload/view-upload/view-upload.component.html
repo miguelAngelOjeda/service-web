@@ -1,10 +1,6 @@
 <div class="row  m-t-10">
   <div class="col-md-12">
-    <h4  class="m-0"><mat-icon class="gray-text">archive</mat-icon>Archivos adjuntos
-      <span class="hidden-file">
-        <input type="file" #fileInput ng2FileSelect [uploader]="uploader">
-      </span>
-      <a mat-mini-fab (click)="fileInput.click()" class="nav-link float-right" color="primary"><mat-icon>file_upload</mat-icon></a>
+    <h4  class="m-0"><mat-icon class="gray-text">archive</mat-icon>Archivos adjuntos    
     </h4>
   </div>
   <div class="col-md-12" *ngIf="uploadForm.get(formArrayName)['controls'].length > 1">
@@ -34,30 +30,22 @@
                     {{ item?.get('id').value }}
                   </td>
                   <td style="text-align:center">
-                    <a (click)="item.controls.id.value == null ? viewImageFile(item.get('file')?.value) : viewImageUrl(item.get('id')?.value)">
+                    <a (click)="viewImageUrl(item.get('id')?.value)">
                       <img *ngIf="item.controls.id.value != null" class="img-circle" width="40" [src]="item.get('url')?.value">
                     </a>
                   </td>
                   <td style="text-align:center">
-                    <a (click)="item.controls.id.value == null ? viewImageFile(item.get('file')?.value) : viewImageUrl(item.get('id')?.value)">{{ item.get('nombreDocumento')?.value }}</a>
+                    <a (click)="viewImageUrl(item.get('id')?.value)">{{ item.get('nombreDocumento')?.value }}</a>
                   </td>
                   <td style="text-align:center" align="center">
                     {{ item.get('size')?.value/1024/1024 | number:'.2' }} MB
                   </td>
                   <td style="text-align:center">
-                    <app-select-filter (value)="getValue($event,item.controls['tipoDocumento'])"
-                    [modelValue]="item.controls.tipoDocumento.value"
-                    placeholder="Tipo Documento" urlFilter="tipos-documentos" [columnsFilter]="['nombre','codigo']"></app-select-filter>
+                    {{item.controls.tipoDocumento.value.nombre }} MB
                   </td>
                   <td>
-                    <a mat-icon-button *ngIf="item.controls.id.value == null" (click)="item.controls.tipoDocumento.value == null ? '' : uploadSubmit(i)"
-                    [disabled]="item.controls.tipoDocumento.value == null"> <mat-icon>check</mat-icon></a>
-                    <a mat-icon-button *ngIf="item.controls.id.value != null" (click)="item.controls.tipoDocumento.value == null ? '' : editSubmit(i)"
-                    [disabled]="item.controls.tipoDocumento.value == null"> <mat-icon>edit</mat-icon></a>
-                    <a mat-icon-button  (click)="item.controls.id.value == null ? viewImageFile(item.get('file')?.value) : viewImageUrl(item.get('id')?.value)"> <mat-icon>visibility</mat-icon></a>
-                    <a mat-icon-button  color="warn" (click)="delete(item.value)"> <mat-icon>delete_forever</mat-icon></a>
+                    <a mat-icon-button  (click)="viewImageUrl(item.get('id')?.value)"> <mat-icon>visibility</mat-icon></a>
                   </td>
-
                 </tr>
               </ng-container>
             </tbody>

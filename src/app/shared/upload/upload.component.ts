@@ -17,15 +17,10 @@ import { UserService, ApiService, FormsService} from '../../core/services';
 export class UploadComponent implements OnInit {
   uploadForm: FormGroup;
   formArrayName = 'documentos';
-  public uploader: FileUploader = new FileUploader({
-    url: 'URL',
-    isHTML5: true,
-    disableMultipart : false,
-    autoUpload: true,
-    method: 'post',
-    itemAlias: 'attachment',
-    allowedFileType: ['image', 'pdf']
-  });
+  public uploader: FileUploader = new FileUploader({isHTML5: true,autoUpload: false,allowedFileType: ['image', 'pdf']});
+
+  @Input() entidad;
+  @Input() idEntidad;
 
   constructor(
     private parentF: FormGroupDirective,
@@ -37,41 +32,97 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
     this.uploadForm = this.parentF.form;
     this.uploadForm.addControl(this.formArrayName, this.formBuilder.array([]));
-    // this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-    //   form.append('someField', 'this.someValue'); //note comma separating key and value
-    //   form.append('someField2', 'this.someValue2');
-    //  };
+
     this.uploader.onAfterAddingFile = (fileItem) => {
-      console.log('selected filed: ', fileItem);
-      (<FormArray>this.uploadForm.get(this.formArrayName)).push(this.addFormGroup(fileItem._file));
+      let formUpload = this.formBuilder.group({
+        id: null,
+        size: fileItem._file.size,
+        entidad: this.entidad,
+        idEntidad: this.idEntidad,
+        nombreDocumento: fileItem._file.name,
+        path: null,
+        file: fileItem._file,
+        url: null,
+        tipoArchivo: null,
+        tipoDocumento: [null, [Validators.required]],
+        activo: ['S']
+      });
+      (<FormArray>this.uploadForm.get(this.formArrayName)).push(formUpload);
     };
-  }
 
-  onFileSelected($event){
-    console.log($event);
-    console.log(this.uploader);
-    let formData = new FormData();
-    formData.append("file", $event[0]);
-    (<FormArray>this.uploadForm.get(this.formArrayName)).push(this.addFormGroup($event[0]));
-    console.log(this.uploadForm.value);
-  }
-
-  //Agrega imagenes
-  addFormGroup(file: any): FormGroup {
-    return this.formBuilder.group({
-      id: [''],
-      file: [file],
-      tipoDocumento: [null, [Validators.required]],
-      activo: ['S']
+    this.apiService.get('/archivos/' + this.entidad +'/' + this.idEntidad)
+    .subscribe(res => {
+      if(res.status == 200){
+        const archivos = (<FormArray>this.uploadForm.get(this.formArrayName));
+        console.log(archivos);
+        if(archivos){
+          while (archivos.length) {
+            archivos.removeAt(0);
+          }
+          res.rows.forEach(staff => {
+            if(staff.tipoArchivo === 'application/pdf'){
+              staff.url = 'https://app1.creditoguarani.com.py/beta1/DescargaServlet?path='+staff.path;
+            }else{
+              staff.url = 'https://app1.creditoguarani.com.py/beta1/DisplayImage?url='+staff.path;
+            }
+            archivos.push(this.formBuilder.group(staff));
+          });
+        }
+      }
     });
   }
 
-  viewImage(file : any): void {
+  uploadSubmit(index: number){
+    let fileItem = (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).get("file").value;
+    if(fileItem.size > 10000000){
+      alert("Each File should be less than 10 MB of size.");
+      return;
+    }
+
+    let data = new FormData();
+    data.append('file', fileItem);
+    data.append('fileSeq', 'seq'+index);
+    data.append( 'dataType', JSON.stringify((<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value));
+
+    this.apiService.post('/archivos/upload', data)
+    .subscribe(res => {
+      if(res.status == 200){
+        if(res.model.tipoArchivo === 'application/pdf'){
+          res.model.url = 'https://app1.creditoguarani.com.py/beta1/DescargaServlet?path='+res.model.path;
+        }else{
+          res.model.url = 'https://app1.creditoguarani.com.py/beta1/DisplayImage?url='+res.model.path;
+        }
+        (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).patchValue(res.model);
+      }
+    });
+    this.uploader.clearQueue();
+    //this.uploader.clearQueue();
+  }
+
+  editSubmit(index: number){
+    this.apiService.put('/archivos/' + (<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value.id,
+     (<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value)
+    .subscribe(res => {
+      if(res.status == 200){
+        if(res.model.tipoArchivo === 'application/pdf'){
+          res.model.url = 'https://app1.creditoguarani.com.py/beta1/DescargaServlet?path='+res.model.path;
+        }else{
+          res.model.url = 'https://app1.creditoguarani.com.py/beta1/DisplayImage?url='+res.model.path;
+        }
+        (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).patchValue(res.model);
+      }
+    });
+  }
+
+  viewImageFile(file : any): void {
     let image;
     var reader = new FileReader();
     reader.onloadend = (readerEvent) => {
+      console.log(reader.result.toString().split(',')[1]);
       const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = reader.result.toString().split(',')[1];
+      dialogConfig.data = [reader.result.toString().split(',')[1]];
+      dialogConfig.disableClose = false;
+      dialogConfig.autoFocus = true;
       dialogConfig.width = '50%';
       let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
@@ -81,6 +132,43 @@ export class UploadComponent implements OnInit {
       })
     }
     reader.readAsDataURL(file);
+  }
+
+  viewImageAll(){
+    this.apiService.get('/archivos/all/' + this.entidad +'/' + this.idEntidad)
+    .subscribe(res => {
+      if(res.status == 200){
+        // console.log(images);
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = res.model;
+        dialogConfig.width = '50%';
+        dialogConfig.autoFocus = true;
+        let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+
+          }
+        })
+      }
+    });
+  }
+
+  viewImageUrl(id : any): void {
+    this.apiService.get('/archivos/' + id)
+    .subscribe(res => {
+      if(res.status == 200){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = res.model;
+        dialogConfig.width = '50%';
+        dialogConfig.autoFocus = true;
+        let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+
+          }
+        })
+      }
+    });
   }
 
   delete(data: any){
@@ -107,6 +195,10 @@ export class UploadComponent implements OnInit {
       (<FormArray>this.uploadForm.get(this.formArrayName)).removeAt((<FormArray>this.uploadForm.get(this.formArrayName)).value.findIndex(dep => dep === data))
     }
 
+  }
+
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
   }
 
 }

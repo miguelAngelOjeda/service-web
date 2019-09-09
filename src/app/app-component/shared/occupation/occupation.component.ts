@@ -60,6 +60,7 @@ export class OccupationComponent implements OnInit {
       fechaIngreso: [null, [Validators.required]],
       fechaSalida: null,
       interno: null,
+      entidad: null,
       ingresosMensuales: 0,
       tipoOcupacion: [null, [Validators.required]]
     });

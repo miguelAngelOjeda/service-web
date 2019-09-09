@@ -18,8 +18,8 @@ export class ViewModalPeopleComponent implements OnInit{
   myForm: FormGroup;
   peopleForm: FormGroup;
 
-  private people: any;
-  private title: any;
+  public people: any;
+  public title: any;
 
   constructor(
             public dialog: MatDialog,

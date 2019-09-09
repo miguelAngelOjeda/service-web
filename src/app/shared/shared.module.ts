@@ -14,10 +14,11 @@ import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 import { MapComponent } from '../shared/map';
 import { ThumbnailDirective, UploadComponent } from '../shared/upload';
+import { ViewUploadComponent } from '../shared/upload/view-upload';
 import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
 import { ImageViewerModule } from 'ng2-image-viewer';
-import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
@@ -25,8 +26,9 @@ import { NgxCurrencyModule } from "ngx-currency";
     CommonModule,
     FormsModule,
     MaterialModule,
+    FileUploadModule,
     ImageViewerModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
     }),
@@ -37,7 +39,7 @@ import { NgxCurrencyModule } from "ngx-currency";
     ShowAuthedDirective,
     ThumbnailDirective,
     UploadComponent,
-    FileSelectDirective,
+    ViewUploadComponent,
     CanAccessDirective,
     AccordionAnchorDirective,
     AccordionLinkDirective,
@@ -58,6 +60,7 @@ import { NgxCurrencyModule } from "ngx-currency";
     ShowAuthedDirective,
     ThumbnailDirective,
     UploadComponent,
+    ViewUploadComponent,
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,

@@ -78,6 +78,7 @@ export class PeopleComponent implements OnInit{
       latitud: '',
       longitud: '',
       activo: 'S',
+      entidad: null,
       personaSolicitud: null,
       imagePath: null,
       nacionalidad: [null, [Validators.required]],

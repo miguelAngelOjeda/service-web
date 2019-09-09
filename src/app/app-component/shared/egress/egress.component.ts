@@ -20,7 +20,7 @@ export class EgressComponent implements OnInit {
   @Input()
   set fkFilterModel(id: any) {
     if(id){
-      this.onChangesFkModel(id);
+      //this.onChangesFkModel(id);
     }
   }
 
@@ -44,6 +44,7 @@ export class EgressComponent implements OnInit {
     return this.formBuilder.group({
       id: [''],
       monto: [0, [Validators.required, Validators.minLength(5)]],
+      entidad: null,
       tipoIngresosEgresos: [null, [Validators.required]],
       activo: ['S']
     });

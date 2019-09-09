@@ -81,6 +81,7 @@ export class StudiesComponent implements OnInit {
       concluido: [false, Validators.required],
       numeroRegistro: [null],
       nombre: [null],
+      entidad: null,
       semestre: [null],
       tipoEstudio : ['', Validators.required],
       activo: ['S']

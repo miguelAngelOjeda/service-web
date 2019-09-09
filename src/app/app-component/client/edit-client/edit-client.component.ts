@@ -6,7 +6,7 @@ import { HttpParams } from '@angular/common/http';
 import { People, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
    Subsidiary, Departments, Nationalities, Location, Message } from '../../../core/models';
 import { UserService, ApiService} from '../../../core/services';
-import { DeleteDialogComponent } from '../../../shared';PeopleService
+import { DeleteDialogComponent } from '../../../shared';
 import { PeopleService } from '../../shared/people';
 
 

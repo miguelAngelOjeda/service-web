@@ -49,6 +49,7 @@ export class VehicleComponent implements OnInit {
       valorActual: [null, [Validators.required]],
       cuotaMensual: '',
       saldo: '',
+      entidad: null,
       tipoBien: 'VEHICULO',
       activo: ['S']
     });

@@ -20,9 +20,10 @@ export class EditModalPeopleComponent implements OnInit{
   myForm: FormGroup;
   peopleForm: FormGroup;
 
-  private people: any;
-  private title: any;
-  private addSpouse = false;
+  public people: any;
+  public title: any;
+  public addSpouse = false;
+  public id;
 
   constructor(
             public dialog: MatDialog,
@@ -33,6 +34,7 @@ export class EditModalPeopleComponent implements OnInit{
             @Inject(MAT_DIALOG_DATA) public data: any) {
               this.people = data.model;
               this.title = data.title;
+              this.id = data.id;
               if(data.addSpouse){
                 this.addSpouse = data.addSpouse;
               }
@@ -44,11 +46,13 @@ export class EditModalPeopleComponent implements OnInit{
       this.peopleService.loadData(<FormGroup>this.myForm.get('persona'),this.people);
       (<FormGroup>this.myForm.get('persona')).controls['tipoPersona'].disable({onlySelf: true});
       (<FormGroup>this.myForm.get('persona')).controls['documento'].disable({onlySelf: true});
+      (<FormGroup>this.myForm.get('persona')).controls['ruc'].disable({onlySelf: true});
     });
   }
 
   onSubmit() {
     this.myForm.value.persona.documento = this.people.documento;
+    this.myForm.value.persona.ruc = this.people.ruc;
     this.myForm.value.persona.tipoPersona = this.people.tipoPersona;
 
     if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
@@ -60,12 +64,24 @@ export class EditModalPeopleComponent implements OnInit{
     }
 
     if(this.myForm.value.persona.id !== null){
-      this.apiService.put('/personas/' + this.myForm.value.persona.id, this.myForm.value.persona)
-      .subscribe(res => {
-        if(res.status == 200){
-          this.dialogRef.close(res.model);
-        }
-      });
+      //MODIFICAR PERSONA DE LA SOLICITUD
+      console.log(this.myForm.value.persona.entidad);
+      if(this.myForm.value.persona.entidad === 'PERSONA_SOLICITUD'){
+        this.apiService.put('/solicitud_creditos/personas/' + this.id, this.myForm.value.persona)
+        .subscribe(res => {
+          if(res.status == 200){
+            this.dialogRef.close(res.model);
+          }
+        });
+      }else{
+        this.apiService.put('/personas/' + this.myForm.value.persona.id, this.myForm.value.persona)
+        .subscribe(res => {
+          if(res.status == 200){
+            this.dialogRef.close(res.model);
+          }
+        });
+      }
+
     }else{
       this.apiService.post('/personas/' , this.myForm.value.persona)
       .subscribe(res => {

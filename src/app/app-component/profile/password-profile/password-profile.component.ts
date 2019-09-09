@@ -37,7 +37,7 @@ export class PasswordProfileComponent implements OnInit {
 
    onSubmit() {
 
-     this.apiService.put('/usuarios/password/' + this.model.id, this.passwordForm.value)
+     this.apiService.put('/funcionarios/password/' + this.model.id, this.passwordForm.value)
      .subscribe(res => {
        if(res.status == 200){
 
