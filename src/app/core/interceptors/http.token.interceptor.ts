@@ -9,12 +9,14 @@ import 'rxjs/add/observable/fromPromise';
 import { throwError } from 'rxjs';
 import { finalize } from "rxjs/operators";
 import { SnackbarService } from '../../shared/snackbar';
+import { MatSnackBarComponent } from '../mat-snack-bar';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
 
   constructor(
     private snackbarService: SnackbarService,
+    private snackbar: MatSnackBarComponent,
     private router: Router,
     private jwtService: JwtService
   ) {}
@@ -33,9 +35,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
                     if(evt.body != null
                       && evt.body.status != 200){
-                        this.snackbarService.show(evt.body.message,'danger');
+                        this.snackbar.openSnackBar(evt.body.message,'Close','red-snackbar');
                     }else if(request.method != 'GET'){
-                        this.snackbarService.show(evt.body.message,'success');
+                        this.snackbar.openSnackBar(evt.body.message,'Close','green-snackbar');
                     }
                 }
             }),

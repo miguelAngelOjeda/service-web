@@ -17,7 +17,7 @@
     <form [formGroup]="myForm">
         <div class="row">
           <div class="col-md-12 m-b-10" *ngIf="myForm.get('estado').value.id == 1">
-              <button type="button" class="btn btn-secondary pull-right"><span class="font-bold">Transferir Propuesta</span></button>
+              <button type="button" class="btn btn-secondary pull-right" (click)="transferirPropuesta(myForm.get('id').value)"><span class="font-bold">Transferir Propuesta</span></button>
           </div>
           <div class="col-md-12">
             <div class="d-flex flex-row comment-row ng-star-inserted">

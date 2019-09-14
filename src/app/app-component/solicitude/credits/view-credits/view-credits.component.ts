@@ -61,6 +61,15 @@ export class ViewCreditsComponent implements OnInit {
     });
   }
 
+  transferirPropuesta(id: number) {
+    this.apiService.put('/solicitud_creditos/transferir/' + id)
+    .subscribe(res => {
+      if(res.status == 200){
+        this.router.navigateByUrl('service-web/credits');
+      }
+    });
+  }
+
   viewPeople(idSolicitud: number, idPersona: number) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = { id: this.myForm.value.id, model: null, title:'Visualizar Deudor' };

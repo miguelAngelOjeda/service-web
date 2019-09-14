@@ -37,7 +37,7 @@ const MENUITEMS = [
     subMenu:[
       {state: 'credits', name: 'Solicitudes Creditos', icon: 'monetization_on', entity:'credits', role:'listCredits'},
       {state: 'card', name: 'Solicitudes Tarjetas', icon: 'credit_card', entity:'card',  role:'listCard'},
-      {state: 'review', name: 'Analisis Solicitudes', icon: 'border_horizontal', entity:'review',  role:'listReferenceTypes'},
+      {state: 'review', name: 'Analisis Solicitudes', icon: 'assignment_turned_in', entity:'review',  role:'listReview'},
     ]
   },
   {

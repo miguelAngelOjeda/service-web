@@ -125,6 +125,23 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}
     },
+    "review": {
+      "addReview": {
+    	   "permittedRoles": ["ROLE_REVIEW.ADD"]
+    	 },
+    	"editReview": {
+    	  "permittedRoles": ["ROLE_REVIEW.EDIT"]
+    	},
+    	"viewReview": {
+    	  "permittedRoles": ["ROLE_REVIEW.VIEW"]
+    	},
+    	"listReview": {
+    	  "permittedRoles": ["ROLE_REVIEW.LIST"]
+    	},
+    	"deleteReview": {
+    	  "permittedRoles": ["ROLE_REVIEW.DELETE"]
+    	}
+    },
     "card": {
       "addCard": {
     	   "permittedRoles": ["ROLE_SOLICITUDE.ADD"]

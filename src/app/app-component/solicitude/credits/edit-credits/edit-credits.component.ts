@@ -51,6 +51,15 @@ export class EditCreditsComponent implements OnInit {
     });
   }
 
+  transferirPropuesta(id: number) {
+    this.apiService.put('/solicitud_creditos/transferir/' + id)
+    .subscribe(res => {
+      if(res.status == 200){
+        this.router.navigateByUrl('service-web/credits');
+      }
+    });
+  }
+
   editPeople(idSolicitud: number, idPersona: number, type: string) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;

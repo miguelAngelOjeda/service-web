@@ -5,6 +5,7 @@ import { SnackbarService } from '../../../../shared';
 import { HttpParams } from '@angular/common/http';
 import { CreditsService } from '../../credits/credits.service';
 import { PeopleService } from '../../../shared/people/people.service';
+import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../../shared/people';
 
@@ -21,6 +22,7 @@ export class AddCreditsComponent implements OnInit{
   isTieneHipoteca = 0;
 
   constructor(
+    private router: Router,
     private creditsService:CreditsService,
     private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
@@ -42,6 +44,14 @@ export class AddCreditsComponent implements OnInit{
     });
   }
 
+  transferirPropuesta(id: number) {
+    this.apiService.put('/solicitud_creditos/transferir/' + id)
+    .subscribe(res => {
+      if(res.status == 200){
+        this.router.navigateByUrl('service-web/credits');
+      }
+    });
+  }
 
   editPeople(id: number, type: string) {
       const dialogConfig = new MatDialogConfig();

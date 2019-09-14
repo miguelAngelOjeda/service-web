@@ -11,8 +11,17 @@ html, body {
     background: #2196F3;
 }
 .green-snackbar {
-    background: #1DE9B6;
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+.warning-snackbar {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
 }
 .red-snackbar {
-    background: #B00020;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }
