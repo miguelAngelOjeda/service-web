@@ -56,53 +56,43 @@
                           </section>
                         </div>
                         <div class="col-md-12" *ngIf="myForm.get('cliente').get('persona')?.get('id').value">
-                          <blockquote style="background-color: #f4f4f5;">
-                            <div class="col-md-12">
-                              <div class="d-flex flex-row comment-row ng-star-inserted">
-                                <div class="comment-text w-100">
-                                  <div class="comment-footer">
-                                    <button type="button" class="m-l-10 btn btn-light pull-right" (click)="viewPeople(myForm.get('id')?.value, myForm.get('cliente').get('persona').get('id').value,'DEUDOR')"><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="m-l-10 btn btn-light pull-right" (click)="editPeople(myForm.get('id')?.value, myForm.get('cliente').get('persona').get('id').value,'DEUDOR')"><i class="fa fa-edit"></i></button>
-                                    <span class="text-muted"><span class="font-bold"><h4>Deudor</h4></span></span>
+                          <div class="col-md-3">
+                            <a class="d-flex flex-row comment-row ng-star-inserted">
+                            	<div  class="p-2">
+                            		<span  class="round">
+                            			<img  alt="user" width="50" src="assets/images/users/1.jpg">
+                            		</span>
+                            	</div>
+                            	<div  class="comment-text w-100 p-l-10">
+                            		<h5  class="m-0">{{
+                                  (myForm.controls['cliente'].get('persona').get('primerNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerNombre')?.value)
+                                  + ' ' +
+                                  (myForm.controls['cliente'].get('persona').get('segundoNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoNombre')?.value)
+                                  + ' ' +
+                                  (myForm.controls['cliente'].get('persona').get('primerApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerApellido')?.value)
+                                  + ' ' +
+                                  (myForm.controls['cliente'].get('persona').get('segundoApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoApellido')?.value)
+                                  }}</h5>
+                                <p  class="m-b-5">{{(myForm.controls['cliente'].get('persona').get('documento')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('documento')?.value)
+                                  + (myForm.controls['cliente'].get('persona').get('ruc')?.value == null ? '' : '/' + myForm.controls['cliente'].get('persona').get('ruc')?.value)}}</p>
+                            		<p *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion.value" class="m-b-5">{{myForm.controls['cliente'].get('persona')['controls'].profesion.value?.nombre}}</p>
+                                <p *ngIf="myForm.controls['cliente'].get('persona').get('email')?.value" class="m-b-5">{{myForm.controls['cliente'].get('persona').get('email')?.value }}</p>
+                                <p *ngIf="myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value" class="m-b-5">Telf. {{
+                                  (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
+                                  + ' ' +
+                                  (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
+                                  }}</p>
+                                <div class="d-flex flex-row comment-row ng-star-inserted">
+                                  <div class="comment-text w-100">
+                                    <div class="comment-footer">
+                                      <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('cliente').get('persona').get('id').value,'DEUDOR')"><i class="fa fa-eye"></i></button>
+                                      <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm" (click)="editPeople(myForm.get('cliente').get('persona').get('id').value,'DEUDOR')"><i class="fa fa-edit"></i></button>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="row">
-                                  <div class="col-md-8">
-                                    <div class="p-l-20 p-t-10">
-                                      <div class="font-medium">{{
-                                        (myForm.controls['cliente'].get('persona').get('primerNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerNombre')?.value)
-                                        + ' ' +
-                                        (myForm.controls['cliente'].get('persona').get('segundoNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoNombre')?.value)
-                                        + ' ' +
-                                        (myForm.controls['cliente'].get('persona').get('primerApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerApellido')?.value)
-                                        + ' ' +
-                                        (myForm.controls['cliente'].get('persona').get('segundoApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoApellido')?.value)
-                                        }} </div>
-                                      <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion.value">{{myForm.controls['cliente'].get('persona')['controls'].profesion.value?.nombre}}</span>
-                                      <br *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion?.value">
-                                      <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona').get('email')?.value">{{myForm.controls['cliente'].get('persona').get('email')?.value }}</span>
-                                      <br>
-                                      <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value">Telf. {{
-                                        (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
-                                        + ' ' +
-                                        (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
-                                        }}</span>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-4" *ngIf="myForm.get('cliente').get('persona')?.get('id').value">
-                                    <div class="p-l-20 p-t-10">
-                                      <div class="font-medium"> <span class="font-bold">Documento: </span> {{myForm.controls['cliente'].get('persona').get('documento')?.value | number}}</div>
-                                      <span class="font-16"><span class="font-bold">Sexo: </span>{{myForm.controls['cliente'].get('persona').get('sexo')?.value}}</span>
-                                      <br>
-                                      <span class="font-16"><span class="font-bold">Estado Civil: </span>{{myForm.controls['cliente'].get('persona').get('estadoCivil')?.value }}</span>
-                                    </div>
-                                  </div>
-                              </div>
-                            </div>
-                          </blockquote>
+                            	</div>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>

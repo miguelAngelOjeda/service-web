@@ -5,14 +5,14 @@ import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-list-review',
-  templateUrl: './list-review.component.html',
-  styleUrls: ['./list-review.component.scss']
+  selector: 'app-list-my-review',
+  templateUrl: './list-my-review.component.html',
+  styleUrls: ['./list-my-review.component.scss']
 })
-export class ListReviewComponent implements OnInit {
+export class ListMyReviewComponent implements OnInit {
   public isMobile: Boolean;
   public rulesColumns  = ['tipoGarantia.nombre', 'tipoDestino.nombre', 'estado.nombre', 'funcionarioVerificador.persona.segundoNombre', 'funcionarioVerificador.persona.primerApellido', 'estado.nombre'];
-  public displayedColumns = ['id','propuestaSolicitud.tipoSolicitud.nombre','propuestaSolicitud.id','propuestaSolicitud.fechaPresentacion','fechaInicioAnalisis','fechaFinAnalisis',  'funcionarioAnalisis.persona.primerNombre' , 'propuestaSolicitud.montoSolicitadoOriginal', 'propuestaSolicitud.sucursal.nombre', 'estado.nombre', 'opciones'];
+  public displayedColumns = ['id','propuestaSolicitud.tipoSolicitud.nombre','propuestaSolicitud.id','propuestaSolicitud.fechaPresentacion','fechaInicioAnalisis','fechaFinAnalisis' , 'propuestaSolicitud.montoSolicitadoOriginal', 'propuestaSolicitud.sucursal.nombre', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -41,7 +41,7 @@ export class ListReviewComponent implements OnInit {
             if(this.filterInput.nativeElement.value > 1){
               this.isfilter = true;
             }
-            return this.apiService.getPageList('/analisis_solicitudes',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
+            return this.apiService.getPageList('/analisis_solicitudes/mis-analisis',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
             this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {

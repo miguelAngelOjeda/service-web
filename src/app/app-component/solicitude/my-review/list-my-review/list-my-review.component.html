@@ -1,5 +1,5 @@
 <div class="mat-button-single-row">
-  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/review"> ANALISIS SOLICITUDES </a> &gt; <span class="current">Lista de Analisis</span></h2>
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/my-review"> MIS ANALISIS  </a> &gt; <span class="current">Lista de Analisis</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
 </div>
 <div>
@@ -57,14 +57,6 @@
            </mat-cell>
          </ng-container>
 
-          <ng-container matColumnDef="funcionarioAnalisis.persona.primerNombre">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> FUNCIONARIO ANALISIS </mat-header-cell>
-            <mat-cell *matCellDef="let element" data-label="nombre">
-              {{ (element.funcionarioAnalisis?.nroLegajo == null ? '' : element.funcionarioAnalisis?.nroLegajo + '-')  + (element.funcionarioAnalisis?.persona.primerNombre == null ? '' : element.funcionarioAnalisis?.persona.primerNombre) +' ' +(element.funcionarioAnalisis?.persona.segundoNombre == null ? '' : element.funcionarioAnalisis?.persona.segundoNombre)
-            +', ' +(element.funcionarioAnalisis?.persona.primerApellido == null ? '' : element.funcionarioAnalisis?.persona.primerApellido) + ' ' +(element.funcionarioAnalisis?.persona.segundoApellido == null ? '' : element.funcionarioAnalisis?.persona.segundoApellido)}}
-            </mat-cell>
-          </ng-container>
-
           <ng-container matColumnDef="propuestaSolicitud.montoSolicitadoOriginal">
               <mat-header-cell *matHeaderCellDef> MONTO SOLICITADO </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="monto solicitado">
@@ -89,10 +81,8 @@
           <ng-container matColumnDef="opciones">
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <button mat-icon-button routerLink="/service-web/review/{{element.id}}" *appCanAccess="['review', 'viewReview']"><mat-icon>visibility</mat-icon></button>
-                  <div *ngIf="element.estado.id == 1">
-                    <button mat-icon-button routerLink="/service-web/my-review/{{element.id}}/review" *appCanAccess="['my-review', 'editMyReview']"><mat-icon>assessment</mat-icon></button>
-                  </div>            
+                  <button mat-icon-button routerLink="/service-web/my-review/{{element.id}}" *appCanAccess="['my-review', 'viewMyReview']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/my-review/{{element.id}}/review" *appCanAccess="['my-review', 'editMyReview']"><mat-icon>assessment</mat-icon></button>
                 </mat-cell>
             </ng-container>
 

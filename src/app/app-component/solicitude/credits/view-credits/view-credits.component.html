@@ -29,57 +29,299 @@
               </div>
             </div>
           </div>
-          <div [class]="myForm.get('codeudor') == null  ?  'col-md-12' : 'col-md-6'">
-            <blockquote style="background-color: #f4f4f5;">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="d-flex flex-row comment-row ng-star-inserted">
-                      <div class="comment-text w-100">
-                        <div class="comment-footer">
-                          <button type="button" class="btn btn-light pull-right" (click)="viewPeople(myForm.get('id').value, myForm.get('cliente').get('persona').get('id').value)"><i class="fa fa-eye"></i></button>
-                          <span class="text-muted"><span class="font-bold"><h4>Deudor</h4></span></span>
+          <div class="col-md-12">
+            <fieldset class="m-t-20">
+              <legend><mat-icon class="gray-text">event_note</mat-icon>Propuesta Credito</legend>
+              <div class="row">
+                <div class="col-md-12">
+                  <a class="d-flex flex-row comment-row ng-star-inserted">
+                  	<div  class="p-2">
+                  		<span  class="round">
+                  			<img  alt="user" width="50" src="assets/images/users/1.jpg">
+                  		</span>
+                  	</div>
+                  	<div  class="comment-text w-100 p-20">
+                  		<h5  class="m-0">{{
+                        (myForm.controls['cliente'].get('persona').get('primerNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerNombre')?.value)
+                        + ' ' +
+                        (myForm.controls['cliente'].get('persona').get('segundoNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoNombre')?.value)
+                        + ' ' +
+                        (myForm.controls['cliente'].get('persona').get('primerApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerApellido')?.value)
+                        + ' ' +
+                        (myForm.controls['cliente'].get('persona').get('segundoApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoApellido')?.value)
+                        }}</h5>
+                      <p  class="m-b-5">{{(myForm.controls['cliente'].get('persona').get('documento')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('documento')?.value)
+                        + (myForm.controls['cliente'].get('persona').get('ruc')?.value == null ? '' : '/' + myForm.controls['cliente'].get('persona').get('ruc')?.value)}}</p>
+                  		<p *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion.value" class="m-b-5">{{myForm.controls['cliente'].get('persona')['controls'].profesion.value?.nombre}}</p>
+                      <p *ngIf="myForm.controls['cliente'].get('persona').get('email')?.value" class="m-b-5">{{myForm.controls['cliente'].get('persona').get('email')?.value }}</p>
+                      <p *ngIf="myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value" class="m-b-5">Telf. {{
+                        (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
+                        + ' ' +
+                        (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
+                        }}</p>
+                        <div class="d-flex flex-row comment-row ng-star-inserted">
+                          <div class="comment-text w-100">
+                            <div class="comment-footer">
+                              <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('id').value, myForm.get('cliente').get('persona').get('id').value,'DEUDOR')"><i class="fa fa-eye"></i></button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                    <div class="col-md-8">
-                      <div class="p-l-20 p-t-10">
-                        <div class="font-medium">{{
-                          (myForm.controls['cliente'].get('persona').get('primerNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerNombre')?.value)
-                          + ' ' +
-                          (myForm.controls['cliente'].get('persona').get('segundoNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoNombre')?.value)
-                          + ' ' +
-                          (myForm.controls['cliente'].get('persona').get('primerApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerApellido')?.value)
-                          + ' ' +
-                          (myForm.controls['cliente'].get('persona').get('segundoApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoApellido')?.value)
-                          }} </div>
-                        <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion.value">{{myForm.controls['cliente'].get('persona')['controls'].profesion.value?.nombre}}</span>
-                        <br *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion?.value">
-                        <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona').get('email')?.value">{{myForm.controls['cliente'].get('persona').get('email')?.value }}</span>
-                        <br>
-                        <span class="font-16" *ngIf="myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value">Telf. {{
-                          (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
-                          + ' ' +
-                          (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
-                          }}</span>
-                      </div>
-                    </div>
-                    <div class="col-md-4" *ngIf="myForm.get('cliente').get('persona')?.get('id').value">
-                      <div class="p-l-20 p-t-10">
-                        <div class="font-medium"> <span class="font-bold">Documento: </span> {{myForm.controls['cliente'].get('persona').get('documento')?.value | number}}</div>
-                        <span class="font-16"><span class="font-bold">Sexo: </span>{{myForm.controls['cliente'].get('persona').get('sexo')?.value}}</span>
-                        <br>
-                        <span class="font-16"><span class="font-bold">Estado Civil: </span>{{myForm.controls['cliente'].get('persona').get('estadoCivil')?.value }}</span>
-                      </div>
-                    </div>
+                  	</div>
+                  </a>
+                </div>
+                <div class="col-sm-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value.nombre}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-sm-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Tipo Calculo: </span> {{myForm.get('tipoCalculoImporte')?.value.nombre}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-sm-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Monto: </span> {{myForm.get('montoSolicitado')?.value | number}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-sm-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Destino: </span> {{myForm.get('tipoDestino')?.value.nombre}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-sm-8">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('detalleDestino')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Tipo Garantia: </span> {{myForm.get('tipoGarantia')?.value.nombre}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Forma Pago: </span> {{myForm.get('tipoPago')?.value.nombre}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Forma Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Beneficiario Cheque: </span> {{myForm.get('beneficiarioCheque')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Periodo Capital: </span> {{myForm.get('periodoCapital')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Plazo: </span> {{myForm.get('plazo')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Cant. Amortiz.: </span> </p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Vto. Interes: </span> {{myForm.get('vencimientoInteres')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Periodo Gracia: </span> {{myForm.get('periodoGracia')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Periodo Interés: </span> {{myForm.get('periodoInteres')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Tasa Interés Anual(%): </span> {{myForm.get('tasaInteres')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('gastosAdministrativos')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Observacion: </span> {{myForm.get('observacionesDepartamento')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
                 </div>
               </div>
-            </blockquote>
+            </fieldset>
           </div>
-          <div class="col-md-6" *ngIf="myForm.get('codeudor')?.get('id').value">
+          <div class="col-md-12">
+            <fieldset class="m-t-20">
+              <legend><mat-icon class="gray-text">event_note</mat-icon>Descuentos</legend>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Impuestos: </span> {{myForm.get('impuestos')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-3">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Comision: </span> {{myForm.get('comision')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-3">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Gastos Varios: </span> {{myForm.get('gastosVarios')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-3">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Seguros: </span> {{myForm.get('seguros')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-3">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Tipo Descuento: </span> {{myForm.get('tipoDescuento')?.value === 'I-D' ? 'IMPORTE DISPONER' : 'IMPORTE SOLICITAR'}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-3">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Monto Original: </span> {{myForm.get('montoSolicitadoOriginal').value | number}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-3">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Monto Entregar: </span> {{myForm.get('importeEntregar').value | number}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-3">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Cuota: </span> {{myForm.get('importeCuota').value | number}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="col-md-12" *ngIf="myForm.get('codeudor')?.get('id').value">
+            <fieldset class="m-t-20">
+              <legend><mat-icon class="gray-text">event_note</mat-icon>Codeudores</legend>
+              <div class="row">
+                <div class="col-md-4">
+                  <!-- <fieldset class="m-t-10" > -->
+                    <div class="row">
+                      <div class="col-md-12 w3-container w3-border w3-round-xlarge p-20">
+                        <a class="d-flex flex-row comment-row ng-star-inserted p-20">
+                        	<div  class="p-2">
+                        		<span  class="round">
+                        			<img  alt="user" width="50" src="assets/images/users/1.jpg">
+                        		</span>
+                        	</div>
+                        	<div  class="comment-text w-100 p-l-10">
+                        		<h5  class="m-0">{{
+                              (myForm.controls['codeudor'].get('primerNombre')?.value == null ? '' : myForm.controls['codeudor'].get('primerNombre')?.value)
+                              + ' ' +
+                              (myForm.controls['codeudor'].get('segundoNombre')?.value == null ? '' : myForm.controls['codeudor'].get('segundoNombre')?.value)
+                              + ' ' +
+                              (myForm.controls['codeudor'].get('primerApellido')?.value == null ? '' : myForm.controls['codeudor'].get('primerApellido')?.value)
+                              + ' ' +
+                              (myForm.controls['codeudor'].get('segundoApellido')?.value == null ? '' : myForm.controls['codeudor'].get('segundoApellido')?.value)
+                              }}</h5>
+                            <p  class="m-b-5">{{(myForm.controls['codeudor'].get('documento')?.value == null ? '' : myForm.controls['codeudor'].get('documento')?.value)
+                              + (myForm.controls['codeudor'].get('ruc')?.value == null ? '' : '/' + myForm.controls['codeudor'].get('ruc')?.value)}}</p>
+                        		<p *ngIf="myForm.controls['codeudor']['controls']?.profesion.value" class="m-b-5">{{myForm.controls['codeudor']['controls']?.profesion.value?.nombre}}</p>
+                            <p *ngIf="myForm.controls['codeudor'].get('email')?.value" class="m-b-5">{{myForm.controls['codeudor'].get('email')?.value }}</p>
+                            <p *ngIf="myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value" class="m-b-5">Telf. {{
+                              (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
+                              + ' ' +
+                              (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
+                              }}</p>
+                              <div class="d-flex flex-row comment-row ng-star-inserted">
+                                <div class="comment-text w-100">
+                                  <div class="comment-footer">
+                                    <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('id').value, myForm.get('cliente').get('persona').get('id').value,'DEUDOR')"><i class="fa fa-eye"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                        	</div>
+                        </a>
+                      </div>
+                    </div>
+                    <!-- <legend><h6>{{
+                      (myForm.controls['codeudor'].get('primerNombre')?.value == null ? '' : myForm.controls['codeudor'].get('primerNombre')?.value)
+                      + ' ' +
+                      (myForm.controls['codeudor'].get('segundoNombre')?.value == null ? '' : myForm.controls['codeudor'].get('segundoNombre')?.value)
+                      + ' ' +
+                      (myForm.controls['codeudor'].get('primerApellido')?.value == null ? '' : myForm.controls['codeudor'].get('primerApellido')?.value)
+                      + ' ' +
+                      (myForm.controls['codeudor'].get('segundoApellido')?.value == null ? '' : myForm.controls['codeudor'].get('segundoApellido')?.value)
+                      }}</h6></legend> -->
+
+                  <!-- </fieldset> -->
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <!-- <div class="col-md-12" *ngIf="myForm.get('codeudor')?.get('id').value">
             <blockquote style="background-color: #f4f4f5;">
-              <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="d-flex flex-row comment-row ng-star-inserted">
@@ -124,209 +366,8 @@
                       </mat-list>
                     </div>
                 </div>
-              </div>
             </blockquote>
-          </div>
-          <div class="col-md-12">
-            <div class="d-flex flex-row comment-row ng-star-inserted">
-              <div class="comment-text w-100">
-                <div class="comment-footer">
-                  <span class="text-muted"><span class="font-bold">Propuesta</span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value.nombre}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-sm-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Tipo Calculo: </span> {{myForm.get('tipoCalculoImporte')?.value.nombre}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-sm-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Monto: </span> {{myForm.get('montoSolicitado')?.value | number}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-sm-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Destino: </span> {{myForm.get('tipoDestino')?.value.nombre}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-sm-8">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('detalleDestino')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Tipo Garantia: </span> {{myForm.get('tipoGarantia')?.value.nombre}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Forma Pago: </span> {{myForm.get('tipoPago')?.value.nombre}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Forma Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Beneficiario Cheque: </span> {{myForm.get('beneficiarioCheque')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Periodo Capital: </span> {{myForm.get('periodoCapital')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Plazo: </span> {{myForm.get('plazo')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Cant. Amortiz.: </span> </p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Vto. Interes: </span> {{myForm.get('vencimientoInteres')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Periodo Gracia: </span> {{myForm.get('periodoGracia')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Periodo Interés: </span> {{myForm.get('periodoInteres')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Tasa Interés Anual(%): </span> {{myForm.get('tasaInteres')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('gastosAdministrativos')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-4">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Observacion: </span> {{myForm.get('observacionesDepartamento')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-12">
-            <div class="d-flex flex-row comment-row ng-star-inserted">
-              <div class="comment-text w-100">
-                <div class="comment-footer">
-                  <span class="text-muted"><span class="font-bold">Descuentos</span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Impuestos: </span> {{myForm.get('impuestos')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-3">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Comision: </span> {{myForm.get('comision')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-3">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Gastos Varios: </span> {{myForm.get('gastosVarios')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-3">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Seguros: </span> {{myForm.get('seguros')?.value}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-3">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Tipo Descuento: </span> {{myForm.get('tipoDescuento')?.value === 'I-D' ? 'IMPORTE DISPONER' : 'IMPORTE SOLICITAR'}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-3">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Monto Original: </span> {{myForm.get('montoSolicitadoOriginal').value | number}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-3">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Monto Entregar: </span> {{myForm.get('importeEntregar').value | number}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
-          <div class="col-md-3">
-            <mat-list>
-              <mat-list-item>
-                <p><span class="font-bold">Cuota: </span> {{myForm.get('importeCuota').value | number}}</p>
-              </mat-list-item>
-            </mat-list>
-          </div>
+          </div> -->
           <div class="col-md-12  m-t-10" *ngIf="myForm.get('id').value && myForm.get('entidad').value">
             <app-view-upload [entidad]="myForm.get('entidad').value" [idEntidad]="myForm.get('id').value"></app-view-upload>
           </div>

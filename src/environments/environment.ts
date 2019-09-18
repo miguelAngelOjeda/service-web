@@ -126,9 +126,6 @@ export const authorities = {
     	}
     },
     "review": {
-      "addReview": {
-    	   "permittedRoles": ["ROLE_REVIEW.ADD"]
-    	 },
     	"editReview": {
     	  "permittedRoles": ["ROLE_REVIEW.EDIT"]
     	},
@@ -137,9 +134,17 @@ export const authorities = {
     	},
     	"listReview": {
     	  "permittedRoles": ["ROLE_REVIEW.LIST"]
+    	}
+    },
+    "my-review": {
+    	"editMyReview": {
+    	  "permittedRoles": ["ROLE_MY_REVIEW.EDIT"]
     	},
-    	"deleteReview": {
-    	  "permittedRoles": ["ROLE_REVIEW.DELETE"]
+    	"viewMyReview": {
+    	  "permittedRoles": ["ROLE_MY_REVIEW.VIEW"]
+    	},
+    	"listMyReview": {
+    	  "permittedRoles": ["ROLE_MY_REVIEW.LIST"]
     	}
     },
     "card": {

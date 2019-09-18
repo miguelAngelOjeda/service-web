@@ -402,14 +402,14 @@ fieldset {
   // Reset the default outline behavior of fieldsets so they don't affect page layout.
   padding: 0;
   margin: 0;
-  border: 0;
+  border: 1;
 }
 
 // 1. Correct the text wrapping in Edge and IE.
 // 2. Correct the color inheritance from `fieldset` elements in IE.
 legend {
   display: block;
-  width: 100%;
+  // width: 100%;
   max-width: 100%; // 1
   padding: 0;
   margin-bottom: .5rem;

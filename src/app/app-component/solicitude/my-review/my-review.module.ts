@@ -1,8 +1,9 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ListReviewComponent, ViewReviewComponent } from '../review';
+import { ReviewComponent,
+ViewMyReviewComponent, ListMyReviewComponent } from '../my-review';
 import { MaterialModule } from '../../../core/material/material.module';
-import { ReviewRoutingModule } from './review-routing.module';
+import { MyReviewRoutingModule } from './my-review-routing.module';
 import { environment } from '../../../../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -37,7 +38,7 @@ export const customCurrencyMaskConfig = {
 
 @NgModule({
   imports: [
-    ReviewRoutingModule,
+    MyReviewRoutingModule,
     MaterialModule,
     SharedAppModule,
     AngularFileUploaderModule,
@@ -73,8 +74,9 @@ export const customCurrencyMaskConfig = {
     DeleteDialogComponent
   ],
   declarations: [
-    ListReviewComponent,
-    ViewReviewComponent
+    ReviewComponent,
+    ListMyReviewComponent,
+    ViewMyReviewComponent
   ]
 })
-export class ReviewModule {}
+export class MyReviewModule {}

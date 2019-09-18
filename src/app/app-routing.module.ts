@@ -38,6 +38,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/solicitude/review/review.module#ReviewModule'
         },
         {
+        path: 'service-web/my-review',
+        loadChildren: './app-component/solicitude/my-review/my-review.module#MyReviewModule'
+        },
+        {
         path: 'service-web/role',
         loadChildren: './app-component/role/role.module#RoleModule'
         },
