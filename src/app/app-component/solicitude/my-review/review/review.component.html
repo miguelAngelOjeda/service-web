@@ -160,9 +160,9 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Solicitud Cuota" formControlName="montoTotalCuotas" name="montoTotalCuotas" required>
-                                    <mat-error *ngIf="(detalle.get('montoTotalCuotas').errors)">
-                                      <span *ngIf="detalle.get('montoTotalCuotas').errors.required">
+                                    <input matInput #input type="number" placeholder="Solicitud Cuota" formControlName="montoDeudaSolicitudCuotas" name="montoDeudaSolicitudCuotas" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaSolicitudCuotas').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaSolicitudCuotas').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -170,9 +170,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Solicitud Total" formControlName="saldoTotal" name="saldoTotal" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Solicitud Total" formControlName="montoDeudaSolicitud" name="montoDeudaSolicitud" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaSolicitud').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaSolicitud').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -180,9 +180,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Desc. Cuota" formControlName="montoTotalCuotas" name="montoTotalCuotas" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Desc. Cuota" formControlName="montoDeudaDescuentoCuotas" name="montoDeudaDescuentoCuotas" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaDescuentoCuotas').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaDescuentoCuotas').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -190,9 +190,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Desc. Total" formControlName="saldoTotal" name="saldoTotal" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Desc. Total" formControlName="montoDeudaDescuento" name="montoDeudaDescuento" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaDescuento').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaDescuento').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -201,22 +201,22 @@
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Deuda Total: </span> {{detalle.get('montoCuotaACancelar').value | number}}</p>
+                                      <p><span class="font-bold">Deuda Total: </span> {{detalle.get('montoDeudaSolicitudCuotaTotal').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Deuda Total : </span> {{detalle.get('montoTotalACancelar').value | number}}</p>
+                                      <p><span class="font-bold">Deuda Total : </span> {{detalle.get('montoDeudaSolicitudTotal').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Ingresos" formControlName="saldoTotal" name="saldoTotal" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Ingresos" formControlName="ingresoTotal" name="ingresoTotal" required>
+                                    <mat-error *ngIf="(detalle.get('ingresoTotal').errors)">
+                                      <span *ngIf="detalle.get('ingresoTotal').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -224,9 +224,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Ingresos 60%" formControlName="saldoTotal" name="saldoTotal" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Ingresos 60%" formControlName="porcentajeCapacidad" name="porcentajeCapacidad" required>
+                                    <mat-error *ngIf="(detalle.get('porcentajeCapacidad').errors)">
+                                      <span *ngIf="detalle.get('porcentajeCapacidad').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -234,9 +234,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Otros" formControlName="saldoTotal" name="saldoTotal" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Otros" formControlName="ingresosOtros" name="ingresosOtros" required>
+                                    <mat-error *ngIf="(detalle.get('ingresosOtros').errors)">
+                                      <span *ngIf="detalle.get('ingresosOtros').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -244,9 +244,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Otros 100%" formControlName="saldoTotal" name="saldoTotal" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Otros 100%" formControlName="porcentajeCapacidadOtros" name="porcentajeCapacidadOtros" required>
+                                    <mat-error *ngIf="(detalle.get('porcentajeCapacidadOtros').errors)">
+                                      <span *ngIf="detalle.get('porcentajeCapacidadOtros').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -255,14 +255,14 @@
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total: </span> {{detalle.get('montoCuotaACancelar').value | number}}</p>
+                                      <p><span class="font-bold">Total: </span> {{detalle.get('montoTotalIngresos').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total : </span> {{detalle.get('montoTotalACancelar').value | number}}</p>
+                                      <p><span class="font-bold">Total : </span> {{detalle.get('montoTotalIngresosPorcentaje').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
@@ -271,7 +271,7 @@
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Diferencia : </span> {{detalle.get('montoTotalACancelar').value | number}}</p>
+                                      <p><span class="font-bold">Diferencia : </span> {{detalle.get('saldoTotalSolicitud').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
@@ -284,9 +284,9 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Saldo Cuota" formControlName="montoTotalCuotas" name="montoTotalCuotas" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Saldo Cuota" formControlName="montoDeudaCuotas" name="montoDeudaCuotas" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaCuotas').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaCuotas').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -294,9 +294,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Saldo Total" formControlName="saldoTotal" name="saldoTotal" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Saldo Total" formControlName="montoDeuda" name="montoDeuda" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeuda').errors)">
+                                      <span *ngIf="detalle.get('montoDeuda').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -304,9 +304,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Tarjeta Cuota" formControlName="totalTarjetaMinimo" name="totalTarjetaMinimo" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Tarjeta Cuota" formControlName="montoDeudaTarjetaMinimo" name="montoDeudaTarjetaMinimo" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaTarjetaMinimo').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaTarjetaMinimo').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -314,9 +314,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Tarjeta Total" formControlName="totalTarjeta" name="totalTarjeta" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Tarjeta Total" formControlName="montoDeudaTarjeta" name="montoDeudaTarjeta" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaTarjeta').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaTarjeta').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -324,9 +324,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Saldo Cony. Cuota" formControlName="montoTotalCuotasCony" name="montoTotalCuotasCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Saldo Cony. Cuota" formControlName="montoDeudaCuotasConyuge" name="montoDeudaCuotasConyuge" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaCuotasConyuge').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaCuotasConyuge').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -334,9 +334,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Saldo Cony. Total" formControlName="saldoTotalCony" name="saldoTotalCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Saldo Cony. Total" formControlName="montoDeudaConyuge" name="montoDeudaConyuge" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaConyuge').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaConyuge').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -344,9 +344,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field    appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Tarjeta Cony. Cuota" formControlName="totalTarjetaMinimoCony" name="totalTarjetaMinimoCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Tarjeta Cony. Cuota" formControlName="montoDeudaTarjetaMinimoConyuge" name="montoDeudaTarjetaMinimoConyuge" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaTarjetaMinimoConyuge').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaTarjetaMinimoConyuge').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -354,9 +354,9 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Tarjeta Cony. Total" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Tarjeta Cony. Total" formControlName="montoDeudaTarjetaConyuge" name="montoDeudaTarjetaConyuge" required>
+                                    <mat-error *ngIf="(detalle.get('montoDeudaTarjetaConyuge').errors)">
+                                      <span *ngIf="detalle.get('montoDeudaTarjetaConyuge').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -365,14 +365,14 @@
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total Cuota: </span> {{detalle.get('montoCuotaACancelar').value | number}}</p>
+                                      <p><span class="font-bold">Total Cuota: </span> {{detalle.get('montoDeudaTotalCuota').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total : </span> {{detalle.get('montoTotalACancelar').value | number}}</p>
+                                      <p><span class="font-bold">Total : </span> {{detalle.get('montoDeudaTotal').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
@@ -390,9 +390,9 @@
                                 </div>
                                 <div class="col-md-4">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Credito Vigente" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Credito Vigente" formControlName="saldoTotalSolicitud" name="saldoTotalSolicitud" required>
+                                    <mat-error *ngIf="(detalle.get('saldoTotalSolicitud').errors)">
+                                      <span *ngIf="detalle.get('saldoTotalSolicitud').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -400,9 +400,9 @@
                                 </div>
                                 <div class="col-md-4">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Garantia Credito" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Garantia Credito" formControlName="garantiasVigente" name="garantiasVigente" required>
+                                    <mat-error *ngIf="(detalle.get('garantiasVigente').errors)">
+                                      <span *ngIf="detalle.get('garantiasVigente').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -410,9 +410,9 @@
                                 </div>
                                 <div class="col-md-4">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Ultimos Creditos" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Ultimos Creditos" formControlName="saldoTotalSolicitud" name="saldoTotalSolicitud" required>
+                                    <mat-error *ngIf="(detalle.get('saldoTotalSolicitud').errors)">
+                                      <span *ngIf="detalle.get('saldoTotalSolicitud').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -421,21 +421,26 @@
                                 <div class="col-md-4">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Faja Informconf : </span> {{detalle.get('montoTotalACancelar').value | number}}</p>
+                                      <p><span class="font-bold">Faja Informconf : </span> {{detalle.get('fajaInformconf').value}}</p>
                                     </mat-list-item>
                                     <button type="button" class="btn btn-light btn-sm pull-right">Reporte <i class="fa fa-search" aria-hidden="true"></i></button>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-8">
                                   <mat-form-field>
-                                    <textarea matInput placeholder="Detalle Informconf"></textarea>
+                                    <textarea matInput placeholder="Detalle Informconf" formControlName="informconf" name="informconf"></textarea>
+                                    <mat-error *ngIf="(detalle.get('informconf').errors)">
+                                      <span *ngIf="detalle.get('informconf').errors.required">
+                                       Campo requerido
+                                      </span>
+                                    </mat-error>
                                   </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Capacidad de Pago" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Capacidad de Pago" formControlName="capacidadPago" name="capacidadPago" required>
+                                    <mat-error *ngIf="(detalle.get('capacidadPago').errors)">
+                                      <span *ngIf="detalle.get('capacidadPago').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -443,9 +448,9 @@
                                 </div>
                                 <div class="col-md-2">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Antiguedad Laboral" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Antiguedad Laboral" formControlName="antiguedadLaboral" name="antiguedadLaboral" required>
+                                    <mat-error *ngIf="(detalle.get('antiguedadLaboral').errors)">
+                                      <span *ngIf="detalle.get('antiguedadLaboral').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -453,9 +458,9 @@
                                 </div>
                                 <div class="col-md-2">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Edad" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Edad" formControlName="edad" name="edad" required>
+                                    <mat-error *ngIf="(detalle.get('edad').errors)">
+                                      <span *ngIf="detalle.get('edad').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -463,9 +468,9 @@
                                 </div>
                                 <div class="col-md-2">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Nº Hijos" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Nº Hijos" formControlName="cantidadHijos" name="cantidadHijos" required>
+                                    <mat-error *ngIf="(detalle.get('cantidadHijos').errors)">
+                                      <span *ngIf="detalle.get('cantidadHijos').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -473,9 +478,9 @@
                                 </div>
                                 <div class="col-md-2">
                                   <mat-form-field  appearance="legacy">
-                                    <input matInput #input type="number" placeholder="Estado Civil" formControlName="totalTarjetaCony" name="totalTarjetaCony" required>
-                                    <mat-error *ngIf="(detalle.get('saldoTotal').errors)">
-                                      <span *ngIf="detalle.get('saldoTotal').errors.required">
+                                    <input matInput #input type="number" placeholder="Estado Civil" formControlName="estadoCivil" name="estadoCivil" required>
+                                    <mat-error *ngIf="(detalle.get('estadoCivil').errors)">
+                                      <span *ngIf="detalle.get('estadoCivil').errors.required">
                                        Campo requerido
                                       </span>
                                     </mat-error>
@@ -483,7 +488,7 @@
                                 </div>
                                 <div class="col-md-12">
                                   <mat-form-field>
-                                    <textarea matInput placeholder="Datos Relevantes"></textarea>
+                                    <textarea matInput placeholder="Datos Relevantes" formControlName="datosRelevantes" name="datosRelevantes"></textarea>
                                   </mat-form-field>
                                 </div>
                               </div>
@@ -502,12 +507,12 @@
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field>
-                    <textarea matInput placeholder="Recomendación"></textarea>
+                    <textarea matInput placeholder="Recomendación" formControlName="observacionRecomendacion" name="observacionRecomendacion"></textarea>
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">
                   <mat-form-field>
-                    <textarea matInput placeholder="Observación Desembolso"></textarea>
+                    <textarea matInput placeholder="Observación Desembolso" formControlName="observacion" name="observacion"></textarea>
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">

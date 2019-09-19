@@ -47,14 +47,19 @@ export class ReviewComponent implements OnInit {
 
   viewPeople(idSolicitud: number, idPersona: number,type: string) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { model: null, title:'Visualizar Deudor' };
+
     if(type === 'DEUDOR'){
       dialogConfig.data = { model: null, title:'Visualizar Deudor' };
+    }else if(type === 'CONY_DEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Conyuge Deudor' };
     }else if(type === 'CODEUDOR'){
       dialogConfig.data = { model: null, title:'Visualizar Codeudor' };
+    }else if(type === 'CONY_CODEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Conyuge Codeudor' };
     }
+
     dialogConfig.autoFocus = true;
-    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, dialogConfig);
+    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
   }
 
   initFormBuilder() {
@@ -67,38 +72,46 @@ export class ReviewComponent implements OnInit {
       funcionarioAprobacion: null,
       estado: null,
       montoAprobado: null,
-      funcionarioAnalisis: this.formBuilder.group({
-        id: [null],
-        profesion: [null],
-        documento: [null],
-        nombre: null ,
-        email: [null],
-        sexo: [null],
-        telefonoParticular: [null],
-        telefonoSecundario: null,
-        primerNombre: [null],
-        segundoNombre: null,
-        primerApellido: [null],
-        segundoApellido: null }),
+      observacion: null,
+      observacionRecomendacion: null,
+      funcionarioAnalisis: null,
       funcionarioVerificador: null,
       propuestaSolicitud: null,
       detalles: this.formBuilder.array([
-          this.formBuilder.group({
-            id: [null],
-            tipoRelacion: [null],
-            idConyuge: [null],
-            nombreConyuge: null ,
-            saldoTotal: [null],
-            montoTotalCuotas: [null],
-            totalTarjeta: [null],
-            totalTarjetaMinimo: null,
-            montoTotalACancelar: [null],
-            montoCuotaACancelar: null,
-            ingresoTotal: [null],
-            totalTarjetaCony: [null],
-            montoTotalCuotasCony: [null],
-            saldoTotalCony: [null],
-            egresosTotal: null })])
+          // this.formBuilder.group({
+          //   id: [null],
+          //   tipoRelacion: [null],
+          //   idConyuge: [null],
+          //   nombreConyuge: null ,
+          //   montoDeuda: [null],
+          //   montoDeudaCuotas: [null],
+          //   montoDeudaTarjeta: [null],
+          //   montoDeudaTarjetaMinimo: null,
+          //   montoDeudaConyuge: [null],
+          //   montoCuotaACancelar: null,
+          //   montoDeudaCuotasConyuge: [null],
+          //   montoDeudaTarjetaConyuge: [null],
+          //   montoDeudaTarjetaMinimoConyuge: [null],
+          //   montoDeudaTotal: [null],
+          //   montoDeudaTotalCuota: [null],
+          //   montoDeudaDescuento: [null],
+          //   montoDeudaDescuentoCuotas: [null],
+          //   montoDeudaDescuentoTotal: null ,
+          //   montoDeudaSolicitud: [null],
+          //   montoDeudaSolicitudCuotas: [null],
+          //   montoDeudaSolicitudTotal: [null],
+          //   montoDeudaSolicitudCuotaTotal: null,
+          //   saldoTotalSolicitud: [null],
+          //   ingresoTotal: null,
+          //   egresosTotal: [null],
+          //   porcentajeCapacidad: [null],
+          //   ingresosOtros: [null],
+          //   porcentajeCapacidadOtros: [null],
+          //   totalDiferenciaIngEgr: [null],
+          //   calificacionCreditosActual: null,
+          //   garantiasVigente: [null],
+          //   informconf: [null]})
+          ])
     });
   }
 

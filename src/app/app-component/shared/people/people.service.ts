@@ -21,7 +21,8 @@ export class PeopleService {
     private apiService: ApiService,
     public dialog: MatDialog) { }
 
-  public editModalPeopleSolicitud(idSolicitud: number, idPersona: number,peopleFormGroup: FormGroup, matDialogConfig: MatDialogConfig){
+  public editModalPeopleSolicitud(idSolicitud: number, idPersona: number, tipo: string,
+    peopleFormGroup: FormGroup, matDialogConfig: MatDialogConfig){
 
     if(!matDialogConfig){
       matDialogConfig = new MatDialogConfig();
@@ -30,7 +31,15 @@ export class PeopleService {
       matDialogConfig.data = { model: null, title:'Editar' };
     }
 
-    this.apiService.get('/solicitud_creditos/persona/' + idSolicitud + '/' + idPersona,this.params)
+    let variables = new HttpParams({fromObject :
+      {
+        'idSolicitud' : idSolicitud.toString(),
+        'idPersona' : idPersona.toString(),
+        'tipoRelacion' : tipo,
+        'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'
+      }});
+
+    this.apiService.get('/solicitud_creditos/persona-solicitud',variables)
     .subscribe(res => {
       if(res.status == 200){
         matDialogConfig.data.model =  res.model;
@@ -50,14 +59,24 @@ export class PeopleService {
     });
   }
 
-  public viewModalPeopleSolicitud(idSolicitud: number, idPersona: number, matDialogConfig: MatDialogConfig){
+  public viewModalPeopleSolicitud(idSolicitud: number, idPersona: number, tipo: string,
+     matDialogConfig: MatDialogConfig){
     if(!matDialogConfig){
       matDialogConfig = new MatDialogConfig();
       matDialogConfig.disableClose = true;
       matDialogConfig.autoFocus = true;
       matDialogConfig.data = { model: null, title:'Editar' };
     }
-    this.apiService.get('/solicitud_creditos/persona/' + idSolicitud + '/' + idPersona,this.params )
+
+    let variables = new HttpParams({fromObject :
+      {
+        'idSolicitud' : idSolicitud.toString(),
+        'idPersona' : idPersona.toString(),
+        'tipoRelacion' : tipo,
+        'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'
+      }});
+
+    this.apiService.get('/solicitud_creditos/persona-solicitud',variables)
     .subscribe(res => {
       if(res.status == 200){
         matDialogConfig.data.model =  res.model;

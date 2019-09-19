@@ -67,10 +67,10 @@ export class EditCreditsComponent implements OnInit {
 
       if(type === 'DEUDOR'){
         dialogConfig.data = { id: this.myForm.value.id, model: null, title:'Editar Deudor' , addSpouse:true};
-        this.peopleService.editModalPeopleSolicitud(idSolicitud, idPersona, <FormGroup>this.myForm.get('cliente').get('persona'), dialogConfig);
+        this.peopleService.editModalPeopleSolicitud(idSolicitud, idPersona, type, <FormGroup>this.myForm.get('cliente').get('persona'), dialogConfig);
       }else if(type === 'CODEUDOR'){
         dialogConfig.data = { id: this.myForm.value.id, model: null, title:'Editar Codeudor' , addSpouse:true};
-        this.peopleService.editModalPeopleSolicitud(idSolicitud, idPersona, <FormGroup>this.myForm.get('codeudor'), dialogConfig);
+        this.peopleService.editModalPeopleSolicitud(idSolicitud, idPersona, type, <FormGroup>this.myForm.get('codeudor'), dialogConfig);
       }
   }
 
@@ -97,7 +97,7 @@ export class EditCreditsComponent implements OnInit {
       dialogConfig.data = { model: null, title:'Visualizar Codeudor' };
     }
     dialogConfig.autoFocus = true;
-    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, dialogConfig);
+    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
   }
 
   getValue(data: any, form : any): void {

@@ -8,7 +8,7 @@ export const environment = {
 export const authorities = {
   "role": {
     "enterprise": {
-      "addEnterprise": {
+      'addEnterprise': {
     	   "permittedRoles": ["ROLE_ENTERPRISE.ADD"]
     	 },
     	"editEnterprise": {
@@ -49,7 +49,24 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_USERS.LIST"]
     	},
     	"deleteUsers": {
-    	  "permittedRoles": ["ROLE_DELETE.LIST"]
+    	  "permittedRoles": ["ROLE_DELETE.DELETE"]
+    	}
+    },
+    "functionary": {
+      "addFunctionary": {
+    	   "permittedRoles": ["ROLE_FUNCTIONARY.ADD"]
+    	 },
+    	"editFunctionary": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY.EDIT"]
+    	},
+    	"viewFunctionary": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY.VIEW"]
+    	},
+    	"listFunctionary": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY.LIST"]
+    	},
+    	"deleteFunctionary": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY.DELETE"]
     	}
     },
     "client": {
@@ -103,6 +120,28 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}
     },
+    "review": {
+    	"editReview": {
+    	  "permittedRoles": ["ROLE_REVIEW.EDIT"]
+    	},
+    	"viewReview": {
+    	  "permittedRoles": ["ROLE_REVIEW.VIEW"]
+    	},
+    	"listReview": {
+    	  "permittedRoles": ["ROLE_REVIEW.LIST"]
+    	}
+    },
+    "my-review": {
+    	"editMyReview": {
+    	  "permittedRoles": ["ROLE_MY_REVIEW.EDIT"]
+    	},
+    	"viewMyReview": {
+    	  "permittedRoles": ["ROLE_MY_REVIEW.VIEW"]
+    	},
+    	"listMyReview": {
+    	  "permittedRoles": ["ROLE_MY_REVIEW.LIST"]
+    	}
+    },
     "card": {
       "addCard": {
     	   "permittedRoles": ["ROLE_SOLICITUDE.ADD"]
@@ -122,8 +161,47 @@ export const authorities = {
     },
     "service-types": {
     	"viewTypes": {
-    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_RELATIONS_TYPES.LIST",
-        "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST"]
+    	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_RELATIONS_TYPES.LIST","ROLE_FUNCTIONARY_TYPES.LIST",
+        "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST","ROLE_STUDY_TYPES.LIST","ROLE_DOCUMENT_TYPES.LIST"]
+    	}
+    },
+    "rrhh": {
+    	"viewRRHH": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY.LIST","ROLE_FUNCTIONARY_TYPES.LIST","ROLE_HORARY_TYPES.LIST"]
+    	}
+    },
+    "functionary-types": {
+      "addFunctionaryTypes": {
+    	   "permittedRoles": ["ROLE_FUNCTIONARY_TYPES.ADD"]
+    	 },
+    	"editFunctionaryTypes": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY_TYPES.EDIT"]
+    	},
+    	"viewFunctionaryTypes": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY_TYPES.VIEW"]
+    	},
+    	"listFunctionaryTypes": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY_TYPES.LIST"]
+    	},
+      "deleteFunctionaryTypes": {
+    	  "permittedRoles": ["ROLE_FUNCTIONARY_TYPES.DELETE"]
+    	}
+    },
+    "horary-types": {
+      "addHoraryTypes": {
+    	   "permittedRoles": ["ROLE_HORARY_TYPES.ADD"]
+    	 },
+    	"editHoraryTypes": {
+    	  "permittedRoles": ["ROLE_HORARY_TYPES.EDIT"]
+    	},
+    	"viewHoraryTypes": {
+    	  "permittedRoles": ["ROLE_HORARY_TYPES.VIEW"]
+    	},
+    	"listHoraryTypes": {
+    	  "permittedRoles": ["ROLE_HORARY_TYPES.LIST"]
+    	},
+      "deleteHoraryTypes": {
+    	  "permittedRoles": ["ROLE_HORARY_TYPES.DELETE"]
     	}
     },
     "reference-types": {
@@ -138,6 +216,43 @@ export const authorities = {
     	},
     	"listReferenceTypes": {
     	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	},
+      "deleteReferenceTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
+    	}
+    },
+    "guarantee-types": {
+      "addGuaranteeTypes": {
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
+    	 },
+    	"editGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
+    	},
+    	"viewGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
+    	},
+    	"listGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	},
+      "deleteGuaranteeTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
+    	}
+    },
+    "capital-period": {
+      "addCapitalPeriod": {
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
+    	 },
+    	"editCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
+    	},
+    	"viewCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
+    	},
+    	"listCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	},
+      "deleteCapitalPeriod": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
     	}
     },
     "calculation-types": {
@@ -152,6 +267,9 @@ export const authorities = {
     	},
     	"listCalculationTypes": {
     	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	},
+      "deleteCalculationTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
     	}
     },
     "destinations-types": {
@@ -166,6 +284,9 @@ export const authorities = {
     	},
     	"listDestinationsTypes": {
     	  "permittedRoles": ["ROLE_DESTINATIONS_TYPES.LIST"]
+    	},
+      "deleteDestinationsTypes": {
+    	  "permittedRoles": ["ROLE_DESTINATIONS_TYPES.DELETE"]
     	}
     },
     "outlays-types": {
@@ -180,6 +301,9 @@ export const authorities = {
     	},
     	"listOutlaysTypes": {
     	  "permittedRoles": ["ROLE_OUTLAYS_TYPES.LIST"]
+    	},
+      "deleteOutlaysTypes": {
+    	  "permittedRoles": ["ROLE_OUTLAYS_TYPES.DELETE"]
     	}
     },
     "egress-types": {
@@ -194,6 +318,9 @@ export const authorities = {
     	},
     	"listEgressTypes": {
     	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	},
+      "deleteEgressTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
     	}
     },
     "ingress-types": {
@@ -208,6 +335,9 @@ export const authorities = {
     	},
     	"listIngressTypes": {
     	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	},
+      "deleteIngressTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
     	}
     },
     "relations-types": {
@@ -222,6 +352,9 @@ export const authorities = {
     	},
     	"listRelationsTypes": {
     	  "permittedRoles": ["ROLE_RELATIONS_TYPES.LIST"]
+    	},
+      "deleteRelationsTypes": {
+    	  "permittedRoles": ["ROLE_RELATIONS_TYPES.DELETE"]
     	}
     },
     "payments-types": {
@@ -236,6 +369,60 @@ export const authorities = {
     	},
     	"listPaymentsTypes": {
     	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.LIST"]
+    	},
+      "deletePaymentsTypes": {
+    	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.DELETE"]
+    	}
+    },
+    "position-types": {
+      "addPositionTypes": {
+    	   "permittedRoles": ["ROLE_POSITION_TYPES.ADD"]
+    	 },
+    	"editPositionTypes": {
+    	  "permittedRoles": ["ROLE_POSITION_TYPES.EDIT"]
+    	},
+    	"viewPositionTypes": {
+    	  "permittedRoles": ["ROLE_POSITION_TYPES.VIEW"]
+    	},
+    	"listPositionTypes": {
+    	  "permittedRoles": ["ROLE_POSITION_TYPES.LIST"]
+    	},
+      "deletePositionTypes": {
+    	  "permittedRoles": ["ROLE_POSITION_TYPES.DELETE"]
+    	}
+    },
+    "study-types": {
+      "addStudyTypes": {
+    	   "permittedRoles": ["ROLE_SERVICE_TYPES.ADD"]
+    	 },
+    	"editStudyTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.EDIT"]
+    	},
+    	"viewStudyTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.VIEW"]
+    	},
+    	"listStudyTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.LIST"]
+    	},
+      "deleteStudyTypes": {
+    	  "permittedRoles": ["ROLE_SERVICE_TYPES.DELETE"]
+    	}
+    },
+    "document-types": {
+      "addDocumentTypes": {
+    	   "permittedRoles": ["ROLE_DOCUMENT_TYPES.ADD"]
+    	 },
+    	"editDocumentTypes": {
+    	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.EDIT"]
+    	},
+    	"viewDocumentTypes": {
+    	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.VIEW"]
+    	},
+    	"listDocumentTypes": {
+    	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.LIST"]
+    	},
+      "deleteDocumentTypes": {
+    	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.DELETE"]
     	}
     },
     "modality": {
@@ -250,6 +437,9 @@ export const authorities = {
     	},
     	"listModality": {
     	  "permittedRoles": ["ROLE_MODALITY.LIST"]
+    	},
+      "deleteModality": {
+    	  "permittedRoles": ["ROLE_MODALITY.DELETE"]
     	}
     },
     "message": {

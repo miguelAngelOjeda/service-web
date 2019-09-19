@@ -70,18 +70,16 @@ export class ViewCreditsComponent implements OnInit {
     });
   }
 
-  viewPeople(idSolicitud: number, idPersona: number) {
+  viewPeople(idSolicitud: number, idPersona: number,type: string) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { id: this.myForm.value.id, model: null, title:'Visualizar Deudor' };
+    dialogConfig.data = { model: null, title:'Visualizar Deudor' };
+    if(type === 'DEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Deudor' };
+    }else if(type === 'CODEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Codeudor' };
+    }
     dialogConfig.autoFocus = true;
-    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, dialogConfig);
-  }
-
-  viewCodeudor(idSolicitud: number, idPersona: number) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = { model: null, title:'Visualizar Codeudor' };
-    dialogConfig.autoFocus = true;
-    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, dialogConfig);
+    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
   }
 
   delete(data: any){

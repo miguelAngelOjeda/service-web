@@ -1,9 +1,9 @@
 <div class="row  m-t-10">
   <div class="col-md-12">
-    <h4  class="m-0"><mat-icon class="gray-text">archive</mat-icon>Archivos adjuntos    
+    <h4  class="m-0"><mat-icon class="gray-text">archive</mat-icon>Archivos adjuntos
     </h4>
   </div>
-  <div class="col-md-12" *ngIf="uploadForm.get(formArrayName)['controls'].length > 1">
+  <div class="col-md-12 m-t-10" *ngIf="uploadForm.get(formArrayName)['controls'].length > 1">
     <button type="button" class="btn btn-info" (click)="viewImageAll()">Visualizar Todos</button>
   </div>
   <div class="col-md-12 m-t-10">

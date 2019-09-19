@@ -263,7 +263,7 @@
           </div>
           <div class="col-md-12" *ngIf="myForm.get('codeudor')?.get('id').value">
             <fieldset class="m-t-20">
-              <legend><mat-icon class="gray-text">event_note</mat-icon>Codeudores</legend>
+              <legend><mat-icon class="gray-text">people_outline</mat-icon>Codeudores</legend>
               <div class="row">
                 <div class="col-md-4">
                   <!-- <fieldset class="m-t-10" > -->
@@ -289,15 +289,15 @@
                               + (myForm.controls['codeudor'].get('ruc')?.value == null ? '' : '/' + myForm.controls['codeudor'].get('ruc')?.value)}}</p>
                         		<p *ngIf="myForm.controls['codeudor']['controls']?.profesion.value" class="m-b-5">{{myForm.controls['codeudor']['controls']?.profesion.value?.nombre}}</p>
                             <p *ngIf="myForm.controls['codeudor'].get('email')?.value" class="m-b-5">{{myForm.controls['codeudor'].get('email')?.value }}</p>
-                            <p *ngIf="myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value" class="m-b-5">Telf. {{
-                              (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
+                            <p *ngIf="myForm.controls['codeudor'].get('telefonoParticular')?.value" class="m-b-5">Telf. {{
+                              (myForm.controls['codeudor'].get('telefonoParticular')?.value == null ? '' : myForm.controls['codeudor'].get('telefonoParticular')?.value)
                               + ' ' +
-                              (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
+                              (myForm.controls['codeudor'].get('telefonoSecundario')?.value == null ? '' : myForm.controls['codeudor'].get('telefonoSecundario')?.value)
                               }}</p>
                               <div class="d-flex flex-row comment-row ng-star-inserted">
                                 <div class="comment-text w-100">
                                   <div class="comment-footer">
-                                    <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('id').value, myForm.get('cliente').get('persona').get('id').value,'DEUDOR')"><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('id').value, myForm.controls['codeudor'].get('id').value,'CODEUDOR')"><i class="fa fa-eye"></i></button>
                                   </div>
                                 </div>
                               </div>

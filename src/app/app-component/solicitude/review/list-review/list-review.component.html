@@ -89,10 +89,12 @@
           <ng-container matColumnDef="opciones">
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <button mat-icon-button routerLink="/service-web/review/{{element.id}}" *appCanAccess="['review', 'viewReview']"><mat-icon>visibility</mat-icon></button>
+                  <div *ngIf="element.estado.id == 3 || element.estado.id == 4">
+                    <button mat-icon-button routerLink="/service-web/review/{{element.id}}" *appCanAccess="['review', 'viewReview']"><mat-icon>visibility</mat-icon></button>
+                  </div>
                   <div *ngIf="element.estado.id == 1">
                     <button mat-icon-button routerLink="/service-web/my-review/{{element.id}}/review" *appCanAccess="['my-review', 'editMyReview']"><mat-icon>assessment</mat-icon></button>
-                  </div>            
+                  </div>
                 </mat-cell>
             </ng-container>
 
