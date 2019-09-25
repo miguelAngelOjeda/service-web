@@ -10,6 +10,7 @@ import { Message } from '../../../../core/models';
 import { DeleteDialogComponent } from '../../../../shared';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../../shared/people';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-view-credits',
@@ -18,6 +19,7 @@ import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleCompo
 })
 export class ViewCreditsComponent implements OnInit {
   myForm: FormGroup;
+  urlImage = environment.api_url;
 
   constructor(private creditsService:CreditsService,
               private router: Router,
@@ -30,29 +32,7 @@ export class ViewCreditsComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.creditsService.initFormBuilder();
-    this.myForm.controls['tipoGarantia'].valueChanges.subscribe(
-        (tipoGarantia) => {
-          if(tipoGarantia.id == 3){
-            this.myForm.removeControl('codeudor');
-          }else if(tipoGarantia.id == 2){
-            this.myForm.addControl('codeudor', this.formBuilder.group({
-              id: [null],
-              profesion: [null],
-              documento: [null],
-              nombre: null ,
-              email: [null],
-              sexo: [null],
-              telefonoParticular: [null],
-              telefonoSecundario: null,
-              primerNombre: [null],
-              segundoNombre: null,
-              primerApellido: [null],
-              segundoApellido: null }));
-          }else{
-            this.myForm.removeControl('codeudor');
-          }
-        }
-    );
+
     this.apiService.get('/solicitud_creditos/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){

@@ -10,7 +10,6 @@
                     <img alt="homepage" src="assets/images/gow.svg" style="height: 70px;">
                   </div>
                   <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
-                    <mat-card color="danger" *ngIf="errorMsg">{{errorMsg}}</mat-card>
                     <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
                       <mat-form-field class="mat-headline" appearance="legacy">
                         <input matInput #input  placeholder="Usuario"  name="username" [(ngModel)]="model.username" required>
@@ -25,6 +24,9 @@
                     		<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                       </mat-form-field>
                     </div>
+                  </div>
+                  <div  class="text-center">
+                    <mat-error *ngIf="errorMsg"><span class="current font-20">{{errorMsg}}</span></mat-error>
                   </div>
                   <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
                     <button class="btn-block btn-lg m-t-20 m-b-20 mat-raised-button mat-primary" color="secondary" mat-raised-button="" type="submit" [disabled]="!formControl.valid">

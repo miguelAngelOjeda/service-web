@@ -52,9 +52,13 @@ export class LoginComponent implements OnInit {
         },
         err => {
           this.errors = err;
-          console.log(err);
-          this.errorMsg = err;
-          this.isSubmitting = false;
+          if(err.status === 401){
+            this.errorMsg = 'Usuario o Contraseña Inválidos.';
+            this.isSubmitting = false;
+          }else{
+            this.errorMsg = 'Error al conectarse con la aplicación.';
+            this.isSubmitting = false;
+          }
         }
       );
     }

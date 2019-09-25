@@ -18,7 +18,7 @@ const MENUITEMS = [
     state: 'progress-snipper',
     type: 'box',
     name: 'Recursos Humanos',
-    icon: 'assignment',
+    icon: 'group',
     entity:'rrhh',
     role:'viewRRHH',
     subMenu:[
@@ -36,7 +36,17 @@ const MENUITEMS = [
     role:'listCredits',
     subMenu:[
       {state: 'credits', name: 'Solicitudes Creditos', icon: 'monetization_on', entity:'credits', role:'listCredits'},
-      {state: 'card', name: 'Solicitudes Tarjetas', icon: 'credit_card', entity:'card',  role:'listCard'},
+      {state: 'card', name: 'Solicitudes Tarjetas', icon: 'credit_card', entity:'card',  role:'listCard'}
+    ]
+  },
+  {
+    state: 'progress-snipper',
+    type: 'box',
+    name: 'Analisis',
+    icon: 'filter',
+    entity:'review-group',
+    role:'viewGroup',
+    subMenu:[
       {state: 'review', name: 'Analisis Solicitudes', icon: 'assignment_turned_in', entity:'review',  role:'listReview'},
       {state: 'my-review', name: 'Mis Analisis', icon: 'assignment_turned_in', entity:'my-review',  role:'listMyReview'},
     ]

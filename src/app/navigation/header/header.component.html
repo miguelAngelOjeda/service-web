@@ -113,8 +113,8 @@
   </div>
 </mat-toolbar> -->
 <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
-   <img *ngIf="!currentUser.imagePath"  src="assets/images/users/1.jpg" alt="user" class="profile-pic">
-   <img *ngIf="currentUser.imagePath" [src]="urlImage + '/DisplayImage?url=' + currentUser.imagePath"  alt="user" class="profile-pic">
+   <img *ngIf="currentUser.imagePath === 'null'"  src="assets/images/users/1.jpg" alt="user" class="profile-pic">
+   <img *ngIf="currentUser.imagePath !== 'null'" [src]="urlImage + '/DisplayImage?url=' + currentUser.imagePath"  alt="user" class="profile-pic">
  </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
     <button mat-menu-item> <mat-icon>settings</mat-icon> Configuraciones </button>

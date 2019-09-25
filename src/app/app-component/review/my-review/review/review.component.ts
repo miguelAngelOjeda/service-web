@@ -3,6 +3,7 @@ import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { UserService, ApiService} from '../../../../core/services';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ViewModalPeopleComponent } from '../../../shared/people';
+import { ReviewService } from '../../review.service';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { PeopleService } from '../../../shared/people/people.service';
 
@@ -20,11 +21,12 @@ export class ReviewComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private peopleService: PeopleService,
+    private reviewService: ReviewService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.initFormBuilder();
+    this.myForm = this.reviewService.initFormBuilder();
     this.apiService.get('/analisis_solicitudes/analizar/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
@@ -37,8 +39,36 @@ export class ReviewComponent implements OnInit {
               detalles.removeAt(0);
             }
             res.model.detalles.forEach(staff => {
-              detalles.push(this.formBuilder.group(staff));
+              let form = this.formBuilder.group(staff);
+              this.reviewService.valueChanges(form);
+              detalles.push(form);
             });
+            //this.valueChanges();
+          }
+        }
+      }
+    });
+  }
+
+  onSubmit() {
+    console.log(this.myForm.value);
+    this.apiService.put('/analisis_solicitudes/' + this.route.snapshot.params.id, this.myForm.value)
+    .subscribe(res => {
+      if(res.status == 200){
+        this.myForm.patchValue(res.model);
+        //Cargar Ocupaciones
+        if(res.model.detalles != null &&  res.model.detalles.length > 0){
+          const detalles = (<FormArray>this.myForm.get('detalles'));
+          if(detalles){
+            while (detalles.length) {
+              detalles.removeAt(0);
+            }
+            res.model.detalles.forEach(staff => {
+              let form = this.formBuilder.group(staff);
+              this.reviewService.valueChanges(form);
+              detalles.push(form);
+            });
+            //this.valueChanges();
           }
         }
       }
@@ -47,7 +77,6 @@ export class ReviewComponent implements OnInit {
 
   viewPeople(idSolicitud: number, idPersona: number,type: string) {
     const dialogConfig = new MatDialogConfig();
-
     if(type === 'DEUDOR'){
       dialogConfig.data = { model: null, title:'Visualizar Deudor' };
     }else if(type === 'CONY_DEUDOR'){
@@ -57,62 +86,8 @@ export class ReviewComponent implements OnInit {
     }else if(type === 'CONY_CODEUDOR'){
       dialogConfig.data = { model: null, title:'Visualizar Conyuge Codeudor' };
     }
-
     dialogConfig.autoFocus = true;
     this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
-  }
-
-  initFormBuilder() {
-    this.myForm = this.formBuilder.group({
-      id: null,
-      fechaInicioAnalisis: null ,
-      fechaFinAnalisis: null,
-      fechaPrimeraAprobRech: null,
-      fechaSegundaAprobRech: null,
-      funcionarioAprobacion: null,
-      estado: null,
-      montoAprobado: null,
-      observacion: null,
-      observacionRecomendacion: null,
-      funcionarioAnalisis: null,
-      funcionarioVerificador: null,
-      propuestaSolicitud: null,
-      detalles: this.formBuilder.array([
-          // this.formBuilder.group({
-          //   id: [null],
-          //   tipoRelacion: [null],
-          //   idConyuge: [null],
-          //   nombreConyuge: null ,
-          //   montoDeuda: [null],
-          //   montoDeudaCuotas: [null],
-          //   montoDeudaTarjeta: [null],
-          //   montoDeudaTarjetaMinimo: null,
-          //   montoDeudaConyuge: [null],
-          //   montoCuotaACancelar: null,
-          //   montoDeudaCuotasConyuge: [null],
-          //   montoDeudaTarjetaConyuge: [null],
-          //   montoDeudaTarjetaMinimoConyuge: [null],
-          //   montoDeudaTotal: [null],
-          //   montoDeudaTotalCuota: [null],
-          //   montoDeudaDescuento: [null],
-          //   montoDeudaDescuentoCuotas: [null],
-          //   montoDeudaDescuentoTotal: null ,
-          //   montoDeudaSolicitud: [null],
-          //   montoDeudaSolicitudCuotas: [null],
-          //   montoDeudaSolicitudTotal: [null],
-          //   montoDeudaSolicitudCuotaTotal: null,
-          //   saldoTotalSolicitud: [null],
-          //   ingresoTotal: null,
-          //   egresosTotal: [null],
-          //   porcentajeCapacidad: [null],
-          //   ingresosOtros: [null],
-          //   porcentajeCapacidadOtros: [null],
-          //   totalDiferenciaIngEgr: [null],
-          //   calificacionCreditosActual: null,
-          //   garantiasVigente: [null],
-          //   informconf: [null]})
-          ])
-    });
   }
 
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserService } from '../../../core/services';
+import { UserService } from '../../core/services';
 import { ListReviewComponent, ViewReviewComponent } from '../review';
 
 

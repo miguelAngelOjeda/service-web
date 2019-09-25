@@ -1,25 +1,25 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ListReviewComponent, ViewReviewComponent } from '../review';
-import { MaterialModule } from '../../../core/material/material.module';
+import { MaterialModule } from '../../core/material/material.module';
 import { ReviewRoutingModule } from './review-routing.module';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
-import { MapComponent } from '../../../shared/map';
-import { SharedModule, SnackbarComponent} from '../../../shared';
-import { DeleteDialogComponent } from '../../../shared/dialog';
-import { DepartmentComponent } from '../../shared';
-import { SharedAppModule} from '../../shared';
+import { MapComponent } from '../../shared/map';
+import { SharedModule, SnackbarComponent} from '../../shared';
+import { DeleteDialogComponent } from '../../shared/dialog';
+import { DepartmentComponent } from '../shared';
+import { SharedAppModule} from '../shared';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComponent,
   ViewReferenceComponent,ViewIngressComponent,ViewEgressComponent,ViewPeopleComponent,
   ViewOccupationComponent,ViewEstateComponent,
-   VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../../shared';
+   VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../shared';
 import { ImageViewerModule } from 'ng2-image-viewer';
 import { NgxCurrencyModule } from "ngx-currency";
 

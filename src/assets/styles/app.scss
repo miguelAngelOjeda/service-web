@@ -82,6 +82,10 @@ a.link{
 .img-rounded{
     border-radius: $radius;
 }
+.avatar-lg {
+    width: 100px;
+    border-radius: 100%;
+}
 html body .mdi:before, html body .mdi-set{
     line-height: initial;
 }

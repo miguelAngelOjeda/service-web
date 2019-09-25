@@ -8,7 +8,7 @@ import { PeopleService } from '../../../shared/people/people.service';
 import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../../shared/people';
-
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-add-credits',
@@ -20,6 +20,7 @@ export class AddCreditsComponent implements OnInit{
   validateForm = true;
   isSeparacionBienes = true;
   isTieneHipoteca = 0;
+  urlImage = environment.api_url;
 
   constructor(
     private router: Router,

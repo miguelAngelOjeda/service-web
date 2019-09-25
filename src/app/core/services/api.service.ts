@@ -26,7 +26,7 @@ export class ApiService {
 
   getPageList(path: string, _search: boolean = false, filters: string = null,
      rulesColumns: any = null, sort: string = 'desc', sidx: string = 'id',
-   page: number = 1, rows: number = 10, all: boolean = false, fkModel: string = null): Observable<any> {
+   page: number = 1, rows: number = 10, all: boolean = false, fkModel: string = null, groupOp: string = 'OR'): Observable<any> {
       this.userService.validateTokensSession();
       this.rules = [];
       if(_search){
@@ -38,7 +38,7 @@ export class ApiService {
                   data: filters
               });
         }
-        this.filter.groupOp = 'OR';
+        this.filter.groupOp = groupOp;
         this.filter.rules = this.rules;
       }
       let params = new HttpParams({
@@ -53,7 +53,7 @@ export class ApiService {
           'filters' : JSON.stringify(this.filter)
         }
       });
-      
+
     return this.http.get(`${environment.api_url}${path}`, { params })
       .pipe(catchError(this.formatErrors));
   }

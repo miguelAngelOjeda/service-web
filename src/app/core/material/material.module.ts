@@ -94,10 +94,6 @@ export const MY_FORMATS = {
     MatToolbarModule,
     MatTabsModule,
     MatSidenavModule
-  ],
-  providers: [
-
-  ],
-  declarations: []
+  ]
 })
 export class MaterialModule { }

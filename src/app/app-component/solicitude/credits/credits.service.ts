@@ -42,6 +42,7 @@ export class CreditsService {
         telefonoSecundario: null,
         primerNombre: [null],
         segundoNombre: null,
+        imagePath: null,
         primerApellido: [null],
         segundoApellido: null }),
       modalidad: [null, [Validators.required]],
@@ -66,6 +67,7 @@ export class CreditsService {
       seguros: [0],
       entidad: null,
       estado: null,
+      evaluacion: null,
       observacionesDepartamento: null,
       montoSolicitado: [0, [Validators.required]],
       montoSolicitadoOriginal: [null, [Validators.required]],
@@ -417,6 +419,18 @@ export class CreditsService {
                     let periodoInteres = this.periodoInteresCompuesto(plazo, interes, periodoCapital, vencimientoInteres)
 
                     let montoInteres = montoSolicitado * periodoInteres;
+
+                    let montoTotal = Math.round(montoSolicitado + montoInteres);
+
+                    let montoCuota = montoTotal / plazo;
+
+                    //formGroup.controls['importeCuota'].setValue(Math.round(montoCuota));
+                    return Math.round(montoCuota);
+                  }else if(tipoCalculoImporte != null && tipoCalculoImporte == 'TC-6'){
+
+                    let interes = this.calcularInteres(gastosAdministrativos, tasaInteres);
+
+                    let montoInteres = montoSolicitado * interes;
 
                     let montoTotal = Math.round(montoSolicitado + montoInteres);
 

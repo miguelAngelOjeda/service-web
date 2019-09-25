@@ -10,6 +10,7 @@ import { Message } from '../../../../core/models';
 import { DeleteDialogComponent } from '../../../../shared';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../../shared/people';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-edit-credits',
@@ -21,7 +22,8 @@ export class EditCreditsComponent implements OnInit {
   validateForm = true;
   isSeparacionBienes = true;
   isTieneHipoteca = 0;
-
+  urlImage = environment.api_url;
+  
   constructor(private creditsService:CreditsService,
               private router: Router,
               private dialog: MatDialog,

@@ -7,9 +7,64 @@
 </div>
 <div>
   <mat-card>
+    <!-- <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4  class="m-0"><mat-icon class="gray-text" role="img" aria-hidden="true">search</mat-icon>Filtro Detallado</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="filterForm" (ngSubmit)="filterSubmit()">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field  appearance="legacy">
+               <input matInput #input [matDatepicker]="pickerInicio" formControlName="fechaInicio"  name="fechaInicio" placeholder="Fecha Inicio" required>
+               <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+               <mat-datepicker #pickerInicio></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field  appearance="legacy">
+               <input matInput #input [matDatepicker]="pickerFin" formControlName="fechaFin"  name="fechaFin" placeholder="Fecha Fin" required>
+               <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+               <mat-datepicker #pickerFin></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="legacy">
+                <input matInput placeholder="Nro. Solicitud" formControlName="nroSolicitud"  name="nroSolicitud">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="legacy">
+                <input matInput placeholder="Estado">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <app-select-filter appearance="legacy" (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal').value"
+               placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="legacy">
+                <input matInput placeholder="Documento" formControlName="documento"  name="documento">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="legacy">
+                <input matInput placeholder="Ruc" formControlName="ruc"  name="ruc">
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <button mat-button #filterButton (click)="true" mat-raised-button value="button">Filtrar</button>
+            </div>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion> -->
     <mat-card-content>
     <!-- <mat-card-subtitle> </mat-card-subtitle> -->
       <!-- <p> -->
+
         <mat-form-field appearance="fill">
           <input matInput #filter placeholder="Buscar....." class="form-control-success">
           <mat-icon matSuffix>search</mat-icon>
@@ -71,7 +126,30 @@
           <ng-container matColumnDef="estado.nombre">
               <mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="estado">
-                {{element.estado.nombre}}
+                <div *ngIf="element.estado.id == 4">
+                  <span class="label label-danger">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{element.estado.nombre}}</font>
+                    </font>
+                  </span>
+                </div>
+                <div *ngIf="element.estado.id == 5">
+                  <span class="label label-warning">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{element.estado.nombre}}</font>
+                    </font>
+                  </span>
+                </div>
+                <div *ngIf="element.estado.id == 1 || element.estado.id == 2">
+                  <span class="label label-info">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{element.estado.nombre}}</font>
+                    </font>
+                  </span>
+                </div>
+                <div *ngIf="element.estado.id == 3 || element.estado.id == 6">
+                  <span class="label label-success">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{element.estado.nombre}}</font>
+                    </font>
+                  </span>
+                </div>
               </mat-cell>
           </ng-container>
 
@@ -79,11 +157,10 @@
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button routerLink="/service-web/credits/{{element.id}}" *appCanAccess="['credits', 'viewCredits']"><mat-icon>visibility</mat-icon></button>
-                  <div *ngIf="element.estado.id !== 1">
-                    <button mat-icon-button routerLink="/service-web/credits/{{element.id}}" *appCanAccess="['credits', 'viewCredits']"><mat-icon>assessment</mat-icon></button>
+                  <div *ngIf="element.estado.id == 1 || element.estado.id == 5">
+                    <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>edit</mat-icon></button>
                   </div>
                   <div *ngIf="element.estado.id == 1">
-                    <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>edit</mat-icon></button>
                     <button  mat-icon-button (click)="delete(element)"> <mat-icon>delete</mat-icon></button>
                   </div>
                 </mat-cell>

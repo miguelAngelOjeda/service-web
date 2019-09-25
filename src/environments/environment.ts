@@ -170,6 +170,11 @@ export const authorities = {
         "ROLE_OUTLAYS_TYPES.LIST","ROLE_SERVICE_TYPES.LIST","ROLE_MODALITY.LIST","ROLE_PAYMENTS_TYPES.LIST","ROLE_STUDY_TYPES.LIST","ROLE_DOCUMENT_TYPES.LIST"]
     	}
     },
+    "review-group": {
+    	"viewGroup": {
+    	  "permittedRoles": ["ROLE_REVIEW.LIST","ROLE_MY_REVIEW.LIST"]
+    	}
+    },
     "rrhh": {
     	"viewRRHH": {
     	  "permittedRoles": ["ROLE_FUNCTIONARY.LIST","ROLE_FUNCTIONARY_TYPES.LIST","ROLE_HORARY_TYPES.LIST"]
