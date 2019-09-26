@@ -22,6 +22,8 @@ export class ReviewService {
       montoAprobado: null,
       observacion: null,
       observacionRecomendacion: null,
+      observacionRetransferencia: null,
+      obsApro: null,
       funcionarioAnalisis: null,
       funcionarioVerificador: null,
       propuestaSolicitud: null,

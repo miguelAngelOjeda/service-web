@@ -21,7 +21,7 @@
         </ng-template> -->
         <mat-card-content *ngIf="myForm.get('id').value">
           <div class="row">
-            <div class="col-md-12 m-b-10" *ngIf="myForm.get('estado')?.value?.id == 1">
+            <div class="col-md-12 m-b-10" *ngIf="myForm.get('estado')?.value?.id == 1 || myForm.get('estado')?.value?.id == 5">
                 <button type="button" class="btn btn-secondary pull-right" (click)="transferirPropuesta(myForm.get('id').value)"><span class="font-bold">Transferir Propuesta</span></button>
             </div>
 
@@ -466,6 +466,18 @@
                   </blockquote>
                 </div>
               </div>
+            </div>
+            <div class="col-md-12 m-t-10" *ngIf="myForm.get('evaluacion')?.value?.estado?.id == 5">
+              <fieldset>
+                <legend>Observación Retransferencia</legend>
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <textarea matInput placeholder="Observación" [value]="myForm.get('evaluacion')?.value?.observacionRetransferencia"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </fieldset>
             </div>
             <div class="col-md-12  m-t-10" *ngIf="myForm.get('id').value && myForm.get('entidad').value">
               <app-upload [entidad]="myForm.get('entidad').value" [idEntidad]="myForm.get('id').value"></app-upload>
