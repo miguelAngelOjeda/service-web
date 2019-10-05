@@ -76,4 +76,27 @@ export class ViewFunctionaryComponent implements OnInit {
      });
    }
 
+   delete(data: any){
+     if(data.id){
+       const message = new Message;
+       message.titulo = "Eliminar Registro"
+       message.texto = "Esta seguro que desea eliminar el registro!! ";
+
+       const dialogConfig = new MatDialogConfig();
+       dialogConfig.data = message;
+
+       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+       dialogRef.afterClosed().subscribe(result => {
+         if(result){
+           this.apiService.delete('/funcionarios/' + data.id)
+           .subscribe(res => {
+               if(res.status == 200){
+                 this.router.navigateByUrl('service-web/functionary');
+               }
+           });
+         }
+       })
+     }
+   }
+
 }

@@ -3,7 +3,7 @@
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
 </div>
 <mat-card class="form-card">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
       <mat-card-content *ngIf="myForm.get('propuestaSolicitud').value != null">
         <div class="row">
           <div class="col-md-12">
@@ -603,7 +603,7 @@
                       <mat-radio-button [checked]="myForm.get('estado')?.value.id == 4" class="p-l-10"  [value]="{id:4}">Rechazar</mat-radio-button>
                       <mat-radio-button [checked]="myForm.get('estado')?.value.id == 5" class="p-l-10"  [value]="{id:5}">Retransferir</mat-radio-button>
                       <mat-radio-button [checked]="myForm.get('estado')?.value.id == 3" class="p-l-10"  [value]="{id:3}">Pre-Aprobar</mat-radio-button>
-                      <mat-radio-button [checked]="myForm.get('estado')?.value.id == 6" class="p-l-10"  [value]="{id:6}">Aprobar</mat-radio-button>
+                      <mat-radio-button *ngIf="!myForm.get('requiereVerificador').value" [checked]="myForm.get('estado')?.value.id == 6" class="p-l-10"  [value]="{id:6}">Aprobar</mat-radio-button>
                     </mat-radio-group>
                     <mat-error *ngIf="(myForm.get('estado').errors)">
                       <span *ngIf="myForm.get('estado').errors.required">

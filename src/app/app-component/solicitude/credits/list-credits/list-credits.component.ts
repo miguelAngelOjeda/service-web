@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort} from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog, MatDialogConfig, MatSort, PageEvent, Sort} from '@angular/material';
 import { ApiService } from '../../../../core/services';
-import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
+import { Message } from '../../../../core/models';
+import { DeleteDialogComponent } from '../../../../shared';
+import { merge, fromEvent, Observable, of as observableOf} from 'rxjs';
+import { catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 
 @Component({
@@ -14,7 +16,8 @@ export class ListCreditsComponent implements OnInit {
   public isMobile: Boolean;
   filterForm: FormGroup;
   public rulesColumns  = ['cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre', 'cliente.persona.segundoNombre', 'cliente.persona.primerApellido', 'estado.nombre'];
-  public displayedColumns = ['id','fechaPresentacion', 'cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre' , 'montoSolicitadoOriginal', 'sucursal.nombre', 'estado.nombre', 'opciones'];
+  public displayedColumns = ['id','fechaPresentacion', 'cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre' ,
+   'montoSolicitadoOriginal', 'sucursal.nombre', 'estado.nombre', 'desembolsado', 'fechaDesembolso', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -32,6 +35,7 @@ export class ListCreditsComponent implements OnInit {
   pageEvent: PageEvent;
   constructor(
     private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     private apiService: ApiService
   ) { }
 
@@ -69,8 +73,27 @@ export class ListCreditsComponent implements OnInit {
         ).subscribe(data => this.dataSource.data = data);
   }
 
-  filterSubmit() {
+  delete(data: any){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro!! ";
 
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/solicitud_creditos/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                this.paginator._changePageSize(this.paginator.pageSize);
+              }
+          });
+        }
+      })
+    }
   }
 
   getValue(data: any, form : any): void {

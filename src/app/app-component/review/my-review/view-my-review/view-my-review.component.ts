@@ -14,7 +14,7 @@ import { PeopleService } from '../../../shared/people/people.service';
 })
 export class ViewMyReviewComponent implements OnInit {
   myForm: FormGroup;
-  
+
   constructor(
     private apiService: ApiService,
     private formBuilder: FormBuilder,
@@ -48,6 +48,21 @@ export class ViewMyReviewComponent implements OnInit {
         }
       }
     });
+  }
+
+  viewPeople(idSolicitud: number, idPersona: number,type: string) {
+    const dialogConfig = new MatDialogConfig();
+    if(type === 'DEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Deudor' };
+    }else if(type === 'CONY_DEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Conyuge Deudor' };
+    }else if(type === 'CODEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Codeudor' };
+    }else if(type === 'CONY_CODEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Conyuge Codeudor' };
+    }
+    dialogConfig.autoFocus = true;
+    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
   }
 
 }

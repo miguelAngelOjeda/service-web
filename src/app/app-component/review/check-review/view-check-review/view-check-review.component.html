@@ -3,7 +3,7 @@
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
 </div>
 <mat-card class="form-card">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="myForm">
       <mat-card-content *ngIf="myForm.get('propuestaSolicitud').value != null">
         <div class="row">
           <div class="col-md-12">

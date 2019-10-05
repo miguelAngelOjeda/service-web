@@ -32,7 +32,36 @@
                       </div>
                     </div>
                   </div>
+                  <div class="d-flex flex-row comment-row ng-star-inserted m-t-10">
+                    <div class="comment-text w-100">
+                      <div class="comment-footer">
+                        <span class="text-muted"><span class="font-bold">Asesor: </span>{{
+                          (myForm.controls['funcionario']?.value?.persona.primerNombre == null ? '' : myForm.controls['funcionario']?.value?.persona.primerNombre)
+                          + ' ' +
+                          (myForm.controls['funcionario']?.value?.persona.segundoNombre == null ? '' : myForm.controls['funcionario']?.value?.persona.segundoNombre)
+                          + ' ' +
+                          (myForm.controls['funcionario']?.value?.persona.primerApellido == null ? '' : myForm.controls['funcionario']?.value?.persona.primerApellido)
+                          + ' ' +
+                          (myForm.controls['funcionario']?.value?.persona.segundoApellido == null ? '' : myForm.controls['funcionario']?.value?.persona.segundoApellido)
+                          }}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <!-- <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Asesor Alias: </span> {{myForm.get('funcionario')?.value?.alias}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Asesor Legajo: </span> {{myForm.get('funcionario')?.value?.nroLegajo}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div> -->
                 <div class="col-md-12 m-t-20">
                   <div class="d-flex align-items-center m-b-30">
                     <div class="avatar-detail">
@@ -182,6 +211,13 @@
                   <mat-list>
                     <mat-list-item>
                       <p><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('gastosAdministrativos')?.value}}</p>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+                <div class="col-md-4">
+                  <mat-list>
+                    <mat-list-item>
+                      <p><span class="font-bold">Estado: </span> {{myForm.get('estado')?.value.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>

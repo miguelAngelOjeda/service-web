@@ -91,7 +91,7 @@
             </div>
             <div class="col-md-3">
               <mat-form-field appearance="legacy">
-                 <input matInput #input type="number" min="0"  placeholder="Expiración Sesion" formControlName="expirationTimeTokens" name="expirationTimeTokens" required>
+                 <input matInput #input type="number" min="0"  placeholder="Expiración Sesion(Minutos)" formControlName="expirationTimeTokens" name="expirationTimeTokens" required>
                  <mat-error *ngIf="(myForm.get('expirationTimeTokens').errors)">
                    <span *ngIf="myForm.get('expirationTimeTokens').errors.required">
                     Campo requerido

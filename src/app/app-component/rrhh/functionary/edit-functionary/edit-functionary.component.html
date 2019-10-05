@@ -36,12 +36,7 @@
             </div>
             <div class="col-md-3">
               <mat-form-field appearance="legacy">
-                 <input matInput #input type="text"  placeholder="Numero Legajo" formControlName="nroLegajo" name="nroLegajo" required>
-                 <mat-error *ngIf="(myForm.get('nroLegajo').errors)">
-                   <span *ngIf="myForm.get('nroLegajo').errors.required">
-                    Campo requerido
-                   </span>
-                 </mat-error>
+                 <input matInput #input type="text" [value]="myForm.get('nroLegajo').value" placeholder="Numero Legajo" formControlName="nroLegajoVis" required>
               </mat-form-field>
             </div>
             <div class="col-md-3">
@@ -78,12 +73,7 @@
             </div>
             <div class="col-md-3">
               <mat-form-field  appearance="legacy">
-                <input matInput #input  formControlName="alias" placeholder="Alias"  name="alias" required>
-                <mat-error *ngIf="(myForm.get('alias').errors)">
-                  <span *ngIf="myForm.get('alias').errors.required">
-                   Campo requerido
-                  </span>
-                </mat-error>
+                <input matInput #input  [value]="myForm.get('alias').value" formControlName="aliasVis" placeholder="Alias"   required>
               </mat-form-field>
             </div>
             <div class="col-md-3">
@@ -99,7 +89,7 @@
             </div>
             <div class="col-md-3">
               <mat-form-field appearance="legacy">
-                 <input matInput #input type="number" min="0"  placeholder="Expiración Sesion" formControlName="expirationTimeTokens" name="expirationTimeTokens" required>
+                 <input matInput #input type="number" min="0"  placeholder="Expiración Sesion(Minutos)" formControlName="expirationTimeTokens" name="expirationTimeTokens" required disabled>
                  <mat-error *ngIf="(myForm.get('expirationTimeTokens').errors)">
                    <span *ngIf="myForm.get('expirationTimeTokens').errors.required">
                     Campo requerido

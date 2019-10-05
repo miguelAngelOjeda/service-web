@@ -57,7 +57,7 @@ export class AddModalPeopleComponent implements OnInit{
         }
       });
     }else{
-      this.apiService.post('/personas/' , this.myForm.value)
+      this.apiService.post('/personas/' , this.myForm.value.persona)
       .subscribe(res => {
         if(res.status == 200){
           this.dialogRef.close(res.model);

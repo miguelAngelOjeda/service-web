@@ -159,6 +159,22 @@
               </mat-form-field>
              </div>
           </div>
+          <div class="col-md-12">
+             <h4  class="m-0"><mat-icon class="gray-text">content_paste</mat-icon>Datos Sistema</h4>
+             <br>
+          </div>
+          <div class="row">
+             <div class="col-md-4">
+              <mat-form-field    appearance="legacy">
+                <input matInput #input  placeholder="Monto(+) Verificación Credito" formControlName="montoVerificacionCredito" name="montoVerificacionCredito" required>
+                <mat-error *ngIf="(businessForm.get('montoVerificacionCredito').errors)">
+                  <span *ngIf="businessForm.get('montoVerificacionCredito').errors.required">
+                   Campo requerido
+                  </span>
+                </mat-error>
+              </mat-form-field>
+             </div>
+          </div>
         </div>
       </div>
       <mat-card-actions>

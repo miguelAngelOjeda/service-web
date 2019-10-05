@@ -23,7 +23,7 @@ export class EditCreditsComponent implements OnInit {
   isSeparacionBienes = true;
   isTieneHipoteca = 0;
   urlImage = environment.api_url;
-  
+
   constructor(private creditsService:CreditsService,
               private router: Router,
               private dialog: MatDialog,
@@ -39,7 +39,7 @@ export class EditCreditsComponent implements OnInit {
     this.apiService.get('/solicitud_creditos/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
-        this.myForm.patchValue(res.model);
+        this.myForm.patchValue(res.model,{onlySelf: true, emitEvent: false});
       }
     });
   }
@@ -48,7 +48,7 @@ export class EditCreditsComponent implements OnInit {
     this.apiService.put('/solicitud_creditos/' + this.route.snapshot.params.id, this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.myForm.patchValue(res.model);
+        this.myForm.patchValue(res.model,{onlySelf: true, emitEvent: false});
       }
     });
   }

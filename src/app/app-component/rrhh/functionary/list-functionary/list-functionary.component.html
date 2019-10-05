@@ -85,7 +85,7 @@
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button routerLink="/service-web/functionary/{{element.id}}" *appCanAccess="['functionary', 'viewFunctionary']"><mat-icon>visibility</mat-icon></button>
                   <button mat-icon-button routerLink="/service-web/functionary/{{element.id}}/edit" *appCanAccess="['functionary', 'editFunctionary']"> <mat-icon>edit</mat-icon></button>
-                  <button mat-icon-button (click)="delete(element)" *appCanAccess="['functionary', 'deleteFunctionary']"> <mat-icon>delete</mat-icon></button>
+                  <button mat-icon-button (click)="delete(element)" *appCanAccess="['functionary', 'deleteFunctionary']"> <mat-icon color="warn">delete</mat-icon></button>
                 </mat-cell>
             </ng-container>
 

@@ -40,7 +40,7 @@ export class AddCreditsComponent implements OnInit{
     this.apiService.post('/solicitud_creditos', this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
-        this.myForm.patchValue(res.model);
+        this.myForm.patchValue(res.model,{onlySelf: true, emitEvent: false});
       }
     });
   }

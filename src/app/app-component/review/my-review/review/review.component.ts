@@ -51,7 +51,7 @@ export class ReviewComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.myForm.value);
+    console.log(this.myForm);
     this.apiService.put('/analisis_solicitudes/' + this.route.snapshot.params.id, this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){

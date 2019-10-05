@@ -54,6 +54,7 @@ export class EditBusinessComponent implements OnInit {
       latitud: null,
       longitud: null,
       imagePath: null,
+      montoVerificacionCredito: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       nombreFantasia: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       ruc: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],

@@ -47,6 +47,7 @@ export class CreditsService {
         segundoApellido: null }),
       modalidad: [null, [Validators.required]],
       fechaPresentacion: [null],
+      funcionario: [null],
       tipoCalculoImporte: [null, [Validators.required]],
       tipoDestino: [null, [Validators.required]],
       tipoGarantia: [null, [Validators.required]],
@@ -70,7 +71,8 @@ export class CreditsService {
       evaluacion: null,
       observacionesDepartamento: null,
       montoSolicitado: [0, [Validators.required]],
-      montoSolicitadoOriginal: [null, [Validators.required]],
+      montoSolicitadoOriginal: [null],
+      //montoAux: [null, [Validators.required]],
       importeCuota: [null, [Validators.required]],
       periodoGracia: [30, [Validators.required]],
       periodoCapital: ['30', [Validators.required]],
@@ -91,6 +93,7 @@ export class CreditsService {
     formGroup.controls['gastosVarios'].enable({onlySelf: true, emitEvent: false});
     formGroup.controls['seguros'].enable({onlySelf: true, emitEvent: false});
     formGroup.controls['tasaInteres'].enable({onlySelf: true, emitEvent: false});
+    formGroup.controls['tipoDescuento'].enable({onlySelf: true, emitEvent: false});
     formGroup.controls['gastosAdministrativos'].enable({onlySelf: true, emitEvent: false});
     formGroup.controls['periodoInteres'].enable({onlySelf: true, emitEvent: false});
     formGroup.controls['periodoCapital'].enable({onlySelf: true, emitEvent: false});
@@ -148,78 +151,91 @@ export class CreditsService {
                 tasaInteres, montoSolicitado, tipoCalculoImporte, gastosAdministrativos);
 
           formGroup.controls['importeCuota'].setValue(importeCuota);
+          //inicializar valores
+          formGroup.controls['impuestos'].setValue(0, {onlySelf: true, emitEvent: false});
+          formGroup.controls['comision'].setValue(0, {onlySelf: true, emitEvent: false});
+          formGroup.controls['gastosVarios'].setValue(0, {onlySelf: true, emitEvent: false});
+          formGroup.controls['seguros'].setValue(0, {onlySelf: true, emitEvent: false});
+          formGroup.controls['importeEntregar'].setValue(0, {onlySelf: true, emitEvent: false});
+          formGroup.controls['tipoDescuento'].setValue(null, {onlySelf: true, emitEvent: false});
+
         }
     );
 
     formGroup.controls['impuestos'].valueChanges.subscribe(
         (impuestos) => {
-          if(formGroup.get('tipoDescuento').value !== null){
-            if(formGroup.get('tipoDescuento').value == 'I-D'){
-              let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-              let montoEntregar = formGroup.get('montoSolicitadoOriginal').value - valorDescuento;
-              formGroup.controls['importeEntregar'].setValue(montoEntregar);
-              formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
-            }else{
-              let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-              let montoEntregar = formGroup.get('montoSolicitadoOriginal').value + valorDescuento;
-              formGroup.controls['importeEntregar'].setValue(montoEntregar);
-              formGroup.controls['montoSolicitado'].setValue(formGroup.get('importeEntregar').value);
-            }
-          }
+          console.log(formGroup.get('tipoDescuento').value);
+          formGroup.controls['tipoDescuento'].setValue(null);
+          // if(formGroup.get('tipoDescuento').value !== null){
+          //   if(formGroup.get('tipoDescuento').value == 'I-D'){
+          //     let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
+          //     let montoEntregar = formGroup.get('montoSolicitado').value - valorDescuento;
+          //     formGroup.controls['importeEntregar'].setValue(montoEntregar);
+          //     //formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
+          //   }else{
+          //     let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
+          //     let montoEntregar = formGroup.get('montoSolicitado').value + valorDescuento;
+          //     formGroup.controls['importeEntregar'].setValue(montoEntregar);
+          //     formGroup.controls['montoSolicitado'].setValue(formGroup.get('importeEntregar').value);
+          //   }
+          // }
         }
     );
 
     formGroup.controls['comision'].valueChanges.subscribe(
         (impuestos) => {
-          if(formGroup.get('tipoDescuento').value !== null){
-            if(formGroup.get('tipoDescuento').value == 'I-D'){
-              let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-              let montoEntregar = formGroup.get('montoSolicitadoOriginal').value - valorDescuento;
-              formGroup.controls['importeEntregar'].setValue(montoEntregar);
-              formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
-            }else{
-              let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-              let montoEntregar = formGroup.get('montoSolicitadoOriginal').value + valorDescuento;
-              formGroup.controls['importeEntregar'].setValue(montoEntregar);
-              formGroup.controls['montoSolicitado'].setValue(formGroup.get('importeEntregar').value);
-            }
-          }
+          formGroup.controls['tipoDescuento'].setValue(null);
+          // if(formGroup.get('tipoDescuento').value !== null){
+          //   if(formGroup.get('tipoDescuento').value == 'I-D'){
+          //     let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
+          //     let montoEntregar = formGroup.get('montoSolicitadoOriginal').value - valorDescuento;
+          //     formGroup.controls['importeEntregar'].setValue(montoEntregar);
+          //     formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
+          //   }else{
+          //     let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
+          //     let montoEntregar = formGroup.get('montoSolicitadoOriginal').value + valorDescuento;
+          //     formGroup.controls['importeEntregar'].setValue(montoEntregar);
+          //     formGroup.controls['montoSolicitado'].setValue(formGroup.get('importeEntregar').value);
+          //   }
+          // }
         }
     );
 
     formGroup.controls['gastosVarios'].valueChanges.subscribe(
         (impuestos) => {
-          if(formGroup.get('tipoDescuento').value !== null){
-            if(formGroup.get('tipoDescuento').value == 'I-D'){
-              let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-              let montoEntregar = formGroup.get('montoSolicitadoOriginal').value - valorDescuento;
-              formGroup.controls['importeEntregar'].setValue(montoEntregar);
-              formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
-            }else{
-              let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-              let montoEntregar = formGroup.get('montoSolicitadoOriginal').value + valorDescuento;
-              formGroup.controls['importeEntregar'].setValue(montoEntregar);
-              formGroup.controls['montoSolicitado'].setValue(formGroup.get('importeEntregar').value);
-            }
-          }
+          formGroup.controls['tipoDescuento'].setValue(null);
+          // if(formGroup.get('tipoDescuento').value !== null){
+          //   if(formGroup.get('tipoDescuento').value == 'I-D'){
+          //     let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
+          //     let montoEntregar = formGroup.get('montoSolicitadoOriginal').value - valorDescuento;
+          //     formGroup.controls['importeEntregar'].setValue(montoEntregar);
+          //     formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
+          //   }else{
+          //     let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
+          //     let montoEntregar = formGroup.get('montoSolicitadoOriginal').value + valorDescuento;
+          //     formGroup.controls['importeEntregar'].setValue(montoEntregar);
+          //     formGroup.controls['montoSolicitado'].setValue(formGroup.get('importeEntregar').value);
+          //   }
+          // }
         }
     );
 
     formGroup.controls['seguros'].valueChanges.subscribe(
         (impuestos) => {
-          if(formGroup.get('tipoDescuento').value !== null){
-            if(formGroup.get('tipoDescuento').value == 'I-D'){
-              let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-              let montoEntregar = formGroup.get('montoSolicitadoOriginal').value - valorDescuento;
-              formGroup.controls['importeEntregar'].setValue(montoEntregar);
-              formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
-            }else{
-              let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-              let montoEntregar = formGroup.get('montoSolicitadoOriginal').value + valorDescuento;
-              formGroup.controls['importeEntregar'].setValue(montoEntregar);
-              formGroup.controls['montoSolicitado'].setValue(formGroup.get('importeEntregar').value);
-            }
-          }
+          formGroup.controls['tipoDescuento'].setValue(null);
+          // if(formGroup.get('tipoDescuento').value !== null){
+          //   if(formGroup.get('tipoDescuento').value == 'I-D'){
+          //     let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
+          //     let montoEntregar = formGroup.get('montoSolicitadoOriginal').value - valorDescuento;
+          //     formGroup.controls['importeEntregar'].setValue(montoEntregar);
+          //     formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
+          //   }else{
+          //     let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
+          //     let montoEntregar = formGroup.get('montoSolicitadoOriginal').value + valorDescuento;
+          //     formGroup.controls['importeEntregar'].setValue(montoEntregar);
+          //     formGroup.controls['montoSolicitado'].setValue(formGroup.get('importeEntregar').value);
+          //   }
+          // }
         }
     );
 
@@ -273,20 +289,31 @@ export class CreditsService {
     formGroup.controls['tipoDescuento'].valueChanges.subscribe(
         (selectedValue) => {
           //Guardar el monto original
-          if(formGroup.get('montoSolicitadoOriginal').value == null){
-            formGroup.controls['montoSolicitadoOriginal'].setValue(formGroup.get('montoSolicitado').value);
-          }
 
           if(selectedValue == 'I-D'){
             let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-            let montoEntregar = formGroup.get('montoSolicitadoOriginal').value - valorDescuento;
+            let montoEntregar = formGroup.get('montoSolicitado').value - valorDescuento;
             formGroup.controls['importeEntregar'].setValue(montoEntregar);
-            formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
-          }else{
+            //formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value);
+          }else if(selectedValue != null){
             let valorDescuento = formGroup.get('impuestos').value + formGroup.get('comision').value + formGroup.get('gastosVarios').value;
-            let montoEntregar = (formGroup.get('montoSolicitadoOriginal').value + valorDescuento) - valorDescuento;
+            let montoEntregar = formGroup.get('montoSolicitado').value + valorDescuento;
             formGroup.controls['importeEntregar'].setValue(montoEntregar);
-            formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitadoOriginal').value + valorDescuento);
+            formGroup.controls['montoSolicitado'].setValue(formGroup.get('montoSolicitado').value + valorDescuento, {onlySelf: true, emitEvent: false});
+            //Calcular CUOTA
+            let modalidad = formGroup.get('modalidad').value == null ? null : formGroup.get('modalidad').value;
+            let plazo = formGroup.get('plazo').value == null ? null : formGroup.get('plazo').value;
+            let vencimientoInteres = formGroup.get('vencimientoInteres').value == null ? null : formGroup.get('vencimientoInteres').value;
+            let periodoCapital = formGroup.get('periodoCapital').value == null ? null : formGroup.get('periodoCapital').value;
+            let tasaInteres = formGroup.get('tasaInteres').value == null ? null : formGroup.get('tasaInteres').value;
+            let montoSolicitado = formGroup.get('montoSolicitado').value == null ? null : formGroup.get('montoSolicitado').value;
+            let tipoCalculoImporte = formGroup.get('tipoCalculoImporte').value == null ? null : formGroup.get('tipoCalculoImporte').value.codigo;
+            let gastosAdministrativos = formGroup.get('gastosAdministrativos').value == null ? null : formGroup.get('gastosAdministrativos').value;
+
+            let importeCuota = this.calcularCuota(modalidad, plazo, periodoCapital, vencimientoInteres,
+                  tasaInteres, montoSolicitado, tipoCalculoImporte, gastosAdministrativos);
+
+            formGroup.controls['importeCuota'].setValue(importeCuota);
           }
         }
     );

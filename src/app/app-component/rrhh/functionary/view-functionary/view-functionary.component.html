@@ -6,7 +6,7 @@
     <i _ngcontent-ugv-c42="" class="fa fa-pencil-square-o"></i>
      Editar
   </a>
-  <a mat-raised-button class="m-l-10" (click)="delete(model)" *appCanAccess="['functionary', 'deleteFunctionary']">
+  <a mat-raised-button class="m-l-10" (click)="delete(myForm.value)" *appCanAccess="['functionary', 'deleteFunctionary']">
     <i  class="fa fa-times" aria-hidden="true"></i>
      Borrar
   </a>

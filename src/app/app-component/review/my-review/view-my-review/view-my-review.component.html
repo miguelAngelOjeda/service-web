@@ -3,7 +3,7 @@
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
 </div>
 <mat-card class="form-card">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="myForm">
       <mat-card-content *ngIf="myForm.get('propuestaSolicitud').value != null">
         <div class="row">
           <div class="col-md-12">
@@ -16,116 +16,129 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12 m-t-20 m-b-30">
+          <div class="col-md-12 m-t-20 m-b-20">
             <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>Propuesta</h4>
           </div>
-          <div [class]="col-md-12">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Nº Solicitud: </span> {{myForm.get('propuestaSolicitud')?.value.id}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-sm-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Fecha Presentacion: </span> {{myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-sm-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Monto: </span> {{myForm.get('propuestaSolicitud')?.value.montoSolicitado | number}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-sm-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Tipo Garantia: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoGarantia.nombre}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-sm-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Destino: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoDestino.nombre}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-sm-9">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('propuestaSolicitud')?.value.detalleDestino}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <!-- <div class="col-md-12 m-t-10">
-                    <h5  class="m-b-10 font-20">Parámetros de Cálculo de Cuota.
-                    </h5>
-                  </div> -->
-                  <div class="col-md-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Plazo: </span> {{myForm.get('propuestaSolicitud')?.value.plazo}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Cuota: </span> {{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Tasa(%): </span> {{myForm.get('propuestaSolicitud')?.value.tasaInteres}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('propuestaSolicitud')?.value.gastosAdministrativos}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-sm-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Tipo Calculo: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoCalculoImporte.nombre}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-sm-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Forma Pago: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoPago.nombre}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-list>
-                      <mat-list-item>
-                        <p><span class="font-bold">Periodo Gracia: </span> {{myForm.get('propuestaSolicitud')?.value.periodoGracia}}</p>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                  <div class="col-md-12 m-t-20">
-                    <mat-list>
-                      <mat-list-item>
-                        <mat-form-field>
-                          <textarea matInput placeholder="Observación" [value]="myForm.get('propuestaSolicitud')?.value?.observacionesDepartamento"></textarea>
-                        </mat-form-field>
-                      </mat-list-item>
-                    </mat-list>
-                  </div>
-                </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Asesor: </span> {{
+                    (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerNombre)
+                    + ' ' +
+                    (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoNombre)
+                    + ' ' +
+                    (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerApellido == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerApellido)
+                    + ' ' +
+                    (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoApellido == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoApellido)
+                    }}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Nº Solicitud: </span> {{myForm.get('propuestaSolicitud')?.value.id}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Fecha Presentacion: </span> {{myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Monto: </span> {{myForm.get('propuestaSolicitud')?.value.montoSolicitado | number}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Tipo Garantia: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoGarantia.nombre}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Destino: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoDestino.nombre}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-9">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('propuestaSolicitud')?.value.detalleDestino}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <!-- <div class="col-md-12 m-t-10">
+              <h5  class="m-b-10 font-20">Parámetros de Cálculo de Cuota.
+              </h5>
+            </div> -->
+            <div class="col-md-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Plazo: </span> {{myForm.get('propuestaSolicitud')?.value.plazo}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-md-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Cuota: </span> {{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-md-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Tasa(%): </span> {{myForm.get('propuestaSolicitud')?.value.tasaInteres}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-md-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('propuestaSolicitud')?.value.gastosAdministrativos}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Tipo Calculo: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoCalculoImporte.nombre}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-sm-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Forma Pago: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoPago.nombre}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-md-3">
+              <mat-list>
+                <mat-list-item>
+                  <p><span class="font-bold">Periodo Gracia: </span> {{myForm.get('propuestaSolicitud')?.value.periodoGracia}}</p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+            <div class="col-md-12 m-t-20">
+              <mat-list>
+                <mat-list-item>
+                  <mat-form-field>
+                    <textarea matInput placeholder="Observación" [value]="myForm.get('propuestaSolicitud')?.value?.observacionesDepartamento"></textarea>
+                  </mat-form-field>
+                </mat-list-item>
+              </mat-list>
+            </div>
           </div>
           <div class="col-md-12  m-t-10" *ngIf="myForm.get('propuestaSolicitud')?.value.id && myForm.get('propuestaSolicitud')?.value.entidad">
             <app-view-upload [entidad]="myForm.get('propuestaSolicitud')?.value.entidad" [idEntidad]="myForm.get('propuestaSolicitud')?.value.id"></app-view-upload>

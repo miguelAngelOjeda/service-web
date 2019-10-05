@@ -83,7 +83,7 @@
          <ng-container matColumnDef="fechaPresentacion">
            <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA PRESENTACION </mat-header-cell>
            <mat-cell *matCellDef="let element" data-label="fecha presentacion">
-             {{element.fechaPresentacion | date:'MM/dd/yyyy'}}
+             {{element.fechaPresentacion | date:'dd/MM/yyyy'}}
            </mat-cell>
          </ng-container>
 
@@ -153,6 +153,20 @@
               </mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="desembolsado">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> DESEMBOLSADO </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="desembolsado">
+                {{element.desembolsado}}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaDesembolso">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA DESEMBOLSO </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="fechaDesembolso">
+                {{element.fechaDesembolso}}
+              </mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="opciones">
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
@@ -161,7 +175,7 @@
                     <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>edit</mat-icon></button>
                   </div>
                   <div *ngIf="element.estado.id == 1">
-                    <button  mat-icon-button (click)="delete(element)"> <mat-icon>delete</mat-icon></button>
+                    <button  mat-icon-button (click)="delete(element)" *appCanAccess="['credits', 'deleteCredits']"> <mat-icon>delete</mat-icon></button>
                   </div>
                 </mat-cell>
             </ng-container>

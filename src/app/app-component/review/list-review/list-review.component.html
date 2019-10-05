@@ -39,21 +39,21 @@
          <ng-container matColumnDef="propuestaSolicitud.fechaPresentacion">
            <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA PRESENTACION </mat-header-cell>
            <mat-cell *matCellDef="let element" data-label="fecha presentacion">
-             {{element.propuestaSolicitud.fechaPresentacion | date:'MM/dd/yyyy'}}
+             {{element.propuestaSolicitud.fechaPresentacion | date:'dd/MM/yyyy'}}
            </mat-cell>
          </ng-container>
 
          <ng-container matColumnDef="fechaInicioAnalisis">
            <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA INICIO ANALISIS </mat-header-cell>
            <mat-cell *matCellDef="let element" data-label="fecha inicio analisis">
-             {{element.fechaInicioAnalisis | date:'MM/dd/yyyy'}}
+             {{element.fechaInicioAnalisis | date:'dd/MM/yyyy'}}
            </mat-cell>
          </ng-container>
 
          <ng-container matColumnDef="fechaFinAnalisis">
            <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA FIN ANALISIS </mat-header-cell>
            <mat-cell *matCellDef="let element" data-label="fecha fin analisis">
-             {{element.fechaFinAnalisis | date:'MM/dd/yyyy'}}
+             {{element.fechaFinAnalisis | date:'dd/MM/yyyy'}}
            </mat-cell>
          </ng-container>
 

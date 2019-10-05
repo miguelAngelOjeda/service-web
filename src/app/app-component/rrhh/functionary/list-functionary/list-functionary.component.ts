@@ -72,7 +72,7 @@ export class ListFunctionaryComponent implements AfterViewInit {
         let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(result => {
           if(result){
-            this.apiService.delete('/clientes/' + data.id)
+            this.apiService.delete('/funcionarios/' + data.id)
             .subscribe(res => {
                 if(res.status == 200){
                   this.paginator._changePageSize(this.paginator.pageSize);

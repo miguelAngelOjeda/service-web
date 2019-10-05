@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <h4  class="m-0"><mat-icon class="gray-text">archive</mat-icon>Archivos adjuntos
       <span class="hidden-file">
-        <input type="file" #fileInput ng2FileSelect [uploader]="uploader">
+        <input type="file" #fileInput ng2FileSelect multiple [uploader]="uploader">
       </span>
       <a mat-mini-fab (click)="fileInput.click()" class="nav-link float-right" color="primary"><mat-icon>file_upload</mat-icon></a>
     </h4>

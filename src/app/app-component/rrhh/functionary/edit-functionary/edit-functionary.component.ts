@@ -61,7 +61,9 @@ export class EditFunctionaryComponent implements OnInit {
     this.myForm = this.formBuilder.group({
         id: null,
         alias: [null, [Validators.required]],
+        aliasVis: [null],
         nroLegajo: [null, [Validators.required]],
+        nroLegajoVis: [null, [Validators.required]],
         fechaIngreso: [null, [Validators.required]],
         cargo: [null, [Validators.required]],
         expirationTimeTokens: [5, [Validators.required]],
@@ -80,6 +82,9 @@ export class EditFunctionaryComponent implements OnInit {
           }
         }
     );
+
+    this.myForm.controls['aliasVis'].disable({onlySelf: true});
+    this.myForm.controls['nroLegajoVis'].disable({onlySelf: true});
   }
 
   getValue(data: any, form : any): void {
@@ -119,10 +124,10 @@ export class EditFunctionaryComponent implements OnInit {
       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
-          this.apiService.delete('/usuarios/' + data.id)
+          this.apiService.delete('/funcionarios/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
-                this.router.navigateByUrl('service-web/users');
+                this.router.navigateByUrl('service-web/functionary');
               }
           });
         }

@@ -24,6 +24,7 @@ export class ReviewService {
       observacionRecomendacion: null,
       observacionRetransferencia: null,
       obsApro: null,
+      requiereVerificador: null,
       funcionarioAnalisis: null,
       funcionarioVerificador: null,
       propuestaSolicitud: null,

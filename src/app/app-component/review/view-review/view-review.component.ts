@@ -14,7 +14,7 @@ import { PeopleService } from '../../shared/people/people.service';
 })
 export class ViewReviewComponent implements OnInit {
   myForm: FormGroup;
-  
+
   constructor(
     private apiService: ApiService,
     private formBuilder: FormBuilder,
@@ -27,7 +27,7 @@ export class ViewReviewComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.reviewService.initFormBuilder();
-    this.apiService.get('/analisis_solicitudes/analizar/' + this.route.snapshot.params.id)
+    this.apiService.get('/analisis_solicitudes/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
         this.myForm.patchValue(res.model);
@@ -48,6 +48,21 @@ export class ViewReviewComponent implements OnInit {
         }
       }
     });
+  }
+
+  viewPeople(idSolicitud: number, idPersona: number,type: string) {
+    const dialogConfig = new MatDialogConfig();
+    if(type === 'DEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Deudor' };
+    }else if(type === 'CONY_DEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Conyuge Deudor' };
+    }else if(type === 'CODEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Codeudor' };
+    }else if(type === 'CONY_CODEUDOR'){
+      dialogConfig.data = { model: null, title:'Visualizar Conyuge Codeudor' };
+    }
+    dialogConfig.autoFocus = true;
+    this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
   }
 
 }
