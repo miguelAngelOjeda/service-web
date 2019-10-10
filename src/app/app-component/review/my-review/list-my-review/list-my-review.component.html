@@ -13,7 +13,7 @@
         </mat-form-field>
       <!-- </p> -->
         <mat-table [dataSource]="dataSource" class="mat-table"
-         matSort  matSortActive="id" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+         matSort  matSortActive="id" matSortDirection="desc" matSortDisableClear [class.isMobile]="isMobile">
 
          <ng-container matColumnDef="id">
            <mat-header-cell *matHeaderCellDef mat-sort-header> Nº ANALISIS</mat-header-cell>
@@ -64,10 +64,10 @@
               </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="propuestaSolicitud.sucursal.nombre">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> SUCURSAL </mat-header-cell>
+          <ng-container matColumnDef="sucursal">
+              <mat-header-cell *matHeaderCellDef> SUCURSAL </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="sucursal">
-                {{element.propuestaSolicitud?.sucursal?.nombre}}
+                {{element.sucursal}}
               </mat-cell>
           </ng-container>
 

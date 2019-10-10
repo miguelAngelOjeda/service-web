@@ -12,7 +12,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 export class ListReviewComponent implements OnInit {
   public isMobile: Boolean;
   public rulesColumns  = ['tipoGarantia.nombre', 'tipoDestino.nombre', 'estado.nombre', 'funcionarioVerificador.persona.segundoNombre', 'funcionarioVerificador.persona.primerApellido', 'estado.nombre'];
-  public displayedColumns = ['id','propuestaSolicitud.tipoSolicitud.nombre','propuestaSolicitud.id','propuestaSolicitud.fechaPresentacion','fechaInicioAnalisis','fechaFinAnalisis',  'funcionarioAnalisis.persona.primerNombre' , 'propuestaSolicitud.montoSolicitadoOriginal', 'propuestaSolicitud.sucursal.nombre', 'estado.nombre', 'opciones'];
+  public displayedColumns = ['id','propuestaSolicitud.tipoSolicitud.nombre','propuestaSolicitud.id','propuestaSolicitud.fechaPresentacion','fechaInicioAnalisis','fechaFinAnalisis',  'funcionarioAnalisis.alias' , 'propuestaSolicitud.montoSolicitadoOriginal', 'sucursal', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -33,6 +33,8 @@ export class ListReviewComponent implements OnInit {
 
   ngOnInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sort.active = 'id';
+    this.sort.direction = 'desc';
     merge(this.sort.sortChange, this.paginator.page, fromEvent(this.filterInput.nativeElement, 'keyup'))
         .pipe(
           startWith({}),

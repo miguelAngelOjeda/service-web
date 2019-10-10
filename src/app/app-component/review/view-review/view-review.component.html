@@ -38,7 +38,7 @@
             <div class="col-sm-12">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Asesor: </span> {{
+                  <p mat-line><span class="font-bold">Asesor: </span> {{
                     (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerNombre)
                     + ' ' +
                     (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoNombre)
@@ -53,42 +53,42 @@
             <div class="col-sm-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Nº Solicitud: </span> {{myForm.get('propuestaSolicitud')?.value.id}}</p>
+                  <p mat-line><span class="font-bold">Nº Solicitud: </span> {{myForm.get('propuestaSolicitud')?.value.id}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-sm-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Fecha Presentacion: </span> {{myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'}}</p>
+                  <p mat-line><span class="font-bold">Fecha Presentacion: </span> {{myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-sm-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Monto: </span> {{myForm.get('propuestaSolicitud')?.value.montoSolicitado | number}}</p>
+                  <p mat-line><span class="font-bold">Monto: </span> {{myForm.get('propuestaSolicitud')?.value.montoSolicitado | number}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-sm-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Tipo Garantia: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoGarantia.nombre}}</p>
+                  <p mat-line><span class="font-bold">Tipo Garantia: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoGarantia.nombre}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-sm-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Destino: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoDestino.nombre}}</p>
+                  <p mat-line><span class="font-bold">Destino: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoDestino.nombre}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-sm-9">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('propuestaSolicitud')?.value.detalleDestino}}</p>
+                  <p mat-line><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('propuestaSolicitud')?.value.detalleDestino}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -99,60 +99,63 @@
             <div class="col-md-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Plazo: </span> {{myForm.get('propuestaSolicitud')?.value.plazo}}</p>
+                  <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('propuestaSolicitud')?.value.plazo}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-md-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Cuota: </span> {{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</p>
+                  <p mat-line><span class="font-bold">Cuota: </span> {{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-md-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Tasa(%): </span> {{myForm.get('propuestaSolicitud')?.value.tasaInteres}}</p>
+                  <p mat-line><span class="font-bold">Tasa(%): </span> {{myForm.get('propuestaSolicitud')?.value.tasaInteres}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-md-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('propuestaSolicitud')?.value.gastosAdministrativos}}</p>
+                  <p mat-line><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('propuestaSolicitud')?.value.gastosAdministrativos}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-sm-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Tipo Calculo: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoCalculoImporte.nombre}}</p>
+                  <p mat-line><span class="font-bold">Tipo Calculo: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoCalculoImporte.nombre}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-sm-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Forma Pago: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoPago.nombre}}</p>
+                  <p mat-line><span class="font-bold">Forma Pago: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoPago.nombre}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
             <div class="col-md-3">
               <mat-list>
                 <mat-list-item>
-                  <p><span class="font-bold">Periodo Gracia: </span> {{myForm.get('propuestaSolicitud')?.value.periodoGracia}}</p>
+                  <p mat-line><span class="font-bold">Periodo Gracia: </span> {{myForm.get('propuestaSolicitud')?.value.periodoGracia}}</p>
                 </mat-list-item>
               </mat-list>
             </div>
-            <div class="col-md-12 m-t-20">
+            <div class="col-md-12">
               <mat-list>
                 <mat-list-item>
-                  <mat-form-field>
-                    <textarea matInput placeholder="Observación" [value]="myForm.get('propuestaSolicitud')?.value?.observacionesDepartamento"></textarea>
-                  </mat-form-field>
+                  <p mat-line><span class="font-bold">Observación</span></p>
                 </mat-list-item>
               </mat-list>
+            </div>
+            <div class="col-md-12">
+              <mat-form-field>
+                <textarea matInput [value]="myForm.get('propuestaSolicitud')?.value?.observacionesDepartamento"></textarea>
+              </mat-form-field>                
             </div>
           </div>
           <div class="col-md-12  m-t-10" *ngIf="myForm.get('propuestaSolicitud')?.value.id && myForm.get('propuestaSolicitud')?.value.entidad">
@@ -202,84 +205,84 @@
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Solicitud Cuota: </span> {{detalle.get('montoDeudaSolicitudCuotas').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Solicitud Cuota: </span> {{detalle.get('montoDeudaSolicitudCuotas').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Solicitud Total: </span> {{detalle.get('montoDeudaSolicitud').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Solicitud Total: </span> {{detalle.get('montoDeudaSolicitud').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Desc. Cuota: </span> {{detalle.get('montoDeudaDescuentoCuotas').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Desc. Cuota: </span> {{detalle.get('montoDeudaDescuentoCuotas').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Desc. Total: </span> {{detalle.get('montoDeudaDescuento').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Desc. Total: </span> {{detalle.get('montoDeudaDescuento').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Deuda Total: </span> {{detalle.get('montoDeudaSolicitudCuotaTotal').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Deuda Total: </span> {{detalle.get('montoDeudaSolicitudCuotaTotal').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Deuda Total : </span> {{detalle.get('montoDeudaSolicitudTotal').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Deuda Total : </span> {{detalle.get('montoDeudaSolicitudTotal').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Ingresos: </span> {{detalle.get('ingresoTotal').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Ingresos: </span> {{detalle.get('ingresoTotal').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Ingresos 60%: </span> {{detalle.get('porcentajeCapacidad').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Ingresos 60%: </span> {{detalle.get('porcentajeCapacidad').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Otros Ingresos: </span> {{detalle.get('ingresosOtros').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Otros Ingresos: </span> {{detalle.get('ingresosOtros').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Otros 100%: </span> {{detalle.get('porcentajeCapacidadOtros').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Otros 100%: </span> {{detalle.get('porcentajeCapacidadOtros').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total: </span> {{detalle.get('montoTotalIngresos').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Total: </span> {{detalle.get('montoTotalIngresos').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total: </span> {{detalle.get('montoTotalIngresosPorcentaje').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Total: </span> {{detalle.get('montoTotalIngresosPorcentaje').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
@@ -288,7 +291,7 @@
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Diferencia: </span> {{detalle.get('saldoTotalSolicitud').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Diferencia: </span> {{detalle.get('saldoTotalSolicitud').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
@@ -302,70 +305,70 @@
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Saldo Cuota: </span> {{detalle.get('montoDeudaCuotas').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Saldo Cuota: </span> {{detalle.get('montoDeudaCuotas').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Saldo Total: </span> {{detalle.get('montoDeuda').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Saldo Total: </span> {{detalle.get('montoDeuda').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Tarjeta Cuota: </span> {{detalle.get('montoDeudaTarjetaMinimo').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Tarjeta Cuota: </span> {{detalle.get('montoDeudaTarjetaMinimo').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Tarjeta Total: </span> {{detalle.get('montoDeudaTarjeta').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Tarjeta Total: </span> {{detalle.get('montoDeudaTarjeta').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Saldo Cony. Cuota: </span> {{detalle.get('montoDeudaCuotasConyuge').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Saldo Cony. Cuota: </span> {{detalle.get('montoDeudaCuotasConyuge').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Saldo Cony. Total: </span> {{detalle.get('montoDeudaConyuge').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Saldo Cony. Total: </span> {{detalle.get('montoDeudaConyuge').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Tarjeta Cony. Cuota: </span> {{detalle.get('montoDeudaTarjetaMinimoConyuge').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Tarjeta Cony. Cuota: </span> {{detalle.get('montoDeudaTarjetaMinimoConyuge').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Tarjeta Cony. Total: </span> {{detalle.get('montoDeudaTarjetaConyuge').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Tarjeta Cony. Total: </span> {{detalle.get('montoDeudaTarjetaConyuge').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total Cuota: </span> {{detalle.get('montoDeudaTotalCuota').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Total Cuota: </span> {{detalle.get('montoDeudaTotalCuota').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total : </span> {{detalle.get('montoDeudaTotal').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Total : </span> {{detalle.get('montoDeudaTotal').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
@@ -384,28 +387,28 @@
                                 <div class="col-md-4">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Credito Vigente: </span> {{detalle.get('creditoVigente').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Credito Vigente: </span> {{detalle.get('creditoVigente').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-4">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Garantia Credito: </span> {{detalle.get('garantiasVigente').value}}</p>
+                                      <p mat-line><span class="font-bold">Garantia Credito: </span> {{detalle.get('garantiasVigente').value}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-4">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Calificacion Ult. Creditos: </span> {{detalle.get('calificacionCredCanc').value}}</p>
+                                      <p mat-line><span class="font-bold">Calificacion Ult. Creditos: </span> {{detalle.get('calificacionCredCanc').value}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-12">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Faja Informconf: </span> {{detalle.get('fajaInformconf').value}}
+                                      <p mat-line><span class="font-bold">Faja Informconf: </span> {{detalle.get('fajaInformconf').value}}
                                         <!-- <button type="button" class="btn btn-light btn-sm pull-right"><i class="fa fa-search" aria-hidden="true"></i></button> -->
                                       </p>
                                     </mat-list-item>
@@ -424,35 +427,35 @@
                                 <div class="col-md-4">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Capacidad de Pago: </span> {{detalle.get('capacidadPago').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Capacidad de Pago: </span> {{detalle.get('capacidadPago').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-2">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Antiguedad Laboral: </span> {{detalle.get('antiguedadLaboral').value}}</p>
+                                      <p mat-line><span class="font-bold">Antiguedad Laboral: </span> {{detalle.get('antiguedadLaboral').value}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-2">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Edad: </span> {{detalle.get('edad').value}}</p>
+                                      <p mat-line><span class="font-bold">Edad: </span> {{detalle.get('edad').value}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-2">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Nº Hijos: </span> {{detalle.get('cantidadHijos').value}}</p>
+                                      <p mat-line> <span class="font-bold">Nº Hijos: </span> {{detalle.get('cantidadHijos').value}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-2">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Estado Civil: </span> {{detalle.get('estadoCivil').value}}</p>
+                                      <p mat-line><span class="font-bold">Estado Civil: </span> {{detalle.get('estadoCivil').value}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
@@ -464,42 +467,42 @@
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Deuda Referencia Cuota: </span> {{detalle.get('deudaCuotaReferencia').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Deuda Referencia Cuota: </span> {{detalle.get('deudaCuotaReferencia').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Deuda Referencia Total: </span> {{detalle.get('deudaTotalReferencia').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Deuda Referencia Total: </span> {{detalle.get('deudaTotalReferencia').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Ctral. Riesgo Cuota: </span> {{detalle.get('deudaCuotaCtralRgo').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Ctral. Riesgo Cuota: </span> {{detalle.get('deudaCuotaCtralRgo').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-normal">Ctral. Riesgo Total: </span> {{detalle.get('deudaTotalCtralRgo').value | number}}</p>
+                                      <p mat-line><span class="font-normal">Ctral. Riesgo Total: </span> {{detalle.get('deudaTotalCtralRgo').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total Dueda Ext.: </span> {{detalle.get('totalDeudaCuotaExterior').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Total Dueda Ext.: </span> {{detalle.get('totalDeudaCuotaExterior').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-list>
                                     <mat-list-item>
-                                      <p><span class="font-bold">Total Dueda Ext.: </span> {{detalle.get('totalDeudaExterior').value | number}}</p>
+                                      <p mat-line><span class="font-bold">Total Dueda Ext.: </span> {{detalle.get('totalDeudaExterior').value | number}}</p>
                                     </mat-list-item>
                                   </mat-list>
                                 </div>

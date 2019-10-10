@@ -108,7 +108,7 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_ROLE.DELETE"]
     	}
     },
-    "credits": {
+    "credits-solicitude": {
       "addCredits": {
     	   "permittedRoles": ["ROLE_SOLICITUDE.ADD"]
     	 },
@@ -123,6 +123,23 @@ export const authorities = {
     	},
     	"deleteCredits": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
+    	}
+    },
+    "credits": {
+      "addCredits": {
+    	   "permittedRoles": ["ROLE_CREDITS.ADD"]
+    	 },
+    	"editCredits": {
+    	  "permittedRoles": ["ROLE_CREDITS.EDIT"]
+    	},
+    	"viewCredits": {
+    	  "permittedRoles": ["ROLE_CREDITS.VIEW"]
+    	},
+    	"listCredits": {
+    	  "permittedRoles": ["ROLE_CREDITS.LIST"]
+    	},
+    	"deleteCredits": {
+    	  "permittedRoles": ["ROLE_CREDITS.DELETE"]
     	}
     },
     "review": {

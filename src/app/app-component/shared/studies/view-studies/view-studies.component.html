@@ -13,36 +13,36 @@
               <div class="col-sm-4">
                 <mat-list>
                   <mat-list-item>
-                    <p><span class="font-bold">Tipo Estudio: </span> {{estudios.controls.tipoEstudio.value?.nombre}}</p>
+                    <p mat-line><span class="font-bold">Tipo Estudio: </span> {{estudios.controls.tipoEstudio.value?.nombre}}</p>
                   </mat-list-item>
                   <mat-list-item>
-                    <p><span class="font-bold">Entidad Estudio: </span> {{estudios.get('nombre')?.value}}</p>
+                    <p mat-line><span class="font-bold">Entidad Estudio: </span> {{estudios.get('nombre')?.value}}</p>
                   </mat-list-item>
                   <mat-list-item>
-                    <p><span class="font-bold">Semestre: </span> {{estudios.get('semestre')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
-              </div>
-              <div class="col-sm-4">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Fecha Inicio: </span> {{estudios.get('fechaInicio')?.value  | date: 'dd/MM/yyyy'}}</p>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <p><span class="font-bold">Concluido: </span> {{(estudios.get('concluido')?.value == true ? 'S' : 'N')}}</p>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <p><span class="font-bold">Titulo: </span> {{estudios.get('titulo')?.value}}</p>
+                    <p mat-line><span class="font-bold">Semestre: </span> {{estudios.get('semestre')?.value}}</p>
                   </mat-list-item>
                 </mat-list>
               </div>
               <div class="col-sm-4">
                 <mat-list>
                   <mat-list-item>
-                    <p><span class="font-bold">Fecha Fin: </span> {{estudios.get('fechaFin')?.value  | date: 'dd/MM/yyyy'}}</p>
+                    <p mat-line><span class="font-bold">Fecha Inicio: </span> {{estudios.get('fechaInicio')?.value  | date: 'dd/MM/yyyy'}}</p>
                   </mat-list-item>
                   <mat-list-item>
-                    <p><span class="font-bold">Nro. Registro: </span> {{estudios.get('numeroRegistro')?.value}}</p>
+                    <p mat-line><span class="font-bold">Concluido: </span> {{(estudios.get('concluido')?.value == true ? 'S' : 'N')}}</p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <p mat-line><span class="font-bold">Titulo: </span> {{estudios.get('titulo')?.value}}</p>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="col-sm-4">
+                <mat-list>
+                  <mat-list-item>
+                    <p mat-line><span class="font-bold">Fecha Fin: </span> {{estudios.get('fechaFin')?.value  | date: 'dd/MM/yyyy'}}</p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <p mat-line><span class="font-bold">Nro. Registro: </span> {{estudios.get('numeroRegistro')?.value}}</p>
                   </mat-list-item>
                 </mat-list>
               </div>

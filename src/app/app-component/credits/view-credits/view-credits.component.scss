@@ -1,0 +1,38 @@
+.gray-text {
+  color: #777;
+  vertical-align: text-bottom;
+  margin-right: 5px;
+}
+
+fieldset{
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-top: 0.35em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  border: 2px solid #ccc!important;
+}
+
+.mat-list-base {
+    padding-top: 1px;
+}
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+    display: block;
+    height: 35px;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+    padding: 0;
+}
+
+.w3-border {
+    border: 1px solid #ccc!important;
+}
+.w3-container, .w3-panel {
+    padding: 0.01em 16px;
+}
+
+.w3-round-xlarge {
+    border-radius: 16px;
+}

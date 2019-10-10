@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AddCreditsComponent, EditCreditsComponent, ListCreditsComponent,
 ViewCreditsComponent } from '../credits';
 import { MaterialModule } from '../../../core/material/material.module';
-import { CreditsRoutingModule } from './credits-routing.module';
+import { CreditsSolicitudeRoutingModule } from './credits-solicitude-routing.module';
 import { environment } from '../../../../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -38,7 +38,7 @@ export const customCurrencyMaskConfig = {
 
 @NgModule({
   imports: [
-    CreditsRoutingModule,
+    CreditsSolicitudeRoutingModule,
     MaterialModule,
     SharedAppModule,
     AngularFileUploaderModule,
@@ -78,13 +78,6 @@ export const customCurrencyMaskConfig = {
     EditCreditsComponent,
     ListCreditsComponent,
     ViewCreditsComponent
-  ],
-  providers: [
-
-  ],
-  // entryComponents: [
-  // FileSelectDirective,
-  // FileUploader,
-  // ]
+  ]
 })
-export class CreditsModule {}
+export class CreditsSolicitudeModule {}

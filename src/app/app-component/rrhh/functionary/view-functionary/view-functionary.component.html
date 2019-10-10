@@ -42,33 +42,33 @@
                             <div class="col-sm-4">
                               <mat-list>
                                 <mat-list-item>
-                                  <p><span class="font-bold">Tipo Funcionario: </span> {{myForm.controls.tipoFuncionario.value?.nombre}}</p>
+                                  <p mat-line><span class="font-bold">Tipo Funcionario: </span> {{myForm.controls.tipoFuncionario.value?.nombre}}</p>
                                 </mat-list-item>
                                 <mat-list-item>
-                                  <p><span class="font-bold">Nro. Legajo: </span> {{myForm.value?.nroLegajo}}</p>
+                                  <p mat-line><span class="font-bold">Nro. Legajo: </span> {{myForm.value?.nroLegajo}}</p>
                                 </mat-list-item>
                                 <mat-list-item>
-                                  <p><span class="font-bold">Cargo: </span> {{myForm.controls.cargo.value?.nombre}}</p>
-                                </mat-list-item>
-                              </mat-list>
-                            </div>
-                            <div class="col-sm-4">
-                              <mat-list>
-                                <mat-list-item>
-                                  <p><span class="font-bold">Fecha Ingreso: </span> {{myForm.value?.fechaIngreso | date: 'dd/MM/yyyy'}}</p>
-                                </mat-list-item>
-                                <mat-list-item>
-                                  <p><span class="font-bold">Fecha Salida: </span> {{myForm.value?.fechaEgreso | date: 'dd/MM/yyyy'}}</p>
-                                </mat-list-item>
-                                <mat-list-item>
-                                  <p><span class="font-bold">Motivo Salida: </span> {{myForm.controls.tipoMotivoRetiro.value?.nombre}}</p>
+                                  <p mat-line><span class="font-bold">Cargo: </span> {{myForm.controls.cargo.value?.nombre}}</p>
                                 </mat-list-item>
                               </mat-list>
                             </div>
                             <div class="col-sm-4">
                               <mat-list>
                                 <mat-list-item>
-                                  <p><span class="font-bold">Sucursal: </span> {{myForm.controls.sucursal.value?.nombre}}</p>
+                                  <p mat-line><span class="font-bold">Fecha Ingreso: </span> {{myForm.value?.fechaIngreso | date: 'dd/MM/yyyy'}}</p>
+                                </mat-list-item>
+                                <mat-list-item>
+                                  <p mat-line><span class="font-bold">Fecha Salida: </span> {{myForm.value?.fechaEgreso | date: 'dd/MM/yyyy'}}</p>
+                                </mat-list-item>
+                                <mat-list-item>
+                                  <p mat-line><span class="font-bold">Motivo Salida: </span> {{myForm.controls.tipoMotivoRetiro.value?.nombre}}</p>
+                                </mat-list-item>
+                              </mat-list>
+                            </div>
+                            <div class="col-sm-4">
+                              <mat-list>
+                                <mat-list-item>
+                                  <p mat-line><span class="font-bold">Sucursal: </span> {{myForm.controls.sucursal.value?.nombre}}</p>
                                 </mat-list-item>
                               </mat-list>
                             </div>

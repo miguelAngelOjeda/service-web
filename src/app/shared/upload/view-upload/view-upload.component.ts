@@ -78,7 +78,7 @@ export class ViewUploadComponent implements OnInit {
         // console.log(images);
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = res.model;
-        dialogConfig.width = '50%';
+        dialogConfig.width = '80%';
         dialogConfig.autoFocus = true;
         let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(result => {

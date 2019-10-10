@@ -32,11 +32,22 @@ const MENUITEMS = [
     type: 'box',
     name: 'Solicitudes',
     icon: 'assignment',
+    entity:'credits-solicitude',
+    role:'listCredits',
+    subMenu:[
+      {state: 'credits-solicitude', name: 'Solicitudes Creditos', icon: 'monetization_on', entity:'credits-solicitude', role:'listCredits'},
+      {state: 'card', name: 'Solicitudes Tarjetas', icon: 'credit_card', entity:'card',  role:'listCard'}
+    ]
+  },
+  {
+    state: 'progress-snipper',
+    type: 'box',
+    name: 'Creditos',
+    icon: 'attach_money',
     entity:'credits',
     role:'listCredits',
     subMenu:[
-      {state: 'credits', name: 'Solicitudes Creditos', icon: 'monetization_on', entity:'credits', role:'listCredits'},
-      {state: 'card', name: 'Solicitudes Tarjetas', icon: 'credit_card', entity:'card',  role:'listCard'}
+      {state: 'credits', name: 'Creditos', icon: 'monetization_on', entity:'credits', role:'listCredits'}
     ]
   },
   {

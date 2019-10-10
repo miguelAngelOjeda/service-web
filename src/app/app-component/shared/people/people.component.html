@@ -25,8 +25,8 @@
              </mat-form-field>
            </div>
            <div class="col-md-3">
-             <mat-form-field    appearance="legacy">
-               <input matInput #input  placeholder="Documento" formControlName="documento"  name="documento" required>
+             <mat-form-field appearance="legacy">
+               <input matInput #input type="number"  placeholder="Documento" formControlName="documento"  name="documento" required>
                <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('documento').valid && peopleCi()">search</mat-icon>
                <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
                  <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
@@ -156,7 +156,7 @@
              </mat-form-field>
            </div>
            <div class="col-md-3">
-             <mat-form-field    appearance="legacy">
+             <mat-form-field appearance="legacy">
               <input matInput #input  placeholder="Email" formControlName="email" name="email" required>
               <mat-error *ngIf="(peopleForm.controls['persona'].get('email').errors)">
                 <span *ngIf="peopleForm.controls['persona'].get('email').errors.required">
@@ -166,8 +166,8 @@
              </mat-form-field>
            </div>
            <div class="col-md-3">
-             <mat-form-field    appearance="legacy">
-               <input matInput #input  placeholder="Telefono Particular" formControlName="telefonoParticular" name="telefonoParticular" required>
+             <mat-form-field appearance="legacy">
+               <input matInput #input type="number" placeholder="Telefono Particular" formControlName="telefonoParticular" name="telefonoParticular" required>
                <mat-error *ngIf="(peopleForm.controls['persona'].get('telefonoParticular').errors)">
                  <span *ngIf="peopleForm.controls['persona'].get('telefonoParticular').errors.required">
                   Campo requerido
@@ -176,8 +176,8 @@
              </mat-form-field>
            </div>
            <div class="col-md-3">
-             <mat-form-field    appearance="legacy">
-               <input matInput #input  placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="telefonoSecundario">
+             <mat-form-field appearance="legacy">
+               <input matInput #input type="number" placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="telefonoSecundario">
                <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
                  <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
                   Campo requerido
@@ -222,7 +222,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field    appearance="legacy">
+            <mat-form-field appearance="legacy">
               <input matInput #input  placeholder="Segundo Apellido" formControlName="segundoApellido" name="segundoApellido">
               <mat-error *ngIf="(peopleForm.controls['persona'].get('segundoApellido').errors)">
                 <span *ngIf="peopleForm.controls['persona'].get('segundoApellido').errors.required">
@@ -237,7 +237,7 @@
              placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
           </div>
           <div class="col-md-3">
-            <mat-form-field    appearance="legacy">
+            <mat-form-field appearance="legacy">
              <input matInput #input  placeholder="Email" formControlName="email" name="email" required>
              <mat-error *ngIf="(peopleForm.controls['persona'].get('email').errors)">
                <span *ngIf="peopleForm.controls['persona'].get('email').errors.required">
@@ -247,8 +247,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field    appearance="legacy">
-              <input matInput #input  placeholder="Telefono Particular" formControlName="telefonoParticular" name="telefonoParticular" required>
+            <mat-form-field appearance="legacy">
+              <input matInput #input type="number" placeholder="Telefono Particular" formControlName="telefonoParticular" name="telefonoParticular" required>
               <mat-error *ngIf="(peopleForm.controls['persona'].get('telefonoParticular').errors)">
                 <span *ngIf="peopleForm.controls['persona'].get('telefonoParticular').errors.required">
                  Campo requerido
@@ -257,8 +257,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <mat-form-field    appearance="legacy">
-              <input matInput #input  placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="telefonoSecundario">
+            <mat-form-field appearance="legacy">
+              <input matInput #input type="number" placeholder="Telefono Secundario" formControlName="telefonoSecundario" name="telefonoSecundario">
               <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
                 <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
                  Campo requerido

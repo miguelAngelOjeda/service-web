@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog, MatDialogConfig, MatSort, PageEvent, Sort} from '@angular/material';
-import { ApiService } from '../../../../core/services';
-import { Message } from '../../../../core/models';
-import { DeleteDialogComponent } from '../../../../shared';
+import { ApiService } from '../../../core/services';
+import { Message } from '../../../core/models';
+import { DeleteDialogComponent } from '../../../shared';
 import { merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import { catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
@@ -15,9 +15,9 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, Fo
 export class ListCreditsComponent implements OnInit {
   public isMobile: Boolean;
   filterForm: FormGroup;
-  public rulesColumns  = ['cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre', 'cliente.persona.segundoNombre', 'cliente.persona.primerApellido', 'estado.nombre'];
-  public displayedColumns = ['id','fechaPresentacion', 'cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre' ,
-   'montoSolicitadoOriginal', 'sucursal.nombre', 'estado.nombre', 'opciones'];
+  public rulesColumns  = ['propuestaSolicitud.persona.documento', 'propuestaSolicitud.persona.ruc', 'propuestaSolicitud.persona.primerNombre', 'propuestaSolicitud.persona.segundoNombre', 'propuestaSolicitud.persona.primerApellido', 'propuestaSolicitud.nombre'];
+  public displayedColumns = ['id','propuestaSolicitud.id','montoCapital', 'montoInteres', 'saldoCapital', 'saldoInteres' ,
+   'plazoOperacion', 'fechaGeneracion', 'fechaDesembolso', 'sucursal', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -62,7 +62,7 @@ export class ListCreditsComponent implements OnInit {
               this.isfilter = true;
               value = this.filterInput.nativeElement.value;
             }
-            return this.apiService.getPageList('/solicitud_creditos', this.isfilter, value, this.rulesColumns,
+            return this.apiService.getPageList('/creditos', this.isfilter, value, this.rulesColumns,
             this.sort.direction, this.sort.active, this.paginator.pageIndex, this.paginator.pageSize, false, null, groupOp);
           }),
           map(data => {

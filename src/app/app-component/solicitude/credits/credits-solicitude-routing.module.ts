@@ -10,19 +10,19 @@ const routes: Routes = [
     children: [
     { path: '', component: ListCreditsComponent,
        canActivate: [UserService],
-       data: {roles: ['credits', 'listCredits']}
+       data: {roles: ['credits-solicitude', 'listCredits']}
     },
     { path: 'new', component: AddCreditsComponent,
       canActivate: [UserService],
-      data: {roles: ['credits', 'addCredits']}
+      data: {roles: ['credits-solicitude', 'addCredits']}
     },
     { path: ':id', component: ViewCreditsComponent,
       canActivate: [UserService],
-      data: {roles: ['credits', 'viewCredits']}
+      data: {roles: ['credits-solicitude', 'viewCredits']}
     },
     { path: ':id/edit', component: EditCreditsComponent,
       data: {
-        allowedRoles: ['credits', 'editCredits']
+        allowedRoles: ['credits-solicitude', 'editCredits']
       }
     }
               ]
@@ -33,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CreditsRoutingModule {}
+export class CreditsSolicitudeRoutingModule {}

@@ -98,147 +98,147 @@
                 <div class="col-sm-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value.nombre}}</p>
+                      <p><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-sm-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Tipo Calculo: </span> {{myForm.get('tipoCalculoImporte')?.value.nombre}}</p>
+                      <p><span class="font-bold">Tipo Calculo: </span> {{myForm.get('tipoCalculoImporte')?.value.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-sm-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Monto: </span> {{myForm.get('montoSolicitado')?.value | number}}</p>
+                      <p><span class="font-bold">Monto: </span> {{myForm.get('montoSolicitado')?.value | number}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-sm-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Destino: </span> {{myForm.get('tipoDestino')?.value.nombre}}</p>
+                      <p><span class="font-bold">Destino: </span> {{myForm.get('tipoDestino')?.value.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-sm-8">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('detalleDestino')?.value}}</p>
+                      <p><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('detalleDestino')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Tipo Garantia: </span> {{myForm.get('tipoGarantia')?.value.nombre}}</p>
+                      <p><span class="font-bold">Tipo Garantia: </span> {{myForm.get('tipoGarantia')?.value.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Forma Pago: </span> {{myForm.get('tipoPago')?.value.nombre}}</p>
+                      <p><span class="font-bold">Forma Pago: </span> {{myForm.get('tipoPago')?.value.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Forma Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
+                      <p><span class="font-bold">Forma Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Beneficiario Cheque: </span> {{myForm.get('beneficiarioCheque')?.value}}</p>
+                      <p><span class="font-bold">Beneficiario Cheque: </span> {{myForm.get('beneficiarioCheque')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Periodo Capital: </span> {{myForm.get('periodoCapital')?.value}}</p>
+                      <p><span class="font-bold">Periodo Capital: </span> {{myForm.get('periodoCapital')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazo')?.value}}</p>
+                      <p><span class="font-bold">Plazo: </span> {{myForm.get('plazo')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Cant. Amortiz.: </span> </p>
+                      <p><span class="font-bold">Cant. Amortiz.: </span> </p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Vto. Interes: </span> {{myForm.get('vencimientoInteres')?.value}}</p>
+                      <p><span class="font-bold">Vto. Interes: </span> {{myForm.get('vencimientoInteres')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Periodo Gracia: </span> {{myForm.get('periodoGracia')?.value}}</p>
+                      <p><span class="font-bold">Periodo Gracia: </span> {{myForm.get('periodoGracia')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Periodo Interés: </span> {{myForm.get('periodoInteres')?.value}}</p>
+                      <p><span class="font-bold">Periodo Interés: </span> {{myForm.get('periodoInteres')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Tasa Interés Anual(%): </span> {{myForm.get('tasaInteres')?.value}}</p>
+                      <p><span class="font-bold">Tasa Interés Anual(%): </span> {{myForm.get('tasaInteres')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('gastosAdministrativos')?.value}}</p>
+                      <p><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('gastosAdministrativos')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Estado: </span> {{myForm.get('estado')?.value.nombre}}</p>
+                      <p><span class="font-bold">Estado: </span> {{myForm.get('estado')?.value.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-12">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Observacion: </span> {{myForm.get('observacionesDepartamento')?.value}}</p>
+                      <p><span class="font-bold">Observacion: </span> {{myForm.get('observacionesDepartamento')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4" *ngIf="myForm.get('fechaAprobacion')?.value">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Fecha Aprobación: </span> {{myForm.get('fechaAprobacion')?.value | date:'MM/dd/yyyy'}}</p>
+                      <p><span class="font-bold">Fecha Aprobación: </span> {{myForm.get('fechaAprobacion')?.value | date:'MM/dd/yyyy'}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4" *ngIf="myForm.get('fechaRechazo')?.value">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Fecha Rechazo: </span> {{myForm.get('fechaRechazo')?.value | date:'MM/dd/yyyy'}}</p>
+                      <p><span class="font-bold">Fecha Rechazo: </span> {{myForm.get('fechaRechazo')?.value | date:'MM/dd/yyyy'}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
@@ -252,56 +252,56 @@
                 <div class="col-md-3">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Impuestos: </span> {{myForm.get('impuestos')?.value}}</p>
+                      <p><span class="font-bold">Impuestos: </span> {{myForm.get('impuestos')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-3">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Comision: </span> {{myForm.get('comision')?.value}}</p>
+                      <p><span class="font-bold">Comision: </span> {{myForm.get('comision')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-3">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Gastos Varios: </span> {{myForm.get('gastosVarios')?.value}}</p>
+                      <p><span class="font-bold">Gastos Varios: </span> {{myForm.get('gastosVarios')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-3">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Seguros: </span> {{myForm.get('seguros')?.value}}</p>
+                      <p><span class="font-bold">Seguros: </span> {{myForm.get('seguros')?.value}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-3">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Tipo Descuento: </span> {{myForm.get('tipoDescuento')?.value === 'I-D' ? 'IMPORTE DISPONER' : 'IMPORTE SOLICITAR'}}</p>
+                      <p><span class="font-bold">Tipo Descuento: </span> {{myForm.get('tipoDescuento')?.value === 'I-D' ? 'IMPORTE DISPONER' : 'IMPORTE SOLICITAR'}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-3">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Monto Original: </span> {{myForm.get('montoSolicitadoOriginal').value | number}}</p>
+                      <p><span class="font-bold">Monto Original: </span> {{myForm.get('montoSolicitadoOriginal').value | number}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-3">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Monto Entregar: </span> {{myForm.get('importeEntregar').value | number}}</p>
+                      <p><span class="font-bold">Monto Entregar: </span> {{myForm.get('importeEntregar').value | number}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-3">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Cuota: </span> {{myForm.get('importeCuota').value | number}}</p>
+                      <p><span class="font-bold">Cuota: </span> {{myForm.get('importeCuota').value | number}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
@@ -453,7 +453,7 @@
             <fieldset class="m-t-20">
               <legend><mat-icon class="gray-text">filter</mat-icon>Analisis Solicitud</legend>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 m-b-20">
                   <div class="d-flex flex-row comment-row ng-star-inserted">
                     <div class="comment-text w-100">
                       <div class="comment-footer">
@@ -466,28 +466,28 @@
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Estado: </span> {{myForm.get('evaluacion')?.value.estado.nombre}}</p>
+                      <p><span class="font-bold">Estado: </span> {{myForm.get('evaluacion')?.value.estado.nombre}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4" *ngIf="myForm.get('evaluacion')?.value.montoAprobado">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Monto Aprobado: </span> {{myForm.get('evaluacion')?.value.montoAprobado}}</p>
+                      <p><span class="font-bold">Monto Aprobado: </span> {{myForm.get('evaluacion')?.value.montoAprobado}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Funcionario Analisis: </span> {{myForm.get('evaluacion')?.value.funcionarioAnalisis.alias}}</p>
+                      <p><span class="font-bold">Funcionario Analisis: </span> {{myForm.get('evaluacion')?.value.funcionarioAnalisis.alias}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
                 <div class="col-md-4" *ngIf="myForm.get('evaluacion')?.value.funcionarioAprobacion?.alias">
                   <mat-list>
                     <mat-list-item>
-                      <p mat-line><span class="font-bold">Funcionario Aprobación: </span> {{myForm.get('evaluacion')?.value?.funcionarioAprobacion?.alias}}</p>
+                      <p><span class="font-bold">Funcionario Aprobación: </span> {{myForm.get('evaluacion')?.value?.funcionarioAprobacion?.alias}}</p>
                     </mat-list-item>
                   </mat-list>
                 </div>
@@ -508,7 +508,7 @@
                       <div class="col-md-4">
                         <mat-list>
                           <mat-list-item>
-                            <p mat-line><span class="font-bold">Monto Aprobado: </span> {{myForm.get('evaluacion')?.value?.montoAprobado | number}}</p>
+                            <p><span class="font-bold">Monto Aprobado: </span> {{myForm.get('evaluacion')?.value?.montoAprobado | number}}</p>
                           </mat-list-item>
                         </mat-list>
                       </div>
