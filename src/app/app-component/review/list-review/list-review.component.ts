@@ -11,7 +11,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 })
 export class ListReviewComponent implements OnInit {
   public isMobile: Boolean;
-  public rulesColumns  = ['tipoGarantia.nombre', 'tipoDestino.nombre', 'estado.nombre', 'funcionarioVerificador.persona.segundoNombre', 'funcionarioVerificador.persona.primerApellido', 'estado.nombre'];
+  public rulesColumns  = ['funcionarioAnalisis.persona.segundoNombre', 'propuestaSolicitud.cliente.persona.documento', 'funcionarioAnalisis.persona.primerApellido', 'estado.nombre'];
   public displayedColumns = ['id','propuestaSolicitud.tipoSolicitud.nombre','propuestaSolicitud.id','propuestaSolicitud.fechaPresentacion','fechaInicioAnalisis','fechaFinAnalisis',  'funcionarioAnalisis.alias' , 'propuestaSolicitud.montoSolicitadoOriginal', 'sucursal', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
@@ -23,8 +23,8 @@ export class ListReviewComponent implements OnInit {
   isfilter = false;
   // MatPaginator Inputs
   length = 0;
-  pageSize = 10;
-  pageSizeOptions: number[] = [10, 25, 100];
+  pageSize = 25;
+  pageSizeOptions: number[] = [25, 50, 100];
   // MatPaginator Output
   pageEvent: PageEvent;
   constructor(
@@ -40,7 +40,7 @@ export class ListReviewComponent implements OnInit {
           startWith({}),
           switchMap(() => {
             this.isfilter = false;
-            if(this.filterInput.nativeElement.value > 1){
+            if(this.filterInput.nativeElement.value.length > 3){
               this.isfilter = true;
             }
             return this.apiService.getPageList('/analisis_solicitudes',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,

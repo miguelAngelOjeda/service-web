@@ -46,12 +46,7 @@ export class AddCreditsComponent implements OnInit{
   }
 
   transferirPropuesta(id: number) {
-    this.apiService.put('/solicitud_creditos/transferir/' + id)
-    .subscribe(res => {
-      if(res.status == 200){
-        this.router.navigateByUrl('service-web/credits');
-      }
-    });
+    this.creditsService.transferirPropuesta(id);
   }
 
   editPeople(id: number, type: string) {

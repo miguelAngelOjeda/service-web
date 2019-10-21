@@ -76,7 +76,7 @@ export class StudiesComponent implements OnInit {
     return this.formBuilder.group({
       id: [''],
       fechaInicio: ['', Validators.required],
-      fechaFin : [''],
+      fechaFin : [null],
       titulo: [''],
       concluido: [false, Validators.required],
       numeroRegistro: [null],

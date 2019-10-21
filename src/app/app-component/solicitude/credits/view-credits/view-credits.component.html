@@ -27,7 +27,7 @@
                   <div class="d-flex flex-row comment-row ng-star-inserted">
                     <div class="comment-text w-100">
                       <div class="comment-footer">
-                        <span class="text-muted pull-right"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'MM/dd/yyyy'}}</span>
+                        <span class="text-muted pull-right"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'dd/MM/yyyy'}}</span>
                         <span class="label label-info"><span class="font-bold">Nº SOLICITUD: </span> {{myForm.get('id').value}}</span>
                       </div>
                     </div>
@@ -308,7 +308,7 @@
               </div>
             </fieldset>
           </div>
-          <div class="col-md-12" *ngIf="myForm.get('codeudor')?.get('id').value">
+          <div class="col-md-12" *ngIf="myForm.get('codeudor')?.value?.id">
             <fieldset class="m-t-20">
               <legend><mat-icon class="gray-text">people_outline</mat-icon>Codeudores</legend>
               <div class="row">
@@ -323,28 +323,28 @@
                           </div>
                           <div class="p-l-20 m-t-10">
                             <div class="font-medium">{{
-                              (myForm.controls['codeudor'].get('primerNombre')?.value == null ? '' : myForm.controls['codeudor'].get('primerNombre')?.value)
+                              (myForm.controls['codeudor']?.value?.primerNombre == null ? '' : myForm.controls['codeudor']?.value?.primerNombre)
                               + ' ' +
-                              (myForm.controls['codeudor'].get('segundoNombre')?.value == null ? '' : myForm.controls['codeudor'].get('segundoNombre')?.value)
+                              (myForm.controls['codeudor']?.value?.segundoNombre == null ? '' : myForm.controls['codeudor']?.value?.segundoNombre)
                               + ' ' +
-                              (myForm.controls['codeudor'].get('primerApellido')?.value == null ? '' : myForm.controls['codeudor'].get('primerApellido')?.value)
+                              (myForm.controls['codeudor']?.value?.primerApellido == null ? '' : myForm.controls['codeudor']?.value?.primerApellido)
                               + ' ' +
-                              (myForm.controls['codeudor'].get('segundoApellido')?.value == null ? '' : myForm.controls['codeudor'].get('segundoApellido')?.value)
+                              (myForm.controls['codeudor']?.value?.segundoApellido == null ? '' : myForm.controls['codeudor']?.value?.segundoApellido)
                               }} </div>
-                            <span class="font-14">Doc.: {{(myForm.controls['codeudor'].get('documento')?.value == null ? '' : myForm.controls['codeudor'].get('documento')?.value)
-                              + (myForm.controls['codeudor'].get('ruc')?.value == null ? '' : '/' + myForm.controls['codeudor'].get('ruc')?.value)}}</span>
+                            <span class="font-14">Doc.: {{(myForm.controls['codeudor']?.value?.documento == null ? '' : myForm.controls['codeudor']?.value?.documento)
+                              + (myForm.controls['codeudor']?.value?.ruc == null ? '' : '/' + myForm.controls['codeudor']?.value?.ruc)}}</span>
                             <br>
-                            <span *ngIf="myForm.controls['codeudor']['controls'].profesion.value" class="font-14">{{myForm.controls['codeudor']['controls'].profesion.value?.nombre}}</span>
+                            <span class="font-16" *ngIf="myForm.controls['codeudor']?.value?.profesion">{{myForm.controls['codeudor']?.value?.profesion?.nombre}}</span>
                             <br>
-                            <span *ngIf="myForm.controls['codeudor'].get('email')?.value" class="font-14">{{myForm.controls['codeudor'].get('email')?.value }}</span>
+                            <span class="font-16" *ngIf="myForm.controls['codeudor']?.value?.email">{{myForm.controls['codeudor']?.value?.email }}</span>
                             <br>
                             <span class="font-14">Telf. {{
-                              (myForm.controls['codeudor'].get('telefonoParticular')?.value == null ? '' : myForm.controls['codeudor'].get('telefonoParticular')?.value)
+                              (myForm.controls['codeudor']?.value?.telefonoParticular == null ? '' : myForm.controls['codeudor']?.value?.telefonoParticular)
                               + ' ' +
-                              (myForm.controls['codeudor'].get('telefonoSecundario')?.value == null ? '' : myForm.controls['codeudor'].get('telefonoSecundario')?.value)
+                              (myForm.controls['codeudor']?.value?.telefonoSecundario == null ? '' : myForm.controls['codeudor']?.value?.telefonoSecundario)
                               }}</span>
                             <br>
-                            <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('id').value, myForm.controls['codeudor'].get('id').value,'CODEUDOR')" color="primary">Detalle</button>
+                            <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('id').value, myForm.controls['codeudor']?.value?.id,'CODEUDOR')" color="primary">Detalle</button>
                           </div>
                         </div>
 

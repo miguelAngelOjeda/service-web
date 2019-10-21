@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DeleteDialogComponent } from '../../../shared';
+import { Message } from '../../../core/models';
+import { Router, CanActivate, ActivatedRoute} from '@angular/router';
+import { UserService, ApiService, FormsService} from '../../../core/services';
+import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
 
@@ -8,7 +13,45 @@ import { FormGroup, FormArray , FormControl, FormBuilder,
 })
 export class CreditsService {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private apiService: ApiService) { }
+
+  public delete(data: any){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro!! ";
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/solicitud_creditos/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                this.router.navigateByUrl('service-web/credits-solicitude');
+              }
+          });
+        }
+      })
+    }
+  }
+
+  public transferirPropuesta(id: number) {
+    this.apiService.put('/solicitud_creditos/transferir/' + id)
+    .subscribe(res => {
+      if(res.status == 200){
+        this.router.navigateByUrl('service-web/credits-solicitude');
+      }
+    });
+  }
+
 
   public initFormBuilder(): FormGroup{
     let formGroup = this.formBuilder.group({
@@ -23,6 +66,7 @@ export class CreditsService {
           email: [null],
           sexo: [null],
           estadoCivil: [null],
+          separacionBienes: false,
           telefonoParticular: [null],
           telefonoSecundario: null,
           primerNombre: [null],
@@ -31,20 +75,7 @@ export class CreditsService {
           imagePath: null,
           segundoApellido: null
         })}),
-      codeudor:this.formBuilder.group({
-        id: [null],
-        profesion: [null],
-        documento: [null],
-        nombre: null ,
-        email: [null],
-        sexo: [null],
-        telefonoParticular: [null],
-        telefonoSecundario: null,
-        primerNombre: [null],
-        segundoNombre: null,
-        imagePath: null,
-        primerApellido: [null],
-        segundoApellido: null }),
+      codeudor:[null],
       modalidad: [null, [Validators.required]],
       fechaPresentacion: [null],
       funcionario: [null],
@@ -241,29 +272,8 @@ export class CreditsService {
 
     formGroup.controls['tipoGarantia'].valueChanges.subscribe(
         (tipoGarantia) => {
-          if(tipoGarantia.id == 3){
-            //this.snackbarService.show('Cargar datos de la Hipoteca en Inmuebles!!','warning');
-            //formGroup.removeControl('codeudor');
-            formGroup.controls['codeudor'].disable();
-          }else if(tipoGarantia.id == 2){
-            formGroup.controls['codeudor'].enable();
-            // formGroup.addControl('codeudor', this.formBuilder.group({
-            //   id: [null],
-            //   profesion: [null],
-            //   documento: [null],
-            //   nombre: null ,
-            //   email: [null],
-            //   sexo: [null],
-            //   telefonoParticular: [null],
-            //   telefonoSecundario: null,
-            //   primerNombre: [null],
-            //   segundoNombre: null,
-            //   primerApellido: [null],
-            //   segundoApellido: null }));
-          }else{
-            formGroup.controls['codeudor'].disable();
-            //formGroup.removeControl('codeudor');
-          }
+          formGroup.controls['codeudor'].setValue(null);
+
         }
     );
 

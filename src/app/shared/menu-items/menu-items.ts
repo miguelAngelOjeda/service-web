@@ -24,7 +24,7 @@ const MENUITEMS = [
     subMenu:[
       {state: 'functionary', name: 'Funcionarios', icon: '', entity:'functionary', role:'listFunctionary'},
       {state: 'horary-types', name: 'Tipos Horarios', icon: '', entity:'horary-types', role:'listHoraryTypes'},
-      {state: 'horary-types', name: 'Motivos de Retiros', icon: '', entity:'horary-types', role:'listHoraryTypes'},
+      {state: 'exit-types', name: 'Motivos de Retiros', icon: '', entity:'exit-types', role:'listExitTypes'},
     ]
   },
   {

@@ -21,6 +21,7 @@ export class UploadComponent implements OnInit {
 
   @Input() entidad;
   @Input() idEntidad;
+  @Input() documento;
 
   constructor(
     private parentF: FormGroupDirective,
@@ -39,6 +40,7 @@ export class UploadComponent implements OnInit {
         size: fileItem._file.size,
         entidad: this.entidad,
         idEntidad: this.idEntidad,
+        documentoPersona: this.documento,
         nombreDocumento: fileItem._file.name,
         path: null,
         file: fileItem._file,
@@ -183,7 +185,7 @@ export class UploadComponent implements OnInit {
       let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if(result){
-          this.apiService.delete('/documentos/' + data.id)
+          this.apiService.delete('/archivos/' + data.id)
           .subscribe(res => {
               if(res.status == 200){
                 (<FormArray>this.uploadForm.get(this.formArrayName)).removeAt((<FormArray>this.uploadForm.get(this.formArrayName)).value.findIndex(dep => dep === data))

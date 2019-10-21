@@ -1,11 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog, MatDialogConfig, MatSort, PageEvent, Sort} from '@angular/material';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ApiService } from '../../../core/services';
 import { Message } from '../../../core/models';
 import { DeleteDialogComponent } from '../../../shared';
+import { FilterSheetComponent } from './filter-sheet/filter-sheet.component';
 import { merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import { catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
-import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
+
 
 @Component({
   selector: 'app-list-credits',
@@ -14,7 +16,7 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, Fo
 })
 export class ListCreditsComponent implements OnInit {
   public isMobile: Boolean;
-  filterForm: FormGroup;
+
   public rulesColumns  = ['propuestaSolicitud.persona.documento', 'propuestaSolicitud.persona.ruc', 'propuestaSolicitud.persona.primerNombre', 'propuestaSolicitud.persona.segundoNombre', 'propuestaSolicitud.persona.primerApellido', 'propuestaSolicitud.nombre'];
   public displayedColumns = ['id','propuestaSolicitud.id','montoCapital', 'montoInteres', 'saldoCapital', 'saldoInteres' ,
    'plazoOperacion', 'fechaGeneracion', 'fechaDesembolso', 'sucursal', 'estado.nombre', 'opciones'];
@@ -34,14 +36,12 @@ export class ListCreditsComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
   constructor(
-    private formBuilder: FormBuilder,
     private dialog: MatDialog,
+    private _bottomSheet: MatBottomSheet,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    this.initFormBuilder();
-
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.sort.active = 'id';
     this.sort.direction = 'desc';
@@ -58,7 +58,7 @@ export class ListCreditsComponent implements OnInit {
             //   groupOp = 'AND'
             //   value = this.filterForm.value;
             // }
-            if(this.filterInput.nativeElement.value > 1){
+            if(this.filterInput.nativeElement.value.length > 3){
               this.isfilter = true;
               value = this.filterInput.nativeElement.value;
             }
@@ -99,20 +99,8 @@ export class ListCreditsComponent implements OnInit {
     }
   }
 
-  getValue(data: any, form : any): void {
-    (<FormControl>this.filterForm.get(form)).setValue(data);
-  }
-
-  public initFormBuilder(){
-    this.filterForm = this.formBuilder.group({
-      fechaInicio: new Date(),
-      fechaFin: new Date(),
-      documento: null,
-      ruc: null,
-      nroSolicitud: null,
-      estado: null,
-      sucursal: null,
-    });
+  openBottomSheet(): void {
+    this._bottomSheet.open(FilterSheetComponent);
   }
 
 }

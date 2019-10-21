@@ -15,22 +15,22 @@
              <div class="col-md-12">
                <mat-list>
                  <mat-list-item *ngIf="model.persona.documento">
-                   <p><mat-icon class="gray-text">credit_card</mat-icon>{{model.persona.documento}}</p>
+                   <p mat-line><mat-icon class="gray-text">credit_card</mat-icon>{{model.persona.documento}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.ruc">
-                   <p><mat-icon class="gray-text">featured_play_list</mat-icon>{{model.persona.ruc}}</p>
+                   <p mat-line><mat-icon class="gray-text">featured_play_list</mat-icon>{{model.persona.ruc}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.email">
-                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.email}}</p>
+                   <p mat-line><mat-icon class="gray-text">alternate_email</mat-icon>{{model.persona.email}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona">
-                   <p><mat-icon class="gray-text">vpn_key</mat-icon><a (click)="changePassword()"> <span _ngcontent-c24="" class="label label-light-info">Cambiar Contraseña</span> </a></p>
+                   <p mat-line><mat-icon class="gray-text">vpn_key</mat-icon><a (click)="changePassword()"> <span _ngcontent-c24="" class="label label-light-info">Cambiar Contraseña</span> </a></p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.telefonoParticular">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoParticular}}</p>
+                   <p mat-line><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoParticular}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.persona.telefonoSecundario">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoSecundario}}</p>
+                   <p mat-line><mat-icon class="gray-text">phone_android</mat-icon>{{model.persona.telefonoSecundario}}</p>
                  </mat-list-item>
                </mat-list>
              </div>
@@ -40,7 +40,7 @@
     </mat-card>
   </div>
   <div  class="col-md-8">
-    <mat-card class="oh text-center little-profile mat-card">
+    <mat-card class="little-profile mat-card">
        <!-- <mat-card-header  class="bg-light-primary">
          <mat-card-title  class="mat-card-title">
            <h4  class="m-0">{{'Empresa ' + (model.empresa.nombre == null ? '' : model.empresa.nombre)}}</h4>
@@ -56,35 +56,35 @@
              <div class="col-md-6">
                <mat-list>
                  <mat-list-item *ngIf="model.sucursal.empresa.nombre">
-                   <p><mat-icon class="gray-text">business</mat-icon>{{model.sucursal.empresa.nombre}}</p>
+                   <p mat-line><mat-icon class="gray-text">business</mat-icon>{{model.sucursal.empresa.nombre}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.empresa.ruc">
-                   <p><mat-icon class="gray-text">account_balance</mat-icon>{{model.sucursal.empresa.ruc}}</p>
+                   <p mat-line><mat-icon class="gray-text">account_balance</mat-icon>{{model.sucursal.empresa.ruc}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.empresa.descripcion">
-                   <p><mat-icon class="gray-text">store</mat-icon>{{model.sucursal.empresa.descripcion}}</p>
+                   <p mat-line><mat-icon class="gray-text">store</mat-icon>{{model.sucursal.empresa.descripcion}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.empresa.direccion">
-                   <p><mat-icon class="gray-text">directions</mat-icon>{{model.sucursal.empresa.direccion}}</p>
+                   <p mat-line><mat-icon class="gray-text">directions</mat-icon>{{model.sucursal.empresa.direccion}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.empresa.telefono">
-                   <p><mat-icon class="gray-text">phone</mat-icon>{{model.sucursal.empresa.telefono}}</p>
+                   <p mat-line><mat-icon class="gray-text">phone</mat-icon>{{model.sucursal.empresa.telefono}}</p>
                  </mat-list-item>
                </mat-list>
              </div>
              <div class="col-md-6">
                <mat-list>
                  <mat-list-item *ngIf="model.sucursal.empresa.telefonoMovil">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.sucursal.empresa.telefonoMovil}}</p>
+                   <p mat-line><mat-icon class="gray-text">phone_android</mat-icon>{{model.sucursal.empresa.telefonoMovil}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.empresa.email">
-                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.sucursal.empresa.email}}</p>
+                   <p mat-line><mat-icon class="gray-text">alternate_email</mat-icon>{{model.sucursal.empresa.email}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.empresa.fax">
-                   <p><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{model.sucursal.empresa.fax}}</p>
+                   <p mat-line><mat-icon class="gray-text">perm_phone_msg</mat-icon>{{model.sucursal.empresa.fax}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.empresa.observacion">
-                   <p><mat-icon class="gray-text">speaker_notes</mat-icon>{{model.sucursal.empresa.observacion}}</p>
+                   <p mat-line><mat-icon class="gray-text">speaker_notes</mat-icon>{{model.sucursal.empresa.observacion}}</p>
                  </mat-list-item>
                </mat-list>
              </div>
@@ -94,19 +94,19 @@
              <div class="col-md-12">
                <mat-list>
                  <mat-list-item *ngIf="model.sucursal.descripcion">
-                   <p><mat-icon class="gray-text">store</mat-icon>{{model.sucursal.descripcion}}</p>
+                   <p mat-line><mat-icon class="gray-text">store</mat-icon>{{model.sucursal.descripcion}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.direccion">
-                   <p><mat-icon class="gray-text">directions</mat-icon>{{model.sucursal.direccion}}</p>
+                   <p mat-line><mat-icon class="gray-text">directions</mat-icon>{{model.sucursal.direccion}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.telefono">
-                   <p><mat-icon class="gray-text">phone</mat-icon>{{model.sucursal.telefono}}</p>
+                   <p mat-line><mat-icon class="gray-text">phone</mat-icon>{{model.sucursal.telefono}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.telefonoMovil">
-                   <p><mat-icon class="gray-text">phone_android</mat-icon>{{model.sucursal.telefonoMovil}}</p>
+                   <p mat-line><mat-icon class="gray-text">phone_android</mat-icon>{{model.sucursal.telefonoMovil}}</p>
                  </mat-list-item>
                  <mat-list-item *ngIf="model.sucursal.email">
-                   <p><mat-icon class="gray-text">alternate_email</mat-icon>{{model.sucursal.email}}</p>
+                   <p mat-line><mat-icon class="gray-text">alternate_email</mat-icon>{{model.sucursal.email}}</p>
                  </mat-list-item>
 
                </mat-list>
@@ -117,7 +117,7 @@
              <div class="col-md-12">
                <mat-list>
                  <mat-list-item *ngFor="let departments of model.departamentos">
-                   <p><span class="label label-primary">{{departments.alias}}</span> {{departments.nombreArea}}</p>
+                   <p mat-line><span class="label label-primary">{{departments.alias}}</span> {{departments.nombreArea}}</p>
                  </mat-list-item>
                </mat-list>
              </div>

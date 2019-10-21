@@ -13,7 +13,7 @@
 </div>
 <mat-card class="form-card">
 <mat-card-content>
-  <form   (ngSubmit)="myForm.valid && submit()" [formGroup]="myForm">
+  <form (ngSubmit)="myForm.valid && submit()" [formGroup]="myForm">
       <div class="row">
         <div class="col-md-12">
           <app-people></app-people>
@@ -67,6 +67,34 @@
                  </mat-select>
               </mat-form-field>
             </div>
+            <div class="col-md-12">
+              <section>
+                   <mat-checkbox formControlName="retirado" name="retirado"><h4  class="m-0">Contrato Finalizado</h4></mat-checkbox>
+              </section>
+            </div>
+            <ng-container *ngIf="myForm.get('retirado').value" class="m-t-10">
+              <div class="col-md-3">
+                   <app-select-filter (value)="getValue($event, 'tipoMotivoRetiro')" [modelValue]="myForm.get('tipoMotivoRetiro').value"
+                    placeholder="Motivo Retiro" urlFilter="tipos-motivos-retiro" [columnsFilter]="['nombre']"></app-select-filter>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field  appearance="legacy">
+                 <input matInput #input [matDatepicker]="pickerEgreso" formControlName="fechaEgreso" name="fechaEgreso" placeholder="Fecha Egreso" required>
+                 <mat-datepicker-toggle matSuffix [for]="pickerEgreso"></mat-datepicker-toggle>
+                 <mat-datepicker #pickerEgreso></mat-datepicker>
+                 <mat-error *ngIf="(myForm.get('fechaEgreso').errors)">
+                   <span *ngIf="myForm.get('fechaEgreso').errors.required">
+                    Campo requerido
+                   </span>
+                 </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field>
+                  <textarea matInput formControlName="observacionRetiro" name="observacionRetiro" placeholder="Observacion Retiro"></textarea>
+                </mat-form-field>
+              </div>
+            </ng-container>
             <div class="col-md-12  m-t-10">
               <h4  class="m-0"><mat-icon class="gray-text">perm_data_setting</mat-icon>Datos Sistema</h4>
               <br>

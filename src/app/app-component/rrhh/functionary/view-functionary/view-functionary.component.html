@@ -72,6 +72,13 @@
                                 </mat-list-item>
                               </mat-list>
                             </div>
+                            <div class="col-md-12" *ngIf="myForm.value?.observacionRetiro">
+                              <mat-list>
+                                <mat-list-item>
+                                  <p mat-line><span class="font-bold">Observacion Retiro: </span> {{myForm.value?.observacionRetiro}}</p>
+                                </mat-list-item>
+                              </mat-list>
+                            </div>
                           </div>
                         </blockquote>
                       </div>

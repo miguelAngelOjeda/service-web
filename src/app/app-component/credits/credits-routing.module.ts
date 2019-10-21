@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from '../../core/services';
-import { ListCreditsComponent } from '../credits';
+import { EditCreditsComponent, ListCreditsComponent,
+ViewCreditsComponent } from '../credits';
 
 
 const routes: Routes = [
@@ -10,6 +11,15 @@ const routes: Routes = [
     { path: '', component: ListCreditsComponent,
        canActivate: [UserService],
        data: {roles: ['credits', 'listCredits']}
+    },
+    { path: ':id', component: ViewCreditsComponent,
+      canActivate: [UserService],
+      data: {roles: ['credits-solicitude', 'viewCredits']}
+    },
+    { path: ':id/edit', component: EditCreditsComponent,
+      data: {
+        allowedRoles: ['credits-solicitude', 'editCredits']
+      }
     }
               ]
   }

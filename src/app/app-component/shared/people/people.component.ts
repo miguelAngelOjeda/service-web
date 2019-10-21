@@ -142,6 +142,16 @@ export class PeopleComponent implements OnInit{
     );
   }
 
+  onKeydown(documento) {
+    this.apiService.get('/personas/documento/' + documento, this.params)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.model.avatar = null;
+        this.peopleService.loadData(<FormGroup>this.peopleForm.get('persona'),res.model);
+      }
+    });
+  }
+
   peopleCi() {
     this.apiService.get('/personas/documento/' + (<FormGroup>this.peopleForm.get('persona')).controls.documento.value, this.params)
     .subscribe(res => {

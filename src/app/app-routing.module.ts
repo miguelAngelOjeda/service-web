@@ -110,6 +110,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/types/document-types/document-types.module#DocumentTypesModule'
         },
         {
+        path: 'service-web/exit-types',
+        loadChildren: './app-component/types/exit-types/exit-types.module#ExitTypesModule'
+        },
+        {
         path: 'service-web/capital-period',
         loadChildren: './app-component/types/capital-period/capital-period.module#CapitalPeriodModule'
         }

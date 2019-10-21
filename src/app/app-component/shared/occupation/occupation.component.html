@@ -62,7 +62,7 @@
                  </div>
                  <div class="col-md-3">
                    <mat-form-field  appearance="legacy">
-                    <input matInput #input [matDatepicker]="picker" formControlName="fechaIngreso" name="fechaIngreso" placeholder="Fecha Ingreso" required>
+                    <input matInput #input [matDatepicker]="picker" formControlName="fechaIngreso" name="fechaIngreso" placeholder="Fecha Ingreso(MM/DD/YYYY)" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="(ocupaciones.get('fechaIngreso').errors)">
@@ -74,7 +74,7 @@
                  </div>
                  <div class="col-md-3">
                    <mat-form-field  appearance="legacy">
-                    <input matInput #input [matDatepicker]="pickerSa" formControlName="fechaSalida" name="fechaSalida" placeholder="Fecha Salida">
+                    <input matInput #input [matDatepicker]="pickerSa" formControlName="fechaSalida" name="fechaSalida" placeholder="Fecha Salida(MM/DD/YYYY)">
                     <mat-datepicker-toggle matSuffix [for]="pickerSa"></mat-datepicker-toggle>
                     <mat-datepicker #pickerSa></mat-datepicker>
                    </mat-form-field>

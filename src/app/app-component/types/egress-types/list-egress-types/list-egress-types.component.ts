@@ -1,9 +1,10 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { EgressTypes, Filter, Rules  } from '../../../../core/models';
+import { EgressTypes, Filter, Rules, Message  } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
+import { DeleteDialogComponent } from '../../../../shared';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
-import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent, Sort, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-list-egress-types',
@@ -20,8 +21,6 @@ export class ListEgressTypesComponent implements AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filter', { static: true }) filterInput: ElementRef;
 
-
-
   //Filter
   isfilter = false;
   filter = new Filter;
@@ -36,7 +35,10 @@ export class ListEgressTypesComponent implements AfterViewInit {
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private dialog: MatDialog,
+    private apiService: ApiService
+  ) { }
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);

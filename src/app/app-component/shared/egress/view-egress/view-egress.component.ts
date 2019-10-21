@@ -18,7 +18,7 @@ export class ViewEgressComponent implements AfterViewInit {
   @Input()
   set fkFilterModel(id: any) {
     if(id){
-      //this.onChangesFkModel(id);
+      this.onChangesFkModel(id);
     }
   }
 

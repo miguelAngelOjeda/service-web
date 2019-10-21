@@ -62,6 +62,7 @@ export class AddFunctionaryComponent implements OnInit {
             sucursal: [null, [Validators.required]],
             departamentos: [null, [Validators.required]],
             tipoFuncionario: [null, [Validators.required]],
+            retirado: false,
             activo: 'S'
         });
 

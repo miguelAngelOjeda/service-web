@@ -396,6 +396,23 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_PAYMENTS_TYPES.DELETE"]
     	}
     },
+    "exit-types": {
+      "addExitTypes": {
+    	   "permittedRoles": ["ROLE_EXIT_TYPES.ADD"]
+    	 },
+    	"editExitTypes": {
+    	  "permittedRoles": ["ROLE_EXIT_TYPES.EDIT"]
+    	},
+    	"viewExitTypes": {
+    	  "permittedRoles": ["ROLE_EXIT_TYPES.VIEW"]
+    	},
+    	"listExitTypes": {
+    	  "permittedRoles": ["ROLE_EXIT_TYPES.LIST"]
+    	},
+      "deleteExitTypes": {
+    	  "permittedRoles": ["ROLE_EXIT_TYPES.DELETE"]
+    	}
+    },
     "position-types": {
       "addPositionTypes": {
     	   "permittedRoles": ["ROLE_POSITION_TYPES.ADD"]

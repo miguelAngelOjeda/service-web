@@ -42,11 +42,6 @@
                  <input matInput #input [matDatepicker]="pickerF" formControlName="fechaFin" name="fechaFin" placeholder="Fecha Fin">
                  <mat-datepicker-toggle matSuffix [for]="pickerF"></mat-datepicker-toggle>
                  <mat-datepicker #pickerF></mat-datepicker>
-                 <mat-error *ngIf="(estudios.get('fechaFin').errors)">
-                   <span *ngIf="(estudios.get('fechaFin').errors)">
-                    Campo requerido
-                   </span>
-                 </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-3">

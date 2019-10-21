@@ -23,7 +23,7 @@
                     <div class="d-flex flex-row comment-row ng-star-inserted">
                       <div class="comment-text w-100">
                         <div class="comment-footer">
-                          <span class="text-muted pull-right"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'MM/dd/yyyy'}}</span>
+                          <span class="text-muted pull-right"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'dd/MM/yyyy'}}</span>
                           <span class="label label-info"><span class="font-bold">Nº SOLICITUD: </span> {{myForm.get('id').value}}</span>
                         </div>
                       </div>
@@ -220,13 +220,8 @@
                   <div class="col-md-3">
                     <mat-form-field  appearance="legacy">
                       <mat-label>Periodo Interés</mat-label>
-                      <input matInput #input type="number"  placeholder="Periodo Interés" formControlName="periodoInteres"  name="periodoInteres" required>
+                      <input matInput #input type="number"  placeholder="Periodo Interés" [value]="myForm.get('periodoInteres').value">
                       <mat-hint align="end">{{myForm.get('periodoInteres').value + ' Dias'}}</mat-hint>
-                      <mat-error *ngIf="(myForm.get('periodoInteres').errors)">
-                        <span *ngIf="myForm.get('periodoInteres').errors.required">
-                         Campo requerido
-                        </span>
-                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
@@ -356,7 +351,7 @@
                 </div>
               </fieldset>
             </div>
-            <div class="col-md-12" *ngIf="myForm.controls['codeudor'].status !== 'DISABLED'">
+            <div class="col-md-12 m-t-20" *ngIf="myForm.get('tipoGarantia')?.value?.id == 2">
               <div class="row">
                 <div class="col-md-12">
                   <h4  class="m-0"><mat-icon class="gray-text">people_outline</mat-icon>Codeudor</h4>
@@ -365,7 +360,7 @@
                   <!-- <blockquote> -->
                     <ng-container formGroupName="codeudor">
                       <div class="row">
-                        <div class="col-md-6" *ngIf="myForm.get('codeudor')?.get('id').value == null">
+                        <div class="col-md-6" *ngIf="myForm.get('codeudor')?.value?.id == null">
                           <mat-list>
                             <mat-list-item>
                               <mat-error>
@@ -376,49 +371,49 @@
                             </mat-list-item>
                           </mat-list>
                         </div>
-                        <div class="col-md-4" *ngIf="myForm.get('codeudor')?.get('id').value">
+                        <div class="col-md-4" *ngIf="myForm.get('codeudor')?.value?.id">
                           <div class="p-l-20 p-t-10">
                             <div class="font-medium">{{
-                              (myForm.controls['codeudor'].get('primerNombre')?.value == null ? '' : myForm.controls['codeudor'].get('primerNombre')?.value)
+                              (myForm.controls['codeudor']?.value?.primerNombre == null ? '' : myForm.controls['codeudor']?.value?.primerNombre)
                               + ' ' +
-                              (myForm.controls['codeudor'].get('segundoNombre')?.value == null ? '' : myForm.controls['codeudor'].get('segundoNombre')?.value)
+                              (myForm.controls['codeudor']?.value?.segundoNombre == null ? '' : myForm.controls['codeudor']?.value?.segundoNombre)
                               + ' ' +
-                              (myForm.controls['codeudor'].get('primerApellido')?.value == null ? '' : myForm.controls['codeudor'].get('primerApellido')?.value)
+                              (myForm.controls['codeudor']?.value?.primerApellido == null ? '' : myForm.controls['codeudor']?.value?.primerApellido)
                               + ' ' +
-                              (myForm.controls['codeudor'].get('segundoApellido')?.value == null ? '' : myForm.controls['codeudor'].get('segundoApellido')?.value)
+                              (myForm.controls['codeudor']?.value?.segundoApellido == null ? '' : myForm.controls['codeudor']?.value?.segundoApellido)
                               }} </div>
-                            <span class="font-16" *ngIf="myForm.controls['codeudor']['controls']?.profesion.value">{{myForm.controls['codeudor']['controls']?.profesion.value?.nombre}}</span>
-                            <br *ngIf="myForm.controls['codeudor']['controls']?.profesion?.value">
-                            <span class="font-16" *ngIf="myForm.controls['codeudor'].get('email')?.value">{{myForm.controls['codeudor'].get('email')?.value }}</span>
+                            <span class="font-16" *ngIf="myForm.controls['codeudor']?.value?.profesion">{{myForm.controls['codeudor']?.value?.profesion?.nombre}}</span>
+                            <br *ngIf="myForm.controls['codeudor']?.value?.profesion">
+                            <span class="font-16" *ngIf="myForm.controls['codeudor']?.value?.email">{{myForm.controls['codeudor']?.value?.email }}</span>
                             <br>
-                            <span class="font-16" *ngIf="myForm.controls['codeudor'].get('telefonoParticular')?.value">Telf. {{
-                              (myForm.controls['codeudor'].get('telefonoParticular')?.value == null ? '' : myForm.controls['codeudor'].get('telefonoParticular')?.value)
+                            <span class="font-16" *ngIf="myForm.controls['codeudor']?.value?.telefonoParticular">Telf. {{
+                              (myForm.controls['codeudor']?.value?.telefonoParticular == null ? '' : myForm.controls['codeudor']?.value?.telefonoParticular)
                               + ' ' +
-                              (myForm.controls['codeudor'].get('telefonoSecundario')?.value == null ? '' : myForm.controls['codeudor'].get('telefonoSecundario')?.value)
+                              (myForm.controls['codeudor']?.value?.telefonoSecundario == null ? '' : myForm.controls['codeudor']?.value?.telefonoSecundario)
                               }}</span>
                           </div>
                         </div>
-                        <div class="col-sm-4" *ngIf="myForm.controls['codeudor']?.get('id')?.value">
+                        <div class="col-sm-4" *ngIf="myForm.controls['codeudor']?.value?.id">
                           <mat-list>
                             <mat-list-item>
-                              <p><span class="font-bold">Documento: </span> {{myForm.controls['codeudor'].get('documento')?.value}}</p>
+                              <p><span class="font-bold">Documento: </span> {{myForm.controls['codeudor']?.value?.documento}}</p>
                             </mat-list-item>
                             <mat-list-item>
-                              <p><span class="font-bold">Sexo: </span> {{myForm.controls['codeudor'].get('sexo')?.value}}</p>
+                              <p><span class="font-bold">Sexo: </span> {{myForm.controls['codeudor']?.value?.sexo}}</p>
                             </mat-list-item>
                           </mat-list>
                         </div>
                         <div class="col-md-2">
                           <section class="example-section">
                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor').get('id').value == null">
+                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor')?.value?.id == null">
                                 <button type="button" class="btn btn-light" (click)="addPeople('CODEUDOR')"><i class="fa fa-plus pr-2"></i><span class="font-bold">Agregar Codeudor</span></button>
                               </div>
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('codeudor').get('id').value, 'CODEUDOR')"><i class="fa fa-eye"></i></button>
+                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor')?.value?.id">
+                                <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('codeudor')?.value?.id, 'CODEUDOR')"><i class="fa fa-eye"></i></button>
                               </div>
-                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('codeudor').get('id').value">
-                                <button type="button" class="btn btn-light" (click)="editCodeudor(myForm.get('codeudor').get('id').value, 'CODEUDOR')"><i class="fa fa-edit"></i></button>
+                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('codeudor')?.value?.id">
+                                <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('codeudor')?.value?.id, 'CODEUDOR')"><i class="fa fa-edit"></i></button>
                               </div>
                             </div>
                                <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
@@ -431,7 +426,8 @@
               </div>
             </div>
             <div class="col-md-12  m-t-10" *ngIf="myForm.get('id').value && myForm.get('entidad').value">
-              <app-upload [entidad]="myForm.get('entidad').value" [idEntidad]="myForm.get('id').value"></app-upload>
+              <app-upload [entidad]="myForm.get('entidad').value" [idEntidad]="myForm.get('id').value"
+                [documento]="myForm.controls['cliente'].get('persona').get('documento')?.value"></app-upload>
             </div>
           </div>
           <mat-card-actions>

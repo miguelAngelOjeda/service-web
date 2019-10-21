@@ -1,6 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ListCreditsComponent } from '../credits';
+import { ListCreditsComponent,
+  DisburseCreditsComponent, ViewCreditsComponent, EditCreditsComponent } from '../credits';
+import { FilterSheetComponent } from '../credits/list-credits/filter-sheet/filter-sheet.component';
 import { MaterialModule } from '../../core/material/material.module';
 import { CreditsRoutingModule } from './credits-routing.module';
 import { environment } from '../../../environments/environment';
@@ -73,7 +75,14 @@ export const customCurrencyMaskConfig = {
     DeleteDialogComponent
   ],
   declarations: [
-    ListCreditsComponent
-  ]
+    ListCreditsComponent,
+    EditCreditsComponent,
+    DisburseCreditsComponent,
+    ViewCreditsComponent,
+    FilterSheetComponent
+  ],
+  entryComponents: [
+    FilterSheetComponent
+  ],
 })
 export class CreditsModule {}

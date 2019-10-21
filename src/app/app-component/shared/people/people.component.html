@@ -26,7 +26,7 @@
            </div>
            <div class="col-md-3">
              <mat-form-field appearance="legacy">
-               <input matInput #input type="number"  placeholder="Documento" formControlName="documento"  name="documento" required>
+               <input matInput #input type="number"  placeholder="Documento" (keydown.tab)="peopleForm.controls['persona'].get('documento')?.value == null ? '' : onKeydown(peopleForm.controls['persona'].get('documento')?.value)" formControlName="documento"  name="documento" required>
                <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('documento').valid && peopleCi()">search</mat-icon>
                <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
                  <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">

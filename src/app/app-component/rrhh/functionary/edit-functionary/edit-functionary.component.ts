@@ -40,6 +40,7 @@ export class EditFunctionaryComponent implements OnInit {
       if(res.status == 200){
         this.peopleService.loadData((<FormGroup>this.myForm.get('persona')),res.model.persona);
         res.fechaIngreso =  new Date(res.fechaIngreso);
+        res.model.fechaEgreso =  res.model.fechaEgreso == null ? null : new Date(res.model.fechaEgreso);
         this.myForm.patchValue(res.model);
       }
     });
@@ -65,11 +66,15 @@ export class EditFunctionaryComponent implements OnInit {
         nroLegajo: [null, [Validators.required]],
         nroLegajoVis: [null, [Validators.required]],
         fechaIngreso: [null, [Validators.required]],
+        fechaEgreso: [null],
+        tipoMotivoRetiro: [null],
+        observacionRetiro: [null],
         cargo: [null, [Validators.required]],
         expirationTimeTokens: [5, [Validators.required]],
         claveAcceso: [null, [Validators.required]],
         rol: [null, [Validators.required]],
         sucursal: [null, [Validators.required]],
+        retirado: [null],
         departamentos: [null, [Validators.required]],
         tipoFuncionario: [null, [Validators.required]],
         activo: 'S'
@@ -79,6 +84,18 @@ export class EditFunctionaryComponent implements OnInit {
         (fecha) => {
           if(fecha){
             this.myForm.get('fechaIngreso').setValue(new Date(fecha), {emitEvent:false});
+          }
+        }
+    );
+
+    this.myForm.controls['retirado'].valueChanges.subscribe(
+        (retirado) => {
+          if(retirado){
+            this.myForm.get('tipoMotivoRetiro').enable();
+            this.myForm.get('fechaEgreso').enable();
+          }else{
+            this.myForm.get('tipoMotivoRetiro').disable();
+            this.myForm.get('fechaEgreso').disable();
           }
         }
     );

@@ -6,8 +6,6 @@ import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { CreditsService } from '../../credits/credits.service';
 import { PeopleService } from '../../../shared/people/people.service';
-import { Message } from '../../../../core/models';
-import { DeleteDialogComponent } from '../../../../shared';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../../shared/people';
 import { environment } from '../../../../../environments/environment';
@@ -42,12 +40,7 @@ export class ViewCreditsComponent implements OnInit {
   }
 
   transferirPropuesta(id: number) {
-    this.apiService.put('/solicitud_creditos/transferir/' + id)
-    .subscribe(res => {
-      if(res.status == 200){
-        this.router.navigateByUrl('service-web/credits');
-      }
-    });
+    this.creditsService.transferirPropuesta(id);
   }
 
   viewPeople(idSolicitud: number, idPersona: number,type: string) {
@@ -63,26 +56,7 @@ export class ViewCreditsComponent implements OnInit {
   }
 
   delete(data: any){
-    if(data.id){
-      const message = new Message;
-      message.titulo = "Eliminar Registro"
-      message.texto = "Esta seguro que desea eliminar el registro!! ";
-
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = message;
-
-      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          this.apiService.delete('/solicitud_creditos/' + data.id)
-          .subscribe(res => {
-              if(res.status == 200){
-                this.router.navigateByUrl('service-web/solicitud_creditos');
-              }
-          });
-        }
-      })
-    }
+    this.creditsService.delete(data);
   }
 
 }

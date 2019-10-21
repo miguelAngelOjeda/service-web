@@ -58,7 +58,7 @@ export class ListCreditsComponent implements OnInit {
             //   groupOp = 'AND'
             //   value = this.filterForm.value;
             // }
-            if(this.filterInput.nativeElement.value > 1){
+            if(this.filterInput.nativeElement.value.length > 3){
               this.isfilter = true;
               value = this.filterInput.nativeElement.value;
             }

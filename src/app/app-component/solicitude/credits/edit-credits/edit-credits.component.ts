@@ -39,7 +39,7 @@ export class EditCreditsComponent implements OnInit {
     this.apiService.get('/solicitud_creditos/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
-        this.myForm.patchValue(res.model,{onlySelf: true, emitEvent: false});
+        this.myForm.patchValue(res.model,{emitEvent: false});
       }
     });
   }
@@ -54,12 +54,7 @@ export class EditCreditsComponent implements OnInit {
   }
 
   transferirPropuesta(id: number) {
-    this.apiService.put('/solicitud_creditos/transferir/' + id)
-    .subscribe(res => {
-      if(res.status == 200){
-        this.router.navigateByUrl('service-web/credits');
-      }
-    });
+    this.creditsService.transferirPropuesta(id);
   }
 
   editPeople(idSolicitud: number, idPersona: number, type: string) {
@@ -107,26 +102,7 @@ export class EditCreditsComponent implements OnInit {
   }
 
   delete(data: any){
-    if(data.id){
-      const message = new Message;
-      message.titulo = "Eliminar Registro"
-      message.texto = "Esta seguro que desea eliminar el registro!! ";
-
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = message;
-
-      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          this.apiService.delete('/solicitud_creditos/' + data.id)
-          .subscribe(res => {
-              if(res.status == 200){
-                this.router.navigateByUrl('service-web/solicitud_creditos');
-              }
-          });
-        }
-      })
-    }
+    this.creditsService.delete(data);
   }
 
 }

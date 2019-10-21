@@ -62,10 +62,12 @@ export class VehicleComponent implements OnInit {
           if(res.rows != null
               && res.rows.length > 0){
                 const formArray = (<FormArray>this.vehicleForm.get(this.formArrayName));
-                while (formArray.length) {
-                  formArray.removeAt(0);
+                if(formArray){
+                  while (formArray.length) {
+                    formArray.removeAt(0);
+                  }
+                  res.rows.forEach(staff => formArray.push(this.formBuilder.group(staff)));
                 }
-                res.rows.forEach(staff => formArray.push(this.formBuilder.group(staff)));
           }
         }
       });
