@@ -58,4 +58,27 @@ export class ListDocumentTypesComponent implements AfterViewInit {
           })
         ).subscribe(data => this.dataSource.data = data);
   }
+
+  delete(data: any){
+    if(data.id){
+      const message = new Message;
+      message.titulo = "Eliminar Registro"
+      message.texto = "Esta seguro que desea eliminar el registro!! ";
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = message;
+
+      let dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.delete('/tipos-documentos/' + data.id)
+          .subscribe(res => {
+              if(res.status == 200){
+                this.paginator._changePageSize(this.paginator.pageSize);
+              }
+          });
+        }
+      })
+    }
+  }
 }

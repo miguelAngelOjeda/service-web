@@ -24,7 +24,7 @@ export class ListCheckReviewComponent implements OnInit {
   // MatPaginator Inputs
   length = 0;
   pageSize = 25;
-  pageSizeOptions: number[] = [25, 50, 100];
+  pageSizeOptions: number[] = [10, 25, 50, 100];
   // MatPaginator Output
   pageEvent: PageEvent;
   constructor(
@@ -33,6 +33,7 @@ export class ListCheckReviewComponent implements OnInit {
 
   ngOnInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.paginator.pageSize = this.pageSize;
     merge(this.sort.sortChange, this.paginator.page, fromEvent(this.filterInput.nativeElement, 'keyup'))
         .pipe(
           startWith({}),
