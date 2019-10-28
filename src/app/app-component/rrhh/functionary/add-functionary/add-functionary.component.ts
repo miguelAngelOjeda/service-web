@@ -91,7 +91,6 @@ export class AddFunctionaryComponent implements OnInit {
         }
     }
 
-
     compareObjects(o1: any, o2: any): boolean {
         if (!o1
             || !o2) {

@@ -1,5 +1,5 @@
 <div class="mat-button-single-row">
-  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/my-review"> MIS ANALISIS  </a> &gt; <span class="current">Lista de Analisis</span></h2>
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/check-review"> VERIFICAR ANALISIS  </a> &gt; <span class="current">Lista de Analisis</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
 </div>
 <div>
@@ -105,10 +105,10 @@
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <div *ngIf="element.estado.id != 1 || element.estado.id != 2">
-                    <a mat-icon-button routerLink="/service-web/my-review/{{element.id}}" *appCanAccess="['my-review', 'viewMyReview']"><mat-icon>visibility</mat-icon></a>
+                    <a mat-icon-button routerLink="/service-web/check-review/{{element.id}}" *appCanAccess="['check-review', 'viewCheckReview']"><mat-icon>visibility</mat-icon></a>
                   </div>
                   <div *ngIf="element.estado.id == 1 || element.estado.id == 2">
-                    <a mat-icon-button routerLink="/service-web/my-review/{{element.id}}/review" *appCanAccess="['my-review', 'editMyReview']"><mat-icon>assessment</mat-icon></a>
+                    <a mat-icon-button routerLink="/service-web/check-review/{{element.id}}/review" *appCanAccess="['check-review', 'editCheckReview']"><mat-icon>assessment</mat-icon></a>
                   </div>
                 </mat-cell>
             </ng-container>

@@ -60,6 +60,7 @@ const MENUITEMS = [
     subMenu:[
       {state: 'review', name: 'Analisis Solicitudes', icon: 'assignment_turned_in', entity:'review',  role:'listReview'},
       {state: 'my-review', name: 'Mis Analisis', icon: 'assignment_turned_in', entity:'my-review',  role:'listMyReview'},
+      {state: 'check-review', name: 'Verificar Analisis', icon: 'assignment_turned_in', entity:'check-review',  role:'listCheckReview'}
     ]
   },
   {

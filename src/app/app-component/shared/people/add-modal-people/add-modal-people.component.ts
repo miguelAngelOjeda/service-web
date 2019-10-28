@@ -41,31 +41,7 @@ export class AddModalPeopleComponent implements OnInit{
   }
 
   onSubmit() {
-    if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
-      this.myForm.value.persona.documento = ' ';
-      this.myForm.value.persona.fechaNacimiento = new Date();
-      this.myForm.value.persona.primerApellido = ' ';
-      this.myForm.value.persona.estadoCivil = ' ';
-      this.myForm.value.persona.sexo = 'N';
-    }
-
-    if(this.myForm.value.persona.id !== null){
-      this.apiService.put('/personas/' + this.myForm.value.persona.id, this.myForm.value.persona)
-      .subscribe(res => {
-        if(res.status == 200){
-          this.dialogRef.close(res.model);
-        }
-      });
-    }else{
-      this.apiService.post('/personas/' , this.myForm.value.persona)
-      .subscribe(res => {
-        if(res.status == 200){
-          this.dialogRef.close(res.model);
-        }
-      });
-    }
-
-
+    this.peopleService.guardar(this.myForm, this.dialogRef);
   }
 
   protected initFormBuilder() {

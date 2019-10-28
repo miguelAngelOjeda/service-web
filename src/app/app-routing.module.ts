@@ -46,6 +46,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/review/my-review/my-review.module#MyReviewModule'
         },
         {
+        path: 'service-web/check-review',
+        loadChildren: './app-component/review/check-review/check-review.module#CheckReviewModule'
+        },
+        {
         path: 'service-web/role',
         loadChildren: './app-component/role/role.module#RoleModule'
         },

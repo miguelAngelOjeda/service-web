@@ -45,12 +45,7 @@ export class EditCreditsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiService.put('/solicitud_creditos/' + this.route.snapshot.params.id, this.myForm.value)
-    .subscribe(res => {
-      if(res.status == 200){
-        this.myForm.patchValue(res.model,{onlySelf: true, emitEvent: false});
-      }
-    });
+    this.creditsService.editar(this.route.snapshot.params.id, this.myForm);
   }
 
   transferirPropuesta(id: number) {

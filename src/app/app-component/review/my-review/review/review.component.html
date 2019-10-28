@@ -3,7 +3,7 @@
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
 </div>
 <mat-card class="form-card">
-    <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <mat-card-content *ngIf="myForm.get('propuestaSolicitud').value != null">
         <div class="row">
           <div class="col-md-12">
@@ -21,17 +21,32 @@
           </div>
           <div [class]="col-md-12">
                 <div class="row">
-                  <div class="col-sm-3">
+                  <div class="col-sm-12">
                     <mat-list>
                       <mat-list-item>
-                        <p><span class="font-bold">Nº Solicitud: </span> {{myForm.get('propuestaSolicitud')?.value.id}}</p>
+                        <p><span class="font-bold">Asesor: </span> {{
+                          (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerNombre)
+                          + ' ' +
+                          (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoNombre)
+                          + ' ' +
+                          (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerApellido == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerApellido)
+                          + ' ' +
+                          (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoApellido == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoApellido)
+                          }}</p>
                       </mat-list-item>
                     </mat-list>
                   </div>
                   <div class="col-sm-3">
                     <mat-list>
                       <mat-list-item>
-                        <p><span class="font-bold">Fecha Presentacion: </span> {{myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'}}</p>
+                        <p [matTooltip]="myForm.get('propuestaSolicitud')?.value.id"><span class="font-bold">Nº Solicitud: </span> {{myForm.get('propuestaSolicitud')?.value.id}}</p>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                  <div class="col-sm-3">
+                    <mat-list>
+                      <mat-list-item>
+                        <p [matTooltip]="myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'"><span class="font-bold">Fecha Presentacion: </span> {{myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'}}</p>
                       </mat-list-item>
                     </mat-list>
                   </div>

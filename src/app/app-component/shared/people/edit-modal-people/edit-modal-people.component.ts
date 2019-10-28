@@ -54,42 +54,7 @@ export class EditModalPeopleComponent implements OnInit{
     this.myForm.value.persona.documento = this.people.documento;
     this.myForm.value.persona.ruc = this.people.ruc;
     this.myForm.value.persona.tipoPersona = this.people.tipoPersona;
-
-    if(this.myForm.value.persona.tipoPersona !== 'FISICA'){
-      this.myForm.value.persona.documento = ' ';
-      this.myForm.value.persona.fechaNacimiento = new Date();
-      this.myForm.value.persona.primerApellido = ' ';
-      this.myForm.value.persona.estadoCivil = ' ';
-      this.myForm.value.persona.sexo = 'N';
-    }
-
-    if(this.myForm.value.persona.id !== null){
-      //MODIFICAR PERSONA DE LA SOLICITUD
-      console.log(this.myForm.value.persona.entidad);
-      if(this.myForm.value.persona.entidad === 'PERSONA_SOLICITUD'){
-        this.apiService.put('/solicitud_creditos/personas/' + this.id, this.myForm.value.persona)
-        .subscribe(res => {
-          if(res.status == 200){
-            this.dialogRef.close(res.model);
-          }
-        });
-      }else{
-        this.apiService.put('/personas/' + this.myForm.value.persona.id, this.myForm.value.persona)
-        .subscribe(res => {
-          if(res.status == 200){
-            this.dialogRef.close(res.model);
-          }
-        });
-      }
-
-    }else{
-      this.apiService.post('/personas/' , this.myForm.value.persona)
-      .subscribe(res => {
-        if(res.status == 200){
-          this.dialogRef.close(res.model);
-        }
-      });
-    }
+    this.peopleService.editar(this.id, this.myForm, this.dialogRef);
   }
 
   protected initFormBuilder() {

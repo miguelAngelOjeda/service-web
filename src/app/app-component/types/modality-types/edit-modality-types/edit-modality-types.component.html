@@ -61,6 +61,53 @@
           </mat-error>
        </mat-form-field>
      </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+          <mat-label>Periodo Capital</mat-label>
+          <mat-select formControlName="periodoCapital" name="periodoCapital" required>
+            <mat-option  value="1">1 - DIARIO</mat-option>
+            <mat-option  value="7">7 - SEMANAL</mat-option>
+            <mat-option  value="15">15 - QUINCENAL</mat-option>
+            <mat-option  value="30">30 - MENSUAL</mat-option>
+            <mat-option  value="60">60 - BIMESTRAL</mat-option>
+            <mat-option  value="90">90 - TRIMESTRAL</mat-option>
+            <mat-option  value="180">180 - SEMESTRAL</mat-option>
+            <mat-option  value="360">360 - ANUAL</mat-option>
+          </mat-select>
+          <mat-error *ngIf="(modalityForm.get('periodoCapital').errors)">
+            <span *ngIf="modalityForm.get('periodoCapital').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+          <mat-label>Vto. Interes</mat-label>
+          <mat-select formControlName="vencimientoInteres" name="vencimientoInteres" required>
+            <!-- <mat-option  value="1">DIARIO</mat-option>
+            <mat-option  value="15">QUINCENAL</mat-option> -->
+            <mat-option  value="30">MENSUAL</mat-option>
+            <mat-option  value="0">Vto. Capital</mat-option>
+          </mat-select>
+          <mat-error *ngIf="(modalityForm.get('vencimientoInteres').errors)">
+            <span *ngIf="modalityForm.get('vencimientoInteres').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+         <mat-label>Periodo Gracia</mat-label>
+         <input matInput #input type="number"  placeholder="Periodo Gracia" formControlName="periodoGracia"  name="periodoGracia" required>
+         <mat-error *ngIf="(modalityForm.get('periodoGracia').errors)">
+           <span *ngIf="modalityForm.get('periodoGracia').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+       </mat-form-field>
+     </div>
     </div>
     <mat-card-actions>
       <button mat-button [type]="onSubmit"  mat-raised-button >Guardar</button>

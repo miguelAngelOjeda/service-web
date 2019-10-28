@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { UserService, ApiService} from '../../core/services';
+import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
 
@@ -8,7 +10,60 @@ import { FormGroup, FormArray , FormControl, FormBuilder,
 })
 export class ReviewService {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private apiService: ApiService,
+    private snackBar: MatSnackBar,
+    private formBuilder: FormBuilder) { }
+
+
+  public guardar(formGroup: FormGroup){
+    if(formGroup.valid){
+      this.apiService.post('/solicitud_creditos', formGroup.value)
+      .subscribe(res => {
+        if(res.status == 200){
+          formGroup.patchValue(res.model,{onlySelf: true, emitEvent: false});
+        }
+      });
+    }else{
+      this.mensaje("Faltan campos obligatorios por cargar!!!", "'Close'", "warning-snackbar");
+    }
+  }
+
+  public review(id: number, formGroup: FormGroup){
+    if(formGroup.valid){
+      this.apiService.put('/analisis_solicitudes/' + id, formGroup.value)
+      .subscribe(res => {
+        if(res.status == 200){
+          formGroup.patchValue(res.model);
+          //Cargar Ocupaciones
+          if(res.model.detalles != null &&  res.model.detalles.length > 0){
+            const detalles = (<FormArray>formGroup.get('detalles'));
+            if(detalles){
+              while (detalles.length) {
+                detalles.removeAt(0);
+              }
+              res.model.detalles.forEach(staff => {
+                let form = this.formBuilder.group(staff);
+                this.valueChanges(form);
+                detalles.push(form);
+              });
+            }
+          }
+        }
+      });
+    }else{
+      this.mensaje("Faltan campos obligatorios por cargar!!!", "Cerrar", "warning-snackbar");
+    }
+  }
+
+  public mensaje(message: string, action: string, className: string) {
+ 	    this.snackBar.open(message, action, {
+	      duration: 6000,
+	      verticalPosition: 'bottom',
+	      horizontalPosition: 'end',
+	      panelClass: [className],
+	    });
+	 }
 
   public initFormBuilder(): FormGroup{
     let formGroup = this.formBuilder.group({

@@ -11,7 +11,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 })
 export class ListMyReviewComponent implements OnInit {
   public isMobile: Boolean;
-  public rulesColumns  = ['tipoGarantia.nombre', 'tipoDestino.nombre', 'estado.nombre', 'funcionarioVerificador.persona.segundoNombre', 'funcionarioVerificador.persona.primerApellido', 'estado.nombre'];
+  public rulesColumns  = ['funcionarioAnalisis.persona.segundoNombre', 'propuestaSolicitud.cliente.persona.documento', 'funcionarioAnalisis.persona.primerApellido', 'estado.nombre'];
   public displayedColumns = ['id','propuestaSolicitud.tipoSolicitud.nombre','propuestaSolicitud.id','propuestaSolicitud.fechaPresentacion','fechaInicioAnalisis','fechaFinAnalisis' , 'propuestaSolicitud.montoSolicitadoOriginal', 'sucursal', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 

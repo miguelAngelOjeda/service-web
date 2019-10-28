@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   //api_url: 'http://localhost:8989/beta1',
-  api_image_url: 'https://app1.creditoguarani.com.py/beta1/image/',
-  api_url: 'https://app1.creditoguarani.com.py/beta1',
+  api_image_url: 'https://appdesa1.creditoguarani.com.py/beta1/image/',
+  api_url: 'https://appdesa1.creditoguarani.com.py/beta1',
   whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };
 
@@ -162,6 +162,17 @@ export const authorities = {
     	},
     	"listMyReview": {
     	  "permittedRoles": ["ROLE_MY_REVIEW.LIST"]
+    	}
+    },
+    "check-review": {
+    	"editCheckReview": {
+    	  "permittedRoles": ["ROLE_CHECK_REVIEW.EDIT"]
+    	},
+    	"viewCheckReview": {
+    	  "permittedRoles": ["ROLE_CHECK_REVIEW.VIEW"]
+    	},
+    	"listCheckReview": {
+    	  "permittedRoles": ["ROLE_CHECK_REVIEW.LIST"]
     	}
     },
     "card": {

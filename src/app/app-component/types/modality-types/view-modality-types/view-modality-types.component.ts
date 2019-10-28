@@ -37,7 +37,10 @@ export class ViewModalityTypesComponent implements OnInit {
         montoMaximo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
         montoMinimo: ['', [Validators.required]],
         interes: [0.0, [Validators.required]],
-        tipoCalculos: ['', [Validators.required]]
+        tipoCalculos: ['', [Validators.required]],
+        periodoCapital: ['', [Validators.required]],
+        periodoGracia: ['', [Validators.required]],
+        vencimientoInteres: ['', [Validators.required]]
       });
     }
 

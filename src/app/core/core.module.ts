@@ -22,12 +22,11 @@ export function tokenGetter() {
      JwtModule.forRoot({
        config: {
          tokenGetter: tokenGetter,
-         whitelistedDomains: ['mail.creditoguarani.com.py',
-          'mail.creditoguarani.com.py:4443',
+         whitelistedDomains: [
           'app1.creditoguarani.com.py',
           'https://app1.creditoguarani.com.py',
-          'https://portal.creditoguarani.com.py',
-          'portal.creditoguarani.com.py'],
+          'appdesa1.creditoguarani.com.py',
+          'https://appdesa1.creditoguarani.com.py'],
          //blacklistedRoutes: ['example.com/examplebadroute/']
          authScheme: 'X-Token '
        }

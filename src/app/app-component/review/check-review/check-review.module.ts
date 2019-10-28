@@ -79,4 +79,4 @@ export const customCurrencyMaskConfig = {
     ViewCheckReviewComponent
   ]
 })
-export class MyReviewModule {}
+export class CheckReviewModule {}

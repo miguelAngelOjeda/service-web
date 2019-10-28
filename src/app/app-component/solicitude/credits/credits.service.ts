@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DeleteDialogComponent } from '../../../shared';
 import { Message } from '../../../core/models';
+import { MatSnackBar } from '@angular/material';
 import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
@@ -18,6 +19,7 @@ export class CreditsService {
     private router: Router,
     private dialog: MatDialog,
     private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
     private apiService: ApiService) { }
 
   public delete(data: any){
@@ -52,6 +54,40 @@ export class CreditsService {
     });
   }
 
+  public guardar(formGroup: FormGroup){
+    if(formGroup.valid){
+      this.apiService.post('/solicitud_creditos', formGroup.value)
+      .subscribe(res => {
+        if(res.status == 200){
+          formGroup.patchValue(res.model,{onlySelf: true, emitEvent: false});
+        }
+      });
+    }else{
+      this.mensaje("Faltan campos obligatorios por cargar!!!", "Cerrar", "warning-snackbar");
+    }
+  }
+
+  public editar(id: number, formGroup: FormGroup){
+    if(formGroup.valid){
+      this.apiService.put('/solicitud_creditos/' + id, formGroup.value)
+      .subscribe(res => {
+        if(res.status == 200){
+          formGroup.patchValue(res.model,{onlySelf: true, emitEvent: false});
+        }
+      });
+    }else{
+      this.mensaje("Faltan campos obligatorios por cargar!!!", "Cerrar", "warning-snackbar");
+    }
+  }
+
+  public mensaje(message: string, action: string, className: string) {
+ 	    this.snackBar.open(message, action, {
+	      duration: 6000,
+	      verticalPosition: 'bottom',
+	      horizontalPosition: 'end',
+	      panelClass: [className],
+	    });
+	 }
 
   public initFormBuilder(): FormGroup{
     let formGroup = this.formBuilder.group({
@@ -138,6 +174,9 @@ export class CreditsService {
         (selectedValue) => {
           formGroup.controls['tipoCalculoImporte'].setValue(selectedValue.tipoCalculos);
           formGroup.controls['tasaInteres'].setValue(selectedValue.interes);
+          formGroup.controls['periodoCapital'].setValue(selectedValue.periodoCapital);
+          formGroup.controls['vencimientoInteres'].setValue(selectedValue.vencimientoInteres);
+          formGroup.controls['periodoGracia'].setValue(selectedValue.periodoGracia);
 
           let modalidad = formGroup.get('modalidad').value == null ? null : formGroup.get('modalidad').value;
           let plazo = formGroup.get('plazo').value == null ? null : formGroup.get('plazo').value;

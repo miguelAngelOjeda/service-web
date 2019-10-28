@@ -10,15 +10,15 @@ const routes: Routes = [
     children: [
     { path: '', component: ListCheckReviewComponent,
        canActivate: [UserService],
-       data: {roles: ['my-review', 'listMyReview']}
+       data: {roles: ['check-review', 'listCheckReview']}
     },
     { path: ':id', component: ViewCheckReviewComponent,
       canActivate: [UserService],
-      data: {roles: ['my-review', 'viewMyReview']}
+      data: {roles: ['check-review', 'viewCheckReview']}
     },
     { path: ':id/review', component: CheckReviewComponent,
       canActivate: [UserService],
-      data: {roles: ['my-review', 'editMyReview']}
+      data: {roles: ['check-review', 'editCheckReview']}
     }
               ]
   }

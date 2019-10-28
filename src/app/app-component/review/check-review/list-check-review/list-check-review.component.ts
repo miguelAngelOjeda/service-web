@@ -42,7 +42,7 @@ export class ListCheckReviewComponent implements OnInit {
             if(this.filterInput.nativeElement.value.length > 3){
               this.isfilter = true;
             }
-            return this.apiService.getPageList('/analisis_solicitudes/mis-analisis',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
+            return this.apiService.getPageList('/analisis_solicitudes/pre-aprobados',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
             this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
           }),
           map(data => {

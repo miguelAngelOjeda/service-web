@@ -10,6 +10,7 @@ import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } 
 import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../../shared/people';
 import { environment } from '../../../../../environments/environment';
 
+
 @Component({
   selector: 'app-add-credits',
   templateUrl: './add-credits.component.html',
@@ -37,12 +38,7 @@ export class AddCreditsComponent implements OnInit{
   }
 
   onSubmit() {
-    this.apiService.post('/solicitud_creditos', this.myForm.value)
-    .subscribe(res => {
-      if(res.status == 200){
-        this.myForm.patchValue(res.model,{onlySelf: true, emitEvent: false});
-      }
-    });
+    this.creditsService.guardar(this.myForm);
   }
 
   transferirPropuesta(id: number) {

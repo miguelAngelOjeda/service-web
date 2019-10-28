@@ -4,7 +4,7 @@
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
 </div>
 <mat-card class="form-card">
-  <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <!-- <mat-tab-group>
       <mat-tab> -->
         <!-- <ng-template mat-tab-label>
@@ -150,14 +150,14 @@
                     <mat-form-field  appearance="legacy">
                        <mat-label>Periodo Capital</mat-label>
                        <mat-select formControlName="periodoCapital" name="periodoCapital" required>
-                         <mat-option  value="1">1 - DIARIO</mat-option>
-                         <mat-option  value="7">7 - SEMANAL</mat-option>
-                         <mat-option  value="15">15 - QUINCENAL</mat-option>
-                         <mat-option  value="30">30 - MENSUAL</mat-option>
-                         <mat-option  value="60">60 - BIMESTRAL</mat-option>
-                         <mat-option  value="90">90 - TRIMESTRAL</mat-option>
-                         <mat-option  value="180">180 - SEMESTRAL</mat-option>
-                         <mat-option  value="360">360 - ANUAL</mat-option>
+                         <mat-option  [value]="1">1 - DIARIO</mat-option>
+                         <mat-option  [value]="7">7 - SEMANAL</mat-option>
+                         <mat-option  [value]="15">15 - QUINCENAL</mat-option>
+                         <mat-option  [value]="30">30 - MENSUAL</mat-option>
+                         <mat-option  [value]="60">60 - BIMESTRAL</mat-option>
+                         <mat-option  [value]="90">90 - TRIMESTRAL</mat-option>
+                         <mat-option  [value]="180">180 - SEMESTRAL</mat-option>
+                         <mat-option  [value]="360">360 - ANUAL</mat-option>
                        </mat-select>
                        <mat-error *ngIf="(myForm.get('periodoCapital').errors)">
                          <span *ngIf="myForm.get('periodoCapital').errors.required">
@@ -195,9 +195,9 @@
                        <mat-select formControlName="vencimientoInteres" name="vencimientoInteres" required>
                          <!-- <mat-option  value="1">DIARIO</mat-option>
                          <mat-option  value="15">QUINCENAL</mat-option> -->
-                         <mat-option  value="30">MENSUAL</mat-option>
-                         <mat-option  value="0">Vto. Capital</mat-option>
-                         <mat-option  value="-1">Meses de Gracia</mat-option>
+                         <mat-option  [value]="30">MENSUAL</mat-option>
+                         <mat-option  [value]="0">Vto. Capital</mat-option>
+                         <mat-option  [value]="-1">Meses de Gracia</mat-option>
                        </mat-select>
                        <mat-error *ngIf="(myForm.get('vencimientoInteres').errors)">
                          <span *ngIf="myForm.get('vencimientoInteres').errors.required">

@@ -39,8 +39,6 @@ export class EditFunctionaryComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         this.peopleService.loadData((<FormGroup>this.myForm.get('persona')),res.model.persona);
-        res.fechaIngreso =  new Date(res.fechaIngreso);
-        res.model.fechaEgreso =  res.model.fechaEgreso == null ? null : new Date(res.model.fechaEgreso);
         this.myForm.patchValue(res.model);
       }
     });
@@ -84,6 +82,14 @@ export class EditFunctionaryComponent implements OnInit {
         (fecha) => {
           if(fecha){
             this.myForm.get('fechaIngreso').setValue(new Date(fecha), {emitEvent:false});
+          }
+        }
+    );
+
+    this.myForm.controls['fechaEgreso'].valueChanges.subscribe(
+        (fecha) => {
+          if(fecha){
+            this.myForm.get('fechaEgreso').setValue(new Date(fecha), {emitEvent:false});
           }
         }
     );
