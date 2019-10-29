@@ -19,39 +19,19 @@
           <div [formGroupName]="i">
             <div class="row">
               <div class="col-sm-4" *ngIf="vehiculos.get('marca')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Marca: </span> {{vehiculos.get('marca')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Marca: </span> {{vehiculos.get('marca')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="vehiculos.get('modeloAnio')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Modelo/Año: </span> {{vehiculos.get('modeloAnio')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Modelo/Año: </span> {{vehiculos.get('modeloAnio')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="vehiculos.get('valorActual')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Valor Actual: </span> {{vehiculos.get('valorActual')?.value  | number}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Valor Actual: </span> {{vehiculos.get('valorActual')?.value  | number}}</p>
               </div>
               <div class="col-sm-4" *ngIf="vehiculos.get('cuotaMensual')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Cuota Mensual: </span> {{vehiculos.get('cuotaMensual')?.value  | number}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Cuota Mensual: </span> {{vehiculos.get('cuotaMensual')?.value  | number}}</p>
               </div>
               <div class="col-sm-4" *ngIf="vehiculos.get('saldo')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Saldo: </span> {{vehiculos.get('saldo')?.value  | number}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Saldo: </span> {{vehiculos.get('saldo')?.value  | number}}</p>
               </div>
             </div>
           </div>

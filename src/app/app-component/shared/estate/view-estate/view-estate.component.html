@@ -18,111 +18,50 @@
           <div [formGroupName]="i">
             <div class="row m-t-20">
               <div class="col-sm-12">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Direccion: </span> {{bienesInmuebles.get('direccion')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Direccion: </span> {{bienesInmuebles.get('direccion')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.controls.pais.value.nombre">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Pais: </span> {{bienesInmuebles.controls.pais?.value?.nombre}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Pais: </span> {{bienesInmuebles.controls.pais?.value?.nombre}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.controls.departamento.value.nombre">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Departamento: </span> {{bienesInmuebles.controls.departamento.value?.nombre}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Departamento: </span> {{bienesInmuebles.controls.departamento.value?.nombre}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.controls.ciudad.value?.nombre">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Ciudad: </span> {{bienesInmuebles.controls.ciudad.value?.nombre}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Ciudad: </span> {{bienesInmuebles.controls.ciudad.value?.nombre}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('edificado')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Edificado: </span> {{(bienesInmuebles.get('edificado')?.value == true ? 'S' : 'N')}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Edificado: </span> {{(bienesInmuebles.get('edificado')?.value == true ? 'S' : 'N')}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('escriturado')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Escriturado: </span> {{(bienesInmuebles.get('escriturado')?.value == true ? 'S' : 'N')}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Escriturado: </span> {{(bienesInmuebles.get('escriturado')?.value == true ? 'S' : 'N')}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('numeroFinca')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Nº de Finca: </span> {{bienesInmuebles.get('numeroFinca')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Nº de Finca: </span> {{bienesInmuebles.get('numeroFinca')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('numeroMatricula')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Nº de Matricula: </span> {{bienesInmuebles.get('numeroMatricula')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Nº de Matricula: </span> {{bienesInmuebles.get('numeroMatricula')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('cuentaCatastral')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Cuenta Catastral: </span> {{bienesInmuebles.get('cuentaCatastral')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Cuenta Catastral: </span> {{bienesInmuebles.get('cuentaCatastral')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('hipotecado')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Hipotecado: </span> {{(bienesInmuebles.get('hipotecado')?.value == true ? 'S' : 'N')}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Hipotecado: </span> {{(bienesInmuebles.get('hipotecado')?.value == true ? 'S' : 'N')}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('lugarHipoteca')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Lugar Hipoteca: </span> {{bienesInmuebles.get('lugarHipoteca')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Lugar Hipoteca: </span> {{bienesInmuebles.get('lugarHipoteca')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('fechaHipoteca')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Fecha Hipoteca: </span> {{bienesInmuebles.get('fechaHipoteca')?.value | date: 'dd/MM/yyyy'}}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Fecha Hipoteca: </span> {{bienesInmuebles.get('fechaHipoteca')?.value | date: 'dd/MM/yyyy'}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('valorActual').value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Valor Actual: </span> {{bienesInmuebles.get('valorActual')?.value | number }}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Valor Actual: </span> {{bienesInmuebles.get('valorActual')?.value | number }}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('saldo').value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Saldo a Pagar: </span> {{bienesInmuebles.get('saldo')?.value | number }}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Saldo a Pagar: </span> {{bienesInmuebles.get('saldo')?.value | number }}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('cuotaMensual').value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Cuota Mensual: </span> {{bienesInmuebles.get('cuotaMensual')?.value | number }}</p>
-                  </mat-list-item>
-                </mat-list>
+                <p><span class="font-bold">Cuota Mensual: </span> {{bienesInmuebles.get('cuotaMensual')?.value | number }}</p>
               </div>
-
             </div>
           </div>
         </blockquote>
