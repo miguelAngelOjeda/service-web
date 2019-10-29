@@ -1,14 +1,11 @@
 <div class="auth-page" *appShowAuthed="false">
   <div class="container page">
-    <div  class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
+    <div  class="login-register">
       <div class="login-register-box">
         <mat-card  class="mat-card">
           <mat-card-content  class="mat-card-content">
             <form #formControl="ngForm" (ngSubmit)="formControl.form.valid && submitForm(ngForm)" class="ng-pristine ng-invalid ng-touched">
-
-                  <div  class="text-center">
-                    <img alt="homepage" src="assets/images/gow.svg" style="height: 70px;">
-                  </div>
+                  <h1 class="brand-logo">Crédito<br>Guaraní </h1>
                   <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
                     <div fxflex="100" fxflex.gt-sm="100" fxflex.gt-xs="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
                       <mat-form-field class="mat-headline" appearance="legacy">
