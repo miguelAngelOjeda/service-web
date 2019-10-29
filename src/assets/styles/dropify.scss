@@ -39,6 +39,7 @@ $dropify-font-path:        "../fonts" !default;
     text-align: center;
     border: $dropify-border-size solid $dropify-border-color;
     transition: border-color 0.15s linear;
+    margin-bottom: 2em;
 
     &:hover {
         background-size: 30px 30px;
