@@ -172,14 +172,13 @@ export class PeopleService {
     }
 
     public addModalPeople(id: number,peopleFormGroup: FormGroup, matDialogConfig: MatDialogConfig){
-
       if(!matDialogConfig){
         matDialogConfig = new MatDialogConfig();
         matDialogConfig.disableClose = true;
         matDialogConfig.autoFocus = true;
         matDialogConfig.data = { model: null, title:'Agregar' };
       }
-      //dialogConfig.maxHeight = "65vh";
+      matDialogConfig.hasBackdrop = true;
 
       const dialogRef = this.dialog.open(AddModalPeopleComponent, matDialogConfig);
 
@@ -195,13 +194,13 @@ export class PeopleService {
     }
 
     public editModalPeople(id: number,peopleFormGroup: FormGroup, matDialogConfig: MatDialogConfig){
-
       if(!matDialogConfig){
         matDialogConfig = new MatDialogConfig();
         matDialogConfig.disableClose = true;
         matDialogConfig.autoFocus = true;
         matDialogConfig.data = { model: null, title:'Editar' };
       }
+      matDialogConfig.hasBackdrop = true;
 
       this.apiService.get('/personas/' + id,this.params)
       .subscribe(res => {
@@ -230,6 +229,8 @@ export class PeopleService {
         matDialogConfig.autoFocus = true;
         matDialogConfig.data = { model: null, title:'Editar' };
       }
+      matDialogConfig.hasBackdrop = true;
+      
       this.apiService.get('/personas/' + id,this.params)
       .subscribe(res => {
         if(res.status == 200){

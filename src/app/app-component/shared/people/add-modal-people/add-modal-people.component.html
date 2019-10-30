@@ -1,60 +1,43 @@
-
 <h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>{{title}}</h4>
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-		<br>
-		<div class="mat-dialog-content" style="max-height: 75vh">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-12">
-							<app-people></app-people>
-						</div>
-						<div class="col-md-12" *ngIf="addSpouse">
-							<app-spouse [addModel]="addSpouse"></app-spouse>
-						</div>
-						<div class="col-md-12">
-							<app-reference [minRow]="1"></app-reference>
-						</div>
-						<div class="col-md-12">
-							<app-occupation [minRow]="1"></app-occupation>
-						</div>
-						<div class="col-md-12">
-							<app-estate></app-estate>
-						</div>
-						<div class="col-md-12">
-							<app-vehicle></app-vehicle>
-						</div>
-						<div class="col-md-12 m-t-30">
-							<div class="row">
-								<div class="col-md-6">
-									<app-ingress [minRow]="1"></app-ingress>
-								</div>
-								<div class="col-md-6">
-									<app-egress [minRow]="1"></app-egress>
-								</div>
+	<mat-dialog-content>
+		<div class="row m-t-20">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12">
+						<app-people></app-people>
+					</div>
+					<div class="col-md-12" *ngIf="addSpouse">
+						<app-spouse [addModel]="addSpouse"></app-spouse>
+					</div>
+					<div class="col-md-12">
+						<app-reference [minRow]="1"></app-reference>
+					</div>
+					<div class="col-md-12">
+						<app-occupation [minRow]="1"></app-occupation>
+					</div>
+					<div class="col-md-12">
+						<app-estate></app-estate>
+					</div>
+					<div class="col-md-12">
+						<app-vehicle></app-vehicle>
+					</div>
+					<div class="col-md-12 m-t-30">
+						<div class="row">
+							<div class="col-md-6">
+								<app-ingress [minRow]="1"></app-ingress>
+							</div>
+							<div class="col-md-6">
+								<app-egress [minRow]="1"></app-egress>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<br>
-		<mat-dialog-actions align="end">
-		  <button mat-button mat-dialog-close>Cancelar</button>
-		  <button mat-button [type]="onSubmit" cdkFocusInitial>Guardar</button>
-		</mat-dialog-actions>
-		<!-- <section class="section">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-						<div class="btn-group mr-2" role="group" aria-label="First group">
-							<button mat-button style="background-color: #e0e5ff;"  [mat-dialog-close]="false" mat-raised-button>Cancelar</button>
-						</div>
-						<div class="btn-group mr-2" role="group" aria-label="Second group">
-							<button  mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
+  </mat-dialog-content>
+	<mat-dialog-actions align="end">
+	  <button mat-button mat-dialog-close>Cancelar</button>
+	  <button mat-button [type]="onSubmit" cdkFocusInitial>Guardar</button>
+	</mat-dialog-actions>
 </form>
