@@ -351,28 +351,24 @@
                 </div>
               </fieldset>
             </div>
-            <div class="col-md-12 m-t-20" *ngIf="myForm.get('tipoGarantia')?.value?.id == 2">
-              <div class="row">
-                <div class="col-md-12">
-                  <h4  class="m-0"><mat-icon class="gray-text">people_outline</mat-icon>Codeudor</h4>
-                </div>
-                <div class="col-md-12">
-                  <!-- <blockquote> -->
-                    <ng-container formGroupName="codeudor">
-                      <div class="row">
-                        <div class="col-md-6" *ngIf="myForm.get('codeudor')?.value?.id == null">
-                          <mat-list>
-                            <mat-list-item>
-                              <mat-error>
-                                <span>
-                                 <h4>Cargar Datos del Codeudor!!</h4>
-                                </span>
-                              </mat-error>
-                            </mat-list-item>
-                          </mat-list>
-                        </div>
-                        <div class="col-md-4" *ngIf="myForm.get('codeudor')?.value?.id">
-                          <div class="p-l-20 p-t-10">
+            <div class="col-md-12" *ngIf="myForm.get('tipoGarantia')?.value?.id == 2">
+              <fieldset class="m-t-20">
+                <legend><mat-icon class="gray-text">people_outline</mat-icon>Codeudor</legend>
+                <div class="row">
+                  <div class="col-md-12" *ngIf="myForm.get('codeudor')?.value?.id == null">
+                    <mat-error>
+                      <span>
+                       <h4>Cargar Datos del Codeudor!!
+                         <button  type="button" class="btn btn-light nav-link float-right" (click)="addPeople('CODEUDOR')"><i class="fa fa-plus pr-2"></i><span class="font-bold">Agregar Codeudor</span></button>
+                       </h4>
+                      </span>
+                    </mat-error>
+                  </div>
+                  <div class="col-md-12">
+                    <!-- <blockquote> -->
+                      <ng-container formGroupName="codeudor">
+                        <div class="row">
+                          <div class="col-md-4" *ngIf="myForm.get('codeudor')?.value?.id">
                             <div class="font-medium">{{
                               (myForm.controls['codeudor']?.value?.primerNombre == null ? '' : myForm.controls['codeudor']?.value?.primerNombre)
                               + ' ' +
@@ -381,7 +377,11 @@
                               (myForm.controls['codeudor']?.value?.primerApellido == null ? '' : myForm.controls['codeudor']?.value?.primerApellido)
                               + ' ' +
                               (myForm.controls['codeudor']?.value?.segundoApellido == null ? '' : myForm.controls['codeudor']?.value?.segundoApellido)
-                              }} </div>
+                              }}
+                            </div>
+                            <span class="font-14">Doc.: {{(myForm.controls['codeudor']?.value?.documento == null ? '' : myForm.controls['codeudor']?.value?.documento)
+                              + (myForm.controls['codeudor']?.value?.ruc == null ? '' : '/' + myForm.controls['codeudor']?.value?.ruc)}}</span>
+                            <br>
                             <span class="font-16" *ngIf="myForm.controls['codeudor']?.value?.profesion">{{myForm.controls['codeudor']?.value?.profesion?.nombre}}</span>
                             <br *ngIf="myForm.controls['codeudor']?.value?.profesion">
                             <span class="font-16" *ngIf="myForm.controls['codeudor']?.value?.email">{{myForm.controls['codeudor']?.value?.email }}</span>
@@ -390,40 +390,28 @@
                               (myForm.controls['codeudor']?.value?.telefonoParticular == null ? '' : myForm.controls['codeudor']?.value?.telefonoParticular)
                               + ' ' +
                               (myForm.controls['codeudor']?.value?.telefonoSecundario == null ? '' : myForm.controls['codeudor']?.value?.telefonoSecundario)
-                              }}</span>
+                              }}
+                            </span>
+                          </div>
+                          <div class="col-md-2">
+                            <section class="example-section">
+                              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor')?.value?.id">
+                                  <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('codeudor')?.value?.id, 'CODEUDOR')"><i class="fa fa-eye"></i></button>
+                                </div>
+                                <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('codeudor')?.value?.id">
+                                  <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('codeudor')?.value?.id, 'CODEUDOR')"><i class="fa fa-edit"></i></button>
+                                </div>
+                              </div>
+                                 <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+                            </section>
                           </div>
                         </div>
-                        <div class="col-sm-4" *ngIf="myForm.controls['codeudor']?.value?.id">
-                          <mat-list>
-                            <mat-list-item>
-                              <p><span class="font-bold">Documento: </span> {{myForm.controls['codeudor']?.value?.documento}}</p>
-                            </mat-list-item>
-                            <mat-list-item>
-                              <p><span class="font-bold">Sexo: </span> {{myForm.controls['codeudor']?.value?.sexo}}</p>
-                            </mat-list-item>
-                          </mat-list>
-                        </div>
-                        <div class="col-md-2">
-                          <section class="example-section">
-                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor')?.value?.id == null">
-                                <button type="button" class="btn btn-light" (click)="addPeople('CODEUDOR')"><i class="fa fa-plus pr-2"></i><span class="font-bold">Agregar Codeudor</span></button>
-                              </div>
-                              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('codeudor')?.value?.id">
-                                <button type="button" class="btn btn-light" (click)="viewPeople(myForm.get('codeudor')?.value?.id, 'CODEUDOR')"><i class="fa fa-eye"></i></button>
-                              </div>
-                              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('codeudor')?.value?.id">
-                                <button type="button" class="btn btn-light" (click)="editPeople(myForm.get('codeudor')?.value?.id, 'CODEUDOR')"><i class="fa fa-edit"></i></button>
-                              </div>
-                            </div>
-                               <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
-                          </section>
-                        </div>
-                      </div>
-                    </ng-container>
-                  <!-- </blockquote> -->
+                      </ng-container>
+                    <!-- </blockquote> -->
+                  </div>
                 </div>
-              </div>
+              </fieldset>
             </div>
             <div class="col-md-12  m-t-10" *ngIf="myForm.get('id').value && myForm.get('entidad').value">
               <app-upload [entidad]="myForm.get('entidad').value" [idEntidad]="myForm.get('id').value"

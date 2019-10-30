@@ -54,6 +54,15 @@ export class CreditsService {
     });
   }
 
+  public abandonarPropuesta(id: number) {
+    this.apiService.put('/solicitud_creditos/abandonar/' + id)
+    .subscribe(res => {
+      if(res.status == 200){
+        this.router.navigateByUrl('service-web/credits-solicitude');
+      }
+    });
+  }
+
   public guardar(formGroup: FormGroup){
     if(formGroup.valid){
       this.apiService.post('/solicitud_creditos', formGroup.value)
@@ -111,7 +120,7 @@ export class CreditsService {
           imagePath: null,
           segundoApellido: null
         })}),
-      codeudor:[null],
+      codeudor:new FormControl(''),
       modalidad: [null, [Validators.required]],
       fechaPresentacion: [null],
       funcionario: [null],
@@ -146,7 +155,7 @@ export class CreditsService {
       activo: 'S'
     });
     //Desactivar Codeudor
-    formGroup.controls['codeudor'].disable();
+    //formGroup.controls['codeudor'].disable();
     return formGroup;
   }
 
@@ -311,8 +320,16 @@ export class CreditsService {
 
     formGroup.controls['tipoGarantia'].valueChanges.subscribe(
         (tipoGarantia) => {
-          formGroup.controls['codeudor'].setValue(null);
-
+          console.log(tipoGarantia);
+          if(tipoGarantia.codigo === 'TG-2'){
+            formGroup.get('codeudor').setValidators([Validators.required]);
+            formGroup.controls['codeudor'].setValue(null);
+            formGroup.get('codeudor').updateValueAndValidity();
+          }else{
+            formGroup.controls['codeudor'].setValue(null);
+            formGroup.get('codeudor').setValidators(null);
+            formGroup.get('codeudor').updateValueAndValidity();
+          }
         }
     );
 

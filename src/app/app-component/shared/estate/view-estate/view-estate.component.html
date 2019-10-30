@@ -16,7 +16,7 @@
       <div [formArrayName]="formArrayName"  *ngFor="let bienesInmuebles of peopleForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
         <blockquote>
           <div [formGroupName]="i">
-            <div class="row m-t-20">
+            <div class="row m-t-10">
               <div class="col-sm-12">
                 <p><span class="font-bold">Direccion: </span> {{bienesInmuebles.get('direccion')?.value}}</p>
               </div>

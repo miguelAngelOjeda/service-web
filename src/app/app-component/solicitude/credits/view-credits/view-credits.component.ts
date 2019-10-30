@@ -43,6 +43,10 @@ export class ViewCreditsComponent implements OnInit {
     this.creditsService.transferirPropuesta(id);
   }
 
+  abandonarPropuesta(id: number) {
+    this.creditsService.abandonarPropuesta(id);
+  }
+
   viewPeople(idSolicitud: number, idPersona: number,type: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = { model: null, title:'Visualizar Deudor' };

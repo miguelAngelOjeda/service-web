@@ -2,7 +2,10 @@
 <ng-container *ngIf="addSpouse && peopleForm.get('estadoCivil')?.value == 'CASADO/A'">
   <div class="row">
     <div class="col-md-12">
-        <h4  class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Conyuge</h4>
+        <h4  class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Conyuge
+          <button *ngIf="peopleForm.get('conyuge').get('id').value == null" type="button" class="btn btn-light nav-link float-right" (click)="addPeople(i)"><i class="fa fa-plus pr-2"  aria-hidden="true"></i><span class="font-bold">Agregar Conyuge</span></button>
+        </h4>
+        <!-- <a mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a> -->
     </div>
     <div class="col-md-12">
       <blockquote>
@@ -30,7 +33,11 @@
                     (peopleForm.controls['conyuge'].get('primerApellido')?.value == null ? '' : peopleForm.controls['conyuge'].get('primerApellido')?.value)
                     + ' ' +
                     (peopleForm.controls['conyuge'].get('segundoApellido')?.value == null ? '' : peopleForm.controls['conyuge'].get('segundoApellido')?.value)
-                    }} </div>
+                    }}
+                  </div>
+                  <span class="font-14">Doc.: {{(peopleForm.controls['conyuge'].get('documento')?.value == null ? '' : peopleForm.controls['conyuge'].get('documento')?.value)
+                    + (peopleForm.controls['conyuge'].get('ruc')?.value == null ? '' : '/' + peopleForm.controls['conyuge'].get('ruc')?.value)}}</span>
+                  <br>
                   <span class="font-16" *ngIf="peopleForm.controls['conyuge']['controls']?.profesion.value">{{peopleForm.controls['conyuge']['controls']?.profesion.value?.nombre}}</span>
                   <br *ngIf="peopleForm.controls['conyuge']['controls']?.profesion?.value">
                   <span class="font-16" *ngIf="peopleForm.controls['conyuge'].get('email')?.value">{{peopleForm.controls['conyuge'].get('email')?.value }}</span>
@@ -39,34 +46,23 @@
                     (peopleForm.controls['conyuge'].get('telefonoParticular')?.value == null ? '' : peopleForm.controls['conyuge'].get('telefonoParticular')?.value)
                     + ' ' +
                     (peopleForm.controls['conyuge'].get('telefonoSecundario')?.value == null ? '' : peopleForm.controls['conyuge'].get('telefonoSecundario')?.value)
-                    }}</span>
+                    }}
+                  </span>
+                  <section class="example-section">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                      <!-- <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="peopleForm.get('conyuge').get('id').value == null">
+                        <button type="button" class="btn btn-light" (click)="addPeople(i)"><i class="fa fa-plus pr-2"  aria-hidden="true"></i><span class="font-bold">Agregar Conyuge</span></button>
+                      </div> -->
+                      <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="peopleForm.get('conyuge').get('id').value">
+                        <button type="button" class="btn btn-light" (click)="viewPeople(peopleForm.get('conyuge').get('id').value, i)"><i class="fa fa-eye"></i></button>
+                      </div>
+                      <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="peopleForm.get('conyuge').get('id').value">
+                        <button type="button" class="btn btn-light" (click)="editPeople(peopleForm.get('conyuge').get('id').value, i)"><i class="fa fa-edit"></i></button>
+                      </div>
+                    </div>
+                       <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+                  </section>
                 </div>
-              </div>
-              <div class="col-sm-4" *ngIf="peopleForm.get('conyuge')?.get('id')?.value">
-                <mat-list>
-                  <mat-list-item>
-                    <p><span class="font-bold">Documento: </span> {{peopleForm.get('conyuge').get('documento')?.value}}</p>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <p><span class="font-bold">Sexo: </span> {{peopleForm.get('conyuge').get('sexo')?.value}}</p>
-                  </mat-list-item>
-                </mat-list>
-              </div>
-              <div class="col-md-2">
-                <section class="example-section">
-                  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="peopleForm.get('conyuge').get('id').value == null">
-                      <button type="button" class="btn btn-light" (click)="addPeople(i)"><i class="fa fa-plus pr-2"  aria-hidden="true"></i><span class="font-bold">Agregar Conyuge</span></button>
-                    </div>
-                    <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="peopleForm.get('conyuge').get('id').value">
-                      <button type="button" class="btn btn-light" (click)="viewPeople(peopleForm.get('conyuge').get('id').value, i)"><i class="fa fa-eye"></i></button>
-                    </div>
-                    <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="peopleForm.get('conyuge').get('id').value">
-                      <button type="button" class="btn btn-light" (click)="editPeople(peopleForm.get('conyuge').get('id').value, i)"><i class="fa fa-edit"></i></button>
-                    </div>
-                  </div>
-                     <!-- <a mat-icon-button color="warn" (click)="delete(referencias.value)"> <mat-icon>delete_forever</mat-icon></a> -->
-                </section>
               </div>
             </div>
           </ng-container>

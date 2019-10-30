@@ -1,14 +1,9 @@
 <div class="mat-button-single-row">
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/exit-types"> TIPOS SALIDAS </a> &gt; <span class="current">Lista de Tipos Salidas</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
-  <a mat-raised-button class="m-l-10" routerLink="/service-web/exit-types/new" *appCanAccess="['exit-types', 'addExitTypes']">
-     Agregar
-  </a>
-  <!-- <div>
-      <button class="right-side-toggle waves-effect waves-light btn-success-bost btn btn-circle btn-sm pull-right m-l-10" routerLink="/service-web/business/new" *appCanAccess="['enterprise', 'addEnterprise']">
-        <i class="ti-plus text-white" style ="font-size: 18px;position: absolute;left: 16px;;"></i>
-      </button>
-  </div> -->
+  <button  type="button" class="btn btn-secondary" routerLink="/service-web/exit-types/new" *appCanAccess="['exit-types', 'addExitTypes']">
+    <span class="font-bold">Agregar</span>
+  </button>
 </div>
 <div>
   <mat-card>

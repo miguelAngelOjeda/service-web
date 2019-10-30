@@ -21,10 +21,18 @@
         </ng-template> -->
         <mat-card-content *ngIf="myForm.get('id').value">
           <div class="row">
-            <div class="col-md-12 m-b-10" *ngIf="myForm.get('estado')?.value?.id == 1 || myForm.get('estado')?.value?.id == 5">
-                <button type="button" class="btn btn-secondary pull-right" (click)="transferirPropuesta(myForm.get('id').value)"><span class="font-bold">Transferir Propuesta</span></button>
+            <div class="col-md-12 m-b-10">
+              <section class="pull-right">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('estado')?.value?.id == 1 || myForm.get('estado')?.value?.id == 5">
+                    <button  type="button" class="btn btn-secondary" (click)="transferirPropuesta(myForm.get('id').value)" *appCanAccess="['credits-solicitude', 'editCredits']"><span class="font-bold">Transferir Propuesta</span></button>
+                  </div>
+                  <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('estado')?.value?.id != 4 && myForm.get('estado')?.value?.id != 6 && myForm.get('estado')?.value?.id != 7">
+                    <button  type="button" class="btn btn-danger" (click)="abandonarPropuesta(myForm.get('id').value)" *appCanAccess="['credits-solicitude', 'abandonCredits']"><span class="font-bold">Abandonar</span></button>
+                  </div>
+                </div>
+              </section>
             </div>
-
             <div class="col-md-12">
               <fieldset>
                 <legend><mat-icon class="gray-text">event_note</mat-icon>Propuesta Credito</legend>

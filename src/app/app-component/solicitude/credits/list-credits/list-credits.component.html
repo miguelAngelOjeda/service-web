@@ -1,9 +1,7 @@
 <div class="mat-button-single-row">
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/credits-solicitude"> SOLICITUDES CREDITOS </a> &gt; <span class="current">Lista de Solicitudes</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
-  <a mat-raised-button class="m-l-10" routerLink="/service-web/credits-solicitude/new" *appCanAccess="['credits-solicitude', 'addCredits']">
-     Agregar
-  </a>
+  <button  type="button" class="btn btn-secondary" routerLink="/service-web/credits-solicitude/new" *appCanAccess="['credits-solicitude', 'addCredits']"><span class="font-bold">Agregar</span></button>
 </div>
 
 <div>
@@ -147,6 +145,12 @@
                 </div>
                 <div *ngIf="element.estado.id == 3 || element.estado.id == 6">
                   <span class="label label-success">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{element.estado.nombre}}</font>
+                    </font>
+                  </span>
+                </div>
+                <div *ngIf="element.estado.id == 7">
+                  <span class="label label-danger">
                     <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{element.estado.nombre}}</font>
                     </font>
                   </span>

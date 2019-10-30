@@ -121,6 +121,9 @@ export const authorities = {
     	"listCredits": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.LIST","ROLE_SOLICITUDE.LISTALL"]
     	},
+      "abandonCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.ABANDON"]
+    	},
     	"deleteCredits": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}

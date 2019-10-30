@@ -116,6 +116,9 @@ export const authorities = {
     	"listCredits": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.LIST","ROLE_SOLICITUDE.LISTALL"]
     	},
+      "abandonCredits": {
+    	  "permittedRoles": ["ROLE_SOLICITUDE.ABANDON"]
+    	},
     	"deleteCredits": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}
@@ -157,6 +160,17 @@ export const authorities = {
     	},
     	"listMyReview": {
     	  "permittedRoles": ["ROLE_MY_REVIEW.LIST"]
+    	}
+    },
+    "check-review": {
+    	"editCheckReview": {
+    	  "permittedRoles": ["ROLE_CHECK_REVIEW.EDIT"]
+    	},
+    	"viewCheckReview": {
+    	  "permittedRoles": ["ROLE_CHECK_REVIEW.VIEW"]
+    	},
+    	"listCheckReview": {
+    	  "permittedRoles": ["ROLE_CHECK_REVIEW.LIST"]
     	}
     },
     "card": {

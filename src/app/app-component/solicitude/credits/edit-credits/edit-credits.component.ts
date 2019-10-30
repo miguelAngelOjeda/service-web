@@ -52,6 +52,10 @@ export class EditCreditsComponent implements OnInit {
     this.creditsService.transferirPropuesta(id);
   }
 
+  abandonarPropuesta(id: number) {
+    this.creditsService.abandonarPropuesta(id);
+  }
+
   editPeople(idSolicitud: number, idPersona: number, type: string) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;

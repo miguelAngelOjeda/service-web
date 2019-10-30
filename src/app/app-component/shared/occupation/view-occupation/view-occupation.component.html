@@ -18,7 +18,7 @@
           </ng-container>
           <div [formGroupName]="i" *ngFor="let ocupaciones of peopleForm.get(formArrayName)['controls']; let i = index">
             <blockquote>
-              <div class="row">
+              <div class="row m-t-10">
                  <div class="col-sm-4">
                    <p mat-line><span class="font-bold">Empresa: </span> {{ocupaciones.get('empresa')?.value}}</p>
                    <p mat-line><span class="font-bold">Cargo: </span> {{ocupaciones.get('cargo')?.value}}</p>
