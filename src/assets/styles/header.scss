@@ -15,6 +15,11 @@ mat-toolbar{
     &.topbar{
         padding: 0px 15px;
     }
+
+    &.mat-primary{
+      background-color: $brand-black !important;
+    }
+
     .navbar-header {
         text-align: center;
 
@@ -29,11 +34,11 @@ mat-toolbar{
             }
 
             .dark-logo {
-                display: block;
+                display: none;
             }
 
             .light-logo {
-                display: none;
+                display: block;
             }
 
             b {

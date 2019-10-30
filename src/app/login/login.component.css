@@ -1,11 +1,11 @@
-.auth-page {
-    position: absolute;
+.auth-page:before {
+    position: fixed;
+    content: '';
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('../../assets/images/background/guarani-moneda.jpg');
-    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    background-color: #C1A47C;
 }
 
 fieldset {
@@ -13,7 +13,6 @@ fieldset {
 }
 
 .brand-logo{
-  border-left: 4px solid rgb(216, 191, 7);
   text-transform: uppercase;
   font-size: 34px;
   line-height: 1;
@@ -22,4 +21,16 @@ fieldset {
   color: #000;
   padding-left: 10px;
   margin: 1em auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.login-register .mat-card{
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-register button.mat-primary:not([disabled]){
+  background-color: #000000 !important;
 }

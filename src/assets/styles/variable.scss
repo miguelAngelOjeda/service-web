@@ -10,13 +10,11 @@ File: scss
 @import "variables/spacing";
 @import "variables/tables";
 @import "variables/type";
+@import url('https://fonts.googleapis.com/css?family=Arimo&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700');
 
-
-
-
-$bodyfont: 'Roboto', sans-serif;
-$headingfont: 'Roboto', sans-serif;
+$bodyfont: 'Arimo', sans-serif;
+$headingfont: 'Arimo', sans-serif;
 
 @import '~@angular/material/theming';
 
@@ -32,7 +30,7 @@ $foreground: map-get($theme, foreground);
 @include mat-core();
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Roboto, sans-serif'
+  $font-family: 'Arimo, sans-serif'
 );
 
 // Override the typography in the core CSS.
@@ -112,4 +110,6 @@ $radius: 4px;
 $form-brd: #d9d9d9;
 
 /* Brand colors */
-$brand-yellow: rgb(216, 191, 7);
+$brand-gold: #E2D0A6;
+$brand-dark-gold: #C1A47C;
+$brand-black: #000000;
