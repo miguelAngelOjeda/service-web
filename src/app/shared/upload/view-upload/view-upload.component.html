@@ -9,7 +9,7 @@
   <div class="col-md-12 m-t-10">
     <section>
       <div  class="row">
-        <div class="col-md-12 scroll">
+        <div class="col-md-12">
           <div class="timeline-badge danger" *ngIf="uploadForm.get(formArrayName)['controls'].length == 0">
             <i  class="fa fa-info-circle"></i>
           </div>
@@ -22,34 +22,36 @@
             </div>
           </div>
 
-          <table  class="table product-overview" *ngIf="uploadForm.get(formArrayName)['controls'].length > 0">
-            <tbody>
-              <ng-container [formArrayName]="formArrayName">
-                <tr [formGroupName]="i" (ngSubmit)="uploadSubmit(i)" *ngFor="let item of uploadForm.get(formArrayName)['controls']; let i = index">
-                  <td style="text-align:center" align="center">
-                    {{ item?.get('id').value }}
-                  </td>
-                  <td style="text-align:center">
-                    <a (click)="viewImageUrl(item.get('id')?.value)">
-                      <img *ngIf="item.controls.id.value != null" class="img-circle" width="40" [src]="item.get('url')?.value">
-                    </a>
-                  </td>
-                  <td style="text-align:center">
-                    <a (click)="viewImageUrl(item.get('id')?.value)">{{ item.get('nombreDocumento')?.value }}</a>
-                  </td>
-                  <td style="text-align:center" align="center">
-                    {{ item.get('size')?.value/1024/1024 | number:'.2' }} MB
-                  </td>
-                  <td style="text-align:center">
-                    {{item.controls.tipoDocumento.value.nombre }} MB
-                  </td>
-                  <td>
-                    <a mat-icon-button  (click)="viewImageUrl(item.get('id')?.value)"> <mat-icon>visibility</mat-icon></a>
-                  </td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table  class="table product-overview" *ngIf="uploadForm.get(formArrayName)['controls'].length > 0">
+              <tbody>
+                <ng-container [formArrayName]="formArrayName">
+                  <tr [formGroupName]="i" (ngSubmit)="uploadSubmit(i)" *ngFor="let item of uploadForm.get(formArrayName)['controls']; let i = index">
+                    <td style="text-align:center" align="center">
+                      {{ item?.get('id').value }}
+                    </td>
+                    <td style="text-align:center">
+                      <a (click)="viewImageUrl(item.get('id')?.value)">
+                        <img *ngIf="item.controls.id.value != null" class="img-circle" width="40" [src]="item.get('url')?.value">
+                      </a>
+                    </td>
+                    <td style="text-align:center">
+                      <a (click)="viewImageUrl(item.get('id')?.value)">{{ item.get('nombreDocumento')?.value }}</a>
+                    </td>
+                    <td style="text-align:center" align="center">
+                      {{ item.get('size')?.value/1024/1024 | number:'.2' }} MB
+                    </td>
+                    <td style="text-align:center">
+                      {{item.controls.tipoDocumento.value.nombre }} MB
+                    </td>
+                    <td>
+                      <a mat-icon-button  (click)="viewImageUrl(item.get('id')?.value)"> <mat-icon>visibility</mat-icon></a>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
           <!-- <div *ngIf="uploader?.queue?.length > 0">
               <div>
                   Progreso:
