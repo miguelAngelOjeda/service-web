@@ -162,12 +162,12 @@
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <a mat-icon-button routerLink="/service-web/credits-solicitude/{{element.id}}" *appCanAccess="['credits-solicitude', 'viewCredits']"><mat-icon>visibility</mat-icon></a>
-                  <div *ngIf="element.estado.id == 1 || element.estado.id == 5">
+                  <ng-container *ngIf="element.estado.id == 1 || element.estado.id == 5">
                     <a  mat-icon-button routerLink="/service-web/credits-solicitude/{{element.id}}/edit" *appCanAccess="['credits-solicitude', 'editCredits']"> <mat-icon>edit</mat-icon></a>
-                  </div>
-                  <div *ngIf="element.estado.id == 1">
+                  </ng-container>
+                  <ng-container *ngIf="element.estado.id == 1">
                     <button  mat-icon-button (click)="delete(element)" *appCanAccess="['credits-solicitude', 'deleteCredits']"> <mat-icon>delete</mat-icon></button>
-                  </div>
+                  </ng-container>
                 </mat-cell>
             </ng-container>
 

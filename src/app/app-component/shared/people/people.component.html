@@ -268,7 +268,7 @@
           </div>
           <div class="col-md-2">
             <mat-form-field    appearance="legacy">
-               <input matInput #input type="number" min="0"  placeholder="Numero Hijos" formControlName="numeroHijos" name="numeroHijos">
+               <input matInput #input type="number" min="0" max="20" placeholder="Numero Hijos" formControlName="numeroHijos" name="numeroHijos">
                <mat-error *ngIf="(peopleForm.controls['persona'].get('numeroHijos').errors)">
                  <span *ngIf="peopleForm.controls['persona'].get('numeroHijos').errors.required">
                   Campo requerido
@@ -278,7 +278,7 @@
           </div>
           <div class="col-md-2">
             <mat-form-field    appearance="legacy">
-               <input matInput #input type="number" min="0"  placeholder="Numero Dependientes" formControlName="numeroDependientes" name="numeroDependientes">
+               <input matInput #input type="number" min="0" max="20" placeholder="Numero Dependientes" formControlName="numeroDependientes" name="numeroDependientes">
                <mat-error *ngIf="(peopleForm.controls['persona'].get('documento').errors)">
                  <span *ngIf="peopleForm.controls['persona'].get('documento').errors.required">
                   Campo requerido

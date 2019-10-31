@@ -177,12 +177,12 @@
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button routerLink="/service-web/credits/{{element.id}}" *appCanAccess="['credits', 'viewCredits']"><mat-icon>visibility</mat-icon></button>
-                  <div *ngIf="element.estado.id == 1 || element.estado.id == 5">
+                  <ng-container *ngIf="element.estado.id == 1 || element.estado.id == 5">
                     <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>local_printshop</mat-icon></button>
-                  </div>
-                  <div *ngIf="element.estado.id == 1 || element.estado.id == 5">
+                  </ng-container>
+                  <ng-container *ngIf="element.estado.id == 1 || element.estado.id == 5">
                     <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>today</mat-icon></button>
-                  </div>
+                  </ng-container>
                   <!-- <div *ngIf="element.estado.id == 1">
                     <button  mat-icon-button (click)="delete(element)" *appCanAccess="['credits', 'deleteCredits']"> <mat-icon>delete</mat-icon></button>
                   </div> -->
