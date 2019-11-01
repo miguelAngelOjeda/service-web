@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone, ViewChild, EventEmitter, Output, Input} from '@angular/core';
-import { MapsAPILoader, AgmMap } from '@agm/core';
-import { GoogleMapsAPIWrapper } from '@agm/core/services';
+import { MapsAPILoader, AgmMap, GoogleMapsAPIWrapper } from '@agm/core';
+// import { GoogleMapsAPIWrapper } from '@agm/core/services';
 import { Location } from '../../core/models';
 declare var google: any;
 

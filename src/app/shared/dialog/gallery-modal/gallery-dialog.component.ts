@@ -17,11 +17,7 @@ export class GalleryDialogComponent{
     public dialogRef: MatDialogRef<GalleryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    let array = []
-    data.forEach(staff => {
-      array.push(staff);
-    });
-    this.images = array;
+    this.images = data;
   }
 
   close() {

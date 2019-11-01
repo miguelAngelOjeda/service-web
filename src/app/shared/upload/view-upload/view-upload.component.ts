@@ -78,7 +78,33 @@ export class ViewUploadComponent implements OnInit {
         // console.log(images);
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = res.model;
-        dialogConfig.width = '80%';
+        dialogConfig.width = '90%';
+        dialogConfig.autoFocus = true;
+        let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+
+          }
+        })
+      }
+    });
+  }
+
+  viewUrlImageAll(){
+    this.apiService.get('/archivos/' + this.entidad +'/' + this.idEntidad)
+    .subscribe(res => {
+      if(res.status == 200){
+        let array = []
+        res.rows.forEach(staff => {
+          if(staff.tipoArchivo === 'application/pdf'){
+            array.push('https://app1.creditoguarani.com.py/beta1/DescargaServlet?path='+staff.path);
+          }else{
+            array.push('https://app1.creditoguarani.com.py/beta1/DisplayImage?url='+staff.path);
+          }
+        });
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = array;
+        dialogConfig.width = '70%';
         dialogConfig.autoFocus = true;
         let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(result => {
@@ -94,10 +120,17 @@ export class ViewUploadComponent implements OnInit {
     this.apiService.get('/archivos/' + id)
     .subscribe(res => {
       if(res.status == 200){
+        let array = []
+        if(res.model.tipoArchivo === 'application/pdf'){
+          array.push('https://app1.creditoguarani.com.py/beta1/DescargaServlet?path='+res.model.path);
+        }else{
+          array.push('https://app1.creditoguarani.com.py/beta1/DisplayImage?url='+res.model.path);
+        }
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.data = res.model;
-        dialogConfig.width = '50%';
-        dialogConfig.autoFocus = true;
+        dialogConfig.data = array;
+        dialogConfig.width = '80%';
+        dialogConfig.height = '85%';
+        //dialogConfig.autoFocus = true;
         let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(result => {
           if(result){

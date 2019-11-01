@@ -10,7 +10,7 @@
           <div class="d-flex flex-row comment-row ng-star-inserted">
             <div class="comment-text w-100">
               <div class="comment-footer">
-                <span class="text-muted pull-right"><span class="font-bold">Fecha Inicio: </span>{{myForm.get('fechaInicioAnalisis')?.value | date:'MM/dd/yyyy'}}</span>
+                <span class="text-muted pull-right" *ngIf="myForm.get('fechaInicioAnalisis')?.value"><span class="font-bold">Fecha Inicio: </span>{{myForm.get('fechaInicioAnalisis')?.value | date:'MM/dd/yyyy'}}</span>
                 <span class="label label-info"><span class="font-bold">Nº ANALISIS: </span> {{myForm.get('id')?.value}}</span>
               </div>
             </div>
