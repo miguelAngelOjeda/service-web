@@ -108,7 +108,9 @@
   }
   */
   .mat-table .mat-row {
-    border-bottom: 5px solid #ddd;
+    border: 1px solid #ddd;
+    margin-bottom: 1em;
+    background: #fbfbfb;
     display: block;
     flex-direction: column;
     align-items: start;
