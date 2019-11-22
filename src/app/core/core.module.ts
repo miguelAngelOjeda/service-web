@@ -25,8 +25,11 @@ export function tokenGetter() {
          whitelistedDomains: [
           'app1.creditoguarani.com.py',
           'https://app1.creditoguarani.com.py',
+          'app1.financorp.com.py',
+          'https://app1.financorp.com.py',
           'appdesa1.creditoguarani.com.py',
-          'https://appdesa1.creditoguarani.com.py'],
+          'https://appdesa1.creditoguarani.com.py'
+        ],
          //blacklistedRoutes: ['example.com/examplebadroute/']
          authScheme: 'X-Token '
        }
