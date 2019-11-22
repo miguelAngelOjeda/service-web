@@ -43,7 +43,7 @@ export class EgressComponent implements OnInit {
   addFormGroup(): FormGroup {
     return this.formBuilder.group({
       id: [''],
-      monto: [0, [Validators.required, Validators.minLength(5)]],
+      monto: [0, [Validators.required]],
       entidad: null,
       tipoIngresosEgresos: [null, [Validators.required]],
       activo: ['S']

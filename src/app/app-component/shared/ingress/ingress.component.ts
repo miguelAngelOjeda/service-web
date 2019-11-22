@@ -51,7 +51,7 @@ export class IngressComponent implements OnInit {
     return this.formBuilder.group({
       id: [''],
       entidad: null,
-      monto: [0, [Validators.required, Validators.minLength(5)]],
+      monto: [0, [Validators.required]],
       tipoIngresosEgresos: [null, [Validators.required]],
       activo: ['S']
     });
