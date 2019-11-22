@@ -6,6 +6,9 @@ import { DeleteDialogComponent } from '../../../shared/dialog';
 import { Message } from '../../../core/models';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { GalleryDialogComponent } from '../../../shared/dialog';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of  } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
 import { UserService, ApiService, FormsService} from '../../../core/services';
 
 @Component({
@@ -26,6 +29,7 @@ export class ViewUploadComponent implements OnInit {
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
     private apiService: ApiService,
+    private http: HttpClient,
     public dialog: MatDialog
   ) {}
 
@@ -60,9 +64,9 @@ export class ViewUploadComponent implements OnInit {
           }
           res.rows.forEach(staff => {
             if(staff.tipoArchivo === 'application/pdf'){
-              staff.url = 'https://app1.creditoguarani.com.py/beta1/DescargaServlet?path='+staff.path;
+              staff.url = environment.api_url + '/DescargaServlet?path=' + staff.path;
             }else{
-              staff.url = 'https://app1.creditoguarani.com.py/beta1/DisplayImage?url='+staff.path;
+              staff.url = environment.api_url + '/DisplayImage?url=' + staff.path;
             }
             archivos.push(this.formBuilder.group(staff));
           });
@@ -97,9 +101,10 @@ export class ViewUploadComponent implements OnInit {
         let array = []
         res.rows.forEach(staff => {
           if(staff.tipoArchivo === 'application/pdf'){
-            array.push('https://app1.creditoguarani.com.py/beta1/DescargaServlet?path='+staff.path);
+            let base64 = this.viewPdf(environment.api_url + '/DescargaServlet?path=' + staff.path);
+            array.push(base64);
           }else{
-            array.push('https://app1.creditoguarani.com.py/beta1/DisplayImage?url='+staff.path);
+            array.push(environment.api_url + '/DisplayImage?url=' + staff.path);
           }
         });
         const dialogConfig = new MatDialogConfig();
@@ -122,24 +127,40 @@ export class ViewUploadComponent implements OnInit {
       if(res.status == 200){
         let array = []
         if(res.model.tipoArchivo === 'application/pdf'){
-          array.push('https://app1.creditoguarani.com.py/beta1/DescargaServlet?path='+res.model.path);
+          this.viewPdf(environment.api_url + '/DescargaServlet?path=' + res.model.path).subscribe(blob => {
+            const reader = new FileReader();
+            const binaryString = reader.readAsDataURL(blob);
+            reader.onload = (event: any) => {
+              array.push(event.target.result.split(',')[1]);
+              this.loadView(array);
+            };
+          });
         }else{
-          array.push('https://app1.creditoguarani.com.py/beta1/DisplayImage?url='+res.model.path);
+          array.push(environment.api_url + '/DisplayImage?url=' + res.model.path);
+          this.loadView(array);
         }
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.data = array;
-        dialogConfig.width = '80%';
-        dialogConfig.height = '85%';
-        //dialogConfig.autoFocus = true;
-        let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
-        dialogRef.afterClosed().subscribe(result => {
-          if(result){
-
-          }
-        })
       }
     });
   }
 
+  public viewPdf(url : string): Observable<Blob> {
+    return this.http.get(url, { responseType: 'blob' })
+    map(blob => {
+       return blob;
+    });
+  }
+
+  public loadView(data: any){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '80%';
+    dialogConfig.height = '85%';
+    dialogConfig.data = data;
+    let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+
+      }
+    });
+  }
 
 }

@@ -17,7 +17,7 @@ export class ListCreditsComponent implements OnInit {
   filterForm: FormGroup;
   public rulesColumns  = ['cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre', 'cliente.persona.segundoNombre', 'cliente.persona.primerApellido', 'estado.nombre'];
   public displayedColumns = ['id','fechaPresentacion', 'cliente.persona.documento', 'cliente.persona.ruc', 'cliente.persona.primerNombre' ,
-   'montoSolicitadoOriginal', 'sucursal.nombre', 'estado.nombre', 'opciones'];
+   'montoSolicitado', 'sucursal.nombre', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
