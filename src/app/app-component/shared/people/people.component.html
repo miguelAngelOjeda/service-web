@@ -157,7 +157,7 @@
            </div>
            <div class="col-md-3">
              <mat-form-field appearance="legacy">
-              <input matInput #input  placeholder="Email" formControlName="email" name="email" required>
+              <input matInput #input  placeholder="Email" formControlName="email" name="email">
               <mat-error *ngIf="(peopleForm.controls['persona'].get('email').errors)">
                 <span *ngIf="peopleForm.controls['persona'].get('email').errors.required">
                  Campo requerido
