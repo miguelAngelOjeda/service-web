@@ -12,7 +12,7 @@ import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 export class ListReviewComponent implements OnInit {
   public isMobile: Boolean;
   public rulesColumns  = ['funcionarioAnalisis.persona.segundoNombre', 'propuestaSolicitud.cliente.persona.documento', 'funcionarioAnalisis.persona.primerApellido', 'estado.nombre'];
-  public displayedColumns = ['id','propuestaSolicitud.tipoSolicitud.nombre','propuestaSolicitud.id','propuestaSolicitud.fechaPresentacion','fechaInicioAnalisis','fechaFinAnalisis',  'funcionarioAnalisis.alias' , 'propuestaSolicitud.montoSolicitadoOriginal', 'sucursal', 'estado.nombre', 'opciones'];
+  public displayedColumns = ['id','propuestaSolicitud.tipoSolicitud.nombre','propuestaSolicitud.id','propuestaSolicitud.fechaPresentacion','fechaInicioAnalisis','fechaFinAnalisis',  'funcionarioAnalisis.alias' , 'propuestaSolicitud.montoSolicitado', 'sucursal', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
