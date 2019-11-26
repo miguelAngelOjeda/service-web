@@ -1,10 +1,12 @@
 <div class="row  m-t-10">
-  <div class="col-md-12">
+  <div class="col-lg-8 col-xl-9 m-b-10">
     <h4  class="m-0"><mat-icon class="gray-text">archive</mat-icon>Archivos adjuntos
     </h4>
   </div>
-  <div class="col-md-12 m-t-10" *ngIf="uploadForm.get(formArrayName)['controls'].length > 1">
-    <button type="button" class="btn btn-info" (click)="viewUrlImageAll()">Visualizar Todos</button>
+  <div class="col-lg-4 col-xl-3" *ngIf="uploadForm.get(formArrayName)['controls'].length > 1">
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-info" (click)="viewUrlImageAll()">Visualizar Todos</button>
+    </div>
   </div>
   <div class="col-md-12 m-t-10">
     <section>
