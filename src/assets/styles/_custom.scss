@@ -56,3 +56,12 @@
 .mat-dialog-container {
     max-width: none !important;
 }
+
+.mat-line {
+	span.font-bold {
+		display: block;
+		font-size: 0.85em;
+    opacity: 0.9;
+		margin-top: 0.7em;
+	}
+}
