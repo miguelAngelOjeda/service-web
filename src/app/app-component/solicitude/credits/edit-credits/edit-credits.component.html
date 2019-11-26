@@ -40,9 +40,11 @@
                   <div class="col-md-12" *ngIf="myForm.get('id').value">
                     <div class="d-flex flex-row comment-row ng-star-inserted">
                       <div class="comment-text w-100">
-                        <div class="comment-footer">
-                          <span class="text-muted pull-right"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'dd/MM/yyyy'}}</span>
+                        <div class="comment-footer my-3">
                           <span class="label label-info"><span class="font-bold">Nº SOLICITUD: </span> {{myForm.get('id').value}}</span>
+                        </div>
+                        <div class="comment-footer">
+                          <span class="text-muted"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'dd/MM/yyyy'}}</span>
                         </div>
                       </div>
                     </div>

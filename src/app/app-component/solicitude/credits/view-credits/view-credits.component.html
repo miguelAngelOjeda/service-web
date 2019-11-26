@@ -17,45 +17,90 @@
     <form [formGroup]="myForm">
       <div class="row">
         <div class="col-md-12 m-b-10">
-          <section class="pull-right">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-              <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('estado')?.value?.id == 1 || myForm.get('estado')?.value?.id == 5">
-                <button  type="button" class="btn btn-secondary" (click)="transferirPropuesta(myForm.get('id').value)" *appCanAccess="['credits-solicitude', 'editCredits']"><span class="font-bold">Transferir Propuesta</span></button>
-              </div>
-              <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('estado')?.value?.id != 4 && myForm.get('estado')?.value?.id != 6 && myForm.get('estado')?.value?.id != 7">
-                <button  type="button" class="btn btn-danger" (click)="abandonarPropuesta(myForm.get('id').value)" *appCanAccess="['credits-solicitude', 'abandonCredits']"><span class="font-bold">Abandonar</span></button>                  </div>
-              </div>
-            </section>
-          </div>
-          <div class="col-md-12">
-            <fieldset>
+          <div class="row">
+            <div class="col-lg-8 col-xl-9 m-b-10">
               <legend><mat-icon class="gray-text">event_note</mat-icon>Propuesta Credito</legend>
-              <div class="row">
-                <div class="col-md-12" *ngIf="myForm.get('id').value">
-                  <div class="d-flex flex-row comment-row ng-star-inserted">
-                    <div class="comment-text w-100">
-                      <div class="comment-footer">
-                        <span class="text-muted pull-right"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'dd/MM/yyyy'}}</span>
-                        <span class="label label-info"><span class="font-bold">Nº SOLICITUD: </span> {{myForm.get('id').value}}</span>
-                      </div>
-                    </div>
+            </div>
+            <div class="col-lg-4 col-xl-3">
+              <div class="d-flex justify-content-end">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="myForm.get('estado')?.value?.id == 1 || myForm.get('estado')?.value?.id == 5">
+                    <button  type="button" class="btn btn-secondary" (click)="transferirPropuesta(myForm.get('id').value)" *appCanAccess="['credits-solicitude', 'editCredits']"><span class="font-bold">Transferir Propuesta</span></button>
                   </div>
-                  <div class="d-flex flex-row comment-row ng-star-inserted m-t-10">
-                    <div class="comment-text w-100">
-                      <div class="comment-footer">
-                        <span class="text-muted"><span class="font-bold">Asesor: </span>{{
-                          (myForm.controls['funcionario']?.value?.persona.primerNombre == null ? '' : myForm.controls['funcionario']?.value?.persona.primerNombre)
-                          + ' ' +
-                          (myForm.controls['funcionario']?.value?.persona.segundoNombre == null ? '' : myForm.controls['funcionario']?.value?.persona.segundoNombre)
-                          + ' ' +
-                          (myForm.controls['funcionario']?.value?.persona.primerApellido == null ? '' : myForm.controls['funcionario']?.value?.persona.primerApellido)
-                          + ' ' +
-                          (myForm.controls['funcionario']?.value?.persona.segundoApellido == null ? '' : myForm.controls['funcionario']?.value?.persona.segundoApellido)
-                        }}</span>
-                      </div>
-                    </div>
+                  <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="myForm.get('estado')?.value?.id != 4 && myForm.get('estado')?.value?.id != 6 && myForm.get('estado')?.value?.id != 7">
+                    <button  type="button" class="btn btn-danger" (click)="abandonarPropuesta(myForm.get('id').value)" *appCanAccess="['credits-solicitude', 'abandonCredits']"><span class="font-bold">Abandonar</span></button>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+            <fieldset>
+              <div class="row">
+                <div class="col-lg-8 col-xl-9 m-t-20">
+                  <div class="row m-b-30">
+                    <div class="col-md-4 col-lg-3 col-xl-2">
+                      <div class="avatar-detail text-center m-b-20">
+                        <img *ngIf="myForm.controls['cliente'].get('persona').value.imagePath === null"  src="assets/images/users/1.jpg" alt="user" class="avatar-lg rounded-circle">
+                        <img *ngIf="myForm.controls['cliente'].get('persona').value.imagePath !== null"  [src]="urlImage + '/DisplayImage?url=' + myForm.controls['cliente'].get('persona').value.imagePath"  alt="user" class="avatar-lg rounded-circle">
+                      </div>
+                    </div>
+                    <div class="col-md-8 col-lg-9 col-xl-10 p-l-20">
+                      <div class="font-medium">{{
+                        (myForm.controls['cliente'].get('persona').get('primerNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerNombre')?.value)
+                        + ' ' +
+                        (myForm.controls['cliente'].get('persona').get('segundoNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoNombre')?.value)
+                        + ' ' +
+                        (myForm.controls['cliente'].get('persona').get('primerApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerApellido')?.value)
+                        + ' ' +
+                        (myForm.controls['cliente'].get('persona').get('segundoApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoApellido')?.value)
+                      }} </div>
+                      <span class="font-14">Doc.: {{(myForm.controls['cliente'].get('persona').get('documento')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('documento')?.value)
+                        + (myForm.controls['cliente'].get('persona').get('ruc')?.value == null ? '' : '/' + myForm.controls['cliente'].get('persona').get('ruc')?.value)}}</span>
+                        <br>
+                        <span *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion.value" class="font-14">{{myForm.controls['cliente'].get('persona')['controls'].profesion.value?.nombre}}</span>
+                        <br>
+                        <span *ngIf="myForm.controls['cliente'].get('persona').get('email')?.value" class="font-14">{{myForm.controls['cliente'].get('persona').get('email')?.value }}</span>
+                        <br>
+                        <span class="font-14">Telf. {{
+                          (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
+                          + ' ' +
+                          (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
+                        }}</span>
+                        <br>
+                        <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5 m-t-5" (click)="viewPeople(myForm.get('id').value, myForm.get('cliente').get('persona').get('id').value,'DEUDOR')" color="primary">Detalle</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-xl-3 m-b-20" *ngIf="myForm.get('id').value">
+                    <div class="d-flex flex-row comment-row ng-star-inserted">
+                      <div class="comment-text w-100">
+                        <div class="comment-footer my-3">
+                          <span class="label label-info"><span class="font-bold">Nº SOLICITUD: </span> {{myForm.get('id').value}}</span>
+                        </div>
+                        <div class="comment-footer">
+                          <span class="text-muted"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row comment-row ng-star-inserted m-t-10">
+                      <div class="comment-text w-100">
+                        <div class="comment-footer">
+                          <span class="text-muted"><span class="font-bold">Asesor: </span>{{
+                            (myForm.controls['funcionario']?.value?.persona.primerNombre == null ? '' : myForm.controls['funcionario']?.value?.persona.primerNombre)
+                            + ' ' +
+                            (myForm.controls['funcionario']?.value?.persona.segundoNombre == null ? '' : myForm.controls['funcionario']?.value?.persona.segundoNombre)
+                            + ' ' +
+                            (myForm.controls['funcionario']?.value?.persona.primerApellido == null ? '' : myForm.controls['funcionario']?.value?.persona.primerApellido)
+                            + ' ' +
+                            (myForm.controls['funcionario']?.value?.persona.segundoApellido == null ? '' : myForm.controls['funcionario']?.value?.persona.segundoApellido)
+                          }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 <!-- <div class="col-md-4">
                 <mat-list>
                 <mat-list-item>
@@ -70,39 +115,8 @@
         </mat-list-item>
       </mat-list>
     </div> -->
-    <div class="col-md-12 m-t-20">
-      <div class="d-flex align-items-center m-b-30">
-        <div class="avatar-detail">
-          <img *ngIf="myForm.controls['cliente'].get('persona').value.imagePath === null"  src="assets/images/users/1.jpg" alt="user" class="avatar-lg rounded-circle">
-          <img *ngIf="myForm.controls['cliente'].get('persona').value.imagePath !== null"  [src]="urlImage + '/DisplayImage?url=' + myForm.controls['cliente'].get('persona').value.imagePath"  alt="user" class="avatar-lg rounded-circle">
-        </div>
-        <div class="p-l-20">
-          <div class="font-medium">{{
-            (myForm.controls['cliente'].get('persona').get('primerNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerNombre')?.value)
-            + ' ' +
-            (myForm.controls['cliente'].get('persona').get('segundoNombre')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoNombre')?.value)
-            + ' ' +
-            (myForm.controls['cliente'].get('persona').get('primerApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('primerApellido')?.value)
-            + ' ' +
-            (myForm.controls['cliente'].get('persona').get('segundoApellido')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('segundoApellido')?.value)
-          }} </div>
-          <span class="font-14">Doc.: {{(myForm.controls['cliente'].get('persona').get('documento')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('documento')?.value)
-            + (myForm.controls['cliente'].get('persona').get('ruc')?.value == null ? '' : '/' + myForm.controls['cliente'].get('persona').get('ruc')?.value)}}</span>
-            <br>
-            <span *ngIf="myForm.controls['cliente'].get('persona')['controls'].profesion.value" class="font-14">{{myForm.controls['cliente'].get('persona')['controls'].profesion.value?.nombre}}</span>
-            <br>
-            <span *ngIf="myForm.controls['cliente'].get('persona').get('email')?.value" class="font-14">{{myForm.controls['cliente'].get('persona').get('email')?.value }}</span>
-            <br>
-            <span class="font-14">Telf. {{
-              (myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoParticular')?.value)
-              + ' ' +
-              (myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value == null ? '' : myForm.controls['cliente'].get('persona').get('telefonoSecundario')?.value)
-            }}</span>
-            <br>
-            <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('id').value, myForm.get('cliente').get('persona').get('id').value,'DEUDOR')" color="primary">Detalle</button>
-          </div>
-        </div>
-      </div>
+
+      <div class="w-100"></div>
       <div class="col-sm-4">
         <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value.nombre}}</p>
       </div>

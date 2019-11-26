@@ -26,8 +26,7 @@
                 <div class="col-md-12" *ngIf="myForm.get('id').value">
                   <div class="d-flex flex-row comment-row ng-star-inserted">
                     <div class="comment-text w-100">
-                      <div class="comment-footer">
-                        <span class="text-muted pull-right"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'MM/dd/yyyy'}}</span>
+                      <div class="comment-footer my-3">
                         <span class="label label-info"><span class="font-bold">Nº SOLICITUD: </span> {{myForm.get('id').value}}</span>
                       </div>
                     </div>
@@ -35,6 +34,7 @@
                   <div class="d-flex flex-row comment-row ng-star-inserted m-t-10">
                     <div class="comment-text w-100">
                       <div class="comment-footer">
+                        <span class="text-muted"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaPresentacion').value | date:'MM/dd/yyyy'}}</span>
                         <span class="text-muted"><span class="font-bold">Asesor: </span>{{
                           (myForm.controls['funcionario']?.value?.persona.primerNombre == null ? '' : myForm.controls['funcionario']?.value?.persona.primerNombre)
                           + ' ' +
