@@ -155,6 +155,7 @@ export class ViewUploadComponent implements OnInit {
     dialogConfig.width = '80%';
     dialogConfig.height = '85%';
     dialogConfig.data = data;
+    dialogConfig.panelClass = 'mat-dialog-app-viewer';
     let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result){

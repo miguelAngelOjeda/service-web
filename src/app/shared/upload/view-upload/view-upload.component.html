@@ -32,7 +32,7 @@
                     </td>
                     <td style="text-align:center">
                       <a (click)="viewImageUrl(item.get('id')?.value)">
-                        <img *ngIf="item.controls.id.value != null" class="img-circle" width="40" [src]="item.get('url')?.value">
+                        <img *ngIf="item.controls.id.value != null" class="img-circle" width="40" height="40" [src]="item.get('url')?.value">
                       </a>
                     </td>
                     <td style="text-align:center">

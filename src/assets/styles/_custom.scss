@@ -65,3 +65,26 @@
 		margin-top: 0.7em;
 	}
 }
+
+.mat-dialog-app-viewer {
+	.mat-dialog-container,
+	.mat-dialog-content {
+		padding: 0 !important;
+	}
+
+	.mat-card,
+	.mat-dialog-content,
+	.image-gallery-2 {
+		margin: 0 !important;
+	}
+
+	.inline-icon {
+		margin-top: 0;
+	}
+
+	.material-icons {
+		&.prev, &.next {
+			display: none;
+		}
+	}
+}
