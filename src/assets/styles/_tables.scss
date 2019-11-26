@@ -121,14 +121,14 @@
   .mat-table .mat-row:nth-child(odd) {background: #FFF}
   */
   .mat-table .mat-cell {
-    border-bottom: 1px solid #ddd;
+    border-bottom: none;
     display: block;
     font-size: 1em;
-    text-align: right;
+    text-align: left;
     font-weight: bold;
     padding-left: 0px;
     height:30px;
-    margin-bottom: 4%;
+    margin-top: 5%;
   }
   .mat-table .mat-cell:before {
     /*
@@ -136,11 +136,11 @@
     content: attr(aria-label);
     */
     content: attr(data-label);
-    float: left;
     text-transform: uppercase;
     font-weight: normal;
-
     font-size: .85em;
+    display: block;
+    opacity: 0.7;
   }
   .mat-table .mat-cell:last-child {
     border-bottom: 0;
