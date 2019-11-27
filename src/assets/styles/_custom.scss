@@ -82,3 +82,31 @@
 		margin-top: 0;
 	}
 }
+
+.search-form.mat-form-field-appearance-fill {
+	.mat-form-field-flex {
+		background: #f1f3f4 !important;
+		border: 1px solid transparent !important;
+		border-radius: 8px !important;
+	}
+
+	.mat-form-field-infix {
+		border-top: none;
+	}
+
+	.mat-form-field-underline {
+		display: none;
+	}
+
+	.mat-input-element {
+		height: 30px;
+	}
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.btn-advance-filter {
+	background: #000000 !important;
+}

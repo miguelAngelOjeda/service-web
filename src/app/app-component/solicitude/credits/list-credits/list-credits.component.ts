@@ -25,6 +25,9 @@ export class ListCreditsComponent implements OnInit {
   @ViewChild('filter', { static: true }) filterInput: ElementRef;
   @ViewChild("filterButton", { read: ElementRef, static: true}) filterButton: ElementRef;
 
+  // Advance Filter panel
+  advanceFilterOpenState: boolean = false;
+
   //Filter
   isfilter = false;
   // MatPaginator Inputs
@@ -113,6 +116,14 @@ export class ListCreditsComponent implements OnInit {
       estado: null,
       sucursal: null,
     });
+  }
+
+  toggleAdvanceFilter() {
+    this.advanceFilterOpenState = !this.advanceFilterOpenState
+  }
+
+  closeFilterAdvance() {
+    this.advanceFilterOpenState = false
   }
 
 }

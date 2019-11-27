@@ -6,69 +6,65 @@
 
 <div>
   <mat-card>
-    <!-- <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h4  class="m-0"><mat-icon class="gray-text" role="img" aria-hidden="true">search</mat-icon>Filtro Detallado</h4>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <form [formGroup]="filterForm" (ngSubmit)="filterSubmit()">
-          <div class="row">
-            <div class="col-md-6">
-              <mat-form-field  appearance="legacy">
-               <input matInput #input [matDatepicker]="pickerInicio" formControlName="fechaInicio"  name="fechaInicio" placeholder="Fecha Inicio" required>
-               <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
-               <mat-datepicker #pickerInicio></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-md-6">
-              <mat-form-field  appearance="legacy">
-               <input matInput #input [matDatepicker]="pickerFin" formControlName="fechaFin"  name="fechaFin" placeholder="Fecha Fin" required>
-               <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
-               <mat-datepicker #pickerFin></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="legacy">
-                <input matInput placeholder="Nro. Solicitud" formControlName="nroSolicitud"  name="nroSolicitud">
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="legacy">
-                <input matInput placeholder="Estado">
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <app-select-filter appearance="legacy" (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal').value"
-               placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="legacy">
-                <input matInput placeholder="Documento" formControlName="documento"  name="documento">
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="legacy">
-                <input matInput placeholder="Ruc" formControlName="ruc"  name="ruc">
-              </mat-form-field>
-            </div>
-            <div class="col-md-12">
-              <button mat-button #filterButton (click)="true" mat-raised-button value="button">Filtrar</button>
-            </div>
-          </div>
-        </form>
-      </mat-expansion-panel>
-    </mat-accordion> -->
     <mat-card-content>
     <!-- <mat-card-subtitle> </mat-card-subtitle> -->
-      <!-- <p> -->
-
-        <mat-form-field appearance="fill">
-          <input matInput #filter placeholder="Buscar....." class="form-control-success">
-          <mat-icon matSuffix>search</mat-icon>
+        <mat-form-field appearance="fill" class="search-form">
+          <mat-icon matPrefix>search</mat-icon>
+          <input matInput #filter placeholder="Buscar" type="search">
+          <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon>
         </mat-form-field>
-      <!-- </p> -->
+
+        <mat-expansion-panel [expanded]="advanceFilterOpenState" [ngClass]="{'m-b-20': advanceFilterOpenState}">
+          <form [formGroup]="filterForm" (ngSubmit)="filterSubmit()" class="p-t-20">
+            <div  class="row">
+              <div class="col-md-6">
+                <mat-form-field  appearance="legacy">
+                 <input matInput #input [matDatepicker]="pickerInicio" formControlName="fechaInicio"  name="fechaInicio" placeholder="Fecha Inicio" required>
+                 <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                 <mat-datepicker #pickerInicio></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field  appearance="legacy">
+                 <input matInput #input [matDatepicker]="pickerFin" formControlName="fechaFin"  name="fechaFin" placeholder="Fecha Fin" required>
+                 <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                 <mat-datepicker #pickerFin></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Nro. Solicitud" formControlName="nroSolicitud"  name="nroSolicitud">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Estado">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <app-select-filter appearance="legacy" (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal').value"
+                 placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Documento" formControlName="documento"  name="documento">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Ruc" formControlName="ruc"  name="ruc">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 p-t-10">
+                <mat-checkbox>Ejemplo de checkbox</mat-checkbox>
+              </div>
+              <div class="col-md-12 p-t-20">
+                <button mat-button [type]="onSubmit"  mat-raised-button #filterButton (click)="closeFilterAdvance()" class="btn-advance-filter">Filtrar</button>
+              </div>
+            </div>
+          </form>
+        </mat-expansion-panel>
+
         <mat-table [dataSource]="dataSource" class="mat-table"
          matSort  matSortActive="id" matSortDirection="desc" matSortDisableClear [class.isMobile]="isMobile">
 
