@@ -112,12 +112,15 @@
 .mat-expansion-panel {
 	&.advance-search-form {
 	    margin-top: -30px;
-	    margin-bottom: 20px;
 	    border-top-left-radius: 0;
 	    border-top-right-radius: 0;
-	    padding: 20px 0;
 	    margin-left: 1px;
 	    margin-right: 1px;
+			margin-bottom: 20px;
+
+			&.opened {
+		    padding: 20px 0;
+			}
 
 			.advance-filter-buttons {
 				.mat-button {
