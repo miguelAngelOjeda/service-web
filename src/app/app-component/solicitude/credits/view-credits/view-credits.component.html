@@ -138,68 +138,70 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <div class="col-sm-4">
-                    <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value.nombre}}</p>
-                  </div>
-                  <div class="col-sm-4">
-                    <p mat-line><span class="font-bold">Tipo Calculo: </span> {{myForm.get('tipoCalculoImporte')?.value.nombre}}</p>
-                  </div>
-                  <div class="col-sm-4">
-                    <p mat-line><span class="font-bold">Monto: </span> {{myForm.get('montoSolicitado')?.value | number}}</p>
-                  </div>
-                  <div class="col-sm-4">
-                    <p mat-line><span class="font-bold">Destino: </span> {{myForm.get('tipoDestino')?.value.nombre}}</p>
-                  </div>
-                  <div class="col-sm-8">
-                    <p mat-line><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('detalleDestino')?.value}}</p>
-                  </div>
-                  <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                    <p mat-line><span class="font-bold">Tipo Garantia: </span> {{myForm.get('tipoGarantia')?.value.nombre}}</p>
-                  </div>
-                  <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                    <p mat-line><span class="font-bold">Forma Pago: </span> {{myForm.get('tipoPago')?.value.nombre}}</p>
-                  </div>
-                  <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                    <p mat-line><span class="font-bold">Forma Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
-                  </div>
-                  <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
-                    <p mat-line><span class="font-bold">Beneficiario Cheque: </span> {{myForm.get('beneficiarioCheque')?.value}}</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Periodo Capital: </span> {{myForm.get('periodoCapital')?.value}}</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazo')?.value}}</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Cant. Amortiz.: </span> </p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Vto. Interes: </span> {{myForm.get('vencimientoInteres')?.value}}</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Periodo Gracia: </span> {{myForm.get('periodoGracia')?.value}}</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Periodo Interés: </span> {{myForm.get('periodoInteres')?.value}}</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Tasa Interés Anual(%): </span> {{myForm.get('tasaInteres')?.value}}</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('gastosAdministrativos')?.value}}</p>
-                  </div>
-                  <div class="col-md-4">
-                    <p mat-line><span class="font-bold">Estado: </span> {{myForm.get('estado')?.value.nombre}}</p>
-                  </div>
-                  <div class="col-md-12">
-                    <p mat-line><span class="font-bold">Observacion: </span> {{myForm.get('observacionesDepartamento')?.value}}</p>
-                  </div>
-                  <div class="col-md-4" *ngIf="myForm.get('fechaAprobacion')?.value">
-                    <p mat-line><span class="font-bold">Fecha Aprobación: </span> {{myForm.get('fechaAprobacion')?.value | date:'MM/dd/yyyy'}}</p>
-                  </div>
-                  <div class="col-md-4" *ngIf="myForm.get('fechaRechazo')?.value">
-                    <p mat-line><span class="font-bold">Fecha Rechazo: </span> {{myForm.get('fechaRechazo')?.value | date:'MM/dd/yyyy'}}</p>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value.nombre}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                      <p mat-line><span class="font-bold">Tipo Calculo: </span> {{myForm.get('tipoCalculoImporte')?.value.nombre}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                      <p mat-line><span class="font-bold">Monto: </span> {{myForm.get('montoSolicitado')?.value | number}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                      <p mat-line><span class="font-bold">Destino: </span> {{myForm.get('tipoDestino')?.value.nombre}}</p>
+                    </div>
+                    <div class="col-sm-8">
+                      <p mat-line><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('detalleDestino')?.value}}</p>
+                    </div>
+                    <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                      <p mat-line><span class="font-bold">Tipo Garantia: </span> {{myForm.get('tipoGarantia')?.value.nombre}}</p>
+                    </div>
+                    <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                      <p mat-line><span class="font-bold">Forma Pago: </span> {{myForm.get('tipoPago')?.value.nombre}}</p>
+                    </div>
+                    <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
+                      <p mat-line><span class="font-bold">Forma Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
+                    </div>
+                    <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
+                      <p mat-line><span class="font-bold">Beneficiario Cheque: </span> {{myForm.get('beneficiarioCheque')?.value}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Periodo Capital: </span> {{myForm.get('periodoCapital')?.value}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazo')?.value}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Cant. Amortiz.: </span> </p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Vto. Interes: </span> {{myForm.get('vencimientoInteres')?.value}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Periodo Gracia: </span> {{myForm.get('periodoGracia')?.value}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Periodo Interés: </span> {{myForm.get('periodoInteres')?.value}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Tasa Interés Anual(%): </span> {{myForm.get('tasaInteres')?.value}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('gastosAdministrativos')?.value}}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <p mat-line><span class="font-bold">Estado: </span> {{myForm.get('estado')?.value.nombre}}</p>
+                    </div>
+                    <div class="col-md-12">
+                      <p mat-line><span class="font-bold">Observacion: </span> {{myForm.get('observacionesDepartamento')?.value}}</p>
+                    </div>
+                    <div class="col-md-4" *ngIf="myForm.get('fechaAprobacion')?.value">
+                      <p mat-line><span class="font-bold">Fecha Aprobación: </span> {{myForm.get('fechaAprobacion')?.value | date:'MM/dd/yyyy'}}</p>
+                    </div>
+                    <div class="col-md-4" *ngIf="myForm.get('fechaRechazo')?.value">
+                      <p mat-line><span class="font-bold">Fecha Rechazo: </span> {{myForm.get('fechaRechazo')?.value | date:'MM/dd/yyyy'}}</p>
+                    </div>
                   </div>
                 </div>
           </div>
