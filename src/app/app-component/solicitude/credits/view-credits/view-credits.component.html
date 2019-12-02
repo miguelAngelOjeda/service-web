@@ -68,7 +68,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-7 order-lg-1 m-b-30">
+                <div class="col-lg-7 order-lg-1">
                   <mat-card class="border">
                     <mat-card-content>
                       <div class="row">
@@ -140,67 +140,67 @@
                 <div class="col-12">
                   <div class="row">
                     <div class="col-sm-4">
-                      <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value.nombre}}</p>
+                      <p mat-line><span class="font-bold">MODALIDAD</span> {{myForm.get('modalidad')?.value.nombre}}</p>
                     </div>
                     <div class="col-sm-4">
-                      <p mat-line><span class="font-bold">Tipo Calculo: </span> {{myForm.get('tipoCalculoImporte')?.value.nombre}}</p>
+                      <p mat-line><span class="font-bold">TIPO CALCULO</span> {{myForm.get('tipoCalculoImporte')?.value.nombre}}</p>
                     </div>
                     <div class="col-sm-4">
-                      <p mat-line><span class="font-bold">Monto: </span> {{myForm.get('montoSolicitado')?.value | number}}</p>
+                      <p mat-line><span class="font-bold">MONTO</span> {{myForm.get('montoSolicitado')?.value | number}}</p>
                     </div>
                     <div class="col-sm-4">
-                      <p mat-line><span class="font-bold">Destino: </span> {{myForm.get('tipoDestino')?.value.nombre}}</p>
+                      <p mat-line><span class="font-bold">DESTINO</span> {{myForm.get('tipoDestino')?.value.nombre}}</p>
                     </div>
                     <div class="col-sm-8">
-                      <p mat-line><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('detalleDestino')?.value}}</p>
+                      <p mat-line><span class="font-bold">ACLARACION DESTINO</span> {{myForm.get('detalleDestino')?.value}}</p>
                     </div>
                     <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                      <p mat-line><span class="font-bold">Tipo Garantia: </span> {{myForm.get('tipoGarantia')?.value.nombre}}</p>
+                      <p mat-line><span class="font-bold">TIPO GARANTIA</span> {{myForm.get('tipoGarantia')?.value.nombre}}</p>
                     </div>
                     <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                      <p mat-line><span class="font-bold">Forma Pago: </span> {{myForm.get('tipoPago')?.value.nombre}}</p>
+                      <p mat-line><span class="font-bold">FORMA PAGO</span> {{myForm.get('tipoPago')?.value.nombre}}</p>
                     </div>
                     <div [class]="(myForm.get('tipoDesembolso').value == null || myForm.get('tipoDesembolso').value.id != 2) ?  'col-md-4' : 'col-md-3'">
-                      <p mat-line><span class="font-bold">Forma Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
+                      <p mat-line><span class="font-bold">FORMA DESEMBOLSO</span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
                     </div>
                     <div class="col-md-3" *ngIf="(myForm.get('tipoDesembolso').value != null && myForm.get('tipoDesembolso').value.id == 2)">
-                      <p mat-line><span class="font-bold">Beneficiario Cheque: </span> {{myForm.get('beneficiarioCheque')?.value}}</p>
+                      <p mat-line><span class="font-bold">BENEFICIARIO CHEQUE</span> {{myForm.get('beneficiarioCheque')?.value}}</p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Periodo Capital: </span> {{myForm.get('periodoCapital')?.value}}</p>
+                      <p mat-line><span class="font-bold">PERIODO CAPITAL</span> {{myForm.get('periodoCapital')?.value}}</p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazo')?.value}}</p>
+                      <p mat-line><span class="font-bold">PLAZO</span> {{myForm.get('plazo')?.value}}</p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Cant. Amortiz.: </span> </p>
+                      <p mat-line><span class="font-bold">CANT. AMORTIZ.</span> </p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Vto. Interes: </span> {{myForm.get('vencimientoInteres')?.value}}</p>
+                      <p mat-line><span class="font-bold">VTO. INTERES </span> {{myForm.get('vencimientoInteres')?.value}}</p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Periodo Gracia: </span> {{myForm.get('periodoGracia')?.value}}</p>
+                      <p mat-line><span class="font-bold">PERIODO GRACIA </span> {{myForm.get('periodoGracia')?.value}}</p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Periodo Interés: </span> {{myForm.get('periodoInteres')?.value}}</p>
+                      <p mat-line><span class="font-bold">PERIODO INTERÈS </span> {{myForm.get('periodoInteres')?.value}}</p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Tasa Interés Anual(%): </span> {{myForm.get('tasaInteres')?.value}}</p>
+                      <p mat-line><span class="font-bold">TASA INTERÈS ANUAL(%)</span> {{myForm.get('tasaInteres')?.value}}</p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('gastosAdministrativos')?.value}}</p>
+                      <p mat-line><span class="font-bold">GASTOS ADMINISTRATIVOS(%)</span> {{myForm.get('gastosAdministrativos')?.value}}</p>
                     </div>
                     <div class="col-md-4">
-                      <p mat-line><span class="font-bold">Estado: </span> {{myForm.get('estado')?.value.nombre}}</p>
+                      <p mat-line><span class="font-bold">ESTADO </span> {{myForm.get('estado')?.value.nombre}}</p>
                     </div>
                     <div class="col-md-12">
-                      <p mat-line><span class="font-bold">Observacion: </span> {{myForm.get('observacionesDepartamento')?.value}}</p>
+                      <p mat-line><span class="font-bold">OBSERVACION</span> {{myForm.get('observacionesDepartamento')?.value}}</p>
                     </div>
                     <div class="col-md-4" *ngIf="myForm.get('fechaAprobacion')?.value">
-                      <p mat-line><span class="font-bold">Fecha Aprobación: </span> {{myForm.get('fechaAprobacion')?.value | date:'MM/dd/yyyy'}}</p>
+                      <p mat-line><span class="font-bold">FECHA APROBACIÓN: </span> {{myForm.get('fechaAprobacion')?.value | date:'MM/dd/yyyy'}}</p>
                     </div>
                     <div class="col-md-4" *ngIf="myForm.get('fechaRechazo')?.value">
-                      <p mat-line><span class="font-bold">Fecha Rechazo: </span> {{myForm.get('fechaRechazo')?.value | date:'MM/dd/yyyy'}}</p>
+                      <p mat-line><span class="font-bold">FECHA RECHAZO: </span> {{myForm.get('fechaRechazo')?.value | date:'MM/dd/yyyy'}}</p>
                     </div>
                   </div>
                 </div>
@@ -208,32 +208,32 @@
       </fieldset>
     </div>
 <div class="col-md-12">
-  <fieldset class="m-t-20">
+  <fieldset>
     <legend><mat-icon class="gray-text">event_note</mat-icon>Descuentos</legend>
     <div class="row">
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Impuestos: </span> {{myForm.get('impuestos')?.value}}</p>
+        <p mat-line><span class="font-bold">IMPUESTOS</span> {{myForm.get('impuestos')?.value}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Comision: </span> {{myForm.get('comision')?.value}}</p>
+        <p mat-line><span class="font-bold">COMISION</span> {{myForm.get('comision')?.value}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Gastos Varios: </span> {{myForm.get('gastosVarios')?.value}}</p>
+        <p mat-line><span class="font-bold">GASTOS VARIOS</span> {{myForm.get('gastosVarios')?.value}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Seguros: </span> {{myForm.get('seguros')?.value}}</p>
+        <p mat-line><span class="font-bold">SEGUROS</span> {{myForm.get('seguros')?.value}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Tipo Descuento: </span> {{myForm.get('tipoDescuento')?.value === 'I-D' ? 'IMPORTE DISPONER' : 'IMPORTE SOLICITAR'}}</p>
+        <p mat-line><span class="font-bold">TIPO DESCUENTO</span> {{myForm.get('tipoDescuento')?.value === 'I-D' ? 'IMPORTE DISPONER' : 'IMPORTE SOLICITAR'}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Monto Original: </span> {{myForm.get('montoSolicitadoOriginal').value | number}}</p>
+        <p mat-line><span class="font-bold">MONTO ORIGINAL</span> {{myForm.get('montoSolicitadoOriginal').value | number}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Monto Entregar: </span> {{myForm.get('importeEntregar').value | number}}</p>
+        <p mat-line><span class="font-bold">MONTO ENTREGAR</span> {{myForm.get('importeEntregar').value | number}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Cuota: </span> {{myForm.get('importeCuota').value | number}}</p>
+        <p mat-line><span class="font-bold">CUOTA</span> {{myForm.get('importeCuota').value | number}}</p>
       </div>
     </div>
   </fieldset>

@@ -10,15 +10,21 @@
           <div class="d-flex flex-row comment-row ng-star-inserted">
             <div class="comment-text w-100">
               <div class="comment-footer">
-                <span class="text-muted pull-right" *ngIf="myForm.get('fechaInicioAnalisis')?.value"><span class="font-bold">Fecha Inicio: </span>{{myForm.get('fechaInicioAnalisis')?.value | date:'MM/dd/yyyy'}}</span>
-                <span class="label label-info"><span class="font-bold">Nº ANALISIS: </span> {{myForm.get('id')?.value}}</span>
+                <div class="row">
+                  <div class="col-md-6">
+                    <span class="label label-info"><span class="font-bold">Nº ANALISIS: </span> {{myForm.get('id')?.value}}</span>
+                  </div>
+                  <div class="col-md-6">
+                    <span class="text-muted pull-right" *ngIf="myForm.get('fechaInicioAnalisis')?.value"><span class="font-bold">Fecha Inicio: </span>{{myForm.get('fechaInicioAnalisis')?.value | date:'MM/dd/yyyy'}}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="d-flex flex-row comment-row ng-star-inserted m-t-10" *ngIf="myForm.get('funcionarioAnalisis')?.value">
             <div class="comment-text w-100">
               <div class="comment-footer">
-                <span class="text-muted"><span class="font-bold">Analista: </span>{{
+                <span class="text-muted"><span class="font-bold">ANALISTA </span>{{
                   (myForm.get('funcionarioAnalisis')?.value?.persona.primerNombre == null ? '' : myForm.get('funcionarioAnalisis')?.value?.persona.primerNombre)
                   + ' ' +
                   (myForm.get('funcionarioAnalisis')?.value?.persona.segundoNombre == null ? '' : myForm.get('funcionarioAnalisis')?.value?.persona.segundoNombre)
@@ -35,7 +41,7 @@
           <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>Propuesta</h4>
         </div>
         <div class="col-sm-12">
-          <p mat-line><span class="font-bold">Asesor: </span> {{
+          <p mat-line><span class="font-bold">ASESOR </span> {{ ' ' +
             (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.primerNombre)
             + ' ' +
             (myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.funcionario?.persona.segundoNombre)
@@ -47,46 +53,46 @@
         </p>
       </div>
       <div class="col-sm-3">
-        <p mat-line><span class="font-bold">Nº Solicitud: </span> {{myForm.get('propuestaSolicitud')?.value.id}}</p>
+        <p mat-line><span class="font-bold">Nº SOLICITUD</span> {{myForm.get('propuestaSolicitud')?.value.id}}</p>
       </div>
       <div class="col-sm-3">
-        <p mat-line><span class="font-bold">Fecha Presentacion: </span> {{myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'}}</p>
+        <p mat-line><span class="font-bold">FECHA PRESENTACION</span> {{myForm.get('propuestaSolicitud')?.value.fechaPresentacion | date:'MM/dd/yyyy'}}</p>
       </div>
       <div class="col-sm-3">
-        <p mat-line><span class="font-bold">Monto: </span> {{myForm.get('propuestaSolicitud')?.value.montoSolicitado | number}}</p>
+        <p mat-line><span class="font-bold">MONTO</span> {{myForm.get('propuestaSolicitud')?.value.montoSolicitado | number}}</p>
       </div>
       <div class="col-sm-3">
-        <p mat-line><span class="font-bold">Tipo Garantia: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoGarantia.nombre}}</p>
+        <p mat-line><span class="font-bold">TIPO GARANTIA</span> {{myForm.get('propuestaSolicitud')?.value?.tipoGarantia.nombre}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('propuestaSolicitud')?.value.plazo}}</p>
+        <p mat-line><span class="font-bold">PLAZO</span> {{myForm.get('propuestaSolicitud')?.value.plazo}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Cuota: </span> {{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</p>
+        <p mat-line><span class="font-bold">CUOTA</span> {{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Tasa(%): </span> {{myForm.get('propuestaSolicitud')?.value.tasaInteres}}</p>
+        <p mat-line><span class="font-bold">TASA(%)</span> {{myForm.get('propuestaSolicitud')?.value.tasaInteres}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Gastos Administrativos(%): </span> {{myForm.get('propuestaSolicitud')?.value.gastosAdministrativos}}</p>
+        <p mat-line><span class="font-bold">GASTOS ADMINISTRATIVOS(%)</span> {{myForm.get('propuestaSolicitud')?.value.gastosAdministrativos}}</p>
       </div>
       <div class="col-sm-3">
-        <p mat-line><span class="font-bold">Tipo Calculo: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoCalculoImporte.nombre}}</p>
+        <p mat-line><span class="font-bold">TIPO CALCULO</span> {{myForm.get('propuestaSolicitud')?.value?.tipoCalculoImporte.nombre}}</p>
       </div>
       <div class="col-sm-3">
-        <p mat-line><span class="font-bold">Forma Pago: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoPago.nombre}}</p>
+        <p mat-line><span class="font-bold">FORMA PAGO</span> {{myForm.get('propuestaSolicitud')?.value?.tipoPago.nombre}}</p>
       </div>
       <div class="col-md-3">
-        <p mat-line><span class="font-bold">Periodo Gracia: </span> {{myForm.get('propuestaSolicitud')?.value.periodoGracia}}</p>
+        <p mat-line><span class="font-bold">PERIODO GRACIA</span> {{myForm.get('propuestaSolicitud')?.value.periodoGracia}}</p>
       </div>
       <div class="col-sm-3">
-        <p><span class="font-bold">Destino: </span> {{myForm.get('propuestaSolicitud')?.value?.tipoDestino.nombre}}</p>
+        <p mat-line><span class="font-bold">DESTINO</span> {{myForm.get('propuestaSolicitud')?.value?.tipoDestino.nombre}}</p>
       </div>
       <div class="col-sm-6" *ngIf="myForm.get('propuestaSolicitud')?.value.detalleDestino">
-        <p><span class="font-bold">Aclaracion Destino: </span> {{myForm.get('propuestaSolicitud')?.value.detalleDestino}}</p>
+        <p mat-line><span class="font-bold">ACLARACION DESTINO</span> {{myForm.get('propuestaSolicitud')?.value.detalleDestino}}</p>
       </div>
       <div class="col-md-6" *ngIf="myForm.get('propuestaSolicitud')?.value.observacionesDepartamento">
-        <p><span class="font-bold">Observación: </span> {{myForm.get('propuestaSolicitud')?.value.observacionesDepartamento}}</p>
+        <p mat-line><span class="font-bold">OBSERVACION</span> {{myForm.get('propuestaSolicitud')?.value.observacionesDepartamento}}</p>
       </div>
       <div class="col-md-12  m-t-10" *ngIf="myForm.get('propuestaSolicitud')?.value.id && myForm.get('propuestaSolicitud')?.value.entidad">
         <app-view-upload [entidad]="myForm.get('propuestaSolicitud')?.value.entidad" [idEntidad]="myForm.get('propuestaSolicitud')?.value.id"></app-view-upload>
@@ -145,10 +151,10 @@
                             <p mat-line><span class="font-normal">Desc. Total: </span> {{detalle.get('montoDeudaDescuento').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Deuda Total: </span> {{detalle.get('montoDeudaSolicitudCuotaTotal').value | number}}</p>
+                            <p mat-line><span class="font-bold">DEUDA TOTAL </span> {{detalle.get('montoDeudaSolicitudCuotaTotal').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Deuda Total : </span> {{detalle.get('montoDeudaSolicitudTotal').value | number}}</p>
+                            <p mat-line><span class="font-bold">DEUDA TOTAL </span> {{detalle.get('montoDeudaSolicitudTotal').value | number}}</p>
                           </div>
                           <div class="col-md-6">
                             <p mat-line><span class="font-normal">Ingresos: </span> {{detalle.get('ingresoTotal').value | number}}</p>
@@ -163,15 +169,15 @@
                             <p mat-line><span class="font-normal">Otros 100%: </span> {{detalle.get('porcentajeCapacidadOtros').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Total: </span> {{detalle.get('montoTotalIngresos').value | number}}</p>
+                            <p mat-line><span class="font-bold">TOTAL </span> {{detalle.get('montoTotalIngresos').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Total: </span> {{detalle.get('montoTotalIngresosPorcentaje').value | number}}</p>
+                            <p mat-line><span class="font-bold">TOTAL </span> {{detalle.get('montoTotalIngresosPorcentaje').value | number}}</p>
                           </div>
                           <div class="col-md-6">
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Diferencia: </span> {{detalle.get('saldoTotalSolicitud').value | number}}</p>
+                            <p mat-line><span class="font-bold">DIFERENCIA </span> {{detalle.get('saldoTotalSolicitud').value | number}}</p>
                           </div>
                         </div>
                       </fieldset>
@@ -205,10 +211,10 @@
                             <p mat-line><span class="font-normal">Tarjeta Cony. Total: </span> {{detalle.get('montoDeudaTarjetaConyuge').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Total Cuota: </span> {{detalle.get('montoDeudaTotalCuota').value | number}}</p>
+                            <p mat-line><span class="font-bold">TOTAL CUOTA </span> {{detalle.get('montoDeudaTotalCuota').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Total : </span> {{detalle.get('montoDeudaTotal').value | number}}</p>
+                            <p mat-line><span class="font-bold">TOTAL </span> {{detalle.get('montoDeudaTotal').value | number}}</p>
                           </div>
                         </div>
                       </fieldset>
@@ -223,17 +229,16 @@
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
-                            <p mat-line><span class="font-bold">Credito Vigente: </span> {{detalle.get('creditoVigente').value | number}}</p>
+                            <p mat-line><span class="font-bold">CREDITO VIGENTE </span> {{detalle.get('creditoVigente').value | number}}</p>
                           </div>
                           <div class="col-md-4">
-                            <p mat-line><span class="font-bold">Garantia Credito: </span> {{detalle.get('garantiasVigente').value}}</p>
+                            <p mat-line><span class="font-bold">GARANTIA CREDITO </span> {{detalle.get('garantiasVigente').value}}</p>
                           </div>
                           <div class="col-md-4">
-                            <p mat-line><span class="font-bold">Calificacion Ult. Creditos: </span> {{detalle.get('calificacionCredCanc').value}}</p>
+                            <p mat-line><span class="font-bold">CALIFICACION ULT. CREDITOS </span> {{detalle.get('calificacionCredCanc').value}}</p>
                           </div>
                           <div class="col-md-12">
-                            <p mat-line><span class="font-bold">Faja Informconf: </span> {{detalle.get('fajaInformconf').value}}
-                            </p>
+                            <p mat-line><span class="font-bold">FAJA INFORMCONF </span> {{detalle.get('fajaInformconf').value}}</p>
                           </div>
                           <div class="col-md-12">
                             <mat-form-field>
@@ -246,19 +251,19 @@
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
-                            <p mat-line><span class="font-bold">Capacidad de Pago: </span> {{detalle.get('capacidadPago').value | number}}</p>
+                            <p mat-line><span class="font-bold">CAPACIDAD PAGO: </span> {{detalle.get('capacidadPago').value | number}}</p>
                           </div>
                           <div class="col-md-2">
-                            <p mat-line><span class="font-bold">Antiguedad Laboral: </span> {{detalle.get('antiguedadLaboral').value}}</p>
+                            <p mat-line><span class="font-bold">ANTIGUEDAD LABORAL </span> {{detalle.get('antiguedadLaboral').value}}</p>
                           </div>
                           <div class="col-md-2">
-                            <p mat-line><span class="font-bold">Edad: </span> {{detalle.get('edad').value}}</p>
+                            <p mat-line><span class="font-bold">EDAD </span> {{detalle.get('edad').value}}</p>
                           </div>
                           <div class="col-md-2">
-                            <p mat-line> <span class="font-bold">Nº Hijos: </span> {{detalle.get('cantidadHijos').value}}</p>
+                            <p mat-line> <span class="font-bold">Nº HIJOS </span> {{detalle.get('cantidadHijos').value}}</p>
                           </div>
                           <div class="col-md-2">
-                            <p mat-line><span class="font-bold">Estado Civil: </span> {{detalle.get('estadoCivil').value}}</p>
+                            <p mat-line><span class="font-bold">ESTADO CIVIL </span> {{detalle.get('estadoCivil').value}}</p>
                           </div>
                           <div class="col-md-12">
                             <mat-form-field>
@@ -278,10 +283,10 @@
                             <p mat-line><span class="font-normal">Ctral. Riesgo Total: </span> {{detalle.get('deudaTotalCtralRgo').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Total Dueda Ext.: </span> {{detalle.get('totalDeudaCuotaExterior').value | number}}</p>
+                            <p mat-line><span class="font-bold">TOTAL DEUDA EXT. </span> {{detalle.get('totalDeudaCuotaExterior').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Total Dueda Ext.: </span> {{detalle.get('totalDeudaExterior').value | number}}</p>
+                            <p mat-line><span class="font-bold">TOTAL DEUDA EXT. </span> {{detalle.get('totalDeudaExterior').value | number}}</p>
                           </div>
                         </div>
                       </fieldset>
@@ -308,14 +313,14 @@
               </mat-form-field>
             </div>
             <div class="col-md-12">
-              <p><span class="font-bold">Estado Analisis: </span> {{myForm.get('estado').value?.nombre}}</p>
+              <p mat-line><span class="font-bold">ESTADO ANALISIS </span> {{myForm.get('estado').value?.nombre}}</p>
             </div>
             <div class="col-md-12 m-t-10" *ngIf="myForm.get('estado')?.value.id == 6">
               <fieldset>
                 <legend>Resolución Aprobación</legend>
                 <div class="row">
                   <div class="col-md-4">
-                    <p><span class="font-bold">Monto Aprobado: </span> {{myForm.get('montoAprobado').value | number}}</p>
+                    <p mat-line><span class="font-bold">MONTO APROBADO </span> {{myForm.get('montoAprobado').value | number}}</p>
                   </div>
                   <div class="col-md-12">
                     <mat-form-field>

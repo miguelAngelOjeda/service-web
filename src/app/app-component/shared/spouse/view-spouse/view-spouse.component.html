@@ -8,7 +8,7 @@
         <ng-container formGroupName="persona">
           <ng-container formGroupName="conyuge">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="p-l-20 p-t-10">
                   <div class="font-medium">{{
                     (peopleForm.controls['conyuge'].get('primerNombre')?.value == null ? '' : peopleForm.controls['conyuge'].get('primerNombre')?.value)
@@ -30,10 +30,11 @@
                     }}</span>
                 </div>
               </div>
-              <div class="col-sm-4">
-                <p><span class="font-bold">Documento: </span> {{peopleForm.get('conyuge').get('documento')?.value}}</p>
-
-                <p><span class="font-bold">Sexo: </span> {{peopleForm.get('conyuge').get('sexo')?.value}}</p>
+              <div class="col-sm-3">
+                <p mat-line><span class="font-bold">DOCUMENTO </span> {{peopleForm.get('conyuge').get('documento')?.value}}</p>
+              </div>
+              <div class="col-sm-3">
+                <p mat-line><span class="font-bold">SEXO </span> {{peopleForm.get('conyuge').get('sexo')?.value}}</p>
               </div>
               <div class="col-md-2">
                 <section class="example-section">

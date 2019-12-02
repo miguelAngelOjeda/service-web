@@ -19,6 +19,10 @@
   height: 60px;
 }
 
+body {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
 .gray-text {
   color: #777;
   vertical-align: text-bottom;

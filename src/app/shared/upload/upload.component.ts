@@ -228,7 +228,7 @@ export class UploadComponent implements OnInit {
   public loadView(data: any){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '80%';
-    dialogConfig.height = '85%';
+    dialogConfig.height = '77%';
     dialogConfig.data = data;
     let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {

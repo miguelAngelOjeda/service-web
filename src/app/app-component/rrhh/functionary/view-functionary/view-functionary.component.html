@@ -40,44 +40,28 @@
                         <blockquote>
                           <div class="row">
                             <div class="col-sm-4">
-                              <mat-list>
-                                <mat-list-item>
-                                  <p mat-line><span class="font-bold">Tipo Funcionario: </span> {{myForm.controls.tipoFuncionario.value?.nombre}}</p>
-                                </mat-list-item>
-                                <mat-list-item>
-                                  <p mat-line><span class="font-bold">Nro. Legajo: </span> {{myForm.value?.nroLegajo}}</p>
-                                </mat-list-item>
-                                <mat-list-item>
-                                  <p mat-line><span class="font-bold">Cargo: </span> {{myForm.controls.cargo.value?.nombre}}</p>
-                                </mat-list-item>
-                              </mat-list>
+                              <p mat-line><span class="font-bold">TIPO FUNCIONARIO </span> {{myForm.controls.tipoFuncionario.value?.nombre}}</p>
                             </div>
                             <div class="col-sm-4">
-                              <mat-list>
-                                <mat-list-item>
-                                  <p mat-line><span class="font-bold">Fecha Ingreso: </span> {{myForm.value?.fechaIngreso | date: 'dd/MM/yyyy'}}</p>
-                                </mat-list-item>
-                                <mat-list-item>
-                                  <p mat-line><span class="font-bold">Fecha Salida: </span> {{myForm.value?.fechaEgreso | date: 'dd/MM/yyyy'}}</p>
-                                </mat-list-item>
-                                <mat-list-item>
-                                  <p mat-line><span class="font-bold">Motivo Salida: </span> {{myForm.controls.tipoMotivoRetiro.value?.nombre}}</p>
-                                </mat-list-item>
-                              </mat-list>
+                              <p mat-line><span class="font-bold">NRO. LEGAJO </span> {{myForm.value?.nroLegajo}}</p>
                             </div>
                             <div class="col-sm-4">
-                              <mat-list>
-                                <mat-list-item>
-                                  <p mat-line><span class="font-bold">Sucursal: </span> {{myForm.controls.sucursal.value?.nombre}}</p>
-                                </mat-list-item>
-                              </mat-list>
+                              <p mat-line><span class="font-bold">CARGO </span> {{myForm.controls.cargo.value?.nombre}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p mat-line><span class="font-bold">FECHA INGRESO </span> {{myForm.value?.fechaIngreso | date: 'dd/MM/yyyy'}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p mat-line><span class="font-bold">FECHA SALIDA </span> {{myForm.value?.fechaEgreso | date: 'dd/MM/yyyy'}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p mat-line><span class="font-bold">MOTIVO SALIDA </span> {{myForm.controls.tipoMotivoRetiro.value?.nombre}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p mat-line><span class="font-bold">SUCURSAL </span> {{myForm.controls.sucursal.value?.nombre}}</p>
                             </div>
                             <div class="col-md-12" *ngIf="myForm.value?.observacionRetiro">
-                              <mat-list>
-                                <mat-list-item>
-                                  <p mat-line><span class="font-bold">Observacion Retiro: </span> {{myForm.value?.observacionRetiro}}</p>
-                                </mat-list-item>
-                              </mat-list>
+                              <p mat-line><span class="font-bold">OBSERVACION RETIRO </span> {{myForm.value?.observacionRetiro}}</p>
                             </div>
                           </div>
                         </blockquote>

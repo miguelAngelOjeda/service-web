@@ -25,6 +25,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
   public models: Array<any> = [];
   public idModel: any;
   public sortActiveModel = "nombre";
+  public optionName = "option.nombre";
   public inputType = "legacy";
   public sortDirectionModel = "desc";
 
@@ -98,18 +99,30 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
 
   protected filter() {
     setTimeout(() => {
-      merge(fromEvent(this.filterInputModel.nativeElement, 'keyup'))
+      merge(fromEvent(this.filterInputModel.nativeElement, 'keyup').pipe(
+              map((e: KeyboardEvent) => {
+                return e.code;
+              }),
+              filter(value => {
+                return (!value.includes('Arrow') && !value.includes('Enter'));
+              }))
+          )
           .pipe(
             startWith({}),
             //delay(0),
             switchMap(() => {
               if(this.modelControl.status !== 'DISABLED'){
+                //Inicializar el valor
+                this.value.emit(null);
+
                 this.isfilter = false;
                 if(this.filterInputModel.nativeElement.value.length  > 0){
                   this.isfilter = true;
                 }
+
                 return this.apiService.getPageList('/' + this.urlFilter,this.isfilter,this.filterInputModel.nativeElement.value,
                  this.columnsFilter, this.sortDirectionModel, this.sortActiveModel,0,50, false,this.idModel);
+
               }else{
                 return null;
               }

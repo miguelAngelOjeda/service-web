@@ -31,32 +31,32 @@
           }}</span>
       </div>
     </div>
-    <div class="col-md-20">
+    <div class="col-md-12">
       <div class="row m-t-20">
         <div class="col-sm-4">
-          <p mat-line><span class="font-bold">Tipo Persona: </span> {{peopleForm.controls['persona'].get('tipoPersona')?.value}}</p>
+          <p mat-line><span class="font-bold">TIPO PERSONA </span> {{peopleForm.controls['persona'].get('tipoPersona')?.value}}</p>
 
-          <p mat-line><span class="font-bold">Documento: </span> {{peopleForm.controls['persona'].get('documento')?.value}}</p>
+          <p mat-line><span class="font-bold">DOCUMENTO</span> {{peopleForm.controls['persona'].get('documento')?.value}}</p>
 
-          <p mat-line><span class="font-bold">Ruc: </span> {{peopleForm.controls['persona'].get('ruc')?.value}}</p>
+          <p mat-line><span class="font-bold">RUC</span> {{peopleForm.controls['persona'].get('ruc')?.value}}</p>
 
-          <p mat-line><span class="font-bold">Fecha Nacimiento: </span> {{peopleForm.controls['persona'].get('fechaNacimiento')?.value | date: 'dd/MM/yyyy'}}</p>
+          <p mat-line><span class="font-bold">FECHA NACIMIENTO</span> {{peopleForm.controls['persona'].get('fechaNacimiento')?.value | date: 'dd/MM/yyyy'}}</p>
         </div>
         <div class="col-sm-4">
-          <p mat-line><span class="font-bold">Sexo: </span> {{peopleForm.controls['persona'].get('sexo')?.value}}</p>
+          <p mat-line><span class="font-bold">SEXO</span> {{peopleForm.controls['persona'].get('sexo')?.value}}</p>
 
-          <p mat-line><span class="font-bold">Estado Civil: </span> {{peopleForm.controls['persona'].get('estadoCivil')?.value}}</p>
+          <p mat-line><span class="font-bold">ESTADO CIVIL</span> {{peopleForm.controls['persona'].get('estadoCivil')?.value}}</p>
 
-          <p mat-line><span class="font-bold">Separacion Bienes: </span> {{(peopleForm.controls['persona'].get('separacionBienes')?.value == true ? 'S' : 'N')}}</p>
+          <p mat-line><span class="font-bold">SEPARACION BIENES</span> {{(peopleForm.controls['persona'].get('separacionBienes')?.value == true ? 'S' : 'N')}}</p>
 
-          <p mat-line><span class="font-bold">Nacionalidad: </span> {{peopleForm.controls['persona']['controls'].nacionalidad?.value?.nombre}}</p>
+          <p mat-line><span class="font-bold">NACIONALIDAD</span> {{peopleForm.controls['persona']['controls'].nacionalidad?.value?.nombre}}</p>
         </div>
         <div class="col-sm-4">
-          <p mat-line><span class="font-bold">Numero Hijos: </span> {{peopleForm.controls['persona'].get('numeroHijos')?.value}}</p>
+          <p mat-line><span class="font-bold">NUMERO HIJOS</span> {{peopleForm.controls['persona'].get('numeroHijos')?.value}}</p>
 
-          <p mat-line><span class="font-bold">Numero Dependientes: </span> {{peopleForm.controls['persona'].get('numeroDependientes')?.value}}</p>
+          <p mat-line><span class="font-bold">NUMERO DEPENDIENTES</span> {{peopleForm.controls['persona'].get('numeroDependientes')?.value}}</p>
 
-          <p mat-line style="white-space: normal;"><span class="font-bold">Observacion: </span> {{peopleForm.controls['persona'].get('observacion')?.value}}</p>
+          <p mat-line style="white-space: normal;"><span class="font-bold">OBSERVACION</span> {{peopleForm.controls['persona'].get('observacion')?.value}}</p>
         </div>
         <br>
         <div class="col-md-12 m-t-20">
@@ -67,18 +67,22 @@
           <app-map [markerDraggable]="false" [latitude]="peopleForm.controls['persona'].get('latitud')?.value" [longitude]="peopleForm.controls['persona'].get('longitud')?.value"></app-map>
         </div>
         <div class="col-sm-4">
-          <p mat-line><span class="font-bold">Pais: </span> {{peopleForm.controls['persona']['controls'].pais.value?.nombre}}</p>
-
-          <p mat-line><span class="font-bold">Departamento: </span> {{peopleForm.controls['persona']['controls'].departamento.value?.nombre}}</p>
-
-          <p mat-line><span class="font-bold">Ciudad: </span> {{peopleForm.controls['persona']['controls'].ciudad.value?.nombre}}</p>
+          <p mat-line><span class="font-bold">PAIS</span> {{peopleForm.controls['persona']['controls'].pais.value?.nombre}}</p>
         </div>
-        <div class="col-sm-8">
-          <p mat-line><span class="font-bold">Barrio: </span> {{peopleForm.controls['persona']['controls'].barrio.value?.nombre}}</p>
-
-          <p mat-line style="white-space: normal;"><span class="font-bold">Direccion: </span> {{peopleForm.controls['persona'].get('direccionParticular')?.value}}</p>
-
-          <p mat-line style="white-space: normal;"><span class="font-bold">Direccion Detallada: </span> {{peopleForm.controls['persona'].get('direccionDetallada')?.value}}</p>
+        <div class="col-sm-4">
+          <p mat-line><span class="font-bold">DEPARTAMENTO</span> {{peopleForm.controls['persona']['controls'].departamento.value?.nombre}}</p>
+        </div>
+        <div class="col-sm-4">
+          <p mat-line><span class="font-bold">CIUDAD</span> {{peopleForm.controls['persona']['controls'].ciudad.value?.nombre}}</p>
+        </div>
+        <div class="col-sm-4">
+          <p mat-line><span class="font-bold">BARRIO</span> {{peopleForm.controls['persona']['controls'].barrio.value?.nombre}}</p>
+        </div>
+        <div class="col-sm-4">
+          <p mat-line style="white-space: normal;"><span class="font-bold">DIRECCION</span> {{peopleForm.controls['persona'].get('direccionParticular')?.value}}</p>
+        </div>
+        <div class="col-sm-4">
+          <p mat-line style="white-space: normal;"><span class="font-bold">DIRECCION DETALLADA</span> {{peopleForm.controls['persona'].get('direccionDetallada')?.value}}</p>
         </div>
         <!-- <div class="col-md-12">
           <app-view-people-relationship *ngIf="isRelationShip" [fkFilterModel]="peopleForm.controls['persona'].get('id').value"></app-view-people-relationship>

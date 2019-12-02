@@ -18,49 +18,49 @@
           <div [formGroupName]="i">
             <div class="row m-t-10">
               <div class="col-sm-12">
-                <p><span class="font-bold">Direccion: </span> {{bienesInmuebles.get('direccion')?.value}}</p>
+                <p><span class="font-bold">DIRECCION</span> {{bienesInmuebles.get('direccion')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.controls.pais.value.nombre">
-                <p><span class="font-bold">Pais: </span> {{bienesInmuebles.controls.pais?.value?.nombre}}</p>
+                <p><span class="font-bold">PAIS</span> {{bienesInmuebles.controls.pais?.value?.nombre}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.controls.departamento.value.nombre">
-                <p><span class="font-bold">Departamento: </span> {{bienesInmuebles.controls.departamento.value?.nombre}}</p>
+                <p><span class="font-bold">DEPARTAMENTO</span> {{bienesInmuebles.controls.departamento.value?.nombre}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.controls.ciudad.value?.nombre">
-                <p><span class="font-bold">Ciudad: </span> {{bienesInmuebles.controls.ciudad.value?.nombre}}</p>
+                <p><span class="font-bold">CIUDAD</span> {{bienesInmuebles.controls.ciudad.value?.nombre}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('edificado')?.value">
-                <p><span class="font-bold">Edificado: </span> {{(bienesInmuebles.get('edificado')?.value == true ? 'S' : 'N')}}</p>
+                <p><span class="font-bold">EDIFICADO</span> {{(bienesInmuebles.get('edificado')?.value == true ? 'S' : 'N')}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('escriturado')?.value">
-                <p><span class="font-bold">Escriturado: </span> {{(bienesInmuebles.get('escriturado')?.value == true ? 'S' : 'N')}}</p>
+                <p><span class="font-bold">ESCRITURADO</span> {{(bienesInmuebles.get('escriturado')?.value == true ? 'S' : 'N')}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('numeroFinca')?.value">
-                <p><span class="font-bold">Nº de Finca: </span> {{bienesInmuebles.get('numeroFinca')?.value}}</p>
+                <p><span class="font-bold">Nº FINCA</span> {{bienesInmuebles.get('numeroFinca')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('numeroMatricula')?.value">
-                <p><span class="font-bold">Nº de Matricula: </span> {{bienesInmuebles.get('numeroMatricula')?.value}}</p>
+                <p><span class="font-bold">Nº MATRICULA: </span> {{bienesInmuebles.get('numeroMatricula')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('cuentaCatastral')?.value">
-                <p><span class="font-bold">Cuenta Catastral: </span> {{bienesInmuebles.get('cuentaCatastral')?.value}}</p>
+                <p><span class="font-bold">CUENTA CATASTRAL: </span> {{bienesInmuebles.get('cuentaCatastral')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('hipotecado')?.value">
-                <p><span class="font-bold">Hipotecado: </span> {{(bienesInmuebles.get('hipotecado')?.value == true ? 'S' : 'N')}}</p>
+                <p><span class="font-bold">HIPOTECADO</span> {{(bienesInmuebles.get('hipotecado')?.value == true ? 'S' : 'N')}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('lugarHipoteca')?.value">
-                <p><span class="font-bold">Lugar Hipoteca: </span> {{bienesInmuebles.get('lugarHipoteca')?.value}}</p>
+                <p><span class="font-bold">LUGAR HIPOTECA</span> {{bienesInmuebles.get('lugarHipoteca')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('fechaHipoteca')?.value">
-                <p><span class="font-bold">Fecha Hipoteca: </span> {{bienesInmuebles.get('fechaHipoteca')?.value | date: 'dd/MM/yyyy'}}</p>
+                <p><span class="font-bold">FECHA HIPOTECA</span> {{bienesInmuebles.get('fechaHipoteca')?.value | date: 'dd/MM/yyyy'}}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('valorActual').value">
-                <p><span class="font-bold">Valor Actual: </span> {{bienesInmuebles.get('valorActual')?.value | number }}</p>
+                <p><span class="font-bold">VALOR ACTUAL</span> {{bienesInmuebles.get('valorActual')?.value | number }}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('saldo').value">
-                <p><span class="font-bold">Saldo a Pagar: </span> {{bienesInmuebles.get('saldo')?.value | number }}</p>
+                <p><span class="font-bold">SALDO PAGAR</span> {{bienesInmuebles.get('saldo')?.value | number }}</p>
               </div>
               <div class="col-sm-4" *ngIf="bienesInmuebles.get('cuotaMensual').value">
-                <p><span class="font-bold">Cuota Mensual: </span> {{bienesInmuebles.get('cuotaMensual')?.value | number }}</p>
+                <p><span class="font-bold">CUOTA MENSUAL</span> {{bienesInmuebles.get('cuotaMensual')?.value | number }}</p>
               </div>
             </div>
           </div>

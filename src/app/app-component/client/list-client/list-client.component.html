@@ -8,10 +8,11 @@
     <mat-card-content>
     <!-- <mat-card-subtitle> </mat-card-subtitle> -->
       <!-- <p> -->
-        <mat-form-field appearance="fill">
-          <input matInput #filter placeholder="Buscar....." class="form-control-success">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+      <mat-form-field appearance="fill" class="search-form">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput #filter placeholder="Buscar" type="search">
+        <!-- <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon> -->
+      </mat-form-field>
       <!-- </p> -->
         <mat-table [dataSource]="dataSource" class="mat-table"
          matSort  matSortActive="persona.documento" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">

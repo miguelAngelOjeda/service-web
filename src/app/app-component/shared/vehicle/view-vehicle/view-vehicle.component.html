@@ -19,19 +19,19 @@
           <div [formGroupName]="i">
             <div class="row m-t-10">
               <div class="col-sm-4" *ngIf="vehiculos.get('marca')?.value">
-                <p><span class="font-bold">Marca: </span> {{vehiculos.get('marca')?.value}}</p>
+                <p mat-line><span class="font-bold">MARCA</span> {{vehiculos.get('marca')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="vehiculos.get('modeloAnio')?.value">
-                <p><span class="font-bold">Modelo/Año: </span> {{vehiculos.get('modeloAnio')?.value}}</p>
+                <p mat-line><span class="font-bold">MODELO/AÑO</span> {{vehiculos.get('modeloAnio')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="vehiculos.get('valorActual')?.value">
-                <p><span class="font-bold">Valor Actual: </span> {{vehiculos.get('valorActual')?.value  | number}}</p>
+                <p mat-line><span class="font-bold">VALOR ACTUAL</span> {{vehiculos.get('valorActual')?.value  | number}}</p>
               </div>
               <div class="col-sm-4" *ngIf="vehiculos.get('cuotaMensual')?.value">
-                <p><span class="font-bold">Cuota Mensual: </span> {{vehiculos.get('cuotaMensual')?.value  | number}}</p>
+                <p mat-line><span class="font-bold">CUOTA MENSUAL</span> {{vehiculos.get('cuotaMensual')?.value  | number}}</p>
               </div>
               <div class="col-sm-4" *ngIf="vehiculos.get('saldo')?.value">
-                <p><span class="font-bold">Saldo: </span> {{vehiculos.get('saldo')?.value  | number}}</p>
+                <p mat-line><span class="font-bold">SALDO</span> {{vehiculos.get('saldo')?.value  | number}}</p>
               </div>
             </div>
           </div>

@@ -19,16 +19,16 @@
           <div [formGroupName]="i" class="m-t-10">
             <div class="row">
               <div class="col-sm-4" *ngIf="referencias.controls.tipoReferencia.value?.nombre">
-                <p mat-line><span class="font-bold">Tipo Referencia: </span> {{referencias.controls.tipoReferencia.value?.nombre}}</p>
+                <p mat-line><span class="font-bold">TIPO REFERENCIA </span> {{referencias.controls.tipoReferencia.value?.nombre}}</p>
               </div>
               <div class="col-sm-4" *ngIf="referencias.get('nombreContacto').value">
-                <p mat-line><span class="font-bold">Nombre: </span> {{referencias.get('nombreContacto')?.value}}</p>
+                <p mat-line><span class="font-bold">NOMBRE </span> {{referencias.get('nombreContacto')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="referencias.get('telefonoCelular').value">
-                <p mat-line><span class="font-bold">Celular: </span> {{referencias.get('telefonoCelular')?.value}}</p>
+                <p mat-line><span class="font-bold">CELULAR </span> {{referencias.get('telefonoCelular')?.value}}</p>
               </div>
               <div class="col-sm-4" *ngIf="referencias.get('telefono').value">
-                <p mat-line><span class="font-bold">Telefono: </span> {{referencias.get('telefono')?.value}}</p>
+                <p mat-line><span class="font-bold">TELEFONO </span> {{referencias.get('telefono')?.value}}</p>
               </div>
             </div>
           </div>
