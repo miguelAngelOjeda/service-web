@@ -51,7 +51,7 @@
                placeholder="Estado" urlFilter="estados" [columnsFilter]="['nombre']" [required]="false"></app-select-filter>
             </div>
             <div class="col-md-4">
-              <app-select-filter appearance="legacy" (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal')?.value"
+              <app-select-filter appearance="legacy" (value)="getValueSubsidiary($event, 'sucursal')" [modelValue]="filterForm.get('propuestaSolicitud').get('sucursal')?.value"
                placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']" [required]="false"></app-select-filter>
             </div>
             <div class="col-md-4">
@@ -77,12 +77,13 @@
               </ng-container>
             </ng-container>
             <div class="col-md-12 p-t-20 advance-filter-buttons">
-              <button mat-button mat-raised-button [type]="onSubmit" #filterButton>Filtrar</button>
+              <button mat-button mat-raised-button #filterButton>Filtrar</button>
               <button mat-button mat-flat-button (click)="closeFilterAdvance()">Cerrar</button>
             </div>
           </div>
         </form>
       </mat-expansion-panel>
+
       <mat-table [dataSource]="dataSource" class="mat-table"
        matSort  matSortActive="id" matSortDirection="desc" matSortDisableClear [class.isMobile]="isMobile">
 
@@ -178,6 +179,12 @@
               </div>
               <div *ngIf="element.estado.id == 7">
                 <span class="label label-danger">
+                  <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{element.estado.nombre}}</font>
+                  </font>
+                </span>
+              </div>
+              <div *ngIf="element.estado.id == 8">
+                <span class="label label-info">
                   <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{element.estado.nombre}}</font>
                   </font>
                 </span>

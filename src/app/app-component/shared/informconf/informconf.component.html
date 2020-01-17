@@ -1,0 +1,336 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<img src="assets/images/logo-inf.png" align="center" alt="Crédito Guaraní" class="brand-logo center">
+		<h6 align="center">Primera Agencia Paraguaya de Informes Comerciales y Confidenciales</h6>
+		<mat-divider></mat-divider>
+	</div>
+</div>
+<form [formGroup]="informconfForm">
+	<mat-dialog-content>
+		<div class="row m-t-20">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12 m-t-20">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">assignment_ind</mat-icon>DATOS PERSONALES</h4>
+	        </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">DOCUMENTO</span> {{informconfForm.get('datosPersonales')?.value?.cedulaIdentidad}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">NOMBRE</span> {{informconfForm.get('datosPersonales')?.value?.primerNombre + ' ' + informconfForm.get('datosPersonales')?.value?.segundoNombre}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">APELLIDO</span> {{informconfForm.get('datosPersonales')?.value?.primerApellido + ' ' + informconfForm.get('datosPersonales')?.value?.segundoApellido}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">SEXO</span> {{informconfForm.get('datosPersonales')?.value?.sexo}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">ESTADO CIVIL</span> {{informconfForm.get('datosPersonales')?.value?.estadoCivil}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">FEC. NACIMIENTO</span> {{informconfForm.get('datosPersonales')?.value?.fechaNacimiento}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">APELLIDO CASADO/A</span> {{informconfForm.get('datosPersonales')?.value?.apellidoCasada}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">NACIONALIDAD</span> {{informconfForm.get('datosPersonales')?.value?.nacionalidad}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">PROFESION</span> {{informconfForm.get('datosPersonales')?.value?.profesion}}</p>
+		      </div>
+					<ng-container *ngIf="informconfForm.get('datosConyuge')?.value?.ci && informconfForm.get('datosConyuge')?.value?.ci != ''">
+						<div class="col-md-12">
+		          <h4 class="m-0 font-20"><mat-icon class="gray-text">group</mat-icon>DATOS CONYUGE</h4>
+		        </div>
+						<div class="col-sm-4">
+			        <p mat-line><span class="font-bold">DOCUMENTO</span> {{informconfForm.get('datosConyuge')?.value?.ci}}</p>
+			      </div>
+						<div class="col-sm-4">
+			        <p mat-line><span class="font-bold">NOMBRE</span> {{informconfForm.get('datosConyuge')?.value?.primerNombre + ' ' + informconfForm.get('datosConyuge')?.value?.segundoNombre}}</p>
+			      </div>
+						<div class="col-sm-4">
+			        <p mat-line><span class="font-bold">APELLIDO</span> {{informconfForm.get('datosConyuge')?.value?.primerApellido + ' ' + informconfForm.get('datosConyuge')?.value?.segundoApellido}}</p>
+			      </div>
+					</ng-container>
+					<div class="col-md-12">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">visibility</mat-icon>INFORMCONF SCORING</h4>
+	        </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">FAJA</span> {{informconfForm.get('scoring')?.value?.faja}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">PROBABILIDAD</span> {{informconfForm.get('scoring')?.value?.probabilidadInicial + ' al ' + informconfForm.get('scoring')?.value?.probabilidadFinal}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">SCORE</span> {{informconfForm.get('scoring')?.value?.rangoScoreInicial + ' al ' + informconfForm.get('scoring')?.value?.rangoScoreFinal}}</p>
+		      </div>
+					<div class="col-sm-12">
+		        <p mat-line> El score que antecede es producto del cálculo estadístico de datos muestrales del comportamiento de los paraguayos, y se obtiene comparando los
+						datos de este informe, con el comportamiento de grupos.
+						<span style="font-size: 1.00em;" class="font-bold">Bajo ningún punto de vista, puede ser tomado como Juicio de Valor, de la intención de pago de la persona.</span>
+						</p>
+		      </div>
+					<div class="col-md-12">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">directions</mat-icon>HISTORICO DIRECCIONES</h4>
+	        </div>
+					<div class="col-md-12">
+						<mat-table [dataSource]="informconfForm.get('historialDirecciones')?.value" class="mat-table" [class.isMobile]="isMobile">
+							<ng-container matColumnDef="ciuda">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> CIUDAD </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="CIUDAD"> {{element.ciuda}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="barrio">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> BARRIO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="BARRIO"> {{element.barrio}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="calle">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> CALLE </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="CALLE"> {{element.calle}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="telefono">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> TELEFONO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="TELEFONO"> {{element.telefono}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="fechaPrimeraReferencia">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> PRIM. ULT. REFERENCIA </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="PRIM. ULT. REFERENCIA"> {{element.fechaPrimeraReferencia + ' - ' + element.fechaUltimaReferencia}} </mat-cell>
+						  </ng-container>
+							<mat-header-row *matHeaderRowDef="displayedColumnsHistorialDireccion" class="ng-tns-c39-77"></mat-header-row>
+		          <mat-row *matRowDef="let row; columns: displayedColumnsHistorialDireccion;"></mat-row>
+						</mat-table>
+					</div>
+					<div class="col-md-12 m-t-20">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">work</mat-icon>HISTORICO LUGAR TRABAJO</h4>
+	        </div>
+					<div class="col-md-12">
+						<mat-table [dataSource]="informconfForm.get('historialLugarTrabajo')?.value" class="mat-table" [class.isMobile]="isMobile">
+							<ng-container matColumnDef="lugarTrabajo">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> LUGAR </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="LUGAR"> {{element.lugarTrabajo}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="cargo">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> CARGO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="CARGO"> {{element.cargo}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="telefono">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> TELEFONO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="TELEFONO"> {{element.telefono}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="fechaPrimeraReferencia">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> PRIM. ULT. REFERENCIA </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="PRIM. ULT. REFERENCIA"> {{element.fechaPrimeraReferencia + ' - ' + element.fechaUltimaReferencia}} </mat-cell>
+						  </ng-container>
+							<mat-header-row *matHeaderRowDef="displayedColumnsHistorialTrabajo" class="ng-tns-c39-77"></mat-header-row>
+		          <mat-row *matRowDef="let row; columns: displayedColumnsHistorialTrabajo;"></mat-row>
+						</mat-table>
+					</div>
+					<div class="col-md-12 m-t-20">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>DEMANDAS</h4>
+	        </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. DEMANDAS NO FINIQ.</span> {{informconfForm.get('demandasResumen')?.value?.cantDemandasNoFiniquitadas}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">(-)FECHA DEMANDAS NO FINIQ.</span> {{informconfForm.get('demandasResumen')?.value?.menorFechaDemandaNoFiniqui}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">(+)FECHA DEMANDAS NO FINIQ.</span> {{informconfForm.get('demandasResumen')?.value?.mayorFechaDemandaNoFiniqui}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. DEMANDAS FINIQ.</span> {{informconfForm.get('demandasResumen')?.value?.cantDemandasSiFiniquitadas}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">(-)FECHA DEMANDAS FINIQ.</span> {{informconfForm.get('demandasResumen')?.value?.menorFechaDemandaSiFiniqui}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">(+)FECHA DEMANDAS FINIQ.</span> {{informconfForm.get('demandasResumen')?.value?.mayorFechaDemandaSiFiniqui}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. TOTAL DEMANDAS</span> {{informconfForm.get('demandasResumen')?.value?.cantTotalDemandas}}</p>
+		      </div>
+					<div class="col-md-12">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>INHIBICIONES</h4>
+	        </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. INHIBICIONES NO FINIQ.</span> {{informconfForm.get('inhibicionesResumen')?.value?.cantInhibicionesNoFiniquita}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">(-)FECHA INHIBICIONES NO FINIQ.</span> {{informconfForm.get('inhibicionesResumen')?.value?.menorFechaDemandaNoFiniqui}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">(+)FECHA INHIBICIONES NO FINIQ.</span> {{informconfForm.get('inhibicionesResumen')?.value?.mayorFechaDemandaNoFiniqui}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. INHIBICIONES FINIQ.</span> {{informconfForm.get('inhibicionesResumen')?.value?.cantInhibicionesSiFiniquita}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">(-)FECHA INHIBICIONES FINIQ.</span> {{informconfForm.get('inhibicionesResumen')?.value?.menorFechaDemandaSiFiniqui}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">(+)FECHA INHIBICIONES FINIQ.</span> {{informconfForm.get('inhibicionesResumen')?.value?.mayorFechaDemandaSiFiniqui}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. TOTAL INHIBICIONES</span> {{informconfForm.get('inhibicionesResumen')?.value?.cantTotalInhibiciones}}</p>
+		      </div>
+					<div class="col-md-12">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>CONVOCATORIAS</h4>
+	        </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">CANT. CONVOCATORIAS NO FINIQ.</span> {{informconfForm.get('convocatoriasResumen')?.value?.cantConvocatoriasNoFiniquit}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">(-)FECHA DE ADMISIÒN</span> {{informconfForm.get('convocatoriasResumen')?.value?.menorFechaAdmision}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">CANT. CONVOCATORIAS FINIQ.</span> {{informconfForm.get('convocatoriasResumen')?.value?.cantConvocatoriasSiFiniquit}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">(+)FECHA DE ADMISIÒN</span> {{informconfForm.get('convocatoriasResumen')?.value?.mayorFechaAdmision}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. TOTAL CONVOCATORIAS</span> {{informconfForm.get('convocatoriasResumen')?.value?.cantTotalConvocatorias}}</p>
+		      </div>
+					<div class="col-md-12">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>QUIEBRAS</h4>
+	        </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">CANT. QUIEBRAS NO FINIQ.</span> {{informconfForm.get('quiebras')?.value?.cantQuiebrasNoFiniquitadas}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">(-)FECHA DE SOLICITUD</span> {{informconfForm.get('quiebras')?.value?.menorFechaSolicitud}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">CANT. QUIEBRAS FINIQ.</span> {{informconfForm.get('quiebras')?.value?.cantQuiebrasSiFiniquitadas}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">(+)FECHA DE SOLICITUD</span> {{informconfForm.get('quiebras')?.value?.mayorFechaSolicitud}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. TOTAL QUIEBRAS</span> {{informconfForm.get('quiebras')?.value?.cantTotalQuiebras}}</p>
+		      </div>
+					<div class="col-md-12">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">assessment</mat-icon>REMATES</h4>
+	        </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">CANT. REMATES NO FINIQ.</span> {{informconfForm.get('rematesResumen')?.value?.cantRematesNoFiniquitadas}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">(-)FECHA DE REMATE</span> {{informconfForm.get('rematesResumen')?.value?.menorFechaRemate}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">CANT. REMATES FINIQ.</span> {{informconfForm.get('rematesResumen')?.value?.cantRematesSiFiniquitadas}}</p>
+		      </div>
+					<div class="col-sm-3">
+		        <p mat-line><span class="font-bold">(+)FECHA DE REMATE</span> {{informconfForm.get('rematesResumen')?.value?.mayorFechaRemate}}</p>
+		      </div>
+					<div class="col-sm-4">
+		        <p mat-line><span class="font-bold">CANT. TOTAL REMATES</span> {{informconfForm.get('rematesResumen')?.value?.cantTotalRemates}}</p>
+		      </div>
+					<div class="col-md-12">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">money_off</mat-icon>MOROSIDAD</h4>
+	        </div>
+					<div class="col-md-12">
+						<mat-table [dataSource]="informconfForm.get('morosidadesActividad')?.value" class="mat-table" [class.isMobile]="isMobile">
+							<ng-container matColumnDef="actividadAfiliado">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> AFILIADO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="afiliado"> {{element.actividadAfiliado}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="cantTotalMorosidades">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> CANT. TOTAL MOROSIDAD </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="CANT. TOTAL MOROSIDAD"> {{element.cantTotalMorosidades}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="menorFechaVencimientoPendie">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> (-) FEC. VENCIMIENTO PEND. </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="(-) FEC. VENCIMIENTO PEND."> {{element.menorFechaVencimientoPendie}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="mayorFechaVencimientoPendie">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> (+) FEC. VENCIMIENTO PEND. </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="(+) FEC. VENCIMIENTO PEND."> {{element.mayorFechaVencimientoPendie}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="sumaSaldoAcreedor">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> SALDO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="SALDO"> {{element.sumaSaldoAcreedor | number}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="moneda">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> MONEDA </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="MONEDA"> {{element.moneda}} </mat-cell>
+						  </ng-container>
+							<mat-header-row *matHeaderRowDef="displayedColumnsMorosidad" class="ng-tns-c39-77"></mat-header-row>
+		          <mat-row *matRowDef="let row; columns: displayedColumnsMorosidad;"></mat-row>
+						</mat-table>
+					</div>
+					<div class="col-md-12 m-t-20">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">money_off</mat-icon>MOROSIDAD(ADEFI)</h4>
+	        </div>
+					<div class="col-md-12">
+						<mat-table [dataSource]="informconfForm.get('morosidadesActividadAdefi')?.value" class="mat-table" [class.isMobile]="isMobile">
+							<ng-container matColumnDef="actividadAfiliado">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> AFILIADO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="afiliado"> {{element.actividadAfiliado}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="cantTotalMorosidades">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> CANT. TOTAL MOROSIDAD </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="CANT. TOTAL MOROSIDAD"> {{element.cantTotalMorosidades}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="menorFechaVencimientoPendie">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> (-) FEC. VENCIMIENTO PEND. </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="(-) FEC. VENCIMIENTO PEND."> {{element.menorFechaVencimientoPendie}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="mayorFechaVencimientoPendie">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> (+) FEC. VENCIMIENTO PEND. </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="(+) FEC. VENCIMIENTO PEND."> {{element.mayorFechaVencimientoPendie}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="sumaSaldoAcreedor">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> SALDO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="SALDO"> {{element.sumaSaldoAcreedor | number}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="moneda">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> MONEDA </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="MONEDA"> {{element.moneda}} </mat-cell>
+						  </ng-container>
+							<mat-header-row *matHeaderRowDef="displayedColumnsMorosidad" class="ng-tns-c39-77"></mat-header-row>
+		          <mat-row *matRowDef="let row; columns: displayedColumnsMorosidad;"></mat-row>
+						</mat-table>
+					</div>
+					<div class="col-md-12 m-t-20">
+	          <h4 class="m-0 font-20"><mat-icon class="gray-text">reorder</mat-icon>INFORME SOLICITUDES(ULTIMO 3 AÑOS)</h4>
+	        </div>
+					<div class="col-md-12">
+						<mat-table [dataSource]="informconfForm.get('solicitudesDetalle')?.value" class="mat-table" [class.isMobile]="isMobile">
+							<ng-container matColumnDef="nombreRazonSocial">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> ENTIDAD </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="ENTIDAD"> {{element.nombreRazonSocial}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="telefono">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> TELEFONO </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="TELEFONO"> {{element.telefono}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="fecha">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> FECHA </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="FECHA"> {{element.fecha | date:'dd/MM/yyyy'}} </mat-cell>
+						  </ng-container>
+							<ng-container matColumnDef="tipoOperacion">
+						    <mat-header-cell *matHeaderCellDef class="font-bold"> TIPO OPERACION </mat-header-cell>
+						    <mat-cell *matCellDef="let element" data-label="TIPO OPERACION"> {{element.tipoOperacion}} </mat-cell>
+						  </ng-container>
+							<mat-header-row *matHeaderRowDef="displayedColumnsDetalleSolicitud" class="ng-tns-c39-77"></mat-header-row>
+		          <mat-row *matRowDef="let row; columns: displayedColumnsDetalleSolicitud;"></mat-row>
+						</mat-table>
+					</div>
+					<div class="col-md-12 m-t-20">
+						<p mat-line>
+							<span align="center" style="font-size: 1.00em;" class="font-bold">
+								El presente Informe es de uso exclusivo y condifencial, INFORMCONF no tiene el control de las fuentes públicadas de información
+									(Art.28 C.N.) eximiéndose de toda responsabilidad por cualquier alteracion o error que pudiera existir, no siendo tampoco carta
+									de fianza o recomendación (Art.1469 C.C)
+							</span>
+						</p>
+	        </div>
+				</div>
+			</div>
+		</div>
+	</mat-dialog-content>
+</form>

@@ -8,94 +8,146 @@
 <div>
   <mat-card>
     <mat-card-content>
-    <!-- <mat-card-subtitle> </mat-card-subtitle> -->
-      <!-- <p> -->
       <mat-form-field appearance="fill" class="search-form">
         <mat-icon matPrefix>search</mat-icon>
         <input matInput #filter placeholder="Buscar" type="search">
-        <!-- <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon> -->
+        <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon>
       </mat-form-field>
-      <!-- </p> -->
-        <mat-table [dataSource]="dataSource" class="mat-table"
-         matSort  matSortActive="alias" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
 
-         <ng-container matColumnDef="alias">
-           <mat-header-cell *matHeaderCellDef mat-sort-header> ALIAS </mat-header-cell>
-           <mat-cell *matCellDef="let element" data-label="alias">
-              {{element.alias}}
-            </mat-cell>
-         </ng-container>
-
-         <ng-container matColumnDef="nroLegajo">
-           <mat-header-cell *matHeaderCellDef mat-sort-header> NRO. LEGAJO </mat-header-cell>
-           <mat-cell *matCellDef="let element" data-label="nro. legajo">
-              {{element.nroLegajo}}
-            </mat-cell>
-         </ng-container>
-
-         <ng-container matColumnDef="persona.tipoPersona">
-           <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO PERSONA </mat-header-cell>
-           <mat-cell *matCellDef="let element" data-label="tipo persona">
-             {{element.persona.tipoPersona}}
-           </mat-cell>
-         </ng-container>
-
-          <ng-container matColumnDef="persona.documento">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </mat-header-cell>
-            <mat-cell *matCellDef="let element" data-label="documento">
-              {{element.persona.documento}}
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="persona.ruc">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
-            <mat-cell *matCellDef="let element" data-label="ruc">
-              {{element.persona.ruc}}
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="persona.primerNombre">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
-            <mat-cell *matCellDef="let element" data-label="nombre">
-              {{(element.persona.primerNombre == null ? '' : element.persona.primerNombre) +' ' +(element.persona.segundoNombre == null ? '' : element.persona.segundoNombre)
-            +', ' +(element.persona.primerApellido == null ? '' : element.persona.primerApellido) + ' ' +(element.persona.segundoApellido == null ? '' : element.persona.segundoApellido)}}
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="email">
-              <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
-              <mat-cell *matCellDef="let element" data-label="email">
-                {{element.persona.email}}
-              </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="sucursal.nombre">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> SUCURSAL </mat-header-cell>
-              <mat-cell *matCellDef="let element" data-label="sucursal">
-                {{element.sucursal.nombre}}
-              </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="opciones">
-                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  <button mat-icon-button routerLink="/service-web/functionary/{{element.id}}" *appCanAccess="['functionary', 'viewFunctionary']"><mat-icon>visibility</mat-icon></button>
-                  <ng-container *ngIf="!element.retirado">
-                    <button mat-icon-button routerLink="/service-web/functionary/{{element.id}}/edit" *appCanAccess="['functionary', 'editFunctionary']"> <mat-icon>edit</mat-icon></button>
-                    <button mat-icon-button (click)="delete(element)" *appCanAccess="['functionary', 'deleteFunctionary']"> <mat-icon color="warn">delete</mat-icon></button>
-                  </ng-container>
-                </mat-cell>
+      <mat-expansion-panel [expanded]="advanceFilterOpenState" class="advance-search-form" [ngClass]="{'opened': advanceFilterOpenState}">
+        <form [formGroup]="filterForm" class="p-t-20">
+          <div  class="row">
+            <div class="col-md-6">
+              <mat-form-field  appearance="legacy">
+                <input matInput #input [matDatepicker]="pickerInicio" formControlName="fechaInicio"  name="fechaInicio" placeholder="Fecha Inicio">
+                <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                <mat-datepicker #pickerInicio></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field  appearance="legacy">
+                <input matInput #input [matDatepicker]="pickerFin" formControlName="fechaFin"  name="fechaFin" placeholder="Fecha Fin">
+                <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <ng-container formGroupName="persona">
+              <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Documento" formControlName="documento"  name="documento">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Ruc" formControlName="ruc"  name="ruc">
+                </mat-form-field>
+              </div>
             </ng-container>
+            <div class="col-md-4">
+                 <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal')?.value"
+                  placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="legacy">
+                <input matInput type="number" placeholder="Nro. Legajo" formControlName="nroLegajo"  name="nroLegajo">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="legacy">
+                <input matInput type="number" placeholder="Alias" formControlName="alias"  name="alias">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                 <app-select-filter (value)="getValue($event, 'rol')" [modelValue]="filterForm.get('rol')?.value"
+                  placeholder="Rol" urlFilter="roles" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-12 p-t-20 advance-filter-buttons">
+              <button mat-button mat-raised-button #filterButton>Filtrar</button>
+              <button mat-button mat-flat-button (click)="closeFilterAdvance()">Cerrar</button>
+            </div>
+          </div>
+        </form>
+      </mat-expansion-panel>
+      <mat-table [dataSource]="dataSource" class="mat-table"
+      matSort  matSortActive="alias" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
 
-          <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+      <ng-container matColumnDef="alias">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ALIAS </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="alias">
+          {{element.alias}}
+        </mat-cell>
+      </ng-container>
 
-        <mat-paginator [length]="length"
-                      [showFirstLastButtons]="true"
-                      [pageSize]="pageSize"
-                      [pageSizeOptions]="pageSizeOptions">
-        </mat-paginator>
-    </mat-card-content>
-  </mat-card>
+      <ng-container matColumnDef="nroLegajo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> NRO. LEGAJO </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="nro. legajo">
+          {{element.nroLegajo}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="persona.tipoPersona">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> TIPO PERSONA </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="tipo persona">
+          {{element.persona.tipoPersona}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="persona.documento">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="documento">
+          {{element.persona.documento}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="persona.ruc">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="ruc">
+          {{element.persona.ruc}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="persona.primerNombre">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="nombre">
+          {{(element.persona.primerNombre == null ? '' : element.persona.primerNombre) +' ' +(element.persona.segundoNombre == null ? '' : element.persona.segundoNombre)
+          +', ' +(element.persona.primerApellido == null ? '' : element.persona.primerApellido) + ' ' +(element.persona.segundoApellido == null ? '' : element.persona.segundoApellido)}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="email">
+          {{element.persona.email}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="sucursal.nombre">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> SUCURSAL </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="sucursal">
+          {{element.sucursal.nombre}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="opciones">
+        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button routerLink="/service-web/functionary/{{element.id}}" *appCanAccess="['functionary', 'viewFunctionary']"><mat-icon>visibility</mat-icon></button>
+          <ng-container *ngIf="!element.retirado">
+            <button mat-icon-button routerLink="/service-web/functionary/{{element.id}}/edit" *appCanAccess="['functionary', 'editFunctionary']"> <mat-icon>edit</mat-icon></button>
+            <button mat-icon-button (click)="delete(element)" *appCanAccess="['functionary', 'deleteFunctionary']"> <mat-icon color="warn">delete</mat-icon></button>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="length"
+    [showFirstLastButtons]="true"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
+</mat-card-content>
+</mat-card>
 </div>

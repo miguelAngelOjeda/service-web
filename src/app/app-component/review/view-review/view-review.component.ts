@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ReviewService } from '../review.service';
 import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { UserService, ApiService} from '../../../core/services';
+import { InformconfComponent } from '../../shared/informconf';
+import { HttpParams } from '@angular/common/http';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ViewModalPeopleComponent } from '../../shared/people';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
@@ -46,6 +48,26 @@ export class ViewReviewComponent implements OnInit {
             //this.valueChanges();
           }
         }
+      }
+    });
+  }
+
+  reportInformconf(nroSolicitud: number, documento: string, tipo: string, historico: boolean) {
+    const matDialogConfig = new MatDialogConfig();
+    matDialogConfig.autoFocus = true;
+    let variables = new HttpParams({fromObject :
+      {
+        'tipo' : tipo,
+        'historico' : historico.toString(),
+        'documento' : documento,
+        'nroSolicitud' : nroSolicitud.toString()
+      }});
+
+    this.apiService.get('/informconf_solicitudes/reporte',variables)
+    .subscribe(res => {
+      if(res.status == 200){
+        matDialogConfig.data =  res.model;
+        const dialogRef = this.dialog.open(InformconfComponent, matDialogConfig);
       }
     });
   }

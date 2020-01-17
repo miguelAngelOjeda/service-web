@@ -6,6 +6,7 @@ import { ApiService } from '../../../../core/services';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 import { DeleteDialogComponent } from '../../../../shared';
+import { FormGroup,FormControl, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-list-functionary',
@@ -14,6 +15,7 @@ import { DeleteDialogComponent } from '../../../../shared';
 })
 export class ListFunctionaryComponent implements AfterViewInit {
     public isMobile: Boolean;
+    public filterForm: FormGroup;
     public rulesColumns  = ['persona.documento', 'alias', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
     public displayedColumns = ['alias', 'nroLegajo', 'persona.tipoPersona','persona.documento', 'persona.ruc', 'persona.primerNombre' , 'email', 'sucursal.nombre', 'opciones'];
     public dataSource = new MatTableDataSource<any>();
@@ -22,7 +24,9 @@ export class ListFunctionaryComponent implements AfterViewInit {
     @ViewChild(MatSort, { static: true }) sort: MatSort;
     @ViewChild('filter', { static: true }) filterInput: ElementRef;
 
-    //Filter
+    // Advance Filter panel
+    advanceFilterOpenState: boolean = false;
+    filterValue = '';
     isfilter = false;
     // MatPaginator Inputs
     length = 0;
@@ -81,6 +85,22 @@ export class ListFunctionaryComponent implements AfterViewInit {
           }
         })
       }
+    }
+
+    getValue(data: any, form : any): void {
+      (<FormControl>this.filterForm.get(form)).setValue(data);
+    }
+
+    toggleAdvanceFilter() {
+      this.advanceFilterOpenState = !this.advanceFilterOpenState
+    }
+
+    closeFilterAdvance() {
+      this.advanceFilterOpenState = false
+      //Inicializar valores del filtro
+      this.filterValue = '';
+      this.filterForm.reset({});
+      this.paginator._changePageSize(this.paginator.pageSize);
     }
 
 }

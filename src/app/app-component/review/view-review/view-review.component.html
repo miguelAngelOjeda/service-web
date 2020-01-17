@@ -224,6 +224,36 @@
                         <legend>Referencia</legend>
                         <div class="row">
                           <div class="col-md-12">
+                            <mat-card-content  class="mat-card-content">
+                              <div class="d-flex no-block">
+                                <div class="m-r-10 no-shrink">
+                                  <button type="button"class="shadow-none bg-warning mat-fab mat-warn" color="warn" style="padding: inherit;"
+                                   (click)="reportInformconf(myForm.get('propuestaSolicitud')?.value.id,detalle.get('persona')?.value.documento, myForm.get('propuestaSolicitud')?.value?.tipoSolicitud.nombre,false)">
+                                    <span class="mat-button-wrapper">
+                                      <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" role="img" aria-hidden="true">search</mat-icon>
+                                    </span>
+                                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                                    <div class="mat-button-focus-overlay"></div>
+                                  </button>
+                                </div>
+                                <div>
+                                  <h3 class="m-0">{{detalle.get('fajaInformconf').value }}</h3>
+                                  <h6 class="text-muted m-0">FAJA INFORMCONF</h6>
+                                </div>
+                              </div>
+                            </mat-card-content>
+                          </div>
+                          <div class="col-md-12">
+                            <mat-form-field>
+                              <textarea matInput placeholder="Detalle Informconf" formControlName="informconf" name="informconf"></textarea>
+                              <mat-error *ngIf="(detalle.get('informconf').errors)">
+                                <span *ngIf="detalle.get('informconf').errors.required">
+                                 Campo requerido
+                                </span>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-12">
                             <mat-form-field>
                               <textarea matInput placeholder="Referencia" formControlName="observacionReferencia" name="observacionReferencia"></textarea>
                             </mat-form-field>
@@ -236,19 +266,6 @@
                           </div>
                           <div class="col-md-4">
                             <p mat-line><span class="font-bold">CALIFICACION ULT. CREDITOS </span> {{detalle.get('calificacionCredCanc').value}}</p>
-                          </div>
-                          <div class="col-md-12">
-                            <p mat-line><span class="font-bold">FAJA INFORMCONF </span> {{detalle.get('fajaInformconf').value}}</p>
-                          </div>
-                          <div class="col-md-12">
-                            <mat-form-field>
-                              <textarea matInput placeholder="Detalle Informconf" formControlName="informconf" name="informconf"></textarea>
-                              <mat-error *ngIf="(detalle.get('informconf').errors)">
-                                <span *ngIf="detalle.get('informconf').errors.required">
-                                  Campo requerido
-                                </span>
-                              </mat-error>
-                            </mat-form-field>
                           </div>
                           <div class="col-md-4">
                             <p mat-line><span class="font-bold">CAPACIDAD PAGO: </span> {{detalle.get('capacidadPago').value | number}}</p>

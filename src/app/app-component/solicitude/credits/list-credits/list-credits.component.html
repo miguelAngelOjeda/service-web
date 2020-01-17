@@ -65,7 +65,7 @@
                 </ng-container>
               </ng-container>
               <div class="col-md-12 p-t-20 advance-filter-buttons">
-                <button mat-button mat-raised-button [type]="onSubmit" #filterButton>Filtrar</button>
+                <button mat-button mat-raised-button #filterButton>Filtrar</button>
                 <button mat-button mat-flat-button (click)="closeFilterAdvance()">Cerrar</button>
               </div>
             </div>
@@ -180,7 +180,7 @@
 
         <mat-paginator [length]="length"
                       [showFirstLastButtons]="true"
-                      [pageSize]="pageSize"
+                      [pageSize]="paginator.pageSize"
                       [pageSizeOptions]="pageSizeOptions">
         </mat-paginator>
     </mat-card-content>

@@ -7,6 +7,7 @@ import { StudiesComponent, ViewStudiesComponent } from './studies';
 import { EstateComponent, ViewEstateComponent } from './estate';
 import { VehicleComponent, ViewVehicleComponent } from './vehicle';
 import { DeleteDialogComponent } from '../../shared/dialog';
+import { InformconfComponent } from './informconf';
 import { ShowAuthedDirective, SharedModule} from '../../shared';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -49,11 +50,13 @@ export const customCurrencyMaskConfig = {
   ],
   entryComponents: [
     EditModalPeopleComponent,
+    InformconfComponent,
     AddModalPeopleComponent,
     ViewModalPeopleComponent,
   ],
   declarations: [
     StudiesComponent,
+    InformconfComponent,
     ViewStudiesComponent,
     SpouseComponent,
     ViewSpouseComponent,
@@ -80,6 +83,7 @@ export const customCurrencyMaskConfig = {
   ],
   exports: [
     DeleteDialogComponent,
+    InformconfComponent,
     StudiesComponent,
     ViewStudiesComponent,
     SpouseComponent,

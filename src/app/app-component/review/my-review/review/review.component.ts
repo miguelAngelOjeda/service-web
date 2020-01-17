@@ -3,6 +3,8 @@ import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { UserService, ApiService} from '../../../../core/services';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ViewModalPeopleComponent } from '../../../shared/people';
+import { InformconfComponent } from '../../../shared/informconf';
+import { HttpParams } from '@angular/common/http';
 import { ReviewService } from '../../review.service';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { PeopleService } from '../../../shared/people/people.service';
@@ -53,6 +55,26 @@ export class ReviewComponent implements OnInit {
 
   onSubmit() {
     this.reviewService.review(this.route.snapshot.params.id,this.myForm);
+  }
+
+  reportInformconf(nroSolicitud: number, documento: string, tipo: string, historico: boolean) {
+    const matDialogConfig = new MatDialogConfig();
+    matDialogConfig.autoFocus = true;
+    let variables = new HttpParams({fromObject :
+      {
+        'tipo' : tipo,
+        'historico' : historico.toString(),
+        'documento' : documento,
+        'nroSolicitud' : nroSolicitud.toString()
+      }});
+
+    this.apiService.get('/informconf_solicitudes/reporte',variables)
+    .subscribe(res => {
+      if(res.status == 200){
+        matDialogConfig.data =  res.model;
+        const dialogRef = this.dialog.open(InformconfComponent, matDialogConfig);
+      }
+    });
   }
 
   viewPeople(idSolicitud: number, idPersona: number,type: string) {

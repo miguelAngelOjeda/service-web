@@ -63,11 +63,11 @@ export class ListMyReviewComponent implements OnInit {
           persona: this.formBuilder.group({
             documento: null,
             ruc: null
-          })})
+          })}),
+      sucursal: null
       }),
       funcionarioAnalisis: [null],
-      estado: null,
-      sucursal: null
+      estado: null
     });
   }
 
@@ -119,6 +119,10 @@ export class ListMyReviewComponent implements OnInit {
 
   getValue(data: any, form : any): void {
     (<FormControl>this.filterForm.get(form)).setValue(data);
+  }
+
+  getValueSubsidiary(data: any, form : any): void {
+    (<FormControl>this.filterForm.get("propuestaSolicitud")).get(form).setValue(data);
   }
 
   toggleAdvanceFilter() {

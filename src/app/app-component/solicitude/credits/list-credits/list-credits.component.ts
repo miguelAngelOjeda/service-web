@@ -30,6 +30,7 @@
     filterValue = '';
     // MatPaginator Inputs
     length = 0;
+    pageSize = 10;
     pageSizeOptions: number[] = [10, 25, 100];
     groupOp = 'OR';
 
@@ -149,7 +150,7 @@
 
     closeFilterAdvance() {
       this.advanceFilterOpenState = false
-      //Inicializar valores del filtro 
+      //Inicializar valores del filtro
       this.filterValue = '';
       this.filterForm.reset({});
       this.paginator._changePageSize(this.paginator.pageSize);

@@ -25,6 +25,7 @@ export class PeopleService {
 
 
     public guardar(formGroup: FormGroup, dialogRef: MatDialogRef<AddModalPeopleComponent>){
+      console.log(formGroup);
       if(formGroup.valid){
 
         if(formGroup.value.persona.tipoPersona !== 'FISICA'){
@@ -56,6 +57,7 @@ export class PeopleService {
     }
 
     public editar(id: number, formGroup: FormGroup, dialogRef: MatDialogRef<EditModalPeopleComponent>){
+      console.log(formGroup);
       if(formGroup.valid){
 
         if(formGroup.value.persona.tipoPersona !== 'FISICA'){
@@ -230,7 +232,7 @@ export class PeopleService {
         matDialogConfig.data = { model: null, title:'Editar' };
       }
       matDialogConfig.hasBackdrop = true;
-      
+
       this.apiService.get('/personas/' + id,this.params)
       .subscribe(res => {
         if(res.status == 200){

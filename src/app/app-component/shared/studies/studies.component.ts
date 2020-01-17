@@ -64,6 +64,9 @@ export class StudiesComponent implements OnInit {
                 }
                 res.rows.forEach(staff => {
                   staff.fechaInicio =  new Date(staff.fechaInicio);
+                  if(staff.fechaFin != null){
+                    staff.fechaFin =  new Date(staff.fechaFin);
+                  }
                   formArray.push(this.formBuilder.group(staff))
                 });
           }
@@ -76,7 +79,7 @@ export class StudiesComponent implements OnInit {
     return this.formBuilder.group({
       id: [''],
       fechaInicio: ['', Validators.required],
-      fechaFin : [null],
+      fechaFin : [''],
       titulo: [''],
       concluido: [false, Validators.required],
       numeroRegistro: [null],

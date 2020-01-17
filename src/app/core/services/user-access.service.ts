@@ -52,7 +52,7 @@ export class UserService implements CanActivate {
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
     populate() {
-      // If JWT detected, attempt to get & store user's info
+      // If JWT detected, attempt to get & store user's info      
       if (this.jwtService.getToken()) {
         this.validateTokensSession();
         this.get('/tokens_user')

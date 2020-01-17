@@ -113,8 +113,6 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
             switchMap(() => {
               if(this.modelControl.status !== 'DISABLED'){
                 //Inicializar el valor
-                this.value.emit(null);
-
                 this.isfilter = false;
                 if(this.filterInputModel.nativeElement.value.length  > 0){
                   this.isfilter = true;
