@@ -10,7 +10,7 @@
     <ng-container *ngIf="peopleForm.controls['persona'].get('tipoPersona').value == 'FISICA'">
       <div class="col-md-10">
        <div class="row">
-           <div class="col-md-3">
+           <!-- <div class="col-md-3">
              <mat-form-field  appearance="legacy">
                 <mat-label>Tipo Persona</mat-label>
                 <mat-select formControlName="tipoPersona" name="tipoPersona" required>
@@ -23,8 +23,8 @@
                   </span>
                 </mat-error>
              </mat-form-field>
-           </div>
-           <div class="col-md-3">
+           </div> -->
+           <div class="col-md-4">
              <mat-form-field appearance="legacy">
                <input matInput #input type="number"  placeholder="Documento" (blur)="peopleForm.controls['persona'].get('documento')?.value == null ? '' : onKeydown(peopleForm.controls['persona'].get('documento')?.value)" formControlName="documento"  name="documento" required>
                <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('documento').valid && peopleCi()">search</mat-icon>
@@ -35,7 +35,7 @@
                </mat-error>
              </mat-form-field>
            </div>
-           <div class="col-md-3">
+           <div class="col-md-4">
              <mat-form-field    appearance="legacy">
                <input matInput #input  placeholder="Ruc" formControlName="ruc" name="ruc">
                <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
@@ -46,7 +46,7 @@
                </mat-error>
              </mat-form-field>
            </div>
-           <div class="col-md-3">
+           <div class="col-md-4">
              <mat-form-field  appearance="legacy">
               <input matInput #input [matDatepicker]="picker" formControlName="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha Nacimiento" required>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

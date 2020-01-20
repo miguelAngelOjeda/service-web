@@ -1,0 +1,35 @@
+.gray-text {
+  color: #777;
+  vertical-align: text-bottom;
+  margin-right: 5px;
+}
+
+.example-section{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.mat-list-base {
+    padding-top: 1px;
+}
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+    display: block;
+    height: 30px;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+    padding: 0;
+}
+
+::ng-deep .dropify-wrapper {
+    height: 110px;
+}
+// .card-avatar {
+//     max-width: 130px;
+//     max-height: 130px;
+//     margin: -50px auto 0;
+//     border-radius: 50%;
+//     overflow: hidden;
+//     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+// }

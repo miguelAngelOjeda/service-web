@@ -32,30 +32,6 @@ const appRoutes: Routes = [
         loadChildren: './app-component/client/client.module#ClientModule'
         },
         {
-        path: 'service-web/member-solicitude',
-        loadChildren: './app-component/solicitude/member/member.module#MemberModule'
-        },
-        {
-        path: 'service-web/credits-solicitude',
-        loadChildren: './app-component/solicitude/credits/credits-solicitude.module#CreditsSolicitudeModule'
-        },
-        {
-        path: 'service-web/credits',
-        loadChildren: './app-component/credits/credits.module#CreditsModule'
-        },
-        {
-        path: 'service-web/review',
-        loadChildren: './app-component/review/review.module#ReviewModule'
-        },
-        {
-        path: 'service-web/my-review',
-        loadChildren: './app-component/review/my-review/my-review.module#MyReviewModule'
-        },
-        {
-        path: 'service-web/check-review',
-        loadChildren: './app-component/review/check-review/check-review.module#CheckReviewModule'
-        },
-        {
         path: 'service-web/role',
         loadChildren: './app-component/role/role.module#RoleModule'
         },
@@ -70,10 +46,6 @@ const appRoutes: Routes = [
         {
         path: 'service-web/destinations-types',
         loadChildren: './app-component/types/destinations-types/destinations-types.module#DestinationsTypesModule'
-        },
-        {
-        path: 'service-web/calculation-types',
-        loadChildren: './app-component/types/calculation-types/calculation-types.module#CalculationTypesModule'
         },
         {
         path: 'service-web/outlays-types',

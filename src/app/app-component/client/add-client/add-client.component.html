@@ -1,6 +1,6 @@
 
   <div class="mat-button-single-row">
-    <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Clientes </a> &gt; <span class="current">Agregar</span></h2>
+    <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Pacientes </a> &gt; <span class="current">Agregar</span></h2>
     <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
   </div>
   <mat-card class="form-card">
@@ -22,20 +22,7 @@
                       <app-occupation [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-occupation>
                     </div>
                     <div class="col-md-12">
-                      <app-estate [fkFilterModel]="myForm.value.persona.id"></app-estate>
-                    </div>
-                    <div class="col-md-12">
-                      <app-vehicle [fkFilterModel]="myForm.value.persona.id"></app-vehicle>
-                    </div>
-                    <div class="col-md-12 m-t-30">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <app-ingress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-ingress>
-                        </div>
-                        <div class="col-md-6">
-                          <app-egress [fkFilterModel]="myForm.value.persona.id" [minRow]="1"></app-egress>
-                        </div>
-                      </div>
+                      <app-medical-history></app-medical-history>
                     </div>
                   </div>
                 </div>

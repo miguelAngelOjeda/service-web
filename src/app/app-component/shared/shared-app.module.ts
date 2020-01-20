@@ -22,6 +22,7 @@ import { DepartmentComponent } from './department';
 import { OccupationComponent, ViewOccupationComponent } from './occupation';
 import { SpouseComponent, ViewSpouseComponent } from './spouse';
 import { PeopleRelationshipComponent, ViewPeopleRelationsComponent } from './people-relationship';
+import { MedicalHistoryComponent, ViewMedicalhistoryComponent } from './medical-history';
 import { NgxCurrencyModule } from "ngx-currency";
 
 
@@ -79,6 +80,8 @@ export const customCurrencyMaskConfig = {
     DepartmentComponent,
     EgressComponent,
     PeopleRelationshipComponent,
+    MedicalHistoryComponent,
+    ViewMedicalhistoryComponent,
     OccupationComponent
   ],
   exports: [
@@ -103,6 +106,8 @@ export const customCurrencyMaskConfig = {
     ViewPeopleComponent,
     DepartmentComponent,
     EgressComponent,
+    MedicalHistoryComponent,
+    ViewMedicalhistoryComponent,
     PeopleRelationshipComponent,
     OccupationComponent
   ]
