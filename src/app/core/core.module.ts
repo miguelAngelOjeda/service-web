@@ -23,12 +23,8 @@ export function tokenGetter() {
        config: {
          tokenGetter: tokenGetter,
          whitelistedDomains: [
-          'app1.creditoguarani.com.py',
-          'https://app1.creditoguarani.com.py',
-          'app1.financorp.com.py',
-          'https://app1.financorp.com.py',
-          'appdesa1.creditoguarani.com.py',
-          'https://appdesa1.creditoguarani.com.py'
+           'http://wildfly11desa.coomecipar.coop.py:8483',
+           'wildfly11desa.coomecipar.coop.py:8483'
         ],
          //blacklistedRoutes: ['example.com/examplebadroute/']
          authScheme: 'X-Token '

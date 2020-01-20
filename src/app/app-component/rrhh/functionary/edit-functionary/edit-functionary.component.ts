@@ -1,12 +1,11 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef  } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
 import { FormControl, FormArray, Validators, FormBuilder, FormGroup} from '@angular/forms';
-import { UserService, ApiService} from '../../../../core/services';
+import { UserService, ApiService, PeopleService} from '@core/service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Users, Departments, Message } from '../../../../core/models';
 import { DeleteDialogComponent } from '../../../../shared';
 import { HttpParams } from '@angular/common/http';
-import { PeopleService } from '../../../shared/people';
 
 @Component({
   selector: 'app-edit-functionary',

@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ValidationService } from '../../../../core/services/validation.service';
+import { UserService, ApiService, ReviewService, PeopleService, ValidationService } from '@core/service';
 import { Subsidiary, Departments, Message, Location } from '../../../../core/models';
-import { ApiService } from '../../../../core/services';
 import { DeleteDialogComponent } from '../../../../shared';
-import { PeopleService } from '../../people/people.service';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';

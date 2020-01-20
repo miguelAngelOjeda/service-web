@@ -4,8 +4,7 @@ import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } 
 import { DeleteDialogComponent } from '../../../shared';
 import { HttpParams } from '@angular/common/http';
 import { Estate, Message, Location } from '../../../core/models';
-import { UserService, ApiService, FormsService} from '../../../core/services';
-import { PeopleService } from '../people/people.service';
+import { UserService, ApiService, PeopleService, FormsService } from '@core/service';
 import { EditModalPeopleComponent } from '../people/edit-modal-people';
 import { AddModalPeopleComponent } from '../people/add-modal-people';
 import { ViewModalPeopleComponent } from '../people/view-modal-people';

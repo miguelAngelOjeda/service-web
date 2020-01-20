@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, EventEmitter, Output, Input, ElementRef } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlContainer, FormGroupDirective} from '@angular/forms';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { UserService, ApiService, FormsService} from '../../../../core/services';
+import { UserService, ApiService, ReviewService, ValidationService } from '@core/service';
 
 @Component({
   selector: 'app-view-people',

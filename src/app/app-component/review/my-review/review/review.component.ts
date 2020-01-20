@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRoute} from '@angular/router';
-import { UserService, ApiService} from '../../../../core/services';
+import { UserService, ApiService, ReviewService, PeopleService } from '@core/service';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ViewModalPeopleComponent } from '../../../shared/people';
 import { InformconfComponent } from '../../../shared/informconf';
 import { HttpParams } from '@angular/common/http';
-import { ReviewService } from '../../review.service';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { PeopleService } from '../../../shared/people/people.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({

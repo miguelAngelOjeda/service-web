@@ -1,11 +1,10 @@
 import { Component, OnInit, EventEmitter, ViewChild, AfterViewInit  } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, NgForm, FormGroupDirective } from '@angular/forms';
-import { UserService, ApiService, FormsService} from '../../../../core/services';
+import { UserService, ApiService, ReviewService, PeopleService } from '@core/service';
 import { SnackbarService } from '../../../../shared';
 import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { CreditsService } from '../../credits/credits.service';
-import { PeopleService } from '../../../shared/people/people.service';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../../shared/people';
 import { environment } from '../../../../../environments/environment';

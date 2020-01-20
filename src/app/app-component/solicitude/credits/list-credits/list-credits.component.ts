@@ -1,6 +1,6 @@
   import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   import { MatPaginator, MatTableDataSource, MatDialog, MatDialogConfig, MatSort, PageEvent, Sort} from '@angular/material';
-  import { ApiService } from '../../../../core/services';
+  import { ApiService } from '@core/service';
   import { Message } from '../../../../core/models';
   import { DeleteDialogComponent } from '../../../../shared';
   import { merge, fromEvent, Observable, of as observableOf} from 'rxjs';

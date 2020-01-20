@@ -3,12 +3,10 @@ import { Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
-import { UserService, ApiService, FormsService} from '../../../core/services';
+import { UserService, ApiService, FormsService } from '@core/service';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { HttpParams } from '@angular/common/http';
-import { EditModalPeopleComponent } from '../people/edit-modal-people/edit-modal-people.component';
-import { AddModalPeopleComponent } from './add-modal-people/add-modal-people.component';
-import { ViewModalPeopleComponent } from '../people/view-modal-people/view-modal-people.component';
+import { EditModalPeopleComponent, AddModalPeopleComponent, ViewModalPeopleComponent } from '../../app-component/shared/people';
 
 @Injectable({
   providedIn: 'root'

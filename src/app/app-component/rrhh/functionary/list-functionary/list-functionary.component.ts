@@ -2,7 +2,7 @@ import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog,
    MatDialogConfig, MatSort, PageEvent, Sort} from '@angular/material';
 import { Users, Filter, Rules, Message } from '../../../../core/models';
-import { ApiService } from '../../../../core/services';
+import { ApiService } from '@core/service';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 import { DeleteDialogComponent } from '../../../../shared';

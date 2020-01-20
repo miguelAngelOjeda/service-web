@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { UserService } from './core/services';
 import { HomeComponent } from './app-component/home';
+import { AddMemberRequestComponent } from './app-component/solicitude/member/add-member-request';
 import { LoginComponent } from './login';
 import { FullComponent } from './navigation/full.component';
 
 const appRoutes: Routes = [
     { path: 'service-web/login', component: LoginComponent},
+    { path: 'service-web/member-solicitude/add-request/:tokens', component: AddMemberRequestComponent},
     {
       path: '',
       component: FullComponent,
@@ -28,6 +30,10 @@ const appRoutes: Routes = [
         {
         path: 'service-web/client',
         loadChildren: './app-component/client/client.module#ClientModule'
+        },
+        {
+        path: 'service-web/member-solicitude',
+        loadChildren: './app-component/solicitude/member/member.module#MemberModule'
         },
         {
         path: 'service-web/credits-solicitude',

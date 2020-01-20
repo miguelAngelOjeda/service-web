@@ -1,0 +1,109 @@
+
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> NUEVOS INGRESOS </a> &gt; <span class="current">Agregar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
+<mat-card class="form-card">
+  <mat-card-content>
+    <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
+      <div class="row">
+        <div class="col-md-12 m-t-10">
+          <h4  class="m-0"><mat-icon class="gray-text">account_circle</mat-icon>Ingreso Nuevos Socios</h4>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="legacy">
+            <input matInput #input type="number"  placeholder="Documento" formControlName="documento" name="documento" required>
+            <mat-error *ngIf="(myForm.get('documento').errors)">
+              <span *ngIf="myForm.get('documento').errors.required">
+                Campo requerido
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="legacy">
+            <input matInput #input type="text"  placeholder="Email" formControlName="email" name="email" required>
+            <mat-error *ngIf="(myForm.get('email').errors)">
+              <span *ngIf="myForm.get('email').errors.required">
+                Campo requerido
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-1">
+          <section class="example-section">
+            <button mat-icon-button color="warn" [type]="onSubmit" mat-raised-button> <mat-icon>save</mat-icon></button>
+          </section>
+        </div>
+        <div class="col-md-12 m-t-10">
+          <h4  class="m-0"><mat-icon class="gray-text">contact_mail</mat-icon>Registros</h4>
+        </div>
+        <div class="col-md-12 m-t-10">
+          <mat-form-field appearance="fill" class="search-form">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput #filter placeholder="Buscar" type="search">
+            <!-- <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon> -->
+          </mat-form-field>
+          <mat-table [dataSource]="dataSource" class="mat-table"
+          matSort  matSortActive="id" matSortDirection="desc" matSortDisableClear [class.isMobile]="isMobile">
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="documento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="documento">
+              {{element.documento}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="email">
+              {{element.email}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="sucursal.nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> SUCURSAL </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="sucursal">
+              {{element.sucursal.nombre}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="opciones">
+            <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button routerLink="/service-web/client/{{element.id}}" *appCanAccess="['client', 'viewClient']"><mat-icon>visibility</mat-icon></button>
+              <a mat-icon-button (click)="edit(element)" *appCanAccess="['client', 'editClient']"> <mat-icon>edit</mat-icon></a>
+              <button mat-icon-button (click)="delete(element)" *appCanAccess="['client', 'deleteClient']"> <mat-icon color="warn">delete</mat-icon></button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [length]="length"
+        [showFirstLastButtons]="true"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions">
+      </mat-paginator>
+    </div>
+  </div>
+  <br>
+  <mat-card-actions>
+    <a mat-button (click)="send()"  mat-raised-button>Enviar</a>
+  </mat-card-actions>
+</form>
+</mat-card-content>
+</mat-card>

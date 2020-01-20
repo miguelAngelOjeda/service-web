@@ -3,13 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Users, People, Message} from '../../../../core/models';
 import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
-import { ApiService } from '../../../../core/services';
+import { ApiService, PeopleService } from '@core/service';
 import { PasswordProfileComponent } from '../../../profile/password-profile';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { environment } from '../../../../../environments/environment';
 import { DeleteDialogComponent } from '../../../../shared';
 import { HttpParams } from '@angular/common/http';
-import { PeopleService } from '../../../shared/people';
 
 @Component({
   selector: 'app-view-functionary',

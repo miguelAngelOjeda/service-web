@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserService } from '../../../core/services';
+import { UserService } from '@core/service';
 import { CheckReviewComponent,
 ViewCheckReviewComponent, ListCheckReviewComponent } from '../check-review';
 

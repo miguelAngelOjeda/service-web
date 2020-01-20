@@ -12,7 +12,7 @@ const MENUITEMS = [
   { state: 'business', name: 'Empresas', type: 'link', icon: 'business' , entity:'enterprise', role:'listEnterprise'},
   { state: 'subsidiary', type: 'link', name: 'Sucursales', icon: 'account_balance', entity:'subsidiary', role:'listSubsidiary' },
   // { state: 'users', type: 'link', name: 'Usuarios', icon: 'group', entity:'subsidiary', role:'listSubsidiary' },
-  { state: 'client', type: 'link', name: 'Clientes', icon: 'assignment_ind', entity:'client', role:'listClient' },
+  { state: 'client', type: 'link', name: 'Socios', icon: 'assignment_ind', entity:'client', role:'listClient' },
   { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' , entity:'', role:''},
   {
     state: 'progress-snipper',
@@ -27,42 +27,42 @@ const MENUITEMS = [
       {state: 'exit-types', name: 'Motivos de Retiros', icon: '', entity:'exit-types', role:'listExitTypes'},
     ]
   },
-  {
-    state: 'progress-snipper',
-    type: 'box',
-    name: 'Solicitudes',
-    icon: 'assignment',
-    entity:'credits-solicitude',
-    role:'listCredits',
-    subMenu:[
-      {state: 'credits-solicitude', name: 'Solicitudes Creditos', icon: 'monetization_on', entity:'credits-solicitude', role:'listCredits'},
-      {state: 'card', name: 'Solicitudes Tarjetas', icon: 'credit_card', entity:'card',  role:'listCard'}
-    ]
-  },
-  {
-    state: 'progress-snipper',
-    type: 'box',
-    name: 'Creditos',
-    icon: 'attach_money',
-    entity:'credits',
-    role:'listCredits',
-    subMenu:[
-      {state: 'credits', name: 'Creditos', icon: 'monetization_on', entity:'credits', role:'listCredits'}
-    ]
-  },
-  {
-    state: 'progress-snipper',
-    type: 'box',
-    name: 'Analisis',
-    icon: 'filter',
-    entity:'review-group',
-    role:'viewGroup',
-    subMenu:[
-      {state: 'review', name: 'Analisis Solicitudes', icon: 'assignment_turned_in', entity:'review',  role:'listReview'},
-      {state: 'my-review', name: 'Mis Analisis', icon: 'assignment_turned_in', entity:'my-review',  role:'listMyReview'},
-      {state: 'check-review', name: 'Verificar Analisis', icon: 'assignment_turned_in', entity:'check-review',  role:'listCheckReview'}
-    ]
-  },
+  // {
+  //   state: 'progress-snipper',
+  //   type: 'box',
+  //   name: 'Solicitudes',
+  //   icon: 'assignment',
+  //   entity:'credits-solicitude',
+  //   role:'listCredits',
+  //   subMenu:[
+  //     {state: 'credits-solicitude', name: 'Solicitudes Creditos', icon: 'monetization_on', entity:'credits-solicitude', role:'listCredits'},
+  //     {state: 'card', name: 'Solicitudes Tarjetas', icon: 'credit_card', entity:'card',  role:'listCard'}
+  //   ]
+  // },
+  // {
+  //   state: 'progress-snipper',
+  //   type: 'box',
+  //   name: 'Creditos',
+  //   icon: 'attach_money',
+  //   entity:'credits',
+  //   role:'listCredits',
+  //   subMenu:[
+  //     {state: 'credits', name: 'Creditos', icon: 'monetization_on', entity:'credits', role:'listCredits'}
+  //   ]
+  // },
+  // {
+  //   state: 'progress-snipper',
+  //   type: 'box',
+  //   name: 'Analisis',
+  //   icon: 'filter',
+  //   entity:'review-group',
+  //   role:'viewGroup',
+  //   subMenu:[
+  //     {state: 'review', name: 'Analisis Solicitudes', icon: 'assignment_turned_in', entity:'review',  role:'listReview'},
+  //     {state: 'my-review', name: 'Mis Analisis', icon: 'assignment_turned_in', entity:'my-review',  role:'listMyReview'},
+  //     {state: 'check-review', name: 'Verificar Analisis', icon: 'assignment_turned_in', entity:'check-review',  role:'listCheckReview'}
+  //   ]
+  // },
   {
     state: 'progress-snipper',
     type: 'box',

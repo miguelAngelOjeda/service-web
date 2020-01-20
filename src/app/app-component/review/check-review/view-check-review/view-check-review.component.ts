@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ReviewService } from '../../review.service';
 import { Router, CanActivate, ActivatedRoute} from '@angular/router';
-import { UserService, ApiService} from '../../../../core/services';
+import { UserService, ApiService, ReviewService, PeopleService } from '@core/service';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ViewModalPeopleComponent } from '../../../shared/people';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { PeopleService } from '../../../shared/people/people.service';
 
 @Component({
   selector: 'app-view-check-review',

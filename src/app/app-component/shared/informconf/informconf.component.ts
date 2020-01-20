@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ValidationService } from '../../../core/services/validation.service';
-import { PeopleService } from '../people/people.service';
+import { UserService, ApiService, PeopleService, FormsService, ValidationService } from '@core/service';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';

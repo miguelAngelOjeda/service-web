@@ -5,9 +5,8 @@ import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { People, Role, Rules, Filter, Countries, DepartmentsCountri, Cities,
    Subsidiary, Departments, Nationalities, Location, Message } from '../../../core/models';
-import { UserService, ApiService} from '../../../core/services';
+import { UserService, ApiService, PeopleService } from '@core/service';
 import { DeleteDialogComponent } from '../../../shared';
-import { PeopleService } from '../../shared/people';
 
 
 @Component({

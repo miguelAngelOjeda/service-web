@@ -1,10 +1,9 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormArray, Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { UserService, ApiService } from '../../../../core/services';
+import { UserService, ApiService, PeopleService } from '@core/service';
 import { Users, Departments } from '../../../../core/models';
 import { HttpParams } from '@angular/common/http';
-import { PeopleService } from '../../../shared/people';
 
 @Component({
     selector: 'app-add-functionary',

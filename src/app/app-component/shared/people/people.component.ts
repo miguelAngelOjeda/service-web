@@ -7,8 +7,7 @@ import { Estate, Message, Location } from '../../../core/models';
 import { EditModalPeopleComponent } from './edit-modal-people';
 import { AddModalPeopleComponent } from './add-modal-people';
 import { ViewModalPeopleComponent } from './view-modal-people';
-import { UserService, ApiService, FormsService} from '../../../core/services';
-import { PeopleService } from '../people/people.service';
+import { UserService, ApiService, PeopleService, FormsService } from '@core/service';
 
 @Component({
   selector: 'app-people',

@@ -2,19 +2,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { MemberModule } from './app-component/solicitude/member/member.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatCheckboxModule} from '@angular/material/checkbox'
-import {MatChipsModule} from '@angular/material/chips';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatCheckboxModule} from '@angular/material/checkbox'
+import { MatChipsModule} from '@angular/material/chips';
+import { MatDatepickerModule} from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FlexLayoutModule} from '@angular/flex-layout';
+import { FlexLayoutModule} from '@angular/flex-layout';
 import { HomeComponent } from './app-component/home';
 import { FullComponent } from './navigation/full.component';
 import { ShowAuthedDirective, SharedModule, LoaderComponent} from './shared';
@@ -29,9 +29,6 @@ import { SpinnerComponent } from './shared/spinner';
 import { SnackbarComponent } from './shared';
 import { SharedAppModule } from './app-component/shared';
 import * as $ from 'jquery';
-
-
-
 
 @NgModule({
   declarations: [
@@ -48,6 +45,7 @@ import * as $ from 'jquery';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MemberModule,
     CoreModule,
     SharedModule,
     SharedAppModule,

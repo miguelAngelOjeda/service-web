@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AddClientComponent , EditClientComponent, ListClientComponent,
-ViewClientComponent } from '../client';
+ViewClientComponent} from '../client';
 import { SharedModule} from '../../shared';
 import { MaterialModule } from '../../core/material/material.module';
 import { ClientRoutingModule } from './client-routing.module';
