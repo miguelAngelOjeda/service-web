@@ -17,16 +17,6 @@
           </mat-error>
        </mat-form-field>
      </div>
-     <div class="col-md-9">
-       <mat-form-field appearance="legacy">
-         <input matInput #input  placeholder="Motivo" formControlName="motivoTratamiento" name="motivoTratamiento">
-         <mat-error *ngIf="(modelForm.controls['historialMedico'].get('motivoTratamiento').errors)">
-           <span *ngIf="modelForm.controls['historialMedico'].get('motivoTratamiento').errors.required">
-            Campo requerido
-           </span>
-         </mat-error>
-       </mat-form-field>
-     </div>
      <div class="col-md-3">
        <mat-form-field appearance="legacy">
          <input matInput #input type="text"  placeholder="Hace Cuánto?"  formControlName="tiempoTratamiento"  name="tiempoTratamiento" required>
@@ -37,7 +27,7 @@
          </mat-error>
        </mat-form-field>
      </div>
-     <div class="col-md-6">
+     <div class="col-md-3">
        <mat-form-field appearance="legacy">
          <input matInput #input type="text"  placeholder="Medico Tratante"  formControlName="medicoTratante"  name="medicoTratante" required>
          <mat-error *ngIf="(modelForm.controls['historialMedico'].get('medicoTratante').errors)">
@@ -57,6 +47,16 @@
          </mat-error>
        </mat-form-field>
      </div>
+     <div class="col-md-12">
+      <mat-form-field>
+        <textarea matInput placeholder="Motivo" formControlName="motivoTratamiento" name="motivoTratamiento"></textarea>
+        <mat-error *ngIf="(modelForm.controls['historialMedico'].get('motivoTratamiento').errors)">
+          <span *ngIf="modelForm.controls['historialMedico'].get('motivoTratamiento').errors.required">
+           Campo requerido
+          </span>
+        </mat-error>
+      </mat-form-field>
+    </div>
      <div class="col-md-3">
        <mat-form-field  appearance="legacy">
           <mat-label>Utiliza Algún Medicamento</mat-label>
