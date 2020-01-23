@@ -1,0 +1,133 @@
+<ng-container>
+  <div class="row" formGroupName="historialOdontologico">
+    <div class="col-md-12">
+      <h4  class="m-0"><mat-icon class="gray-text">assignment</mat-icon>Historial Odontológico</h4>
+    </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+          <mat-label>Ultima visita al odontológo?</mat-label>
+          <mat-select formControlName="ultimaConsulta" name="ultimaConsulta" required>
+            <mat-option value="6 Meses">6 Meses</mat-option>
+            <mat-option value="1 Año">1 Año</mat-option>
+            <mat-option value="2 Años">2 Años</mat-option>
+            <mat-option value="Mas de 2 Años">Mas de 2 Años</mat-option>
+            <mat-option value="No recuerda">No recuerda</mat-option>
+          </mat-select>
+          <mat-error *ngIf="(modelForm.controls['historialOdontologico'].get('ultimaConsulta').errors)">
+            <span *ngIf="modelForm.controls['historialOdontologico'].get('ultimaConsulta').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+          <mat-label>Cuantas veces se cepilla al dia?</mat-label>
+          <mat-select formControlName="higieneBucal" name="higieneBucal" required>
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="Mas de 3">Mas de 3</mat-option>
+            <mat-option value="Aveces">Aveces</mat-option>
+            <mat-option value="No se cepilla">No se cepilla</mat-option>
+          </mat-select>
+          <mat-error *ngIf="(modelForm.controls['historialOdontologico'].get('higieneBucal').errors)">
+            <span *ngIf="modelForm.controls['historialOdontologico'].get('higieneBucal').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-12">
+       <h4 class="m-0">Que elementos utiliza?</h4>
+     </div>
+     <div class="col-md-3">
+       <section class="example-section">
+            <mat-checkbox  class="example-margin" formControlName="cepillo" name="cepillo">Cepillo</mat-checkbox>
+       </section>
+     </div>
+     <div class="col-md-3">
+       <section class="example-section">
+            <mat-checkbox  class="example-margin" formControlName="hiloDental" name="hiloDental">Hilo Dental</mat-checkbox>
+       </section>
+     </div>
+     <div class="col-md-3">
+       <section class="example-section">
+            <mat-checkbox  class="example-margin" formControlName="enjuagues" name="enjuagues">Enjuagues</mat-checkbox>
+       </section>
+     </div>
+     <div class="col-md-3">
+       <section class="example-section">
+            <mat-checkbox  class="example-margin" formControlName="otros" name="otros">Otros</mat-checkbox>
+       </section>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+          <mat-label>Ha perdido piezas dentarias?</mat-label>
+          <mat-select formControlName="perdidaPiezaDentaria" name="perdidaPiezaDentaria" required>
+            <mat-option value="SI">SI</mat-option>
+            <mat-option value="NO">NO</mat-option>
+          </mat-select>
+          <mat-error *ngIf="(modelForm.controls['historialOdontologico'].get('perdidaPiezaDentaria').errors)">
+            <span *ngIf="modelForm.controls['historialOdontologico'].get('perdidaPiezaDentaria').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field appearance="legacy">
+          <input matInput #input type="text" placeholder="Motivo" formControlName="motivoPerdidaDentaria" name="motivoPerdidaDentaria">
+          <mat-error *ngIf="(modelForm.controls['historialOdontologico'].get('motivoPerdidaDentaria').errors)">
+            <span *ngIf="modelForm.controls['historialOdontologico'].get('motivoPerdidaDentaria').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field  appearance="legacy">
+          <mat-label>Hay presencia de alteraciones periodentales?</mat-label>
+          <mat-select formControlName="alteracionesPeriodentales" name="alteracionesPeriodentales" required>
+            <mat-option value="SI">SI</mat-option>
+            <mat-option value="NO">NO</mat-option>
+          </mat-select>
+          <mat-error *ngIf="(modelForm.controls['historialOdontologico'].get('tiposAlteraciones').errors)">
+            <span *ngIf="modelForm.controls['historialOdontologico'].get('tiposAlteraciones').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-3">
+       <mat-form-field appearance="legacy">
+         <input matInput #input  placeholder="Tipos alteraciones?" formControlName="tiposAlteraciones" name="tiposAlteraciones">
+         <mat-error *ngIf="(modelForm.controls['historialOdontologico'].get('tiposAlteraciones').errors)">
+           <span *ngIf="modelForm.controls['historialOdontologico'].get('tiposAlteraciones').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-6">
+       <mat-form-field appearance="legacy">
+         <input matInput #input  placeholder="Hay lesiones de tejidos blandos?" formControlName="lesiones" name="lesiones">
+         <mat-error *ngIf="(modelForm.controls['historialOdontologico'].get('lesiones').errors)">
+           <span *ngIf="modelForm.controls['historialOdontologico'].get('lesiones').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+       </mat-form-field>
+     </div>
+     <div class="col-md-6">
+       <mat-form-field appearance="legacy">
+         <input matInput #input  placeholder="Observaciones" formControlName="observaciones" name="observaciones">
+         <mat-error *ngIf="(modelForm.controls['historialOdontologico'].get('observaciones').errors)">
+           <span *ngIf="modelForm.controls['historialOdontologico'].get('observaciones').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+       </mat-form-field>
+     </div>
+  </div>
+</ng-container>

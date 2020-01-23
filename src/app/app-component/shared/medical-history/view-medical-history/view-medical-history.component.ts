@@ -26,14 +26,14 @@ export class ViewMedicalhistoryComponent implements OnInit{
     this.modelForm = this.parentF.form;
     this.modelForm.addControl('historialMedico', this.formBuilder.group({
       id: null ,
-      tratamientoMedico: null,
+      tratamientoMedico: [null, [Validators.required]],
       motivoTratamiento: null,
       tiempoTratamiento: null,
       medicoTratante: null,
       telefMedicoTratante: null,
-      medicacion: null,
+      medicacion: [null, [Validators.required]],
       motivoMedicacion: null,
-      variacionPeso: null,
+      variacionPeso: [null, [Validators.required]],
       hipertensionArterial: null,
       problemasCardiacos: null,
       afeccionesRenales: null,
@@ -51,14 +51,18 @@ export class ViewMedicalhistoryComponent implements OnInit{
       sinusitis: null,
       transtornosRespiratorios: null,
       observaciones: null,
-      operacion: null,
+      operacion: [null, [Validators.required]],
       motivoOperacion: null,
-      anestesia: null,
+      anestesia: [null, [Validators.required]],
       inconvenienteAnestesia: null,
       motivoInconveniente: null,
       embarazo: null,
       semanasEmbarazo: null,
       sienteNervios: null,
+      peso: [null, [Validators.required]],
+      estatura: [null, [Validators.required]],
+      tipoSangre: [null, [Validators.required]],
+      rhAgente: [null, [Validators.required]],
       malaExperiencia: null
     }));
   }

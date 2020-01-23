@@ -3,6 +3,7 @@
     <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Pacientes </a> &gt; <span class="current">Agregar</span></h2>
     <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
   </div>
+  
   <mat-card class="form-card">
     <mat-card-content>
           <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
@@ -23,6 +24,9 @@
                     </div>
                     <div class="col-md-12">
                       <app-medical-history></app-medical-history>
+                    </div>
+                    <div class="col-md-12">
+                      <app-dental-history></app-dental-history>
                     </div>
                   </div>
                 </div>

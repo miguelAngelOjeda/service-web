@@ -2,17 +2,26 @@
 <div class="mat-button-single-row">
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Pacientes </a> &gt; <span class="current">Editar</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
-  <ng-container *ngIf="myForm.get('id').value">
-    <button mat-raised-button class="m-l-10" routerLink="/service-web/client/{{myForm.get('id').value}}" >
-      <!-- <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon> -->
-      <i  aria-hidden="true" class="fa fa-eye"></i>
-       Visualizar
-    </button>
-    <a mat-raised-button class="m-l-10" (click)="delete(myForm.value)" *appCanAccess="['client', 'deleteClient']">
-      <i  class="fa fa-times" aria-hidden="true"></i>
-       Borrar
-    </a>
-  </ng-container>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Visualizar" routerLink="/service-web/client/{{myForm.get('id').value}}">
+          <i class="fa fa-eye"></i>
+        </a>
+      </li>
+      <li>
+        <a class="mat-fab mat-warn" color="warn"
+         matTooltipPosition="before"
+         matTooltip="Eliminar" (click)="delete(myForm.value)" *appCanAccess="['client', 'deleteClient']">
+         <i class="fa fa-trash-o"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 <mat-card class="form-card">
   <mat-card-content>
@@ -24,29 +33,16 @@
                     <app-people [relationShip]="true"></app-people>
                   </div>
                   <div class="col-md-12">
-      							<app-spouse [addModel]="true"></app-spouse>
-      						</div>
-                  <div class="col-md-12">
                     <app-reference [minRow]="1"></app-reference>
                   </div>
                   <div class="col-md-12">
                     <app-occupation [minRow]="1"></app-occupation>
                   </div>
                   <div class="col-md-12">
-                    <app-estate></app-estate>
+                    <app-medical-history></app-medical-history>
                   </div>
                   <div class="col-md-12">
-                    <app-vehicle></app-vehicle>
-                  </div>
-                  <div class="col-md-12 m-t-30">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <app-ingress [minRow]="1"></app-ingress>
-                      </div>
-                      <div class="col-md-6">
-                        <app-egress [minRow]="1"></app-egress>
-                      </div>
-                    </div>
+                    <app-dental-history></app-dental-history>
                   </div>
                 </div>
               </div>

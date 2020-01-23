@@ -2,14 +2,26 @@
 <div class="mat-button-single-row">
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Pacientes </a> &gt; <span class="current">Visualizar</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
-  <a mat-raised-button class="m-l-10" routerLink="/service-web/client/{{myForm.get('id').value}}/edit">
-    <i _ngcontent-ugv-c42="" class="fa fa-pencil-square-o"></i>
-     Editar
-  </a>
-  <a mat-raised-button class="m-l-10" (click)="delete(myForm.value)" *appCanAccess="['client', 'deleteClient']">
-    <i  class="fa fa-times" aria-hidden="true"></i>
-     Borrar
-  </a>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Editar" routerLink="/service-web/client/{{myForm.get('id').value}}/edit">
+          <i class="fa fa-pencil-square-o"></i>
+        </a>
+      </li>
+      <li>
+        <a class="mat-fab mat-warn" color="warn"
+         matTooltipPosition="before"
+         matTooltip="Eliminar" (click)="delete(myForm.value)" *appCanAccess="['client', 'deleteClient']">
+         <i class="fa fa-trash-o"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 <mat-card class="form-card">
   <mat-card-content>
@@ -26,30 +38,18 @@
                     <app-view-people [relationShip]="true"></app-view-people>
                   </div>
                   <div class="col-md-12">
-      							<app-view-spouse></app-view-spouse>
-      						</div>
-                  <div class="col-md-12">
                     <app-view-reference></app-view-reference>
                   </div>
                   <div class="col-md-12">
                     <app-view-occupation></app-view-occupation>
                   </div>
                   <div class="col-md-12">
-                    <app-view-estate></app-view-estate>
+                    <app-view-medical-history></app-view-medical-history>
                   </div>
                   <div class="col-md-12">
-                    <app-view-vehicle></app-view-vehicle>
+                    <app-view-dental-history></app-view-dental-history>
                   </div>
-                  <div class="col-md-12 m-t-20">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <app-view-ingress [fkFilterModel]="myForm.value.persona.id"></app-view-ingress>
-                      </div>
-                      <div class="col-md-6">
-                        <app-view-egresss [fkFilterModel]="myForm.value.persona.id"></app-view-egresss>
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>

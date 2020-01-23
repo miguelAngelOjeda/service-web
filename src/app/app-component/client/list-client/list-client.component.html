@@ -1,16 +1,19 @@
 <div class="mat-button-single-row">
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Pacientes </a> &gt; <span class="current">Lista de Pacientes</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
-  <section class="pull-right">
-    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-      <div class="btn-group mr-2" role="group" aria-label="First group">
-        <button  type="button" class="btn btn-secondary" routerLink="/service-web/client/new" *appCanAccess="['client', 'addClient']"><span class="font-bold">Agregar</span></button>
-      </div>
-      <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <button  type="button" class="btn btn-danger" routerLink="/service-web/member-solicitude/emails" *appCanAccess="['client', 'addClient']"><span class="font-bold">Invitar</span></button>
-      </div>
-    </div>
-  </section>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Agregar" routerLink="/service-web/client/new" *appCanAccess="['client', 'addClient']">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 <div>
   <mat-card>

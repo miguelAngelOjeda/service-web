@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   //api_url: 'http://localhost:8989/beta1',
-  api_image_url: 'http://wildfly11desa.coomecipar.coop.py:8483/asesores/image/',
-  api_url: 'http://wildfly11desa.coomecipar.coop.py:8483/asesores',
+  api_image_url: 'http://wildfly11desa.coomecipar.coop.py:8483/consultorio/image/',
+  api_url: 'http://wildfly11desa.coomecipar.coop.py:8483/consultorio',
   whitelist: ['172.16.2.51', 'http://172.16.2.51', '172.16.2.51:8483']
 };
 

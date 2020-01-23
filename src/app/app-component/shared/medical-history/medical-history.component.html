@@ -1,7 +1,56 @@
-<ng-container>
-  <div class="row" formGroupName="persona">
+<ng-container>  
+  <div class="row" formGroupName="historialMedico">
     <div class="col-md-12">
-      <h4  class="m-0"><mat-icon class="gray-text">account_circle</mat-icon>Historial Medico</h4>
+      <h4  class="m-0"><mat-icon class="gray-text">assignment</mat-icon>Historial Medico</h4>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="legacy">
+         <input matInput #input type="text" min="0" max="20" placeholder="Estatura" formControlName="estatura" name="estatura">
+         <mat-error *ngIf="(modelForm.controls['historialMedico'].get('estatura').errors)">
+           <span *ngIf="modelForm.controls['historialMedico'].get('estatura').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="legacy">
+         <input matInput #input type="text" min="0" max="20" placeholder="Peso" formControlName="peso" name="peso">
+         <mat-error *ngIf="(modelForm.controls['historialMedico'].get('peso').errors)">
+           <span *ngIf="modelForm.controls['historialMedico'].get('peso').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field  appearance="legacy">
+         <mat-label>Tipo Sangre</mat-label>
+         <mat-select formControlName="tipoSangre" name="tipoSangre" required>
+           <mat-option  value="O">O</mat-option>
+           <mat-option  value="A">A</mat-option>
+           <mat-option  value="B">B</mat-option>
+         </mat-select>
+         <mat-error *ngIf="(modelForm.controls['historialMedico'].get('tipoSangre').errors)">
+           <span *ngIf="modelForm.controls['historialMedico'].get('tipoSangre').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field  appearance="legacy">
+         <mat-label>RH</mat-label>
+         <mat-select formControlName="rhAgente" name="rhAgente" required>
+           <mat-option  value="+">+</mat-option>
+           <mat-option  value="-">-</mat-option>
+         </mat-select>
+         <mat-error *ngIf="(modelForm.controls['historialMedico'].get('tipoSangre').errors)">
+           <span *ngIf="modelForm.controls['historialMedico'].get('tipoSangre').errors.required">
+            Campo requerido
+           </span>
+         </mat-error>
+      </mat-form-field>
     </div>
      <div class="col-md-3">
        <mat-form-field  appearance="legacy">
@@ -19,7 +68,7 @@
      </div>
      <div class="col-md-3">
        <mat-form-field appearance="legacy">
-         <input matInput #input type="text"  placeholder="Hace Cuánto?"  formControlName="tiempoTratamiento"  name="tiempoTratamiento" required>
+         <input matInput #input type="text"  placeholder="Hace Cuánto?"  formControlName="tiempoTratamiento"  name="tiempoTratamiento">
          <mat-error *ngIf="(modelForm.controls['historialMedico'].get('tiempoTratamiento').errors)">
            <span *ngIf="modelForm.controls['historialMedico'].get('tiempoTratamiento').errors.required">
             Campo requerido
@@ -29,7 +78,7 @@
      </div>
      <div class="col-md-3">
        <mat-form-field appearance="legacy">
-         <input matInput #input type="text"  placeholder="Medico Tratante"  formControlName="medicoTratante"  name="medicoTratante" required>
+         <input matInput #input type="text"  placeholder="Medico Tratante"  formControlName="medicoTratante"  name="medicoTratante">
          <mat-error *ngIf="(modelForm.controls['historialMedico'].get('medicoTratante').errors)">
            <span *ngIf="modelForm.controls['historialMedico'].get('medicoTratante').errors.required">
             Campo requerido
@@ -39,7 +88,7 @@
      </div>
      <div class="col-md-3">
        <mat-form-field appearance="legacy">
-         <input matInput #input type="number" placeholder="Telefono Particular" formControlName="telefMedicoTratante" name="telefMedicoTratante" required>
+         <input matInput #input type="number" placeholder="Telefono Particular" formControlName="telefMedicoTratante" name="telefMedicoTratante">
          <mat-error *ngIf="(modelForm.controls['historialMedico'].get('telefMedicoTratante').errors)">
            <span *ngIf="modelForm.controls['historialMedico'].get('telefMedicoTratante').errors.required">
             Campo requerido
