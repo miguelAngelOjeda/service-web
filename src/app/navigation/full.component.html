@@ -41,7 +41,7 @@
         <!-- ============================================================== -->
         <!-- Sidebar - style you can find in sidebar.scss -->
         <!-- ============================================================== -->
-        <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"  >
+        <mat-sidenav #snav id="snavHor" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"  >
 
                 <app-sidenav-list></app-sidenav-list>
 
@@ -57,7 +57,7 @@
 
                 <div class="page-content">
 
-                        <router-outlet>
+                        <router-outlet>                          
                           <app-loader></app-loader>
                           <app-snackbar></app-snackbar>
                         </router-outlet>

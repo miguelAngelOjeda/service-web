@@ -1,4 +1,20 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/guarantee-types">Tipos Garantias </a> &gt; <span class="current">Agregar</span></h2>
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/guarantee-types">Tipos Garantias</a> &gt; <span class="current">Agregar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Listar" routerLink="/service-web/guarantee-types">
+          <i class="fa fa-bars"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
 <mat-card class="form-card">
 <mat-card-content>
   <form  [formGroup]="modalityForm" (ngSubmit)="modalityForm.valid && onSubmit()">

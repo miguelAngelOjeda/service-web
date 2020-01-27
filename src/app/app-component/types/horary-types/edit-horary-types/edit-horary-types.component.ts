@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { PaymentsTypes } from '../../../../core/models';
-import { ApiService } from '../../../../core/services';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { Message } from '../../../../core/models';
+import { ApiService } from '@core/service';
+import { DeleteDialogComponent } from '../../../../shared';
 
 @Component({
   selector: 'app-edit-horary-types',
@@ -12,39 +14,22 @@ import { ApiService } from '../../../../core/services';
 })
 export class EditHoraryTypesComponent implements OnInit {
 
-  public model: PaymentsTypes;
-
-  formControl = new FormControl('', [
-    Validators.required
-  // Validators.email,
-  ]);
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private route: ActivatedRoute
-  ) {
-    this.model = new PaymentsTypes();
-   }
+  ) {}
 
   ngOnInit() {
     this.apiService.get('/tipos-estudios/' + this.route.snapshot.params.id)
     .subscribe(res => {
-       this.model = res.model as PaymentsTypes;
     });
 
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo requerido' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
-  }
 
   onSubmit() {
-    this.apiService.put('/tipos-estudios/' + this.route.snapshot.params.id, this.model)
-    .subscribe(res => {
-        //this.snackBarService.openSnackBar('res');
-    });
+
   }
 
 }

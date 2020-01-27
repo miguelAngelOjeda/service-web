@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { EgressTypes, Filter, Rules, Message  } from '../../../../core/models';
-import { ApiService } from '../../../../core/services';
+import { Filter, Rules, Message  } from '../../../../core/models';
+import { ApiService } from '@core/service';
 import { DeleteDialogComponent } from '../../../../shared';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class ListEgressTypesComponent implements AfterViewInit {
   public isMobile: Boolean;
   public rulesColumns  = ['codigo','nombre'];
   public displayedColumns = ['codigo','nombre','opciones'];
-  public dataSource = new MatTableDataSource<EgressTypes>();
+  public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -56,7 +56,7 @@ export class ListEgressTypesComponent implements AfterViewInit {
           map(data => {
             // Flip flag to show that loading has finished.
             this.length = data.records;
-            return data.rows as EgressTypes[];;
+            return data.rows;
           }),
           catchError(() => {
             return observableOf([]);

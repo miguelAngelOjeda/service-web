@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { CalculationTypes, Filter, Rules, Message  } from '../../../../core/models';
-import { ApiService } from '../../../../core/services';
+import { Filter, Rules, Message  } from '../../../../core/models';
+import { ApiService } from '@core/service';
 import { DeleteDialogComponent } from '../../../../shared';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';

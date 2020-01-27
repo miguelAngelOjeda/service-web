@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EgressTypes } from '../../../../core/models';
-import { ApiService } from '../../../../core/services';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { Message } from '../../../../core/models';
+import { ApiService } from '@core/service';
 import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
+import { DeleteDialogComponent } from '../../../../shared';
 
 @Component({
   selector: 'app-view-egress-types',

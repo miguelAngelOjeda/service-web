@@ -5,3 +5,5 @@ export * from './ingress-types';
 export * from './outlays-types';
 export * from './payments-types';
 export * from './reference-types';
+export * from './tryst-status';
+export * from './tryst-types';

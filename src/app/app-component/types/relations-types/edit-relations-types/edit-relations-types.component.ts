@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { RelationsTypes } from '../../../../core/models';
-import { ApiService } from '../../../../core/services';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { Message } from '../../../../core/models';
+import { DeleteDialogComponent } from '../../../../shared';
+import { ApiService } from '@core/service';
 
 @Component({
   selector: 'app-edit-relations-types',

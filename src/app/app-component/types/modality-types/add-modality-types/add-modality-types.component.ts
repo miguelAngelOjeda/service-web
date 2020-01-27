@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { Message } from '../../../../core/models';
 import { FormGroup, FormArray , FormControl, FormBuilder,
    Validators, NgForm, FormGroupDirective } from '@angular/forms';
-import { ApiService } from '../../../../core/services';
+import { ApiService } from '@core/service';
+import { DeleteDialogComponent } from '../../../../shared';
 
 @Component({
   selector: 'app-add-modality-types',

@@ -90,6 +90,14 @@ const appRoutes: Routes = [
         loadChildren: './app-component/types/document-types/document-types.module#DocumentTypesModule'
         },
         {
+        path: 'service-web/tryst-types',
+        loadChildren: './app-component/types/tryst-types/tryst-types.module#TrystTypesModule'
+        },
+        {
+        path: 'service-web/tryst-status',
+        loadChildren: './app-component/types/tryst-status/tryst-status.module#TrystStatusModule'
+        },
+        {
         path: 'service-web/exit-types',
         loadChildren: './app-component/types/exit-types/exit-types.module#ExitTypesModule'
         },

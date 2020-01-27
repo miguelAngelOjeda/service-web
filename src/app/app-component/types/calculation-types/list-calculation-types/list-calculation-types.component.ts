@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { CalculationTypes, Filter, Rules, Message  } from '../../../../core/models';
+import { Filter, Rules, Message  } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
 import { DeleteDialogComponent } from '../../../../shared';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
@@ -20,7 +20,7 @@ export class ListCalculationTypesComponent implements AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filter', { static: true }) filterInput: ElementRef;
 
-  public dataSource = new MatTableDataSource<CalculationTypes>();
+  public dataSource = new MatTableDataSource<any>();
 
   //Filter
   isfilter = false;
@@ -57,7 +57,7 @@ export class ListCalculationTypesComponent implements AfterViewInit {
           map(data => {
             // Flip flag to show that loading has finished.
             this.length = data.records;
-            return data.rows as CalculationTypes[];;
+            return data.rows;
           }),
           catchError(() => {
             return observableOf([]);

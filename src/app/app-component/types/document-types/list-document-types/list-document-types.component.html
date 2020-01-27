@@ -1,9 +1,19 @@
 <div class="mat-button-single-row">
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/document-types"> TIPOS DOCUMENTOS </a> &gt; <span class="current">Lista de Tipos Documentos</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
-  <button  type="button" class="btn btn-secondary" routerLink="/service-web/document-types/new" *appCanAccess="['document-types', 'addDocumentTypes']">
-    <span class="font-bold">Agregar</span>
-  </button>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Agregar" routerLink="/service-web/document-types/new" *appCanAccess="['document-types', 'addDocumentTypes']">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 <div>
   <mat-card>

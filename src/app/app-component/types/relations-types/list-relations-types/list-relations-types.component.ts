@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { RelationsTypes, Filter, Rules, Message  } from '../../../../core/models';
+import { Filter, Rules, Message  } from '../../../../core/models';
 import { ApiService } from '../../../../core/services';
 import { DeleteDialogComponent } from '../../../../shared';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
@@ -15,7 +15,7 @@ export class ListRelationsTypesComponent implements AfterViewInit {
   public isMobile: Boolean;
   public rulesColumns  = ['nombre'];
   public displayedColumns = ['nombre','opciones'];
-  public dataSource = new MatTableDataSource<RelationsTypes>();
+  public dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -55,7 +55,7 @@ export class ListRelationsTypesComponent implements AfterViewInit {
             // Flip flag to show that loading has finished.
             this.length = data.records;
 
-            return data.rows as RelationsTypes[];;
+            return data.rows;
           }),
           catchError(() => {
             return observableOf([]);

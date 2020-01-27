@@ -330,6 +330,40 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_DESTINATIONS_TYPES.DELETE"]
     	}
     },
+    "tryst-types": {
+      "addTrystTypes": {
+    	   "permittedRoles": ["ROLE_TRYST_TYPES.ADD"]
+    	 },
+    	"editTrystTypes": {
+    	  "permittedRoles": ["ROLE_TRYST_TYPES.EDIT"]
+    	},
+    	"viewTrystTypes": {
+    	  "permittedRoles": ["ROLE_TRYST_TYPES.VIEW"]
+    	},
+    	"listTrystTypes": {
+    	  "permittedRoles": ["ROLE_TRYST_TYPES.LIST"]
+    	},
+      "deleteTrystTypes": {
+    	  "permittedRoles": ["ROLE_TRYST_TYPES.DELETE"]
+    	}
+    },
+    "tryst-status": {
+      "addTrystStatus": {
+    	   "permittedRoles": ["ROLE_TRYST_STATUS.ADD"]
+    	 },
+    	"editTrystStatus": {
+    	  "permittedRoles": ["ROLE_TRYST_STATUS.EDIT"]
+    	},
+    	"viewTrystStatus": {
+    	  "permittedRoles": ["ROLE_TRYST_STATUS.VIEW"]
+    	},
+    	"listTrystStatus": {
+    	  "permittedRoles": ["ROLE_TRYST_STATUS.LIST"]
+    	},
+      "deleteTrystStatus": {
+    	  "permittedRoles": ["ROLE_TRYST_STATUS.DELETE"]
+    	}
+    },
     "outlays-types": {
       "addOutlaysTypes": {
     	   "permittedRoles": ["ROLE_OUTLAYS_TYPES.ADD"]

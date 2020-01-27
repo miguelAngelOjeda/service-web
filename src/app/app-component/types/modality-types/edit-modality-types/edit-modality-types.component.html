@@ -1,4 +1,34 @@
-<h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/modality">Modalidades </a> &gt; <span class="current">Editar</span></h2>
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/modality">Modalidades </a> &gt; <span class="current">Editar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Listar" routerLink="/service-web/modality">
+          <i class="fa fa-bars"></i>
+        </a>
+      </li>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Visualizar" routerLink="/service-web/modality/{{modalityForm.get('id').value}}">
+          <i class="fa fa-eye"></i>
+        </a>
+      </li>
+      <li>
+        <a class="mat-fab mat-warn" color="warn"
+         matTooltipPosition="before"
+         matTooltip="Eliminar" (click)="delete(modalityForm.value)" *appCanAccess="['modality', 'deleteModality']">
+         <i class="fa fa-trash-o"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
 <mat-card class="form-card">
 <mat-card-content>
   <form  [formGroup]="modalityForm" (ngSubmit)="modalityForm.valid && onSubmit()">
