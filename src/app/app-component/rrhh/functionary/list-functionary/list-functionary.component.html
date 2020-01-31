@@ -32,30 +32,30 @@
               </mat-form-field>
             </div>
             <ng-container formGroupName="persona">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <mat-form-field appearance="legacy">
                   <input matInput placeholder="Documento" formControlName="documento"  name="documento">
                 </mat-form-field>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <mat-form-field appearance="legacy">
                   <input matInput placeholder="Ruc" formControlName="ruc"  name="ruc">
                 </mat-form-field>
               </div>
             </ng-container>
-            <div class="col-md-4">
-                 <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal')?.value"
-                  placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <mat-form-field appearance="legacy">
                 <input matInput type="number" placeholder="Nro. Legajo" formControlName="nroLegajo"  name="nroLegajo">
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <mat-form-field appearance="legacy">
-                <input matInput type="number" placeholder="Alias" formControlName="alias"  name="alias">
+                <input matInput  placeholder="Alias" formControlName="alias"  name="alias">
               </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                 <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal')?.value"
+                  placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
             </div>
             <div class="col-md-4">
                  <app-select-filter (value)="getValue($event, 'rol')" [modelValue]="filterForm.get('rol')?.value"

@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog,
    MatDialogConfig, MatSort, PageEvent, Sort} from '@angular/material';
 import { Users, Filter, Rules, Message } from '../../../../core/models';
@@ -13,7 +13,7 @@ import { FormGroup,FormControl, FormBuilder} from '@angular/forms';
   templateUrl: './list-functionary.component.html',
   styleUrls: ['./list-functionary.component.scss']
 })
-export class ListFunctionaryComponent implements AfterViewInit {
+export class ListFunctionaryComponent implements OnInit {
     public isMobile: Boolean;
     public filterForm: FormGroup;
     public rulesColumns  = ['persona.documento', 'alias', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido'];
@@ -23,11 +23,11 @@ export class ListFunctionaryComponent implements AfterViewInit {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: true }) sort: MatSort;
     @ViewChild('filter', { static: true }) filterInput: ElementRef;
+    @ViewChild("filterButton", { read: ElementRef, static: true}) filterButton: ElementRef;
 
     // Advance Filter panel
     advanceFilterOpenState: boolean = false;
     filterValue = '';
-    isfilter = false;
     // MatPaginator Inputs
     length = 0;
     pageSize = 10;
@@ -36,32 +36,17 @@ export class ListFunctionaryComponent implements AfterViewInit {
     pageEvent: PageEvent;
 
     constructor(
+      private formBuilder: FormBuilder,
       private dialog: MatDialog,
       private apiService: ApiService) {}
 
-    ngAfterViewInit() {
+    ngOnInit() {
+      this.initFormBuilder();
       this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-      merge(this.sort.sortChange, this.paginator.page, fromEvent(this.filterInput.nativeElement, 'keyup'))
-          .pipe(
-            startWith({}),
-            switchMap(() => {
-              this.isfilter = false;
-              if(this.filterInput.nativeElement.value.length > 3){
-                this.isfilter = true;
-              }
-              return this.apiService.getPageList('/funcionarios',this.isfilter,this.filterInput.nativeElement.value, this.rulesColumns,
-              this.sort.direction,this.sort.active,this.paginator.pageIndex,this.paginator.pageSize);
-            }),
-            map(data => {
-              // Flip flag to show that loading has finished.
-              console.log(data.rows);
-              this.length = data.records;
-              return data.rows as Users[];;
-            }),
-            catchError(() => {
-              return observableOf([]);
-            })
-          ).subscribe(data => this.dataSource.data = data);
+      this.sort.active = 'id';
+      this.sort.direction = 'desc';
+      this.paginator.pageSize = this.pageSizeOptions[0];
+      this.filters();
     }
 
     delete(data: any){
@@ -85,6 +70,70 @@ export class ListFunctionaryComponent implements AfterViewInit {
           }
         })
       }
+    }
+
+    public initFormBuilder(){
+      this.filterForm = this.formBuilder.group({
+        fechaInicio: null,
+        fechaFin: null,
+        id: null,
+        alias: [null],
+        cargo: [null],
+        sucursal: [null],
+        rol: [null],
+        nroLegajo: [null],
+        persona: this.formBuilder.group({
+          documento: null,
+          ruc: null
+        }),
+        retirado: null
+      });
+    }
+
+    filters() {
+      //Filtros Eventos
+      let groupOp = "OR";
+
+      const filterInp = fromEvent(this.filterInput.nativeElement, 'keyup').pipe(
+              map((e: KeyboardEvent) => {
+                return e.code;
+              }),
+              filter(val => {
+                groupOp = "OR";
+                this.filterValue = this.filterInput.nativeElement.value;
+                return (!val.includes('Arrow') && !val.includes('Enter') && val.length > 3);
+              }));
+
+      const filterButton = fromEvent(this.filterButton.nativeElement, 'click').pipe(
+              map((e: MouseEvent) => {
+                return {
+                  x: e.clientX,
+                  y: e.clientY
+                };
+              }),
+              filter(val => {
+                groupOp = "AND";
+                this.filterValue = JSON.stringify(this.filterForm.value);
+                this.advanceFilterOpenState = false
+                return true;
+              }));
+
+      merge(this.sort.sortChange, this.paginator.page, filterInp, filterButton)
+          .pipe(
+            startWith({}),
+            switchMap((event: any) => {
+              return this.apiService.getList('/funcionarios', this.filterValue, this.rulesColumns,
+              this.sort, this.paginator, false, groupOp);
+            }),
+            map(data => {
+              // Flip flag to show that loading has finished.
+              this.length = data.records;
+              return data.rows;
+            }),
+            catchError(() => {
+              return observableOf([]);
+            })
+          ).subscribe(data => this.dataSource.data = data);
     }
 
     getValue(data: any, form : any): void {
