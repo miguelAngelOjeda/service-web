@@ -37,23 +37,28 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
       this.modelControl.enable();
     }
   }
+
   @Input() set appearance (appearance : any){
     this.inputType = appearance;
   }
+
   @Input() set sortActive (sortActive : any){
     console.log(sortActive);
     if(sortActive){
       this.sortActiveModel = sortActive;
     }
   }
+
   @Input() set sortDirection (sortDirection : any){
     console.log(sortDirection);
     if(sortDirection){
       this.sortDirectionModel = sortDirection;
     }
   }
+
   @Input() model;
   @Input() placeholder;
+  @Input() labelKey;
   @Input() urlFilter;
   @Input() columnsFilter: any[];
   @Input()
@@ -140,8 +145,52 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
 
   }
 
+  label(data?: any) {
+    let labelName = '';
+    if(this.labelKey){
+      let array_labels: Array<any> = this.labelKey.split(',');
+      for (let label of array_labels) {
+        if(label.includes('.')){
+          let keys: Array<any> = label.split('.');
+          let dataModel = data[keys[0]];
+          if(dataModel){
+            labelName = labelName + ' ' + dataModel[keys[1]];
+          }
+        }else{
+          if(data){
+            labelName = labelName + ' ' +  data[label];
+          }
+        }
+      }
+    }else{
+      labelName = data['nombre'];
+    }
+
+    return labelName;
+  }
+
   displayFn(data?: any): string | undefined {
-    return data ? data.nombre : undefined;
+    let labelName = '';
+    if(this.labelKey){
+      let array_labels: Array<any> = this.labelKey.split(',');
+      for (let label of array_labels) {
+        if(label.includes('.')){
+          let keys: Array<any> = label.split('.');
+          let dataModel = data[keys[0]];
+          if(dataModel){
+            labelName = labelName + ' ' + dataModel[keys[1]];
+          }
+        }else{
+          if(data){
+            labelName = labelName + ' ' +  data[label];
+          }
+        }
+      }
+
+    }else{
+      labelName = data['nombre'];
+    }
+    return labelName;
   }
 
   setValue(value:any) {

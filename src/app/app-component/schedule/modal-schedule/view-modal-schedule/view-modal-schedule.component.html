@@ -1,0 +1,40 @@
+
+<h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>{{title}}</h4>
+<form [formGroup]="myForm">
+	<mat-dialog-content>
+		<div class="row m-t-20">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12">
+						<app-view-people></app-view-people>
+					</div>
+					<div class="col-md-12">
+						<app-view-spouse></app-view-spouse>
+					</div>
+					<div class="col-md-12">
+						<app-view-reference></app-view-reference>
+					</div>
+					<div class="col-md-12">
+						<app-view-occupation></app-view-occupation>
+					</div>
+					<div class="col-md-12">
+						<app-view-estate></app-view-estate>
+					</div>
+					<div class="col-md-12">
+						<app-view-vehicle></app-view-vehicle>
+					</div>
+					<div class="col-md-12 m-t-20">
+						<div class="row">
+							<div class="col-md-6">
+								<app-view-ingress [fkFilterModel]="myForm.value.persona.id"></app-view-ingress>
+							</div>
+							<div class="col-md-6">
+								<app-view-egresss [fkFilterModel]="myForm.value.persona.id"></app-view-egresss>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</mat-dialog-content>
+</form>

@@ -30,6 +30,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/client/client.module#ClientModule'
         },
         {
+        path: 'service-web/schedule',
+        loadChildren: './app-component/schedule/schedule.module#ScheduleModule'
+        },
+        {
         path: 'service-web/role',
         loadChildren: './app-component/role/role.module#RoleModule'
         },

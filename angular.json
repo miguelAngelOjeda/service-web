@@ -26,6 +26,7 @@
             "styles": [
               "src/assets/styles/style.scss",
               "./node_modules/ng2-image-viewer/imageviewer.scss",
+              "./node_modules/angular-calendar/css/angular-calendar.css",
               "src/styles.css"
             ],
             "scripts": [

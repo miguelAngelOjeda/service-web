@@ -126,24 +126,24 @@
                <app-map [latitude]="businessForm.get('latitud').value" [longitude]="businessForm.get('longitud').value" (valueLocationChange)="getAddress($event)"></app-map>
              </div>
              <div class="col-md-3">
-               <app-select-filter  (value)="getValue($event, 'pais')" [modelValue]="businessForm.get('pais').value"
+               <app-select-filter  (value)="getValue($event, 'pais')" labelKey="nombre" [modelValue]="businessForm.get('pais').value"
                 placeholder="Pais" urlFilter="paises" [columnsFilter]="['nombre']"></app-select-filter>
              </div>
 
              <div class="col-md-3">
-               <app-select-filter (value)="getValue($event, 'departamento')"
+               <app-select-filter (value)="getValue($event, 'departamento')" labelKey="nombre"
                 [disabled]="true" placeholder="Departamento" [modelValue]="businessForm.get('departamento').value"
                 urlFilter="departamentos" [columnsFilter]="['nombre']" [fkFilterModel]="businessForm.get('pais').value"></app-select-filter>
              </div>
 
              <div class="col-md-3">
-               <app-select-filter (value)="getValue($event, 'ciudad')" [disabled]="true" placeholder="Ciudad"
+               <app-select-filter (value)="getValue($event, 'ciudad')" labelKey="nombre" [disabled]="true" placeholder="Ciudad"
                [modelValue]="businessForm.get('ciudad').value"
                 urlFilter="ciudades" [columnsFilter]="['nombre']" [fkFilterModel]="businessForm.get('departamento').value"></app-select-filter>
              </div>
 
              <div class="col-md-3">
-               <app-select-filter (value)="getValue($event, 'barrio')" [required]="false" [disabled]="true"  placeholder="Barrio"
+               <app-select-filter (value)="getValue($event, 'barrio')" labelKey="nombre" [required]="false" [disabled]="true"  placeholder="Barrio"
                [modelValue]="businessForm.get('barrio').value"
                 urlFilter="barrios" [columnsFilter]="['nombre']" [fkFilterModel]="businessForm.get('ciudad').value"></app-select-filter>
              </div>
