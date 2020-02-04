@@ -14,9 +14,10 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
   styleUrls: ['./add-modal-schedule.component.css']
 })
 export class AddModalScheduleComponent implements OnInit{
-  style = "max-height: 75vh";
   public minDate = new Date();
   public modelForm: FormGroup;
+  public displayedColumns = ['tipoCitas', 'horaInicio', 'horaFin','estadoCitas'];
+  public dataSource = new MatTableDataSource<any>();
 
   constructor(
             public dialog: MatDialog,
@@ -52,6 +53,7 @@ export class AddModalScheduleComponent implements OnInit{
       duracion: [null, [Validators.required]],
       tipoCitas: [null, [Validators.required]],
       estadoCitas: [null, [Validators.required]],
+      especialidad: [null, [Validators.required]],
       funcionario: [null, [Validators.required]],
       cliente: [null, [Validators.required]],
       observacion: null,

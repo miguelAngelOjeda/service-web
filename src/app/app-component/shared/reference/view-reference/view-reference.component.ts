@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from '../../../../core/services';
+import { MatTableDataSource, MatSort, PageEvent, Sort} from '@angular/material';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlContainer, FormGroupDirective} from '@angular/forms';
@@ -11,8 +12,10 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators, ControlCon
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
 export class ViewReferenceComponent implements OnInit {
-  peopleForm: FormGroup;
-  referenceForm: FormGroup;
+  public peopleForm: FormGroup;
+  public referenceForm: FormGroup;
+  public displayedColumns = ['nombreContacto', 'telefonoCelular', 'telefono','tipoReferencia'];
+  public dataSource = new MatTableDataSource<any>();
 
   formArrayName = 'referencias';
 
@@ -41,8 +44,12 @@ export class ViewReferenceComponent implements OnInit {
   ngOnInit() {
     this.referenceForm = this.parentF.form;
     this.peopleForm = (<FormGroup>this.referenceForm.get('persona'));
-
     this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
+    this.peopleForm.controls[this.formArrayName].valueChanges.subscribe(
+        (registros) => {
+          this.dataSource.data = registros;
+        }
+    );
     //this.addButton();
   }
 

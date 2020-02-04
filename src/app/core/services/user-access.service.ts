@@ -52,7 +52,7 @@ export class UserService implements CanActivate {
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
     populate() {
-      // If JWT detected, attempt to get & store user's info      
+      // If JWT detected, attempt to get & store user's info
       if (this.jwtService.getToken()) {
         this.validateTokensSession();
         this.get('/tokens_user')
@@ -128,6 +128,7 @@ export class UserService implements CanActivate {
 
     public checkAuthorization(path: any): Observable<boolean> {
       // we are loading the roles only once
+      console.log(path);
      if (!this.userRoles) {
         return this.getUser()
           .map(currentUser => {

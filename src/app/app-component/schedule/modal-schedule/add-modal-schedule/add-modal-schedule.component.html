@@ -4,29 +4,22 @@
 	<mat-dialog-content class="modal-body m-t-20">
 			<div class="row">
 				<div class="col-md-12">
-					<app-select-filter (value)="getValue($event, 'funcionario')"
+					<app-select-filter (value)="getValue($event, 'especialidad')"
+					 [modelValue]="modelForm.get('especialidad')?.value"
+					 sortActive="id"
+					 placeholder="Especialidad" urlFilter="especialidades"
+					 [columnsFilter]="['nombre']">
+				 </app-select-filter>
+				</div>
+				<div class="col-md-12">
+					<app-select-filter (value)="getValue($event, 'funcionario')" [disabled]="true"
 					 labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido"
 					 [modelValue]="modelForm.get('funcionario')?.value"
 					 sortActive="id"
-					 placeholder="Doctor" urlFilter="funcionarios"
+					 placeholder="Doctor" urlFilter="profesionales/especialidad"
+					 [fkFilterModel]="modelForm.get('especialidad')?.value"
 					 [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
 				 </app-select-filter>
-				</div>
-				<div class="col-md-6 m-t-10">
-					<mat-radio-group aria-label="Select an option" >
-						<mat-radio-button value="1">Crear Cita</mat-radio-button>
-						<mat-radio-button value="2">Cerrar Horas</mat-radio-button>
-					</mat-radio-group>
-				</div>
-				<div class="col-md-6">
-					<mat-form-field appearance="legacy" class="col-lg-2">
-						<input matInput  type="color" formControlName="color" name="color">
-						<!-- <mat-error *ngIf="(businessForm.get('ruc').errors)">
-							<span *ngIf="businessForm.get('ruc').errors.required">
-							 Campo requerido
-							</span>
-						</mat-error> -->
-					</mat-form-field>
 				</div>
 				<div class="col-md-12">
 					<app-select-filter (value)="getValue($event, 'tipoCitas')"
@@ -63,7 +56,7 @@
 				<div class="col-md-2">
 					<mat-form-field appearance="legacy">
 						<input matInput #input type="time"
-						min="08:00" max="19:00" placeholder="Hora Fin" formControlName="horaFin" name="horaFin" required>
+						min="08:00" max="19:00" placeholder="Hora Fin" formControlName="horaFin" name="horaFin"  required>
 						<mat-error *ngIf="(modelForm.get('horaFin').errors)">
 							<span *ngIf="modelForm.get('horaFin').errors.required">
 							 Campo requerido
@@ -73,13 +66,7 @@
 				</div>
 				<div class="col-md-4">
 					<mat-form-field appearance="legacy">
-						<input matInput #input type="number"
-						 placeholder="Minutos" formControlName="duracion" name="duracion" required>
-						<!-- <mat-error *ngIf="(businessForm.get('ruc').errors)">
-							<span *ngIf="businessForm.get('ruc').errors.required">
-							 Campo requerido
-							</span>
-						</mat-error> -->
+						<input matInput #input  placeholder="Duracion" formControlName="duracion" name="duracion" required>
 					</mat-form-field>
 				</div>
 				<div class="col-md-4">

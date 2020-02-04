@@ -55,6 +55,9 @@ export class ViewFunctionaryComponent implements OnInit {
          rol: [null, [Validators.required]],
          sucursal: [null, [Validators.required]],
          observacionRetiro: [null],
+         esProfesional: false,
+         nroRegistro: [null, [Validators.required]],
+         especialidades: [null, [Validators.required]],
          departamentos: [null, [Validators.required]],
          tipoFuncionario: [null, [Validators.required]],
          activo: 'S'

@@ -59,10 +59,10 @@ export class ApiService {
       let params = new HttpParams({
         fromObject : {
           '_search' : _search.toString(),
-          'page' : (page.pageIndex + 1).toString(),
-          'rows' : page.pageSize.toString(),
-          'sidx' : sort.active.toString(),
-          'sord' : sort.direction.toString(),
+          'page' : (page == null ? '1' : (page.pageIndex + 1).toString()),
+          'rows' : (page == null ? '50' : page.pageSize.toString()),
+          'sidx' : (sort == null ? 'id' : sort.active.toString()),
+          'sord' : (sort == null ? 'desc' : sort.direction.toString()),
           'all' : all.toString(),
           'filters' : JSON.stringify(this.filter)
         }

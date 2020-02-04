@@ -14,61 +14,92 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
   styleUrls: ['./edit-modal-schedule.component.css']
 })
 export class EditModalScheduleComponent implements OnInit{
-  params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones'}});
-  myForm: FormGroup;
-  peopleForm: FormGroup;
-
-  public people: any;
-  public title: any;
-  public addSpouse = false;
-  public id;
+  public minDate = new Date();
+  public modelForm: FormGroup;
+  public displayedColumns = ['tipoCitas', 'horaInicio', 'horaFin','estadoCitas'];
+  public dataSource = new MatTableDataSource<any>();
 
   constructor(
             public dialog: MatDialog,
             private formBuilder: FormBuilder,
-            private peopleService: PeopleService,
             public dialogRef: MatDialogRef<EditModalScheduleComponent>,
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: any) {
-              this.people = data.model;
-              this.title = data.title;
-              this.id = data.id;
-              if(data.addSpouse){
-                this.addSpouse = data.addSpouse;
-              }
-  }
+              this.initFormBuilder();
+              this.modelForm.patchValue(data);
+            }
 
   ngOnInit() {
-    this.initFormBuilder();
-    setTimeout(() => {
-      this.peopleService.loadData(<FormGroup>this.myForm.get('persona'),this.people);
-      (<FormGroup>this.myForm.get('persona')).controls['tipoPersona'].disable({onlySelf: true});
-      (<FormGroup>this.myForm.get('persona')).controls['documento'].disable({onlySelf: true});
-      (<FormGroup>this.myForm.get('persona')).controls['ruc'].disable({onlySelf: true});
-    });
+
   }
 
   onSubmit() {
-    
+    this.apiService.post('/citas', this.modelForm.value)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.model.fechaConsulta = new Date(res.model.fechaConsulta);
+        this.modelForm.patchValue(res.model);
+      }
+    });
   }
 
-  protected initFormBuilder() {
-    this.myForm = this.formBuilder.group({});
+  initFormBuilder() {
+    this.modelForm = this.formBuilder.group({
+      id: null,
+      codigoConsulta: null ,
+      nuevoCliente: false ,
+      fechaConsulta: [{ value: new Date(), disabled: true }, [Validators.required]],
+      horaInicio: [null, [Validators.required]],
+      horaFin: [null, [Validators.required]],
+      duracion: [null, [Validators.required]],
+      tipoCitas: [null, [Validators.required]],
+      estadoCitas: [null, [Validators.required]],
+      especialidad: [null, [Validators.required]],
+      funcionario: [null, [Validators.required]],
+      cliente: [null, [Validators.required]],
+      observacion: null,
+      color: null,
+      recordatorio: true
+    });
+
+    this.modelForm.controls['horaInicio'].valueChanges.subscribe(
+        (horaInicio) => {
+          if(horaInicio){
+            let arrayInicio: Array<any> = horaInicio.split(':');
+            let minutoInicio = Number(arrayInicio[0]) * 60 + Number(arrayInicio[1]);
+
+            let horaFin = this.modelForm.get('horaFin').value;
+            if(horaFin){
+              let arrayFin: Array<any> = horaFin.split(':');
+              let minutoFin = Number(arrayFin[0]) * 60 + Number(arrayFin[1]);
+              if(minutoFin > minutoInicio){
+                this.modelForm.get('duracion').setValue(minutoFin - minutoInicio, {emitEvent:false});
+              }
+            }
+          }
+        }
+    );
+    this.modelForm.controls['horaFin'].valueChanges.subscribe(
+        (horaFin) => {
+          if(horaFin){
+            let array: Array<any> = horaFin.split(':');
+            let minutoFin = Number(array[0]) * 60 + Number(array[1]);
+
+            let horaInicio = this.modelForm.get('horaInicio').value;
+            if(horaInicio){
+              let arrayInicio: Array<any> = horaInicio.split(':');
+              let minutoInicio = Number(arrayInicio[0]) * 60 + Number(arrayInicio[1]);
+              if(minutoFin > minutoInicio){
+                this.modelForm.get('duracion').setValue(minutoFin - minutoInicio, {emitEvent:false});
+              }
+            }
+          }
+        }
+    );
   }
 
-  // Get Current Location Coordinates
-  getAddress(location: Location): void {
-    this.myForm.controls['latitud'].setValue(location.lat);
-    this.myForm.controls['longitud'].setValue(location.lng);
-    this.myForm.controls['direccionParticular'].setValue(location.address);
-  }
-
-  getAvatar(avatar: any): void {
-    this.myForm.controls['avatar'].setValue(avatar);
-  }
-
-  getValue(data: any, form : FormControl): void {
-    form.setValue(data);
+  getValue(data: any, form : any): void {
+    (<FormControl>this.modelForm.get(form)).setValue(data);
   }
 
 }

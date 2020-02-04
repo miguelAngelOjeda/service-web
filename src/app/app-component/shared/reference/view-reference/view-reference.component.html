@@ -2,38 +2,42 @@
 <ng-container *ngIf="peopleForm.get(formArrayName)['controls'].length > 0">
   <div class="row m-t-20">
     <div class="col-md-12 m-b-10">
-        <h4  class="m-0 font-20"><mat-icon class="gray-text">contacts</mat-icon>Referencias
-        </h4>
+      <h4  class="m-0 font-20"><mat-icon class="gray-text">contacts</mat-icon>Referencias
+      </h4>
     </div>
-    <div class="timeline-badge danger" *ngIf="peopleForm.get(formArrayName)['controls'].length == 0">
-      <i  class="fa fa-info-circle"></i>
-    </div>
-    <div class="timeline-panel" *ngIf="peopleForm.get(formArrayName)['controls'].length == 0">
-      <div class="timeline-heading">
-        <h4 class="timeline-title">No posee registros cargados</h4>
-      </div>
-    </div>
-    <ng-container formGroupName="persona">
-      <div [formArrayName]="formArrayName"  *ngFor="let referencias of peopleForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
-        <blockquote>
-          <div [formGroupName]="i" class="m-t-10">
-            <div class="row">
-              <div class="col-sm-4" *ngIf="referencias.controls.tipoReferencia.value?.nombre">
-                <p mat-line><span class="font-bold">TIPO REFERENCIA </span> {{referencias.controls.tipoReferencia.value?.nombre}}</p>
-              </div>
-              <div class="col-sm-4" *ngIf="referencias.get('nombreContacto').value">
-                <p mat-line><span class="font-bold">NOMBRE </span> {{referencias.get('nombreContacto')?.value}}</p>
-              </div>
-              <div class="col-sm-4" *ngIf="referencias.get('telefonoCelular').value">
-                <p mat-line><span class="font-bold">CELULAR </span> {{referencias.get('telefonoCelular')?.value}}</p>
-              </div>
-              <div class="col-sm-4" *ngIf="referencias.get('telefono').value">
-                <p mat-line><span class="font-bold">TELEFONO </span> {{referencias.get('telefono')?.value}}</p>
-              </div>
-            </div>
-          </div>
-        </blockquote>
-      </div>
-    </ng-container>
   </div>
+  <mat-table [dataSource]="dataSource" class="mat-table" [class.isMobile]="isMobile">
+
+    <ng-container matColumnDef="nombreContacto">
+      <mat-header-cell *matHeaderCellDef> NOMBRE </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="NOMBRE">
+        {{element.nombreContacto}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="telefonoCelular">
+      <mat-header-cell *matHeaderCellDef> TEL. CELULAR </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="TEL. CELULAR">
+        {{element.telefonoCelular}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="telefono">
+      <mat-header-cell *matHeaderCellDef> TELEFONO </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="TELEFONO">
+        {{element.telefono}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="tipoReferencia">
+      <mat-header-cell *matHeaderCellDef> TIPO REFERENCIA </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="TIPO REFERENCIA">
+        {{element.tipoReferencia.nombre}}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
 </ng-container>

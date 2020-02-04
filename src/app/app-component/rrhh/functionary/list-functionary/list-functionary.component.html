@@ -1,9 +1,19 @@
 <div class="mat-button-single-row">
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/functionary"> FUNCIONARIOS </a> &gt; <span class="current">Lista de FUNCIONARIOS</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
-  <button  type="button" class="btn btn-secondary" routerLink="/service-web/functionary/new" *appCanAccess="['functionary', 'addFunctionary']">
-    <span class="font-bold">Agregar</span>
-  </button>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Agregar" routerLink="/service-web/functionary/new" *appCanAccess="['functionary', 'addFunctionary']">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 <div>
   <mat-card>
@@ -13,7 +23,6 @@
         <input matInput #filter placeholder="Buscar" type="search">
         <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon>
       </mat-form-field>
-
       <mat-expansion-panel [expanded]="advanceFilterOpenState" class="advance-search-form" [ngClass]="{'opened': advanceFilterOpenState}">
         <form [formGroup]="filterForm" class="p-t-20">
           <div  class="row">
@@ -32,32 +41,32 @@
               </mat-form-field>
             </div>
             <ng-container formGroupName="persona">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <mat-form-field appearance="legacy">
                   <input matInput placeholder="Documento" formControlName="documento"  name="documento">
                 </mat-form-field>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <mat-form-field appearance="legacy">
                   <input matInput placeholder="Ruc" formControlName="ruc"  name="ruc">
                 </mat-form-field>
               </div>
             </ng-container>
-            <div class="col-md-4">
-                 <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal')?.value"
-                  placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <mat-form-field appearance="legacy">
                 <input matInput type="number" placeholder="Nro. Legajo" formControlName="nroLegajo"  name="nroLegajo">
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <mat-form-field appearance="legacy">
-                <input matInput type="number" placeholder="Alias" formControlName="alias"  name="alias">
+                <input matInput  placeholder="Alias" formControlName="alias"  name="alias">
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                 <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal')?.value"
+                  placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-3">
                  <app-select-filter (value)="getValue($event, 'rol')" [modelValue]="filterForm.get('rol')?.value"
                   placeholder="Rol" urlFilter="roles" [columnsFilter]="['nombre']"></app-select-filter>
             </div>

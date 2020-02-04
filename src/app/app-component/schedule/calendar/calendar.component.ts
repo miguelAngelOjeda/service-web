@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
+import { ApiService } from '@core/service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { EditModalScheduleComponent } from '../modal-schedule/edit-modal-schedule';
@@ -30,17 +31,17 @@ const colors: any = {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, AfterViewInit {
   modelForm: FormGroup;
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
-
+  refresh: Subject<any> = new Subject();
+  events: CalendarEvent[] = [];
+  activeDayIsOpen: boolean = true;
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
   locale: string = 'es';
-
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -51,8 +52,20 @@ export class CalendarComponent implements OnInit {
       label: '<i class="fa fa-fw fa-pencil"></i>',
       a11yLabel: 'Editar',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-
-        //this.handleEvent('Edited', event);
+        this.apiService.get('/citas/' + event.id)
+        .subscribe(res => {
+          if(res.status == 200){
+            res.model.fechaConsulta = new Date(res.model.fechaConsulta);
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.disableClose = true;
+            dialogConfig.autoFocus = true;
+            dialogConfig.data = res.model;
+            const dialogRef = this.dialog.open(EditModalScheduleComponent,dialogConfig);
+            dialogRef.afterClosed().subscribe(result => {
+              this.loadCalendar(false);
+            });
+          }
+        });
       }
     },
     {
@@ -65,62 +78,57 @@ export class CalendarComponent implements OnInit {
     }
   ];
 
-  refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
-
-  activeDayIsOpen: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
+    private apiService: ApiService,
     private modal: NgbModal
   ) {}
+
+  ngAfterViewInit(){
+    this.loadCalendar(false);
+    this.refresh.next();
+  }
 
   ngOnInit() {
     this.initFormBuilder();
   }
 
-  initFormBuilder() {
+  public loadCalendar(filter:boolean) {
+    let groupOp = "AND";
+    let filterForm = null;
+    if(filter){
+      filterForm = JSON.stringify(this.modelForm.value);
+    }
+
+    this.apiService.getList('/citas', filterForm , null,
+    null, null, true, groupOp).subscribe(res => {
+      if(res.status == 200){
+        this.events = [];
+        res.rows.forEach(model => {
+          this.events.push({
+            start: new Date(model.fechaInicio),
+            end: new Date(model.fechaFin),
+            title: (model.cliente.persona.documento
+            +  (model.cliente.persona.primerNombre == null ? '' : ' / ' + model.cliente.persona.primerNombre)
+            + (model.cliente.persona.segundoNombre == null ? '' : ' ' + model.cliente.persona.segundoNombre)
+            + (model.cliente.persona.primerApellido == null ? '' : ', ' + model.cliente.persona.primerApellido)
+            + (model.cliente.persona.segundoApellido == null ? '' : ' ' + model.cliente.persona.segundoApellido)
+            + ' - ' + model.horaInicio + '/' + model.horaFin
+            ),
+            color: colors.yellowsunflower,
+            actions: this.actions,
+            id: (model.id).toString(),
+          });
+        });
+        this.refresh.next();
+      }
+    });
+  }
+
+  public initFormBuilder() {
     this.modelForm = this.formBuilder.group({
       id: null,
       codigoConsulta: null ,
@@ -138,6 +146,7 @@ export class CalendarComponent implements OnInit {
 
   getValue(data: any, form : any): void {
     (<FormControl>this.modelForm.get(form)).setValue(data);
+    this.loadCalendar(true);
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -179,12 +188,11 @@ export class CalendarComponent implements OnInit {
 
   addEvent(): void {
     const dialogConfig = new MatDialogConfig();
-    //dialogConfig.disableClose = true;
+    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     const dialogRef = this.dialog.open(AddModalScheduleComponent,dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-        if(result){
-        }
+        this.loadCalendar(false);
     });
   }
 

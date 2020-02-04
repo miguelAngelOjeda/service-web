@@ -1,0 +1,49 @@
+
+
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/specialties"> ESTADO CITAS </a> &gt; <span class="current">Visualizar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Listar" routerLink="/service-web/specialties">
+          <i class="fa fa-bars"></i>
+        </a>
+      </li>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before" *appCanAccess="['specialties', 'editSpecialties']"
+          matTooltip="Editar" routerLink="/service-web/specialties/{{myForm.get('id').value}}/edit">
+          <i class="fa fa-pencil-square-o"></i>
+        </a>
+      </li>
+      <li>
+        <a class="mat-fab mat-warn" color="warn"
+         matTooltipPosition="before"
+         matTooltip="Eliminar" (click)="delete(myForm.value)" *appCanAccess="['specialties', 'deleteSpecialties']">
+         <i class="fa fa-trash-o"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<mat-card class="form-card">
+  <mat-card-content>
+    <div class="row">
+      <div class="col-md-12">
+         <h4  class="m-0"><mat-icon class="gray-text">description</mat-icon>ESTADO CITAS</h4>
+         <br>
+      </div>
+      <div class="col-md-4">
+        <p mat-line><span class="font-bold">CODIGO </span> {{myForm.get('codigo').value}}</p>
+      </div>
+      <div class="col-md-4">
+        <p mat-line><span class="font-bold">NOMBRE </span> {{myForm.get('nombre').value}}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -17,6 +17,7 @@ export class EditFunctionaryComponent implements OnInit {
   params = new HttpParams({fromObject : {'included' : 'referencias,sucursal,estudios'}});
   hide = true;
   public departments: Array<Departments> = [];
+  public specialties: Array<any> = [];
 
   constructor(
     private router: Router,
@@ -29,6 +30,7 @@ export class EditFunctionaryComponent implements OnInit {
 
   ngOnInit() {
     this.initFormBuilder();
+    this.filterSpecialties();
     this.myForm.get('sucursal').valueChanges.subscribe(
       uname => {
         this.filterDepartments();
@@ -72,6 +74,9 @@ export class EditFunctionaryComponent implements OnInit {
         rol: [null, [Validators.required]],
         sucursal: [null, [Validators.required]],
         retirado: [null],
+        esProfesional: false,
+        nroRegistro: [null, [Validators.required]],
+        especialidades: [null, [Validators.required]],
         departamentos: [null, [Validators.required]],
         tipoFuncionario: [null, [Validators.required]],
         activo: 'S'
@@ -105,6 +110,18 @@ export class EditFunctionaryComponent implements OnInit {
         }
     );
 
+    this.myForm.controls['esProfesional'].valueChanges.subscribe(
+        (esProfesional) => {
+          if(esProfesional){
+            this.myForm.get('nroRegistro').enable();
+            this.myForm.get('especialidades').enable();
+          }else{
+            this.myForm.get('nroRegistro').disable();
+            this.myForm.get('especialidades').disable();
+          }
+        }
+    );
+
     this.myForm.controls['aliasVis'].disable({onlySelf: true});
     this.myForm.controls['nroLegajoVis'].disable({onlySelf: true});
   }
@@ -123,6 +140,16 @@ export class EditFunctionaryComponent implements OnInit {
         }
       });
     }
+  }
+
+  protected filterSpecialties() {
+    this.apiService.getPageList('/especialidades', false, null, null, 'desc', 'id',
+    0, 50)
+    .subscribe(res => {
+      if (res.status == 200) {
+        this.specialties = res.rows;
+      }
+    });
   }
 
 

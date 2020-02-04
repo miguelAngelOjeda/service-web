@@ -102,6 +102,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/types/tryst-status/tryst-status.module#TrystStatusModule'
         },
         {
+        path: 'service-web/specialties',
+        loadChildren: './app-component/types/specialties/specialties.module#SpecialtiesModule'
+        },
+        {
         path: 'service-web/exit-types',
         loadChildren: './app-component/types/exit-types/exit-types.module#ExitTypesModule'
         },

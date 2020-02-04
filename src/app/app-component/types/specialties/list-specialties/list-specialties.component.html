@@ -1,0 +1,65 @@
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/specialties"> ESPECIALIDADES </a> &gt; <span class="current">Lista de ESPECIALIDADES</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+          matTooltipPosition="before"
+          matTooltip="Agregar"
+          routerLink="/service-web/specialties/new" *appCanAccess="['specialties', 'addSpecialties']">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div>
+  <mat-card>
+    <mat-card-content>
+    <!-- <mat-card-subtitle> </mat-card-subtitle> -->
+      <!-- <p> -->
+      <mat-form-field appearance="fill" class="search-form">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput #filter placeholder="Buscar" type="search">
+        <!-- <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon> -->
+      </mat-form-field>
+      <!-- </p> -->
+        <mat-table [dataSource]="dataSource" class="mat-table"
+         matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear>
+
+         <ng-container matColumnDef="codigo">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="codigo">
+              {{element.codigo}}
+           </mat-cell>
+         </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ESPECIALIDAD </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="estado"> {{element.nombre}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="opciones">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <button mat-icon-button routerLink="/service-web/specialties/{{element.id}}" *appCanAccess="['specialties', 'viewSpecialties']"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/specialties/{{element.id}}/edit" *appCanAccess="['specialties', 'editSpecialties']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button (click)="delete(element)" *appCanAccess="['specialties', 'deleteSpecialties']"> <mat-icon>delete</mat-icon></button>
+                </mat-cell>
+            </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [length]="length"
+                      [showFirstLastButtons]="true"
+                      [pageSize]="pageSize"
+                      [pageSizeOptions]="pageSizeOptions">
+        </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

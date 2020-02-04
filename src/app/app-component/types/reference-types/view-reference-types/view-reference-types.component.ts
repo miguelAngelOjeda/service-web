@@ -13,8 +13,7 @@ import { FormGroup, FormArray , FormControl, FormBuilder,
   styleUrls: ['./view-reference-types.component.scss']
 })
 export class ViewReferenceTypesComponent implements OnInit {
-
-    myForm: FormGroup;
+    public myForm: FormGroup;
 
     constructor(
       private formBuilder: FormBuilder,

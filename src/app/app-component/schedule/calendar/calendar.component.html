@@ -1,103 +1,154 @@
-<div class="sidebar">
-  <div class="content">
-    <ul>
-      <li>
-        <a class="mat-fab" style="background: #26c6da;"
-          matTooltipPosition="before"
-          matTooltip="Agregar" (click)="addEvent()">
-          <i class="fa fa-plus-circle"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
-<div class="row text-center">
-  <div class="col-md-4">
-    <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        mwlCalendarPreviousView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
-        Anterior
-      </div>
-      <div
-        class="btn btn-outline-secondary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate"
-      >
-        DIA
-      </div>
-      <div
-        class="btn btn-primary"
-        mwlCalendarNextView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
-        Siguiente
+<mat-card>
+  <mat-card-content>
+    <div class="m-b-20" style="background: #f1f3f4 !important;border: 1px solid transparent !important;border-radius: 8px !important;">
+      <div class="row">
+        <div class="col-md-4">
+          <app-select-filter
+          (value)="getValue($event, 'funcionario')"
+          [modelValue]="modelForm.get('funcionario')?.value"
+          labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido" sortActive="id" [required]="false"
+          placeholder="Doctor" urlFilter="profesionales"
+          [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
+        </app-select-filter>
+        </div>
+        <div class="col-md-4">
+          <app-select-filter
+          (value)="getValue($event, 'cliente')"
+          [modelValue]="modelForm.get('cliente')?.value"
+          labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido" sortActive="id" [required]="false"
+          placeholder="Paciente" urlFilter="clientes"
+          [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
+        </app-select-filter>
+        </div>
+        <div class="col-md-4">
+          <app-select-filter [required]="false"
+          (value)="getValue($event, 'especialidad')"
+          [modelValue]="modelForm.get('especialidad')?.value"
+          placeholder="Especialidad" urlFilter="especialidades" [columnsFilter]="['nombre']"></app-select-filter>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'es' }}</h3>
-  </div>
-  <div class="col-md-4">
-    <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Month)"
-        [class.active]="view === CalendarView.Month"
-      >
-        MESES
+
+    <!-- <mat-form-field appearance="fill" class="search-form">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput #filter placeholder="Buscar" type="search">
+      <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon>
+    </mat-form-field> -->
+    <!-- <form class="m-b-20">
+      <div class="row">
+        <div class="col-md-6">
+          <app-select-filter
+          placeholder="Doctor" urlFilter="tipos-funcionarios" [columnsFilter]="['nombre']"></app-select-filter>
+        </div>
+        <div class="col-md-6">
+          <app-select-filter
+          placeholder="Paciente" urlFilter="tipos-funcionarios" [columnsFilter]="['nombre']"></app-select-filter>
+        </div>
+        <div class="col-md-12">
+          <button class="btn btn-info pull-right">
+            <i class="fa fa-edit"></i> Filtrar
+          </button>
+        </div>
       </div>
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Week)"
-        [class.active]="view === CalendarView.Week"
-      >
-        SEMANAS
-      </div>
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Day)"
-        [class.active]="view === CalendarView.Day">
-        DIA
+    </form> -->
+    <div class="sidebar">
+      <div class="content">
+        <ul>
+          <li>
+            <a class="mat-fab" style="background: #26c6da;"
+              matTooltipPosition="before"
+              matTooltip="Agregar" (click)="addEvent()">
+              <i class="fa fa-plus-circle"></i>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-</div>
-<br />
-<div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="CalendarView.Month"
-    [viewDate]="viewDate"
-    [events]="events"
-    [locale]="locale"
-    [refresh]="refresh"
-    [activeDayIsOpen]="activeDayIsOpen"
-    (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)">
-  </mwl-calendar-month-view>
-  <mwl-calendar-week-view
-    *ngSwitchCase="CalendarView.Week"
-    [viewDate]="viewDate"
-    [locale]="locale"
-    [events]="events"
-    [refresh]="refresh"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)">
-  </mwl-calendar-week-view>
-  <mwl-calendar-day-view
-    *ngSwitchCase="CalendarView.Day"
-    [viewDate]="viewDate"
-    [locale]="locale"
-    [events]="events"
-    [refresh]="refresh"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)">
-  </mwl-calendar-day-view>
-</div>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <div class="btn-group">
+          <div
+            class="btn btn-primary"
+            mwlCalendarPreviousView
+            [view]="view"
+            [(viewDate)]="viewDate"
+            (viewDateChange)="closeOpenMonthViewDay()"
+          >
+            Anterior
+          </div>
+          <div
+            class="btn btn-outline-secondary"
+            mwlCalendarToday
+            [(viewDate)]="viewDate">
+            DIA
+          </div>
+          <div
+            class="btn btn-primary"
+            mwlCalendarNextView
+            [view]="view"
+            [(viewDate)]="viewDate"
+            (viewDateChange)="closeOpenMonthViewDay()">
+            Siguiente
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'es' }}</h3>
+      </div>
+      <div class="col-md-4">
+        <div class="btn-group">
+          <div
+            class="btn btn-primary"
+            (click)="setView(CalendarView.Month)"
+            [class.active]="view === CalendarView.Month">
+            MESES
+          </div>
+          <div
+            class="btn btn-primary"
+            (click)="setView(CalendarView.Week)"
+            [class.active]="view === CalendarView.Week">
+            SEMANAS
+          </div>
+          <div
+            class="btn btn-primary"
+            (click)="setView(CalendarView.Day)"
+            [class.active]="view === CalendarView.Day">
+            DIA
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div [ngSwitch]="view">
+      <mwl-calendar-month-view
+        *ngSwitchCase="CalendarView.Month"
+        [viewDate]="viewDate"
+        [events]="events"
+        [locale]="locale"
+        [refresh]="refresh"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)">
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="CalendarView.Week"
+        [viewDate]="viewDate"
+        [locale]="locale"
+        [events]="events"
+        [refresh]="refresh"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)">
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="CalendarView.Day"
+        [viewDate]="viewDate"
+        [locale]="locale"
+        [events]="events"
+        [refresh]="refresh"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)">
+      </mwl-calendar-day-view>
+    </div>
+  </mat-card-content>
+</mat-card>

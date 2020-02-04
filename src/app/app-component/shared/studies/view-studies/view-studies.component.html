@@ -2,42 +2,70 @@
 <ng-container *ngIf="peopleForm.get(formArrayName)['controls'].length > 0">
   <div class="row m-t-20">
     <div class="col-md-12 m-b-10">
-        <h4  class="m-0 font-20"><mat-icon class="gray-text">library_books</mat-icon>Estudios
-        </h4>
+      <h4  class="m-0 font-20"><mat-icon class="gray-text">library_books</mat-icon>Estudios
+      </h4>
     </div>
-    <ng-container formGroupName="persona">
-      <div [formArrayName]="formArrayName"  *ngFor="let estudios of peopleForm.get(formArrayName)['controls']; let i = index" class="col-md-12">
-        <blockquote>
-          <div [formGroupName]="i">
-            <div class="row">
-              <div class="col-sm-4">
-                <p mat-line><span class="font-bold">TIPO ESTUDIO</span> {{estudios.controls.tipoEstudio.value?.nombre}}</p>
-              </div>
-              <div class="col-sm-4">
-                <p mat-line><span class="font-bold">ENTIDAD ESTUDIO</span> {{estudios.get('nombre')?.value}}</p>
-              </div>
-              <div class="col-sm-4">
-                <p mat-line><span class="font-bold">SEMESTRE</span> {{estudios.get('semestre')?.value}}</p>
-              </div>
-              <div class="col-sm-4">
-                <p mat-line><span class="font-bold">FECHA INICIO</span> {{estudios.get('fechaInicio')?.value  | date: 'dd/MM/yyyy'}}</p>
-              </div>
-              <div class="col-sm-4">
-                <p mat-line><span class="font-bold">FECHA FIN</span> {{estudios.get('fechaFin')?.value  | date: 'dd/MM/yyyy'}}</p>
-              </div>
-              <div class="col-sm-4">
-                <p mat-line><span class="font-bold">CONCLUIDO</span> {{(estudios.get('concluido')?.value == true ? 'S' : 'N')}}</p>
-              </div>
-              <div class="col-sm-4">
-                <p mat-line><span class="font-bold">TITULO</span> {{estudios.get('titulo')?.value}}</p>
-              </div>
-              <div class="col-sm-4">
-                <p mat-line><span class="font-bold">NRO. REGISTRO</span> {{estudios.get('numeroRegistro')?.value}}</p>
-              </div>
-            </div>
-          </div>
-        </blockquote>
-      </div>
-    </ng-container>
   </div>
+  <mat-table [dataSource]="dataSource" class="mat-table" [class.isMobile]="isMobile">
+
+    <ng-container matColumnDef="tipoEstudio">
+      <mat-header-cell *matHeaderCellDef> TIPO ESTUDIO </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="TIPO ESTUDIO">
+        {{element.tipoEstudio.nombre}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef> ENTIDAD ESTUDIO </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="ENTIDAD ESTUDIO">
+        {{element.nombre}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="semestre">
+      <mat-header-cell *matHeaderCellDef> SEMESTRE </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="SEMESTRE">
+        {{element.semestre}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaInicio">
+      <mat-header-cell *matHeaderCellDef> FECHA INICIO </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="FECHA INICIO">
+        {{element.fechaInicio | date: 'dd/MM/yyyy' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaFin">
+      <mat-header-cell *matHeaderCellDef> FECHA FIN </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="FECHA FIN">
+        {{element.fechaFin | date: 'dd/MM/yyyy' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="concluido">
+      <mat-header-cell *matHeaderCellDef> CONCLUIDO </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="CONCLUIDO">
+        {{element.concluido == true ? 'S' : 'N' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="titulo">
+      <mat-header-cell *matHeaderCellDef> TITULO </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="TITULO">
+        {{element.titulo}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="numeroRegistro">
+      <mat-header-cell *matHeaderCellDef> NRO. REGISTRO </mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="NRO. REGISTRO">
+        {{element.numeroRegistro}}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
 </ng-container>

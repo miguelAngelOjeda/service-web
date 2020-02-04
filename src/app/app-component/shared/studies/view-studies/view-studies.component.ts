@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from '../../../../core/services';
+import { MatTableDataSource, MatSort, PageEvent, Sort} from '@angular/material';
 import {merge, fromEvent, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators,
@@ -12,8 +13,10 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators,
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
 export class ViewStudiesComponent implements OnInit {
-  studiesForm: FormGroup;
-  peopleForm: FormGroup;
+  public studiesForm: FormGroup;
+  public peopleForm: FormGroup;
+  public displayedColumns = ['tipoEstudio', 'nombre', 'semestre','fechaInicio','fechaFin','concluido','titulo','numeroRegistro'];
+  public dataSource = new MatTableDataSource<any>();
 
   formArrayName = 'estudios';
 
@@ -42,10 +45,12 @@ export class ViewStudiesComponent implements OnInit {
   ngOnInit() {
     this.studiesForm = this.parentF.form;
     this.peopleForm = (<FormGroup>this.studiesForm.get('persona'));
-
     this.peopleForm.addControl(this.formArrayName, this.formBuilder.array([]));
-
-    this.addButton();
+    this.peopleForm.controls[this.formArrayName].valueChanges.subscribe(
+        (registros) => {
+          this.dataSource.data = registros;
+        }
+    );
   }
 
   onChangesFkModel(id:any){

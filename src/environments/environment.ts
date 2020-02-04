@@ -517,6 +517,23 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_DOCUMENT_TYPES.DELETE"]
     	}
     },
+    "specialties": {
+      "addSpecialties": {
+    	   "permittedRoles": ["ROLE_SPECIALTIES.ADD"]
+    	 },
+    	"editSpecialties": {
+    	  "permittedRoles": ["ROLE_SPECIALTIES.EDIT"]
+    	},
+    	"viewSpecialties": {
+    	  "permittedRoles": ["ROLE_SPECIALTIES.VIEW"]
+    	},
+    	"listSpecialties": {
+    	  "permittedRoles": ["ROLE_SPECIALTIES.LIST"]
+    	},
+      "deleteSpecialties": {
+    	  "permittedRoles": ["ROLE_SPECIALTIES.DELETE"]
+    	}
+    },
     "modality": {
       "addModality": {
     	   "permittedRoles": ["ROLE_MODALITY.ADD"]

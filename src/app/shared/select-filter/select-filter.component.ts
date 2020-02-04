@@ -36,6 +36,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
     }else{
       this.modelControl.enable();
     }
+    console.log(this.modelControl);
   }
 
   @Input() set appearance (appearance : any){
@@ -147,54 +148,59 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
 
   label(data?: any) {
     let labelName = '';
-    if(this.labelKey){
-      let array_labels: Array<any> = this.labelKey.split(',');
-      for (let label of array_labels) {
-        if(label.includes('.')){
-          let keys: Array<any> = label.split('.');
-          let dataModel = data[keys[0]];
-          if(dataModel){
-            labelName = labelName + ' ' + dataModel[keys[1]];
-          }
-        }else{
-          if(data){
-            labelName = labelName + ' ' +  data[label];
+    if(data){
+      if(this.labelKey){
+        let array_labels: Array<any> = this.labelKey.split(',');
+        for (let label of array_labels) {
+          if(label.includes('.')){
+            let keys: Array<any> = label.split('.');
+            let dataModel = data[keys[0]];
+            if(dataModel){
+              labelName = labelName + ' ' + dataModel[keys[1]];
+            }
+          }else{
+            if(data){
+              labelName = labelName + ' ' +  data[label];
+            }
           }
         }
+      }else{
+        labelName = data['nombre'];
       }
-    }else{
-      labelName = data['nombre'];
     }
-
     return labelName;
   }
 
   displayFn(data?: any): string | undefined {
     let labelName = '';
-    if(this.labelKey){
-      let array_labels: Array<any> = this.labelKey.split(',');
-      for (let label of array_labels) {
-        if(label.includes('.')){
-          let keys: Array<any> = label.split('.');
-          let dataModel = data[keys[0]];
-          if(dataModel){
-            labelName = labelName + ' ' + dataModel[keys[1]];
-          }
-        }else{
-          if(data){
-            labelName = labelName + ' ' +  data[label];
+    if(data){
+      if(this.labelKey){
+        let array_labels: Array<any> = this.labelKey.split(',');
+        for (let label of array_labels) {
+          if(label.includes('.')){
+            let keys: Array<any> = label.split('.');
+            let dataModel = data[keys[0]];
+            if(dataModel){
+              labelName = labelName + ' ' + dataModel[keys[1]];
+            }
+          }else{
+            if(data){
+              labelName = labelName + ' ' +  data[label];
+            }
           }
         }
-      }
 
-    }else{
-      labelName = data['nombre'];
+      }else{
+        labelName = data['nombre'];
+      }
     }
+
     return labelName;
   }
 
   setValue(value:any) {
     this.value.emit(value);
+    this.modelControl.setValue(null);
   }
 
   getErrorMessage() {

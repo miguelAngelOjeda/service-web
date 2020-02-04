@@ -81,6 +81,7 @@ const MENUITEMS = [
       {state: 'position-types', name: 'Tipos Cargos', icon: '', entity:'position-types', role:'listPositionTypes'},
       {state: 'tryst-types', name: 'Tipos Citas', icon: '', entity:'tryst-types', role:'listTrystTypes'},
       {state: 'tryst-status', name: 'Estado Citas', icon: '', entity:'tryst-status', role:'listTrystStatus'},
+      {state: 'specialties', name: 'Especialidades', icon: '', entity:'specialties', role:'listSpecialties'},
       {state: 'document-types', name: 'Tipos Documentos', icon: '', entity:'document-types', role:'listDocumentTypes'},
       {state: 'study-types', name: 'Tipos Estudios', icon: '', entity:'study-types', role:'listStudyTypes'}
     ]
