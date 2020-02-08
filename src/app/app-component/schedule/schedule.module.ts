@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CalendarComponent  } from './calendar';
+import { ListScheduleComponent } from './list-schedule';
 import { FormsModule } from '@angular/forms';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -50,10 +51,12 @@ registerLocaleData(localeEs);
   ],
   exports: [
     DeleteDialogComponent,
+    ListScheduleComponent,
     CalendarComponent
   ],
   declarations: [
     CalendarComponent,
+    ListScheduleComponent,
     EditModalScheduleComponent,
     AddModalScheduleComponent,
     ViewModalScheduleComponent

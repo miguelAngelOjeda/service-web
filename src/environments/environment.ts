@@ -551,6 +551,26 @@ export const authorities = {
     	  "permittedRoles": ["ROLE_MODALITY.DELETE"]
     	}
     },
+    "schedule": {
+      "addSchedule": {
+    	   "permittedRoles": ["ROLE_SCHEDULE.ADD"]
+    	 },
+    	"editSchedule": {
+    	  "permittedRoles": ["ROLE_SCHEDULE.EDIT"]
+    	},
+    	"viewSchedule": {
+    	  "permittedRoles": ["ROLE_SCHEDULE.VIEW"]
+    	},
+    	"listSchedule": {
+    	  "permittedRoles": ["ROLE_SCHEDULE.LIST","ROLE_SCHEDULE.LISTALL"]
+    	},
+      "listAllSchedule": {
+    	  "permittedRoles": ["ROLE_SCHEDULE.LISTALL"]
+    	},
+      "deleteSchedule": {
+    	  "permittedRoles": ["ROLE_SCHEDULE.DELETE"]
+    	}
+    },
     "message": {
       "sendMessage": {
     	   "permittedRoles": ["ROLE_MESSAGE.SEND"]

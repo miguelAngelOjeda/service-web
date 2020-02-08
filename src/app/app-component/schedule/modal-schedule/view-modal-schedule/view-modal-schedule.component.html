@@ -1,40 +1,86 @@
 
-<h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>{{title}}</h4>
-<form [formGroup]="myForm">
-	<mat-dialog-content>
-		<div class="row m-t-20">
-			<div class="col-md-12">
-				<div class="row">
-					<div class="col-md-12">
-						<app-view-people></app-view-people>
-					</div>
-					<div class="col-md-12">
-						<app-view-spouse></app-view-spouse>
-					</div>
-					<div class="col-md-12">
-						<app-view-reference></app-view-reference>
-					</div>
-					<div class="col-md-12">
-						<app-view-occupation></app-view-occupation>
-					</div>
-					<div class="col-md-12">
-						<app-view-estate></app-view-estate>
-					</div>
-					<div class="col-md-12">
-						<app-view-vehicle></app-view-vehicle>
-					</div>
-					<div class="col-md-12 m-t-20">
-						<div class="row">
-							<div class="col-md-6">
-								<app-view-ingress [fkFilterModel]="myForm.value.persona.id"></app-view-ingress>
-							</div>
-							<div class="col-md-6">
-								<app-view-egresss [fkFilterModel]="myForm.value.persona.id"></app-view-egresss>
-							</div>
-						</div>
-					</div>
+<h4 mat-dialog-title class="m-0"><mat-icon class="gray-text">supervisor_account</mat-icon>Agendas</h4>
+<form [formGroup]="modelForm">
+	<mat-dialog-content class="modal-body">
+			<div class="row">
+				<div class="col-sm-4">
+          <p mat-line><span class="font-bold">ESPECIALIDAD</span> {{modelForm.get('especialidad')?.value?.nombre}}</p>
+        </div>
+				<div class="col-sm-4">
+          <p mat-line><span class="font-bold">DOCTOR</span>
+						{{
+						(modelForm.get('funcionario')?.value?.persona?.primerNombre == null ? '' : modelForm.get('funcionario')?.value?.persona?.primerNombre)
+						+ ' ' +
+						(modelForm.get('funcionario')?.value?.persona?.segundoNombre == null ? '' : modelForm.get('funcionario')?.value?.persona?.segundoNombre)
+						+ ' ' +
+						(modelForm.get('funcionario')?.value?.persona?.primerApellido == null ? '' : modelForm.get('funcionario')?.value?.persona?.primerApellido)
+						+ ' ' +
+						(modelForm.get('funcionario')?.value?.persona?.segundoApellido == null ? '' : modelForm.get('funcionario')?.value?.persona?.segundoApellido)
+						}}
+					</p>
+        </div>
+				<div class="col-sm-4">
+          <p mat-line><span class="font-bold">TIPO CITA</span> {{modelForm.get('tipoCitas')?.value?.nombre}}</p>
+        </div>
+				<div class="col-sm-4">
+          <p mat-line><span class="font-bold">FECHA CONSULTA</span> {{modelForm.get('fechaConsulta')?.value | date:'dd-MM-yyyy'}}</p>
+        </div>
+				<div class="col-sm-4">
+          <p mat-line><span class="font-bold">HORA INICIO</span> {{modelForm.get('horaInicio')?.value}}</p>
+        </div>
+				<div class="col-sm-4">
+          <p mat-line><span class="font-bold">HORA FIN</span> {{modelForm.get('horaFin')?.value}}</p>
+        </div>
+				<div class="col-md-12">
+					<h4  class="m-0"><mat-icon class="gray-text">assignment</mat-icon>Paciente</h4>
 				</div>
+				<div class="col-md-6 m-t-10 col-lg-6 col-xl-12">
+						<div class="card card-body">
+								<div class="row">
+										<div class="col-md-3 col-lg-1 text-center">
+												<a href="app-contact-detail.html"><img src="../assets/images/users/1.jpg" alt="user" width="90" class="rounded-circle img-fluid"></a>
+										</div>
+										<div class="col-md-8 col-lg-9 text-center text-md-left">
+												<h3 class="mb-0">
+													{{
+								          (modelForm.get('cliente')?.value?.persona?.primerNombre == null ? '' : modelForm.get('cliente')?.value?.persona?.primerNombre)
+								          + ' ' +
+								          (modelForm.get('cliente')?.value?.persona?.segundoNombre == null ? '' : modelForm.get('cliente')?.value?.persona?.segundoNombre)
+								          + ' ' +
+								          (modelForm.get('cliente')?.value?.persona?.primerApellido == null ? '' : modelForm.get('cliente')?.value?.persona?.primerApellido)
+								          + ' ' +
+								          (modelForm.get('cliente')?.value?.persona?.segundoApellido == null ? '' : modelForm.get('cliente')?.value?.persona?.segundoApellido)
+								          }}
+												</h3> <small>{{modelForm.get('cliente')?.value?.persona?.profesion?.nombre == null ? '' : modelForm.get('cliente')?.value?.persona?.profesion?.nombre}}</small>
+												<address>
+														{{modelForm.get('cliente')?.value?.persona?.direccionParticular == null ? '' : modelForm.get('cliente')?.value?.persona?.direccionParticular}}
+	      										<br>
+														<abbr title="Phone" *ngIf="modelForm.get('cliente')?.value?.persona">Tel.:</abbr> {{(modelForm.get('cliente')?.value?.persona?.telefonoParticular == null ? '' : modelForm.get('cliente')?.value?.persona?.telefonoParticular)
+									          + (modelForm.get('cliente')?.value?.persona?.telefonoSecundario == null ? '' : ' / ' + modelForm.get('cliente')?.value?.persona?.telefonoSecundario)}}
+												</address>
+										</div>
+										<div class="col-md-12 m-t-10 col-lg-2 text-center" *ngIf="modelForm.get('nuevoCliente').value">
+											<button type="button" class="btn btn-outline-success btn-rounded">
+											Agregar Paciente
+										 </button>
+										</div>
+								</div>
+						</div>
+				</div>
+				<div class="col-md-12 m-t-20">
+					<section class="example-section">
+							 <mat-checkbox formControlName="recordatorio" name="recordatorio">Enviar recordatorio por correo</mat-checkbox>
+					</section>
+				</div>
+				<div class="col-sm-12">
+          <p mat-line><span class="font-bold">OBSERVACION</span> {{modelForm.get('observacion')?.value}}</p>
+        </div>
+				<div class="col-sm-4">
+          <p mat-line><span class="font-bold">ESTADO</span> {{modelForm.get('estadoCitas')?.value.nombre}}</p>
+        </div>
+				<div class="col-sm-4">
+          <p mat-line><span class="font-bold">COMO NOS CONOCIO</span> </p>
+        </div>
 			</div>
-		</div>
 	</mat-dialog-content>
 </form>

@@ -13,11 +13,7 @@ import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
   styleUrls: ['./view-modal-schedule.component.css']
 })
 export class ViewModalScheduleComponent implements OnInit{
-  myForm: FormGroup;
-  peopleForm: FormGroup;
-
-  public people: any;
-  public title: any;
+  modelForm: FormGroup;
 
   constructor(
             public dialog: MatDialog,
@@ -26,19 +22,31 @@ export class ViewModalScheduleComponent implements OnInit{
             public dialogRef: MatDialogRef<ViewModalScheduleComponent>,
             private apiService: ApiService,
             @Inject(MAT_DIALOG_DATA) public data: any) {
-              this.people = data.model;
-              this.title = data.title;
+              this.initFormBuilder();
+              this.modelForm.patchValue(data);
   }
 
   ngOnInit() {
-    this.initFormBuilder();
-    setTimeout(() => {
-        this.peopleService.loadData(<FormGroup>this.myForm.get('persona'),this.people);
-    });
   }
 
 
-  protected initFormBuilder() {
-    this.myForm = this.formBuilder.group({});
+  initFormBuilder() {
+    this.modelForm = this.formBuilder.group({
+      id: null,
+      codigoConsulta: null ,
+      nuevoCliente: false ,
+      fechaConsulta: [{ value: new Date(), disabled: true }, [Validators.required]],
+      horaInicio: [null, [Validators.required]],
+      horaFin: [null, [Validators.required]],
+      duracion: [null, [Validators.required]],
+      tipoCitas: [null, [Validators.required]],
+      estadoCitas: [null, [Validators.required]],
+      especialidad: [null],
+      funcionario: [null, [Validators.required]],
+      cliente: [null, [Validators.required]],
+      observacion: null,
+      color: null,
+      recordatorio: true
+    });
   }
 }

@@ -54,7 +54,7 @@ export class EditModalScheduleComponent implements OnInit{
       duracion: [null, [Validators.required]],
       tipoCitas: [null, [Validators.required]],
       estadoCitas: [null, [Validators.required]],
-      especialidad: [null, [Validators.required]],
+      especialidad: [null],
       funcionario: [null, [Validators.required]],
       cliente: [null, [Validators.required]],
       observacion: null,

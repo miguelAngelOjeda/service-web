@@ -3,20 +3,20 @@
 <form [formGroup]="modelForm" (ngSubmit)="modelForm.valid && onSubmit()">
 	<mat-dialog-content class="modal-body m-t-20">
 			<div class="row">
-				<div class="col-md-12">
+				<!-- <div class="col-md-12">
 					<app-select-filter (value)="getValue($event, 'especialidad')" [disabled]="true"
 					 [modelValue]="modelForm.get('especialidad')?.value"
 					 sortActive="id"
 					 placeholder="Especialidad" urlFilter="especialidades"
 					 [columnsFilter]="['nombre']">
 				 </app-select-filter>
-				</div>
+				</div> -->
 				<div class="col-md-12">
 					<app-select-filter (value)="getValue($event, 'funcionario')" [disabled]="true"
 					 labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido"
 					 [modelValue]="modelForm.get('funcionario')?.value"
 					 sortActive="id"
-					 placeholder="Doctor" urlFilter="profesionales/especialidad"
+					 placeholder="Doctor" urlFilter="profesionales"
 					 [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
 				 </app-select-filter>
 				</div>
@@ -31,7 +31,7 @@
 				</div>
 				<div class="col-md-4">
 					<mat-form-field appearance="legacy">
-						<input matInput #input [min]="minDate" [disabled]="true" [matDatepicker]="picker" placeholder="Fecha" formControlName="fechaConsulta" name="fechaConsulta"  required>
+						<input matInput #input [min]="minDate"  [matDatepicker]="picker" placeholder="Fecha" formControlName="fechaConsulta" name="fechaConsulta"  required>
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 	  				<mat-datepicker #picker></mat-datepicker>
 						<mat-error *ngIf="(modelForm.get('fechaConsulta').errors)">

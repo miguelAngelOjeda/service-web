@@ -138,6 +138,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       tipoCitas: [null, [Validators.required]],
       estadoCitas: [null, [Validators.required]],
       funcionario: [null, [Validators.required]],
+      especialidad: [null],
       cliente: [null, [Validators.required]],
       observacion: null,
       recordatorio: null
@@ -182,8 +183,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    this.apiService.get('/citas/' + event.id)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.model.fechaConsulta = new Date(res.model.fechaConsulta);
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = res.model;
+        const dialogRef = this.dialog.open(ViewModalScheduleComponent,dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+          this.loadCalendar(false);
+        });
+      }
+    });
   }
 
   addEvent(): void {
@@ -201,6 +213,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   setView(view: CalendarView) {
+    console.log('action');
     this.view = view;
   }
 

@@ -3,58 +3,42 @@
     <div class="m-b-20" style="background: #f1f3f4 !important;border: 1px solid transparent !important;border-radius: 8px !important;">
       <div class="row">
         <div class="col-md-4">
-          <app-select-filter
-          (value)="getValue($event, 'funcionario')"
-          [modelValue]="modelForm.get('funcionario')?.value"
-          labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido" sortActive="id" [required]="false"
-          placeholder="Doctor" urlFilter="profesionales"
-          [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
-        </app-select-filter>
-        </div>
-        <div class="col-md-4">
-          <app-select-filter
-          (value)="getValue($event, 'cliente')"
-          [modelValue]="modelForm.get('cliente')?.value"
-          labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido" sortActive="id" [required]="false"
-          placeholder="Paciente" urlFilter="clientes"
-          [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
-        </app-select-filter>
-        </div>
-        <div class="col-md-4">
           <app-select-filter [required]="false"
           (value)="getValue($event, 'especialidad')"
           [modelValue]="modelForm.get('especialidad')?.value"
           placeholder="Especialidad" urlFilter="especialidades" [columnsFilter]="['nombre']"></app-select-filter>
         </div>
+        <div class="col-md-4" *appCanAccess="['schedule', 'listAllSchedule']">
+          <app-select-filter
+            (value)="getValue($event, 'funcionario')"
+            [modelValue]="modelForm.get('funcionario')?.value"
+            labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido" sortActive="id" [required]="false"
+            placeholder="Doctor" urlFilter="profesionales"
+            [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
+          </app-select-filter>
+        </div>
+        <div class="col-md-4">
+          <app-select-filter
+            (value)="getValue($event, 'cliente')"
+            [modelValue]="modelForm.get('cliente')?.value"
+            labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido" sortActive="id" [required]="false"
+            placeholder="Paciente" urlFilter="clientes"
+            [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
+          </app-select-filter>
+        </div>
       </div>
     </div>
-
-    <!-- <mat-form-field appearance="fill" class="search-form">
-      <mat-icon matPrefix>search</mat-icon>
-      <input matInput #filter placeholder="Buscar" type="search">
-      <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon>
-    </mat-form-field> -->
-    <!-- <form class="m-b-20">
-      <div class="row">
-        <div class="col-md-6">
-          <app-select-filter
-          placeholder="Doctor" urlFilter="tipos-funcionarios" [columnsFilter]="['nombre']"></app-select-filter>
-        </div>
-        <div class="col-md-6">
-          <app-select-filter
-          placeholder="Paciente" urlFilter="tipos-funcionarios" [columnsFilter]="['nombre']"></app-select-filter>
-        </div>
-        <div class="col-md-12">
-          <button class="btn btn-info pull-right">
-            <i class="fa fa-edit"></i> Filtrar
-          </button>
-        </div>
-      </div>
-    </form> -->
     <div class="sidebar">
       <div class="content">
         <ul>
           <li>
+            <a class="mat-fab" style="background: #26c6da;"
+              matTooltipPosition="before"
+              matTooltip="Lista" routerLink="/service-web/schedule">
+              <i class="fa fa-bars"></i>
+            </a>
+          </li>
+          <li *appCanAccess="['schedule', 'addSchedule']" >
             <a class="mat-fab" style="background: #26c6da;"
               matTooltipPosition="before"
               matTooltip="Agregar" (click)="addEvent()">

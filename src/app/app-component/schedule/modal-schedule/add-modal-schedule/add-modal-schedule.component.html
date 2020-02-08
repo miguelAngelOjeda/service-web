@@ -3,21 +3,20 @@
 <form [formGroup]="modelForm" (ngSubmit)="modelForm.valid && onSubmit()">
 	<mat-dialog-content class="modal-body m-t-20">
 			<div class="row">
-				<div class="col-md-12">
+				<!-- <div class="col-md-12">
 					<app-select-filter (value)="getValue($event, 'especialidad')"
 					 [modelValue]="modelForm.get('especialidad')?.value"
 					 sortActive="id"
 					 placeholder="Especialidad" urlFilter="especialidades"
 					 [columnsFilter]="['nombre']">
 				 </app-select-filter>
-				</div>
+				</div> -->
 				<div class="col-md-12">
-					<app-select-filter (value)="getValue($event, 'funcionario')" [disabled]="true"
+					<app-select-filter (value)="getValue($event, 'funcionario')"
 					 labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido"
 					 [modelValue]="modelForm.get('funcionario')?.value"
 					 sortActive="id"
-					 placeholder="Doctor" urlFilter="profesionales/especialidad"
-					 [fkFilterModel]="modelForm.get('especialidad')?.value"
+					 placeholder="Doctor" urlFilter="profesionales"
 					 [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
 				 </app-select-filter>
 				</div>
@@ -71,8 +70,28 @@
 				</div>
 				<div class="col-md-4">
 					<section class="example-section">
-							 <mat-checkbox  class="example-margin">Cita Repetida</mat-checkbox>
+							 <mat-checkbox formControlName="citaRepetida" name="citaRepetida" class="example-margin">Cita Repetida</mat-checkbox>
 					</section>
+				</div>
+				<div class="col-md-12" *ngIf="modelForm.get('citaRepetida').value">
+					<mat-form-field>
+					  <mat-chip-list #chipList aria-label="Choose a date"
+					    (click)="picker.open()">
+					    <mat-chip
+					      *ngFor="let value of modelForm.get('fechasRepetidas').value"
+					      [selectable]="false"
+					      [removable]="true"
+					      (removed)="remove(value)">
+					      {{ value | date }}
+					      <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+					    </mat-chip>
+					    <input [min]="modelForm.get('fechaConsulta').value" [value]="modelForm.get('fechaConsulta').value" matInput [matDatepicker]="picker"
+					           (dateChange)="dateChanged($event)"
+					           [matChipInputFor]="chipList" hidden />
+					  </mat-chip-list>
+					  <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+					  <mat-datepicker #picker  [startAt]="modelForm.get('fechaConsulta').value" [dateClass]="dateClass"></mat-datepicker>
+					</mat-form-field>
 				</div>
 				<div class="col-md-12 m-t-20">
 					<div class="row">

@@ -1,0 +1,174 @@
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/schedule"> CITAS </a> &gt; <span class="current">Lista de Citas</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
+<div class="sidebar">
+  <div class="content">
+    <ul>
+      <li>
+        <a class="mat-fab" style="background: #26c6da;"
+        matTooltipPosition="before"
+        matTooltip="Calendario" routerLink="/service-web/schedule/calendar">
+        <i class="fa fa-calendar"></i>
+      </a>
+    </li>
+    <li>
+      <a class="mat-fab" style="background: #26c6da;"
+      matTooltipPosition="before"
+      matTooltip="Agregar" (click)="add()" *appCanAccess="['schedule', 'addSchedule']">
+      <i class="fa fa-plus-circle"></i>
+    </a>
+  </li>
+</ul>
+</div>
+</div>
+<div>
+  <mat-card>
+    <mat-card-content>
+      <mat-form-field appearance="fill" class="search-form">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput #filter placeholder="Buscar" type="search">
+        <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon>
+      </mat-form-field>
+      <mat-expansion-panel [expanded]="advanceFilterOpenState" class="advance-search-form" [ngClass]="{'opened': advanceFilterOpenState}">
+        <form [formGroup]="filterForm" class="p-t-20">
+          <div  class="row">
+            <div class="col-md-6">
+              <mat-form-field  appearance="legacy">
+                <input matInput #input [matDatepicker]="pickerInicio" formControlName="fechaInicio"  name="fechaInicio" placeholder="Fecha Inicio">
+                <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                <mat-datepicker #pickerInicio></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field  appearance="legacy">
+                <input matInput #input [matDatepicker]="pickerFin" formControlName="fechaFin"  name="fechaFin" placeholder="Fecha Fin">
+                <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <app-select-filter [required]="false"
+              (value)="getValue($event, 'especialidad')"
+              [modelValue]="filterForm.get('especialidad')?.value"
+              placeholder="Especialidad" urlFilter="especialidades" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-4" *appCanAccess="['schedule', 'listAllSchedule']">
+                <app-select-filter
+                  (value)="getValue($event, 'funcionario')"
+                  [modelValue]="filterForm.get('funcionario')?.value"
+                  labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido" sortActive="id" [required]="false"
+                  placeholder="Doctor" urlFilter="profesionales"
+                  [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
+                </app-select-filter>
+            </div>
+            <div class="col-md-4">
+              <app-select-filter
+                (value)="getValue($event, 'cliente')"
+                [modelValue]="filterForm.get('cliente')?.value"
+                labelKey="persona.primerNombre,persona.segundoNombre,persona.primerApellido" sortActive="id" [required]="false"
+                placeholder="Paciente" urlFilter="clientes"
+                [columnsFilter]="['persona.documento', 'persona.ruc', 'persona.primerNombre', 'persona.segundoNombre', 'persona.primerApellido']">
+              </app-select-filter>
+            </div>
+            <div class="col-md-4">
+              <app-select-filter [required]="false"
+              (value)="getValue($event, 'tipoCitas')"
+              [modelValue]="filterForm.get('tipoCitas')?.value"
+              placeholder="Tipo Cita" urlFilter="tipos-citas" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-4">
+              <app-select-filter [required]="false"
+              (value)="getValue($event, 'estadoCitas')"
+              [modelValue]="filterForm.get('estadoCitas')?.value"
+              placeholder="Estado" urlFilter="estado-citas" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-12 p-t-20 advance-filter-buttons">
+              <button mat-button mat-raised-button #filterButton>Filtrar</button>
+              <button mat-button mat-flat-button (click)="closeFilterAdvance()">Cerrar</button>
+            </div>
+          </div>
+        </form>
+      </mat-expansion-panel>
+      <mat-table [dataSource]="dataSource" class="mat-table"
+      matSort  matSortActive="nombre" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+
+      <ng-container matColumnDef="funcionario.persona.primerNombre">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> DOCTOR </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="nombre">
+          {{(element.funcionario.persona.primerNombre == null ? '' : element.funcionario.persona.primerNombre) +' ' +(element.funcionario.persona.segundoNombre == null ? '' : element.funcionario.persona.segundoNombre)
+          +', ' +(element.funcionario.persona.primerApellido == null ? '' : element.funcionario.persona.primerApellido) + ' ' +(element.funcionario.persona.segundoApellido == null ? '' : element.funcionario.persona.segundoApellido)}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="fechaConsulta">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="FECHA">
+          {{element.fechaConsulta | date:'dd-MM-yyyy'}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="horaInicio">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> HORA </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="HORA">
+          {{element.horaInicio}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cliente.persona.primerNombre">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> PACIENTE </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="PACIENTE">
+          {{(element.cliente.persona.primerNombre == null ? '' : element.cliente.persona.primerNombre) +' ' +(element.cliente.persona.segundoNombre == null ? '' : element.cliente.persona.segundoNombre)
+          +', ' +(element.cliente.persona.primerApellido == null ? '' : element.cliente.persona.primerApellido) + ' ' +(element.cliente.persona.segundoApellido == null ? '' : element.cliente.persona.segundoApellido)}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tipoCitas.nombre">
+        <mat-header-cell *matHeaderCellDef> TIPO VISITA </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element" data-label="TIPO VISITA">
+          {{element.tipoCitas.nombre}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="estadoCitas.nombre">
+        <mat-header-cell *matHeaderCellDef> ESTADO </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element" data-label="ESTADO">
+          {{element.estadoCitas.nombre}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cliente.persona.telefono">
+        <mat-header-cell *matHeaderCellDef> TELEFONO </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="telefono">
+          {{element.cliente.persona.telefono}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cliente.persona.email">
+        <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="email">
+          {{element.cliente.persona.email}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="opciones">
+        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="view(element)" *appCanAccess="['schedule', 'viewSchedule']"><mat-icon>visibility</mat-icon></button>
+          <button mat-icon-button (click)="edit(element)" *appCanAccess="['schedule', 'editSchedule']"> <mat-icon>edit</mat-icon></button>
+          <button mat-icon-button (click)="delete(element)" *appCanAccess="['schedule', 'editSchedule']"> <mat-icon>delete</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="length"
+    [showFirstLastButtons]="false"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
+</mat-card-content>
+</mat-card>
+</div>
