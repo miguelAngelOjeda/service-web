@@ -25,8 +25,8 @@ export function tokenGetter() {
          whitelistedDomains: [
           'app1.creditoguarani.com.py',
           'https://app1.creditoguarani.com.py',
-          'app1.financorp.com.py',
-          'https://app1.financorp.com.py',
+          'app2.financorp.com.py',
+          'https://app2.financorp.com.py',
           'appdesa1.creditoguarani.com.py',
           'https://appdesa1.creditoguarani.com.py'
         ],
