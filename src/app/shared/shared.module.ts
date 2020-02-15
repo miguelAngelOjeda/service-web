@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { SnackbarService,SnackbarComponent } from '../shared';
-import { DeleteDialogComponent, GalleryDialogComponent } from './dialog';
+import { DeleteDialogComponent, GalleryDialogComponent, GalleryDialogPdfComponent } from './dialog';
 import { CanAccessDirective } from './can-access.directive';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 import { MapComponent } from '../shared/map';
@@ -18,6 +18,7 @@ import { ViewUploadComponent } from '../shared/upload/view-upload';
 import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
 import { ImageViewerModule } from 'ng2-image-viewer';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxCurrencyModule } from "ngx-currency";
 
@@ -27,6 +28,7 @@ import { NgxCurrencyModule } from "ngx-currency";
     FormsModule,
     MaterialModule,
     FileUploadModule,
+    PdfJsViewerModule,
     ImageViewerModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
@@ -44,6 +46,7 @@ import { NgxCurrencyModule } from "ngx-currency";
     AccordionAnchorDirective,
     AccordionLinkDirective,
     GalleryDialogComponent,
+    GalleryDialogPdfComponent,
     DeleteDialogComponent,
     MapComponent,
     DropifyImageComponent,
@@ -67,11 +70,13 @@ import { NgxCurrencyModule } from "ngx-currency";
     MapComponent,
     DropifyImageComponent,
     GalleryDialogComponent,
+    GalleryDialogPdfComponent,
     DeleteDialogComponent,
     SelectFilterComponent
   ],
   entryComponents: [
     GalleryDialogComponent,
+    GalleryDialogPdfComponent,
     DeleteDialogComponent
   ],
   providers: [

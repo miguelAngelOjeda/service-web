@@ -5,7 +5,7 @@ import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 import { DeleteDialogComponent } from '../../../shared/dialog';
 import { Message } from '../../../core/models';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { GalleryDialogComponent } from '../../../shared/dialog';
+import { GalleryDialogComponent, GalleryDialogPdfComponent } from '../../../shared/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of  } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
@@ -129,14 +129,16 @@ export class ViewUploadComponent implements OnInit {
       if(res.status == 200){
         let array = []
         if(res.model.tipoArchivo === 'application/pdf'){
-          this.viewPdf(environment.api_url + '/DescargaServlet?path=' + res.model.path).subscribe(blob => {
-            const reader = new FileReader();
-            const binaryString = reader.readAsDataURL(blob);
-            reader.onload = (event: any) => {
-              array.push(event.target.result.split(',')[1]);
-              this.loadView(array);
-            };
-          });
+          let url = environment.api_url + '/DescargaServlet?path=' + res.model.path;
+          this.loadViewPdf(url);
+          // this.viewPdf(environment.api_url + '/DescargaServlet?path=' + res.model.path).subscribe(blob => {
+          //   const reader = new FileReader();
+          //   const binaryString = reader.readAsDataURL(blob);
+          //   reader.onload = (event: any) => {
+          //     array.push(event.target.result.split(',')[1]);
+          //     this.loadView(array);
+          //   };
+          // });
         }else{
           array.push(environment.api_url + '/DisplayImage?url=' + res.model.path);
           this.loadView(array);
@@ -159,6 +161,20 @@ export class ViewUploadComponent implements OnInit {
     dialogConfig.data = data;
     dialogConfig.panelClass = 'mat-dialog-app-viewer';
     let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+
+      }
+    });
+  }
+
+  public loadViewPdf(url: any){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '80%';
+    dialogConfig.height = '77%';
+    dialogConfig.data = url;
+    dialogConfig.panelClass = 'mat-dialog-app-viewer';
+    let dialogRef = this.dialog.open(GalleryDialogPdfComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if(result){
 
