@@ -14,8 +14,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class GalleryDialogPdfComponent implements OnInit{
   public url_path = '';
-  @ViewChild('pdfViewerAutoLoad', { static: true }) pdfViewerAutoLoad;
-
   constructor(
     private http: HttpClient,
     public sanitizer: DomSanitizer,
@@ -23,18 +21,10 @@ export class GalleryDialogPdfComponent implements OnInit{
     public dialogRef: MatDialogRef<GalleryDialogPdfComponent>,
     @Inject(MAT_DIALOG_DATA) public url: any
   ) {
-    console.log(url);
     this.url_path = url;
   }
 
   ngOnInit() {
-    this.downloadFile(this.url_path).subscribe(
-      (res) => {
-        console.log(res);
-        this.pdfViewerAutoLoad.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
-        this.pdfViewerAutoLoad.refresh(); // Ask pdf viewer to load/refresh pdf
-      }
-    );
   }
 
   close() {

@@ -1,8 +1,5 @@
-    <h2>Angular 2 ES5 Pdfjs Viewer</h2>
-    <ng2-pdfjs-viewer
-    #pdfViewerAutoLoad
-    [externalWindow]="false"
-    [downloadFileName]="'mytestfile.pdf'"
-    [openFile]="false"
-    [diagnosticLogs]="true"
-    [download]="false"></ng2-pdfjs-viewer>
+<mat-card>
+  <div class="mat-dialog-content">
+    <ngx-extended-pdf-viewer [src]="url_path" useBrowserLocale="true" height="77vh"></ngx-extended-pdf-viewer>
+  </div>
+</mat-card>

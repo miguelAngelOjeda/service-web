@@ -102,7 +102,6 @@ export class UploadComponent implements OnInit {
       }
     });
     this.uploader.clearQueue();
-    //this.uploader.clearQueue();
   }
 
   editSubmit(index: number){
@@ -124,18 +123,13 @@ export class UploadComponent implements OnInit {
     let image;
     var reader = new FileReader();
     reader.onloadend = (readerEvent) => {
-      console.log(reader.result.toString().split(',')[1]);
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = [reader.result.toString().split(',')[1]];
-      dialogConfig.disableClose = false;
-      dialogConfig.autoFocus = true;
-      dialogConfig.width = '50%';
-      let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
+      if (reader.result.toString().includes('data:application/pdf')) {
+        this.loadViewPdf(reader.result.toString());
+      }else{
+        this.loadView([reader.result.toString().split(',')[1]]);
+      }
 
-        }
-      })
+
     }
     reader.readAsDataURL(file);
   }
@@ -174,14 +168,6 @@ export class UploadComponent implements OnInit {
         if(res.model.tipoArchivo === 'application/pdf'){
           let url = environment.api_url + '/DescargaServlet?path=' + res.model.path;
           this.loadViewPdf(url);
-          // this.viewPdf(environment.api_url + '/DescargaServlet?path=' + res.model.path).subscribe(blob => {
-          //   const reader = new FileReader();
-          //   const binaryString = reader.readAsDataURL(blob);
-          //   reader.onload = (event: any) => {
-          //     array.push(event.target.result.split(',')[1]);
-          //     this.loadView(array);
-          //   };
-          // });
         }else{
           array.push(environment.api_url + '/DisplayImage?url=' + res.model.path);
           this.loadView(array);

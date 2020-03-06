@@ -156,7 +156,7 @@ export class ReviewService {
           let monto = value + form.get('ingresosOtros').value;
           form.controls['montoTotalIngresos'].setValue(monto);
 
-          let porcentajeCapacidad = (value * 40) / 100;
+          let porcentajeCapacidad = (value * 30) / 100;
           form.controls['porcentajeCapacidad'].setValue(porcentajeCapacidad);
 
           let montoPorcentaje = porcentajeCapacidad + form.get('porcentajeCapacidadOtros').value;

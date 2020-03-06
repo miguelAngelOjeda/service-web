@@ -131,14 +131,6 @@ export class ViewUploadComponent implements OnInit {
         if(res.model.tipoArchivo === 'application/pdf'){
           let url = environment.api_url + '/DescargaServlet?path=' + res.model.path;
           this.loadViewPdf(url);
-          // this.viewPdf(environment.api_url + '/DescargaServlet?path=' + res.model.path).subscribe(blob => {
-          //   const reader = new FileReader();
-          //   const binaryString = reader.readAsDataURL(blob);
-          //   reader.onload = (event: any) => {
-          //     array.push(event.target.result.split(',')[1]);
-          //     this.loadView(array);
-          //   };
-          // });
         }else{
           array.push(environment.api_url + '/DisplayImage?url=' + res.model.path);
           this.loadView(array);

@@ -18,7 +18,7 @@ import { ViewUploadComponent } from '../shared/upload/view-upload';
 import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
 import { ImageViewerModule } from 'ng2-image-viewer';
-import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxCurrencyModule } from "ngx-currency";
 
@@ -28,7 +28,7 @@ import { NgxCurrencyModule } from "ngx-currency";
     FormsModule,
     MaterialModule,
     FileUploadModule,
-    PdfJsViewerModule,
+    NgxExtendedPdfViewerModule,
     ImageViewerModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
