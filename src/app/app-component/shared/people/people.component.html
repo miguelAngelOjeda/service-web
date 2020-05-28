@@ -81,6 +81,7 @@
                   <mat-option (click)="isSeparacionBienes = false" value="CASADO/A">Casado/a</mat-option>
                   <mat-option (click)="isSeparacionBienes = true" value="DIVORCIADO/A">Divorciado/a</mat-option>
                   <mat-option (click)="isSeparacionBienes = true" value="VIUDO/A">Viudo/a</mat-option>
+                  <mat-option (click)="isSeparacionBienes = true" value="OTROS">Otros</mat-option>
                 </mat-select>
                 <mat-error *ngIf="(peopleForm.controls['persona'].get('estadoCivil').errors)">
                   <span *ngIf="peopleForm.controls['persona'].get('estadoCivil').errors.required">
@@ -234,11 +235,11 @@
           <div class="col-md-3">
             <app-select-filter  (value)="getValue($event, 'profesion')"
              [modelValue]="peopleForm.controls['persona']['controls'].profesion.value" [disabled]="isDisabled"
-             placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
+             [required]="false" placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
           </div>
           <div class="col-md-3">
             <mat-form-field appearance="legacy">
-             <input matInput #input  placeholder="Email" formControlName="email" name="email" required>
+             <input matInput #input  placeholder="Email" formControlName="email" name="email">
              <mat-error *ngIf="(peopleForm.controls['persona'].get('email').errors)">
                <span *ngIf="peopleForm.controls['persona'].get('email').errors.required">
                 Campo requerido

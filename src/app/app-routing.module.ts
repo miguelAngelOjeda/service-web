@@ -30,6 +30,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/client/client.module#ClientModule'
         },
         {
+        path: 'service-web/informconf',
+        loadChildren: './app-component/informconf/informconf.module#InformconfModule'
+        },
+        {
         path: 'service-web/credits-solicitude',
         loadChildren: './app-component/solicitude/credits/credits-solicitude.module#CreditsSolicitudeModule'
         },

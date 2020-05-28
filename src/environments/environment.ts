@@ -87,6 +87,9 @@ export const authorities = {
     	"listClient": {
     	  "permittedRoles": ["ROLE_CLIENT.LIST"]
     	},
+      "informconfClient": {
+    	  "permittedRoles": ["ROLE_CLIENT.INFORMCONF"]
+    	},
     	"deleteClient": {
     	  "permittedRoles": ["ROLE_CLIENT.DELETE"]
     	}
@@ -503,6 +506,11 @@ export const authorities = {
     "message": {
       "sendMessage": {
     	   "permittedRoles": ["ROLE_MESSAGE.SEND"]
+    	 }
+    },
+    "informconf": {
+      "informconfReport": {
+    	   "permittedRoles": ["ROLE_INFORMCONF.REPORT"]
     	 }
     }
   }

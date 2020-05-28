@@ -1,1 +1,1 @@
-export * from './informconf.component';
+export * from './modal-informconf';

@@ -69,7 +69,7 @@ export class PeopleComponent implements OnInit{
       estadoCivil: [null, [Validators.required]],
       separacionBienes: null,
       email: [null],
-      profesion: [null, [Validators.required]],
+      profesion: [null],
       telefonoParticular: [null, [Validators.required]],
       telefonoSecundario: null,
       direccionParticular: [null, [Validators.required]],

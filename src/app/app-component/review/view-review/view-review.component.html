@@ -160,7 +160,7 @@
                             <p mat-line><span class="font-normal">Ingresos: </span> {{detalle.get('ingresoTotal').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-normal">Ingresos 40%: </span> {{detalle.get('porcentajeCapacidad').value | number}}</p>
+                            <p mat-line><span class="font-normal">Ingresos {{myForm.get('porcentajeEndeudamiento')?.value  | number}}%: </span> {{detalle.get('porcentajeCapacidad').value | number}}</p>
                           </div>
                           <div class="col-md-6">
                             <p mat-line><span class="font-normal">Otros Ingresos: </span> {{detalle.get('ingresosOtros').value | number}}</p>

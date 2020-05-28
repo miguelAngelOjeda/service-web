@@ -40,7 +40,7 @@ export class ViewCheckReviewComponent implements OnInit {
             }
             res.model.detalles.forEach(staff => {
               let form = this.formBuilder.group(staff);
-              this.reviewService.valueChanges(form);
+              this.reviewService.valueChanges(form,this.myForm);
               detalles.push(form);
             });
             //this.valueChanges();

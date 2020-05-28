@@ -44,7 +44,7 @@ export class ReviewService {
               }
               res.model.detalles.forEach(staff => {
                 let form = this.formBuilder.group(staff);
-                this.valueChanges(form);
+                this.valueChanges(form,formGroup);
                 detalles.push(form);
               });
             }
@@ -83,6 +83,7 @@ export class ReviewService {
       funcionarioAnalisis: null,
       funcionarioVerificador: null,
       propuestaSolicitud: null,
+      porcentajeEndeudamiento: null,
       detalles: this.formBuilder.array([
           // this.formBuilder.group({
           //   id: [null],
@@ -123,8 +124,8 @@ export class ReviewService {
   }
 
   //Comportamientos de los campos en el formulario
-  valueChanges(form: FormGroup) {
-
+  valueChanges(form: FormGroup,formInit: FormGroup) {
+    console.log(form);
     form.controls['montoDeudaSolicitudCuotas'].valueChanges.subscribe(
         (value) => {
           let monto = value + form.get('montoDeudaDescuentoCuotas').value;
@@ -156,7 +157,7 @@ export class ReviewService {
           let monto = value + form.get('ingresosOtros').value;
           form.controls['montoTotalIngresos'].setValue(monto);
 
-          let porcentajeCapacidad = (value * 30) / 100;
+          let porcentajeCapacidad = (value * formInit.get('porcentajeEndeudamiento').value) / 100;
           form.controls['porcentajeCapacidad'].setValue(porcentajeCapacidad);
 
           let montoPorcentaje = porcentajeCapacidad + form.get('porcentajeCapacidadOtros').value;

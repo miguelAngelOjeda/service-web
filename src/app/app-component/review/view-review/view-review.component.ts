@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReviewService } from '../review.service';
 import { Router, CanActivate, ActivatedRoute} from '@angular/router';
 import { UserService, ApiService} from '../../../core/services';
-import { InformconfComponent } from '../../shared/informconf';
+import { ModalInformconfComponent } from '../../shared/informconf/modal-informconf';
 import { HttpParams } from '@angular/common/http';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { ViewModalPeopleComponent } from '../../shared/people';
@@ -42,7 +42,7 @@ export class ViewReviewComponent implements OnInit {
             }
             res.model.detalles.forEach(staff => {
               let form = this.formBuilder.group(staff);
-              this.reviewService.valueChanges(form);
+              this.reviewService.valueChanges(form,this.myForm);
               detalles.push(form);
             });
             //this.valueChanges();
@@ -63,11 +63,11 @@ export class ViewReviewComponent implements OnInit {
         'nroSolicitud' : nroSolicitud.toString()
       }});
 
-    this.apiService.get('/informconf_solicitudes/reporte',variables)
+    this.apiService.get('/informconf/solicitud',variables)
     .subscribe(res => {
       if(res.status == 200){
         matDialogConfig.data =  res.model;
-        const dialogRef = this.dialog.open(InformconfComponent, matDialogConfig);
+        const dialogRef = this.dialog.open(ModalInformconfComponent, matDialogConfig);
       }
     });
   }

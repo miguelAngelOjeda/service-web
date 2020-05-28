@@ -1,17 +1,15 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ValidationService } from '../../../core/services/validation.service';
-import { PeopleService } from '../people/people.service';
 import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
 import { MatPaginator, MatTableDataSource, MatDialog, MatSort, PageEvent,
    Sort, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 
 @Component({
-  selector: 'app-informconf',
-  templateUrl: './informconf.component.html',
-  styleUrls: ['./informconf.component.css']
+  selector: 'app-modal-informconf',
+  templateUrl: './modal-informconf.component.html',
+  styleUrls: ['./modal-informconf.component.css']
 })
-export class InformconfComponent implements OnInit{
+export class ModalInformconfComponent implements OnInit{
   public isMobile: Boolean;
   informconfForm: FormGroup;
   displayedColumnsMorosidad: string[] = ['actividadAfiliado', 'cantTotalMorosidades', 'menorFechaVencimientoPendie',
@@ -22,7 +20,7 @@ export class InformconfComponent implements OnInit{
   constructor(
             public dialog: MatDialog,
             private formBuilder: FormBuilder,
-            public dialogRef: MatDialogRef<InformconfComponent>,
+            public dialogRef: MatDialogRef<ModalInformconfComponent>,
             @Inject(MAT_DIALOG_DATA) public data: any) {
               this.initFormBuilder();
               this.informconfForm.patchValue(data);
