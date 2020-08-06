@@ -10,14 +10,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./gallery-dialog.component.css']
 })
 export class GalleryDialogComponent{
-  public images = [''];
+  public images;
   constructor(
     public sanitizer: DomSanitizer,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<GalleryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.images = data;
+    this.images = data[0];
   }
 
   close() {

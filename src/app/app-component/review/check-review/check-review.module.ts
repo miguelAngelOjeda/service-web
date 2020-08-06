@@ -21,7 +21,6 @@ import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComp
   ViewReferenceComponent,ViewIngressComponent,ViewEgressComponent,ViewPeopleComponent,
   ViewOccupationComponent,ViewEstateComponent,
    VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../../shared';
-import { ImageViewerModule } from 'ng2-image-viewer';
 import { NgxCurrencyModule } from "ngx-currency";
 
 export const customCurrencyMaskConfig = {
@@ -42,7 +41,6 @@ export const customCurrencyMaskConfig = {
     MaterialModule,
     SharedAppModule,
     AngularFileUploaderModule,
-    ImageViewerModule,
     FlexLayoutModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     SharedModule,

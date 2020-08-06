@@ -82,8 +82,8 @@ export class ViewUploadComponent implements OnInit {
         // console.log(images);
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = res.model;
-        dialogConfig.width = '90%';
-        dialogConfig.autoFocus = true;
+        //dialogConfig.width = '90%';
+        //dialogConfig.autoFocus = true;
         dialogConfig.panelClass = 'mat-dialog-app-viewer';
         let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(result => {
@@ -148,8 +148,8 @@ export class ViewUploadComponent implements OnInit {
 
   public loadView(data: any){
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '80%';
-    dialogConfig.height = '77%';
+    //dialogConfig.width = '80%';
+    //dialogConfig.height = '77%';
     dialogConfig.data = data;
     dialogConfig.panelClass = 'mat-dialog-app-viewer';
     let dialogRef = this.dialog.open(GalleryDialogComponent, dialogConfig);

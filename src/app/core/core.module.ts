@@ -13,7 +13,8 @@ import {
 } from './services';
 
 export function tokenGetter() {
-  return localStorage.getItem('jwtToken');
+  console.log('window.localStorage');
+  return window.localStorage.getItem('jwtToken') == null ? window.sessionStorage.getItem('jwtToken') : window.localStorage.getItem('jwtToken');
 }
 
 @NgModule({
@@ -31,7 +32,8 @@ export function tokenGetter() {
           'https://appdesa1.creditoguarani.com.py'
         ],
          //blacklistedRoutes: ['example.com/examplebadroute/']
-         authScheme: 'X-Token '
+         authScheme: 'X-Token ',
+         throwNoTokenError: true
        }
      }),
      HttpClientModule

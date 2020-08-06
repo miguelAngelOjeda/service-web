@@ -27,7 +27,7 @@ export class CheckReviewComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.reviewService.initFormBuilder();
-    this.apiService.get('/analisis_solicitudes/analizar/' + this.route.snapshot.params.id)
+    this.apiService.get('/analisis_solicitudes/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
         this.myForm.patchValue(res.model);

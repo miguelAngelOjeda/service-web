@@ -17,9 +17,10 @@ import { ThumbnailDirective, UploadComponent } from '../shared/upload';
 import { ViewUploadComponent } from '../shared/upload/view-upload';
 import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
-import { ImageViewerModule } from 'ng2-image-viewer';
+//import { ImageViewerModule } from 'ng2-image-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ImageViewerModule } from '@hallysonh/ngx-imageviewer';
 import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
