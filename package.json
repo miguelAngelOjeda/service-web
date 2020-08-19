@@ -29,6 +29,7 @@
     "@angular/service-worker": "~8.0.3",
     "@auth0/angular-jwt": "^2.1.2",
     "@ecodev/fab-speed-dial": "^3.1.4",
+    "@hallysonh/ngx-imageviewer": "^2.0.4",
     "angular-file-uploader": "^5.0.2",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.10",
