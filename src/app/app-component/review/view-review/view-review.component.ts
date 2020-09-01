@@ -33,6 +33,9 @@ export class ViewReviewComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         this.myForm.patchValue(res.model);
+        console.log('pricipal ');
+              console.log(res.model);
+              console.log('fin');
         //Cargar Ocupaciones
         if(res.model.detalles != null &&  res.model.detalles.length > 0){
           const detalles = (<FormArray>this.myForm.get('detalles'));
@@ -41,6 +44,27 @@ export class ViewReviewComponent implements OnInit {
               detalles.removeAt(0);
             }
             res.model.detalles.forEach(staff => {
+              var totalIngresos = 0;
+              staff.persona.ingresos.forEach( (ingreso) => {
+                totalIngresos = totalIngresos + ingreso.monto;
+              });
+              staff.ingresoTotal = totalIngresos;
+
+              //porcentajeCapacidad
+
+              staff.porcentajeCapacidad = staff.ingresoTotal * (res.model.porcentajeEndeudamiento / 100);
+
+              var numb = staff.egresosTotal / staff.ingresoTotal;
+              staff.porcentajeDeudaEgreso = numb.toFixed(2);
+
+              numb = res.model.propuestaSolicitud.importeCuota / staff.ingresoTotal;
+
+              staff.porcentajeCreditoSol = numb.toFixed(2);
+
+
+              console.log('detalles ');
+              console.log(staff);
+              console.log('fin');
               let form = this.formBuilder.group(staff);
               this.reviewService.valueChanges(form,this.myForm);
               detalles.push(form);
@@ -48,6 +72,8 @@ export class ViewReviewComponent implements OnInit {
             //this.valueChanges();
           }
         }
+
+        
       }
     });
   }
@@ -85,6 +111,10 @@ export class ViewReviewComponent implements OnInit {
     }
     dialogConfig.autoFocus = true;
     this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
+  }
+
+  getTotalIngresos(){
+
   }
 
 }
