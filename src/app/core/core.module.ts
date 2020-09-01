@@ -13,7 +13,6 @@ import {
 } from './services';
 
 export function tokenGetter() {
-  console.log('window.localStorage');
   return window.localStorage.getItem('jwtToken') == null ? window.sessionStorage.getItem('jwtToken') : window.localStorage.getItem('jwtToken');
 }
 
@@ -27,13 +26,12 @@ export function tokenGetter() {
           'app1.creditoguarani.com.py',
           'https://app1.creditoguarani.com.py',
           'app2.financorp.com.py',
-          'https://app2.financorp.com.py',
-          'appdesa1.creditoguarani.com.py',
+          'https://appdesa1.financorp.com.py',
+          'appdesa1.financorp.com.py',
           'https://appdesa1.creditoguarani.com.py'
         ],
          //blacklistedRoutes: ['example.com/examplebadroute/']
-         authScheme: 'X-Token ',
-         throwNoTokenError: true
+         authScheme: 'X-Token '
        }
      }),
      HttpClientModule
