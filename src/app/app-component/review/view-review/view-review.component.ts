@@ -33,9 +33,7 @@ export class ViewReviewComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         this.myForm.patchValue(res.model);
-        console.log('pricipal ');
-              console.log(res.model);
-              console.log('fin');
+       
         //Cargar Ocupaciones
         if(res.model.detalles != null &&  res.model.detalles.length > 0){
           const detalles = (<FormArray>this.myForm.get('detalles'));
@@ -50,6 +48,27 @@ export class ViewReviewComponent implements OnInit {
               });
               staff.ingresoTotal = totalIngresos;
 
+              //total egreso
+              totalIngresos = 0;
+              staff.persona.egresos.forEach( (egreso) => {
+                totalIngresos = totalIngresos + egreso.monto;
+              });
+              staff.egresosTotal = totalIngresos;
+
+              //total egreso credito
+              var totalEgc = 0;
+              var promEgc = 0;
+              staff.persona.egresoCreditos.forEach( (egc) => {
+                totalEgc = totalEgc + egc.monto;
+                promEgc = promEgc + egc.promedioAtraso;
+              });
+              staff.totalEgresoCred = totalEgc;
+
+              staff.egresosTotal = staff.egresosTotal + totalEgc;
+
+              //CALCULO PROMEDIO
+              staff.promedioPAEgc = promEgc / staff.persona.egresoCreditos.length;
+
               //porcentajeCapacidad
 
               staff.porcentajeCapacidad = staff.ingresoTotal * (res.model.porcentajeEndeudamiento / 100);
@@ -61,10 +80,6 @@ export class ViewReviewComponent implements OnInit {
 
               staff.porcentajeCreditoSol = numb.toFixed(2);
 
-
-              console.log('detalles ');
-              console.log(staff);
-              console.log('fin');
               let form = this.formBuilder.group(staff);
               this.reviewService.valueChanges(form,this.myForm);
               detalles.push(form);

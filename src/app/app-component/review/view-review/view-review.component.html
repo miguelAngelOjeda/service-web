@@ -134,7 +134,7 @@
                 </div>
                 <div class="col-md-12 m-t-10">
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="display: none;">
                       <fieldset >
                         <legend>Detalle Monetario2(Solicitud)</legend>
                         <div class="row">
@@ -182,7 +182,7 @@
                         </div>
                       </fieldset>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="display: none;">
                       <fieldset >
                         <legend>Detalle Monetario</legend>
                         <div class="row">
@@ -219,7 +219,7 @@
                         </div>
                       </fieldset>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-10">
                       <fieldset>
                         <legend>Detalle Monetario(Solicitud)</legend>
                         <div class="row">
@@ -269,34 +269,29 @@
                               <table class="table table-bordered">
                                 <thead>
                                   <tr class="text-center bg-light">
-                                    <th colspan="4" scope="col">Cuotas de creditos vigentes</th>
+                                    <th colspan="5" scope="col">Cuotas de creditos vigentes</th>
                                   </tr>
                                   <tr>
                                     <th scope="col">Institucion</th>
                                     <th scope="col">Cuota</th>
+                                    <th scope="col">M.A</th>
                                     <th scope="col">P.A</th>
                                     <th scope="col">Monto</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>Banco Familiar</td>
-                                    <td>8/12</td>
-                                    <td>22</td>
-                                    <td>190000</td>
-                                  </tr>
-                                  <tr>
-                                    <td>CrediAgil</td>
-                                    <td>5/10</td>
-                                    <td>15</td>
-                                    <td>78000</td>
-                                  </tr>
-                                  
+                                  <tr *ngFor="let egc of detalle.controls['persona']?.value.egresoCreditos">
+                                    <td>{{egc.nombreFinanciera}}</td>
+                                    <td>{{egc.cuota}}</td>
+                                    <td>{{egc.maximoAtraso}}</td>
+                                    <td>{{egc.promedioAtraso}}</td>
+                                    <td>{{egc.monto | number}}</td>
+                                  </tr>                                  
                                 </tbody>
                                 <tfoot>
-                                  <td colspan="2">Total</td>
-                                  <td> Promedio: 14</td>
-                                  <td> Monto: 268000</td>
+                                  <td colspan="3">Total</td>
+                                  <td> Promedio: {{detalle.get('promedioPAEgc').value | number}}</td> 
+                                  <td> {{detalle.get('totalEgresoCred').value | number}} </td>
                                 </tfoot>
                               </table>
                             </div>

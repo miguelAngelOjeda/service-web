@@ -1,0 +1,58 @@
+<ng-container>
+  <div class="row">
+    <div class="col-md-12">
+        <h4  class="m-0 font-20"><mat-icon class="gray-text">monetization_on</mat-icon>Creditos Vigentes Egresos</h4>
+    </div>
+    <div class="col-md-12">
+      <mat-table [dataSource]="dataSource" class="mat-table"
+       matSort  matSortActive="monto" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+
+       <ng-container matColumnDef="nombreFinanciera">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE FINANCIERA </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="nombre financiera">
+           {{element?.nombreFinanciera}}
+        </mat-cell>
+       </ng-container>
+       
+       <ng-container matColumnDef="cuota">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> CUOTA </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="cuota">
+           {{element?.cuota}}
+        </mat-cell>
+       </ng-container>
+
+       <ng-container matColumnDef="promedioAtraso">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> PROMEDIO ATRASO </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="promedio atraso">
+           {{element?.promedioAtraso}}
+        </mat-cell>
+       </ng-container>
+
+       <ng-container matColumnDef="maximoAtraso">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> MAXIMO ATRASO </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="maximo atraso">
+           {{element?.maximoAtraso}}
+        </mat-cell>
+       </ng-container>
+
+       <ng-container matColumnDef="monto">
+         <mat-header-cell *matHeaderCellDef mat-sort-header> MONTO </mat-header-cell>
+         <mat-cell *matCellDef="let element" data-label="monto">
+            {{element?.monto | number}}
+         </mat-cell>
+       </ng-container>
+
+       <ng-container matColumnDef="observacion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> OBSERVACION </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="observacion">
+           {{element?.observacion}}
+        </mat-cell>
+       </ng-container>
+      
+        <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+  <br>
+</ng-container>

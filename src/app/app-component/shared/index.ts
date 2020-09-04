@@ -2,6 +2,7 @@ export * from './reference';
 export * from './vehicle';
 export * from './estate';
 export * from './egress';
+export * from './egress-credit';
 export * from './ingress';
 export * from './people';
 export * from './department';

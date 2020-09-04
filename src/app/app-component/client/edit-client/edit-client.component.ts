@@ -19,7 +19,7 @@ export class EditClientComponent implements OnInit{
   myForm: FormGroup;
   peopleForm: FormGroup;
 
-  params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos'}});
+  params = new HttpParams({fromObject : {'included' : 'inmuebles,vehiculos,referencias,ingresos,egresos,ocupaciones,vinculos,egresoCreditos'}});
 
   constructor(
     private router: Router,

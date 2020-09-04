@@ -1,0 +1,85 @@
+<ng-container>
+  <div class="row">
+    <div class="col-md-12">
+        <h4  class="m-0"><mat-icon class="gray-text">monetization_on</mat-icon>Creditos Vigentes Egresos
+          <a mat-mini-fab (click)="addButton()" class="nav-link float-right" color="primary"><mat-icon>plus_one</mat-icon></a>
+        </h4>
+    </div>
+    <ng-container formGroupName="persona">
+      <div [formArrayName]="formArrayName"  class="col-md-12">
+        <div [formGroupName]="i" *ngFor="let egresoCredit of peopleForm.get(formArrayName)['controls']; let i = index" >
+            <div class="row">
+              <div class="col-md-2">
+                <mat-form-field appearance="legacy">
+                  <input matInput #input  placeholder="Nombre Financiera"  formControlName="nombreFinanciera" name="nombreFinanciera" required>
+                  <mat-error *ngIf="(egresoCredit.get('nombreFinanciera').errors)">
+                    <span *ngIf="egresoCredit.get('nombreFinanciera').errors.required">  
+                     Campo requerido
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="legacy">
+                  <input matInput #input  placeholder="Cuota Ej: 10/12"  formControlName="cuota" name="cuota" required>
+                  <mat-error *ngIf="(egresoCredit.get('cuota').errors)">
+                    <span *ngIf="egresoCredit.get('cuota').errors.required">  
+                     Campo requerido
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-1">
+                <mat-form-field appearance="legacy">
+                  <input matInput #input  placeholder="P.A. Ej: 15"  formControlName="promedioAtraso" name="promedioAtraso" required>
+                  <mat-error *ngIf="(egresoCredit.get('promedioAtraso').errors)">
+                    <span *ngIf="egresoCredit.get('promedioAtraso').errors.required">  
+                     Campo requerido
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-1">
+                <mat-form-field appearance="legacy">
+                  <input matInput #input  placeholder="M.A. Ej: 15"  formControlName="maximoAtraso" name="maximoAtraso" required>
+                  <mat-error *ngIf="(egresoCredit.get('maximoAtraso').errors)">
+                    <span *ngIf="egresoCredit.get('maximoAtraso').errors.required">  
+                     Campo requerido
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+               <div class="col-md-2">
+                 <mat-form-field appearance="legacy">
+                   <input matInput #input type="text" min="0"  placeholder="Monto"  formControlName="monto"  name="monto" currencyMask>
+                   <mat-error *ngIf="(egresoCredit.get('monto').errors)">
+                     <span *ngIf="egresoCredit.get('monto').errors.required">
+                      Campo requerido
+                     </span>
+                   </mat-error>
+                 </mat-form-field>
+               </div>
+               <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput #input  placeholder="Obs"  formControlName="observacion" name="observacion" required>
+                  <mat-error *ngIf="(egresoCredit.get('observacion').errors)">
+                    <span *ngIf="egresoCredit.get('observacion').errors.required">  
+                     Campo requerido
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+               
+
+               <div class="col-md-2">
+                 <section class="example-section">
+                   <button type="button" class="btn btn-danger" (click)="delete(egresoCredit.value)"><i class="fa fa-trash"></i></button>
+                      <!-- <a mat-icon-button color="warn" (click)="delete(egresos.value)"> <mat-icon>delete_forever</mat-icon></a> -->
+                 </section>
+               </div>
+            </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
