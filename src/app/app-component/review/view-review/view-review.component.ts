@@ -8,6 +8,7 @@ import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@ang
 import { ViewModalPeopleComponent } from '../../shared/people';
 import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { PeopleService } from '../../shared/people/people.service';
+import { EgressCredit } from 'src/app/core/models/egressCredit';
 
 @Component({
   selector: 'app-view-review',
@@ -16,7 +17,8 @@ import { PeopleService } from '../../shared/people/people.service';
 })
 export class ViewReviewComponent implements OnInit {
   myForm: FormGroup;
-
+  totalEgreso : number;
+  totalEgresoCreditoAux: number;
   constructor(
     private apiService: ApiService,
     private formBuilder: FormBuilder,
@@ -28,12 +30,14 @@ export class ViewReviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.myForm = this.reviewService.initFormBuilder();
     this.apiService.get('/analisis_solicitudes/' + this.route.snapshot.params.id)
     .subscribe(res => {
       if(res.status == 200){
         this.myForm.patchValue(res.model);
-       
+        //console.log(res.model);
+        this.totalEgreso = 0;
         //Cargar Ocupaciones
         if(res.model.detalles != null &&  res.model.detalles.length > 0){
           const detalles = (<FormArray>this.myForm.get('detalles'));
@@ -42,6 +46,8 @@ export class ViewReviewComponent implements OnInit {
               detalles.removeAt(0);
             }
             res.model.detalles.forEach(staff => {
+
+              //total ingreso
               var totalIngresos = 0;
               staff.persona.ingresos.forEach( (ingreso) => {
                 totalIngresos = totalIngresos + ingreso.monto;
@@ -53,24 +59,10 @@ export class ViewReviewComponent implements OnInit {
               staff.persona.egresos.forEach( (egreso) => {
                 totalIngresos = totalIngresos + egreso.monto;
               });
-              staff.egresosTotal = totalIngresos;
-
-              //total egreso credito
-              var totalEgc = 0;
-              var promEgc = 0;
-              staff.persona.egresoCreditos.forEach( (egc) => {
-                totalEgc = totalEgc + egc.monto;
-                promEgc = promEgc + egc.promedioAtraso;
-              });
-              staff.totalEgresoCred = totalEgc;
-
-              staff.egresosTotal = staff.egresosTotal + totalEgc;
-
-              //CALCULO PROMEDIO
-              staff.promedioPAEgc = promEgc / staff.persona.egresoCreditos.length;
+              
+              this.totalEgreso = this.totalEgreso + totalIngresos;
 
               //porcentajeCapacidad
-
               staff.porcentajeCapacidad = staff.ingresoTotal * (res.model.porcentajeEndeudamiento / 100);
 
               var numb = staff.egresosTotal / staff.ingresoTotal;
@@ -128,8 +120,14 @@ export class ViewReviewComponent implements OnInit {
     this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
   }
 
-  getTotalIngresos(){
-
+  procesaPropagarEgresoCredito(totalEgressCredit:number) {
+    if(this.totalEgresoCreditoAux != null && this.totalEgresoCreditoAux != 0){
+      this.totalEgreso = this.totalEgreso - this.totalEgresoCreditoAux;
+    }
+    
+    this.totalEgreso = this.totalEgreso + Number(totalEgressCredit);
+    this.totalEgresoCreditoAux = Number(totalEgressCredit);
   }
+
 
 }

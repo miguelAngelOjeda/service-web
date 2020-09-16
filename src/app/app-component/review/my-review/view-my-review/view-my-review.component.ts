@@ -16,6 +16,8 @@ import { PeopleService } from '../../../shared/people/people.service';
 })
 export class ViewMyReviewComponent implements OnInit {
   myForm: FormGroup;
+  totalEgreso : number;
+  totalEgresoCreditoAux: number;
 
   constructor(
     private apiService: ApiService,
@@ -40,7 +42,35 @@ export class ViewMyReviewComponent implements OnInit {
             while (detalles.length) {
               detalles.removeAt(0);
             }
+            this.totalEgreso = 0;
             res.model.detalles.forEach(staff => {
+
+              //total ingreso
+              var totalIngresos = 0;
+              staff.persona.ingresos.forEach( (ingreso) => {
+                totalIngresos = totalIngresos + ingreso.monto;
+              });
+              staff.ingresoTotal = totalIngresos;
+
+              //total egreso
+              totalIngresos = 0;
+              staff.persona.egresos.forEach( (egreso) => {
+                totalIngresos = totalIngresos + egreso.monto;
+              });
+              
+              this.totalEgreso = this.totalEgreso + totalIngresos;
+
+              //porcentajeCapacidad
+              staff.porcentajeCapacidad = staff.ingresoTotal * (res.model.porcentajeEndeudamiento / 100);
+
+              var numb = staff.egresosTotal / staff.ingresoTotal;
+              staff.porcentajeDeudaEgreso = numb.toFixed(2);
+
+              numb = res.model.propuestaSolicitud.importeCuota / staff.ingresoTotal;
+
+              staff.porcentajeCreditoSol = numb.toFixed(2);
+
+
               let form = this.formBuilder.group(staff);
               this.reviewService.valueChanges(form,this.myForm);
               detalles.push(form);
@@ -85,6 +115,15 @@ export class ViewMyReviewComponent implements OnInit {
     }
     dialogConfig.autoFocus = true;
     this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
+  }
+
+  procesaPropagarEgresoCredito(totalEgressCredit:number) {
+    if(this.totalEgresoCreditoAux != null && this.totalEgresoCreditoAux != 0){
+      this.totalEgreso = this.totalEgreso - this.totalEgresoCreditoAux;
+    }
+    
+    this.totalEgreso = this.totalEgreso + Number(totalEgressCredit);
+    this.totalEgresoCreditoAux = Number(totalEgressCredit);
   }
 
 }

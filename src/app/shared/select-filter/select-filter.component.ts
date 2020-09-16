@@ -27,7 +27,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
   public sortActiveModel = "nombre";
   public optionName = "option.nombre";
   public inputType = "legacy";
-  public sortDirectionModel = "desc";
+  //public sortDirectionModel = "desc";
 
   @ViewChild('filterInputModel', { static: true }) filterInputModel: ElementRef;
   @Input() set disabled (condition : boolean){
@@ -46,12 +46,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
       this.sortActiveModel = sortActive;
     }
   }
-  @Input() set sortDirection (sortDirection : any){
-    console.log(sortDirection);
-    if(sortDirection){
-      this.sortDirectionModel = sortDirection;
-    }
-  }
+  @Input() sortDirection : string = "desc";
   @Input() model;
   @Input() placeholder;
   @Input() urlFilter;
@@ -119,7 +114,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
                 }
 
                 return this.apiService.getPageList('/' + this.urlFilter,this.isfilter,this.filterInputModel.nativeElement.value,
-                 this.columnsFilter, this.sortDirectionModel, this.sortActiveModel,0,50, false,this.idModel);
+                 this.columnsFilter, this.sortDirection, this.sortActiveModel,0,50, false,this.idModel);
 
               }else{
                 return null;

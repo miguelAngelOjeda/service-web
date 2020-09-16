@@ -219,11 +219,11 @@
                         </div>
                       </fieldset>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                       <fieldset>
                         <legend>Detalle Monetario(Solicitud)</legend>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <h4>Ingresos</h4>
                             <div class="table-responsive">
                               <table class="table table-bordered">
@@ -245,7 +245,7 @@
                               </table>
                             </div>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-9">
                             <h4>Egresos</h4>
                             <div class="table-responsive">
                               <table class="table table-bordered">
@@ -265,37 +265,8 @@
                                 </tbody>
                               </table>
                             </div>
-                            <div class="table-responsive">
-                              <table class="table table-bordered">
-                                <thead>
-                                  <tr class="text-center bg-light">
-                                    <th colspan="5" scope="col">Cuotas de creditos vigentes</th>
-                                  </tr>
-                                  <tr>
-                                    <th scope="col">Institucion</th>
-                                    <th scope="col">Cuota</th>
-                                    <th scope="col">M.A</th>
-                                    <th scope="col">P.A</th>
-                                    <th scope="col">Monto</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr *ngFor="let egc of detalle.controls['persona']?.value.egresoCreditos">
-                                    <td>{{egc.nombreFinanciera}}</td>
-                                    <td>{{egc.cuota}}</td>
-                                    <td>{{egc.maximoAtraso}}</td>
-                                    <td>{{egc.promedioAtraso}}</td>
-                                    <td>{{egc.monto | number}}</td>
-                                  </tr>                                  
-                                </tbody>
-                                <tfoot>
-                                  <td colspan="3">Total</td>
-                                  <td> Promedio: {{detalle.get('promedioPAEgc').value | number}}</td> 
-                                  <td> {{detalle.get('totalEgresoCred').value | number}} </td>
-                                </tfoot>
-                              </table>
-                            </div>
-
+                            <app-abm-egress-credit (propagar)="procesaPropagarEgresoCredito($event)"></app-abm-egress-credit>
+                            
                           </div>
                         </div>
                         <div class="row text-center bg-light">
@@ -303,7 +274,7 @@
                             <p mat-line><span class="font-bold">Total Ingresos </span> {{detalle.get('ingresoTotal').value | number}}</p>
                           </div>
                           <div class="col-md-6">
-                            <p mat-line><span class="font-bold">Total Egresos </span> {{detalle.get('egresosTotal').value | number}}</p>
+                            <p mat-line><span class="font-bold">Total Egresos </span> {{totalEgreso | number}}</p>
                           </div>
                         </div>
                         <div class="row">
@@ -324,18 +295,18 @@
                                 
                                   </tr>
                                   <tr>
-                                    <td>Egresos Financieros</td>
+                                    <td>Egresos financieros</td>
                                     <td>{{detalle.get('porcentajeDeudaEgreso').value | number}} %</td>
-                                    <td>{{detalle.get('egresosTotal').value | number}}</td>
+                                    <td>{{totalEgreso | number}}</td>
                                 
                                   </tr>
                                   
                                 </tbody>
                                 <tfoot>
                                   <tr [ngStyle]="{'background-color': ( detalle.get('porcentajeCapacidad').value - detalle.get('egresosTotal').value) < 0 ? '#B85357' : '#79B88A' }">
-                                    <td>Saldo endudable</td>
+                                    <td>Saldo endeudable</td>
                                     <td >{{ (myForm.get('porcentajeEndeudamiento')?.value - detalle.get('porcentajeDeudaEgreso').value) | number}} %</td>
-                                    <td>{{ ( detalle.get('porcentajeCapacidad').value - detalle.get('egresosTotal').value) | number}}</td>
+                                    <td>{{ ( detalle.get('porcentajeCapacidad').value - totalEgreso ) | number}}</td> 
                                   </tr>
                                 </tfoot>
                               </table>
@@ -352,13 +323,13 @@
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td>Saldo endudable</td>
+                                    <td>Saldo endeudable</td>
                                     <td>{{ (myForm.get('porcentajeEndeudamiento')?.value - detalle.get('porcentajeDeudaEgreso').value) | number}} %</td>
-                                    <td>{{ ( detalle.get('porcentajeCapacidad').value - detalle.get('egresosTotal').value) | number}}</td>
+                                    <td>{{ ( detalle.get('porcentajeCapacidad').value - totalEgreso) | number}}</td>
                                 
                                   </tr>
                                   <tr>
-                                    <td>Credito solictado</td>
+                                    <td>Credito solicitado</td>
                                     <td>{{detalle.get('porcentajeCreditoSol').value | number}} %</td>
                                     <td>{{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</td>
                                 
@@ -366,7 +337,7 @@
                                   <tr [ngStyle]="{'background-color': ( detalle.get('porcentajeCapacidad').value - detalle.get('egresosTotal').value) < 0 ? '#B85357' : '#79B88A' }">
                                     <td>Saldo Real</td>
                                     <td>{{ ((myForm.get('porcentajeEndeudamiento')?.value - detalle.get('porcentajeDeudaEgreso').value)-detalle.get('porcentajeCreditoSol').value) | number}} %</td>
-                                    <td>{{ (( detalle.get('porcentajeCapacidad').value - detalle.get('egresosTotal').value) - myForm.get('propuestaSolicitud')?.value.importeCuota) | number}}</td>
+                                    <td>{{ (( detalle.get('porcentajeCapacidad').value - totalEgreso ) - myForm.get('propuestaSolicitud')?.value.importeCuota) | number}}</td>
                                   </tr>
                                 </tbody>
                                 <tfoot>

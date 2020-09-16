@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-md-12 m-t-10">
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="display: none;">
                               <fieldset >
                                 <legend>Detalle Monetario(Solicitud)</legend>
                                 <div class="row">
@@ -243,7 +243,7 @@
                                 </div>
                               </fieldset>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="display: none;">
                               <fieldset >
                                 <legend>Detalle Monetario</legend>
                                 <div class="row">
@@ -336,6 +336,140 @@
                                 </div>
                               </fieldset>
                             </div>
+
+                            <div class="col-md-12">
+                              <fieldset>
+                                <legend>Detalle Monetario(Solicitud)</legend>
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    <h4>Ingresos</h4>
+                                    <div class="table-responsive">
+                                      <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Ingresos</th>
+                                            <th scope="col">Monto</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <!--igor-->
+                                          <tr *ngFor="let in of detalle.controls['persona']?.value.ingresos">
+                                            <td>{{in.tipoIngresosEgresos.nombre}}</td>
+                                            <td>{{in.monto | number}}</td>
+                                          </tr>
+                                         
+                                          
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-9">
+                                    <h4>Egresos</h4>
+                                    <div class="table-responsive">
+                                      <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Egresos</th>
+                                            <th scope="col">Monto</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr *ngFor="let eg of detalle.controls['persona']?.value.egresos">
+                                            <td>{{eg.tipoIngresosEgresos.nombre}}</td>
+                                            <td>{{eg.monto | number}}</td>
+                                          </tr>
+                                          
+                                          
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <app-abm-egress-credit (propagar)="procesaPropagarEgresoCredito($event)"></app-abm-egress-credit>
+                                    
+                                  </div>
+                                </div>
+                                <div class="row text-center bg-light">
+                                  <div class="col-md-6">
+                                    <p mat-line><span class="font-bold">Total Ingresos </span> {{detalle.get('ingresoTotal').value | number}}</p>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <p mat-line><span class="font-bold">Total Egresos </span> {{totalEgreso | number}}</p>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <br>
+                                    <div class="table-responsive">
+                                      <table class="table table-bordered">
+                                        <thead>
+                                          <tr class="text-center">
+                                            <th colspan="3" scope="col">Resumen sin el Crédito solicitado</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>Disponible</td>
+                                            <td>{{myForm.get('porcentajeEndeudamiento')?.value  | number}} %</td>
+                                            <td>{{detalle.get('porcentajeCapacidad').value | number}}</td>
+                                        
+                                          </tr>
+                                          <tr>
+                                            <td>Egresos financieros</td>
+                                            <td>{{detalle.get('porcentajeDeudaEgreso').value | number}} %</td>
+                                            <td>{{totalEgreso | number}}</td>
+                                        
+                                          </tr>
+                                          
+                                        </tbody>
+                                        <tfoot>
+                                          <tr [ngStyle]="{'background-color': ( detalle.get('porcentajeCapacidad').value - detalle.get('egresosTotal').value) < 0 ? '#B85357' : '#79B88A' }">
+                                            <td>Saldo endeudable</td>
+                                            <td >{{ (myForm.get('porcentajeEndeudamiento')?.value - detalle.get('porcentajeDeudaEgreso').value) | number}} %</td>
+                                            <td>{{ ( detalle.get('porcentajeCapacidad').value - totalEgreso ) | number}}</td> 
+                                          </tr>
+                                        </tfoot>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <br>
+                                    <div class="table-responsive">
+                                      <table class="table table-bordered">
+                                        <thead>
+                                          <tr class="text-center">
+                                            <th colspan="3" scope="col">Resumen con el Crédito solicitado</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>Saldo endeudable</td>
+                                            <td>{{ (myForm.get('porcentajeEndeudamiento')?.value - detalle.get('porcentajeDeudaEgreso').value) | number}} %</td>
+                                            <td>{{ ( detalle.get('porcentajeCapacidad').value - totalEgreso) | number}}</td>
+                                        
+                                          </tr>
+                                          <tr>
+                                            <td>Credito solicitado</td>
+                                            <td>{{detalle.get('porcentajeCreditoSol').value | number}} %</td>
+                                            <td>{{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</td>
+                                        
+                                          </tr>
+                                          <tr [ngStyle]="{'background-color': ( detalle.get('porcentajeCapacidad').value - detalle.get('egresosTotal').value) < 0 ? '#B85357' : '#79B88A' }">
+                                            <td>Saldo Real</td>
+                                            <td>{{ ((myForm.get('porcentajeEndeudamiento')?.value - detalle.get('porcentajeDeudaEgreso').value)-detalle.get('porcentajeCreditoSol').value) | number}} %</td>
+                                            <td>{{ (( detalle.get('porcentajeCapacidad').value - totalEgreso ) - myForm.get('propuestaSolicitud')?.value.importeCuota) | number}}</td>
+                                          </tr>
+                                        </tbody>
+                                        <tfoot>
+                                          <tr class="text-center">
+                                            <td colspan="3"> Credito de {{myForm.get('propuestaSolicitud')?.value.montoSolicitado | number}} en cuotas  de {{myForm.get('propuestaSolicitud')?.value.importeCuota | number}} a {{myForm.get('propuestaSolicitud')?.value.plazo}} meses</td>
+                                          </tr>
+                                        </tfoot>
+                                      </table>
+                                    </div>  
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+
                             <div class="col-md-12 m-t-10">
                               <fieldset>
                                 <legend>Referencia</legend>

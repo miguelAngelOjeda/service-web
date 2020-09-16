@@ -17,6 +17,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class ReviewComponent implements OnInit {
   myForm: FormGroup;
+  totalEgreso : number;
+  totalEgresoCreditoAux: number;
 
   constructor(
     private apiService: ApiService,
@@ -34,6 +36,8 @@ export class ReviewComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         this.myForm.patchValue(res.model);
+
+        this.totalEgreso = 0;
         //Cargar Ocupaciones
         if(res.model.detalles != null &&  res.model.detalles.length > 0){
           const detalles = (<FormArray>this.myForm.get('detalles'));
@@ -42,6 +46,32 @@ export class ReviewComponent implements OnInit {
               detalles.removeAt(0);
             }
             res.model.detalles.forEach(staff => {
+
+              //total ingreso
+              var totalIngresos = 0;
+              staff.persona.ingresos.forEach( (ingreso) => {
+                totalIngresos = totalIngresos + ingreso.monto;
+              });
+              staff.ingresoTotal = totalIngresos;
+
+              //total egreso
+              totalIngresos = 0;
+              staff.persona.egresos.forEach( (egreso) => {
+                totalIngresos = totalIngresos + egreso.monto;
+              });
+              
+              this.totalEgreso = this.totalEgreso + totalIngresos;
+
+              //porcentajeCapacidad
+              staff.porcentajeCapacidad = staff.ingresoTotal * (res.model.porcentajeEndeudamiento / 100);
+
+              var numb = staff.egresosTotal / staff.ingresoTotal;
+              staff.porcentajeDeudaEgreso = numb.toFixed(2);
+
+              numb = res.model.propuestaSolicitud.importeCuota / staff.ingresoTotal;
+
+              staff.porcentajeCreditoSol = numb.toFixed(2);
+
               let form = this.formBuilder.group(staff);
               this.reviewService.valueChanges(form,this.myForm);
               detalles.push(form);
@@ -90,6 +120,15 @@ export class ReviewComponent implements OnInit {
     }
     dialogConfig.autoFocus = true;
     this.peopleService.viewModalPeopleSolicitud(idSolicitud, idPersona, type, dialogConfig);
+  }
+
+  procesaPropagarEgresoCredito(totalEgressCredit:number) {
+    if(this.totalEgresoCreditoAux != null && this.totalEgresoCreditoAux != 0){
+      this.totalEgreso = this.totalEgreso - this.totalEgresoCreditoAux;
+    }
+    
+    this.totalEgreso = this.totalEgreso + Number(totalEgressCredit);
+    this.totalEgresoCreditoAux = Number(totalEgressCredit);
   }
 
 }

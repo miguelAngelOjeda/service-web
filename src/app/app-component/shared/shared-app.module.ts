@@ -24,6 +24,7 @@ import { SpouseComponent, ViewSpouseComponent } from './spouse';
 import { PeopleRelationshipComponent, ViewPeopleRelationsComponent } from './people-relationship';
 import { NgxCurrencyModule } from "ngx-currency";
 import { EgressCreditComponent, ViewEgressCreditComponent } from './egress-credit';
+import { AbmEgressCreditComponent } from './egress-credit/abm-egress-credit/abm-egress-credit.component';
 //import { ViewEgressCreditComponent } from './egress-credit/view-egress-credit/view-egress-credit.component';
 
 
@@ -83,7 +84,8 @@ export const customCurrencyMaskConfig = {
     PeopleRelationshipComponent,
     OccupationComponent,
     EgressCreditComponent,
-    ViewEgressCreditComponent
+    ViewEgressCreditComponent,
+    AbmEgressCreditComponent
   ],
   exports: [
     DeleteDialogComponent,
@@ -110,7 +112,8 @@ export const customCurrencyMaskConfig = {
     PeopleRelationshipComponent,
     OccupationComponent,
     EgressCreditComponent,
-    ViewEgressCreditComponent
+    ViewEgressCreditComponent,
+    AbmEgressCreditComponent
   ]
 })
 export class SharedAppModule {}

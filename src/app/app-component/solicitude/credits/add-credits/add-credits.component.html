@@ -111,7 +111,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
-                    <app-select-filter appearance="legacy" (value)="getValue($event, 'tipoDestino')" [modelValue]="myForm.get('tipoDestino').value"
+                    <app-select-filter appearance="legacy" (value)="getValue($event, 'tipoDestino')" [sortDirection]="'asc'" [modelValue]="myForm.get('tipoDestino').value"
                      placeholder="Destino" urlFilter="tipos-destinos" [columnsFilter]="['nombre']"></app-select-filter>
                   </div>
                   <div class="col-md-8">
