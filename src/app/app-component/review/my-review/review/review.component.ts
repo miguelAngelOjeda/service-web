@@ -18,7 +18,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class ReviewComponent implements OnInit {
   myForm: FormGroup;
   totalEgreso : number;
+  totalIngresoAux : number;
+  totalIngresoAuxPorc : number;
   totalEgresoCreditoAux: number;
+  totalEgresoCreditoAuxPorc : number;
+  porcentajeEndeudableAux: string;
+  isSemanal: boolean; 
 
   constructor(
     private apiService: ApiService,
@@ -31,6 +36,9 @@ export class ReviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.totalEgresoCreditoAux = 0;
+    this.totalEgresoCreditoAuxPorc = 0;
+    this.isSemanal = false;
     this.myForm = this.reviewService.initFormBuilder();
     this.apiService.get('/analisis_solicitudes/analizar/' + this.route.snapshot.params.id)
     .subscribe(res => {
@@ -53,6 +61,7 @@ export class ReviewComponent implements OnInit {
                 totalIngresos = totalIngresos + ingreso.monto;
               });
               staff.ingresoTotal = totalIngresos;
+              
 
               //total egreso
               totalIngresos = 0;
@@ -62,13 +71,21 @@ export class ReviewComponent implements OnInit {
               
               this.totalEgreso = this.totalEgreso + totalIngresos;
 
-              //porcentajeCapacidad
-              staff.porcentajeCapacidad = staff.ingresoTotal * (res.model.porcentajeEndeudamiento / 100);
+              //Calculo capacidad
 
-              var numb = staff.egresosTotal / staff.ingresoTotal;
-              staff.porcentajeDeudaEgreso = numb.toFixed(2);
+              if(res.model.propuestaSolicitud.modalidad.nombre == "CREDITOS SEMANALES"){
+                this.totalIngresoAux = staff.ingresoTotal / 4;
+                this.isSemanal = true;
+              } else {
+                this.totalIngresoAux = staff.ingresoTotal;
+              }
 
-              numb = res.model.propuestaSolicitud.importeCuota / staff.ingresoTotal;
+              this.totalIngresoAuxPorc = this.totalIngresoAux * (res.model.porcentajeEndeudamiento / 100);
+
+              var numb = this.totalEgresoCreditoAux / this.totalIngresoAux;
+              this.porcentajeEndeudableAux = numb.toFixed(2);
+
+              numb = (res.model.propuestaSolicitud.importeCuota / this.totalIngresoAux)*100;
 
               staff.porcentajeCreditoSol = numb.toFixed(2);
 
@@ -129,6 +146,16 @@ export class ReviewComponent implements OnInit {
     
     this.totalEgreso = this.totalEgreso + Number(totalEgressCredit);
     this.totalEgresoCreditoAux = Number(totalEgressCredit);
-  }
+
+    if( this.isSemanal){
+      this.totalEgresoCreditoAuxPorc = this.totalEgresoCreditoAux / 4;
+    } else {
+      this.totalEgresoCreditoAuxPorc = this.totalEgresoCreditoAux;
+    }
+
+    //calculo de procentajes
+    this.porcentajeEndeudableAux = ((this.totalEgresoCreditoAuxPorc / this.totalIngresoAux)*100 ).toFixed(2);
+
+  } 
 
 }
