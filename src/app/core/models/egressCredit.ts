@@ -6,6 +6,7 @@ export class EgressCredit {
     maximoAtraso: string;
     observacion: string;
     monto: number;
+    egresoCreditoBand: string;
 
     constructor(){
         this.id = null;
@@ -15,5 +16,6 @@ export class EgressCredit {
         this.maximoAtraso = "";
         this.observacion = "";
         this.monto = 0;
+        this.egresoCreditoBand = "";
     }
 }

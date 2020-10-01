@@ -41,6 +41,7 @@ export class CheckReviewComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         this.myForm.patchValue(res.model);
+        this.totalEgreso = 0;
         //Cargar Ocupaciones
         if(res.model.detalles != null &&  res.model.detalles.length > 0){
           const detalles = (<FormArray>this.myForm.get('detalles'));
@@ -66,7 +67,7 @@ export class CheckReviewComponent implements OnInit {
               
               this.totalEgreso = this.totalEgreso + totalIngresos;
 
-              //Calculo capacidad 
+              //Calculo capacidad
 
               if(res.model.propuestaSolicitud.modalidad.nombre == "CREDITOS SEMANALES"){
                 this.totalIngresoAux = staff.ingresoTotal / 4;
@@ -131,6 +132,6 @@ export class CheckReviewComponent implements OnInit {
     //calculo de procentajes
     this.porcentajeEndeudableAux = ((this.totalEgresoCreditoAuxPorc / this.totalIngresoAux)*100 ).toFixed(2);
 
-  } 
+  }
 
 }

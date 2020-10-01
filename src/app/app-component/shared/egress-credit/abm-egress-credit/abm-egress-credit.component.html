@@ -3,7 +3,43 @@
     <table class="table table-bordered">
       <thead>
         <tr class="text-center bg-light">
-          <th colspan="6" scope="col">Cuotas de creditos vigentes </th>
+          <th colspan="3" scope="col">Egresos Financieros </th>
+          <th scope="col">
+            <button type="button" class="btn btn-success" (click)="guardarEgresosCreditos()"><span class="material-icons">
+              done
+              </span></button>
+          </th>
+        </tr>
+        <tr>
+          <th scope="col">Egreso Concepto</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Observacion</th>
+          <th scope="col"><button (click)="addRowEgressCredit('N')" mat-mini-fab color="primary" aria-label="Agregar Fila">
+            <mat-icon>plus_one</mat-icon>
+          </button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let egc of egressCreditList; index as i; first as isFirst">  
+          <tr *ngIf="(egc.egresoCreditoBand == 'N')">
+            <td style="width: 20%"><input matInput placeholder="Concepto" [(ngModel)]="egc.nombreFinanciera" [ngModelOptions]="{standalone: true}"></td>
+            <td style="width: 10%"><input matInput placeholder="Monto" (change)="calcularTotalEC()" [(ngModel)]="egc.monto" [ngModelOptions]="{standalone: true}"></td> 
+            <td style="width: 68%"><input matInput placeholder="Obs" [(ngModel)]="egc.observacion" [ngModelOptions]="{standalone: true}"></td>
+            <td style="width: 2%"><button mat-raised-button color="warn" (click)="deleteRowEgressCredit(egc)"><mat-icon>delete</mat-icon></button></td>
+          </tr>
+        </ng-container>             
+      </tbody>
+      <tfoot>
+        <td>Total</td>
+        <td> {{totalEgressCredit2 | number}} </td>
+        <td colspan="3"></td>
+      </tfoot>
+    </table>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr class="text-center bg-light">
+          <th colspan="6" scope="col">Egresos creditos vigentes </th>
           <th scope="col">
             <button type="button" class="btn btn-success" (click)="guardarEgresosCreditos()"><span class="material-icons">
               done
@@ -17,22 +53,23 @@
           <th scope="col">P.A</th>
           <th scope="col">Monto</th>
           <th scope="col">Observacion</th>
-          <th scope="col"><button (click)="addRowEgressCredit()" mat-mini-fab color="primary" aria-label="Agregar Fila">
+          <th scope="col"><button (click)="addRowEgressCredit('S')" mat-mini-fab color="primary" aria-label="Agregar Fila">
             <mat-icon>plus_one</mat-icon>
           </button></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let egc of egressCreditList; index as i; first as isFirst">
-          
-          <td style="width: 20%"><input matInput placeholder="Nombre Financiera" [(ngModel)]="egc.nombreFinanciera" [ngModelOptions]="{standalone: true}"></td>
-          <td style="width: 2%"><input matInput placeholder="Cuota Ej: 10/12" [(ngModel)]="egc.cuota" [ngModelOptions]="{standalone: true}"></td>
-          <td style="width: 2%"><input matInput placeholder="M.A Ej: 15" [(ngModel)]="egc.maximoAtraso" [ngModelOptions]="{standalone: true}"></td>
-          <td style="width: 2%"><input matInput placeholder="P.A Ej: 15" (change)="calcularPromedioEC()" [(ngModel)]="egc.promedioAtraso" [ngModelOptions]="{standalone: true}"></td>
-          <td style="width: 10%"><input matInput placeholder="Monto" (change)="calcularTotalEC()" [(ngModel)]="egc.monto" [ngModelOptions]="{standalone: true}"></td> 
-          <td style="width: 62%"><input matInput placeholder="Obs" [(ngModel)]="egc.observacion" [ngModelOptions]="{standalone: true}"></td>
-          <td style="width: 2%"><button mat-raised-button color="warn" (click)="deleteRowEgressCredit(egc)"><mat-icon>delete</mat-icon></button></td>
-        </tr>                             
+        <ng-container *ngFor="let egc of egressCreditList; index as i; first as isFirst">  
+          <tr *ngIf="(egc.egresoCreditoBand == 'S')"> 
+            <td style="width: 20%"><input matInput placeholder="Nombre Financiera" [(ngModel)]="egc.nombreFinanciera" [ngModelOptions]="{standalone: true}"></td>
+            <td style="width: 2%"><input matInput placeholder="Cuota Ej: 10/12" [(ngModel)]="egc.cuota" [ngModelOptions]="{standalone: true}"></td>
+            <td style="width: 2%"><input matInput placeholder="M.A Ej: 15" [(ngModel)]="egc.maximoAtraso" [ngModelOptions]="{standalone: true}"></td>
+            <td style="width: 2%"><input matInput placeholder="P.A Ej: 15" (change)="calcularPromedioEC()" [(ngModel)]="egc.promedioAtraso" [ngModelOptions]="{standalone: true}"></td>
+            <td style="width: 10%"><input matInput placeholder="Monto" (change)="calcularTotalEC()" [(ngModel)]="egc.monto" [ngModelOptions]="{standalone: true}"></td> 
+            <td style="width: 62%"><input matInput placeholder="Obs" [(ngModel)]="egc.observacion" [ngModelOptions]="{standalone: true}"></td>
+            <td style="width: 2%"><button mat-raised-button color="warn" (click)="deleteRowEgressCredit(egc)"><mat-icon>delete</mat-icon></button></td>
+          </tr>
+        </ng-container>                       
       </tbody>
       <tfoot>
         <td colspan="3">Total</td>

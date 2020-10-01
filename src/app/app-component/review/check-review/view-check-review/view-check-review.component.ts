@@ -41,6 +41,7 @@ export class ViewCheckReviewComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         this.myForm.patchValue(res.model);
+        this.totalEgreso = 0;
         //Cargar Ocupaciones
         if(res.model.detalles != null &&  res.model.detalles.length > 0){
           const detalles = (<FormArray>this.myForm.get('detalles'));

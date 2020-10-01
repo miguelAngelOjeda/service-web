@@ -365,7 +365,7 @@
                                   </div>
                                   <div class="col-md-9">
                                     <h4>Egresos</h4>
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" style="display: none;">
                                       <table class="table table-bordered">
                                         <thead>
                                           <tr>
@@ -395,7 +395,7 @@
                                     </div>
                                   </div>
                                   <div class="col-md-6">
-                                    <p mat-line><span class="font-bold">Total Egresos </span> {{totalEgreso | number}}</p>
+                                    <p mat-line><span class="font-bold">Total Egresos </span> {{totalEgresoCreditoAux | number}}</p>
                                     <div *ngIf="myForm.get('propuestaSolicitud')?.value.modalidad.nombre == 'CREDITOS SEMANALES'">
                                       <p mat-line><span class="font-bold">Total Egresos Semanales </span> {{totalEgresoCreditoAuxPorc | number}}</p>
                                     </div>
