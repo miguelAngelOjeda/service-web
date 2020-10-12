@@ -61,12 +61,7 @@
                </div>
                <div class="col-md-4">
                 <mat-form-field appearance="legacy">
-                  <input matInput #input  placeholder="Obs"  formControlName="observacion" name="observacion" required>
-                  <mat-error *ngIf="(egresoCredit.get('observacion').errors)">
-                    <span *ngIf="egresoCredit.get('observacion').errors.required">  
-                     Campo requerido
-                    </span>
-                  </mat-error>
+                  <input matInput #input  placeholder="Obs"  formControlName="observacion" name="observacion">
                 </mat-form-field>
               </div>
                

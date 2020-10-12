@@ -85,6 +85,7 @@ export class ViewCheckReviewComponent implements OnInit {
 
               staff.porcentajeCreditoSol = numb.toFixed(2);
 
+
               let form = this.formBuilder.group(staff);
               this.reviewService.valueChanges(form,this.myForm);
               detalles.push(form);
@@ -113,6 +114,6 @@ export class ViewCheckReviewComponent implements OnInit {
     //calculo de procentajes
     this.porcentajeEndeudableAux = ((this.totalEgresoCreditoAuxPorc / this.totalIngresoAux)*100 ).toFixed(2);
 
-  } 
+  }
 
 }

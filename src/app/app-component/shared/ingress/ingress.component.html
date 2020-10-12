@@ -11,7 +11,7 @@
             <div class="row">
                <div class="col-sm-5">
                  <mat-form-field appearance="legacy">
-                   <input matInput #input type="text" min="0"  placeholder="Monto"  formControlName="monto"  name="monto" currencyMask>
+                   <input matInput #input type="text" placeholder="Monto"  formControlName="monto"  name="monto">
                    <mat-error *ngIf="(ingresos.get('monto').errors)">
                      <span *ngIf="ingresos.get('monto').errors.required">
                       Campo requerido
