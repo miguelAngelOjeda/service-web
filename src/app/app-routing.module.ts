@@ -30,8 +30,12 @@ const appRoutes: Routes = [
         loadChildren: './app-component/client/client.module#ClientModule'
         },
         {
-        path: 'service-web/informconf',
-        loadChildren: './app-component/informconf/informconf.module#InformconfModule'
+        path: 'service-web/cuotasWs',
+        loadChildren: './app-component/cuotasWs/cuotasWs.module#CuotasWsModule'
+        },
+        {
+        path: 'service-web/informconf', 
+        loadChildren: './app-component/informconf/informconf.module#InformconfModule' 
         },
         {
         path: 'service-web/credits-solicitude',

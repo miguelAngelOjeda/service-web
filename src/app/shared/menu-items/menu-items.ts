@@ -14,6 +14,7 @@ const MENUITEMS = [
   // { state: 'users', type: 'link', name: 'Usuarios', icon: 'group', entity:'subsidiary', role:'listSubsidiary' },
   { state: 'client', type: 'link', name: 'Clientes', icon: 'assignment_ind', entity:'client', role:'listClient' },
   { state: 'informconf', type: 'link', name: 'Informconf', icon: 'assignment_ind', entity:'informconf', role:'informconfReport' },
+  { state: 'cuotasWs', type: 'link', name: 'Archivo Cuotas', icon: 'assignment_ind', entity:'cuotasWs', role:'cuotasWsUploadFile' },
   { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' , entity:'', role:''},
   {
     state: 'progress-snipper',

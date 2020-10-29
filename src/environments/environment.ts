@@ -512,7 +512,12 @@ export const authorities = {
       "informconfReport": {
     	   "permittedRoles": ["ROLE_INFORMCONF.REPORT"]
     	 }
-    }
+	},
+	"cuotasWs": {
+		"cuotasWsUploadFile": {
+			 "permittedRoles": ["ROLE_CUOTAS_WS.UPLOAD"]
+		   }
+	}
   }
 };
 
