@@ -15,6 +15,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 //create our cost var with the information about the format that we want
 export const MY_FORMATS = {
@@ -63,7 +64,8 @@ export const MY_FORMATS = {
     MatPaginatorModule,
     CommonModule,
     MatTabsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatFileUploadModule
   ],
   exports: [
     MatMenuModule,
@@ -96,7 +98,8 @@ export const MY_FORMATS = {
     MatIconModule,
     MatToolbarModule,
     MatTabsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatFileUploadModule
   ]
 })
 export class MaterialModule { }

@@ -1,0 +1,13 @@
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}
+
+.gray-text {
+  color: #777;
+  vertical-align: text-bottom;
+  margin-right: 5px;
+}

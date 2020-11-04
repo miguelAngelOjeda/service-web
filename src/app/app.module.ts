@@ -29,7 +29,8 @@ import { SpinnerComponent } from './shared/spinner';
 import { SnackbarComponent } from './shared';
 import { SharedAppModule } from './app-component/shared';
 import * as $ from 'jquery';
-import { UploadFileComponent } from './app-component/cuotasWs/upload-file/upload-file.component';
+
+
 
 
 
@@ -46,8 +47,7 @@ import { UploadFileComponent } from './app-component/cuotasWs/upload-file/upload
     SnackbarComponent,
     SpinnerComponent,
     HomeComponent,
-    SidenavListComponent,
-    UploadFileComponent
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,

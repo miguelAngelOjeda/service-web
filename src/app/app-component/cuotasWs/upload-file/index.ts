@@ -1,1 +1,1 @@
-export * from './upload-file.component';
+export * from './uploadFileWs.component';

@@ -13,13 +13,13 @@ import { ReactiveFormsModule }    from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from '../../shared/map';
 import { DeleteDialogComponent } from '../../shared/dialog';
-import { DropifyImageComponent } from '../../shared/dropify-image';
-import { SelectFilterComponent } from '../../shared/select-filter';
 import { SharedAppModule } from '../shared';
-import { UploadFileComponent } from './upload-file';
+import { UploadCuotasWsComponent } from './upload-file';
+import { CuotasWsRoutingModule } from './cuotasWs-routing.module';
 
 @NgModule({
   imports: [
+    CuotasWsRoutingModule,
     MaterialModule,
     SharedModule,
     FlexLayoutModule,
@@ -37,7 +37,7 @@ import { UploadFileComponent } from './upload-file';
     DeleteDialogComponent
   ],
   declarations: [
-    UploadFileComponent
+    UploadCuotasWsComponent
   ],
   providers: [
   ]

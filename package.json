@@ -31,6 +31,7 @@
     "@ecodev/fab-speed-dial": "^3.1.4",
     "@hallysonh/ngx-imageviewer": "^2.0.4",
     "angular-file-uploader": "^5.0.2",
+    "angular-material-fileupload": "^3.0.1",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.10",
     "dropify": "^0.2.2",
