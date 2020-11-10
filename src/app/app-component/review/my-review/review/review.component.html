@@ -358,6 +358,7 @@
                                   </div>
                                   <div class="col-md-9">
                                     <h4>Egresos</h4>
+                                    <!--
                                     <div class="table-responsive" style="display: none;">
                                       <table class="table table-bordered">
                                         <thead>
@@ -376,6 +377,7 @@
                                         </tbody>
                                       </table>
                                     </div>
+                                    -->
                                     <app-abm-egress-credit (propagar)="procesaPropagarEgresoCredito($event)"></app-abm-egress-credit>
                                     
                                   </div>
@@ -446,13 +448,13 @@
                                           </tr>
                                           <tr>
                                             <td>Credito solicitado</td>
-                                            <td>{{detalle.get('porcentajeCreditoSol').value | number}} %</td>
+                                            <td>{{(detalle.get('porcentajeCreditoSol') == null ? 0 : detalle.get('porcentajeCreditoSol').value) | number}} %</td>
                                             <td>{{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</td>
                                         
                                           </tr>
                                           <tr [ngStyle]="{'background-color': ( (( totalIngresoAuxPorc - totalEgresoCreditoAuxPorc ) - myForm.get('propuestaSolicitud')?.value.importeCuota) ) < 0 ? '#B85357' : '#79B88A' }">
                                             <td>Saldo Real</td>
-                                            <td>{{ ((myForm.get('porcentajeEndeudamiento')?.value - porcentajeEndeudableAux) - detalle.get('porcentajeCreditoSol').value) | number}} %</td>
+                                            <td>{{ ((myForm.get('porcentajeEndeudamiento')?.value - porcentajeEndeudableAux) - (detalle.get('porcentajeCreditoSol') == null ? 0 : detalle.get('porcentajeCreditoSol').value) ) | number}} %</td>
                                             <td>{{ (( totalIngresoAuxPorc - totalEgresoCreditoAuxPorc ) - myForm.get('propuestaSolicitud')?.value.importeCuota) | number}}</td>
                                           </tr>
                                         </tbody>

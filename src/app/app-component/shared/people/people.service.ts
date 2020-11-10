@@ -25,7 +25,7 @@ export class PeopleService {
 
 
     public guardar(formGroup: FormGroup, dialogRef: MatDialogRef<AddModalPeopleComponent>){
-      console.log(formGroup);
+      
       if(formGroup.valid){
 
         if(formGroup.value.persona.tipoPersona !== 'FISICA'){

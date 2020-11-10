@@ -21,7 +21,7 @@ export class UploadCuotasWsComponent implements OnInit{
 
   ngOnInit() {
     this.url = environment.api_url + '/pagoCuotaWs'
-    console.log(this.url);
+    //console.log(this.url);
     
   }
 
@@ -36,7 +36,7 @@ export class UploadCuotasWsComponent implements OnInit{
         let formData:FormData = new FormData();
         formData.append('file', file);
         formData.append('dataType', '.txt');
-        console.log(file);
+        //console.log(file);
 
         this.apiService.post('/pagoCuotaWs/upload', formData)
           .subscribe(res => {

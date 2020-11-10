@@ -48,20 +48,29 @@ export class AbmEgressCreditComponent implements AfterViewInit {
         this.totalEgressCredit = 0;
         this.totalEgressCredit2 = 0;
         this.promedioEgress = 0;
-        this.idPersona = detalle.get('persona').value.id;
-        this.egressCreditList = detalle.get('persona').value.egresoCreditos;
-        var count = 0;
-        this.egressCreditList.forEach( (egc) => {
-          //console.log('igor='+egc.egresoCreditoBand);
-          if(egc.egresoCreditoBand == 'S'){
-            this.totalEgressCredit = this.totalEgressCredit + egc.monto;
-            this.promedioEgress = this.promedioEgress + Number(egc.promedioAtraso);
-            count = count + 1;
-          } else {
-            this.totalEgressCredit2 = this.totalEgressCredit2 + egc.monto;
-          }
+        
+        
+        if(detalle.get('persona') != null){
+          this.idPersona = detalle.get('persona').value.id;
+          this.egressCreditList = detalle.get('persona').value.egresoCreditos;
+          var count = 0;
+
+          if(this.egressCreditList != null){
+            this.egressCreditList.forEach( (egc) => {
+            
+              if(egc.egresoCreditoBand == 'S'){
+                this.totalEgressCredit = this.totalEgressCredit + egc.monto;
+                this.promedioEgress = this.promedioEgress + Number(egc.promedioAtraso);
+                count = count + 1;
+              } else {
+                this.totalEgressCredit2 = this.totalEgressCredit2 + egc.monto;
+              }
+              
+            });
+          } 
           
-        });
+        }
+        
 
         this.propagar.emit(this.totalEgressCredit + this.totalEgressCredit2);
         
@@ -146,7 +155,9 @@ export class AbmEgressCreditComponent implements AfterViewInit {
         }
       });
 
-    console.log(jsonOutPut);
+  }
+
+  onSubmit() {
   }
 
 }

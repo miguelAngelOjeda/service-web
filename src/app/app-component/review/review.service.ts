@@ -125,7 +125,7 @@ export class ReviewService {
 
   //Comportamientos de los campos en el formulario
   valueChanges(form: FormGroup,formInit: FormGroup) {
-    console.log(form);
+    
     form.controls['montoDeudaSolicitudCuotas'].valueChanges.subscribe(
         (value) => {
           let monto = value + form.get('montoDeudaDescuentoCuotas').value;
