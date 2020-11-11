@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   //api_url: 'http://localhost:8989/beta1',
-  api_image_url: 'https://appdesa1.financorp.com.py/beta1/image/',
-  api_url: 'https://appdesa1.financorp.com.py/beta1',
+  api_image_url: 'https://appdesa.creditoguarani.com.py/beta1/image/',
+  api_url: 'https://appdesa.creditoguarani.com.py/beta1',
   whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
 };
 

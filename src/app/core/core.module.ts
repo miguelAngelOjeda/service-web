@@ -28,7 +28,9 @@ export function tokenGetter() {
           'app2.financorp.com.py',
           'https://appdesa1.financorp.com.py',
           'appdesa1.financorp.com.py',
-          'https://appdesa1.creditoguarani.com.py'
+          'https://appdesa1.creditoguarani.com.py',
+          'appdesa.creditoguarani.com.py',
+          'https://appdesa.creditoguarani.com.py'
         ],
          //blacklistedRoutes: ['example.com/examplebadroute/']
          authScheme: 'X-Token '
