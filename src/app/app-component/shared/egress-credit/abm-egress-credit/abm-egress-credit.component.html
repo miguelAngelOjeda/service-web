@@ -25,7 +25,7 @@
             <td style="width: 20%"><input matInput placeholder="Concepto" [(ngModel)]="egc.nombreFinanciera" [ngModelOptions]="{standalone: true}"></td>
             <td style="width: 10%"><input matInput placeholder="Monto" (change)="calcularTotalEC()" [(ngModel)]="egc.monto" [ngModelOptions]="{standalone: true}"></td> 
             <td style="width: 68%"><input matInput placeholder="Obs" [(ngModel)]="egc.observacion" [ngModelOptions]="{standalone: true}"></td>
-            <td style="width: 2%"><button mat-raised-button color="warn" (click)="deleteRowEgressCredit(egc)"><mat-icon>delete</mat-icon></button></td>
+            <td style="width: 2%"><button mat-mini-fab color="warn" (click)="deleteRowEgressCredit(egc)"><mat-icon>delete</mat-icon></button></td>
           </tr>
         </ng-container>             
       </tbody>
@@ -53,7 +53,7 @@
           <th scope="col">P.A</th>
           <th scope="col">Monto</th>
           <th scope="col">Observacion</th>
-          <th scope="col"><button (click)="addRowEgressCredit('S')" mat-mini-fab color="primary" aria-label="Agregar Fila">
+          <th scope="col"><button mat-mini-fab color="primary" (click)="addRowEgressCredit('S')"  aria-label="Agregar Fila">
             <mat-icon>plus_one</mat-icon>
           </button></th>
         </tr>
@@ -67,7 +67,7 @@
             <td style="width: 2%"><input matInput placeholder="P.A Ej: 15" (change)="calcularPromedioEC()" [(ngModel)]="egc.promedioAtraso" [ngModelOptions]="{standalone: true}"></td>
             <td style="width: 10%"><input matInput placeholder="Monto" (change)="calcularTotalEC()" [(ngModel)]="egc.monto" [ngModelOptions]="{standalone: true}"></td> 
             <td style="width: 62%"><input matInput placeholder="Obs" [(ngModel)]="egc.observacion" [ngModelOptions]="{standalone: true}"></td>
-            <td style="width: 2%"><button mat-raised-button color="warn" (click)="deleteRowEgressCredit(egc)"><mat-icon>delete</mat-icon></button></td>
+            <td style="width: 2%"><button mat-mini-fab color="warn" (click)="deleteRowEgressCredit(egc)"><mat-icon>delete</mat-icon></button></td>
           </tr>
         </ng-container>                       
       </tbody>

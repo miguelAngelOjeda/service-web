@@ -50,12 +50,14 @@ export class AbmEgressCreditComponent implements AfterViewInit {
         this.promedioEgress = 0;
         
         
-        if(detalle.get('persona') != null){
+        
           this.idPersona = detalle.get('persona').value.id;
           this.egressCreditList = detalle.get('persona').value.egresoCreditos;
           var count = 0;
 
           if(this.egressCreditList != null){
+
+          
             this.egressCreditList.forEach( (egc) => {
             
               if(egc.egresoCreditoBand == 'S'){
@@ -67,9 +69,11 @@ export class AbmEgressCreditComponent implements AfterViewInit {
               }
               
             });
-          } 
-          
-        }
+          } else {
+            this.egressCreditList = new Array();
+            this.egressCreditList2 = new Array();
+            this.egressCreditListDelete = new Array();
+          }
         
 
         this.propagar.emit(this.totalEgressCredit + this.totalEgressCredit2);
@@ -91,6 +95,9 @@ export class AbmEgressCreditComponent implements AfterViewInit {
     //console.log(egresoCredito);
     var object = new EgressCredit();
     object.egresoCreditoBand = egresoCredito;
+    if(this.egressCreditList == null){
+      this.egressCreditList = new Array();
+    }
     this.egressCreditList.push(object);
     
   }
@@ -157,7 +164,6 @@ export class AbmEgressCreditComponent implements AfterViewInit {
 
   }
 
-  onSubmit() {
-  }
+  
 
 }

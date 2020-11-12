@@ -24,6 +24,7 @@ export class ReviewComponent implements OnInit {
   totalEgresoCreditoAuxPorc : number;
   porcentajeEndeudableAux: string;
   isSemanal: boolean; 
+  porcentajeCreditoSol :string;
 
   constructor(
     private apiService: ApiService,
@@ -38,6 +39,7 @@ export class ReviewComponent implements OnInit {
   ngOnInit() {
     this.totalEgresoCreditoAux = 0;
     this.totalEgresoCreditoAuxPorc = 0;
+    this.porcentajeCreditoSol = '0'
     this.isSemanal = false;
     this.myForm = this.reviewService.initFormBuilder();
     this.apiService.get('/analisis_solicitudes/analizar/' + this.route.snapshot.params.id)
@@ -53,6 +55,7 @@ export class ReviewComponent implements OnInit {
             while (detalles.length) {
               detalles.removeAt(0);
             }
+            this.totalEgreso = 0;
             res.model.detalles.forEach(staff => {
 
               //total ingreso
@@ -87,7 +90,7 @@ export class ReviewComponent implements OnInit {
 
               numb = (res.model.propuestaSolicitud.importeCuota / this.totalIngresoAux)*100;
 
-              staff.porcentajeCreditoSol = numb.toFixed(2);
+              this.porcentajeCreditoSol = numb.toFixed(2);
 
               let form = this.formBuilder.group(staff);
               this.reviewService.valueChanges(form,this.myForm);
@@ -100,9 +103,11 @@ export class ReviewComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit2() {
     this.reviewService.review(this.route.snapshot.params.id,this.myForm);
   }
+
+  onSubmit(){}
 
   reportInformconf(nroSolicitud: number, documento: string, tipo: string, historico: boolean) {
     const matDialogConfig = new MatDialogConfig();
@@ -140,6 +145,7 @@ export class ReviewComponent implements OnInit {
   }
 
   procesaPropagarEgresoCredito(totalEgressCredit:number) {
+    
     if(this.totalEgresoCreditoAux != null && this.totalEgresoCreditoAux != 0){
       this.totalEgreso = this.totalEgreso - this.totalEgresoCreditoAux;
     }

@@ -21,6 +21,7 @@ export class CheckReviewComponent implements OnInit {
   totalEgresoCreditoAuxPorc : number;
   porcentajeEndeudableAux: string;
   isSemanal: boolean; 
+  porcentajeCreditoSol :string;
 
   constructor(
     private apiService: ApiService,
@@ -36,6 +37,7 @@ export class CheckReviewComponent implements OnInit {
     this.totalEgresoCreditoAux = 0;
     this.totalEgresoCreditoAuxPorc = 0;
     this.isSemanal = false;
+    this.porcentajeCreditoSol = '0'
     this.myForm = this.reviewService.initFormBuilder();
     this.apiService.get('/analisis_solicitudes/' + this.route.snapshot.params.id)
     .subscribe(res => {
@@ -83,7 +85,7 @@ export class CheckReviewComponent implements OnInit {
 
               numb = (res.model.propuestaSolicitud.importeCuota / this.totalIngresoAux)*100;
 
-              staff.porcentajeCreditoSol = numb.toFixed(2);
+              this.porcentajeCreditoSol = numb.toFixed(2);
 
               let form = this.formBuilder.group(staff);
               this.reviewService.valueChanges(form,this.myForm);
@@ -96,9 +98,11 @@ export class CheckReviewComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit2() {
     this.reviewService.review(this.route.snapshot.params.id,this.myForm);
   }
+
+  onSubmit(){}
 
   viewPeople(idSolicitud: number, idPersona: number,type: string) {
     const dialogConfig = new MatDialogConfig();

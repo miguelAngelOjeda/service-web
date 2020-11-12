@@ -501,13 +501,13 @@
                                         </tr>
                                         <tr>
                                           <td>Credito solicitado</td>
-                                          <td>{{detalle.get('porcentajeCreditoSol').value | number}} %</td>
+                                          <td>{{porcentajeCreditoSol | number}} %</td>
                                           <td>{{myForm.get('propuestaSolicitud')?.value.importeCuota | number}}</td>
                                       
                                         </tr>
                                         <tr [ngStyle]="{'background-color': ( (( totalIngresoAuxPorc - totalEgresoCreditoAuxPorc ) - myForm.get('propuestaSolicitud')?.value.importeCuota) ) < 0 ? '#B85357' : '#79B88A' }">
                                           <td>Saldo Real</td>
-                                          <td>{{ ((myForm.get('porcentajeEndeudamiento')?.value - porcentajeEndeudableAux) - detalle.get('porcentajeCreditoSol').value) | number}} %</td>
+                                          <td>{{ ((myForm.get('porcentajeEndeudamiento')?.value - porcentajeEndeudableAux) - porcentajeCreditoSol) | number}} %</td>
                                           <td>{{ (( totalIngresoAuxPorc - totalEgresoCreditoAuxPorc ) - myForm.get('propuestaSolicitud')?.value.importeCuota) | number}}</td>
                                         </tr>
                                       </tbody>
@@ -791,7 +791,7 @@
           </div>
         </div>
         <mat-card-actions>
-          <button mat-button [type]="onSubmit" mat-raised-button>Guardar</button>
+          <button mat-button (click)="onSubmit2()" mat-raised-button>Guardar</button>
         </mat-card-actions>
       </mat-card-content>
     </form>

@@ -226,24 +226,7 @@
                             </div>
                             <div class="col-md-9">
                               <h4>Egresos</h4>
-                              <div class="table-responsive" style="display: none;">
-                                <table class="table table-bordered">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">Egresos</th>
-                                      <th scope="col">Monto</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let eg of detalle.controls['persona']?.value.egresos">
-                                      <td>{{eg.tipoIngresosEgresos.nombre}}</td>
-                                      <td>{{eg.monto | number}}</td>
-                                    </tr>
-                                    
-                                    
-                                  </tbody>
-                                </table>
-                              </div>
+                              
                               <app-abm-egress-credit (propagar)="procesaPropagarEgresoCredito($event)"></app-abm-egress-credit>
                               
                             </div>
