@@ -17,8 +17,8 @@ import { catchError, map, startWith, switchMap, filter} from 'rxjs/operators';
 export class ListCreditsComponent implements OnInit {
   public isMobile: Boolean;
 
-  public rulesColumns  = ['propuestaSolicitud.persona.documento', 'propuestaSolicitud.persona.ruc', 'propuestaSolicitud.persona.primerNombre', 'propuestaSolicitud.persona.segundoNombre', 'propuestaSolicitud.persona.primerApellido', 'propuestaSolicitud.nombre'];
-  public displayedColumns = ['id','propuestaSolicitud.id','montoCapital', 'montoInteres', 'saldoCapital', 'saldoInteres' ,
+  public rulesColumns  = ['propuestaSolicitud.cliente.persona.documento', 'propuestaSolicitud.cliente.persona.ruc', 'propuestaSolicitud.cliente.persona.primerNombre', 'propuestaSolicitud.cliente.persona.segundoNombre', 'propuestaSolicitud.cliente.persona.primerApellido'];
+  public displayedColumns = ['id','propuestaSolicitud.id','documentoCliente', 'nombreCliente','montoCapital', 'montoInteres', 'saldoCapital', 'saldoInteres' ,
    'plazoOperacion', 'fechaGeneracion', 'fechaDesembolso', 'sucursal', 'estado.nombre', 'opciones'];
   public dataSource = new MatTableDataSource<any>();
 
@@ -58,7 +58,7 @@ export class ListCreditsComponent implements OnInit {
             //   groupOp = 'AND'
             //   value = this.filterForm.value;
             // }
-            if(this.filterInput.nativeElement.value.length > 3){
+            if(this.filterInput.nativeElement.value.length >= 3){
               this.isfilter = true;
               value = this.filterInput.nativeElement.value;
             }
@@ -68,6 +68,7 @@ export class ListCreditsComponent implements OnInit {
           map(data => {
             // Flip flag to show that loading has finished.
             this.length = data.records;
+            //console.log(data.rows);
             return data.rows;
           }),
           catchError(() => {

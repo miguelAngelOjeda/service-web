@@ -71,7 +71,7 @@ export class SelectFilterComponent implements AfterViewInit, OnInit {
 
   @Input()
   set modelValue(model: any) {
-    if(model){
+    if(model != null){
       this.modelControl.setValue(model);
     }
   }

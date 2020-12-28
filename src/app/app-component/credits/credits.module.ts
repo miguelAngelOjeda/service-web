@@ -23,6 +23,7 @@ import { ReferenceComponent, EstateComponent,OccupationComponent,ViewVehicleComp
   ViewOccupationComponent,ViewEstateComponent,
    VehicleComponent, IngressComponent, EgressComponent, PeopleComponent } from '../shared';
 import { NgxCurrencyModule } from "ngx-currency";
+import { PrintCreditsComponent } from './print-credits/print-credits.component';
 
 export const customCurrencyMaskConfig = {
     align: "right",
@@ -77,7 +78,8 @@ export const customCurrencyMaskConfig = {
     EditCreditsComponent,
     DisburseCreditsComponent,
     ViewCreditsComponent,
-    FilterSheetComponent
+    FilterSheetComponent,
+    PrintCreditsComponent
   ],
   entryComponents: [
     FilterSheetComponent

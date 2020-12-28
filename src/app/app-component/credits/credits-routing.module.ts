@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserService } from '../../core/services';
 import { EditCreditsComponent, ListCreditsComponent,
 ViewCreditsComponent } from '../credits';
+import { PrintCreditsComponent } from './print-credits';
 
 
 const routes: Routes = [
@@ -17,6 +18,11 @@ const routes: Routes = [
       data: {roles: ['credits-solicitude', 'viewCredits']}
     },
     { path: ':id/edit', component: EditCreditsComponent,
+      data: {
+        allowedRoles: ['credits-solicitude', 'editCredits']
+      }
+    },
+    { path: ':id/desembolso', component: PrintCreditsComponent,
       data: {
         allowedRoles: ['credits-solicitude', 'editCredits']
       }

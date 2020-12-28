@@ -1,0 +1,154 @@
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/credits"> Creditos </a> &gt; <span class="current">Desembolsado</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+  <!--
+  <a mat-raised-button class="m-l-10" routerLink="/service-web/credits/{{myForm.get('id').value}}">
+    <i aria-hidden="true" class="fa fa-eye"></i>
+     Visualizar
+  </a>
+  -->
+  <ng-container *ngIf="myForm.get('estado')?.value?.id == 1">
+    <a mat-raised-button class="m-l-10" (click)="delete(myForm.value)" *appCanAccess="['credits', 'deleteCredits']">
+      <i  class="fa fa-times" aria-hidden="true"></i>
+       Borrar
+    </a>
+  </ng-container>
+</div>
+<mat-card class="form-card">
+  <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
+    
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-12">
+              <fieldset>
+                <legend><mat-icon class="gray-text">event_note</mat-icon>Credito</legend>
+                <div class="row">
+                  <div class="col-md-12" *ngIf="myForm.get('id').value">
+                    <div class="d-flex flex-row comment-row ng-star-inserted">
+                      <div class="comment-text w-100">
+                        <div class="comment-footer my-3">
+                          <span class="label label-info"><span class="font-bold">Nº Credito: </span> {{myForm.get('id').value}}</span>
+                        </div>
+                        <div class="comment-footer">
+                          <span class="text-muted"><span class="font-bold">Fecha Alta: </span>{{myForm.get('fechaGeneracion').value | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 ">
+                    <div class="row">
+                      <div class="col-md-12 m-t-10" *ngIf="myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.id">
+                        <div class="d-flex align-items-center m-b-30">
+                          <div class="avatar-detail">
+                            <img *ngIf="myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.imagePath === null"  src="assets/images/users/1.jpg" alt="user" class="avatar-lg rounded-circle">
+                            <img *ngIf="myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.imagePath !== null"  [src]="urlImage + '/DisplayImage?url=' + myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.imagePath"  alt="user" class="avatar-lg rounded-circle">
+                          </div>
+                          <div class="p-l-20">
+                            <div class="font-medium">{{
+                              (myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.primerNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.primerNombre)
+                              + ' ' +
+                              (myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.segundoNombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.segundoNombre)
+                              + ' ' +
+                              (myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.primerApellido == null ? '' : myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.primerApellido)
+                              + ' ' +
+                              (myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.segundoApellido == null ? '' : myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.segundoApellido)
+                              }} </div>
+                            <span class="font-14">Doc.: {{(myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.documento == null ? '' : myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.documento)
+                              + (myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.ruc == null ? '' : '/' + myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.ruc)}}</span>
+                            <br>
+                            <span *ngIf="myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.profesion?.nombre" class="font-14">{{myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.profesion?.nombre}}</span>
+                            <br>
+                            <span *ngIf="myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.email" class="font-14">{{myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.email}}</span>
+                            <br>
+                            <span class="font-14">Telf. {{
+                              (myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.telefonoParticular == null ? '' : myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.telefonoParticular)
+                              + ' ' +
+                              (myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.telefonoSecundario == null ? '' : myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.telefonoSecundario)
+                              }}</span>
+                            <br>
+                            <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="viewPeople(myForm.get('propuestaSolicitud')?.value?.id, myForm.get('propuestaSolicitud')?.value?.cliente?.persona?.id,'DEUDOR')" color="primary">Detalle</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <p mat-line><span class="font-bold">Tasa de Interes Anual: </span>{{myForm.get('tasaInteres')?.value}} %</p>
+              <p mat-line><span class="font-bold">Gastos Administrativos Anual: </span>{{myForm.get('gastosAdministrativos')?.value}} %</p>
+              <p mat-line><span class="font-bold">Seguro de vida Anual: </span>{{myForm.get('seguroVida')?.value}} %</p>
+              <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazoOperacion')?.value}}</p>
+            </div>
+            <div class="col-md-4">
+              <p mat-line><span class="font-bold">Tasa de interes por periodo: </span>{{interesPeriodo}} %</p>
+              <p mat-line><span class="font-bold">Gtos Adm. por periodo: </span>{{gastAdminPeriodo}} %</p>
+              <p mat-line><span class="font-bold">Seg Vida. por periodo: </span>{{segVidaPeriodo}} %</p>
+              <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value?.nombre}}</p>
+            </div>
+            <div class="col-md-4">
+              <p mat-line><span class="font-bold">Destino: </span>{{myForm.get('tipoDestino')?.value.nombre}}</p>
+              <p mat-line><span class="font-bold">Tipo Garantia: </span>{{(myForm.get('propuestaSolicitud')?.value?.tipoGarantia?.nombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre)}}</p>
+              <p mat-line><span class="font-bold">Forma de pago: </span> {{(myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre)}}</p>
+              <p mat-line><span class="font-bold">Tipo Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
+            </div>
+          </div>
+         
+          <div class="row">
+              <div class="col-md-9">
+                <p><span class="font-bold">Neto a desembolsar: </span> {{myForm.get('montoCapital')?.value  | number}}</p>
+                <p><span class="font-bold">Gastos Administrativos: </span> {{gastAdmin | number}}</p>
+                <p><span class="font-bold">Seguro de vida: </span> {{segVida | number}}</p>
+                <p><span class="font-bold">Capital Total: </span> {{capitalTotal | number}}</p>
+              </div>
+              <div class="col-md-3">                 
+                <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printLiquidacion()" color="primary">Imprimir Liquidacion</button>
+              </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="table-responsive">
+                <table id="lista-tabla" class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Nro Cuota</th>
+                            <th>Estado</th>
+                            <th>Fecha Vencimiento</th>
+                            <th>Monto Cuota</th>
+                            <th>Interés</th>
+                            <th>Amortizacion</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                      <tr *ngFor="let ped of myForm.get('cuotas')?.value" class="text-center">
+                        <td>{{ped.numeroCuota}}</td>
+                        <td>{{ped.cuotaEstado.nombre}}</td>
+                        <td>{{ped.fechaVencimiento}}</td>
+                        <td>{{ped.montoCuota | number}}</td>
+                        <td>{{ped.interes | number}}</td>
+                        <td>{{ped.amortizacion | number}}</td>
+                        <td>{{ped.saldoCapital | number}}</td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+          </div>
+          <!--
+          <mat-card-actions>
+            <button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
+          </mat-card-actions>-->
+        </mat-card-content>
+      
+  </form>
+  
+</mat-card>

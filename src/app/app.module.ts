@@ -29,12 +29,12 @@ import { SpinnerComponent } from './shared/spinner';
 import { SnackbarComponent } from './shared';
 import { SharedAppModule } from './app-component/shared';
 import * as $ from 'jquery';
+// Import pdfmake-wrapper and the fonts to use
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
 
-
-
-
-
-
+// Set the fonts to use
+PdfMakeWrapper.setFonts(pdfFonts);
 
 
 @NgModule({

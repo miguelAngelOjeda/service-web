@@ -81,12 +81,26 @@
            </mat-cell>
          </ng-container>
 
-         <ng-container matColumnDef="propuestaSolicitud.id">
-           <mat-header-cell *matHeaderCellDef mat-sort-header> Nº PROPUESTA</mat-header-cell>
-           <mat-cell *matCellDef="let element" data-label="nº propuesta">
-             {{element.propuestaSolicitud.id}}
+         <ng-container matColumnDef="documentoCliente">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> DOCUMENTO CLIENTE</mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="documento cliente">
+             {{element.documentoCliente}}
            </mat-cell>
          </ng-container>
+
+         <ng-container matColumnDef="nombreCliente">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE CLIENTE</mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="nombre cliente">
+            {{element.nombreCliente}}
+          </mat-cell>
+        </ng-container>
+
+         <ng-container matColumnDef="propuestaSolicitud.id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Nº PROPUESTA</mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="nº propuesta">
+            {{element.propuestaSolicitud.id}}
+          </mat-cell>
+        </ng-container>
 
          <ng-container matColumnDef="montoCapital">
              <mat-header-cell *matHeaderCellDef> MONTO CAPITAL </mat-header-cell>
@@ -179,10 +193,10 @@
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button routerLink="/service-web/credits/{{element.id}}" *appCanAccess="['credits', 'viewCredits']"><mat-icon>visibility</mat-icon></button>
                   <ng-container *ngIf="element.estado.id == 1 || element.estado.id == 5">
-                    <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>local_printshop</mat-icon></button>
-                  </ng-container>
-                  <ng-container *ngIf="element.estado.id == 1 || element.estado.id == 5">
                     <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/edit" *appCanAccess="['credits', 'editCredits']"> <mat-icon>today</mat-icon></button>
+                  </ng-container>
+                  <ng-container *ngIf="element.estado.id == 3">
+                    <button  mat-icon-button routerLink="/service-web/credits/{{element.id}}/desembolso" *appCanAccess="['credits', 'editCredits']"> <mat-icon>local_printshop</mat-icon></button>
                   </ng-container>
                   <!-- <div *ngIf="element.estado.id == 1">
                     <button  mat-icon-button (click)="delete(element)" *appCanAccess="['credits', 'deleteCredits']"> <mat-icon>delete</mat-icon></button>
