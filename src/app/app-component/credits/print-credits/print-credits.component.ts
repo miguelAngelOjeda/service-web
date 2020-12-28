@@ -139,6 +139,8 @@ export class PrintCreditsComponent implements OnInit {
   getValue(data: any, form : any): void {
     (<FormControl>this.myForm.get(form)).setValue(data);
   }
+
+  onSubmit() {}
   
 
   printLiquidacion(){

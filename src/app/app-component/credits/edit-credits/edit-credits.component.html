@@ -191,11 +191,6 @@
                   <input matInput #input [matDatepicker]="picker" [(ngModel)]="fechaVencimiento" [ngModelOptions]="{standalone: true}" name="fechaVencimiento" placeholder="Fecha primer Vencimiento" required>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-error *ngIf="(error)">
-                    <span *ngIf="(error)">
-                     Campo requerido
-                    </span>
-                  </mat-error>
                  </mat-form-field>
                  
                   <app-select-filter (value)="getValue($event, 'tipoDesembolso')" [modelValue]="myForm.get('tipoDesembolso').value"
