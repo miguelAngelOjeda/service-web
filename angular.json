@@ -33,6 +33,7 @@
               "src/styles.css"
             ],
             "scripts": [
+              "src/assets/js/NumeroALetras.js"
             ]
           },
           "configurations": {

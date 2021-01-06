@@ -8,11 +8,12 @@ import { PeopleService } from '../../shared/people/people.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { CuotaDesembolso } from 'src/app/core/models/CuotaDesembolso';
-import { Canvas, Cell, Columns, DocumentDefinition, Item, Line, PdfMakeWrapper, Stack, Table, Txt, Ul } from 'pdfmake-wrapper';
+import { Canvas, Cell, Columns, DocumentDefinition, Img, Item, Line, PdfMakeWrapper, Stack, Table, Txt, Ul } from 'pdfmake-wrapper';
 import * as moment from 'moment';
 import { UserService } from '../../../core/services';
 import { PageNumberComponent } from 'ngx-extended-pdf-viewer';
 
+declare function NumeroALetras(num): any;
 
 @Component({
   selector: 'app-print-credits',
@@ -153,6 +154,9 @@ export class PrintCreditsComponent implements OnInit {
       usuario = data;
     });
 
+    //array de cuotas
+    const arrayCuotas = this.myForm.get('cuotas').value;
+
     const pdf = new PdfMakeWrapper();
     pdf.pageSize('A4');
     pdf.info({
@@ -187,6 +191,11 @@ export class PrintCreditsComponent implements OnInit {
 
     );
 
+    pdf.add(
+      new Columns([new Txt('Forma de pago: ' + this.myForm.get('propuestaSolicitud').value.tipoPago.nombre).alignment('left').end, new Txt('T.A.N.: ' + this.myForm.get('tasaInteres').value + ' %').alignment('left').end]).end
+
+    );
+
     pdf.add( 
       new Columns([new Txt('Sucursal: ' + this.myForm.get('sucursal').value.nombre).alignment('left').end, new Txt('Plazo: ' + this.myForm.get('plazoOperacion').value).alignment('left').end]).end
 
@@ -215,7 +224,6 @@ export class PrintCreditsComponent implements OnInit {
 
 
     var filas = new Array();
-    const arrayCuotas = this.myForm.get('cuotas').value;
     filas.push(['NRO CUOTA', 'ESTADO', 'FECHA VENCIMIENTO', 'MONTO CUOTA', 'INTERES', 'AMORTIZACION', 'SALDO']);
     arrayCuotas.forEach(element => filas.push([element.numeroCuota, element.cuotaEstado.nombre, element.fechaVencimiento, 
       new Intl.NumberFormat().format(Number(element.montoCuota)), 
@@ -244,20 +252,168 @@ export class PrintCreditsComponent implements OnInit {
     pdf.add(
       pdf.ln(2)
     );
+    var texto = "Declaro conocer y aceptar en todas sus partes el detalle de la liquidación precedente, en la que constan los datos del(los) crédito(s) que se me ha(n) otorgado. Así mismo autorizo irrevocablemente a FINANCORP a destruir el pagaré que respalda esta operación, una vez transcurridos tres (3) meses después del pago de la ultima cuota, sin posibilidad de reclamo alguno en el caso de no haber acudido a sus oficinas para retirar el mismo, antes de cumplirse el plazo mencionado.";
+    pdf.add(new Txt(texto).alignment('left').end);
+    pdf.add(
+      pdf.ln(2)
+    );
+    
+    pdf.add(new Txt('FIRMA: _______________________________').alignment('left').bold().end);
+    pdf.add(
+      pdf.ln(2)
+    );
+    pdf.add(new Txt('NOMBRE(S) Y APELLIDO(S): ').alignment('left').bold().end);
+    pdf.add(new Txt('C.I.: ').alignment('left').bold().end);
+    
+    pdf.add(
+      pdf.ln(2)
+    );
 
-    pdf.add(new Txt('Forma de pago: ' + this.myForm.get('propuestaSolicitud').value.tipoPago.nombre).alignment('left').end);
+    pdf.add(new Txt('OBSERVACIONES:').alignment('center').bold().end);
+
+    pdf.add(new Ul([
+      'Las cuotas deberán ser abonadas en la oficina de Financorp, situada en la Ciudad de Itauguá  Gral. Bernardino Caballero c/ Ruta 2 Mcal. Estigarribia.',
+      'El servicio de cobrador personalizado tendrá un costo adicional de 10.000 GS. (monto incluido en el recibo de pago mensual), contactar al número 0981.266.459 o a su Ejecutiva de Cuentas.'
+    ]).type('square').end);
+    
+    
+    pdf.create().open();
+  }
+
+
+  async printPagare(){
+    
+    const pdf = new PdfMakeWrapper();
+    pdf.pageSize('A4');
+    pdf.info({
+      title: 'pagare',
+      author: 'web',
+      subject: '',
+    });
+
+    pdf.header(new Stack([
+      await new Img('assets/images/logoDocumento.png').build(),
+      new Txt('FINANCORP').alignment('center').bold().end
+    ]).end);
+
+    pdf.footer(
+      (currentPage, pageCount) => {
+        return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').alignment('right').end;
+      }
+    );
+
+    pdf.add(
+      pdf.ln(5)
+    );
+
+    pdf.add(new Txt('PAGARE   A  LA  ORDEN ').alignment('center').bold().end);
     pdf.add(
       pdf.ln(2)
     );
-    
-    pdf.add(new Txt('Firma Cliente: _______________________________').alignment('left').bold().end);
+    var numeroLetras = NumeroALetras(this.capitalTotal);
+    pdf.add(new Txt('Guaraníes (números): ' + new Intl.NumberFormat().format(this.capitalTotal)).alignment('left').bold().end);
+    pdf.add(new Txt('En Fecha: ').alignment('left').bold().end);
+    pdf.add(new Txt('Pagaré (mos) solidariamente libre de gastos y sin protesto, a la orden de: ').alignment('left').bold().end);
+    pdf.add(new Txt('La suma de Guaraníes (letras): ' + numeroLetras).alignment('left').bold().end);
     pdf.add(
       pdf.ln(2)
     );
-    pdf.add(new Txt('Aclaración: ').alignment('left').bold().end);
+    pdf.add(new Txt('Por igual valor recibido en efectivo a mi (nuestra) entera satisfacción. La mora se producirá por el mero vencimiento del plazo arriba indicado, sin necesidad de protesto ni de ningún requerimiento judicial o extrajudicial por parte del acreedor. La falta de pago de una cuota a su vencimiento originará automáticamente el decaimiento de los plazos señalados en este y los demás documentos, produciéndose de pleno derecho el vencimiento anticipado de las cuotas no vencidas y cualquier otro documento obligacional que obrare en poder del acreedor pudiendo exigir el pago inmediato del saldo total de la deuda. Es obligación del (los) deudor (es) pagar un interés moratorio de……...........…% por el tiempo de la mora hasta el pago total de este documento, además de un interés punitorio equivalente al………...........% sobre los intereses moratorios. El pago de los intereses moratorios y punitorios no implicara novación, prórroga, espera o extinción de la obligación principal.').alignment('left').end);
+    pdf.add(new Txt('Este pagaré se rige por las leyes de la República del Paraguay y en especial por los artículos n°: 51, 53 siguientes y concordantes de la ley 489/95. El simple vencimiento de una cuota autoriza al acreedor de forma irrevocable a la consulta e inclusión a la base de datos de INFORMCONF u otra agencia de informaciones. A todos los efectos legales y procesales queda aceptada la jurisdicción y competencia de los juzgados en lo civil y comercial de la Circunscripción Judicial de Asunción.').alignment('left').end);
+    pdf.add(new Txt('La posesión de este pagaré por el deudor o cualquier persona no acreditara su pago al acreedor si no se acompaña con el recibo de pago emitido por el acreedor. -').alignment('left').end);
+
+      pdf.add(
+      pdf.ln(2)
+    );
+    //datos deudor
+    //nombre cliente
+    var nombreCliente = (this.myForm.get('propuestaSolicitud').value.cliente.persona.primerNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.primerNombre)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoNombre)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.primerApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.primerApellido)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido);
+
+    pdf.add(new Txt('Datos del Deudor').alignment('center').bold().end); 
+    pdf.add(
+      pdf.ln(1)
+    );
+    pdf.add(new Txt('Nombres y Apellidos: ' + nombreCliente).alignment('left').bold().end);
+    pdf.add(new Txt('Numero de Cedula: ' + this.myForm.get('propuestaSolicitud').value.cliente.persona.documento).alignment('left').bold().end);
+    pdf.add(
+      pdf.ln(3)
+    );
+    pdf.add(new Txt('FIRMA: _______________________________').height(50).alignment('left').bold().end);
+    pdf.add(
+      pdf.ln(2)
+    );
+    pdf.add(new Txt('Aclaración de firma: ').alignment('left').bold().end);
+
+    if(this.myForm.get('propuestaSolicitud').value.cliente.persona.conyuge != null){
+      //solo si existe datos del conyuge
+      pdf.add(
+        pdf.ln(2)
+      );
+      var obj = this.myForm.get('propuestaSolicitud').value.cliente.persona.conyuge;
+      var nombreConyu = (obj.primerNombre == null ? '' : obj.primerNombre)
+      + ' ' +
+      (obj.segundoNombre == null ? '' : obj.segundoNombre)
+      + ' ' +
+      (obj.primerApellido == null ? '' : obj.primerApellido)
+      + ' ' +
+      (obj.segundoApellido == null ? '' : obj.segundoApellido);
+
+      pdf.add(new Txt('Datos del Cónyuge').alignment('center').bold().end); 
+      pdf.add(
+        pdf.ln(1)
+      );
+      pdf.add(new Txt('Nombres y Apellidos: ' + nombreConyu).alignment('left').bold().end);
+      pdf.add(new Txt('Numero de Cedula: ' + obj.documento).alignment('left').bold().end);
+      pdf.add(
+        pdf.ln(3)
+      );
+      pdf.add(new Txt('FIRMA: _______________________________').height(50).alignment('left').bold().end);
+      pdf.add(
+        pdf.ln(2)
+      );
+      pdf.add(new Txt('Aclaración de firma: ').alignment('left').bold().end);
+
+    }
+
+    if(this.myForm.get('propuestaSolicitud').value.codeudor != null){
+      //solo si existe datos del conyuge
+      pdf.add(
+        pdf.ln(2)
+      );
+      var objCodeudor = this.myForm.get('propuestaSolicitud').value.codeudor;
+      var nombreCodeudor = (objCodeudor.primerNombre == null ? '' : objCodeudor.primerNombre)
+      + ' ' +
+      (objCodeudor.segundoNombre == null ? '' : objCodeudor.segundoNombre)
+      + ' ' +
+      (objCodeudor.primerApellido == null ? '' : objCodeudor.primerApellido)
+      + ' ' +
+      (objCodeudor.segundoApellido == null ? '' : objCodeudor.segundoApellido);
+
+      pdf.add(new Txt('Datos del Codeudor').alignment('center').bold().end); 
+      pdf.add(
+        pdf.ln(1)
+      );
+      pdf.add(new Txt('Nombres y Apellidos: ' + nombreCodeudor).alignment('left').bold().end);
+      pdf.add(new Txt('Numero de Cedula: ' + objCodeudor.documento).alignment('left').bold().end);
+      pdf.add(
+        pdf.ln(3)
+      );
+      pdf.add(new Txt('FIRMA: _______________________________').height(50).alignment('left').bold().end);
+      pdf.add(
+        pdf.ln(2)
+      );
+      pdf.add(new Txt('Aclaración de firma: ').alignment('left').bold().end);
+
+    }
     
-    
-    
+   
+
     pdf.create().open();
   }
 
