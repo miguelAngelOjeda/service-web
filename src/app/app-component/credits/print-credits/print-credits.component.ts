@@ -423,6 +423,9 @@ export class PrintCreditsComponent implements OnInit {
   }
 
   async printContrarto(){
+    //idioma moment
+    moment.locale('es');
+
     const pdf = new PdfMakeWrapper();
     pdf.pageSize('LEGAL');
     //pdf.pageOrientation('landscape');
@@ -464,23 +467,23 @@ export class PrintCreditsComponent implements OnInit {
     + ' ' +
     (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido);
 
-    var gteAdmin = new Txt('Carlos Efraín Vargas Vargas').bold().end.text + ', en su carácter de Gerente de Administración y Finanzas';
-    var gteComercial = 'Marcelo Estiben Noguera, en su carácter de Gerente Comercial';
+    var gteAdmin = new Txt([new Txt('Carlos Efraín Vargas Vargas').bold().end, ', en su carácter de ',new Txt('Gerente de Administración y Finanzas').bold().end]).end;
+    var gteComercial = new Txt([new Txt('Marcelo Estiben Noguera').bold().end,', en su carácter de ',new Txt('Gerente Comercial').bold().end]).end;
     var dirSucursal = this.myForm.get('sucursal').value.direccion + ', de la ciudad de ' + this.myForm.get('sucursal').value.ciudad.nombre;
 
-    var clienteNombre = 'Sr/Sra. ' + nombreCliente + ', con CI N° ' + this.myForm.get('propuestaSolicitud').value.cliente.persona.documento; 
-    var clienteDir = this.myForm.get('propuestaSolicitud').value.cliente.persona.direccionParticular + ', de la ciudad de ' + this.myForm.get('propuestaSolicitud').value.cliente.persona.ciudad.nombre; 
+    var clienteNombre = new Txt(['Sr/Sra. ',new Txt(nombreCliente).bold().end, ', con CI N° ',new Txt(this.myForm.get('propuestaSolicitud').value.cliente.persona.documento).bold().end ]).end; 
+    var clienteDir = new Txt([new Txt(this.myForm.get('propuestaSolicitud').value.cliente.persona.direccionParticular).bold().end, ', de la ciudad de ' ,new Txt(this.myForm.get('propuestaSolicitud').value.cliente.persona.ciudad.nombre).bold().end]).end; 
     
     //fecha desembolso
     let fechaDesembolso = new Date(this.myForm.get('fechaDesembolso').value);
     let desembolso = moment(fechaDesembolso);
     var fechaLetras = desembolso.format('DD') +' días del mes de ' + desembolso.format('MMMM') + ' del año ' + desembolso.format('YYYY');
 
-    var primerParrafo = 'En representación de la empresa, FINANCORP, el señor ' + gteAdmin + ' y/o el señor ' + gteComercial + ', denominado en adelante FINANCORP, por una parte, con domicilio en ' 
-    + dirSucursal + ', y por la otra, el ' + clienteNombre + ', en adelante denominado el  PRESTATARIO, con domicilio en ' + clienteDir + ', convienen en celebrar el presente contrato de otorgamiento de crédito a los '
-    + fechaLetras + ', que se regirá bajo las siguientes clausulas:';
+    var primerParrafo = new Txt(['En representación de la empresa, ', new Txt('FINANCORP').bold().end,', el señor ' , gteAdmin, ' y/o el señor ' , gteComercial , ', denominado en adelante ', new Txt('FINANCORP').bold().end,', por una parte, con domicilio en ' 
+    , dirSucursal , ', y por la otra, el ' , clienteNombre , ', en adelante denominado el ', new Txt('PRESTATARIO').bold().end,', con domicilio en ' , clienteDir , ', convienen en celebrar el presente contrato de otorgamiento de crédito a los '
+    + fechaLetras + ', que se regirá bajo las siguientes clausulas:']).end;
 
-    pdf.add(new Txt(primerParrafo).alignment('left').end);
+    pdf.add(primerParrafo);
     pdf.add(
       pdf.ln(1)
     );
@@ -502,15 +505,15 @@ export class PrintCreditsComponent implements OnInit {
     } else {
       plza = '(' + this.myForm.get('plazoOperacion').value + ' )';
     }
-
-    var primera = 'PRIMERA: FINANCORP otorga al PRESTATARIO un préstamo de dinero por la suma de Gs. ' + new Intl.NumberFormat().format(this.capitalTotal) + ', a un plazo de '+plza+' el cuál es desembolsado tras la suscripción del presente documento y del pagaré correspondiente.'
-    var segunda = 'SEGUNDA: En la operación adicionalmente se estipula el pago del…. % en concepto de cobro de Gastos Administrativos. Para el caso de mora se estipula un interés moratorio de….% anual sobre las cuotas vencidas y un interés punitorio equivalente al …. % del interés compensatorio, también anual y sobre cuotas vencidas.';
-    var tercera = 'TERCERA: El PRESTATARIO se compromete a reembolsar a FINANCORP, el préstamo recibido en cuotas consecutivas, de periodicidad establecida por la empresa, cuyo importe y vencimiento se expresa en el correspondiente pagare, el PRESTATARIO asume solidariamente la obligación suscripta a la orden de la entidad. El pago de la cuota deberá ser realizado en las oficinas de FINANCORP, bocas de cobranzas o al personal autorizado por FINANCORP.';
-    var cuarta = 'CUARTA: El préstamo deberá ser destinado exclusivamente a lo declarado en la solicitud de crédito y FINANCORP está facultada a inspeccionar y verificar el uso que el PRESTATARIO da al préstamo que se le otorga. En caso de que el PRESTATARIO desee refinanciar la presente operación, deberá suscribir una nueva solicitud y un nuevo Contrato de préstamo a tal efecto, quedando la aprobación del mismo a criterio de la Entidad. Si el PRESTATARIO no realizare el pago dentro del plazo indicado autoriza suficientemente a FINANCORP a cobrar los intereses moratorios, punitorios y demás penalidades.';
-    var quinta = 'QUINTA: El PRESTATARIO podrá exigir la entrega de su pagaré en un plazo máximo de 2 días hábiles, una vez cancelado el último pago de sus cuotas activas.';
-    var sexta = 'SEXTA: La mora se producirá por el mero vencimiento de los plazos. La falta de pago de una cuota o más cuotas consecutivas, así como el incumplimiento por parte del PRESTATARIO , de cualquiera de las cláusulas del presente contrato y de las prescripciones del Reglamento General de Crédito hará decaer de pleno derecho los plazos de  todas las cuotas y facultará a FINANCORP sin necesidad de interpelación judicial alguna a exigir el pago de la totalidad de la deuda incluyendo los intereses compensatorios devengados así como los intereses moratorios y punitorios a devengarse hasta la cancelación definitiva de la deuda. Del mismo modo  FINANCORP, podrá dar por vencidos los plazos de la obligación y exigir la cancelación de su saldo si comprobare que el PRESTATARIO ha suministrado información falsa o incumplida cualquiera de las condiciones convenidas en el presente contrato.';
-    var septima = 'SEPTIMA: Por el presente instrumento el prestatario autoriza en forma irrevocable a FINANCORP otorgándole suficiente mandato en los términos de Art. 917 inc. a, del Código Civil, para que por propia cuenta o a través de empresas especializadas recaben información en plaza referente a su situación patrimonial, solvencia económica o el incumplimiento de su obligación comercial, como así también la verificación y/o confirmación de los datos por él proporcionados, a fin de que pueda contar con los elementos de juicio y análisis necesarios para la concesión del crédito que se encuentra gestionando ante  FINANCORP. De igual manera, y en los mismos términos, autoriza para que en caso de atraso en el pago del presente crédito o de cualquier otra deuda pendiente que mantenga con  FINANCORP, incluyan su nombre personal o razón social al que representa en el registro general de morosos en INFORMCONF, y otra empresa de actividad similar que opere en plaza, como así también proporcionar esa información a terceros interesados. La inclusión o eliminación de dicho registro se realizará de acuerdo con lo que estipula la Ley 1.969/02.';
-    var octava = 'OCTAVA: En caso de controversias en relación a la aplicación y/o interpretación del presente contrato, las partes acuerdan someterse a los tribunales ordinarios competentes.';
+    
+    var primera = new Txt([new Txt('PRIMERA: FINANCORP ').bold().end, 'otorga al ', new Txt('PRESTATARIO').bold().end, ' un préstamo de dinero por la suma de ',new Txt('Gs. ' + new Intl.NumberFormat().format(this.capitalTotal)).bold().end , ', a un plazo de ',new Txt(plza).bold().end,' el cuál es desembolsado tras la suscripción del presente documento y del pagaré correspondiente.']).end;
+    var segunda = new Txt([new Txt('SEGUNDA: ').bold().end,'En la operación adicionalmente se estipula el pago del…. % en concepto de cobro de Gastos Administrativos. Para el caso de mora se estipula un interés moratorio de….% anual sobre las cuotas vencidas y un interés punitorio equivalente al …. % del interés compensatorio, también anual y sobre cuotas vencidas.']).end;
+    var tercera = new Txt([new Txt('TERCERA: ').bold().end, 'El ',new Txt('PRESTATARIO').bold().end,' se compromete a reembolsar a ',new Txt('FINANCORP').bold().end,', el préstamo recibido en cuotas consecutivas, de periodicidad establecida por la empresa, cuyo importe y vencimiento se expresa en el correspondiente pagare, el ',new Txt('PRESTATARIO').bold().end,' asume solidariamente la obligación suscripta a la orden de la entidad. El pago de la cuota deberá ser realizado en las oficinas de ',new Txt('FINANCORP').bold().end,', bocas de cobranzas o al personal autorizado por ',new Txt('FINANCORP').bold().end,'.']).end;
+    var cuarta = new Txt([new Txt('CUARTA: ').bold().end,'El préstamo deberá ser destinado exclusivamente a lo declarado en la solicitud de crédito y ',new Txt('FINANCORP').bold().end,' está facultada a inspeccionar y verificar el uso que el ',new Txt('PRESTATARIO').bold().end,' da al préstamo que se le otorga. En caso de que el ',new Txt('PRESTATARIO').bold().end,' desee refinanciar la presente operación, deberá suscribir una nueva solicitud y un nuevo Contrato de préstamo a tal efecto, quedando la aprobación del mismo a criterio de la Entidad. Si el ',new Txt('PRESTATARIO').bold().end,' no realizare el pago dentro del plazo indicado autoriza suficientemente a ',new Txt('FINANCORP').bold().end,' a cobrar los intereses moratorios, punitorios y demás penalidades.']).end;
+    var quinta = new Txt([new Txt('QUINTA: ').bold().end,'El ', new Txt('PRESTATARIO').bold().end,' podrá exigir la entrega de su pagaré en un plazo máximo de 2 días hábiles, una vez cancelado el último pago de sus cuotas activas.']).end;
+    var sexta = new Txt([new Txt('SEXTA: ').bold().end,'La mora se producirá por el mero vencimiento de los plazos. La falta de pago de una cuota o más cuotas consecutivas, así como el incumplimiento por parte del ', new Txt('PRESTATARIO').bold().end,', de cualquiera de las cláusulas del presente contrato y de las prescripciones del Reglamento General de Crédito hará decaer de pleno derecho los plazos de  todas las cuotas y facultará a ', new Txt('FINANCORP').bold().end,' sin necesidad de interpelación judicial alguna a exigir el pago de la totalidad de la deuda incluyendo los intereses compensatorios devengados así como los intereses moratorios y punitorios a devengarse hasta la cancelación definitiva de la deuda. Del mismo modo ', new Txt('FINANCORP').bold().end,', podrá dar por vencidos los plazos de la obligación y exigir la cancelación de su saldo si comprobare que el ', new Txt('PRESTATARIO').bold().end,' ha suministrado información falsa o incumplida cualquiera de las condiciones convenidas en el presente contrato.']).end;
+    var septima = new Txt([new Txt('SEPTIMA: ').bold().end,'Por el presente instrumento el prestatario autoriza en forma irrevocable a ', new Txt('FINANCORP').bold().end,' otorgándole suficiente mandato en los términos de Art. 917 inc. a, del Código Civil, para que por propia cuenta o a través de empresas especializadas recaben información en plaza referente a su situación patrimonial, solvencia económica o el incumplimiento de su obligación comercial, como así también la verificación y/o confirmación de los datos por él proporcionados, a fin de que pueda contar con los elementos de juicio y análisis necesarios para la concesión del crédito que se encuentra gestionando ante ', new Txt('FINANCORP').bold().end,'. De igual manera, y en los mismos términos, autoriza para que en caso de atraso en el pago del presente crédito o de cualquier otra deuda pendiente que mantenga con ', new Txt('FINANCORP').bold().end,', incluyan su nombre personal o razón social al que representa en el registro general de morosos en INFORMCONF, y otra empresa de actividad similar que opere en plaza, como así también proporcionar esa información a terceros interesados. La inclusión o eliminación de dicho registro se realizará de acuerdo con lo que estipula la Ley 1.969/02.']).end;
+    var octava = new Txt([new Txt('OCTAVA: ').bold().end,'En caso de controversias en relación a la aplicación y/o interpretación del presente contrato, las partes acuerdan someterse a los tribunales ordinarios competentes.']).end;
     
     pdf.add(new Ol([
       primera,
@@ -526,6 +529,8 @@ export class PrintCreditsComponent implements OnInit {
     pdf.add(
       pdf.ln(5)
     );
+
+    
 
     pdf.add(new Columns([ new Stack([ '-----------------------------------', 'Solicitante' ]).alignment('center').bold().end, new Stack([ '-----------------------------------', 'Ejecutivo de Cuenta' ]).alignment('center').bold().end,  new Stack([ '-----------------------------------', 'Gerente' ]).alignment('center').bold().end]).end);
 
