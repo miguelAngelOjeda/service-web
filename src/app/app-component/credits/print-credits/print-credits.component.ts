@@ -8,10 +8,9 @@ import { PeopleService } from '../../shared/people/people.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { CuotaDesembolso } from 'src/app/core/models/CuotaDesembolso';
-import { Canvas, Cell, Columns, DocumentDefinition, Img, Item, Line, PdfMakeWrapper, Stack, Table, Txt, Ul } from 'pdfmake-wrapper';
+import { Canvas, Columns, Img, Line, Ol, PdfMakeWrapper, Stack, Table, Txt, Ul } from 'pdfmake-wrapper';
 import * as moment from 'moment';
 import { UserService } from '../../../core/services';
-import { PageNumberComponent } from 'ngx-extended-pdf-viewer';
 
 declare function NumeroALetras(num): any;
 
@@ -142,6 +141,11 @@ export class PrintCreditsComponent implements OnInit {
   }
 
   onSubmit() {}
+
+  capitalize (str : string) : string {
+    str = str.toLowerCase();
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   
 
   printLiquidacion(){
@@ -158,12 +162,16 @@ export class PrintCreditsComponent implements OnInit {
     const arrayCuotas = this.myForm.get('cuotas').value;
 
     const pdf = new PdfMakeWrapper();
-    pdf.pageSize('A4');
+    pdf.pageSize('LEGAL');
+    //pdf.pageOrientation('landscape');
+    pdf.pageMargins([40, 120, 40, 101]);
     pdf.info({
-      title: 'liquidacion',
-      author: 'web',
-      subject: '',
-  });
+      title: 'Liquidacion credito Nro ' + this.myForm.get('id').value,
+      author: 'service web',
+      subject: 'Liquidadcion de credito',
+      keywords: 'Credito Nro '+ this.myForm.get('id').value,
+       
+    });
 
     pdf.header(new Stack([
       new Txt('FINANCORP - LIQUIDACION DE CREDITOS').alignment('center').bold().end,
@@ -177,9 +185,6 @@ export class PrintCreditsComponent implements OnInit {
       }
     );
     
-    pdf.add(
-      pdf.ln(2)
-    );
     
     pdf.add(
       new Columns([new Txt('Nro Credito: ' + this.myForm.get('id').value).alignment('left').bold().end, new Txt('Nro Solicitud: ' + this.myForm.get('propuestaSolicitud').value.id).alignment('left').bold().end]).end
@@ -277,23 +282,25 @@ export class PrintCreditsComponent implements OnInit {
     ]).type('square').end);
     
     
-    pdf.create().open();
+    pdf.create().download();
   }
 
 
   async printPagare(){
     
     const pdf = new PdfMakeWrapper();
-    pdf.pageSize('A4');
+    pdf.pageSize('LEGAL');
+    //pdf.pageOrientation('landscape');
+    pdf.pageMargins([40, 120, 40, 101]);
     pdf.info({
-      title: 'pagare',
-      author: 'web',
-      subject: '',
+      title: 'Pagare credito Nro ' + this.myForm.get('id').value,
+      author: 'service web',
+      subject: 'Documento Pagare',
+      keywords: 'Credito Nro '+ this.myForm.get('id').value,
     });
 
     pdf.header(new Stack([
-      await new Img('assets/images/logoDocumento.png').build(),
-      new Txt('FINANCORP').alignment('center').bold().end
+      await new Img('assets/images/logoDocumento.png').build()
     ]).end);
 
     pdf.footer(
@@ -302,9 +309,7 @@ export class PrintCreditsComponent implements OnInit {
       }
     );
 
-    pdf.add(
-      pdf.ln(5)
-    );
+    
 
     pdf.add(new Txt('PAGARE   A  LA  ORDEN ').alignment('center').bold().end);
     pdf.add(
@@ -414,7 +419,122 @@ export class PrintCreditsComponent implements OnInit {
     
    
 
-    pdf.create().open();
+    pdf.create().download();
   }
+
+  async printContrarto(){
+    const pdf = new PdfMakeWrapper();
+    pdf.pageSize('LEGAL');
+    //pdf.pageOrientation('landscape');
+    pdf.pageMargins([40, 120, 40, 101]);
+    pdf.info({
+      title: 'Pagare credito Nro ' + this.myForm.get('id').value,
+      author: 'service web',
+      subject: 'Documento Pagare',
+      keywords: 'Credito Nro '+ this.myForm.get('id').value,
+    });
+
+    pdf.header(new Stack([
+      await new Img('assets/images/logoDocumento.png').build()
+    ]).end);
+
+    pdf.footer(
+      (currentPage, pageCount) => {
+        return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').alignment('right').end;
+      }
+    );
+    
+
+    pdf.add(new Txt('CONTRATO DE CREDITO').alignment('center').bold().end);
+    pdf.add(
+      pdf.ln(2)
+    );
+    
+    pdf.add(new Txt('Solicitud de Crédito N°: ' + this.myForm.get('id').value).alignment('left').bold().end);
+    pdf.add(
+      pdf.ln(1)
+    );
+
+    //nombre cliente
+    var nombreCliente = (this.myForm.get('propuestaSolicitud').value.cliente.persona.primerNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.primerNombre)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoNombre)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.primerApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.primerApellido)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido);
+
+    var gteAdmin = new Txt('Carlos Efraín Vargas Vargas').bold().end.text + ', en su carácter de Gerente de Administración y Finanzas';
+    var gteComercial = 'Marcelo Estiben Noguera, en su carácter de Gerente Comercial';
+    var dirSucursal = this.myForm.get('sucursal').value.direccion + ', de la ciudad de ' + this.myForm.get('sucursal').value.ciudad.nombre;
+
+    var clienteNombre = 'Sr/Sra. ' + nombreCliente + ', con CI N° ' + this.myForm.get('propuestaSolicitud').value.cliente.persona.documento; 
+    var clienteDir = this.myForm.get('propuestaSolicitud').value.cliente.persona.direccionParticular + ', de la ciudad de ' + this.myForm.get('propuestaSolicitud').value.cliente.persona.ciudad.nombre; 
+    
+    //fecha desembolso
+    let fechaDesembolso = new Date(this.myForm.get('fechaDesembolso').value);
+    let desembolso = moment(fechaDesembolso);
+    var fechaLetras = desembolso.format('DD') +' días del mes de ' + desembolso.format('MMMM') + ' del año ' + desembolso.format('YYYY');
+
+    var primerParrafo = 'En representación de la empresa, FINANCORP, el señor ' + gteAdmin + ' y/o el señor ' + gteComercial + ', denominado en adelante FINANCORP, por una parte, con domicilio en ' 
+    + dirSucursal + ', y por la otra, el ' + clienteNombre + ', en adelante denominado el  PRESTATARIO, con domicilio en ' + clienteDir + ', convienen en celebrar el presente contrato de otorgamiento de crédito a los '
+    + fechaLetras + ', que se regirá bajo las siguientes clausulas:';
+
+    pdf.add(new Txt(primerParrafo).alignment('left').end);
+    pdf.add(
+      pdf.ln(1)
+    );
+
+    //plazo
+    var plza = '';
+    if(this.myForm.get('modalidad').value.nombre == "CREDITO BIMESTRAL"){
+      plza = '(' + this.myForm.get('plazoOperacion').value + ' BIMESTRES)';
+    } else if(this.myForm.get('modalidad').value.nombre == "CREDITO SEMANAL") {
+      plza = '(' + this.myForm.get('plazoOperacion').value + ' SEMANAS)';
+    } else if(this.myForm.get('modalidad').value.nombre == "CREDITO SEMESTRAL") {
+      plza = '(' + this.myForm.get('plazoOperacion').value + ' SEMESTRES)';
+    } else if(this.myForm.get('modalidad').value.nombre == "CREDITO MENSUAL") {
+      plza = '(' + this.myForm.get('plazoOperacion').value + ' MESES)';
+    } else if(this.myForm.get('modalidad').value.nombre == "CREDITO QUINCENAL") {
+      plza = '(' + this.myForm.get('plazoOperacion').value + ' QUINCENAS)';
+    } else if(this.myForm.get('modalidad').value.nombre == "CREDITO DIARIO") {
+      plza = '(' + this.myForm.get('plazoOperacion').value + ' DIAS)';
+    } else {
+      plza = '(' + this.myForm.get('plazoOperacion').value + ' )';
+    }
+
+    var primera = 'PRIMERA: FINANCORP otorga al PRESTATARIO un préstamo de dinero por la suma de Gs. ' + new Intl.NumberFormat().format(this.capitalTotal) + ', a un plazo de '+plza+' el cuál es desembolsado tras la suscripción del presente documento y del pagaré correspondiente.'
+    var segunda = 'SEGUNDA: En la operación adicionalmente se estipula el pago del…. % en concepto de cobro de Gastos Administrativos. Para el caso de mora se estipula un interés moratorio de….% anual sobre las cuotas vencidas y un interés punitorio equivalente al …. % del interés compensatorio, también anual y sobre cuotas vencidas.';
+    var tercera = 'TERCERA: El PRESTATARIO se compromete a reembolsar a FINANCORP, el préstamo recibido en cuotas consecutivas, de periodicidad establecida por la empresa, cuyo importe y vencimiento se expresa en el correspondiente pagare, el PRESTATARIO asume solidariamente la obligación suscripta a la orden de la entidad. El pago de la cuota deberá ser realizado en las oficinas de FINANCORP, bocas de cobranzas o al personal autorizado por FINANCORP.';
+    var cuarta = 'CUARTA: El préstamo deberá ser destinado exclusivamente a lo declarado en la solicitud de crédito y FINANCORP está facultada a inspeccionar y verificar el uso que el PRESTATARIO da al préstamo que se le otorga. En caso de que el PRESTATARIO desee refinanciar la presente operación, deberá suscribir una nueva solicitud y un nuevo Contrato de préstamo a tal efecto, quedando la aprobación del mismo a criterio de la Entidad. Si el PRESTATARIO no realizare el pago dentro del plazo indicado autoriza suficientemente a FINANCORP a cobrar los intereses moratorios, punitorios y demás penalidades.';
+    var quinta = 'QUINTA: El PRESTATARIO podrá exigir la entrega de su pagaré en un plazo máximo de 2 días hábiles, una vez cancelado el último pago de sus cuotas activas.';
+    var sexta = 'SEXTA: La mora se producirá por el mero vencimiento de los plazos. La falta de pago de una cuota o más cuotas consecutivas, así como el incumplimiento por parte del PRESTATARIO , de cualquiera de las cláusulas del presente contrato y de las prescripciones del Reglamento General de Crédito hará decaer de pleno derecho los plazos de  todas las cuotas y facultará a FINANCORP sin necesidad de interpelación judicial alguna a exigir el pago de la totalidad de la deuda incluyendo los intereses compensatorios devengados así como los intereses moratorios y punitorios a devengarse hasta la cancelación definitiva de la deuda. Del mismo modo  FINANCORP, podrá dar por vencidos los plazos de la obligación y exigir la cancelación de su saldo si comprobare que el PRESTATARIO ha suministrado información falsa o incumplida cualquiera de las condiciones convenidas en el presente contrato.';
+    var septima = 'SEPTIMA: Por el presente instrumento el prestatario autoriza en forma irrevocable a FINANCORP otorgándole suficiente mandato en los términos de Art. 917 inc. a, del Código Civil, para que por propia cuenta o a través de empresas especializadas recaben información en plaza referente a su situación patrimonial, solvencia económica o el incumplimiento de su obligación comercial, como así también la verificación y/o confirmación de los datos por él proporcionados, a fin de que pueda contar con los elementos de juicio y análisis necesarios para la concesión del crédito que se encuentra gestionando ante  FINANCORP. De igual manera, y en los mismos términos, autoriza para que en caso de atraso en el pago del presente crédito o de cualquier otra deuda pendiente que mantenga con  FINANCORP, incluyan su nombre personal o razón social al que representa en el registro general de morosos en INFORMCONF, y otra empresa de actividad similar que opere en plaza, como así también proporcionar esa información a terceros interesados. La inclusión o eliminación de dicho registro se realizará de acuerdo con lo que estipula la Ley 1.969/02.';
+    var octava = 'OCTAVA: En caso de controversias en relación a la aplicación y/o interpretación del presente contrato, las partes acuerdan someterse a los tribunales ordinarios competentes.';
+    
+    pdf.add(new Ol([
+      primera,
+      segunda,
+      tercera,
+      cuarta,
+      quinta,
+      sexta,
+      septima,
+      octava
+    ]).end);
+
+    pdf.add(
+      pdf.ln(5)
+    );
+
+    pdf.add(new Columns([ new Stack([ '-----------------------------------', 'Solicitante' ]).alignment('center').bold().end, new Stack([ '-----------------------------------', 'Ejecutivo de Cuenta' ]).alignment('center').bold().end,  new Stack([ '-----------------------------------', 'Gerente' ]).alignment('center').bold().end]).end);
+
+    
+
+
+
+    pdf.create().download();
+  }
+  
 
 }
