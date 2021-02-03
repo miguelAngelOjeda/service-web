@@ -71,7 +71,7 @@ export class CheckReviewComponent implements OnInit {
 
               //Calculo capacidad
 
-              if(res.model.propuestaSolicitud.modalidad.nombre == "CREDITOS SEMANALES"){
+              if(res.model.propuestaSolicitud.modalidad.nombre == "CREDITO SEMANAL"){
                 this.totalIngresoAux = staff.ingresoTotal / 4;
                 this.isSemanal = true;
               } else {

@@ -3,15 +3,18 @@ export const environment = {
   // api_image_url: 'https://app1.creditoguarani.com.py/beta1/image/',
   // api_url: 'https://app1.creditoguarani.com.py/beta1',
   // whitelist: ['172.16.1.51', 'https://app1.creditoguarani.com.py', 'app1.creditoguarani.com.py']
-  /* 
+  
+  
   api_image_url: 'https://app2.financorp.com.py/beta1/image/',
   api_url: 'https://app2.financorp.com.py/beta1',
-  whitelist: ['172.16.1.51', 'https://app2.financorp.com.py', 'app2.financorp.com.py']*/
+  whitelist: ['172.16.1.51', 'https://app2.financorp.com.py', 'app2.financorp.com.py']
+  
 
+  /*
   api_image_url: 'https://appdesa1.financorp.com.py/beta1/image/',
   api_url: 'https://appdesa1.financorp.com.py/beta1',
-  whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']
-
+  whitelist: ['172.16.1.51', 'http://172.16.1.51', '172.16.1.51:9191']*/
+	
 
 };
 

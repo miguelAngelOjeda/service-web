@@ -438,13 +438,13 @@
                               <div class="row text-center bg-light">
                                 <div class="col-md-6">
                                   <p mat-line><span class="font-bold">Total Ingresos </span> {{detalle.get('ingresoTotal').value | number}}</p>
-                                  <div *ngIf="myForm.get('propuestaSolicitud')?.value.modalidad.nombre == 'CREDITOS SEMANALES'">
+                                  <div *ngIf="myForm.get('propuestaSolicitud')?.value.modalidad.nombre == 'CREDITO SEMANAL'">
                                     <p mat-line><span class="font-bold">Total Ingresos Semanales </span> {{totalIngresoAux | number}}</p>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <p mat-line><span class="font-bold">Total Egresos Financieros</span> {{totalEgresoCreditoAux | number}}</p>
-                                  <div *ngIf="myForm.get('propuestaSolicitud')?.value.modalidad.nombre == 'CREDITOS SEMANALES'">
+                                  <div *ngIf="myForm.get('propuestaSolicitud')?.value.modalidad.nombre == 'CREDITO SEMANAL'">
                                     <p mat-line><span class="font-bold">Total Egresos Semanales </span> {{totalEgresoCreditoAuxPorc | number}}</p>
                                   </div>
                                 </div>

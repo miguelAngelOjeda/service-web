@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewService } from '../review.service';
-import { Router, CanActivate, ActivatedRoute} from '@angular/router';
-import { UserService, ApiService} from '../../../core/services';
+import { Router, ActivatedRoute} from '@angular/router';
+import { ApiService} from '../../../core/services';
 import { ModalInformconfComponent } from '../../shared/informconf/modal-informconf';
 import { HttpParams } from '@angular/common/http';
-import { FormGroup, FormArray , FormControl, FormBuilder, Validators} from '@angular/forms';
-import { ViewModalPeopleComponent } from '../../shared/people';
-import { MatDialog, PageEvent, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material';
+import { FormGroup, FormArray, FormBuilder} from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { PeopleService } from '../../shared/people/people.service';
-import { EgressCredit } from 'src/app/core/models/egressCredit';
 
 @Component({
   selector: 'app-view-review',
@@ -73,7 +71,7 @@ export class ViewReviewComponent implements OnInit {
 
               //Calculo capacidad
 
-              if(res.model.propuestaSolicitud.modalidad.nombre == "CREDITOS SEMANALES"){
+              if(res.model.propuestaSolicitud.modalidad.nombre == "CREDITO SEMANAL"){
                 this.totalIngresoAux = staff.ingresoTotal / 4;
                 this.isSemanal = true;
               } else {
