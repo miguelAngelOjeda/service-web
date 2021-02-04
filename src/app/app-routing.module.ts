@@ -34,6 +34,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/cuotasWs/cuotasWs.module#CuotasWsModule'
         },
         {
+        path: 'service-web/propuesta',
+        loadChildren: './app-component/propuesta/propuesta.module#PropuestaModule'
+        },
+        {
         path: 'service-web/informconf', 
         loadChildren: './app-component/informconf/informconf.module#InformconfModule' 
         },

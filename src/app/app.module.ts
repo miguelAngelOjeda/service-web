@@ -31,7 +31,7 @@ import { SharedAppModule } from './app-component/shared';
 import * as $ from 'jquery';
 // Import pdfmake-wrapper and the fonts to use
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
-import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+import pdfFonts from "pdfmake/build/vfs_fonts";
 
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);

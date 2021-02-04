@@ -129,8 +129,13 @@ export const authorities = {
     	},
     	"deleteCredits": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
-    	}
-    },
+		}
+	},
+	"propuesta": {
+		"listPropuesta": {
+		  "permittedRoles": ["ROLE_PROPUESTA.LIST"]
+		}
+  	},
     "credits": {
       "addCredits": {
     	   "permittedRoles": ["ROLE_CREDITS.ADD"]
@@ -197,7 +202,7 @@ export const authorities = {
     	"deleteCard": {
     	  "permittedRoles": ["ROLE_SOLICITUDE.DELETE"]
     	}
-    },
+	},
     "service-types": {
     	"viewTypes": {
     	  "permittedRoles": ["ROLE_REFERENCE_TYPES.LIST","ROLE_CALCULATIONS_TYPES.LIST","ROLE_RELATIONS_TYPES.LIST","ROLE_FUNCTIONARY_TYPES.LIST",
