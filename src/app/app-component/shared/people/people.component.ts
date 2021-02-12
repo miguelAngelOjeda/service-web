@@ -160,6 +160,7 @@ export class PeopleComponent implements OnInit{
         this.peopleService.loadData(<FormGroup>this.peopleForm.get('persona'),res.model);
       }
     });
+    
   }
 
   conyugeCi(data: any) {
