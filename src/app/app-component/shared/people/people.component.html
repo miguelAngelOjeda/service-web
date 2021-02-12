@@ -37,7 +37,7 @@
            </div>
            <div class="col-md-3">
              <mat-form-field    appearance="legacy">
-               <input matInput #input  placeholder="Ruc" formControlName="ruc" name="ruc">
+               <input matInput #input  placeholder="Ruc" (blur)="peopleForm.controls['persona'].get('ruc')?.value == null ? '' : onKeydown(peopleForm.controls['persona'].get('ruc')?.value)" formControlName="ruc" name="ruc">
                <mat-icon matSuffix (click)="peopleForm.controls['persona'].get('ruc').valid && peopleRuc()">search</mat-icon>
                <mat-error *ngIf="(peopleForm.controls['persona'].get('ruc').errors)">
                  <span *ngIf="peopleForm.controls['persona'].get('ruc').errors.required">
