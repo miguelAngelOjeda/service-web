@@ -9,6 +9,7 @@ export const environment = {
   api_url: 'https://app2.financorp.com.py/beta1',
   whitelist: ['172.16.1.51', 'https://app2.financorp.com.py', 'app2.financorp.com.py']*/
   
+  
 
   
   api_image_url: 'https://appdesa1.financorp.com.py/beta1/image/',
