@@ -1,38 +1,110 @@
 <div class="row">
 	<div class="col-md-12">
-		<h3 align="center">Archivo de cuotas para el WS de pagos</h3>
+		<h3 align="center">Propuesta de Credito</h3>
 	</div>
-</div> 
-
-<div class="row">
-	<div class="col-md-4">
-	  <p mat-line><span class="font-bold">Tasa de Interes Anual: </span>{{myForm.get('tasaInteres')?.value}} %</p>
-	  <p mat-line><span class="font-bold">Gastos Administrativos Anual: </span>{{myForm.get('gastosAdministrativos')?.value}} %</p>
-	  <p mat-line><span class="font-bold">Seguro de vida Anual: </span>{{myForm.get('seguroVida')?.value}} %</p>
-	  <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazoOperacion')?.value}}</p>
-	</div>
-	<div class="col-md-4">
-	  <p mat-line><span class="font-bold">Tasa de interes por periodo: </span>{{interesPeriodo}} %</p>
-	  <p mat-line><span class="font-bold">Gtos Adm. por periodo: </span>{{gastAdminPeriodo}} %</p>
-	  <p mat-line><span class="font-bold">Seg Vida. por periodo: </span>{{segVidaPeriodo}} %</p>
-	  <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value?.nombre}}</p>
-	</div>
-	<!--
-	<div class="col-md-4">
-	  <p mat-line><span class="font-bold">Destino: </span>{{myForm.get('tipoDestino')?.value.nombre}}</p>
-	  <p mat-line><span class="font-bold">Tipo Garantia: </span>{{(myForm.get('propuestaSolicitud')?.value?.tipoGarantia?.nombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre)}}</p>
-	  <p mat-line><span class="font-bold">Forma de pago: </span> {{(myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre)}}</p>
-	  <p mat-line><span class="font-bold">Tipo Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
-	</div>
-  </div>
-  -->
-  <div class="row">
-	<div class="col-md-9">
-	  <p><span class="font-bold">Neto a desembolsar: </span> {{myForm.get('montoCapital')?.value  | number}}</p>
-	  <p><span class="font-bold">Gastos Administrativos: </span> {{gastAdmin | number}}</p>
-	  <p><span class="font-bold">Seguro de vida: </span> {{segVida | number}}</p>
-	  <p><span class="font-bold">Capital Total: </span> {{capitalTotal | number}}</p>
-	</div>
-	
-
 </div>
+<mat-card class="form-card">
+	<form id="myForm" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+		<mat-card-content>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-3">
+					<app-select-filter appearance="legacy" (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
+                     placeholder="Modalidad" urlFilter="modalidades" [columnsFilter]="['nombre']"></app-select-filter>
+					
+					<mat-form-field  appearance="legacy">
+						<mat-label>Plazo</mat-label>
+						<input matInput #input  placeholder="Plazo" formControlName="plazo"  name="plazo">
+					</mat-form-field>
+					<br>
+					<mat-form-field  appearance="legacy">
+						<mat-label>Monto a Solicitar</mat-label>
+						<input matInput #input  placeholder="Monto a Solicitar" formControlName="montoSol"  name="montoSol">
+					</mat-form-field>								
+				</div>
+				<div class="col-md-3">
+					<mat-form-field  appearance="legacy">
+						<mat-label>Tasa Interes Anual</mat-label>
+						<input matInput #input  placeholder="Tasa Interes Anual" formControlName="tasaAnual" name="tasaAnual" [value]="myForm.get('modalidad')?.value?.interes">
+					</mat-form-field>
+					<br>
+					<mat-form-field  appearance="legacy">
+						<mat-label>Gastos Administrativos</mat-label>
+						<input matInput #input  placeholder="Gastos Administrativos" formControlName="gastosAdmin" name="gastosAdmin" [value]="myForm.get('modalidad')?.value?.gastosAdministrativos">
+					</mat-form-field>
+					<br>
+					<mat-form-field  appearance="legacy">
+						<mat-label>Seguro Vida</mat-label>
+						<input matInput #input  placeholder="Seguro Vida" formControlName="seguroVida" name="seguroVida" [value]="myForm.get('modalidad')?.value?.seguroVida">
+					</mat-form-field>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-3">
+					<mat-form-field  appearance="legacy">
+						<mat-label>Monto a Desembolsar</mat-label>
+						<input matInput #input placeholder="Monto a Desembolsar" [value]="thousands_separators(myForm.get('montoSol')?.value)" readonly>
+					</mat-form-field>
+					<mat-form-field  appearance="legacy">
+						<mat-label>Gastos Administrativos</mat-label>
+						<input matInput #input  placeholder="Gastos Administrativos" [value]="myForm.get('montoGastoAdmin')?.value" readonly>
+					</mat-form-field>
+					<mat-form-field  appearance="legacy">
+						<mat-label>Seguro de vida</mat-label>
+						<input matInput #input  placeholder="Seguro de vida" [value]="myForm.get('montoSeguroVida')?.value" readonly>
+					</mat-form-field>
+					<mat-form-field  appearance="legacy">
+						<mat-label>Capital Total</mat-label>
+						<input matInput #input  placeholder="Capital Total" [value]="myForm.get('montoTotal')?.value" readonly>
+					</mat-form-field>
+				</div>
+				<div class="col-md-3">
+					<button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" color="primary" (click)="calcularCuota()" >Calcular</button>
+					<br> <br> <br>
+					<button [disabled]="cuotas.length <= 0" type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" color="primary" (click)="printLiquidacion()" >Imprimir</button>
+				</div>
+				<div class="col-md-3"></div>
+				<div class="col-md-3"></div>
+								
+			</div>
+			<div class="row">
+				<div class="col-12">
+				  <div *ngIf="cuotas.length > 0" class="table-responsive">
+					<table id="lista-tabla" class="table">
+						<thead>
+							<tr>
+								<th>Nro Cuota</th>
+								<th>Fecha Vencimiento</th>
+								<th>Monto Cuota</th>
+								<th>Interés</th>
+								<th>Amortizacion</th>
+								<th>Saldo</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let c of cuotas">
+								<td>{{c.numeroCuota}}</td>
+								<td>{{c.fechaVencimiento}}</td>
+								<td>{{c.montoCuota | number}}</td>
+								<td>{{c.interes | number}}</td>
+								<td>{{c.amortizacion | number}}</td>
+								<td>{{c.saldoCapital | number}}</td>
+							</tr>
+						</tbody>
+					</table>
+				  </div>
+			  </div>
+			</div>
+		</mat-card-content>
+	</form>
+</mat-card>
+			
