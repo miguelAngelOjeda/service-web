@@ -143,13 +143,16 @@ export class PeopleComponent implements OnInit{
   }
 
   onKeydown(documento) {
-    this.apiService.get('/personas/documento/' + documento, this.params)
-    .subscribe(res => {
-      if(res.status == 200){
-        res.model.avatar = null;
-        this.peopleService.loadData(<FormGroup>this.peopleForm.get('persona'),res.model);
-      }
-    });
+    if(documento !== null && documento !== '0'){
+        this.apiService.get('/personas/documento/' + documento, this.params)
+      .subscribe(res => {
+        if(res.status == 200){
+          res.model.avatar = null;
+          this.peopleService.loadData(<FormGroup>this.peopleForm.get('persona'),res.model);
+        }
+      });
+    }
+    
   }
 
   peopleCi() {

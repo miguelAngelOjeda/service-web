@@ -31,6 +31,18 @@
       </div>
       <div class="col-md-4">
         <div class="p-l-20 p-t-10">
+          <div class="font-medium">% Gastos Administrativos</div>
+          <span class="font-16" *ngIf="modalityForm.get('gastosAdministrativos').value">{{modalityForm.get('gastosAdministrativos').value}}</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-l-20 p-t-10">
+          <div class="font-medium">% Seguro Vida</div>
+          <span class="font-16" *ngIf="modalityForm.get('seguroVida').value">{{modalityForm.get('seguroVida').value}}</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-l-20 p-t-10">
           <div class="font-medium">Monto Minimo</div>
           <span class="font-16" *ngIf="modalityForm.get('montoMinimo').value">{{modalityForm.get('montoMinimo').value | number}}</span>
         </div>
