@@ -34,7 +34,7 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts";
 
 // Set the fonts to use
-PdfMakeWrapper.setFonts(pdfFonts);
+PdfMakeWrapper.setFonts(pdfFonts); 
 
 
 @NgModule({
