@@ -90,6 +90,7 @@
 							<tr>
 								<th>Nro Cuota</th>
 								<th>Fecha Vencimiento</th>
+								<th>Dias</th>
 								<th>Monto Cuota</th>
 								<th>Interés</th>
 								<th>Amortizacion</th>
@@ -100,6 +101,7 @@
 							<tr *ngFor="let c of cuotas">
 								<td>{{c.numeroCuota}}</td>
 								<td>{{c.fechaVencimiento}}</td>
+								<td>{{c.dias | number}}</td>
 								<td>{{c.montoCuota | number}}</td>
 								<td>{{c.interes | number}}</td>
 								<td>{{c.amortizacion | number}}</td>
