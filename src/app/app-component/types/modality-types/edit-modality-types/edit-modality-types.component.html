@@ -43,6 +43,26 @@
       </div>
       <div class="col-md-3">
         <mat-form-field appearance="legacy">
+         <input matInput #input type="number" placeholder="% Gastos Administrativos" formControlName="gastosAdministrativos" name="gastosAdministrativos" min='0' step='0.01' floatLabelType= 'Auto' required>
+          <mat-error *ngIf="(modalityForm.get('gastosAdministrativos').errors)">
+            <span *ngIf="modalityForm.get('gastosAdministrativos').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field appearance="legacy">
+         <input matInput #input type="number" placeholder="% Seguro Vida" formControlName="seguroVida" name="seguroVida" min='0' step='0.01' floatLabelType= 'Auto' required>
+          <mat-error *ngIf="(modalityForm.get('seguroVida').errors)">
+            <span *ngIf="modalityForm.get('seguroVida').errors.required">
+             Campo requerido
+            </span>
+          </mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field appearance="legacy">
          <input matInput #input type="number" placeholder="Monto Minimo" formControlName="montoMinimo" name="montoMinimo" min='0' floatLabelType= 'Auto' required>
           <mat-error *ngIf="(modalityForm.get('montoMinimo').errors)">
             <span *ngIf="modalityForm.get('montoMinimo').errors.required">

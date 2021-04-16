@@ -6,4 +6,5 @@ export class CuotaDesembolso {
     interes: number;
     amortizacion: number;
     saldoCapital: number;
+    dias: number;
 }

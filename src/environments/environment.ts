@@ -134,6 +134,9 @@ export const authorities = {
 	"propuesta": {
 		"listPropuesta": {
 		  "permittedRoles": ["ROLE_PROPUESTA.LIST"]
+		},
+		"solDescuento": {
+			"permittedRoles": ["ROLE_PROPUESTA.DESCUENTOCH"]
 		}
   	},
     "credits": {
