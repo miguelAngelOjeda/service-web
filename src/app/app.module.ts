@@ -33,6 +33,7 @@ import * as $ from 'jquery';
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import {MAT_DATE_LOCALE} from '@angular/material';
+import { OnlynumberDirective } from './core/material/onlyNumber';
 
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
@@ -48,7 +49,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     SnackbarComponent,
     SpinnerComponent,
     HomeComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    OnlynumberDirective
   ],
   imports: [
     BrowserModule,

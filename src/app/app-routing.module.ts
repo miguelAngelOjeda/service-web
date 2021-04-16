@@ -38,6 +38,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/propuesta/propuesta.module#PropuestaModule'
         },
         {
+        path: 'service-web/descuentoCH',
+        loadChildren: './app-component/descuento-cheque/descuentoCH.module#DescuentoCHModule'
+        },
+        {
         path: 'service-web/informconf', 
         loadChildren: './app-component/informconf/informconf.module#InformconfModule' 
         },

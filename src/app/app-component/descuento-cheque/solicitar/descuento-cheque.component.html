@@ -1,0 +1,137 @@
+<mat-card class="form-card">
+  <form id="myForm" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <mat-card-content>
+      <div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field  appearance="legacy">
+						<mat-label>Cliente</mat-label>
+						<input matInput #input  placeholder="Cliente" formControlName="cliente"  name="cliente" required>
+					</mat-form-field>
+          <mat-form-field  appearance="legacy">
+						<mat-label>RUC</mat-label>
+						<input matInput #input  placeholder="RUC" formControlName="ruc"  name="ruc" required>
+					</mat-form-field>
+          <mat-form-field appearance="legacy">
+            <mat-label>Moneda</mat-label>
+            <select matNativeControl required formControlName="moneda" (change)="changeMoneda()">
+              <option value="GS">Guaranies</option>
+              <option value="USD">Dolares</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field  appearance="legacy" *ngIf="myForm.get('moneda')?.value == 'USD'">
+						<mat-label>Cambio GS/USD</mat-label>
+						<input matInput #input  placeholder="cambioDolar" formControlName="cambioDolar"  name="cambioDolar" required>
+					</mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field  appearance="legacy">
+						<input matInput #input [matDatepicker]="picker" formControlName="fechaDescuento" id = "fechaDescuento" name="fechaDescuento" placeholder="Fecha Descuento" readonly (dateChange)="changeValuesCab()">
+						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+          <mat-form-field  appearance="legacy">
+						<mat-label>T. Interés Mensual %</mat-label>
+						<input matInput #input  placeholder="T. Interés Mensual %" formControlName="interesPeriodo"  name="interesPeriodo" type="text" onlyNumbers (change)="changeValuesCab()">
+					</mat-form-field>
+          <mat-form-field  appearance="legacy">
+						<mat-label>T. Gastos Admin. Mensual %</mat-label>
+						<input matInput #input  placeholder="T. Gastos Admin. Mensual %" formControlName="gastosPeriodo"  name="gastosPeriodo" type="text" onlyNumbers (change)="changeValuesCab()">
+					</mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <h2 class="mat-display-1">Liquidación:</h2>
+          <p class="mat-body-1">Total Documentos: {{myForm.get('totalValor2')?.value | number}}</p>
+          <p class="mat-body-1">Total Intereses: {{myForm.get('totalInteres2')?.value | number}}</p>
+          <p class="mat-body-1">Total G. Admin.: {{myForm.get('totalGastos2')?.value | number}}</p>
+          <p class="mat-body-1">Total IVA: {{myForm.get('totalIva2')?.value | number}}</p>
+          <p class="mat-body-1">DESEMBOLSO: {{ myForm.get('totalDesembolso2')?.value | number}}</p>
+        </div>
+        <div class="col-md-3 text-center">
+          <button mat-raised-button color="primary" type="button" (click)="printDocumento()">Imprimir</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table id="lista-tabla" class="table">
+              <thead>
+                <tr>
+                  <th>Nro</th>
+                  <th>CI/RUC</th>
+                  <th>Titular</th>
+                  <th>Tipo Documento</th>
+                  <th>Fecha Emision</th>
+                  <th>Fecha Pago</th>
+                  <th>Días</th>
+                  <th>Moneda</th>
+                  <th>Valor Documento</th>
+                  <th>Intereses c/IVA</th>
+                  <th>G. Admin. c/IVA</th>
+                  <th>Capital Descontado</th>
+                  <th>
+                    <button mat-mini-fab color="primary" (click)="addDoc()" type="button">
+                      <mat-icon>plus_one</mat-icon>
+                    </button>
+                </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of documentos; let index = index">
+                  <td style="width: 2%">{{c.id}}</td>
+                  <td style="width: 11%"><input matInput #input placeholder="CI/RUC" [(ngModel)]="c.cedula" [ngModelOptions]="{standalone: true}" required></td>
+                  <td style="width: 20%"><input matInput #input placeholder="Titular" [(ngModel)]="c.nombre" [ngModelOptions]="{standalone: true}" required></td>
+                  <td style="width: 5%"><input matInput #input placeholder="Tipo Documento" [(ngModel)]="c.tipoDocumento" [ngModelOptions]="{standalone: true}" required></td>
+                  <!--<td style="width: 8%"><input matInput #input placeholder="Fecha Emision" [(ngModel)]="c.fechaEmision" [ngModelOptions]="{standalone: true}" required></td>-->
+                  <td style="width: 8%">
+                    
+                    <input matInput #input [matDatepicker]="picker" [(ngModel)]="c.fechaEmision" [ngModelOptions]="{standalone: true}" placeholder="Fecha Emision" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  
+                  </td>
+                  <!--<td style="width: 8%"><input matInput #input placeholder="Fecha Pago" [(ngModel)]="c.fechaPago" [ngModelOptions]="{standalone: true}" required></td>-->
+                  <td style="width: 8%">
+                    
+                    <input matInput #input [matDatepicker]="picker1" [(ngModel)]="documentos[index].fechaPago" [ngModelOptions]="{standalone: true}" placeholder="Fecha Pago" (dateChange)="changeFecha(documentos[index])" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    
+                  </td>
+                  <td style="width: 2%">{{c.dias}}</td>
+                  <td style="width: 2%"><input matInput #input placeholder="Moneda" [(ngModel)]="c.moneda" [ngModelOptions]="{standalone: true}" readonly></td>
+                  <td style="width: 10%"><input matInput #input (keyup)="addCommas($event, c)" placeholder="Valor Documento" [(ngModel)]="c.valorDocumento" [ngModelOptions]="{standalone: true}" (change)="changeValor(c)"></td>
+                  <td style="width: 10%">{{c.interes | number}}</td>
+                  <td style="width: 10%">{{c.gastosAdministrativos | number}}</td>
+                  <td style="width: 10%">{{c.capitalDescontado | number}}</td>
+                  <td style="width: 2%">
+                    <button mat-mini-fab color="warn" (click)="delDoc(c)" type="button">
+                      <mat-icon>delete_forever</mat-icon>
+                    </button>
+                  </td>
+                  
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th colspan="8" class="text-center">Subtotales:</th>
+                  <th class="text-center">{{ myForm.get('totalValor')?.value | number}}</th>
+                  <th class="text-center">{{ myForm.get('totalInteres')?.value | number}}</th>
+                  <th class="text-center">{{ myForm.get('totalGastos')?.value | number}}</th>
+                  <th class="text-center">{{myForm.get('totalDesc')?.value | number}}</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>
+
