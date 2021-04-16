@@ -111,12 +111,12 @@ export class PropuestaComponent implements OnInit {
     cd.interes = 0;
     cd.amortizacion = 0;
     cd.saldoCapital = this.capitalTotal;
-    cd.dias = 0;
+    //cd.dias = 0;
     this.cuotas.push(cd);
 
     //calculo por fecha vencimiento
     
-    //var interesAdicionalFechaVenc = 0;
+    var interesAdicionalFechaVenc = 0;
     fechas[0] = mesActual.format('DD-MM-YYYY');
     if(this.myForm.get('fechaVencimiento').value != null) {
       let fechaSeleccionada = new Date(this.myForm.get('fechaVencimiento').value);
@@ -126,7 +126,7 @@ export class PropuestaComponent implements OnInit {
       var diffDays = mesSelecc.diff(mesActual, 'days')
  
       if(diffDays - Number(periodoCapital) >= 0) {
-        //interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
+        interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
         //interesAdicionalFechaVenc = Number(interesAdicionalFechaVenc.toFixed(0));
         //fechaAnterior = mesActual;
         mesActual = mesSelecc;
@@ -144,27 +144,32 @@ export class PropuestaComponent implements OnInit {
     
     for(let i = 1; i <= Number(plazo); i++) {
 
-      /*
+      
       pagoInteres = (monto*(tasaAnualPeriodo/100));
       pagoCapital = cuota - pagoInteres;
-      monto = (monto - pagoCapital);*/
+      monto = (monto - pagoCapital);
 
-      // interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
+      //interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
       
       fechaAnt = moment(fechas[i-1], "DD-MM-YYYY");
-      console.log(i);
+      /*console.log(i);
       console.log('fechaAnterior: ' + fechaAnt);
-      console.log('mesActual: ' + mesActual);
+      console.log('mesActual: ' + mesActual);*/
       cd = new CuotaDesembolso();
-      cd.dias = mesActual.diff(fechaAnt, 'days');
-      pagoInteres = ((Number(tasaAnual)/100) / 365) * monto * (cd.dias);
-      if(i == Number(plazo)){
+      //cd.dias = mesActual.diff(fechaAnt, 'days');
+      //pagoInteres = ((Number(tasaAnual)/100) / 365) * monto * (cd.dias);
+      
+      if(i == 1){
+        cuota = cuota + interesAdicionalFechaVenc;
+      }
+
+      /*if(i == Number(plazo)){
         pagoCapital = monto;
         monto = (monto - pagoCapital);
       } else {
         pagoCapital = cuota - pagoInteres;
         monto = (monto - pagoCapital);
-      } 
+      } */
       
       //Formato fechas
       fechas[i] = mesActual.format('DD-MM-YYYY');
