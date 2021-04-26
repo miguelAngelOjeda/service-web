@@ -49,7 +49,7 @@ export class EditCreditsComponent implements OnInit {
 
   ngOnInit() {
     //datos para calculos
-    this.cuotas = null;
+    this.cuotas = new Array();
     this.interesPeriodo = '0';
     this.interesPeriodoNumber = 0;
     this.gastAdminPeriodo= '0';
@@ -68,9 +68,39 @@ export class EditCreditsComponent implements OnInit {
       
       if(res.status == 200){
         this.myForm.patchValue(res.model,{emitEvent: false});
-        this.setearDatos();
       }
     });
+  }
+
+  calcularFechaVencimiento(fechaActual){
+
+    let periodoCapital = (this.myForm.get('modalidad').value.periodoCapital == null || this.myForm.get('modalidad').value.periodoCapital == '' || this.myForm.get('modalidad').value.periodoCapital == '0') ? '30' : this.myForm.get('modalidad').value.periodoCapital;
+    periodoCapital = Number(periodoCapital);
+
+    if(periodoCapital == 1){
+      fechaActual.add(1, 'days');
+    } else if(periodoCapital == 7) {
+      fechaActual.add(1, 'weeks');
+    } else if(periodoCapital == 15) {
+      fechaActual.add(2, 'weeks');
+    } else if(periodoCapital == 30) {
+      fechaActual.add(1, 'month');
+    } else if(periodoCapital == 60) {
+      fechaActual.add(2, 'month');
+    } else if(periodoCapital == 360) {
+      fechaActual.add(6, 'month');
+    } else {
+      fechaActual.add(1, 'month');
+    }
+    
+    return fechaActual;
+  }
+
+  thousands_separators(num)
+  {
+    var num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num_parts.join(".");
   }
 
   setearDatos(){
@@ -144,98 +174,126 @@ export class EditCreditsComponent implements OnInit {
   }
 
   calcularCuota() {
-    //this.error =false;
+    
     this.cuotas = new Array();
-    const llenarTabla = document.querySelector('#lista-tabla tbody');
-    while(llenarTabla.firstChild){
-        llenarTabla.removeChild(llenarTabla.firstChild);
-    }
+    
+    let fechas = [];
+    let fechaActual = Date.now();
+    let mesActual = moment(fechaActual);
 
-    if(this.fechaVencimiento == null || '' == this.fechaVencimiento){
-      //this.error =true;
-    } else {
-      let fechas = [];
-      let fechaSeleccionada = new Date(this.fechaVencimiento);
+    let montoSol = this.myForm.get('montoCapital').value;
+    let plazo = this.myForm.get('plazoOperacion').value;
+    let tasaAnual = (this.myForm.get('tasaInteres').value == null || this.myForm.get('tasaInteres').value == '0' || this.myForm.get('tasaInteres').value == 0) ? this.myForm.get('modalidad').value.interes : this.myForm.get('tasaInteres').value;
+    var gastosAdmin = (this.myForm.get('gastosAdministrativos').value == null || this.myForm.get('gastosAdministrativos').value == '0' || this.myForm.get('gastosAdministrativos').value == 0) ? this.myForm.get('modalidad').value.gastosAdministrativos : this.myForm.get('gastosAdministrativos').value;
+    var seguroVida = (this.myForm.get('seguroVida').value == null || this.myForm.get('seguroVida').value == '' || this.myForm.get('seguroVida').value == 0) ? this.myForm.get('modalidad').value.seguroVida : this.myForm.get('seguroVida').value;
+    
+    this.getValue(gastosAdmin , 'gastosAdministrativos');
+    this.getValue(seguroVida, 'seguroVida');
+
+    let dividendoModalidad = this.myForm.get('modalidad').value.dividendoCalculo;
+    var calculo = dividendoModalidad.split('*');
+
+    let pagoInteres=0, pagoCapital = 0, cuota = 0;
+    
+    //tasa interes por periodo
+    let tasaAnualPeriodo = (Number(tasaAnual) / Number(calculo[0].trim())) * Number(calculo[1].trim());
+
+    //gastos administrativos por periodo
+    let gastosAdminPeriodo = (Number(gastosAdmin) / Number(calculo[0].trim())) * Number(calculo[1].trim());
+    let montogastosAdmin = Number(montoSol) * (gastosAdminPeriodo / 100) * Number(plazo);
+    montogastosAdmin = Number(montogastosAdmin.toFixed(0));
+
+    //seguro de vida por periodo
+    let seguroVidaPeriodo = (Number(seguroVida) / Number(calculo[0].trim())) * Number(calculo[1].trim());
+    let montoseguroVida = Number(montoSol) * (seguroVidaPeriodo / 100) * Number(plazo);
+    montoseguroVida = Number(montoseguroVida.toFixed(0));
+
+    //TOTAL A DESEMBOLSAR
+    this.capitalTotal = montoseguroVida + montogastosAdmin + Number(montoSol);
+    this.capitalTotal = Number(this.capitalTotal.toFixed(0));
+    let monto = this.capitalTotal;
+
+    this.getValue(montogastosAdmin , 'montoGastosAdmin');
+    this.getValue(montoseguroVida, 'montoSeguroVida');
+    this.getValue(this.capitalTotal, 'montoTotal');
+
+    cuota = this.capitalTotal * (Math.pow(1+tasaAnualPeriodo/100, Number(plazo))*tasaAnualPeriodo/100)/(Math.pow(1+tasaAnualPeriodo/100, Number(plazo))-1);
+
+    var cd = new CuotaDesembolso();
+    cd.numeroCuota = 0;
+    cd.fechaVencimiento = mesActual.format('DD-MM-YYYY');
+    cd.montoCuota = 0;
+    cd.interes = 0;
+    cd.amortizacion = 0;
+    cd.saldoCapital = this.capitalTotal;
+    this.cuotas.push(cd);
+
+    //calculo por fecha vencimiento
+    var interesAdicionalFechaVenc = 0;
+    fechas[0] = mesActual.format('DD-MM-YYYY');
+    
+    if(this.myForm.get('fechaVencimiento').value != null) {
+      let fechaSeleccionada = new Date(this.myForm.get('fechaVencimiento').value);
       let mesSelecc = moment(fechaSeleccionada);
-      
-      let fechaActual = Date.now();
-      let mesActual = moment(fechaActual);
+      var periodoCapital = (this.myForm.get('modalidad').value.periodoCapital == null || this.myForm.get('modalidad').value.periodoCapital == '' || this.myForm.get('modalidad').value.periodoCapital == '0') ? '30' : this.myForm.get('modalidad').value.periodoCapital;
 
-      let pagoInteres=0, pagoCapital = 0, cuota = 0;
-      //this.capitalTotal = 1620000;
-      let monto = this.capitalTotal;
-      
-      cuota = this.capitalTotal * (Math.pow(1+this.interesPeriodoNumber/100, Number(this.myForm.get('plazoOperacion').value))*this.interesPeriodoNumber/100)/(Math.pow(1+this.interesPeriodoNumber/100, Number(this.myForm.get('plazoOperacion').value))-1);
-      const row = document.createElement('tr');
-          row.innerHTML = `
-              <td>0</td>
-              <td>${mesActual.format('DD/MM/YYYY') + ' (fecha desembolso)'}</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>${new Intl.NumberFormat().format(this.capitalTotal)}</td>
-          `;
-          llenarTabla.appendChild(row);
-
-        var cd = new CuotaDesembolso();
-        cd.numeroCuota = 0;
-        cd.fechaVencimiento = mesActual.format('DD-MM-YYYY');
-        cd.montoCuota = 0;
-        cd.interes = 0;
-        cd.amortizacion = 0;
-        cd.saldoCapital = this.capitalTotal;
-        this.cuotas.push(cd);
-
-      for(let i = 1; i <= Number(this.myForm.get('plazoOperacion').value); i++) {
-
-          pagoInteres = (monto*(this.interesPeriodoNumber/100));
-          pagoCapital = cuota - pagoInteres;
-          monto = (monto - pagoCapital);
-
-          //Formato fechas
-          fechas[i] = mesSelecc.format('DD-MM-YYYY');
-          mesSelecc.add(1, 'month');
-
-          const row = document.createElement('tr');
-          row.innerHTML = `
-              <td>${i}</td>
-              <td>${fechas[i]}</td>
-              <td>${new Intl.NumberFormat().format(Number(cuota.toFixed(0)))}</td>
-              <td>${new Intl.NumberFormat().format(Number(pagoInteres.toFixed(0)))}</td>
-              <td>${new Intl.NumberFormat().format(Number(pagoCapital.toFixed(0)))}</td>
-              <td>${new Intl.NumberFormat().format(Number(monto.toFixed(0)))}</td>
-          `;
-          llenarTabla.appendChild(row);
-
-          cd = new CuotaDesembolso();
-          cd.numeroCuota = i;
-          cd.fechaVencimiento = fechas[i];
-          cd.montoCuota = Number(cuota.toFixed(0));
-          cd.interes = Number(pagoInteres.toFixed(0));
-          cd.amortizacion = Number(pagoCapital.toFixed(0));
-          cd.saldoCapital = Number(monto.toFixed(0));
-          this.cuotas.push(cd);
+      var diffDays = mesSelecc.diff(mesActual, 'days')
+ 
+      if(diffDays - Number(periodoCapital) >= 0) {
+        interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
+        mesActual = mesSelecc;
+      } else {
+        //this.myForm.controls['fechaVencimiento'].setValue(null);
+        mesActual = this.calcularFechaVencimiento(mesActual);
+        this.getValue(new Date(mesActual.format()) , 'fechaVencimiento');
       }
+
+    } else {
+      mesActual = this.calcularFechaVencimiento(mesActual);
+      this.getValue(new Date(mesActual.format()) , 'fechaVencimiento');
     }
 
     
-}
+    var fechaAnt = null;
+    
+    for(let i = 1; i <= Number(plazo); i++) {
+
+      pagoInteres = (monto*(tasaAnualPeriodo/100));
+      pagoCapital = cuota - pagoInteres;
+      monto = (monto - pagoCapital);      
+      fechaAnt = moment(fechas[i-1], "DD-MM-YYYY");
+      cd = new CuotaDesembolso();
+      
+      if(i == 1){
+        var primerCuota = cuota + interesAdicionalFechaVenc;
+        cd.montoCuota = Number(primerCuota.toFixed(0));
+      } else {
+        cd.montoCuota = Number(cuota.toFixed(0));
+      }
+
+      //Formato fechas
+      fechas[i] = mesActual.format('DD-MM-YYYY');
+      mesActual = this.calcularFechaVencimiento(mesActual);
+
+      cd.numeroCuota = i;
+      cd.fechaVencimiento = fechas[i];
+      cd.interes = Number(pagoInteres.toFixed(0));
+      cd.amortizacion = Number(pagoCapital.toFixed(0));
+      cd.saldoCapital = Number(monto.toFixed(0));
+      this.cuotas.push(cd);
+
+    }
+
+    this.getValue(this.cuotas , 'cuotas');
+
+  }
 
   onSubmit() {
     
-    var json = {"idCredito": this.myForm.get('id').value,
-      "idTipoDesembolso":this.myForm.get('tipoDesembolso').value.id,
-      "gastosAdministrativos":this.gastAdminPorc,
-      "seguroVida":this.segVidaPorc,
-      "montoDesembolsado": this.myForm.get('montoCapital').value,
-      "cuotas":this.cuotas
-    
-    };
-    this.apiService.post('/cuotaDesembolso', json)
+    this.apiService.post('/cuotaDesembolso', this.myForm.value)
     .subscribe(res => {
       if(res.status == 200){
         this.router.navigateByUrl('service-web/credits');
-        console.log('Ok');
       }
     });
   }

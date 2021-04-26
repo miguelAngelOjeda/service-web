@@ -80,16 +80,11 @@
 
           <div class="row">
             <div class="col-md-4">
-              <p mat-line><span class="font-bold">Tasa de Interes Anual: </span>{{myForm.get('tasaInteres')?.value}} %</p>
-              <p mat-line><span class="font-bold">Gastos Administrativos Anual: </span>{{myForm.get('gastosAdministrativos')?.value}} %</p>
-              <p mat-line><span class="font-bold">Seguro de vida Anual: </span>{{myForm.get('seguroVida')?.value}} %</p>
-              <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazoOperacion')?.value}}</p>
-            </div>
-            <div class="col-md-4">
-              <p mat-line><span class="font-bold">Tasa de interes por periodo: </span>{{interesPeriodo}} %</p>
-              <p mat-line><span class="font-bold">Gtos Adm. por periodo: </span>{{gastAdminPeriodo}} %</p>
-              <p mat-line><span class="font-bold">Seg Vida. por periodo: </span>{{segVidaPeriodo}} %</p>
               <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value?.nombre}}</p>
+              <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazoOperacion')?.value}}</p>
+              <p mat-line><span class="font-bold">Tasa de Interes Anual: </span>{{myForm.get('tasaInteres')?.value}} %</p>
+              <p mat-line><span class="font-bold">Gastos Administrativos Anual: </span>{{myForm.get('modalidad')?.value?.gastosAdministrativos}} %</p>
+              <p mat-line><span class="font-bold">Seguro de vida Anual: </span>{{myForm.get('modalidad')?.value?.seguroVida}} %</p>
             </div>
             <div class="col-md-4">
               <p mat-line><span class="font-bold">Destino: </span>{{myForm.get('tipoDestino')?.value.nombre}}</p>
@@ -97,23 +92,25 @@
               <p mat-line><span class="font-bold">Forma de pago: </span> {{(myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre)}}</p>
               <p mat-line><span class="font-bold">Tipo Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
             </div>
+            <div class="col-md-4">
+              <p mat-line><span class="font-bold">Neto desembolsado: </span> {{myForm.get('montoCapital')?.value  | number}}</p>
+              <p mat-line><span class="font-bold">Gastos Administrativos: </span> {{myForm.get('montoGastosAdmin')?.value | number}}</p>
+              <p mat-line><span class="font-bold">Seguro de vida: </span> {{myForm.get('montoSeguroVida')?.value | number}}</p>
+              <p mat-line><span class="font-bold">Capital Total: </span> {{(myForm.get('montoCapital')?.value + myForm.get('montoGastosAdmin')?.value + myForm.get('montoSeguroVida')?.value) | number}}</p>
+            </div>
+            
           </div>
          
           <div class="row">
-              <div class="col-md-9">
-                <p><span class="font-bold">Neto a desembolsar: </span> {{myForm.get('montoCapital')?.value  | number}}</p>
-                <p><span class="font-bold">Gastos Administrativos: </span> {{gastAdmin | number}}</p>
-                <p><span class="font-bold">Seguro de vida: </span> {{segVida | number}}</p>
-                <p><span class="font-bold">Capital Total: </span> {{capitalTotal | number}}</p>
-              </div>
-              <div class="col-md-3">                 
-                <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printLiquidacion()" color="primary">Imprimir Liquidacion</button><br>
-                <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printPagare()" color="primary">Imprimir Pagare</button><br>
+              
+              <div class="col-md-12 text-left">                 
+                <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printLiquidacion()" color="primary">Imprimir Liquidacion</button><br><br>
+                <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printPagare()" color="primary">Imprimir Pagare</button><br><br>
                 <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printContrarto()" color="primary">Imprimir Contrato</button>
               </div>
 
           </div>
-
+          <br><br>
           <div class="row">
             <div class="col-12">
               <div class="table-responsive">

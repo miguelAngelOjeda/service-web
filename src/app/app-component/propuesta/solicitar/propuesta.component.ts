@@ -184,8 +184,6 @@ export class PropuestaComponent implements OnInit {
       this.cuotas.push(cd);
     }
 
-    
-    
   }
 
   calcularFechaVencimiento(fechaActual){
