@@ -303,15 +303,15 @@ export class PrintCreditsComponent implements OnInit {
       await new Img('assets/images/logoDocumento.png').build()
     ]).end);
 
-    pdf.footer(
+    /*pdf.footer(
       (currentPage, pageCount) => {
         return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').alignment('right').end;
       }
-    );
+    );*/
 
     
 
-    pdf.add(new Txt('PAGARE   A  LA  ORDEN ').alignment('center').bold().end);
+    pdf.add(new Txt('PAGARE A LA ORDEN ').alignment('center').bold().end);
     pdf.add(
       pdf.ln(2)
     );

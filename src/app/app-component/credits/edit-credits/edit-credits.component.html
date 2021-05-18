@@ -104,7 +104,7 @@
             <div class="col-md-4">
               
               <mat-form-field  appearance="legacy">
-                <input matInput #input [matDatepicker]="picker" formControlName="fechaVencimiento" id = "fechaVencimiento" name="fechaVencimiento" placeholder="Fecha primer Vencimiento">
+                <input matInput #input [matDatepicker]="picker" formControlName="fechaVencimiento" id = "fechaVencimiento" name="fechaVencimiento" placeholder="Fecha primer Vencimiento" readonly>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -127,6 +127,7 @@
                         <tr>
                             <th>Nro Cuota</th>
                             <th>Fecha Vencimiento</th>
+                            <th>Dias</th>
                             <th>Monto Cuota</th>
                             <th>Interés</th>
                             <th>Amortizacion</th>
@@ -137,6 +138,7 @@
                       <tr *ngFor="let c of cuotas">
                         <td>{{c.numeroCuota}}</td>
                         <td>{{c.fechaVencimiento}}</td>
+                        <td>{{c.dias}}</td>
                         <td>{{c.montoCuota | number}}</td>
                         <td>{{c.interes | number}}</td>
                         <td>{{c.amortizacion | number}}</td>

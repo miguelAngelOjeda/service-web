@@ -111,32 +111,35 @@ export class PropuestaComponent implements OnInit {
     cd.interes = 0;
     cd.amortizacion = 0;
     cd.saldoCapital = this.capitalTotal;
-    //cd.dias = 0;
+    cd.dias = 0;
     this.cuotas.push(cd);
 
     //calculo por fecha vencimiento
     
     var interesAdicionalFechaVenc = 0;
     fechas[0] = mesActual.format('DD-MM-YYYY');
-    if(this.myForm.get('fechaVencimiento').value != null) {
+    if(this.myForm.get('fechaVencimiento').valid) {
       let fechaSeleccionada = new Date(this.myForm.get('fechaVencimiento').value);
       let mesSelecc = moment(fechaSeleccionada);
       var periodoCapital = (this.myForm.get('modalidad').value.periodoCapital == null || this.myForm.get('modalidad').value.periodoCapital == '' || this.myForm.get('modalidad').value.periodoCapital == '0') ? '30' : this.myForm.get('modalidad').value.periodoCapital;
 
       var diffDays = mesSelecc.diff(mesActual, 'days')
  
-      if(diffDays - Number(periodoCapital) >= 0) {
+      /*if(diffDays - Number(periodoCapital) >= 0) {
         interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
-        //interesAdicionalFechaVenc = Number(interesAdicionalFechaVenc.toFixed(0));
-        //fechaAnterior = mesActual;
         mesActual = mesSelecc;
       } else {
-        this.myForm.controls['fechaVencimiento'].setValue(null);
         mesActual = this.calcularFechaVencimiento(mesActual);
-      }
+        this.getValue(new Date(mesActual.format()) , 'fechaVencimiento');
+      }*/
+
+      // se puede seleccionar dias en negativo para adelantar el vencimiento
+      interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
+      mesActual = mesSelecc;
 
     } else {
       mesActual = this.calcularFechaVencimiento(mesActual);
+      this.getValue(new Date(mesActual.format()) , 'fechaVencimiento');
     }
 
     
@@ -148,40 +151,31 @@ export class PropuestaComponent implements OnInit {
       pagoInteres = (monto*(tasaAnualPeriodo/100));
       pagoCapital = cuota - pagoInteres;
       monto = (monto - pagoCapital);
-
-      //interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
-      
-      fechaAnt = moment(fechas[i-1], "DD-MM-YYYY");
-      /*console.log(i);
-      console.log('fechaAnterior: ' + fechaAnt);
-      console.log('mesActual: ' + mesActual);*/
+      fechaAnt = moment(this.cuotas[i-1].fechaVencimiento, "DD-MM-YYYY");
       cd = new CuotaDesembolso();
-      //cd.dias = mesActual.diff(fechaAnt, 'days');
-      //pagoInteres = ((Number(tasaAnual)/100) / 365) * monto * (cd.dias);
-      
-      if(i == 1){
-        cuota = cuota + interesAdicionalFechaVenc;
-      }
+      cd.dias = mesActual.diff(fechaAnt, 'days');
 
-      /*if(i == Number(plazo)){
-        pagoCapital = monto;
-        monto = (monto - pagoCapital);
+      if(i == 1){
+        var primerCuota = cuota + interesAdicionalFechaVenc;
+        var interesVenc = pagoInteres + interesAdicionalFechaVenc;
+        cd.montoCuota = Number(primerCuota.toFixed(0));
+        cd.interes = Number(interesVenc.toFixed(0));
       } else {
-        pagoCapital = cuota - pagoInteres;
-        monto = (monto - pagoCapital);
-      } */
+        cd.montoCuota = Number(cuota.toFixed(0));
+        cd.interes = Number(pagoInteres.toFixed(0));
+      }
       
       //Formato fechas
       fechas[i] = mesActual.format('DD-MM-YYYY');
       mesActual = this.calcularFechaVencimiento(mesActual);
 
+      
       cd.numeroCuota = i;
       cd.fechaVencimiento = fechas[i];
-      cd.interes = Number(pagoInteres.toFixed(0));
-      cd.montoCuota = Number(cuota.toFixed(0));
       cd.amortizacion = Number(pagoCapital.toFixed(0));
       cd.saldoCapital = Number(monto.toFixed(0));
       this.cuotas.push(cd);
+      
     }
 
   }
