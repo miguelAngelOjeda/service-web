@@ -87,16 +87,28 @@
               <p mat-line><span class="font-bold">Seguro de vida Anual: </span>{{myForm.get('modalidad')?.value?.seguroVida}} %</p>
             </div>
             <div class="col-md-4">
-              <p mat-line><span class="font-bold">Destino: </span>{{myForm.get('tipoDestino')?.value.nombre}}</p>
+              <p mat-line><span class="font-bold">Destino: </span>{{myForm.get('tipoDestino')?.value?.nombre}}</p>
               <p mat-line><span class="font-bold">Tipo Garantia: </span>{{(myForm.get('propuestaSolicitud')?.value?.tipoGarantia?.nombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre)}}</p>
               <p mat-line><span class="font-bold">Forma de pago: </span> {{(myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre == null ? '' : myForm.get('propuestaSolicitud')?.value?.tipoPago?.nombre)}}</p>
-              <p mat-line><span class="font-bold">Tipo Desembolso: </span> {{myForm.get('tipoDesembolso')?.value.nombre}}</p>
+              <p mat-line><span class="font-bold">Tipo Desembolso: </span> {{myForm.get('tipoDesembolso')?.value?.nombre}}</p>
+              <mat-form-field appearance="legacy" [style.width.px]=325>
+                <mat-label>Seleccione Gerente para firma de contrato</mat-label>
+                <mat-select [(value)]="gteSelected">
+                  <mat-option>Seleccionar</mat-option>
+                  <mat-option value="Gerente Comercial,Isacio Colina Medina">Gerente Comercial</mat-option>
+                  <mat-option value="Gerente Finanzas,Carlos Efrain Vargas Vargas">Gerente Finanzas</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
             <div class="col-md-4">
               <p mat-line><span class="font-bold">Neto desembolsado: </span> {{myForm.get('montoCapital')?.value  | number}}</p>
               <p mat-line><span class="font-bold">Gastos Administrativos: </span> {{myForm.get('montoGastosAdmin')?.value | number}}</p>
               <p mat-line><span class="font-bold">Seguro de vida: </span> {{myForm.get('montoSeguroVida')?.value | number}}</p>
               <p mat-line><span class="font-bold">Capital Total: </span> {{(myForm.get('montoCapital')?.value + myForm.get('montoGastosAdmin')?.value + myForm.get('montoSeguroVida')?.value) | number}}</p>
+              <mat-form-field  appearance="legacy">
+                <mat-label>Costo Servicio Cobrador</mat-label>
+                <input matInput #input (keyup)="addCommas($event, c)" placeholder="Costo Servicio Cobrador" [(ngModel)]="costoCobrador" [ngModelOptions]="{standalone: true}"  name="costoCobrador">
+              </mat-form-field>
             </div>
             
           </div>
@@ -104,9 +116,9 @@
           <div class="row">
               
               <div class="col-md-12 text-left">                 
-                <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printLiquidacion()" color="primary">Imprimir Liquidacion</button><br><br>
+                <button [disabled]="costoCobrador == ''" type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printLiquidacion()" color="primary">Imprimir Liquidacion</button><br><br>
                 <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printPagare()" color="primary">Imprimir Pagare</button><br><br>
-                <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printContrarto()" color="primary">Imprimir Contrato</button>
+                <button [disabled]="gteSelected == null" type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" (click)="printContrarto()" color="primary">Imprimir Contrato</button>
               </div>
 
           </div>

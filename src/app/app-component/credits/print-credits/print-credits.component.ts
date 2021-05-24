@@ -8,7 +8,7 @@ import { PeopleService } from '../../shared/people/people.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { CuotaDesembolso } from 'src/app/core/models/CuotaDesembolso';
-import { Canvas, Columns, Img, Line, Ol, PdfMakeWrapper, Stack, Table, Txt, Ul } from 'pdfmake-wrapper';
+import { Canvas, Columns, Img, Line, Ol, PdfMakeWrapper, Rect, Stack, Table, Txt, Ul } from 'pdfmake-wrapper';
 import * as moment from 'moment';
 import { UserService } from '../../../core/services';
 
@@ -35,6 +35,8 @@ export class PrintCreditsComponent implements OnInit {
   capitalTotal : number;
   fechaVencimiento : string;
   cuotas: CuotaDesembolso[];
+  gteSelected : string;
+  costoCobrador: string;
 
   constructor(private creditsService:CreditsService,
     private router: Router,
@@ -58,15 +60,16 @@ export class PrintCreditsComponent implements OnInit {
     this.gastAdminPorc = 0;
     this.capitalTotal = 0;
     this.fechaVencimiento = null;
+    this.costoCobrador = '0';
     //-------
     this.myForm = this.creditsService.initFormBuilder();
     this.apiService.get('/creditos/desembolso/' + this.route.snapshot.params.id)
     .subscribe(res => {
       
       if(res.status == 200){
-        console.log(res.model);
+        //console.log(res.model);
         this.myForm.patchValue(res.model,{emitEvent: false});
-        console.log(this.myForm);
+        //console.log(this.myForm);
         this.setearDatos();
       }
     });
@@ -147,8 +150,21 @@ export class PrintCreditsComponent implements OnInit {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
   
+  addCommas(event, docu){
+    
+    // skip for arrow keys
+    if(event.which >= 37 && event.which <= 40) return;
 
-  printLiquidacion(){
+    this.costoCobrador = this.costoCobrador.replace(/\D/g, "")
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    ;
+
+  }
+
+  async printLiquidacion(){
+
+    console.log(this.costoCobrador);
+
     //datos de fecha
     let fechaActual = moment(Date.now());
 
@@ -173,19 +189,107 @@ export class PrintCreditsComponent implements OnInit {
        
     });
 
-    pdf.header(new Stack([
+    pdf.header(new Columns([
+      new Txt(fechaActual.format('DD/MM/YYYY hh:mm:ss A')).absolutePosition(15,15).end, new Txt('LIQUIDACION DE CREDITO').bold().absolutePosition(235, 90).end, await new Img('assets/images/logoDocumento.png').absolutePosition(460, 15).build()
+    ]).end);
+
+    /*pdf.header(new Stack([
       new Txt('FINANCORP - LIQUIDACION DE CREDITOS').alignment('center').bold().end,
       new Columns([ new Txt('Usuario: ' + usuario.username).alignment('center').bold().end, new Txt('Fecha: ' + fechaActual.format('DD/MM/YYYY')).alignment('center').bold().end, new Txt('Hora: ' + fechaActual.format('hh:mm:ss A')).alignment('center').bold().end ]).end,
       new Canvas([new Line(10, [400, 10]).end]).alignment('center').end
-    ]).end);
+    ]).end);*/
 
     pdf.footer(
       (currentPage, pageCount) => {
-        return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').alignment('right').end;
+        return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').absolutePosition(450, 15).end;
       }
     );
     
+    pdf.add(
+      new Columns([new Txt('   Datos de Operación                                                                                                                                              ').alignment('left').bold().background('#E6E6E6').end]).end
+
+    );
+
+    pdf.add(
+      pdf.ln(2)
+    );
+
+    //fecha desembolso
+    let fechaDesembolso = new Date(this.myForm.get('fechaDesembolso').value);
+    let desembolso = moment(fechaDesembolso);
+
+    //nombre cliente
+    var nombreCliente = (this.myForm.get('propuestaSolicitud').value.cliente.persona.primerNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.primerNombre)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoNombre)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.primerApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.primerApellido)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido);
+
+    //doc cliente
+    var doc = (this.myForm.get('propuestaSolicitud').value.cliente.persona.documento == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.documento)
+                              + (this.myForm.get('propuestaSolicitud').value.cliente.persona.ruc == null ? '' : '/' + this.myForm.get('propuestaSolicitud').value.cliente.persona.ruc);
+
+    /*var filas = new Array();
+    filas.push(['NRO CUOTA', 'ESTADO', 'FECHA VENCIMIENTO', 'MONTO CUOTA', 'INTERES', 'AMORTIZACION', 'SALDO']);
+    arrayCuotas.forEach(element => filas.push([element.numeroCuota, element.cuotaEstado.nombre, element.fechaVencimiento, 
+      new Intl.NumberFormat().format(Number(element.montoCuota)), 
+      new Intl.NumberFormat().format(Number(element.interes)), 
+      new Intl.NumberFormat().format(Number(element.amortizacion)), 
+      new Intl.NumberFormat().format(Number(element.saldoCapital))]));*/
     
+    //calcula total interes, cuotas, capital
+    var totalInteres = 0;
+    var totalCuotas = 0;
+    var totalCapital = 0;
+
+    for (var i = 0; i < arrayCuotas.length; i++) {
+      totalInteres += Number(arrayCuotas[i].interes);
+      totalCuotas += Number(arrayCuotas[i].montoCuota);
+      totalCapital += Number(arrayCuotas[i].amortizacion);
+    }
+
+    //arrayCuotas.forEach(element => totalInteres = totalInteres + Number(element.interes));
+
+
+    //pdf.add(
+      //new Columns([new Txt('Monto Capital: ' + new Intl.NumberFormat().format(this.capitalTotal)).alignment('left').end, new Txt('Monto Interes: ' + new Intl.NumberFormat().format(totalInteres)).alignment('left').end]).end
+
+    //);
+
+    pdf.add(
+      new Columns([new Txt('Cliente: ').alignment('left').bold().end, new Txt(nombreCliente).alignment('left').end, new Txt('Inicio: ').alignment('left').bold().end, new Txt(desembolso.format('DD/MM/YYYY')).alignment('left').end]).end
+
+    );
+
+    pdf.add(
+      new Columns([new Txt('N° Documento: ').alignment('left').bold().end, new Txt(doc).alignment('left').end, new Txt('Capital: ').alignment('left').bold().end, new Txt(new Intl.NumberFormat().format(this.capitalTotal)).alignment('left').end]).end
+
+    );
+
+    pdf.add(
+      new Columns([new Txt('N° Credito: ').alignment('left').bold().end, new Txt(this.myForm.get('id').value).alignment('left').end, new Txt('T.A.N.: ').alignment('left').bold().end, new Txt(this.myForm.get('tasaInteres').value + ' %').alignment('left').end]).end
+
+    );
+
+    pdf.add(
+      new Columns([new Txt('Sucursal: ').alignment('left').bold().end, new Txt(this.myForm.get('sucursal').value.nombre).alignment('left').end, new Txt('Plazo: ').alignment('left').bold().end, new Txt(this.myForm.get('plazoOperacion').value).alignment('left').end]).end
+
+    );
+
+    pdf.add(
+      new Columns([new Txt('Interes: ').alignment('left').bold().end, new Txt(new Intl.NumberFormat().format(totalInteres)).alignment('left').end, new Txt('Cuota: ').alignment('left').bold().end, new Txt(new Intl.NumberFormat().format(arrayCuotas[arrayCuotas.length - 1].montoCuota)).alignment('left').end]).end
+
+    );
+
+    //----------
+
+    pdf.add(
+      pdf.ln(2)
+    );
+
+    /*
     pdf.add(
       new Columns([new Txt('Nro Credito: ' + this.myForm.get('id').value).alignment('left').bold().end, new Txt('Nro Solicitud: ' + this.myForm.get('propuestaSolicitud').value.id).alignment('left').bold().end]).end
 
@@ -205,22 +309,9 @@ export class PrintCreditsComponent implements OnInit {
       new Columns([new Txt('Sucursal: ' + this.myForm.get('sucursal').value.nombre).alignment('left').end, new Txt('Plazo: ' + this.myForm.get('plazoOperacion').value).alignment('left').end]).end
 
     );
-    //fecha desembolso
-    let fechaDesembolso = new Date(this.myForm.get('fechaDesembolso').value);
-    let desembolso = moment(fechaDesembolso);
+    
 
-    //nombre cliente
-    var nombreCliente = (this.myForm.get('propuestaSolicitud').value.cliente.persona.primerNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.primerNombre)
-    + ' ' +
-    (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoNombre)
-    + ' ' +
-    (this.myForm.get('propuestaSolicitud').value.cliente.persona.primerApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.primerApellido)
-    + ' ' +
-    (this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.segundoApellido);
-
-    //doc cliente
-    var doc = (this.myForm.get('propuestaSolicitud').value.cliente.persona.documento == null ? '' : this.myForm.get('propuestaSolicitud').value.cliente.persona.documento)
-                              + (this.myForm.get('propuestaSolicitud').value.cliente.persona.ruc == null ? '' : '/' + this.myForm.get('propuestaSolicitud').value.cliente.persona.ruc);
+    
     
     pdf.add(
       new Columns([new Txt('Cliente: ' + doc + ' ' + nombreCliente).alignment('left').end, new Txt('Fecha desembolso: ' + desembolso.format('DD/MM/YYYY')).alignment('left').end]).end
@@ -228,59 +319,78 @@ export class PrintCreditsComponent implements OnInit {
     );
 
 
-    var filas = new Array();
-    filas.push(['NRO CUOTA', 'ESTADO', 'FECHA VENCIMIENTO', 'MONTO CUOTA', 'INTERES', 'AMORTIZACION', 'SALDO']);
-    arrayCuotas.forEach(element => filas.push([element.numeroCuota, element.cuotaEstado.nombre, element.fechaVencimiento, 
-      new Intl.NumberFormat().format(Number(element.montoCuota)), 
-      new Intl.NumberFormat().format(Number(element.interes)), 
-      new Intl.NumberFormat().format(Number(element.amortizacion)), 
-      new Intl.NumberFormat().format(Number(element.saldoCapital))]));
+    */
     
-    //calcula total interes
-    var totalInteres = 0;
-    arrayCuotas.forEach(element => totalInteres = totalInteres + Number(element.interes));
+    //pdf.add(new Txt('CUOTAS').alignment('center').bold().end);
+    //pdf.add(
+      //new Table(filas).end
+    //);
+
+    pdf.add(new Canvas([new Line(10, [520, 10]).end]).alignment('left').end);
 
     pdf.add(
-      new Columns([new Txt('Monto Capital: ' + new Intl.NumberFormat().format(this.capitalTotal)).alignment('left').end, new Txt('Monto Interes: ' + new Intl.NumberFormat().format(totalInteres)).alignment('left').end]).end
+      new Columns([new Txt('Vencimiento').alignment('center').bold().end, new Txt('Plazo').alignment('center').bold().end, new Txt('Cuota').alignment('center').bold().end, new Txt('Interés: ').alignment('center').bold().end, new Txt('Capital').alignment('center').bold().end, new Txt('Saldo').alignment('center').bold().end]).end
 
     );
+
+    pdf.add(new Canvas([new Line(10, [520, 10]).end]).alignment('left').end);
 
     
+    for (var i = 0; i < arrayCuotas.length; i++) {
+      pdf.add(
+        new Columns([new Txt(arrayCuotas[i].fechaVencimiento).alignment('center').end, new Txt(arrayCuotas[i].numeroCuota).alignment('center').end, new Txt(new Intl.NumberFormat().format(Number(arrayCuotas[i].montoCuota))).alignment('center').end, new Txt(new Intl.NumberFormat().format(Number(arrayCuotas[i].interes))).alignment('center').end, new Txt(new Intl.NumberFormat().format(Number(arrayCuotas[i].amortizacion))).alignment('center').end, new Txt(new Intl.NumberFormat().format(Number(arrayCuotas[i].saldoCapital))).alignment('center').end]).end
+  
+      );
+    } 
+
+    pdf.add(new Canvas([new Line(10, [520, 10]).end]).alignment('left').end);
+
     pdf.add(
-      pdf.ln(2)
+    new Columns([new Txt('').alignment('center').end, new Txt('').alignment('center').end, new Txt(new Intl.NumberFormat().format(totalCuotas)).alignment('center').end, new Txt(new Intl.NumberFormat().format(totalInteres)).alignment('center').end, new Txt(new Intl.NumberFormat().format(this.capitalTotal)).alignment('center').end, new Txt('').alignment('center').end]).end
     );
-    pdf.add(new Txt('CUOTAS').alignment('center').bold().end);
-    pdf.add(
-      new Table(filas).end
-    );
-    pdf.add(new Canvas([new Line(10, [400, 10]).end]).alignment('center').end);
+
+    pdf.add(new Canvas([new Line(10, [520, 10]).end]).alignment('left').end);
+
     pdf.add(
       pdf.ln(2)
     );
     var texto = "Declaro conocer y aceptar en todas sus partes el detalle de la liquidación precedente, en la que constan los datos del(los) crédito(s) que se me ha(n) otorgado. Así mismo autorizo irrevocablemente a FINANCORP a destruir el pagaré que respalda esta operación, una vez transcurridos tres (3) meses después del pago de la ultima cuota, sin posibilidad de reclamo alguno en el caso de no haber acudido a sus oficinas para retirar el mismo, antes de cumplirse el plazo mencionado.";
-    pdf.add(new Txt(texto).alignment('left').end);
-    pdf.add(
-      pdf.ln(2)
-    );
-    
-    pdf.add(new Txt('FIRMA: _______________________________').alignment('left').bold().end);
-    pdf.add(
-      pdf.ln(2)
-    );
-    pdf.add(new Txt('NOMBRE(S) Y APELLIDO(S): ').alignment('left').bold().end);
-    pdf.add(new Txt('C.I.: ').alignment('left').bold().end);
+    pdf.add(new Txt(texto).alignment('justify').end);
+    pdf.add(new Txt('Las cuotas deberán ser abonadas en la oficina de Financorp, situada en calle Nicasio Insaurralde Nº 205 - Asuncion.').alignment('justify').end);
+    pdf.add(new Txt('El servicio de cobrador personalizado tendrá un costo adicional GS. ' + this.costoCobrador.replace(',', '.') + '.').alignment('justify').end);
     
     pdf.add(
       pdf.ln(2)
     );
 
-    pdf.add(new Txt('OBSERVACIONES:').alignment('center').bold().end);
+    //console.log(this.myForm.get('propuestaSolicitud').value.codeudor);
 
-    pdf.add(new Ul([
-      'Las cuotas deberán ser abonadas en la oficina de Financorp, situada en la Ciudad de Itauguá  Gral. Bernardino Caballero c/ Ruta 2 Mcal. Estigarribia.',
-      'El servicio de cobrador personalizado tendrá un costo adicional de 10.000 GS. (monto incluido en el recibo de pago mensual), contactar al número 0981.266.459 o a su Ejecutiva de Cuentas.'
-    ]).type('square').end);
-    
+    if(this.myForm.get('propuestaSolicitud').value.codeudor == null){
+      
+      pdf.add(new Columns([
+        new Stack([
+          new Columns([new Txt('Titular').alignment('left').bold().end, new Txt('').alignment('left').bold().end]).end,
+          new Columns([new Txt('Firma:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end,
+          new Columns([new Txt('Aclaracion:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end
+        ]).end
+      ]).end);
+
+    } else {
+
+      pdf.add(new Columns([
+        new Stack([
+          new Columns([new Txt('Titular').alignment('left').bold().end, new Txt('').alignment('left').bold().end]).end,
+          new Columns([new Txt('Firma:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end,
+          new Columns([new Txt('Aclaracion:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end
+        ]).end,
+        new Stack([
+          new Columns([new Txt('Codeudor').alignment('left').bold().end, new Txt('').alignment('left').bold().end]).end,
+          new Columns([new Txt('Firma:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end,
+          new Columns([new Txt('Aclaracion:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end
+        ]).end
+      ]).end);
+
+    }      
     
     pdf.create().download();
   }
@@ -374,7 +484,7 @@ export class PrintCreditsComponent implements OnInit {
         pdf.ln(1)
       );
       pdf.add(new Txt('Nombres y Apellidos: ' + nombreConyu).alignment('left').bold().end);
-      pdf.add(new Txt('Numero de Cedula: ' + obj.documento).alignment('left').bold().end);
+      pdf.add(new Txt('Documento: ' + obj.documento).alignment('left').bold().end);
       pdf.add(
         pdf.ln(3)
       );
@@ -405,7 +515,7 @@ export class PrintCreditsComponent implements OnInit {
         pdf.ln(1)
       );
       pdf.add(new Txt('Nombres y Apellidos: ' + nombreCodeudor).alignment('left').bold().end);
-      pdf.add(new Txt('Numero de Cedula: ' + objCodeudor.documento).alignment('left').bold().end);
+      pdf.add(new Txt('Documento: ' + objCodeudor.documento).alignment('left').bold().end);
       pdf.add(
         pdf.ln(3)
       );
@@ -431,19 +541,19 @@ export class PrintCreditsComponent implements OnInit {
     //pdf.pageOrientation('landscape');
     pdf.pageMargins([40, 120, 40, 101]);
     pdf.info({
-      title: 'Pagare credito Nro ' + this.myForm.get('id').value,
+      title: 'Contrato Nro ' + this.myForm.get('id').value,
       author: 'service web',
-      subject: 'Documento Pagare',
+      subject: 'Documento Contrato',
       keywords: 'Credito Nro '+ this.myForm.get('id').value,
     });
 
     pdf.header(new Stack([
-      await new Img('assets/images/logoDocumento.png').build()
+      await new Img('assets/images/logoDocumento.png').absolutePosition(30,15).build()
     ]).end);
 
     pdf.footer(
       (currentPage, pageCount) => {
-        return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').alignment('right').end;
+        return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').absolutePosition(450, 15).end;
       }
     );
     
@@ -469,6 +579,8 @@ export class PrintCreditsComponent implements OnInit {
 
     var gteAdmin = new Txt([new Txt('Carlos Efraín Vargas Vargas').bold().end, ', en su carácter de ',new Txt('Gerente de Administración y Finanzas').bold().end]).end;
     var gteComercial = new Txt([new Txt('Marcelo Estiben Noguera').bold().end,', en su carácter de ',new Txt('Gerente Comercial').bold().end]).end;
+    var dataGte = this.gteSelected.split(",");
+    var getSelecc = new Txt([new Txt(dataGte[1]).bold().end,', en su carácter de ',new Txt(dataGte[0]).bold().end]).end;
     var dirSucursal = this.myForm.get('sucursal').value.direccion + ', de la ciudad de ' + this.myForm.get('sucursal').value.ciudad.nombre;
 
     var clienteNombre = new Txt(['Sr/Sra. ',new Txt(nombreCliente).bold().end, ', con CI N° ',new Txt(this.myForm.get('propuestaSolicitud').value.cliente.persona.documento).bold().end ]).end; 
@@ -479,9 +591,9 @@ export class PrintCreditsComponent implements OnInit {
     let desembolso = moment(fechaDesembolso);
     var fechaLetras = desembolso.format('DD') +' días del mes de ' + desembolso.format('MMMM') + ' del año ' + desembolso.format('YYYY');
 
-    var primerParrafo = new Txt(['En representación de la empresa, ', new Txt('FINANCORP').bold().end,', el señor ' , gteAdmin, ' y/o el señor ' , gteComercial , ', denominado en adelante ', new Txt('FINANCORP').bold().end,', por una parte, con domicilio en ' 
+    var primerParrafo = new Txt(['En representación de la empresa, ', new Txt('FINANCORP').bold().end,', el señor ' , getSelecc, ', denominado en adelante ', new Txt('FINANCORP').bold().end,', por una parte, con domicilio en ' 
     , dirSucursal , ', y por la otra, el ' , clienteNombre , ', en adelante denominado el ', new Txt('PRESTATARIO').bold().end,', con domicilio en ' , clienteDir , ', convienen en celebrar el presente contrato de otorgamiento de crédito a los '
-    + fechaLetras + ', que se regirá bajo las siguientes clausulas:']).end;
+    + fechaLetras + ', que se regirá bajo las siguientes clausulas:']).alignment('justify').end;
 
     pdf.add(primerParrafo);
     pdf.add(
@@ -524,7 +636,7 @@ export class PrintCreditsComponent implements OnInit {
       sexta,
       septima,
       octava
-    ]).end);
+    ]).alignment('justify').end);
 
     pdf.add(
       pdf.ln(5)
@@ -532,7 +644,7 @@ export class PrintCreditsComponent implements OnInit {
 
     
 
-    pdf.add(new Columns([ new Stack([ '-----------------------------------', 'Solicitante' ]).alignment('center').bold().end, new Stack([ '-----------------------------------', 'Ejecutivo de Cuenta' ]).alignment('center').bold().end,  new Stack([ '-----------------------------------', 'Gerente' ]).alignment('center').bold().end]).end);
+    pdf.add(new Columns([ new Stack([ '-----------------------------------', 'Solicitante' ]).alignment('center').bold().end, new Stack([ '-----------------------------------', 'Ejecutivo de Cuenta' ]).alignment('center').bold().end,  new Stack([ '-----------------------------------', dataGte[0] ]).alignment('center').bold().end]).end);
 
     
 
