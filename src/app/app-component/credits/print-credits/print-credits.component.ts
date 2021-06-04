@@ -150,7 +150,7 @@ export class PrintCreditsComponent implements OnInit {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
   
-  addCommas(event, docu){
+  addCommas(event){
     
     // skip for arrow keys
     if(event.which >= 37 && event.which <= 40) return;

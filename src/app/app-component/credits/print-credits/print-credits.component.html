@@ -107,7 +107,7 @@
               <p mat-line><span class="font-bold">Capital Total: </span> {{(myForm.get('montoCapital')?.value + myForm.get('montoGastosAdmin')?.value + myForm.get('montoSeguroVida')?.value) | number}}</p>
               <mat-form-field  appearance="legacy">
                 <mat-label>Costo Servicio Cobrador</mat-label>
-                <input matInput #input (keyup)="addCommas($event, c)" placeholder="Costo Servicio Cobrador" [(ngModel)]="costoCobrador" [ngModelOptions]="{standalone: true}"  name="costoCobrador">
+                <input matInput #input (keyup)="addCommas($event)" placeholder="Costo Servicio Cobrador" [(ngModel)]="costoCobrador" [ngModelOptions]="{standalone: true}"  name="costoCobrador">
               </mat-form-field>
             </div>
             
