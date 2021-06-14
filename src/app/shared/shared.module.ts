@@ -33,7 +33,7 @@ import { NgxCurrencyModule } from "ngx-currency";
     ImageViewerModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
+      apiKey: 'AIzaSyB25HfMgLL_oEjj8RhzmOsJoqWcxlTkE-k'
     }),
     HttpClientModule,
     RouterModule

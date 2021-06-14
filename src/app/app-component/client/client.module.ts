@@ -31,7 +31,7 @@ import { SharedAppModule } from '../shared';
     SharedAppModule,
     EcoFabSpeedDialModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC_AgWl-WeDY7gMMZoNUbAtp_S2Aw2lRFU'
+      apiKey: 'AIzaSyB25HfMgLL_oEjj8RhzmOsJoqWcxlTkE-k'
     }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LayoutModule,
