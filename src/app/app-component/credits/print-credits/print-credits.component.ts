@@ -275,7 +275,7 @@ export class PrintCreditsComponent implements OnInit {
     );
 
     pdf.add(
-      new Columns([new Txt('N° Credito: ').alignment('left').bold().end, new Txt(this.myForm.get('propuestaSolicitud').value.id).alignment('left').end, new Txt('T.A.N.: ').alignment('left').bold().end, new Txt(this.myForm.get('modalidad').value.interes + ' %').alignment('left').end]).end
+      new Columns([new Txt('N° Credito: ').alignment('left').bold().end, new Txt(this.myForm.get('propuestaSolicitud').value.id).alignment('left').end, new Txt('T.A.N.: ').alignment('left').bold().end, new Txt(this.myForm.get('tasaInteres').value + ' %').alignment('left').end]).end
 
     );
 

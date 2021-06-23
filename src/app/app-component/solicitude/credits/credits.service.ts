@@ -135,7 +135,8 @@ export class CreditsService {
       vencimientoInteres: ['30', [Validators.required]],
       periodoInteres: [30, [Validators.required]],
       tasaInteres: [null, [Validators.required]],
-      gastosAdministrativos: [null, [Validators.required]],
+      gastosAdministrativos: [null, [Validators.required]], 
+      seguroVida: [null, [Validators.required]],
       impuestos: [0],
       beneficiarioCheque: [null],
       detalleDestino: [null],
@@ -186,6 +187,8 @@ export class CreditsService {
           formGroup.controls['periodoCapital'].setValue(selectedValue.periodoCapital);
           formGroup.controls['vencimientoInteres'].setValue(selectedValue.vencimientoInteres);
           formGroup.controls['periodoGracia'].setValue(selectedValue.periodoGracia);
+          formGroup.controls['gastosAdministrativos'].setValue(selectedValue.gastosAdministrativos);
+          formGroup.controls['seguroVida'].setValue(selectedValue.seguroVida);
 
           let modalidad = formGroup.get('modalidad').value == null ? null : formGroup.get('modalidad').value;
           let plazo = formGroup.get('plazo').value == null ? null : formGroup.get('plazo').value;

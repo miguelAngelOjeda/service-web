@@ -72,7 +72,7 @@ export class EditCreditsComponent implements OnInit {
   }
 
   calcularFechaVencimiento(fechaActual){
-
+    
     let periodoCapital = (this.myForm.get('modalidad').value.periodoCapital == null || this.myForm.get('modalidad').value.periodoCapital == '' || this.myForm.get('modalidad').value.periodoCapital == '0') ? '30' : this.myForm.get('modalidad').value.periodoCapital;
     periodoCapital = Number(periodoCapital);
 
@@ -182,9 +182,9 @@ export class EditCreditsComponent implements OnInit {
 
     let montoSol = this.myForm.get('montoCapital').value;
     let plazo = this.myForm.get('plazoOperacion').value;
-    let tasaAnual = this.myForm.get('modalidad').value.interes;
-    var gastosAdmin = (this.myForm.get('gastosAdministrativos').value == null || this.myForm.get('gastosAdministrativos').value == '0' || this.myForm.get('gastosAdministrativos').value == 0) ? this.myForm.get('modalidad').value.gastosAdministrativos : this.myForm.get('gastosAdministrativos').value;
-    var seguroVida = (this.myForm.get('seguroVida').value == null || this.myForm.get('seguroVida').value == '' || this.myForm.get('seguroVida').value == 0) ? this.myForm.get('modalidad').value.seguroVida : this.myForm.get('seguroVida').value;
+    let tasaAnual = this.myForm.get('tasaInteres').value == null ? this.myForm.get('propuestaSolicitud').value.tasaInteres :  this.myForm.get('tasaInteres').value;
+    var gastosAdmin = (this.myForm.get('gastosAdministrativos').value == null || this.myForm.get('gastosAdministrativos').value == '0' || this.myForm.get('gastosAdministrativos').value == 0) ? this.myForm.get('propuestaSolicitud').value.gastosAdministrativos : this.myForm.get('gastosAdministrativos').value;
+    var seguroVida = (this.myForm.get('seguroVida').value == null || this.myForm.get('seguroVida').value == '0' || this.myForm.get('seguroVida').value == 0) ? this.myForm.get('propuestaSolicitud').value.seguroVida : this.myForm.get('seguroVida').value;
     
     this.getValue(gastosAdmin , 'gastosAdministrativos');
     this.getValue(seguroVida, 'seguroVida');
