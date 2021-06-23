@@ -80,7 +80,7 @@
             <div class="col-md-6">
               <p mat-line><span class="font-bold">Modalidad: </span> {{myForm.get('modalidad')?.value?.nombre}}</p>
               <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazoOperacion')?.value}}</p>
-              <p mat-line><span class="font-bold">Tasa de Interes Anual: </span>{{myForm.get('tasaInteres')?.value}} %</p>
+              <p mat-line><span class="font-bold">Tasa de Interes Anual: </span>{{myForm.get('modalidad')?.value?.interes}} %</p>
               <p mat-line><span class="font-bold">Gastos Administrativos Anual: </span>{{myForm.get('modalidad')?.value?.gastosAdministrativos}} %</p>
               <p mat-line><span class="font-bold">Seguro de vida Anual: </span>{{myForm.get('modalidad')?.value?.seguroVida}} %</p>
             </div>

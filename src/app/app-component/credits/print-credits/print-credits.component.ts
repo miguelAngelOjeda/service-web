@@ -69,7 +69,7 @@ export class PrintCreditsComponent implements OnInit {
       if(res.status == 200){
         //console.log(res.model);
         this.myForm.patchValue(res.model,{emitEvent: false});
-        //console.log(this.myForm);
+        console.log(this.myForm);
         this.setearDatos();
       }
     });
@@ -163,7 +163,7 @@ export class PrintCreditsComponent implements OnInit {
 
   async printLiquidacion(){
 
-    console.log(this.costoCobrador);
+    //console.log(this.costoCobrador);
 
     //datos de fecha
     let fechaActual = moment(Date.now());
@@ -190,7 +190,7 @@ export class PrintCreditsComponent implements OnInit {
     });
 
     pdf.header(new Columns([
-      new Txt(fechaActual.format('DD/MM/YYYY hh:mm:ss A')).absolutePosition(15,15).end, new Txt('LIQUIDACION DE CREDITO').bold().absolutePosition(235, 90).end, await new Img('assets/images/logoDocumento.png').absolutePosition(460, 15).build()
+      new Txt(fechaActual.format('DD/MM/YYYY hh:mm:ss A')).absolutePosition(15,15).end, new Txt('LIQUIDACION DE CREDITO').bold().absolutePosition(235, 90).end, await new Img('assets/images/logoDocumento.jpg').absolutePosition(460, 15).build()
     ]).end);
 
     /*pdf.header(new Stack([
@@ -215,7 +215,7 @@ export class PrintCreditsComponent implements OnInit {
     );
 
     //fecha desembolso
-    let fechaDesembolso = new Date(this.myForm.get('fechaDesembolso').value);
+    let fechaDesembolso = new Date(this.myForm.get('propuestaSolicitud').value.fechaAprobacion);
     let desembolso = moment(fechaDesembolso);
 
     //nombre cliente
@@ -258,8 +258,14 @@ export class PrintCreditsComponent implements OnInit {
 
     //);
 
+    
     pdf.add(
-      new Columns([new Txt('Cliente: ').alignment('left').bold().end, new Txt(nombreCliente).alignment('left').end, new Txt('Inicio: ').alignment('left').bold().end, new Txt(desembolso.format('DD/MM/YYYY')).alignment('left').end]).end
+      new Columns([new Txt([new Txt('Cliente: ').alignment('left').bold().end, new Txt(nombreCliente).alignment('left').end]).end]).end
+
+    );
+
+    pdf.add(
+      new Columns([new Txt([new Txt('Inicio: ').alignment('left').bold().end, new Txt(desembolso.format('DD/MM/YYYY')).alignment('left').end]).end]).end
 
     );
 
@@ -269,12 +275,12 @@ export class PrintCreditsComponent implements OnInit {
     );
 
     pdf.add(
-      new Columns([new Txt('N° Credito: ').alignment('left').bold().end, new Txt(this.myForm.get('id').value).alignment('left').end, new Txt('T.A.N.: ').alignment('left').bold().end, new Txt(this.myForm.get('tasaInteres').value + ' %').alignment('left').end]).end
+      new Columns([new Txt('N° Credito: ').alignment('left').bold().end, new Txt(this.myForm.get('propuestaSolicitud').value.id).alignment('left').end, new Txt('T.A.N.: ').alignment('left').bold().end, new Txt(this.myForm.get('modalidad').value.interes + ' %').alignment('left').end]).end
 
     );
 
     pdf.add(
-      new Columns([new Txt('Sucursal: ').alignment('left').bold().end, new Txt(this.myForm.get('sucursal').value.nombre).alignment('left').end, new Txt('Plazo: ').alignment('left').bold().end, new Txt(this.myForm.get('plazoOperacion').value).alignment('left').end]).end
+      new Columns([new Txt('Sucursal: ').alignment('left').bold().end, new Txt('Asuncion').alignment('left').end, new Txt('Plazo: ').alignment('left').bold().end, new Txt(this.myForm.get('plazoOperacion').value).alignment('left').end]).end
 
     );
 
@@ -365,11 +371,11 @@ export class PrintCreditsComponent implements OnInit {
 
     //console.log(this.myForm.get('propuestaSolicitud').value.codeudor);
 
-    if(this.myForm.get('propuestaSolicitud').value.codeudor == null){
+    if(this.myForm.get('propuestaSolicitud').value.codeudor == null) {
       
       pdf.add(new Columns([
         new Stack([
-          new Columns([new Txt('Titular').alignment('left').bold().end, new Txt('').alignment('left').bold().end]).end,
+          new Columns([new Txt([new Txt('Titular: ').alignment('left').bold().end, new Txt(nombreCliente).alignment('left').end]).end ]).end,
           new Columns([new Txt('Firma:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end,
           new Columns([new Txt('Aclaracion:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end
         ]).end
@@ -377,14 +383,24 @@ export class PrintCreditsComponent implements OnInit {
 
     } else {
 
-      pdf.add(new Columns([
+      var objCodeudor = this.myForm.get('propuestaSolicitud').value.codeudor;
+      var nombreCodeudor = (objCodeudor.primerNombre == null ? '' : objCodeudor.primerNombre)
+      + ' ' +
+      (objCodeudor.segundoNombre == null ? '' : objCodeudor.segundoNombre)
+      + ' ' +
+      (objCodeudor.primerApellido == null ? '' : objCodeudor.primerApellido)
+      + ' ' +
+      (objCodeudor.segundoApellido == null ? '' : objCodeudor.segundoApellido);
+
+      pdf.add(new Columns([ 
         new Stack([
-          new Columns([new Txt('Titular').alignment('left').bold().end, new Txt('').alignment('left').bold().end]).end,
+          new Columns([new Txt([new Txt('Titular: ').alignment('left').bold().end, new Txt(nombreCliente).alignment('left').end]).end ]).end,
+          
           new Columns([new Txt('Firma:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end,
           new Columns([new Txt('Aclaracion:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end
         ]).end,
         new Stack([
-          new Columns([new Txt('Codeudor').alignment('left').bold().end, new Txt('').alignment('left').bold().end]).end,
+          new Columns([new Txt([new Txt('Codeudor: ').alignment('left').bold().end, new Txt(nombreCodeudor).alignment('left').end]).end ]).end,
           new Columns([new Txt('Firma:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end,
           new Columns([new Txt('Aclaracion:').alignment('left').width('25%').end, new Canvas([new Rect([0, 0],[180, 30]).round(4).color('#c6c6c6').lineColor('black').end]).alignment('left').end]).end
         ]).end
@@ -410,14 +426,10 @@ export class PrintCreditsComponent implements OnInit {
     });
 
     pdf.header(new Stack([
-      await new Img('assets/images/logoDocumento.png').build()
+      await new Img('assets/images/logoDocumento.jpg').build()
     ]).end);
 
-    /*pdf.footer(
-      (currentPage, pageCount) => {
-        return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').alignment('right').end;
-      }
-    );*/
+    
 
     
 
@@ -429,13 +441,30 @@ export class PrintCreditsComponent implements OnInit {
     pdf.add(new Txt('Guaraníes (números): ' + new Intl.NumberFormat().format(this.capitalTotal)).alignment('left').bold().end);
     pdf.add(new Txt('En Fecha: ').alignment('left').bold().end);
     pdf.add(new Txt('Pagaré (mos) solidariamente libre de gastos y sin protesto, a la orden de: ').alignment('left').bold().end);
-    pdf.add(new Txt('La suma de Guaraníes (letras): ' + numeroLetras).alignment('left').bold().end);
+    var montoLetra = 'La suma de Guaraníes (letras): ' + numeroLetras + '.';
+
+    var aux = 85 - montoLetra.length;
+      //console.log(aux);
+    if(aux < 0) {
+      aux = aux * (-1);
+      aux = 134 - aux;
+    } else {
+      aux = 87 - aux;
+    }
+
+
+    var guiones = '';
+    for (var i = 0; i < aux; i++) {
+      guiones = guiones + '-';
+    }
+
+    pdf.add(new Txt(montoLetra + guiones).alignment('left').bold().end);
     pdf.add(
       pdf.ln(2)
     );
-    pdf.add(new Txt('Por igual valor recibido en efectivo a mi (nuestra) entera satisfacción. La mora se producirá por el mero vencimiento del plazo arriba indicado, sin necesidad de protesto ni de ningún requerimiento judicial o extrajudicial por parte del acreedor. La falta de pago de una cuota a su vencimiento originará automáticamente el decaimiento de los plazos señalados en este y los demás documentos, produciéndose de pleno derecho el vencimiento anticipado de las cuotas no vencidas y cualquier otro documento obligacional que obrare en poder del acreedor pudiendo exigir el pago inmediato del saldo total de la deuda. Es obligación del (los) deudor (es) pagar un interés moratorio de……...........…% por el tiempo de la mora hasta el pago total de este documento, además de un interés punitorio equivalente al………...........% sobre los intereses moratorios. El pago de los intereses moratorios y punitorios no implicara novación, prórroga, espera o extinción de la obligación principal.').alignment('left').end);
-    pdf.add(new Txt('Este pagaré se rige por las leyes de la República del Paraguay y en especial por los artículos n°: 51, 53 siguientes y concordantes de la ley 489/95. El simple vencimiento de una cuota autoriza al acreedor de forma irrevocable a la consulta e inclusión a la base de datos de INFORMCONF u otra agencia de informaciones. A todos los efectos legales y procesales queda aceptada la jurisdicción y competencia de los juzgados en lo civil y comercial de la Circunscripción Judicial de Asunción.').alignment('left').end);
-    pdf.add(new Txt('La posesión de este pagaré por el deudor o cualquier persona no acreditara su pago al acreedor si no se acompaña con el recibo de pago emitido por el acreedor. -').alignment('left').end);
+    pdf.add(new Txt('Por igual valor recibido en efectivo a mi (nuestra) entera satisfacción. La mora se producirá por el mero vencimiento del plazo arriba indicado, sin necesidad de protesto ni de ningún requerimiento judicial o extrajudicial por parte del acreedor. La falta de pago de una cuota a su vencimiento originará automáticamente el decaimiento de los plazos señalados en este y los demás documentos, produciéndose de pleno derecho el vencimiento anticipado de las cuotas no vencidas y cualquier otro documento obligacional que obrare en poder del acreedor pudiendo exigir el pago inmediato del saldo total de la deuda. Es obligación del (los) deudor (es) pagar un interés moratorio de……...........…% por el tiempo de la mora hasta el pago total de este documento, además de un interés punitorio equivalente al………...........% sobre los intereses moratorios. El pago de los intereses moratorios y punitorios no implicara novación, prórroga, espera o extinción de la obligación principal.').alignment('justify').end);
+    pdf.add(new Txt('Este pagaré se rige por las leyes de la República del Paraguay y en especial por los artículos n°: 51, 53 siguientes y concordantes de la ley 489/95. El simple vencimiento de una cuota autoriza al acreedor de forma irrevocable a la consulta e inclusión a la base de datos de INFORMCONF u otra agencia de informaciones. A todos los efectos legales y procesales queda aceptada la jurisdicción y competencia de los juzgados en lo civil y comercial de la Circunscripción Judicial de Asunción.').alignment('justify').end);
+    pdf.add(new Txt('La posesión de este pagaré por el deudor o cualquier persona no acreditara su pago al acreedor si no se acompaña con el recibo de pago emitido por el acreedor. -').alignment('justify').end);
 
       pdf.add(
       pdf.ln(2)
@@ -548,7 +577,7 @@ export class PrintCreditsComponent implements OnInit {
     });
 
     pdf.header(new Stack([
-      await new Img('assets/images/logoDocumento.png').absolutePosition(30,15).build()
+      await new Img('assets/images/logoDocumento.jpg').absolutePosition(30,15).build()
     ]).end);
 
     pdf.footer(
@@ -563,7 +592,7 @@ export class PrintCreditsComponent implements OnInit {
       pdf.ln(2)
     );
     
-    pdf.add(new Txt('Solicitud de Crédito N°: ' + this.myForm.get('id').value).alignment('left').bold().end);
+    pdf.add(new Txt('Solicitud de Crédito N°: ' + this.myForm.get('propuestaSolicitud').value.id).alignment('left').bold().end);
     pdf.add(
       pdf.ln(1)
     );
@@ -642,9 +671,18 @@ export class PrintCreditsComponent implements OnInit {
       pdf.ln(5)
     );
 
+
+    //nombre ejecutivo
+    var nombreEjecutivo = (this.myForm.get('propuestaSolicitud').value.funcionario.persona.primerNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.funcionario.persona.primerNombre)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.funcionario.persona.segundoNombre == null ? '' : this.myForm.get('propuestaSolicitud').value.funcionario.persona.segundoNombre)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.funcionario.persona.primerApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.funcionario.persona.primerApellido)
+    + ' ' +
+    (this.myForm.get('propuestaSolicitud').value.funcionario.persona.segundoApellido == null ? '' : this.myForm.get('propuestaSolicitud').value.funcionario.persona.segundoApellido);
     
 
-    pdf.add(new Columns([ new Stack([ '-----------------------------------', 'Solicitante' ]).alignment('center').bold().end, new Stack([ '-----------------------------------', 'Ejecutivo de Cuenta' ]).alignment('center').bold().end,  new Stack([ '-----------------------------------', dataGte[0] ]).alignment('center').bold().end]).end);
+    pdf.add(new Columns([ new Stack([ '-----------------------------------', 'Solicitante', nombreCliente ]).alignment('center').bold().end, new Stack([ '-----------------------------------', 'Ejecutivo de Cuenta', nombreEjecutivo ]).alignment('center').bold().end,  new Stack([ '-----------------------------------', dataGte[0], dataGte[1].toUpperCase() ]).alignment('center').bold().end]).end);
 
     
 

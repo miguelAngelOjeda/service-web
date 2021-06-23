@@ -65,6 +65,7 @@ export class EditCreditsComponent implements OnInit {
     .subscribe(res => {
       
       if(res.status == 200){
+        console.log(res.model);
         this.myForm.patchValue(res.model,{emitEvent: false});
       }
     });
@@ -181,7 +182,7 @@ export class EditCreditsComponent implements OnInit {
 
     let montoSol = this.myForm.get('montoCapital').value;
     let plazo = this.myForm.get('plazoOperacion').value;
-    let tasaAnual = (this.myForm.get('tasaInteres').value == null || this.myForm.get('tasaInteres').value == '0' || this.myForm.get('tasaInteres').value == 0) ? this.myForm.get('modalidad').value.interes : this.myForm.get('tasaInteres').value;
+    let tasaAnual = this.myForm.get('modalidad').value.interes;
     var gastosAdmin = (this.myForm.get('gastosAdministrativos').value == null || this.myForm.get('gastosAdministrativos').value == '0' || this.myForm.get('gastosAdministrativos').value == 0) ? this.myForm.get('modalidad').value.gastosAdministrativos : this.myForm.get('gastosAdministrativos').value;
     var seguroVida = (this.myForm.get('seguroVida').value == null || this.myForm.get('seguroVida').value == '' || this.myForm.get('seguroVida').value == 0) ? this.myForm.get('modalidad').value.seguroVida : this.myForm.get('seguroVida').value;
     
