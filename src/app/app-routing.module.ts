@@ -30,6 +30,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/client/client.module#ClientModule'
         },
         {
+        path: 'service-web/compromise',
+        loadChildren: './app-component/compromise/compromise.module#CompromiseModule'
+        },
+        {
         path: 'service-web/cuotasWs',
         loadChildren: './app-component/cuotasWs/cuotasWs.module#CuotasWsModule'
         },
@@ -42,8 +46,8 @@ const appRoutes: Routes = [
         loadChildren: './app-component/descuento-cheque/descuentoCH.module#DescuentoCHModule'
         },
         {
-        path: 'service-web/informconf', 
-        loadChildren: './app-component/informconf/informconf.module#InformconfModule' 
+        path: 'service-web/informconf',
+        loadChildren: './app-component/informconf/informconf.module#InformconfModule'
         },
         {
         path: 'service-web/credits-solicitude',

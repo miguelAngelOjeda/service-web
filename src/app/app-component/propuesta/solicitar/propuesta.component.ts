@@ -28,7 +28,6 @@ export class PropuestaComponent implements OnInit {
   }
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      modalidad : [null, [Validators.required]],
       plazo : [null, [Validators.required]],
       montoSol : [0, [Validators.required]],
       tasaAnual : null,
@@ -40,19 +39,30 @@ export class PropuestaComponent implements OnInit {
       montoTotal : 0,
       fechaVencimiento: null
     });
+    this.myForm.addControl('modalidad', this.formBuilder.group({
+      id: [null],
+      nombre: [null],
+      codigo: [null],
+      descripcion: [null],
+      montoMinimo: [null],
+      dividendoCalculo: [null],
+      gastosAdministrativos: [null],
+      interes: [null],
+      periodoCapital: [null],
+      periodoGracia: [null],
+      seguroVida: [null],
+      tipoCalculos: [null],
+      vencimientoInteres: [null] }));
     this.url = environment.api_url + '/pagoCuotaWs'
-    //console.log(this.url);
-
     this.cuotas = new Array();
-    
   }
 
   getValue(data: any, form : any): void {
-    (<FormControl>this.myForm.get(form)).setValue(data);
+    (<FormControl>this.myForm.get(form)).patchValue(data);
   }
 
   onSubmit() {
-    
+
   }
 
   thousands_separators(num)
@@ -63,129 +73,32 @@ export class PropuestaComponent implements OnInit {
   }
 
   calcularCuota() {
-    
     this.cuotas = new Array();
-    
-    let fechas = [];
-    let fechaActual = Date.now();
-    let mesActual = moment(fechaActual);
-
-    let montoSol = this.myForm.get('montoSol').value;
-    let plazo = this.myForm.get('plazo').value;
-    let tasaAnual = (this.myForm.get('tasaAnual').value == null || this.myForm.get('tasaAnual').value == '') ? this.myForm.get('modalidad').value.interes : this.myForm.get('tasaAnual').value;
-    let gastosAdmin = (this.myForm.get('gastosAdmin').value == null || this.myForm.get('gastosAdmin').value == '') ? this.myForm.get('modalidad').value.gastosAdministrativos : this.myForm.get('gastosAdmin').value;
-    let seguroVida = (this.myForm.get('seguroVida').value == null || this.myForm.get('seguroVida').value == '') ? this.myForm.get('modalidad').value.seguroVida : this.myForm.get('seguroVida').value;
-    let dividendoModalidad = this.myForm.get('modalidad').value.dividendoCalculo;
-
-    var calculo = dividendoModalidad.split('*');
-    let pagoInteres=0, pagoCapital = 0, cuota = 0;
-    
-    //tasa interes por periodo
-    let tasaAnualPeriodo = (Number(tasaAnual) / Number(calculo[0].trim())) * Number(calculo[1].trim());
-
-    //gastos administrativos por periodo
-    let gastosAdminPeriodo = (Number(gastosAdmin) / Number(calculo[0].trim())) * Number(calculo[1].trim());
-    let montogastosAdmin = Number(montoSol) * (gastosAdminPeriodo / 100) * Number(plazo);
-    montogastosAdmin = Number(montogastosAdmin.toFixed(0));
-
-    //seguro de vida por periodo
-    let seguroVidaPeriodo = (Number(seguroVida) / Number(calculo[0].trim())) * Number(calculo[1].trim());
-    let montoseguroVida = Number(montoSol) * (seguroVidaPeriodo / 100) * Number(plazo);
-    montoseguroVida = Number(montoseguroVida.toFixed(0));
-
-    //TOTAL A DESEMBOLSAR
-    this.capitalTotal = montoseguroVida + montogastosAdmin + Number(montoSol);
-    this.capitalTotal = Number(this.capitalTotal.toFixed(0));
-    let monto = this.capitalTotal;
-
-    this.getValue(this.thousands_separators(montogastosAdmin) , 'montoGastoAdmin');
-    this.getValue(this.thousands_separators(montoseguroVida), 'montoSeguroVida');
-    this.getValue(this.thousands_separators(this.capitalTotal), 'montoTotal');
-
-    cuota = this.capitalTotal * (Math.pow(1+tasaAnualPeriodo/100, Number(plazo))*tasaAnualPeriodo/100)/(Math.pow(1+tasaAnualPeriodo/100, Number(plazo))-1);
-
-    var cd = new CuotaDesembolso();
-    cd.numeroCuota = 0;
-    cd.fechaVencimiento = mesActual.format('DD-MM-YYYY');
-    cd.montoCuota = 0;
-    cd.interes = 0;
-    cd.amortizacion = 0;
-    cd.saldoCapital = this.capitalTotal;
-    //cd.dias = 0;
-    this.cuotas.push(cd);
-
-    //calculo por fecha vencimiento
-    
-    var interesAdicionalFechaVenc = 0;
-    fechas[0] = mesActual.format('DD-MM-YYYY');
-    if(this.myForm.get('fechaVencimiento').value != null) {
-      let fechaSeleccionada = new Date(this.myForm.get('fechaVencimiento').value);
-      let mesSelecc = moment(fechaSeleccionada);
-      var periodoCapital = (this.myForm.get('modalidad').value.periodoCapital == null || this.myForm.get('modalidad').value.periodoCapital == '' || this.myForm.get('modalidad').value.periodoCapital == '0') ? '30' : this.myForm.get('modalidad').value.periodoCapital;
-
-      var diffDays = mesSelecc.diff(mesActual, 'days')
- 
-      if(diffDays - Number(periodoCapital) >= 0) {
-        interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
-        //interesAdicionalFechaVenc = Number(interesAdicionalFechaVenc.toFixed(0));
-        //fechaAnterior = mesActual;
-        mesActual = mesSelecc;
-      } else {
-        this.myForm.controls['fechaVencimiento'].setValue(null);
-        mesActual = this.calcularFechaVencimiento(mesActual);
+    let params = new HttpParams({
+      fromObject : {
+        'montoCapital' : this.myForm.get('montoSol').value.toString(),
+        'montoInteres' : this.myForm.get('modalidad').value.interes.toString(),
+        'seguroInteres' : this.myForm.get('modalidad').value.seguroVida.toString(),
+        'gastosInteres' : this.myForm.get('modalidad').value.gastosAdministrativos.toString(),
+        'plazo' : this.myForm.get('plazo').value.toString(),
+        'fechaVencimiento' : moment(new Date(this.myForm.get('fechaVencimiento').value)).format('YYYY-MM-DD'),
+        'periodoCapital' : this.myForm.get('modalidad').value.periodoCapital.toString(),
+        'periodoInteres' : this.myForm.get('modalidad').value.vencimientoInteres.toString(),
+        'periodoGracia' : this.myForm.get('modalidad').value.periodoGracia.toString(),
+        'codTipoCalculo' : this.myForm.get('modalidad').value.tipoCalculos.codigo,
+        'codModalidad' : this.myForm.get('modalidad').value.codigo,
+        'tipoDesembolso' :'0'
       }
+    });
 
-    } else {
-      mesActual = this.calcularFechaVencimiento(mesActual);
-    }
-
-    
-    var fechaAnt = null;
-    
-    for(let i = 1; i <= Number(plazo); i++) {
-
-      
-      pagoInteres = (monto*(tasaAnualPeriodo/100));
-      pagoCapital = cuota - pagoInteres;
-      monto = (monto - pagoCapital);
-
-      //interesAdicionalFechaVenc = ( (Number(tasaAnual)/100) / 365) * (diffDays - Number(periodoCapital)) * this.capitalTotal;
-      
-      fechaAnt = moment(fechas[i-1], "DD-MM-YYYY");
-      /*console.log(i);
-      console.log('fechaAnterior: ' + fechaAnt);
-      console.log('mesActual: ' + mesActual);*/
-      cd = new CuotaDesembolso();
-      //cd.dias = mesActual.diff(fechaAnt, 'days');
-      //pagoInteres = ((Number(tasaAnual)/100) / 365) * monto * (cd.dias);
-      
-      if(i == 1){
-        cuota = cuota + interesAdicionalFechaVenc;
+    this.apiService.get('/creditos/desembolso/detalle-cuotas', params)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.rows.forEach(field => {
+          this.cuotas.push(field);
+        });
       }
-
-      /*if(i == Number(plazo)){
-        pagoCapital = monto;
-        monto = (monto - pagoCapital);
-      } else {
-        pagoCapital = cuota - pagoInteres;
-        monto = (monto - pagoCapital);
-      } */
-      
-      //Formato fechas
-      fechas[i] = mesActual.format('DD-MM-YYYY');
-      mesActual = this.calcularFechaVencimiento(mesActual);
-
-      cd.numeroCuota = i;
-      cd.fechaVencimiento = fechas[i];
-      cd.interes = Number(pagoInteres.toFixed(0));
-      cd.montoCuota = Number(cuota.toFixed(0));
-      cd.amortizacion = Number(pagoCapital.toFixed(0));
-      cd.saldoCapital = Number(monto.toFixed(0));
-      this.cuotas.push(cd);
-    }
-
-    
-    
+    });
   }
 
   calcularFechaVencimiento(fechaActual){
@@ -208,7 +121,7 @@ export class PropuestaComponent implements OnInit {
     } else {
       fechaActual.add(1, 'month');
     }
-    
+
     return fechaActual;
   }
 
@@ -234,7 +147,7 @@ export class PropuestaComponent implements OnInit {
       title: 'Propuesta Credito',
       author: 'service web',
       subject: 'Liquidadcion de credito',
-       
+
     });
 
     pdf.header(new Stack([
@@ -248,7 +161,7 @@ export class PropuestaComponent implements OnInit {
         return new Txt('Pagina ' + currentPage.toString() + ' de ' + pageCount + ' ').alignment('right').end;
       }
     );
-    
+
     /*
     pdf.add(
       new Columns([new Txt('Nro Credito: ' + this.myForm.get('id').value).alignment('left').bold().end, new Txt('Nro Solicitud: ' + this.myForm.get('propuestaSolicitud').value.id).alignment('left').bold().end]).end
@@ -262,12 +175,12 @@ export class PropuestaComponent implements OnInit {
     );*/
 
     //let tasaAnual = (this.myForm.get('tasaAnual').value == null || this.myForm.get('tasaAnual').value == '') ? this.myForm.get('modalidad').value.interes : this.myForm.get('tasaAnual').value;
-    pdf.add( 
+    pdf.add(
       new Columns([new Txt('Sucursal: ' + 'ITAGUA').alignment('left').end, new Txt('Modalidad: ' + this.myForm.get('modalidad').value.nombre).alignment('left').end]).end
 
     );
 
-    pdf.add( 
+    pdf.add(
       new Columns([new Txt('Monto a Desembolsar: '+ new Intl.NumberFormat().format(this.myForm.get('montoSol').value)).alignment('left').end, new Txt('Plazo: ' + this.myForm.get('plazo').value).alignment('left').end]).end
 
     );
@@ -275,16 +188,16 @@ export class PropuestaComponent implements OnInit {
 
     var filas = new Array();
     filas.push(['NRO CUOTA', 'FECHA VENCIMIENTO', 'MONTO CUOTA', 'INTERES', 'AMORTIZACION', 'SALDO']);
-    arrayCuotas.forEach(element => filas.push([element.numeroCuota, element.fechaVencimiento, 
-      new Intl.NumberFormat().format(Number(element.montoCuota)), 
-      new Intl.NumberFormat().format(Number(element.interes)), 
-      new Intl.NumberFormat().format(Number(element.amortizacion)), 
+    arrayCuotas.forEach(element => filas.push([element.numeroCuota, element.fechaVencimiento,
+      new Intl.NumberFormat().format(Number(element.montoCuota)),
+      new Intl.NumberFormat().format(Number(element.interes)),
+      new Intl.NumberFormat().format(Number(element.amortizacion)),
       new Intl.NumberFormat().format(Number(element.saldoCapital))]));
-    
+
     //calcula total interes
     var totalInteres = 0;
     arrayCuotas.forEach(element => totalInteres = totalInteres + Number(element.interes));
-    
+
     pdf.add(
       pdf.ln(2)
     );
@@ -303,14 +216,14 @@ export class PropuestaComponent implements OnInit {
     pdf.add(
       pdf.ln(2)
     );
-    
+
     pdf.add(new Txt('FIRMA: _______________________________').alignment('left').bold().end);
     pdf.add(
       pdf.ln(2)
     );
     pdf.add(new Txt('NOMBRE(S) Y APELLIDO(S): ').alignment('left').bold().end);
     pdf.add(new Txt('C.I.: ').alignment('left').bold().end);
-    
+
     pdf.add(
       pdf.ln(2)
     );
@@ -322,7 +235,7 @@ export class PropuestaComponent implements OnInit {
       'El servicio de cobrador personalizado tendrá un costo adicional de 10.000 GS. (monto incluido en el recibo de pago mensual), contactar al número 0981.266.459 o a su Ejecutiva de Cuentas.'
     ]).type('square').end);
     */
-    
+
     pdf.create().download();
   }
 

@@ -1,10 +1,10 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AddClientComponent , EditClientComponent, ListClientComponent,
-ViewClientComponent, CompromiseClientComponent } from '../client';
+import { AddClientComponent , EditCompromiseComponent, ListCompromiseComponent,
+ViewCompromiseComponent, CompromiseClientComponent } from '../compromise';
 import { SharedModule} from '../../shared';
 import { MaterialModule } from '../../core/material/material.module';
-import { ClientRoutingModule } from './client-routing.module';
+import { CompromiseRoutingModule } from './compromise-routing.module';
 import { environment } from '../../../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule} from '@angular/flex-layout';
@@ -24,7 +24,7 @@ import { SharedAppModule } from '../shared';
 
 @NgModule({
   imports: [
-    ClientRoutingModule,
+    CompromiseRoutingModule,
     MaterialModule,
     SharedModule,
     FlexLayoutModule,
@@ -59,13 +59,13 @@ import { SharedAppModule } from '../shared';
   ],
   declarations: [
     AddClientComponent,
-    EditClientComponent,
-    ListClientComponent,
-    ViewClientComponent,
+    EditCompromiseComponent,
+    ListCompromiseComponent,
+    ViewCompromiseComponent,
     CompromiseClientComponent
     //ShowAuthedDirective
   ],
   providers: [
   ]
 })
-export class ClientModule {}
+export class CompromiseModule {}

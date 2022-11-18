@@ -65,6 +65,7 @@
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button routerLink="/service-web/client/{{element.id}}" *appCanAccess="['client', 'viewClient']"><mat-icon>visibility</mat-icon></button>
                   <button mat-icon-button routerLink="/service-web/client/{{element.id}}/edit" *appCanAccess="['client', 'editClient']"> <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button routerLink="/service-web/client/{{element.id}}/compromise" *appCanAccess="['compromise', 'addCompromise']"> <mat-icon>chrome_reader_mode</mat-icon></button>
                   <button mat-icon-button (click)="delete(element)" *appCanAccess="['client', 'deleteClient']"> <mat-icon color="warn">delete</mat-icon></button>
                 </mat-cell>
             </ng-container>

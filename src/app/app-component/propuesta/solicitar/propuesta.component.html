@@ -10,7 +10,7 @@
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4">
-					
+
 				</div>
 				<div class="col-md-4"></div>
 			</div>
@@ -19,7 +19,7 @@
 				<div class="col-md-3">
 					<app-select-filter appearance="legacy" (value)="getValue($event, 'modalidad')" [modelValue]="myForm.get('modalidad').value"
                      placeholder="Modalidad" urlFilter="modalidades" [columnsFilter]="['nombre']"></app-select-filter>
-					
+
 					<mat-form-field  appearance="legacy">
 						<mat-label>Plazo</mat-label>
 						<input matInput #input  placeholder="Plazo" formControlName="plazo"  name="plazo">
@@ -28,27 +28,27 @@
 					<mat-form-field  appearance="legacy">
 						<mat-label>Monto a Solicitar</mat-label>
 						<input matInput #input  placeholder="Monto a Solicitar" formControlName="montoSol"  name="montoSol">
-					</mat-form-field>		
+					</mat-form-field>
 					<mat-form-field  appearance="legacy">
 						<input matInput #input [matDatepicker]="picker" formControlName="fechaVencimiento" id = "fechaVencimiento" name="fechaVencimiento" placeholder="Fecha primer Vencimiento" required>
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 						<mat-datepicker #picker></mat-datepicker>
-					</mat-form-field>		
+					</mat-form-field>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" formGroupName="modalidad">
 					<mat-form-field  appearance="legacy">
 						<mat-label>Tasa Interes Anual</mat-label>
-						<input matInput #input  placeholder="Tasa Interes Anual" formControlName="tasaAnual" name="tasaAnual" [value]="myForm.get('modalidad')?.value?.interes">
+						<input matInput #input  placeholder="Tasa Interes Anual" formControlName="interes" name="tasaAnual">
 					</mat-form-field>
 					<br>
 					<mat-form-field  appearance="legacy">
 						<mat-label>Gastos Administrativos</mat-label>
-						<input matInput #input  placeholder="Gastos Administrativos" formControlName="gastosAdmin" name="gastosAdmin" [value]="myForm.get('modalidad')?.value?.gastosAdministrativos">
+						<input matInput #input  placeholder="Gastos Administrativos" formControlName="gastosAdministrativos" name="gastosAdmin">
 					</mat-form-field>
 					<br>
 					<mat-form-field  appearance="legacy">
 						<mat-label>Seguro Vida</mat-label>
-						<input matInput #input  placeholder="Seguro Vida" formControlName="seguroVida" name="seguroVida" [value]="myForm.get('modalidad')?.value?.seguroVida">
+						<input matInput #input  placeholder="Seguro Vida" formControlName="seguroVida" name="seguroVida">
 					</mat-form-field>
 				</div>
 				<div class="col-md-3"></div>
@@ -80,7 +80,7 @@
 				</div>
 				<div class="col-md-3"></div>
 				<div class="col-md-3"></div>
-								
+
 			</div>
 			<div class="row">
 				<div class="col-12">
@@ -101,6 +101,7 @@
 							<tr *ngFor="let c of cuotas">
 								<td>{{c.numeroCuota}}</td>
 								<td>{{c.fechaVencimiento}}</td>
+								<td>{{c.diferenciaDias}}</td>
 								<td>{{c.montoCuota | number}}</td>
 								<td>{{c.interes | number}}</td>
 								<td>{{c.amortizacion | number}}</td>

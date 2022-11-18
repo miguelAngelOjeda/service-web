@@ -65,7 +65,7 @@ export class EditCreditsComponent implements OnInit {
     this.myForm = this.creditsService.initFormBuilder();
     this.apiService.get('/creditos/' + this.route.snapshot.params.id)
     .subscribe(res => {
-      
+
       if(res.status == 200){
         this.myForm.patchValue(res.model,{emitEvent: false});
         this.setearDatos();
@@ -133,7 +133,7 @@ export class EditCreditsComponent implements OnInit {
     var gastAdminPeriodoNumber = this.gastAdminPorc / dividendoModalidad;
     this.gastAdminPeriodo = (gastAdminPeriodoNumber).toFixed(2);
     this.gastAdmin = Number(this.myForm.get('montoCapital').value) * (gastAdminPeriodoNumber / 100) * Number(this.myForm.get('plazoOperacion').value);
-    
+
     //seguro vida
     var segVidaPeriodoNumber = this.segVidaPorc / dividendoModalidad;
     this.segVidaPeriodo= (segVidaPeriodoNumber).toFixed(2);
@@ -144,92 +144,132 @@ export class EditCreditsComponent implements OnInit {
   }
 
   calcularCuota() {
-    //this.error =false;
-    this.cuotas = new Array();
+    let params = new HttpParams({
+      fromObject : {
+        'montoCapital' : this.myForm.get('montoCapital').value.toString(),
+        'montoInteres' : this.myForm.get('tasaInteres').value.toString(),
+        'seguroInteres' : this.myForm.get('seguroVida').value.toString(),
+        'gastosInteres' : this.myForm.get('gastosAdministrativos').value.toString(),
+        'plazo' : this.myForm.get('plazoOperacion').value.toString(),
+        'fechaVencimiento' : moment(new Date(this.fechaVencimiento)).format('YYYY-MM-DD'),
+        'periodoCapital' : this.myForm.get('periodoCapital').value.toString(),
+        'periodoInteres' : this.myForm.get('periodoInteres').value.toString(),
+        'periodoGracia' : this.myForm.get('periodoGracia').value.toString(),
+        'codTipoCalculo' : this.myForm.get('tipoCalculoImporte').value.codigo,
+        'codModalidad' : this.myForm.get('modalidad').value.codigo,
+        'tipoDesembolso' :'0'
+      }
+    });
+
     const llenarTabla = document.querySelector('#lista-tabla tbody');
     while(llenarTabla.firstChild){
         llenarTabla.removeChild(llenarTabla.firstChild);
     }
 
-    if(this.fechaVencimiento == null || '' == this.fechaVencimiento){
-      //this.error =true;
-    } else {
-      let fechas = [];
-      let fechaSeleccionada = new Date(this.fechaVencimiento);
-      let mesSelecc = moment(fechaSeleccionada);
-      
-      let fechaActual = Date.now();
-      let mesActual = moment(fechaActual);
-
-      let pagoInteres=0, pagoCapital = 0, cuota = 0;
-      //this.capitalTotal = 1620000;
-      let monto = this.capitalTotal;
-      
-      cuota = this.capitalTotal * (Math.pow(1+this.interesPeriodoNumber/100, Number(this.myForm.get('plazoOperacion').value))*this.interesPeriodoNumber/100)/(Math.pow(1+this.interesPeriodoNumber/100, Number(this.myForm.get('plazoOperacion').value))-1);
-      const row = document.createElement('tr');
-          row.innerHTML = `
-              <td>0</td>
-              <td>${mesActual.format('DD/MM/YYYY') + ' (fecha desembolso)'}</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>${new Intl.NumberFormat().format(this.capitalTotal)}</td>
-          `;
-          llenarTabla.appendChild(row);
-
-        var cd = new CuotaDesembolso();
-        cd.numeroCuota = 0;
-        cd.fechaVencimiento = mesActual.format('DD-MM-YYYY');
-        cd.montoCuota = 0;
-        cd.interes = 0;
-        cd.amortizacion = 0;
-        cd.saldoCapital = this.capitalTotal;
-        this.cuotas.push(cd);
-
-      for(let i = 1; i <= Number(this.myForm.get('plazoOperacion').value); i++) {
-
-          pagoInteres = (monto*(this.interesPeriodoNumber/100));
-          pagoCapital = cuota - pagoInteres;
-          monto = (monto - pagoCapital);
-
-          //Formato fechas
-          fechas[i] = mesSelecc.format('DD-MM-YYYY');
-          mesSelecc.add(1, 'month');
-
+    this.apiService.get('/creditos/desembolso/detalle-cuotas', params)
+    .subscribe(res => {
+      if(res.status == 200){
+        res.rows.forEach(field => {
           const row = document.createElement('tr');
           row.innerHTML = `
-              <td>${i}</td>
-              <td>${fechas[i]}</td>
-              <td>${new Intl.NumberFormat().format(Number(cuota.toFixed(0)))}</td>
-              <td>${new Intl.NumberFormat().format(Number(pagoInteres.toFixed(0)))}</td>
-              <td>${new Intl.NumberFormat().format(Number(pagoCapital.toFixed(0)))}</td>
-              <td>${new Intl.NumberFormat().format(Number(monto.toFixed(0)))}</td>
+              <td>${field.numeroCuota}</td>
+              <td>${field.fechaVencimiento}</td>
+              <td>${new Intl.NumberFormat().format(Number(field.montoCuota))}</td>
+              <td>${new Intl.NumberFormat().format(Number(field.interes))}</td>
+              <td>${new Intl.NumberFormat().format(Number(field.amortizacion))}</td>
+              <td>${new Intl.NumberFormat().format(Number(field.saldoCapital))}</td>
           `;
           llenarTabla.appendChild(row);
-
-          cd = new CuotaDesembolso();
-          cd.numeroCuota = i;
-          cd.fechaVencimiento = fechas[i];
-          cd.montoCuota = Number(cuota.toFixed(0));
-          cd.interes = Number(pagoInteres.toFixed(0));
-          cd.amortizacion = Number(pagoCapital.toFixed(0));
-          cd.saldoCapital = Number(monto.toFixed(0));
-          this.cuotas.push(cd);
+        });
       }
-    }
+    });
 
-    
+    //this.error =false;
+    // this.cuotas = new Array();
+    // const llenarTabla = document.querySelector('#lista-tabla tbody');
+    // while(llenarTabla.firstChild){
+    //     llenarTabla.removeChild(llenarTabla.firstChild);
+    // }
+    //
+    // if(this.fechaVencimiento == null || '' == this.fechaVencimiento){
+    //   //this.error =true;
+    // } else {
+    //   let fechas = [];
+    //   let fechaSeleccionada = new Date(this.fechaVencimiento);
+    //   let mesSelecc = moment(fechaSeleccionada);
+    //
+    //   let fechaActual = Date.now();
+    //   let mesActual = moment(fechaActual);
+    //
+    //   let pagoInteres=0, pagoCapital = 0, cuota = 0;
+    //   //this.capitalTotal = 1620000;
+    //   let monto = this.capitalTotal;
+    //
+    //   cuota = this.capitalTotal * (Math.pow(1+this.interesPeriodoNumber/100, Number(this.myForm.get('plazoOperacion').value))*this.interesPeriodoNumber/100)/(Math.pow(1+this.interesPeriodoNumber/100, Number(this.myForm.get('plazoOperacion').value))-1);
+    //   const row = document.createElement('tr');
+    //       row.innerHTML = `
+    //           <td>0</td>
+    //           <td>${mesActual.format('DD/MM/YYYY') + ' (fecha desembolso)'}</td>
+    //           <td>-</td>
+    //           <td>-</td>
+    //           <td>-</td>
+    //           <td>${new Intl.NumberFormat().format(this.capitalTotal)}</td>
+    //       `;
+    //       llenarTabla.appendChild(row);
+    //
+    //     var cd = new CuotaDesembolso();
+    //     cd.numeroCuota = 0;
+    //     cd.fechaVencimiento = mesActual.format('DD-MM-YYYY');
+    //     cd.montoCuota = 0;
+    //     cd.interes = 0;
+    //     cd.amortizacion = 0;
+    //     cd.saldoCapital = this.capitalTotal;
+    //     this.cuotas.push(cd);
+    //
+    //   for(let i = 1; i <= Number(this.myForm.get('plazoOperacion').value); i++) {
+    //
+    //       pagoInteres = (monto*(this.interesPeriodoNumber/100));
+    //       pagoCapital = cuota - pagoInteres;
+    //       monto = (monto - pagoCapital);
+    //
+    //       //Formato fechas
+    //       fechas[i] = mesSelecc.format('DD-MM-YYYY');
+    //       mesSelecc.add(1, 'month');
+    //
+    //       const row = document.createElement('tr');
+    //       row.innerHTML = `
+    //           <td>${i}</td>
+    //           <td>${fechas[i]}</td>
+    //           <td>${new Intl.NumberFormat().format(Number(cuota.toFixed(0)))}</td>
+    //           <td>${new Intl.NumberFormat().format(Number(pagoInteres.toFixed(0)))}</td>
+    //           <td>${new Intl.NumberFormat().format(Number(pagoCapital.toFixed(0)))}</td>
+    //           <td>${new Intl.NumberFormat().format(Number(monto.toFixed(0)))}</td>
+    //       `;
+    //       llenarTabla.appendChild(row);
+    //
+    //       cd = new CuotaDesembolso();
+    //       cd.numeroCuota = i;
+    //       cd.fechaVencimiento = fechas[i];
+    //       cd.montoCuota = Number(cuota.toFixed(0));
+    //       cd.interes = Number(pagoInteres.toFixed(0));
+    //       cd.amortizacion = Number(pagoCapital.toFixed(0));
+    //       cd.saldoCapital = Number(monto.toFixed(0));
+    //       this.cuotas.push(cd);
+    //  }
+    //}
+
+
 }
 
   onSubmit() {
-    
+
     var json = {"idCredito": this.myForm.get('id').value,
       "idTipoDesembolso":this.myForm.get('tipoDesembolso').value.id,
       "gastosAdministrativos":this.gastAdminPorc,
       "seguroVida":this.segVidaPorc,
       "montoDesembolsado": this.myForm.get('montoCapital').value,
       "cuotas":this.cuotas
-    
+
     };
     this.apiService.post('/cuotaDesembolso', json)
     .subscribe(res => {

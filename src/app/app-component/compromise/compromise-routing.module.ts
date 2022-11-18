@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from '../../core/services';
-import { AddClientComponent , EditClientComponent, ListClientComponent,
-ViewClientComponent, CompromiseClientComponent } from '../client';
+import { AddClientComponent , EditCompromiseComponent, ListCompromiseComponent,
+ViewCompromiseComponent, CompromiseClientComponent } from '../compromise';
 
 
 const routes: Routes = [
   { path: '',
     children: [
-    { path: '', component: ListClientComponent,
+    { path: '', component: ListCompromiseComponent,
       canActivate: [UserService],
       data: {roles: ['client', 'listClient']}
     },
@@ -16,11 +16,11 @@ const routes: Routes = [
       canActivate: [UserService],
       data: {roles: ['client', 'addClient']}
     },
-    { path: ':id', component: ViewClientComponent,
+    { path: ':id', component: ViewCompromiseComponent,
       canActivate: [UserService],
       data: {roles: ['client', 'viewClient']}
     },
-    { path: ':id/edit', component: EditClientComponent,
+    { path: ':id/edit', component: EditCompromiseComponent,
       data: {
         allowedRoles: ['client', 'editClient']
       }
@@ -38,4 +38,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ClientRoutingModule {}
+export class CompromiseRoutingModule {}

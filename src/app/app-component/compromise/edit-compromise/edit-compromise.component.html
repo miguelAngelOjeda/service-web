@@ -1,0 +1,60 @@
+
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/client"> Clientes </a> &gt; <span class="current">Editar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+  <ng-container *ngIf="myForm.get('id').value">
+    <button mat-raised-button class="m-l-10" routerLink="/service-web/client/{{myForm.get('id').value}}" >
+      <!-- <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon> -->
+      <i  aria-hidden="true" class="fa fa-eye"></i>
+       Visualizar
+    </button>
+    <a mat-raised-button class="m-l-10" (click)="delete(myForm.value)" *appCanAccess="['client', 'deleteClient']">
+      <i  class="fa fa-times" aria-hidden="true"></i>
+       Borrar Cliente
+    </a>
+  </ng-container>
+</div>
+<mat-card class="form-card">
+  <mat-card-content>
+        <form [formGroup]="myForm" (ngSubmit)="myForm.valid && onSubmit()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <app-people [relationShip]="true"></app-people>
+                  </div>
+                  <div class="col-md-12">
+      							<app-spouse [addModel]="true"></app-spouse>
+      						</div>
+                  <div class="col-md-12">
+                    <app-reference></app-reference>
+                  </div>
+                  <div class="col-md-12">
+                    <app-occupation></app-occupation>
+                  </div>
+                  <div class="col-md-12">
+                    <app-estate></app-estate>
+                  </div>
+                  <div class="col-md-12">
+                    <app-vehicle></app-vehicle>
+                  </div>
+                  <div class="col-md-12 m-t-30">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <app-ingress [minRow]="1"></app-ingress>
+                      </div>
+                      <div class="col-md-6">
+                        <app-egress [minRow]="1"></app-egress>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <mat-card-actions>
+              <button mat-button [type]="onSubmit"  mat-raised-button>Guardar</button>
+            </mat-card-actions>
+        </form>
+  </mat-card-content>
+</mat-card>
