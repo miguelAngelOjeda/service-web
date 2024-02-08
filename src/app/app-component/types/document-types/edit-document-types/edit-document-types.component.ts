@@ -43,7 +43,10 @@ export class EditDocumentTypesComponent implements OnInit {
       nombre: [null, [Validators.required]],
       descripcion: [null],
       codigo: ' ',
-      activo: 'S'
+      activo: 'S',
+      tipificar: false,
+      vence: false,
+      validezDias: 999999
     });
   }
 

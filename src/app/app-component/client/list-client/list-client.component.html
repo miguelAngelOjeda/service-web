@@ -2,6 +2,9 @@
   <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/business"> Clientes </a> &gt; <span class="current">Lista de Clientes</span></h2>
   <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
   <button  type="button" class="btn btn-secondary" routerLink="/service-web/client/new" *appCanAccess="['client', 'addClient']"><span class="font-bold">Agregar</span></button>
+
+  <a mat-mini-fab matTooltip="Descargar Reporte." (click)="generarReporte()" class="nav-link float-right m-l-10" color="grey"><mat-icon>drive_file_move_rtl</mat-icon></a>
+
 </div>
 <div>
   <mat-card>
@@ -11,8 +14,47 @@
       <mat-form-field appearance="fill" class="search-form">
         <mat-icon matPrefix>search</mat-icon>
         <input matInput #filter placeholder="Buscar" type="search">
-        <!-- <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon> -->
+        <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon>
       </mat-form-field>
+      <mat-expansion-panel [expanded]="advanceFilterOpenState" class="advance-search-form" [ngClass]="{'opened': advanceFilterOpenState}">
+        <form [formGroup]="filterForm" class="p-t-20">
+          <div  class="row">
+            <ng-container formGroupName="persona">
+              <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Documento" formControlName="documento"  name="documento">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Ruc" formControlName="ruc"  name="ruc">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field  appearance="legacy">
+                   <mat-label>Tipo Persona</mat-label>
+                   <mat-select formControlName="tipoPersona" name="tipoPersona">
+                     <mat-option value="FISICA">Fisica</mat-option>
+                     <mat-option value="JURIDICA">Juridica</mat-option>
+                   </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <app-select-filter (value)="getValue($event, 'persona.profesion')" [modelValue]="filterForm.get('profesion')?.value"
+                 placeholder="Profesion" urlFilter="profesiones" [columnsFilter]="['nombre']"></app-select-filter>
+              </div>
+            </ng-container>           
+            <div class="col-md-4">
+                 <app-select-filter (value)="getValue($event, 'sucursal')" [modelValue]="filterForm.get('sucursal')?.value"
+                  placeholder="Sucursal" urlFilter="sucursales" [columnsFilter]="['nombre']"></app-select-filter>
+            </div>
+            <div class="col-md-12 p-t-20 advance-filter-buttons">
+              <button mat-button mat-raised-button #filterButton>Filtrar</button>
+              <button mat-button mat-flat-button (click)="closeFilterAdvance()">Cerrar</button>
+            </div>
+          </div>
+        </form>
+      </mat-expansion-panel>
       <!-- </p> -->
         <mat-table [dataSource]="dataSource" class="mat-table"
          matSort  matSortActive="persona.documento" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">

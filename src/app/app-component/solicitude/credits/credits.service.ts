@@ -123,6 +123,7 @@ export class CreditsService {
       codeudor:new FormControl(''),
       modalidad: [null, [Validators.required]],
       fechaPresentacion: [null],
+      fechaAprobacion: [null],
       funcionario: [null],
       tipoCalculoImporte: [null, [Validators.required]],
       tipoDestino: [null, [Validators.required]],

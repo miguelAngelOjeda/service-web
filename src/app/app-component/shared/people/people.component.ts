@@ -152,7 +152,7 @@ export class PeopleComponent implements OnInit{
         }
       });
     }
-    
+
   }
 
   peopleCi() {
@@ -161,9 +161,11 @@ export class PeopleComponent implements OnInit{
       if(res.status == 200){
         res.model.avatar = null;
         this.peopleService.loadData(<FormGroup>this.peopleForm.get('persona'),res.model);
+      }else if(res.status == 404){
+        this.peopleService.addModalPeople(null,<FormGroup>this.peopleForm.get('persona'),null);
       }
     });
-    
+
   }
 
   conyugeCi(data: any) {
