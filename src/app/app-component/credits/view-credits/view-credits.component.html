@@ -536,7 +536,7 @@
             </fieldset>
           </div>
           <div class="col-md-12  m-t-10" *ngIf="myForm.get('id').value && myForm.get('entidad').value">
-            <app-view-upload [entidad]="myForm.get('entidad').value" [idEntidad]="myForm.get('id').value"></app-view-upload>
+            <app-view-upload [entidad]="myForm.get('entidad').value" [idEntidad]="myForm.get('id').value" [fechaAprobacion]="myForm.get('fechaAprobacion')?.value"></app-view-upload>
           </div>
         </div>
     </form>

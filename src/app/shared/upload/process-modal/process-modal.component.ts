@@ -17,8 +17,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ProcessModalComponent implements OnInit{
   public documentData;
   uploadForm: FormGroup;
+  documentAdd : any[] = [];
   public documentModel: FormGroup;
   url_path;
+  currentIndex = 0;
   
 
   constructor(
@@ -34,18 +36,26 @@ export class ProcessModalComponent implements OnInit{
     this.uploadForm = <FormGroup>data;
     if((<FormArray>this.uploadForm.get("documentos")).length == 1){
       var documentValue = (<FormGroup>(<FormArray>this.uploadForm.get("documentos")).at(0)).value;
-      if(documentValue.fechaVencimiento){
-        documentValue.fechaVencimiento = new Date(documentValue.fechaVencimiento);
-      } 
-      this.documentModel.patchValue(documentValue);
-      this.url_path = documentValue.url_path;
+      if(documentValue.url_path){
+        (<FormGroup>(<FormArray>this.uploadForm.get("documentos")).at(0)).addControl('checked',this.formBuilder.control(true));
+      }
     }
-    this.documentData = data;
-      
+    this.documentData = data;  
   }
 
   ngOnInit() {
-    
+    if((<FormArray>this.uploadForm.get("documentos")).length == 1){
+      var documentValue = (<FormGroup>(<FormArray>this.uploadForm.get("documentos")).at(0)).value;      
+       
+      if(documentValue.url_path){
+        if(documentValue.fechaVencimiento){
+          documentValue.fechaVencimiento = new Date(documentValue.fechaVencimiento);
+        }
+        this.url_path = documentValue.url_path;
+        this.documentModel.patchValue(documentValue);
+        this.documentAdd.push(documentValue);
+      }
+    }
   }
 
   inicializarFormulario() {
@@ -71,19 +81,44 @@ export class ProcessModalComponent implements OnInit{
   }
 
   onSubmit() {
-    if(this.uploadForm.get("idEntidad").value != this.documentModel.get("idEntidad").value){
-      this.apiService.put('/archivos/add/' + this.uploadForm.get("idEntidad").value, this.documentModel.value)
-          .subscribe(res => {
-            if(res.status == 200){
-              (<FormArray>this.uploadForm.get("documentos")).removeAt((<FormArray>this.uploadForm.get("documentos")).value.findIndex(dep => dep.id === this.documentModel.value.id));
-              this.documentModel.reset();
-              this.url_path = null;
+    if(this.documentAdd.length > 0){
+      var dataDocument = this.documentAdd[this.currentIndex];
+      console.log(this.documentModel.get("id").value);
+      if(this.documentModel.get("id").value != null){
+        // Obtener el dato actual del array
+        this.apiService.put('/archivos/add/' + this.uploadForm.get("idEntidad").value, this.documentModel.value)
+        .subscribe(res => {
+          if(res.status == 200){             
+            //this.documentModel.reset();
+            //this.url_path = null;
+            // Mover al siguiente índice
+            this.currentIndex++;
+            this.cargarDatosForm();
+
+            // Verificar si hemos llegado al final del array
+            if (this.currentIndex >= this.documentAdd.length) {
+              // Si llegamos al final, reiniciar el índice
+              this.dialogRef.close(this.documentModel.value);
             }
-          });
-    }else{
-      this.dialogRef.close(this.documentModel.value);
+          }
+        });
+        this.url_path = null; 
+      }else{
+        this.dialogRef.close(this.documentModel.value);
+      }      
     }
-    
+  }
+
+  cargarDatosForm(){
+    this.documentModel.reset();
+    let datos = this.documentAdd[this.currentIndex];
+    setTimeout(() => {
+      if(datos.fechaVencimiento){
+        datos.fechaVencimiento = new Date(datos.fechaVencimiento);
+      }
+      this.documentModel.patchValue(datos);
+      this.url_path = datos.url;
+    });
   }
 
   viewDocument(index:number) {
@@ -108,6 +143,33 @@ export class ProcessModalComponent implements OnInit{
 
   getValue(data: any, form : any): void {
     (<FormControl>this.documentModel.get(form)).setValue(data);
+  }
+
+  onCheckboxChange(event: any, index : any){
+    let document = (<FormGroup>(<FormArray>this.uploadForm.get("documentos")).at(index)).value
+    if(event.checked){
+      this.documentAdd.push(document);
+      if(this.documentAdd.length > 0 && this.documentModel.value.id != this.documentAdd[0].id){
+        setTimeout(() => {
+          if(this.documentAdd[0].fechaVencimiento){
+            this.documentAdd[0].fechaVencimiento = new Date(this.documentAdd[0].fechaVencimiento);
+          }
+          this.documentModel.patchValue(this.documentAdd[0]);
+          this.url_path = this.documentAdd[0].url;
+        });
+      }
+    }else{
+      this.documentAdd = this.documentAdd.filter(objeto => objeto.id !== document.id);
+      if(this.documentAdd.length > 0 && this.documentModel.value.id != this.documentAdd[0].id){
+        setTimeout(() => {
+          if(this.documentAdd[0].fechaVencimiento){
+            this.documentAdd[0].fechaVencimiento = new Date(this.documentAdd[0].fechaVencimiento);
+          }
+          this.documentModel.patchValue(this.documentAdd[0]);
+          this.url_path = this.documentAdd[0].url;
+        });
+      }
+    }
   }
 
 }

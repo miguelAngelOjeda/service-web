@@ -8,7 +8,7 @@
                 <mat-card class="mat-card mat-focus-indicator">
                   <div class="row">
                     <div class="col-md-2">
-                      <a mat-mini-fab style="background-color: #26c6da;" (click)="viewDocument(i)" matTooltipPosition="before" matTooltip="Visualizar"><mat-icon>open_in_new</mat-icon></a>
+                      <mat-checkbox [(ngModel)]="documento.checked" (change)="onCheckboxChange($event, i)" color="primary" ></mat-checkbox>
                     </div>
                     <div class="col-md-10">
                       <h3 class="m-0">

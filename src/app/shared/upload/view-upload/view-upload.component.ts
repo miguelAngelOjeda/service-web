@@ -35,15 +35,17 @@ export class ViewUploadComponent implements OnInit {
     private http: HttpClient,
     public dialog: MatDialog
   ) {
+  }
+
+  ngOnInit() {
+
     if(this.fechaAprobacion){
       // Calcular la diferencia en milisegundos
       const diferenciaMilisegundos: number = new Date().getTime() - new Date(this.fechaAprobacion).getTime();
       // Convertir la diferencia de milisegundos a días
       this.diferenciaDias = diferenciaMilisegundos / (1000 * 3600 * 24);
     }
-  }
 
-  ngOnInit() {
     this.uploadForm = this.parentF.form;
     this.uploadForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.uploader.onAfterAddingFile = (fileItem) => {
