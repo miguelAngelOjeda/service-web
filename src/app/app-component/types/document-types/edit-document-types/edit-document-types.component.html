@@ -34,6 +34,26 @@
             </mat-error>
           </mat-form-field>
         </div>
+        <div class="col-md-4">
+          <section class="col-sm-12">
+               <mat-checkbox  class="example-margin" formControlName="tipificar" name="tipificar">Tipificar</mat-checkbox>
+          </section>
+        </div>
+        <div class="col-md-4">
+          <section class="col-sm-12">
+               <mat-checkbox  class="example-margin" formControlName="vence" name="vence">Vence</mat-checkbox>
+          </section>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="col-sm-12" appearance="legacy">
+        		<input matInput #input type="number" min="1" placeholder="Validez Dias" formControlName="validezDias" name="validezDias">
+            <mat-error *ngIf="(myForm.get('validezDias').errors)">
+              <span *ngIf="myForm.get('validezDias').errors.required">
+               Campo requerido
+              </span>
+            </mat-error>
+        	</mat-form-field>
+        </div>
       </div>
       <br>
       <mat-card-actions>

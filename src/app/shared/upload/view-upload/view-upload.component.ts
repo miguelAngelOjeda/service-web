@@ -20,10 +20,13 @@ import { UserService, ApiService, FormsService} from '../../../core/services';
 export class ViewUploadComponent implements OnInit {
   uploadForm: FormGroup;
   formArrayName = 'documentos';
+  diferenciaDias;
   public uploader: FileUploader = new FileUploader({isHTML5: true,autoUpload: false,allowedFileType: ['image', 'pdf']});
 
   @Input() entidad;
   @Input() idEntidad;
+  @Input() codStatus;
+  @Input() fechaAprobacion;
 
   constructor(
     private parentF: FormGroupDirective,
@@ -31,9 +34,18 @@ export class ViewUploadComponent implements OnInit {
     private apiService: ApiService,
     private http: HttpClient,
     public dialog: MatDialog
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
+
+    if(this.fechaAprobacion){
+      // Calcular la diferencia en milisegundos
+      const diferenciaMilisegundos: number = new Date().getTime() - new Date(this.fechaAprobacion).getTime();
+      // Convertir la diferencia de milisegundos a días
+      this.diferenciaDias = diferenciaMilisegundos / (1000 * 3600 * 24);
+    }
+
     this.uploadForm = this.parentF.form;
     this.uploadForm.addControl(this.formArrayName, this.formBuilder.array([]));
     this.uploader.onAfterAddingFile = (fileItem) => {
@@ -172,6 +184,53 @@ export class ViewUploadComponent implements OnInit {
 
       }
     });
+  }
+
+  uploadSubmit(index: number){
+    let fileItem = (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).get("file").value;
+    if(fileItem.size > 10000000){
+      alert("Each File should be less than 10 MB of size.");
+      return;
+    }
+
+    let dataType = (<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value;
+    let document = dataType.tipoDocumento;
+
+    var reader = new FileReader();
+    reader.onload = (readerEvent) => {
+      if (reader.result.toString().includes('data:application/pdf')) {
+        dataType.tipoArchivo = "application/pdf";
+        dataType['url_path'] = reader.result.toString();
+      }else{
+        dataType['url_path'] = reader.result.toString().split(',')[1];
+      }
+      this.saveDocument(dataType, fileItem, index);
+    }
+    reader.readAsDataURL(fileItem);
+  }
+
+  saveDocument(dataDocument: any, fileItem : any, index :  any){
+    let data = new FormData();
+    data.append('file', fileItem);
+    data.append('fileSeq', 'seq'+index);
+    data.append( 'dataType', JSON.stringify(dataDocument));
+
+    this.apiService.post('/archivos/upload', data)
+    .subscribe(res => {
+      if(res.status == 200){
+        if(res.model.tipoArchivo === 'application/pdf'){
+          res.model.url =  environment.api_url + '/DescargaServlet?path=' + res.model.path;
+        }else{
+          res.model.url =  environment.api_url + '/DisplayImage?url=' + res.model.path;
+        }
+        (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).patchValue(res.model);
+      }
+    });
+    this.uploader.clearQueue();
+  }
+
+  getValue(data: any, form : FormControl): void {
+    form.setValue(data);
   }
 
 }

@@ -35,8 +35,8 @@ export class EditCreditsComponent implements OnInit {
   segVida: number;
   segVidaPorc: number;
   capitalTotal : number;
-  fechaVencimiento : string;
   cuotas: CuotaDesembolso[];
+  fechaVencimiento;
 
   constructor(private creditsService:CreditsService,
               private router: Router,
@@ -49,7 +49,7 @@ export class EditCreditsComponent implements OnInit {
 
   ngOnInit() {
     //datos para calculos
-    this.cuotas = null;
+    this.cuotas = new Array();
     this.interesPeriodo = '0';
     this.interesPeriodoNumber = 0;
     this.gastAdminPeriodo= '0';
@@ -59,7 +59,6 @@ export class EditCreditsComponent implements OnInit {
     this.segVidaPorc = 0;
     this.gastAdminPorc = 0;
     this.capitalTotal = 0;
-    this.fechaVencimiento = null;
     //-------
 
     this.myForm = this.creditsService.initFormBuilder();
@@ -67,10 +66,41 @@ export class EditCreditsComponent implements OnInit {
     .subscribe(res => {
 
       if(res.status == 200){
+        console.log(res.model);
         this.myForm.patchValue(res.model,{emitEvent: false});
-        this.setearDatos();
       }
     });
+  }
+
+  calcularFechaVencimiento(fechaActual){
+    
+    let periodoCapital = (this.myForm.get('modalidad').value.periodoCapital == null || this.myForm.get('modalidad').value.periodoCapital == '' || this.myForm.get('modalidad').value.periodoCapital == '0') ? '30' : this.myForm.get('modalidad').value.periodoCapital;
+    periodoCapital = Number(periodoCapital);
+
+    if(periodoCapital == 1){
+      fechaActual.add(1, 'days');
+    } else if(periodoCapital == 7) {
+      fechaActual.add(1, 'weeks');
+    } else if(periodoCapital == 15) {
+      fechaActual.add(2, 'weeks');
+    } else if(periodoCapital == 30) {
+      fechaActual.add(1, 'month');
+    } else if(periodoCapital == 60) {
+      fechaActual.add(2, 'month');
+    } else if(periodoCapital == 360) {
+      fechaActual.add(6, 'month');
+    } else {
+      fechaActual.add(1, 'month');
+    }
+    
+    return fechaActual;
+  }
+
+  thousands_separators(num)
+  {
+    var num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num_parts.join(".");
   }
 
   setearDatos(){
@@ -275,7 +305,6 @@ export class EditCreditsComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         this.router.navigateByUrl('service-web/credits');
-        console.log('Ok');
       }
     });
   }

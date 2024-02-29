@@ -75,7 +75,10 @@ export class CreditsService {
       plazoOperacion: [null],
       totalDesembolsado: [null],
       cambioVencimientos: [null],
-      activo: 'S'
+      activo: 'S',
+      montoGastosAdmin: [0],
+      montoSeguroVida: [0],
+      montoTotal: [0],
     });
     return formGroup;
   }

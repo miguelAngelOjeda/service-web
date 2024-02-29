@@ -4,7 +4,9 @@
       <span class="hidden-file">
         <input type="file" #fileInput ng2FileSelect multiple [uploader]="uploader">
       </span>
-      <a mat-mini-fab (click)="fileInput.click()" class="nav-link float-right" color="primary"><mat-icon>file_upload</mat-icon></a>
+      <a mat-mini-fab matTooltip="Adjuntar Documentos." (click)="fileInput.click()" class="nav-link float-right m-l-10" color="primary"><mat-icon>file_upload</mat-icon></a>
+
+      <a mat-mini-fab matTooltip="Documentos del cliente." (click)="cargarDocumentosPersona()" class="nav-link float-right" color="grey"><mat-icon>drive_file_move_rtl</mat-icon></a>
     </h4>
   </div>
   <!-- <div class="col-md-12" *ngIf="uploadForm.get(formArrayName)['controls'].length > 1">
@@ -31,6 +33,9 @@
               <ng-container [formArrayName]="formArrayName">
                 <tr [formGroupName]="i" (ngSubmit)="uploadSubmit(i)" *ngFor="let item of uploadForm.get(formArrayName)['controls']; let i = index">
                   <td style="text-align:center" align="center">
+                    <mat-checkbox *ngIf="item.controls.idEntidad.value != idEntidad" (change)="onCheckboxChange($event, i)" [checked]="item.controls.idEntidad.value == idEntidad" color="primary" ></mat-checkbox>
+                  </td>
+                  <td style="text-align:center" align="center">
                     {{ item?.get('id').value }}
                   </td>
                   <td style="text-align:center">
@@ -52,10 +57,10 @@
                   <td>
                     <a mat-icon-button *ngIf="item.controls.id.value == null" (click)="item.controls.tipoDocumento.value == null ? '' : uploadSubmit(i)"
                     [disabled]="item.controls.tipoDocumento.value == null"> <mat-icon>check</mat-icon></a>
-                    <a mat-icon-button *ngIf="item.controls.id.value != null" (click)="item.controls.tipoDocumento.value == null ? '' : editSubmit(i)"
+                    <a mat-icon-button *ngIf="item.controls.id.value != null && item.controls.idEntidad.value == idEntidad" (click)="item.controls.tipoDocumento.value == null ? '' : editSubmit(i)"
                     [disabled]="item.controls.tipoDocumento.value == null"> <mat-icon>edit</mat-icon></a>
                     <a mat-icon-button  (click)="item.controls.id.value == null ? viewImageFile(item.get('file')?.value) : viewImageUrl(item.get('id')?.value)"> <mat-icon>visibility</mat-icon></a>
-                    <a mat-icon-button  color="warn" (click)="delete(item.value)"> <mat-icon>delete_forever</mat-icon></a>
+                    <a mat-icon-button *ngIf="item.controls.idEntidad.value == idEntidad" color="warn" (click)="delete(item.value)"> <mat-icon>delete_forever</mat-icon></a>
                   </td>
 
                 </tr>

@@ -9,6 +9,7 @@ import { Observable, of  } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { GalleryDialogComponent, GalleryDialogPdfComponent } from '../../shared/dialog';
+import { ProcessModalComponent } from '../../shared/upload/process-modal';
 import { UserService, ApiService, FormsService} from '../../core/services';
 
 @Component({
@@ -20,11 +21,13 @@ import { UserService, ApiService, FormsService} from '../../core/services';
 export class UploadComponent implements OnInit {
   uploadForm: FormGroup;
   formArrayName = 'documentos';
+  formArrayNamePeople = 'documentosPersona';
   public uploader: FileUploader = new FileUploader({isHTML5: true,autoUpload: false,allowedFileType: ['image', 'pdf']});
 
   @Input() entidad;
   @Input() idEntidad;
   @Input() documento;
+  @Output() arrayUpload = new EventEmitter<FormArray>();
 
   constructor(
     private parentF: FormGroupDirective,
@@ -50,6 +53,7 @@ export class UploadComponent implements OnInit {
         file: fileItem._file,
         url: null,
         tipoArchivo: null,
+        fechaVencimiento: null,
         tipoDocumento: [null, [Validators.required]],
         activo: ['S']
       });
@@ -60,7 +64,6 @@ export class UploadComponent implements OnInit {
     .subscribe(res => {
       if(res.status == 200){
         const archivos = (<FormArray>this.uploadForm.get(this.formArrayName));
-        console.log(archivos);
         if(archivos){
           while (archivos.length) {
             archivos.removeAt(0);
@@ -78,6 +81,57 @@ export class UploadComponent implements OnInit {
     });
   }
 
+  cargarDocumentosPersona(){
+    this.apiService.get('/archivos/propuesta/' + this.entidad +'/' + this.idEntidad +'/' + this.documento)
+    .subscribe(res => {
+      if(res.status == 200){
+        const archivos = this.formBuilder.group({
+          entidad: this.entidad,
+          idEntidad: this.idEntidad,
+          documentos: this.formBuilder.array([]),         
+        });
+        res.rows.forEach(staff => {
+          if(staff.tipoArchivo === 'application/pdf'){
+            staff.url = environment.api_url + '/DescargaServlet?path=' + staff.path;
+          }else{
+            staff.url = environment.api_url + '/DisplayImage?url=' + staff.path;
+          }
+          (<FormArray>archivos.get("documentos")).push(this.formBuilder.group(staff));
+        });
+
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = '98%';
+        dialogConfig.height = '77%';
+        dialogConfig.data = archivos;
+        dialogConfig.panelClass = 'mat-dialog-app-viewer';
+        let dialogRef = this.dialog.open(ProcessModalComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+          console.log("jgjkggkj");
+            this.apiService.get('/archivos/' + this.entidad +'/' + this.idEntidad)
+            .subscribe(res => {
+              if(res.status == 200){
+                const archivos = (<FormArray>this.uploadForm.get(this.formArrayName));
+                if(archivos){
+                  const idsExistente: number[] = archivos.controls.map((control) => control.get('id').value);
+                  res.rows.forEach(staff => {
+                    if(!idsExistente.includes(staff.id)){
+                      if(staff.tipoArchivo === 'application/pdf'){
+                        staff.url = environment.api_url + '/DescargaServlet?path=' + staff.path;
+                      }else{
+                        staff.url = environment.api_url + '/DisplayImage?url=' + staff.path;
+                      }
+                      archivos.push(this.formBuilder.group(staff));
+                    }                   
+                  });
+                }
+              }
+            });
+      });
+        
+      }
+    });
+  }
+
   uploadSubmit(index: number){
     let fileItem = (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).get("file").value;
     if(fileItem.size > 10000000){
@@ -85,38 +139,84 @@ export class UploadComponent implements OnInit {
       return;
     }
 
-    let data = new FormData();
-    data.append('file', fileItem);
-    data.append('fileSeq', 'seq'+index);
-    data.append( 'dataType', JSON.stringify((<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value));
+    let dataType = (<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value;
+    let document = dataType.tipoDocumento;
 
-    this.apiService.post('/archivos/upload', data)
-    .subscribe(res => {
-      if(res.status == 200){
-        if(res.model.tipoArchivo === 'application/pdf'){
-          res.model.url =  environment.api_url + '/DescargaServlet?path=' + res.model.path;
-        }else{
-          res.model.url =  environment.api_url + '/DisplayImage?url=' + res.model.path;
-        }
-        (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).patchValue(res.model);
+    var reader = new FileReader();
+    reader.onload = (readerEvent) => {
+      if (reader.result.toString().includes('data:application/pdf')) {
+        dataType.tipoArchivo = "application/pdf";
+        dataType['url_path'] = reader.result.toString();
+      }else{
+        dataType['url_path'] = reader.result.toString().split(',')[1];
       }
-    });
-    this.uploader.clearQueue();
+
+      if(document.vence){
+        this.processDocument(dataType, fileItem, index);
+      }else{
+        this.saveDocument(dataType, fileItem, index);
+      }
+    }
+    reader.readAsDataURL(fileItem);
   }
 
+  
+
   editSubmit(index: number){
-    this.apiService.put('/archivos/' + (<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value.id,
-     (<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value)
-    .subscribe(res => {
-      if(res.status == 200){
-        if(res.model.tipoArchivo === 'application/pdf'){
-          res.model.url = environment.api_url + '/DescargaServlet?path=' + res.model.path;
-        }else{
-          res.model.url = environment.api_url + '/DisplayImage?url=' + res.model.path;
+
+    let dataType = (<FormArray>this.uploadForm.get(this.formArrayName)).controls[index].value;
+    let document = dataType.tipoDocumento;
+    if(dataType.tipoArchivo === 'application/pdf'){
+      dataType['url_path'] =  environment.api_url + '/DescargaServlet?path=' + dataType.path;
+    }else{
+      dataType['url_path'] =  environment.api_url + '/DisplayImage?url=' + dataType.path;
+    }
+
+    if(document.vence){
+
+      const archivos = this.formBuilder.group({
+        entidad: this.entidad,
+        idEntidad: this.idEntidad,
+        documentos: this.formBuilder.array([]),         
+      });
+      (<FormArray>archivos.get("documentos")).push(this.formBuilder.group(dataType));
+
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.width = '80%';
+      dialogConfig.height = '77%';
+      dialogConfig.data = archivos;
+      dialogConfig.panelClass = 'mat-dialog-app-viewer';
+      let dialogRef = this.dialog.open(ProcessModalComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.apiService.put('/archivos/add/' + this.idEntidad, result)
+          .subscribe(res => {
+            if(res.status == 200){
+              if(res.model.tipoArchivo === 'application/pdf'){
+                res.model['url_path']  =  environment.api_url + '/DescargaServlet?path=' + res.model.path;
+              }else{
+                res.model['url_path']  =  environment.api_url + '/DisplayImage?url=' + res.model.path;
+              }              
+              (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).patchValue(res.model);
+            }
+          });
+          this.uploader.clearQueue();
         }
-        (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).patchValue(res.model);
-      }
-    });
+      });
+      
+    }else{
+      this.apiService.put('/archivos/' + dataType.id,dataType)
+      .subscribe(res => {
+        if(res.status == 200){
+          if(res.model.tipoArchivo === 'application/pdf'){
+            res.model.url = environment.api_url + '/DescargaServlet?path=' + res.model.path;
+          }else{
+            res.model.url = environment.api_url + '/DisplayImage?url=' + res.model.path;
+          }
+          (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).patchValue(res.model);
+        }
+      });
+    }  
   }
 
   viewImageFile(file : any): void {
@@ -128,8 +228,6 @@ export class UploadComponent implements OnInit {
       }else{
         this.loadView([reader.result.toString().split(',')[1]]);
       }
-
-
     }
     reader.readAsDataURL(file);
   }
@@ -240,4 +338,44 @@ export class UploadComponent implements OnInit {
     });
   }
 
+  public processDocument(dataDocument: any, fileItem : any, index :  any){
+    const archivos = this.formBuilder.group({
+      entidad: this.entidad,
+      idEntidad: this.idEntidad,
+      documentos: this.formBuilder.array([]),         
+    });
+    (<FormArray>archivos.get("documentos")).push(this.formBuilder.group(dataDocument));
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '80%';
+    dialogConfig.height = '77%';
+    dialogConfig.data = archivos;
+    dialogConfig.panelClass = 'mat-dialog-app-viewer';
+    let dialogRef = this.dialog.open(ProcessModalComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.saveDocument(result, fileItem, index)
+      }
+    });
+  }
+
+  saveDocument(dataDocument: any, fileItem : any, index :  any){
+    let data = new FormData();
+    data.append('file', fileItem);
+    data.append('fileSeq', 'seq'+index);
+    data.append( 'dataType', JSON.stringify(dataDocument));
+
+    this.apiService.post('/archivos/upload', data)
+    .subscribe(res => {
+      if(res.status == 200){
+        if(res.model.tipoArchivo === 'application/pdf'){
+          res.model.url =  environment.api_url + '/DescargaServlet?path=' + res.model.path;
+        }else{
+          res.model.url =  environment.api_url + '/DisplayImage?url=' + res.model.path;
+        }
+        (<FormControl>(<FormArray>this.uploadForm.get(this.formArrayName)).controls[index]).patchValue(res.model);
+      }
+    });
+    this.uploader.clearQueue();
+  }
 }

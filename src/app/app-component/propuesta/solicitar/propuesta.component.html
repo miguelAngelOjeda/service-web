@@ -30,7 +30,7 @@
 						<input matInput #input  placeholder="Monto a Solicitar" formControlName="montoSol"  name="montoSol">
 					</mat-form-field>
 					<mat-form-field  appearance="legacy">
-						<input matInput #input [matDatepicker]="picker" formControlName="fechaVencimiento" id = "fechaVencimiento" name="fechaVencimiento" placeholder="Fecha primer Vencimiento" required>
+						<input matInput #input [matDatepicker]="picker" formControlName="fechaVencimiento" id = "fechaVencimiento" name="fechaVencimiento" placeholder="Fecha primer Vencimiento" readonly>
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 						<mat-datepicker #picker></mat-datepicker>
 					</mat-form-field>

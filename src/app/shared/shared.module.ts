@@ -15,6 +15,7 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
 import { MapComponent } from '../shared/map';
 import { ThumbnailDirective, UploadComponent } from '../shared/upload';
 import { ViewUploadComponent } from '../shared/upload/view-upload';
+import { ProcessModalComponent } from '../shared/upload/process-modal';
 import { DropifyImageComponent } from './dropify-image/dropify-image.component';
 import { SelectFilterComponent } from './select-filter/select-filter.component';
 //import { ImageViewerModule } from 'ng2-image-viewer';
@@ -48,6 +49,7 @@ import { NgxCurrencyModule } from "ngx-currency";
     AccordionLinkDirective,
     GalleryDialogComponent,
     GalleryDialogPdfComponent,
+    ProcessModalComponent,
     DeleteDialogComponent,
     MapComponent,
     DropifyImageComponent,
@@ -72,12 +74,14 @@ import { NgxCurrencyModule } from "ngx-currency";
     DropifyImageComponent,
     GalleryDialogComponent,
     GalleryDialogPdfComponent,
+    ProcessModalComponent,
     DeleteDialogComponent,
     SelectFilterComponent
   ],
   entryComponents: [
     GalleryDialogComponent,
     GalleryDialogPdfComponent,
+    ProcessModalComponent,
     DeleteDialogComponent
   ],
   providers: [
