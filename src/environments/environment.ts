@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  api_image_url: 'https://appdesa1.financorp.com.py/beta1/image/',
-  api_url: 'https://appdesa1.financorp.com.py/beta1',
-  whitelist: ['172.16.1.51', 'https://appdesa1.financorp.com.py', 'appdesa1.financorp.com.py']
+  api_image_url: 'https://app2.financorp.com.py/beta1/image/',
+  api_url: 'https://app2.financorp.com.py/beta1',
+  whitelist: ['172.16.1.51', 'https://app2.financorp.com.py', 'app2.financorp.com.py']
 };
 
 export const authorities = {

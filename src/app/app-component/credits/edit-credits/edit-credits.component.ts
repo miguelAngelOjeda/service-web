@@ -66,7 +66,6 @@ export class EditCreditsComponent implements OnInit {
     .subscribe(res => {
 
       if(res.status == 200){
-        console.log(res.model);
         this.myForm.patchValue(res.model,{emitEvent: false});
       }
     });
@@ -177,14 +176,14 @@ export class EditCreditsComponent implements OnInit {
     let params = new HttpParams({
       fromObject : {
         'montoCapital' : this.myForm.get('montoCapital').value.toString(),
-        'montoInteres' : this.myForm.get('tasaInteres').value.toString(),
-        'seguroInteres' : this.myForm.get('seguroVida').value.toString(),
-        'gastosInteres' : this.myForm.get('gastosAdministrativos').value.toString(),
-        'plazo' : this.myForm.get('plazoOperacion').value.toString(),
+        'montoInteres' : this.myForm.get('tasaInteres').value == null ? null : this.myForm.get('tasaInteres').value.toString(),
+        'seguroInteres' : this.myForm.get('seguroVida').value == null ? null : this.myForm.get('seguroVida').value.toString(),
+        'gastosInteres' : this.myForm.get('gastosAdministrativos').value == null ? null : this.myForm.get('gastosAdministrativos').value.toString(),
+        'plazo' : this.myForm.get('plazoOperacion').value == null ? null : this.myForm.get('plazoOperacion').value.toString(),
         'fechaVencimiento' : moment(new Date(this.fechaVencimiento)).format('YYYY-MM-DD'),
-        'periodoCapital' : this.myForm.get('periodoCapital').value.toString(),
-        'periodoInteres' : this.myForm.get('periodoInteres').value.toString(),
-        'periodoGracia' : this.myForm.get('periodoGracia').value.toString(),
+        'periodoCapital' : this.myForm.get('periodoCapital').value == null ? null : this.myForm.get('periodoCapital').value.toString(),
+        'periodoInteres' : this.myForm.get('periodoInteres').value == null ? null : this.myForm.get('periodoInteres').value.toString(),
+        'periodoGracia' : this.myForm.get('periodoGracia').value == null ? null : this.myForm.get('periodoGracia').value.toString(),
         'codTipoCalculo' : this.myForm.get('tipoCalculoImporte').value.codigo,
         'codModalidad' : this.myForm.get('modalidad').value.codigo,
         'tipoDesembolso' :'0'

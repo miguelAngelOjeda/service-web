@@ -14,6 +14,7 @@ const MENUITEMS = [
   // { state: 'users', type: 'link', name: 'Usuarios', icon: 'group', entity:'subsidiary', role:'listSubsidiary' },
   { state: 'client', type: 'link', name: 'Clientes', icon: 'assignment_ind', entity:'client', role:'listClient' },
   { state: 'compromise', type: 'link', name: 'Compromisos', icon: 'chrome_reader_mode', entity:'compromise', role:'listCompromise' },
+  { state: 'message', type: 'link', name: 'Mensajes', icon: 'chrome_reader_mode', entity:'message', role:'sendMessage' },
   { state: 'informconf', type: 'link', name: 'Informconf', icon: 'assignment_ind', entity:'informconf', role:'informconfReport' },
   //{ state: 'cuotasWs', type: 'link', name: 'Archivo Cuotas', icon: 'assignment_ind', entity:'cuotasWs', role:'cuotasWsUploadFile' },
   { state: 'toolbar', type: 'link', name: 'Solicitudes', icon: 'voicemail' , entity:'', role:''},

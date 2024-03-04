@@ -98,30 +98,20 @@
               <p mat-line><span class="font-bold">Plazo: </span> {{myForm.get('plazoOperacion')?.value}}</p>
             </div>
             -->
-          </div>m
+          </div>
 
           <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-9">
-                <p><span class="font-bold">Neto a desembolsar: </span> {{myForm.get('montoCapital')?.value  | number}}</p>
-                <p><span class="font-bold">Gastos Administrativos: </span> {{gastAdmin | number}}</p>
-                <p><span class="font-bold">Seguro de vida: </span> {{segVida | number}}</p>
-                <p><span class="font-bold">Capital Total: </span> {{capitalTotal | number}}</p>
-              </div>
-              <div class="col-md-3">
-                <mat-form-field  appearance="legacy">
-                  <input matInput #input [matDatepicker]="picker" [(ngModel)]="fechaVencimiento" [ngModelOptions]="{standalone: true}" name="fechaVencimiento" placeholder="Fecha primer Vencimiento" required>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                 </mat-form-field>
-
-                  <app-select-filter (value)="getValue($event, 'tipoDesembolso')" [modelValue]="myForm.get('tipoDesembolso').value"
-                   placeholder="Tipo Desembolso" urlFilter="tipos-desembolsos" [columnsFilter]="['nombre']"></app-select-filter>
-              </div>
-
-              <br>
-
-              <button [disabled]="!this.fechaVencimiento" type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" color="primary" (click)="calcularCuota()">Calcular</button>
+            <div class="col-md-4">
+              
+              <mat-form-field  appearance="legacy">
+                <input matInput #input [matDatepicker]="picker" formControlName="fechaVencimiento" id = "fechaVencimiento" name="fechaVencimiento" placeholder="Fecha primer Vencimiento" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+                 
+              <app-select-filter (value)="getValue($event, 'tipoDesembolso')" [modelValue]="myForm.get('tipoDesembolso').value"
+                placeholder="Tipo Desembolso" urlFilter="tipos-desembolsos" [columnsFilter]="['nombre']"></app-select-filter>
+              
             </div>
             <div class="col-md-4 text-center">
               <button type="button" class="btn btn-outline-secondary waves-effect px-3 btn-sm m-r-5" color="primary" (click)="calcularCuota()">Calcular Cuotas</button>

@@ -34,6 +34,10 @@ const appRoutes: Routes = [
         loadChildren: './app-component/compromise/compromise.module#CompromiseModule'
         },
         {
+          path: 'service-web/message',
+          loadChildren: './app-component/message/message.module#MessageModule'
+          },
+        {
         path: 'service-web/cuotasWs',
         loadChildren: './app-component/cuotasWs/cuotasWs.module#CuotasWsModule'
         },

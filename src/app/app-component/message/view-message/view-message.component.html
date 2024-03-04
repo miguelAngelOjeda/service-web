@@ -1,0 +1,79 @@
+
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/compromise"> Compromisos </a> &gt; <span class="current">Visualizar</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+</div>
+<mat-card class="form-card">
+  <mat-card-content>
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="myForm">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row" formGroupName="persona">
+                  <div class="col-md-12">
+                    <h4  class="m-0 font-20"><mat-icon class="gray-text">account_circle</mat-icon>Datos Personales</h4>
+                    <br>
+                  </div>
+                  <div class="col-md-2 center">
+                    <div class="avatar-detail">
+                      <img *ngIf="myForm.get('persona').value.imagePath === null"  src="assets/images/users/1.jpg" alt="user" class="avatar-lg rounded-circle">
+                      <img *ngIf="myForm.get('persona').value.imagePath !== null"  [src]="urlImage + '/DisplayImage?url=' + myForm.get('persona').value.imagePath"  alt="user" class="avatar-lg rounded-circle">
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="p-l-20 p-t-10">
+                      <div class="font-medium">{{
+                        (myForm.controls['persona'].get('primerNombre')?.value == null ? '' : myForm.controls['persona'].get('primerNombre')?.value)
+                        + ' ' +
+                        (myForm.controls['persona'].get('segundoNombre')?.value == null ? '' : myForm.controls['persona'].get('segundoNombre')?.value)
+                        + ' ' +
+                        (myForm.controls['persona'].get('primerApellido')?.value == null ? '' : myForm.controls['persona'].get('primerApellido')?.value)
+                        + ' ' +
+                        (myForm.controls['persona'].get('segundoApellido')?.value == null ? '' : myForm.controls['persona'].get('segundoApellido')?.value)
+                        }} </div>
+                      <span class="font-16" *ngIf="myForm.controls['persona'].get('documento').value">{{myForm.controls['persona'].get('documento')?.value }}</span>
+                      <br *ngIf="myForm.controls['persona'].get('ruc').value">
+                      <span class="font-16" *ngIf="myForm.controls['persona'].get('ruc').value">{{myForm.controls['persona'].get('ruc')?.value }}</span>
+                      <br *ngIf="myForm.controls['persona']['controls'].profesion.value">
+                      <span class="font-16" *ngIf="myForm.controls['persona']['controls'].profesion.value">{{myForm.controls['persona']['controls'].profesion.value?.nombre}}</span>
+                      <br *ngIf="myForm.controls['persona'].get('email').value">
+                      <span class="font-16" *ngIf="myForm.controls['persona'].get('email').value">{{myForm.controls['persona'].get('email')?.value }}</span>
+                      <br *ngIf="myForm.controls['persona'].get('telefonoParticular').value">
+                      <span class="font-16" *ngIf="myForm.controls['persona'].get('telefonoParticular').value">Telf. {{
+                        (myForm.controls['persona'].get('telefonoParticular')?.value == null ? '' : myForm.controls['persona'].get('telefonoParticular')?.value)
+                        + ' ' +
+                        (myForm.controls['persona'].get('telefonoSecundario')?.value == null ? '' : myForm.controls['persona'].get('telefonoSecundario')?.value)
+                        }}</span>
+                        <br *ngIf="myForm.controls['persona'].get('direccionParticular').value">
+                        <span class="font-16" *ngIf="myForm.controls['persona'].get('direccionParticular').value">{{myForm.controls['persona'].get('direccionParticular')?.value }}</span>
+                        <br *ngIf="myForm.controls['persona'].get('direccionDetallada').value">
+                        <span class="font-16" *ngIf="myForm.controls['persona'].get('direccionDetallada').value">{{myForm.controls['persona'].get('direccionDetallada')?.value }}</span>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <p mat-line><span class="font-bold">NRO. CREDITO </span> {{myForm.get('nroCredito')?.value}}</p>
+            </div>
+            <div class="col-sm-3">
+              <p mat-line><span class="font-bold">CUOTAS </span> {{myForm.get('cuotas')?.value}}</p>
+            </div>
+            <div class="col-sm-3">
+              <p mat-line><span class="font-bold">MONTO </span> {{myForm.get('monto')?.value}}</p>
+            </div>
+            <div class="col-sm-3">
+              <p mat-line><span class="font-bold">FECHA PAGO </span> {{myForm.get('fechaPago')?.value | date:'dd/MM/yyyy'}}</p>
+            </div>
+            <div class="col-md-12">
+              <p mat-line><span class="font-bold">MOTIVO ATRASO </span> {{myForm.get('motivo')?.value}}</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

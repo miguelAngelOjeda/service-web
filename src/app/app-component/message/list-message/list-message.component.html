@@ -1,0 +1,139 @@
+<div class="mat-button-single-row">
+  <h2 class="breadcrumb2 m-l-2"><a class="previous" routerLink="/service-web/message"> MENSAJES </a> &gt; <span class="current">Lista de Mensajes</span></h2>
+  <span  style="flex: 1 1 0%; box-sizing: border-box;"></span>
+  <span class="hidden-file">
+    <input type="file" #fileInput ng2FileSelect [uploader]="uploaderFile">
+  </span>
+  <div class="file-upload">
+    <div *ngIf="uploaderFile.queue.length == 0">
+      No file uploaded yet.
+    </div>
+    <div *ngIf="uploaderFile.queue.length > 0">
+      {{ uploaderFile.queue[0].file.name }}
+    </div>
+  </div>
+  
+  <a mat-mini-fab matTooltip="Adjuntar Documentos." (click)="fileInput.click()" class="nav-link float-right m-l-10" color="primary">
+    <mat-icon>attach_file</mat-icon>
+  </a>
+
+</div>
+<div>
+  <mat-card>
+    <mat-card-content>
+    <!-- <mat-card-subtitle> </mat-card-subtitle> -->
+      <!-- <p> -->
+      <mat-form-field appearance="fill" class="search-form">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput #filter placeholder="Buscar" type="search">
+        <mat-icon matSuffix class="cursor-pointer" role="img" aria-hidden="true" (click)="toggleAdvanceFilter()">filter_list</mat-icon>
+      </mat-form-field>
+
+      <mat-expansion-panel [expanded]="advanceFilterOpenState" class="advance-search-form" [ngClass]="{'opened': advanceFilterOpenState}">
+        <form [formGroup]="filterForm" class="p-t-20">
+          <div  class="row">
+            <div class="col-md-6">
+              <mat-form-field  appearance="legacy">
+                <input matInput #input [matDatepicker]="pickerInicio" formControlName="fechaInicio"  name="fechaInicio" placeholder="Fecha Inicio">
+                <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                <mat-datepicker #pickerInicio></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field  appearance="legacy">
+                <input matInput #input [matDatepicker]="pickerFin" formControlName="fechaFin"  name="fechaFin" placeholder="Fecha Fin">
+                <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <ng-container formGroupName="persona">
+              <div class="col-md-3">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Documento" formControlName="documento"  name="documento">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field appearance="legacy">
+                  <input matInput placeholder="Ruc" formControlName="ruc"  name="ruc">
+                </mat-form-field>
+              </div>
+            </ng-container>            
+            <div class="col-md-12 p-t-20 advance-filter-buttons">
+              <button mat-button mat-raised-button #filterButton>Filtrar</button>
+              <button mat-button mat-flat-button (click)="closeFilterAdvance()">Cerrar</button>
+            </div>
+          </div>
+        </form>
+      </mat-expansion-panel>
+      <!-- </p> -->
+        <mat-table [dataSource]="dataSource" class="mat-table"
+         matSort  matSortActive="fechaVencimiento" matSortDirection="asc" matSortDisableClear [class.isMobile]="isMobile">
+
+         <ng-container matColumnDef="codPersona">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="codigo">
+            {{element.codPersona}}
+           </mat-cell>
+         </ng-container>
+
+         <ng-container matColumnDef="cliente">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="nombre">
+             {{element.cliente}}
+           </mat-cell>
+         </ng-container>
+
+          <ng-container matColumnDef="monto">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> MONTO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="monto">
+              {{element.monto}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="atraso">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ATRASO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="atraso">
+              {{element.atraso}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaVencimiento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> VENCIMIENTO </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="vencimiento">
+              {{element.fechaVencimiento | date:'dd/MM/yyyy'}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="telefonoParticular">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> TELEFONO PARTICULAR </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="telefono particular">
+              {{element.telefonoParticular}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mensaje">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> MENSAJE </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="mensaje">
+              {{element.mensaje}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> EMAIL </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="email">
+              {{element.email}}
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns" class="ng-tns-c39-77"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [length]="length"
+                      [showFirstLastButtons]="true"
+                      [pageSize]="pageSize"
+                      [pageSizeOptions]="pageSizeOptions">
+        </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>
